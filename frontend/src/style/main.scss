@@ -1,0 +1,52 @@
+@use '@wjb/styling/main' as *;
+@use '@wjb/styling/setup-variables' as *;
+@use '@/style/variables' as *;
+
+:root {
+    @include setup-variables();
+
+    --wjb-primary: #{$primary};
+    --wjb-primary-light: #30a390;
+    --wjb-primary-dark: #{$primary-dark};
+
+    --wjb-secondary: #7f2292;
+    --wjb-secondary-light: #9833ac;
+    --wjb-secondary-dark: #591866;
+
+    --wjb-text-colour: #efefef;
+    --wjb-text-colour-opposite: #222;
+
+    --wjb-border-radius: 0.5rem;
+}
+
+.\@wjb-button-component {
+    background: linear-gradient(
+        -45deg,
+        var(--wjb-primary-dark),
+        var(--wjb-primary),
+    );
+
+    &.secondary {
+        background: linear-gradient(
+            -45deg,
+            var(--wjb-secondary-dark),
+            var(--wjb-secondary),
+        );
+    }
+
+    &.tertiary {
+        background: linear-gradient(
+            -45deg,
+            var(--wjb-tertiary-dark),
+            var(--wjb-tertiary),
+        );
+    }
+}
+
+.\@wjb-delete-button-component {
+    background: linear-gradient(
+        -45deg,
+        var(--wjb-danger-dark),
+        var(--wjb-danger),
+    );
+}

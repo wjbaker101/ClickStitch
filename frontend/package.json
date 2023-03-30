@@ -1,0 +1,31 @@
+{
+    "name": "clickstitch",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "co:login": "aws codeartifact login --tool npm --repository npm-libs --domain wjb --domain-owner 144953083930",
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build"
+    },
+    "dependencies": {
+        "@wjb/styling": "^1.0.60",
+        "@wjb/vue": "^1.0.64",
+        "axios": "^1.3.4",
+        "dayjs": "^1.11.7",
+        "vue": "^3.2.13",
+        "vue-router": "^4.1.6"
+    },
+    "devDependencies": {
+        "@vue/cli-plugin-typescript": "~5.0.0",
+        "@vue/cli-service": "~5.0.0",
+        "sass": "^1.32.7",
+        "sass-loader": "^12.0.0",
+        "typescript": "~4.5.5"
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not dead",
+        "not ie 11"
+    ]
+}
