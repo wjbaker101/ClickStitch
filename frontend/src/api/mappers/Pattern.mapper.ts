@@ -13,6 +13,7 @@ export const patternMapper = {
             width: pattern.width,
             height: pattern.height,
             price: pattern.price,
+            thumbnailUrl: pattern.thumbnailUrl,
         };
     },
 

@@ -7,6 +7,7 @@ export interface IPattern {
     readonly width: number;
     readonly height: number;
     readonly price: number;
+    readonly thumbnailUrl: string;
 }
 
 export interface IStitch {
