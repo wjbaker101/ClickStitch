@@ -17,7 +17,7 @@ public static class PatternMapper
 
     public static StitchModel MapStitch(PatternStitchRecord stitch) => new()
     {
-        ThreadId = stitch.ThreadIndex,
+        ThreadIndex = stitch.ThreadIndex,
         X = stitch.X,
         Y = stitch.Y
     };
