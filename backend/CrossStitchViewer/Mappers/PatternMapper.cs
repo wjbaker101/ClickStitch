@@ -27,6 +27,6 @@ public static class PatternMapper
         Index = thread.Index,
         Name = thread.Name,
         Description = thread.Description,
-        Colour = ""
+        Colour = thread.Colour
     };
 }

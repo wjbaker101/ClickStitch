@@ -10,6 +10,7 @@ public class PatternThreadRecord : IDatabaseRecord
     public virtual required string Name { get; init; }
     public virtual required string Description { get; init; }
     public virtual required int Index { get; init; }
+    public virtual required string Colour { get; init; }
 }
 
 public sealed class PatternThreadRecordMap : ClassMap<PatternThreadRecord>
@@ -23,5 +24,6 @@ public sealed class PatternThreadRecordMap : ClassMap<PatternThreadRecord>
         Map(x => x.Name, "name");
         Map(x => x.Description, "description");
         Map(x => x.Index, "index");
+        Map(x => x.Colour, "colour");
     }
 }
