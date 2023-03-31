@@ -2,6 +2,9 @@
     <div
         ref="component"
         class="canvas-component"
+        :class="{
+            'is-drag-moving': isDragMoving,
+        }"
         @click="onClick"
         @mousedown="onMouseDown"
         @mouseup="onMouseUp"
@@ -270,6 +273,12 @@ const onMouseWheel = function (event: WheelEvent): void {
 
     * {
         transition: none;
+    }
+
+    &.is-drag-moving {
+        .canvas-wrapper {
+            transition: transform 0s;
+        }
     }
 
     .canvas-wrapper {
