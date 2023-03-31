@@ -5,6 +5,7 @@ using CrossStitchViewer.Api.Basket;
 using CrossStitchViewer.Api.Patterns;
 using CrossStitchViewer.Api.Projects;
 using CrossStitchViewer.Api.Users;
+using CrossStitchViewer.Clients.Cloudinary;
 using Data;
 using Data.Repositories.Basket;
 using Data.Repositories.Pattern;
@@ -27,6 +28,8 @@ services.AddSingleton<IPatternStitchRepository, PatternStitchRepository>();
 services.AddSingleton<IPatternThreadRepository, PatternThreadRepository>();
 services.AddSingleton<IUserRepository, UserRepository>();
 services.AddSingleton<IUserPatternRepository, UserPatternRepository>();
+
+services.AddSingleton<ICloudinaryClient, CloudinaryClient>();
 
 services.AddSingleton<IBasketService, BasketService>();
 
