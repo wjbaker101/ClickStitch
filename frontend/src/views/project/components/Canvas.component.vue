@@ -59,6 +59,9 @@ import { computed, onMounted, ref } from 'vue';
 import { useGlobalData } from '@/use/global-data/global-data.use';
 
 import { Position } from '@/class/Position.class';
+import { useMouse } from '../use/Mouse.use';
+import { useTransformation } from '../use/Transformation.use';
+
 import { IGetProject } from '@/models/GetProject.model';
 import { IStitch, IThread } from '@/models/Pattern.model';
 
@@ -76,11 +79,13 @@ for (const stitch of props.project.stitches) {
     pattern.set(`${stitch.x}:${stitch.y}`, stitch);
 }
 
+const globalData = useGlobalData();
+const { mousePosition, prevMousePosition, isDragMoving, isDragSelecting, selectStart, selectEnd } = useMouse();
+const { offset, scale } = useTransformation();
+
 const component = ref<HTMLDivElement>({} as HTMLDivElement);
 const canvasElement = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const graphics = computed<CanvasRenderingContext2D>(() => canvasElement.value.getContext('2d') as CanvasRenderingContext2D);
-
-const globalData = useGlobalData();
 
 const hoveredStitch = globalData.hoveredStitch;
 
@@ -89,17 +94,16 @@ const stitchSize = computed<number>(() => Math.round(baseStitchSize * scale.valu
 
 const width = computed<number>(() => component.value.offsetWidth ?? 0);
 const height = computed<number>(() => component.value.offsetHeight ?? 0);
-const mousePosition = ref<Position>(Position.ZERO);
-const prevMousePosition = ref<Position>(Position.ZERO);
-const offset = ref<Position>(Position.ZERO);
-const isDragMoving = ref<boolean>(false);
-const isDragSelecting = ref<boolean>(false);
-const selectStart = ref<Position | null>(null);
-const selectEnd = ref<Position | null>(null);
-const scale = ref<number>(1);
 
 const canvasWidth = computed<number>(() => props.project.project.pattern.width * stitchSize.value);
 const canvasHeight = computed<number>(() => props.project.project.pattern.height * stitchSize.value);
+
+const isMouseOverPattern = computed<boolean>(() => {
+    return mouseStitchPosition.value.x > 0 &&
+        mouseStitchPosition.value.y > 0 &&
+        mouseStitchPosition.value.x < props.project.project.pattern.width &&
+        mouseStitchPosition.value.y < props.project.project.pattern.height
+});
 
 const mouseStitchPosition = computed<Position>(() => mousePosition.value
     .translate(-offset.value.x, -offset.value.y)
@@ -234,20 +238,25 @@ const onMouseLeave = function (): void {
     hoveredStitch.value = null;
 };
 
-const onMouseWheel = function (event: WheelEvent) {
-    if (event.deltaY > 0) {
-        scale.value = Math.max(0.4, scale.value - 0.1);
-    }
+const onMouseWheel = function (event: WheelEvent): void {
+    if (!isMouseOverPattern.value)
+        return;
 
+    let factor = 0.8;
     if (event.deltaY < 0) {
-        scale.value = Math.min(2, scale.value + 0.1);
+        factor = 1 / factor;
     }
 
-    const relativeMousePosition = mousePosition.value.subtract(offset.value);
-    const relativeMousePositionScaled = relativeMousePosition.scale(scale.value, scale.value);
+    const prevScale = scale.value;
+    scale.value = Math.max(0.2, Math.min(2, scale.value * factor));
 
-    // offset.value = offset.value
-    //     .subtract(relativeMousePositionScaled);
+    if (scale.value === prevScale)
+        return;
+
+    const dx = (mousePosition.value.x - offset.value.x) * (factor - 1);
+    const dy = (mousePosition.value.y - offset.value.y) * (factor - 1);
+
+    offset.value = offset.value.translate(-dx, -dy);
 };
 </script>
 
@@ -264,7 +273,7 @@ const onMouseWheel = function (event: WheelEvent) {
     }
 
     .canvas-wrapper {
-        position: absolute;
+        transition: transform 0.1s;
     }
 
     canvas {
