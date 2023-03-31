@@ -60,12 +60,17 @@ import { useCurrentProject } from '@/use/current-project/CurrentProject.use';
 import { useGlobalData } from '@/use/global-data/global-data.use';
 
 import { Position } from '@/class/Position.class';
-import { IThread } from '@/model/thread.model';
 import { IGetProject } from '@/models/GetProject.model';
+import { IThread } from '@/models/Pattern.model';
 
-defineProps<{
+const props = defineProps<{
     project: IGetProject;
 }>();
+
+const palette2 = new Map<number, IThread>();
+for (const thread of props.project.threads) {
+    palette2.set(thread.index, thread);
+}
 
 const component = ref<HTMLDivElement>({} as HTMLDivElement);
 const canvasElement = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
@@ -133,21 +138,20 @@ const maxOffsetY = computed<number>(() => {
 });
 
 onMounted(() => {
-    const colour = '#eef';
-    graphics.value.fillStyle = colour;
+    graphics.value.fillStyle = '#eef';
 
-    for (let x = 0; x < project.value.canvas.width; ++x) {
-        for (let y = 0; y < project.value.canvas.height; ++y) {
+    for (let x = 0; x < props.project.project.pattern.width; ++x) {
+        for (let y = 0; y < props.project.project.pattern.height; ++y) {
             graphics.value.fillRect(x * baseStitchSize, y * baseStitchSize, baseStitchSize, baseStitchSize);
         }
     }
 
-    for (let index = 0; index < stitches.value.length; ++index) {
-        const stitch = stitches.value[index];
-        const thread = palette.value.threads.get(stitch.threadIndex) as IThread;
+    for (let index = 0; index < props.project.stitches.length; ++index) {
+        const stitch = props.project.stitches[index];
+        const thread = palette2.get(stitch.threadIndex) as IThread;
 
         graphics.value.fillStyle = thread.colour;
-        graphics.value.fillRect(stitch.y * baseStitchSize, stitch.x * baseStitchSize, baseStitchSize, baseStitchSize);
+        graphics.value.fillRect(stitch.x * baseStitchSize, stitch.y * baseStitchSize, baseStitchSize, baseStitchSize);
     }
 });
 
