@@ -74,7 +74,7 @@ const onLogin = async function () {
 .login-view {
     height: 100%;
 
-    $angle: 2rem;
+    $angle: 4rem;
 
     h1 {
         margin: 0 0 3rem 0;
