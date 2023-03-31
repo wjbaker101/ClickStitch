@@ -58,22 +58,8 @@ public sealed class ProjectsService : IProjectsService
         return new GetProjectResponse
         {
             Project = ProjectMapper.Map(project),
-            Stitches = pattern.Stitches
-                .Select(x => new GetProjectResponse.Stitch
-                {
-                    ThreadIndex = x.ThreadIndex,
-                    X = x.X,
-                    Y = x.Y
-                })
-                .ToList(),
-            Threads = pattern.Threads
-                .Select(x => new GetProjectResponse.Thread
-                {
-                    Name = x.Name,
-                    Description = x.Description,
-                    Index = x.Index
-                })
-                .ToList()
+            Stitches = pattern.Stitches.Select(PatternMapper.MapStitch).ToList(),
+            Threads = pattern.Threads.Select(PatternMapper.MapThread).ToList()
         };
     }
 }

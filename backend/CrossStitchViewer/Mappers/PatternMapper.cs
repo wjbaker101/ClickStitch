@@ -14,4 +14,19 @@ public static class PatternMapper
         Height = pattern.Height,
         Price = pattern.Price
     };
+
+    public static StitchModel MapStitch(PatternStitchRecord stitch) => new()
+    {
+        ThreadId = stitch.ThreadIndex,
+        X = stitch.X,
+        Y = stitch.Y
+    };
+
+    public static ThreadModel MapThread(PatternThreadRecord thread) => new()
+    {
+        Index = thread.Index,
+        Name = thread.Name,
+        Description = thread.Description,
+        Colour = ""
+    };
 }
