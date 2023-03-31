@@ -282,6 +282,7 @@ const onMouseWheel = function (event: WheelEvent): void {
     }
 
     .canvas-wrapper {
+        position: absolute;
         transition: transform 0.1s;
     }
 
