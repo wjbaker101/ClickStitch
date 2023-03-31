@@ -3,8 +3,10 @@
         <div class="loading-container" v-if="project === null">
             <LoadingComponent itemName="pattern" />
         </div>
-        <CanvasComponent v-else :project="project" />
-        <StitchCountsComponent />
+        <template v-else>
+            <CanvasComponent :project="project" />
+            <StitchCountsComponent :project="project" />
+        </template>
     </div>
 </template>
 

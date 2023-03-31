@@ -1,56 +1,30 @@
 <template>
     <div class="stitch-count-component">
-        <div class="thread" v-for="stitch in stitchCounts" :class="{ 'is-hovered': stitch[1].index === hoveredStitch?.thread.index }">
-            <div class="thread-colour" :style="{ 'background-color': stitch[1].colour }"></div><small>{{ stitch[1].description }} <strong>({{ stitch[1].done }}/{{ stitch[1].total }})</strong></small>
+        <div class="thread" v-for="thread in palette.values()" :class="{ 'is-hovered': thread.index === hoveredStitch?.thread.index }">
+            <div class="thread-colour" :style="{ 'background-color': thread.colour }"></div><small>{{ thread.description }} <strong>({{ 0 }}/{{ 0 }})</strong></small>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-
-import { useCurrentProject } from '@/use/current-project/CurrentProject.use';
 import { useGlobalData } from '@/use/global-data/global-data.use';
-import { IThread } from '@/model/thread.model';
 
-interface IStitchDetails {
-    index: number;
-    description: string;
-    colour: string;
-    done: number;
-    total: number;
+import { IThread } from '@/model/thread.model';
+import { IGetProject } from '@/models/GetProject.model';
+
+const props = defineProps<{
+    project: IGetProject;
+}>();
+
+const palette = new Map<number, IThread>();
+for (const thread of props.project.threads) {
+    palette.set(thread.index, thread);
 }
+
 
 const globalData = useGlobalData();
 
 const hoveredStitch = globalData.hoveredStitch;
-
-const stitchCounts = computed(() => {
-    const counts = new Map<number, IStitchDetails>();
-
-    // for (const stitch of project.value.canvas.stitches) {
-    //     if (stitch.threadIndex === 0)
-    //         continue;
-
-    //     const thread = project.value.palette.threads.get(stitch.threadIndex) as IThread;
-
-    //     const count = counts.get(stitch.threadIndex) ?? {
-    //         index: stitch.threadIndex,
-    //         description: thread.description,
-    //         colour: thread.colour,
-    //         done: 0,
-    //         total: 0,
-    //     };
-
-    //     count.total++;
-    //     if (stitch.isDone)
-    //         count.done++;
-
-    //     counts.set(stitch.threadIndex, count);
-    // }
-
-    return Array.from(counts.entries()).sort((a, b) => b[1].total - a[1].total);
-});
 </script>
 
 <style lang="scss">
