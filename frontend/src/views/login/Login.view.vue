@@ -29,10 +29,10 @@
                     <span>Log in to be able to add them to your account</span>
                 </p>
                 <div class="example-patterns">
-                    <img class="example-pattern" src="@/assets/example-pattern-1.png">
-                    <img class="example-pattern" src="@/assets/example-pattern-1.png">
-                    <img class="example-pattern" src="@/assets/example-pattern-1.png">
-                    <img class="example-pattern" src="@/assets/example-pattern-1.png">
+                    <img class="example-pattern" src="@/assets/templar-knight.png">
+                    <img class="example-pattern" src="@/assets/templar-knight.png">
+                    <img class="example-pattern" src="@/assets/templar-knight.png">
+                    <img class="example-pattern" src="@/assets/templar-knight.png">
                 </div>
             </div>
         </div>

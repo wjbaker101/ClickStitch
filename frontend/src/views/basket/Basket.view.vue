@@ -14,7 +14,7 @@
                 <TransitionGroup name="items-transition-group" tag="div" class="basket-items">
                     <CardComponent :key="basketItem.pattern.reference" v-for="basketItem in basket?.items" class="basket-item flex gap align-items-center" border="left">
                         <div class="flex-auto">
-                            <img src="@/assets/example-pattern-1.png">
+                            <img src="@/assets/templar-knight.png">
                         </div>
                         <div>
                             <strong>{{ basketItem.pattern.title }}</strong>

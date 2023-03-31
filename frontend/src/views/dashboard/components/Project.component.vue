@@ -1,7 +1,7 @@
 <template>
     <RouterLink class="project-component text-centered" :to="`/project/${project.pattern.reference}`">
         <CardComponent border="top">
-            <img src="@/assets/example-pattern-1.png">
+            <img src="@/assets/templar-knight.png">
             <p></p>
             <strong>{{ project.pattern.title }}</strong>
             <p>{{ project.pattern.width }} &times; {{ project.pattern.height }}</p>
