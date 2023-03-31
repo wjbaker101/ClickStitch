@@ -1,6 +1,6 @@
 <template>
     <div class="pattern-view flex">
-        <!-- <CanvasComponent :canvas="project.canvas" /> -->
+        <CanvasComponent :canvas="project.canvas" />
         <StitchCountsComponent />
     </div>
 </template>
@@ -25,9 +25,9 @@ const currentProject = useCurrentProject();
 
 const patternReference = route.params.patternReference as string;
 
-const project = ref<IProject | null>(null)
+// const project = ref<IProject | null>(null)
 
-// const project = currentProject.project;
+const project = currentProject.project;
 
 document.addEventListener('keydown', (event: KeyboardEvent) => {
     input.keysDown.add(event.key);
@@ -42,9 +42,9 @@ onMounted(async () => {
     if (result instanceof Error)
         return;
 
-    project.value = result;
+    // project.value = result;
 
-    setTitle(`${project.value.pattern.title}`);
+    // setTitle(`${project.value.pattern.title}`);
 });
 </script>
 
