@@ -47,7 +47,7 @@ public sealed class ProjectsService : IProjectsService
         if (!userResult.TrySuccess(out var user))
             return Result<GetProjectResponse>.FromFailure(userResult);
 
-        var patternResult = _patternRepository.GetByReference(patternReference);
+        var patternResult = _patternRepository.GetFullByReference(patternReference);
         if (!patternResult.TrySuccess(out var pattern))
             return Result<GetProjectResponse>.FromFailure(patternResult);
 
@@ -57,7 +57,23 @@ public sealed class ProjectsService : IProjectsService
 
         return new GetProjectResponse
         {
-            Project = ProjectMapper.Map(project)
+            Project = ProjectMapper.Map(project),
+            Stitches = pattern.Stitches
+                .Select(x => new GetProjectResponse.Stitch
+                {
+                    ThreadIndex = x.ThreadIndex,
+                    X = x.X,
+                    Y = x.Y
+                })
+                .ToList(),
+            Threads = pattern.Threads
+                .Select(x => new GetProjectResponse.Thread
+                {
+                    Name = x.Name,
+                    Description = x.Description,
+                    Index = x.Index
+                })
+                .ToList()
         };
     }
 }
