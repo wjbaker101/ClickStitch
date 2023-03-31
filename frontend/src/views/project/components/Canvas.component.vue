@@ -82,7 +82,6 @@ const globalData = useGlobalData();
 const hoveredStitch = globalData.hoveredStitch;
 const project = currentProject.project;
 const palette = computed(() => project.value.palette);
-const stitches = computed(() => project.value.canvas.stitches);
 
 const baseStitchSize = 15;
 const stitchSize = computed<number>(() => Math.round(baseStitchSize * scale.value));
