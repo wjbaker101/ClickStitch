@@ -1,7 +1,7 @@
 <template>
     <div class="stitch-count-component">
-        <div class="thread" v-for="thread in palette.values()" :class="{ 'is-hovered': thread.index === hoveredStitch?.thread.index }">
-            <div class="thread-colour" :style="{ 'background-color': thread.colour }"></div><small>{{ thread.description }} <strong>({{ 0 }}/{{ 0 }})</strong></small>
+        <div class="thread" v-for="threadCount in threadCounts.values()" :class="{ 'is-hovered': threadCount.thread.index === hoveredStitch?.thread.index }">
+            <div class="thread-colour" :style="{ 'background-color': threadCount.thread.colour }"></div><small>{{ threadCount.thread.description }} <strong>({{ 0 }}/{{ threadCount.count }})</strong></small>
         </div>
     </div>
 </template>
@@ -16,11 +16,28 @@ const props = defineProps<{
     project: IGetProject;
 }>();
 
+interface IThreadCount {
+    readonly thread: IThread;
+    count: number;
+}
+
 const palette = new Map<number, IThread>();
 for (const thread of props.project.threads) {
     palette.set(thread.index, thread);
 }
 
+const threadCounts = new Map<number, IThreadCount>();
+for (const stitch of props.project.stitches) {
+    if (!threadCounts.has(stitch.threadIndex)) {
+        threadCounts.set(stitch.threadIndex, {
+            thread: palette.get(stitch.threadIndex) as IThread,
+            count: 0,
+        });
+    }
+
+    const threadCount = threadCounts.get(stitch.threadIndex) as IThreadCount;
+    threadCount.count++;
+}
 
 const globalData = useGlobalData();
 
