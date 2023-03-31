@@ -3,7 +3,9 @@
         <div class="content-width">
             <h1>Dashboard</h1>
             <h2>Your Projects:</h2>
-            <div v-if="projects === null"></div>
+            <div v-if="projects === null">
+                <LoadingComponent itemName="projects" />
+            </div>
             <div v-else-if="projects.length === 0">
                 <p>No projects yet!</p>
                 <p>Visit the marketplace to get your first pattern!</p>
@@ -21,10 +23,11 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
+import ProjectComponent from '@/views/dashboard/components/Project.component.vue';
+
 import { api } from '@/api/api';
 
 import { IProject } from '@/models/Project.model';
-import ProjectComponent from './components/Project.component.vue';
 
 const projects = ref<Array<IProject> | null>([]);
 
