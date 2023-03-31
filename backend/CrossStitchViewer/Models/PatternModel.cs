@@ -8,4 +8,5 @@ public sealed class PatternModel
     public required int Width { get; init; }
     public required int Height { get; init; }
     public required decimal Price { get; init; }
+    public required string? ThumbnailUrl { get; init; }
 }

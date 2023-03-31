@@ -12,7 +12,8 @@ public static class PatternMapper
         Title = pattern.Title,
         Width = pattern.Width,
         Height = pattern.Height,
-        Price = pattern.Price
+        Price = pattern.Price,
+        ThumbnailUrl = pattern.ThumbnailUrl
     };
 
     public static StitchModel MapStitch(PatternStitchRecord stitch) => new()
