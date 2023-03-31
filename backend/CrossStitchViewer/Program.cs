@@ -1,4 +1,5 @@
 using Core.Services;
+using Core.Settings;
 using CrossStitchViewer.Api.Auth;
 using CrossStitchViewer.Api.Basket;
 using CrossStitchViewer.Api.Patterns;
@@ -14,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
 SetupSettings();
+services.AddSingleton(builder.Configuration.Get<AppSecrets>()!);
 
 services.AddSingleton<IDateTimeService, DateTimeService>();
 services.AddSingleton<IGuidService, GuidService>();
