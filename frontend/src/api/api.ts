@@ -61,22 +61,15 @@ export const api = {
             };
         },
 
-        async addItem(patternReference: string): Promise<IBasketItem | Error> {
+        async addItem(patternReference: string): Promise<void | Error> {
             if (auth.details.value === null)
                 return new Error('You must be logged in for this action.');
 
-            const response = await client.post<IApiResultResponse<IAddToBasketResponse>>(`/basket/item/${patternReference}`, {}, {
+            await client.post<IApiResultResponse<IAddToBasketResponse>>(`/basket/item/${patternReference}`, {}, {
                 headers: {
                     'Authorization': `Bearer ${auth.details.value.loginToken}`,
                 },
             });
-
-            const basketItem = response.data.result.item;
-
-            return {
-                pattern: patternMapper.map(basketItem.pattern),
-                addedAt: dayjs(basketItem.addedAt),
-            };
         },
 
         async removeItem(patternReference: string): Promise<void> {
