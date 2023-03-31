@@ -16,8 +16,8 @@
         >
             <canvas
                 ref="canvasElement"
-                :width="project.canvas.width * baseStitchSize"
-                :height="project.canvas.height * baseStitchSize"
+                :width="project.project.pattern.width * baseStitchSize"
+                :height="project.project.pattern.height * baseStitchSize"
                 :style="{
                     'transform': `scale(${scale})`,
                 }"
@@ -56,12 +56,11 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 
-import { useCurrentProject } from '@/use/current-project/CurrentProject.use';
 import { useGlobalData } from '@/use/global-data/global-data.use';
 
 import { Position } from '@/class/Position.class';
 import { IGetProject } from '@/models/GetProject.model';
-import { IThread } from '@/models/Pattern.model';
+import { IStitch, IThread } from '@/models/Pattern.model';
 
 const props = defineProps<{
     project: IGetProject;
@@ -72,16 +71,18 @@ for (const thread of props.project.threads) {
     palette2.set(thread.index, thread);
 }
 
+const pattern = new Map<string, IStitch>();
+for (const stitch of props.project.stitches) {
+    pattern.set(`${stitch.x}:${stitch.y}`, stitch);
+}
+
 const component = ref<HTMLDivElement>({} as HTMLDivElement);
 const canvasElement = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const graphics = computed<CanvasRenderingContext2D>(() => canvasElement.value.getContext('2d') as CanvasRenderingContext2D);
 
-const currentProject = useCurrentProject();
 const globalData = useGlobalData();
 
 const hoveredStitch = globalData.hoveredStitch;
-const project = currentProject.project;
-const palette = computed(() => project.value.palette);
 
 const baseStitchSize = 15;
 const stitchSize = computed<number>(() => Math.round(baseStitchSize * scale.value));
@@ -97,8 +98,8 @@ const selectStart = ref<Position | null>(null);
 const selectEnd = ref<Position | null>(null);
 const scale = ref<number>(1);
 
-const canvasWidth = computed<number>(() => project.value.canvas.width * stitchSize.value);
-const canvasHeight = computed<number>(() => project.value.canvas.height * stitchSize.value);
+const canvasWidth = computed<number>(() => props.project.project.pattern.width * stitchSize.value);
+const canvasHeight = computed<number>(() => props.project.project.pattern.height * stitchSize.value);
 
 const mouseStitchPosition = computed<Position>(() => mousePosition.value
     .translate(-offset.value.x, -offset.value.y)
@@ -178,6 +179,38 @@ const onMouseUp = function (event: MouseEvent): void {
         isDragMoving.value = false;
 };
 
+const handleHoveredStitch = function (): void {
+    if (mouseStitchPosition.value.x > 0 &&
+        mouseStitchPosition.value.y > 0 &&
+        mouseStitchPosition.value.x < props.project.project.pattern.width &&
+        mouseStitchPosition.value.y < props.project.project.pattern.height)
+    {
+        const stitch = pattern.get(`${mouseStitchPosition.value.x}:${mouseStitchPosition.value.y}`);
+        if (!stitch) {
+            hoveredStitch.value = null;
+            return;
+        }
+
+        const thread = palette2.get(stitch.threadIndex);
+        if (!thread || thread.index === 0) {
+            hoveredStitch.value = null;
+            return;
+        }
+
+        hoveredStitch.value = {
+            x: mouseStitchPosition.value.x,
+            y: mouseStitchPosition.value.y,
+            thread: {
+                index: thread.index,
+                name: thread.name,
+                description: thread.description,
+                colour: thread.colour,
+            },
+            isDone: false,
+        };
+    }
+};
+
 const onMouseMove = function (event: MouseEvent): void {
     mousePosition.value = Position.at(event.x, event.y).translate(-(component.value.offsetLeft ?? 0), -(component.value.offsetTop ?? 0));
 
@@ -191,31 +224,7 @@ const onMouseMove = function (event: MouseEvent): void {
             .floor();
     }
 
-    if (mouseStitchPosition.value.x > 0 &&
-        mouseStitchPosition.value.y > 0 &&
-        mouseStitchPosition.value.x < project.value.canvas.width &&
-        mouseStitchPosition.value.y < project.value.canvas.height)
-    {
-        const stitch = project.value.canvas.stitches[mouseStitchPosition.value.x + project.value.canvas.width * mouseStitchPosition.value.y];
-        const thread = palette.value.threads.get(stitch.threadIndex);
-
-        if (thread && thread.index !== 0) {
-            hoveredStitch.value = {
-                x: mouseStitchPosition.value.x,
-                y: mouseStitchPosition.value.y,
-                thread: {
-                    index: thread.index,
-                    name: thread.name,
-                    description: thread.description,
-                    colour: thread.colour,
-                },
-                isDone: stitch.isDone,
-            };
-        }
-        else {
-            hoveredStitch.value = null;
-        }
-    }
+    handleHoveredStitch();
 
     prevMousePosition.value = Position.copy(mousePosition.value);
 };

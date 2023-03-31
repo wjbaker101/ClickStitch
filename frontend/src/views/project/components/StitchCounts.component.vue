@@ -21,35 +21,33 @@ interface IStitchDetails {
     total: number;
 }
 
-const currentProject = useCurrentProject();
 const globalData = useGlobalData();
 
-const project = currentProject.project;
 const hoveredStitch = globalData.hoveredStitch;
 
 const stitchCounts = computed(() => {
     const counts = new Map<number, IStitchDetails>();
 
-    for (const stitch of project.value.canvas.stitches) {
-        if (stitch.threadIndex === 0)
-            continue;
+    // for (const stitch of project.value.canvas.stitches) {
+    //     if (stitch.threadIndex === 0)
+    //         continue;
 
-        const thread = project.value.palette.threads.get(stitch.threadIndex) as IThread;
+    //     const thread = project.value.palette.threads.get(stitch.threadIndex) as IThread;
 
-        const count = counts.get(stitch.threadIndex) ?? {
-            index: stitch.threadIndex,
-            description: thread.description,
-            colour: thread.colour,
-            done: 0,
-            total: 0,
-        };
+    //     const count = counts.get(stitch.threadIndex) ?? {
+    //         index: stitch.threadIndex,
+    //         description: thread.description,
+    //         colour: thread.colour,
+    //         done: 0,
+    //         total: 0,
+    //     };
 
-        count.total++;
-        if (stitch.isDone)
-            count.done++;
+    //     count.total++;
+    //     if (stitch.isDone)
+    //         count.done++;
 
-        counts.set(stitch.threadIndex, count);
-    }
+    //     counts.set(stitch.threadIndex, count);
+    // }
 
     return Array.from(counts.entries()).sort((a, b) => b[1].total - a[1].total);
 });
