@@ -1,4 +1,5 @@
-﻿using Data.Records;
+﻿using Core.Settings;
+using Data.Records;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
@@ -14,15 +15,17 @@ public sealed class Database : IDatabase
 {
     public ISessionFactory SessionFactory { get; }
 
-    public Database()
+    public Database(AppSecrets secrets)
     {
+        var database = secrets.Database;
+
         SessionFactory = Fluently.Configure()
             .Database(PostgreSQLConfiguration.Standard.ConnectionString(c => c
-                .Host("localhost")
-                .Port(5432)
-                .Database("cross_stitch_viewer")
-                .Username("postgres")
-                .Password("password")))
+                .Host(database.Host)
+                .Port(database.Port)
+                .Database(database.Database)
+                .Username(database.Username)
+                .Password(database.Password)))
             .Mappings(m => m.FluentMappings.AddFromAssemblyOf<_Records>())
             .BuildSessionFactory();
     }
