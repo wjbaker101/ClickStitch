@@ -1,5 +1,7 @@
 ﻿using Core.Types;
 using CrossStitchViewer.Api.Patterns.Types;
+using CrossStitchViewer.Clients.Cloudinary;
+using CrossStitchViewer.Clients.Cloudinary.Types;
 using CrossStitchViewer.Mappers;
 using Data.Records;
 using Data.Repositories.Pattern;
@@ -12,6 +14,7 @@ public interface IPatternsService
 {
     Result<GetPatternsResponse> GetPatterns();
     Result CreatePattern();
+    Result UpdatePatternImage(Guid patternReference, UpdatePatternImageRequest request);
 }
 
 public sealed class PatternsService : IPatternsService
@@ -19,15 +22,18 @@ public sealed class PatternsService : IPatternsService
     private readonly IPatternRepository _patternRepository;
     private readonly IPatternStitchRepository _patternStitchRepository;
     private readonly IPatternThreadRepository _patternThreadRepository;
+    private readonly ICloudinaryClient _cloudinary;
 
     public PatternsService(
         IPatternRepository patternRepository,
         IPatternStitchRepository patternStitchRepository,
-        IPatternThreadRepository patternThreadRepository)
+        IPatternThreadRepository patternThreadRepository,
+        ICloudinaryClient cloudinary)
     {
         _patternRepository = patternRepository;
         _patternStitchRepository = patternStitchRepository;
         _patternThreadRepository = patternThreadRepository;
+        _cloudinary = cloudinary;
     }
 
     public Result<GetPatternsResponse> GetPatterns()
@@ -75,6 +81,27 @@ public sealed class PatternsService : IPatternsService
             Index = x.index,
             Colour = $"#{x.colour.ToLower()}"
         }));
+
+        return Result.Success();
+    }
+
+    public Result UpdatePatternImage(Guid patternReference, UpdatePatternImageRequest request)
+    {
+        var patternResult = _patternRepository.GetByReference(patternReference);
+        if (!patternResult.TrySuccess(out var pattern))
+            return Result.FromFailure(patternResult);
+
+        var uploadResult = _cloudinary.UploadImage(new UploadImageRequest
+        {
+            FileName = request.FileName,
+            FileContents = request.File.OpenReadStream()
+        });
+        if (!uploadResult.TrySuccess(out var upload))
+            return Result.FromFailure(uploadResult);
+
+        pattern.ThumbnailUrl = upload.Url;
+
+        _patternRepository.Update(pattern);
 
         return Result.Success();
     }

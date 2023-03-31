@@ -1,4 +1,5 @@
 ﻿using CrossStitchViewer.Api.Auth.Attributes;
+using CrossStitchViewer.Api.Patterns.Types;
 using CrossStitchViewer.Types;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,6 +30,15 @@ public sealed class PatternsController : ApiController
     public IActionResult CreatePattern()
     {
         var result = _patternsService.CreatePattern();
+        
+        return ToApiResponse(result);
+    }
+
+    [HttpPatch]
+    [Route("{patternReference:guid}/image")]
+    public IActionResult UpdatePatternImage([FromRoute] Guid patternReference, UpdatePatternImageRequest request)
+    {
+        var result = _patternsService.UpdatePatternImage(patternReference, request);
         
         return ToApiResponse(result);
     }
