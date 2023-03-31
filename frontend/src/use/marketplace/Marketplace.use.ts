@@ -37,7 +37,7 @@ export const useMarketplace = function () {
             if (result instanceof Error)
                 return;
 
-                await getBasket();
+            await getBasket();
         },
 
         async removeItem(pattern: IPattern): Promise<void> {
@@ -51,6 +51,8 @@ export const useMarketplace = function () {
 
         async complete(): Promise<void> {
             await api.basket.complete();
+
+            await getBasket();
         },
 
     };
