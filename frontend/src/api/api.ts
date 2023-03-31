@@ -16,6 +16,7 @@ import { IProject } from '@/models/Project.model';
 import { IGetProjectsResponse } from './types/GetProjects.type';
 import { projectMapper } from './mappers/Project.mapper';
 import { IGetProjectResponse } from './types/GetProject.type';
+import { IGetProject } from '@/models/GetProject.model';
 
 const auth = useAuth();
 
@@ -138,7 +139,7 @@ export const api = {
             return projects.map(projectMapper.map);
         },
 
-        async get(patternReference: string): Promise<IProject | Error> {
+        async get(patternReference: string): Promise<IGetProject | Error> {
             if (auth.details.value === null)
                 return new Error('You must be logged in for this action.');
 
@@ -148,9 +149,21 @@ export const api = {
                 },
             });
 
-            const project = response.data.result.project;
+            const result = response.data.result;
 
-            return projectMapper.map(project);
+            return {
+                project: projectMapper.map(result.project),
+                stitches: result.stitches.map(x => ({
+                    threadIndex: x.threadIndex,
+                    x: x.x,
+                    y: x.y,
+                })),
+                threads: result.threads.map(x => ({
+                    index: x.index,
+                    name: x.name,
+                    description: x.description,
+                })),
+            };
         },
 
     },

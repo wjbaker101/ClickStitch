@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
-import { IPattern } from '@/models/Pattern.model';
-import { IApiPattern } from '../types/ApiPattern.type';
+import { IPattern, IStitch, IThread } from '@/models/Pattern.model';
+import { IApiPattern, IApiStitch, IApiThread } from '../types/ApiPattern.type';
 
 export const patternMapper = {
 
@@ -13,6 +13,22 @@ export const patternMapper = {
             width: pattern.width,
             height: pattern.height,
             price: pattern.price,
+        };
+    },
+
+    mapStitch(stitch: IApiStitch): IStitch {
+        return {
+            threadIndex: stitch.threadIndex,
+            x: stitch.x,
+            y: stitch.y,
+        };
+    },
+
+    mapThread(thread: IApiThread): IThread {
+        return {
+            index: thread.index,
+            name: thread.name,
+            description: thread.description,
         };
     },
 

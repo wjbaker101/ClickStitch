@@ -8,3 +8,15 @@ export interface IPattern {
     readonly height: number;
     readonly price: number;
 }
+
+export interface IStitch {
+    readonly threadIndex: number;
+    readonly x: number;
+    readonly y: number;
+}
+
+export interface IThread {
+    readonly index: number;
+    readonly name: string;
+    readonly description: string;
+}
