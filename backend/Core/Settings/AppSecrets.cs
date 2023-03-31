@@ -16,7 +16,7 @@ public sealed class AppSecrets
 
     public sealed class CloudinarySettings
     {
-        public required string Username { get; init; }
+        public required string CloudName { get; init; }
         public required string ApiKey { get; init; }
         public required string ApiSecret { get; init; }
     }
