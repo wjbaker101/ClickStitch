@@ -59,8 +59,13 @@ import { computed, onMounted, ref } from 'vue';
 import { useCurrentProject } from '@/use/current-project/CurrentProject.use';
 import { useGlobalData } from '@/use/global-data/global-data.use';
 
-import { IThread } from '@/model/thread.model';
 import { Position } from '@/class/Position.class';
+import { IThread } from '@/model/thread.model';
+import { IGetProject } from '@/models/GetProject.model';
+
+defineProps<{
+    project: IGetProject;
+}>();
 
 const component = ref<HTMLDivElement>({} as HTMLDivElement);
 const canvasElement = ref<HTMLCanvasElement>({} as HTMLCanvasElement);

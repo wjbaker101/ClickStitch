@@ -1,6 +1,9 @@
 <template>
     <div class="pattern-view flex">
-        <CanvasComponent :canvas="project.canvas" />
+        <div class="loading-container" v-if="project === null">
+            <LoadingComponent itemName="pattern" />
+        </div>
+        <CanvasComponent v-else :project="project" />
         <StitchCountsComponent />
     </div>
 </template>
@@ -15,19 +18,15 @@ import StitchCountsComponent from '@/views/project/components/StitchCounts.compo
 import { api } from '@/api/api';
 import { setTitle } from '@/helper/helper';
 import { useInput } from '@/use/input/input.use';
-import { useCurrentProject } from '@/use/current-project/CurrentProject.use';
 
-import { IProject } from '@/models/Project.model';
+import { IGetProject } from '@/models/GetProject.model';
 
 const route = useRoute();
 const input = useInput();
-const currentProject = useCurrentProject();
 
 const patternReference = route.params.patternReference as string;
 
-// const project = ref<IProject | null>(null)
-
-const project = currentProject.project;
+const project = ref<IGetProject | null>(null)
 
 document.addEventListener('keydown', (event: KeyboardEvent) => {
     input.keysDown.add(event.key);
@@ -42,14 +41,18 @@ onMounted(async () => {
     if (result instanceof Error)
         return;
 
-    // project.value = result;
+    project.value = result;
 
-    // setTitle(`${project.value.pattern.title}`);
+    setTitle(`${project.value.project.pattern.title}`);
 });
 </script>
 
 <style lang="scss">
 .pattern-view {
     height: 100%;
+
+    .loading-container {
+        margin: auto;
+    }
 }
 </style>
