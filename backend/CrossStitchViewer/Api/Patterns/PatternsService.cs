@@ -72,7 +72,7 @@ public sealed class PatternsService : IPatternsService
             Name = x.name,
             Description = x.description,
             Index = x.index,
-            Colour = x.colour
+            Colour = $"#{x.colour.ToLower()}"
         }));
 
         return Result.Success();
