@@ -30,8 +30,8 @@
                 </p>
                 <div class="example-patterns">
                     <img class="example-pattern" src="@/assets/templar-knight.png">
-                    <img class="example-pattern" src="@/assets/templar-knight.png">
-                    <img class="example-pattern" src="@/assets/templar-knight.png">
+                    <img class="example-pattern" src="@/assets/howling-wolf.jpg">
+                    <img class="example-pattern" src="@/assets/howling-wolf.jpg">
                     <img class="example-pattern" src="@/assets/templar-knight.png">
                 </div>
             </div>
