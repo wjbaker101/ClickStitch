@@ -23,4 +23,13 @@ public sealed class PatternsController : ApiController
         
         return ToApiResponse(result);
     }
+
+    [HttpPost]
+    [Route("")]
+    public IActionResult CreatePattern()
+    {
+        var result = _patternsService.CreatePattern();
+        
+        return ToApiResponse(result);
+    }
 }
