@@ -12,6 +12,8 @@ public class PatternRecord : IDatabaseRecord
     public virtual required int Width { get; set; }
     public virtual required int Height { get; set; }
     public virtual required decimal Price { get; set; }
+    public virtual required ISet<PatternStitchRecord> Stitches { get; init; }
+    public virtual required ISet<PatternThreadRecord> Threads { get; init; }
 }
 
 public sealed class PatternRecordMap : ClassMap<PatternRecord>
@@ -27,5 +29,7 @@ public sealed class PatternRecordMap : ClassMap<PatternRecord>
         Map(x => x.Width, "width");
         Map(x => x.Height, "height");
         Map(x => x.Price, "price");
+        HasMany(x => x.Stitches).KeyColumn("pattern_id");
+        HasMany(x => x.Threads).KeyColumn("pattern_id");
     }
 }

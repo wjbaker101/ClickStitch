@@ -23,6 +23,8 @@ services.AddSingleton<IGuidService, GuidService>();
 services.AddSingleton<IDatabase, Database>();
 services.AddSingleton<IBasketRepository, BasketRepository>();
 services.AddSingleton<IPatternRepository, PatternRepository>();
+services.AddSingleton<IPatternStitchRepository, PatternStitchRepository>();
+services.AddSingleton<IPatternThreadRepository, PatternThreadRepository>();
 services.AddSingleton<IUserRepository, UserRepository>();
 services.AddSingleton<IUserPatternRepository, UserPatternRepository>();
 
