@@ -162,6 +162,7 @@ export const api = {
                     index: x.index,
                     name: x.name,
                     description: x.description,
+                    colour: x.colour,
                 })),
             };
         },

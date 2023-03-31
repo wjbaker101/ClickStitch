@@ -29,6 +29,7 @@ export const patternMapper = {
             index: thread.index,
             name: thread.name,
             description: thread.description,
+            colour: thread.colour,
         };
     },
 

@@ -19,4 +19,5 @@ export interface IThread {
     readonly index: number;
     readonly name: string;
     readonly description: string;
+    readonly colour: string;
 }

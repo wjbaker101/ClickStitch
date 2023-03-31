@@ -17,4 +17,5 @@ export interface IApiThread {
     readonly index: number;
     readonly name: string;
     readonly description: string;
+    readonly colour: string;
 }
