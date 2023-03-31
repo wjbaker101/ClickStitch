@@ -66,9 +66,9 @@ const props = defineProps<{
     project: IGetProject;
 }>();
 
-const palette2 = new Map<number, IThread>();
+const palette = new Map<number, IThread>();
 for (const thread of props.project.threads) {
-    palette2.set(thread.index, thread);
+    palette.set(thread.index, thread);
 }
 
 const pattern = new Map<string, IStitch>();
@@ -148,7 +148,7 @@ onMounted(() => {
 
     for (let index = 0; index < props.project.stitches.length; ++index) {
         const stitch = props.project.stitches[index];
-        const thread = palette2.get(stitch.threadIndex) as IThread;
+        const thread = palette.get(stitch.threadIndex) as IThread;
 
         graphics.value.fillStyle = thread.colour;
         graphics.value.fillRect(stitch.x * baseStitchSize, stitch.y * baseStitchSize, baseStitchSize, baseStitchSize);
@@ -191,7 +191,7 @@ const handleHoveredStitch = function (): void {
             return;
         }
 
-        const thread = palette2.get(stitch.threadIndex);
+        const thread = palette.get(stitch.threadIndex);
         if (!thread || thread.index === 0) {
             hoveredStitch.value = null;
             return;
