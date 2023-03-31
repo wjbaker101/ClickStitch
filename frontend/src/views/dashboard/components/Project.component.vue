@@ -29,7 +29,6 @@ defineProps<{
     }
 
     img {
-        background-color: #efefef;
         border-radius: var(--wjb-border-radius);
         vertical-align: middle;
 

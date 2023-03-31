@@ -50,7 +50,6 @@ const onAddToBasket = async function (pattern: IPattern): Promise<void> {
     background-color: var(--wjb-background-colour-dark);
 
     img {
-        background-color: #efefef;
         border-radius: var(--wjb-border-radius);
         vertical-align: middle;
 

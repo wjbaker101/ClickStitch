@@ -122,7 +122,6 @@ const onLogin = async function () {
     }
 
     .example-pattern {
-        background-color: #fff;
         border-radius: var(--wjb-border-radius);
 
         @include shadow-small();
