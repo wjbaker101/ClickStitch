@@ -1,7 +1,7 @@
 <template>
     <CardComponent class="pattern-component" border="top">
         <div class="text-centered">
-            <img src="@/assets/templar-knight.png">
+            <img :src="pattern.thumbnailUrl">
         </div>
         <div class="description flex align-items-center gap-small">
             <div>
