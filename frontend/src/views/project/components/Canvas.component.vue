@@ -52,7 +52,7 @@
             <div>w: {{ width.toFixed(0) }} h: {{ height.toFixed(0) }}</div>
             <div>mouse | x: {{ mousePosition.x }} y: {{ mousePosition.y }}</div>
             <div>scale {{ scale.toFixed(1) }}</div>
-            <div>offset | x: {{ offset.x }} y: {{ offset.y }}</div>
+            <div>offset | x: {{ offset.x.toFixed(2) }} y: {{ offset.y.toFixed(2) }}</div>
             <div>stitch | x: {{ mouseStitchPosition.x }} y: {{ mouseStitchPosition.y }}</div>
             <div>mouseOverPattern: {{ isMouseOverPattern }}</div>
             <div v-if="selectStart !== null">selectStart | x {{ selectStart.x }} y: {{ selectStart.y }}</div>
