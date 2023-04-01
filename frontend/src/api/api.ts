@@ -4,19 +4,23 @@ import dayjs from 'dayjs';
 import { useAuth } from '@/use/auth/Auth.use';
 
 import { IApiResultResponse } from '@/api/types/ApiResponse.type';
+
 import { ILogInRequest, ILogInResponse } from '@/api/types/LogIn.type';
+
+import { IBasket } from '@/models/Basket.model';
+import { IGetBasketResponse } from '@/api/types/GetBasket.type';
+import { IAddToBasketResponse } from '@/api/types/AddToBasket.type';
+import { IRemoveFromBasketResponse } from '@/api/types/RemoveFromBasket.type';
+
+import { patternMapper } from '@/api/mappers/Pattern.mapper';
 import { IPattern } from '@/models/Pattern.model';
-import { ISearchPatternsResponse } from './types/SearchPatterns.type';
-import { IAddToBasketResponse } from './types/AddToBasket.type';
-import { IRemoveFromBasketResponse } from './types/RemoveFromBasket.type';
-import { IBasket, IBasketItem } from '@/models/Basket.model';
-import { IGetBasketResponse } from './types/GetBasket.type';
-import { patternMapper } from './mappers/Pattern.mapper';
+import { ISearchPatternsResponse } from '@/api/types/SearchPatterns.type';
+
+import { projectMapper } from '@/api/mappers/Project.mapper';
 import { IProject } from '@/models/Project.model';
-import { IGetProjectsResponse } from './types/GetProjects.type';
-import { projectMapper } from './mappers/Project.mapper';
-import { IGetProjectResponse } from './types/GetProject.type';
 import { IGetProject } from '@/models/GetProject.model';
+import { IGetProjectsResponse } from '@/api/types/GetProjects.type';
+import { IGetProjectResponse } from '@/api/types/GetProject.type';
 
 const auth = useAuth();
 

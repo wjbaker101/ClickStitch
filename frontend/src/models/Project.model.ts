@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs';
 
-import { IPattern } from './Pattern.model';
+import { IPattern } from '@/models/Pattern.model';
 
 export interface IProject {
     readonly pattern: IPattern;

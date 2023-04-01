@@ -1,9 +1,9 @@
 import dayjs from 'dayjs';
 
-import { patternMapper } from './Pattern.mapper';
+import { patternMapper } from '@/api/mappers/Pattern.mapper';
 
 import { IProject } from '@/models/Project.model';
-import { IApiProject } from '../types/ApiProject.type';
+import { IApiProject } from '@/api/types/ApiProject.type';
 
 export const projectMapper = {
 

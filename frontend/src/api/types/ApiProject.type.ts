@@ -1,4 +1,4 @@
-import { IApiPattern } from './ApiPattern.type';
+import { IApiPattern } from '@/api/types/ApiPattern.type';
 
 export interface IApiProject {
     readonly pattern: IApiPattern;

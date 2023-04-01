@@ -1,5 +1,5 @@
-import { IApiStitch, IApiThread } from './ApiPattern.type';
-import { IApiProject } from './ApiProject.type';
+import { IApiStitch, IApiThread } from '@/api/types/ApiPattern.type';
+import { IApiProject } from '@/api/types/ApiProject.type';
 
 export interface IGetProjectResponse {
     readonly project: IApiProject;

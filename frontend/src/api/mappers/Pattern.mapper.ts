@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
 import { IPattern, IStitch, IThread } from '@/models/Pattern.model';
-import { IApiPattern, IApiStitch, IApiThread } from '../types/ApiPattern.type';
+import { IApiPattern, IApiStitch, IApiThread } from '@/api/types/ApiPattern.type';
 
 export const patternMapper = {
 

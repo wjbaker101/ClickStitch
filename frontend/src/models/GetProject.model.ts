@@ -1,5 +1,5 @@
-import { IStitch, IThread } from './Pattern.model';
-import { IProject } from './Project.model';
+import { IStitch, IThread } from '@/models/Pattern.model';
+import { IProject } from '@/models/Project.model';
 
 export interface IGetProject {
     readonly project: IProject;

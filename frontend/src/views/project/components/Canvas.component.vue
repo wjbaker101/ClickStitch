@@ -62,9 +62,9 @@ import { computed, onMounted, ref } from 'vue';
 import { useGlobalData } from '@/use/global-data/global-data.use';
 
 import { Position } from '@/class/Position.class';
-import { useMouse } from '../use/Mouse.use';
-import { useStitch } from '../use/Stitch.use';
-import { useTransformation } from '../use/Transformation.use';
+import { useMouse } from '@/views/project/use/Mouse.use';
+import { useStitch } from '@/views/project/use/Stitch.use';
+import { useTransformation } from '@/views/project/use/Transformation.use';
 
 import { IGetProject } from '@/models/GetProject.model';
 import { IStitch, IThread } from '@/models/Pattern.model';
