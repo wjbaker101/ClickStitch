@@ -54,8 +54,8 @@
             <div>scale {{ scale.toFixed(1) }}</div>
             <div>offset | x: {{ offset.x }} y: {{ offset.y }}</div>
             <div>stitch | x: {{ mouseStitchPosition.x }} y: {{ mouseStitchPosition.y }}</div>
-            <div v-if="stitchSelectStart !== null">selectStart | x {{ stitchSelectStart.x }} y: {{ stitchSelectStart.y }}</div>
-            <div v-if="stitchSelectEnd !== null">selectEnd | x {{ stitchSelectEnd.x }} y: {{ stitchSelectEnd.y }}</div>
+            <div v-if="selectStart !== null">selectStart | x {{ selectStart.x }} y: {{ selectStart.y }}</div>
+            <div v-if="selectEnd !== null">selectEnd | x {{ selectEnd.x }} y: {{ selectEnd.y }}</div>
             <div></div>
         </div>
     </div>
