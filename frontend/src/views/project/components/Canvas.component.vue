@@ -149,6 +149,7 @@ onMounted(() => {
         graphics.value.stroke();
     }
 
+    graphics.value.lineWidth = 6;
     graphics.value.strokeStyle = '#f00';
 
     graphics.value.beginPath();
