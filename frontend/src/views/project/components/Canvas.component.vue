@@ -34,8 +34,8 @@
                 <div
                     class="selected-stitches"
                     :style="{
-                        'width': `${stitchSize * (stitchSelectEnd.x - stitchSelectStart.x + 1)}px`,
-                        'height': `${stitchSize * (stitchSelectEnd.y - stitchSelectStart.y + 1)}px`,
+                        'width': `${stitchSize * (stitchSelectEnd.x - stitchSelectStart.x + 1) / scale}px`,
+                        'height': `${stitchSize * (stitchSelectEnd.y - stitchSelectStart.y + 1) / scale}px`,
                         'transform': `translate(${stitchSelectStart.x * stitchSize / scale}px, ${stitchSelectStart.y * stitchSize / scale}px)`,
                     }"
                 >
