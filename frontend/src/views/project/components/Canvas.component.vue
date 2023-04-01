@@ -131,19 +131,6 @@ const selectionEnd = computed<Position | null>(() => {
         Math.max(selectStart.value.y, selectEnd.value?.y ?? mouseStitchPosition.value.y));
 });
 
-const padding = 10;
-
-const maxOffsetX = computed<number>(() => {
-    if (canvasWidth.value + 2 * padding > width.value)
-        return width.value - (canvasWidth.value + padding);
-
-    return width.value - canvasWidth.value - padding;
-});
-
-const maxOffsetY = computed<number>(() => {
-    return height.value - canvasHeight.value - padding;
-});
-
 onMounted(() => {
     offset.value = Position.at(width.value / 2 - canvasWidth.value / 2, height.value / 2 - canvasHeight.value / 2);
 
@@ -228,8 +215,6 @@ const onMouseMove = function (event: MouseEvent): void {
 
         offset.value = offset.value
             .translate(diff.x, diff.y)
-            // .min(10, 10)
-            // .max(maxOffsetX.value, maxOffsetY.value)
             .floor();
     }
 
