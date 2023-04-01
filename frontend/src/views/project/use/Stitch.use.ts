@@ -40,8 +40,8 @@ export const useStitch = function ({ pattern, scale, mousePosition, offset, sele
             return null;
 
         return Position.at(
-            Math.max(selectStart.value.x, selectEnd.value?.x ?? mouseStitchPosition.value.x),
-            Math.max(selectStart.value.y, selectEnd.value?.y ?? mouseStitchPosition.value.y));
+            Math.max(selectStart.value.x, selectEnd.value?.x ?? mouseStitchPosition.value.x) + 1,
+            Math.max(selectStart.value.y, selectEnd.value?.y ?? mouseStitchPosition.value.y) + 1);
     });
 
     return {
