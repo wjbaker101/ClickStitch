@@ -9,4 +9,6 @@ public sealed class PatternModel
     public required int Height { get; init; }
     public required decimal Price { get; init; }
     public required string? ThumbnailUrl { get; init; }
+    public required int ThreadCount { get; init; }
+    public required int StitchCount { get; init; }
 }

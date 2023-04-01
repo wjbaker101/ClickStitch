@@ -61,6 +61,8 @@ public sealed class PatternsService : IPatternsService
             Height = json.canvas.height,
             Price = 2.5m,
             ThumbnailUrl = null,
+            ThreadCount = json.palette.threads.Count,
+            StitchCount = json.canvas.stitches.Count,
             Stitches = new HashSet<PatternStitchRecord>(),
             Threads = new HashSet<PatternThreadRecord>()
         });
