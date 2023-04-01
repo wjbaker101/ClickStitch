@@ -14,6 +14,8 @@ export const patternMapper = {
             height: pattern.height,
             price: pattern.price,
             thumbnailUrl: pattern.thumbnailUrl,
+            threadCount: pattern.threadCount,
+            stitchCount: pattern.stitchCount,
         };
     },
 

@@ -6,6 +6,8 @@ export interface IApiPattern {
     readonly height: number;
     readonly price: number;
     readonly thumbnailUrl: string;
+    readonly threadCount: number;
+    readonly stitchCount: number;
 }
 
 export interface IApiStitch {
