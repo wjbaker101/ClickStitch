@@ -26,22 +26,29 @@ export const useStitch = function ({ pattern, scale, mousePosition, offset, sele
             mouseStitchPosition.value.y < pattern.height;
     });
 
+    const endX = computed(() => selectEnd.value?.x ?? mouseStitchPosition.value.x);
+    const endY = computed(() => selectEnd.value?.y ?? mouseStitchPosition.value.y);
+
     const stitchSelectStart = computed<Position | null>(() => {
         if (selectStart.value === null)
             return null;
 
         return Position.at(
-            Math.min(selectStart.value.x, selectEnd.value?.x ?? mouseStitchPosition.value.x),
-            Math.min(selectStart.value.y, selectEnd.value?.y ?? mouseStitchPosition.value.y));
+            Math.min(selectStart.value.x, endX.value),
+            Math.min(selectStart.value.y, endY.value));
     });
 
     const stitchSelectEnd = computed<Position | null>(() => {
         if (selectStart.value === null)
             return null;
 
-        return Position.at(
-            Math.max(selectStart.value.x, selectEnd.value?.x ?? mouseStitchPosition.value.x) + 1,
-            Math.max(selectStart.value.y, selectEnd.value?.y ?? mouseStitchPosition.value.y) + 1);
+        const x = Math.max(selectStart.value.x, endX.value);
+        const y = Math.max(selectStart.value.y, endY.value);
+
+        return Position
+            .at(x, y)
+            .min(0, 0)
+            .max(pattern.width, pattern.height);
     });
 
     return {

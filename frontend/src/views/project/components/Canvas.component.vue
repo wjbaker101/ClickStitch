@@ -14,7 +14,7 @@
     >
         <div class="canvas-wrapper"
             :style="{
-                'transform': `translate(${offset.x}px, ${offset.y}px)`,
+                'transform': `translate(${offset.x}px, ${offset.y}px) scale(${scale})`,
             }"
         >
             <canvas
@@ -22,35 +22,40 @@
                 :width="project.project.pattern.width * baseStitchSize"
                 :height="project.project.pattern.height * baseStitchSize"
                 :style="{
-                    'transform': `scale(${scale})`,
                 }"
             >
             </canvas>
-        </div>
-        <div
-            v-if="stitchSelectStart && stitchSelectEnd"
-            class="selected-stitches-wrapper"
-            :style="{
-                'transform': `translate(${stitchSelectStart.x * stitchSize + offset.x}px, ${stitchSelectStart.y * stitchSize + offset.y}px)`,
-            }"
-        >
             <div
-                class="selected-stitches"
+                v-if="stitchSelectStart && stitchSelectEnd"
+                class="selected-stitches-wrapper"
                 :style="{
-                    'width': `${baseStitchSize * (stitchSelectEnd.x - stitchSelectStart.x)}px`,
-                    'height': `${baseStitchSize * (stitchSelectEnd.y - stitchSelectStart.y)}px`,
-                    'transform': `scale(${scale})`,
                 }"
-            ></div>
+            >
+                <div
+                    class="selected-stitches"
+                    :style="{
+                        'width': `${stitchSize * (stitchSelectEnd.x - stitchSelectStart.x + 1)}px`,
+                        'height': `${stitchSize * (stitchSelectEnd.y - stitchSelectStart.y + 1)}px`,
+                        'transform': `translate(${stitchSelectStart.x * stitchSize / scale}px, ${stitchSelectStart.y * stitchSize / scale}px)`,
+                    }"
+                >
+                    <div class="top-axis">
+                        {{ stitchSelectEnd.x - stitchSelectStart.x + 1 }}
+                    </div>
+                    <div class="left-axis">
+                        {{ stitchSelectEnd.y - stitchSelectStart.y + 1 }}
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="debug">
             <div>w: {{ width.toFixed(0) }} h: {{ height.toFixed(0) }}</div>
             <div>mouse | x: {{ mousePosition.x }} y: {{ mousePosition.y }}</div>
-            <div>scale {{ scale }}</div>
+            <div>scale {{ scale.toFixed(1) }}</div>
             <div>offset | x: {{ offset.x }} y: {{ offset.y }}</div>
             <div>stitch | x: {{ mouseStitchPosition.x }} y: {{ mouseStitchPosition.y }}</div>
-            <div v-if="selectStart !== null">selectStart | x {{ selectStart.x }} y: {{ selectStart.y }}</div>
-            <div v-if="selectEnd !== null">selectEnd | x {{ selectEnd.x }} y: {{ selectEnd.y }}</div>
+            <div v-if="stitchSelectStart !== null">selectStart | x {{ stitchSelectStart.x }} y: {{ stitchSelectStart.y }}</div>
+            <div v-if="stitchSelectEnd !== null">selectEnd | x {{ stitchSelectEnd.x }} y: {{ stitchSelectEnd.y }}</div>
             <div></div>
         </div>
     </div>
@@ -171,7 +176,7 @@ const onClick = function (): void {
 };
 
 const onMouseDown = function (event: MouseEvent): void {
-    if (event.button === 1) {
+    if (event.button === 1 && isMouseOverPattern.value) {
         isDragSelecting.value = true;
         selectStart.value = mouseStitchPosition.value;
         selectEnd.value = null;
@@ -270,13 +275,13 @@ const onMouseWheel = function (event: WheelEvent): void {
     }
 
     .canvas-wrapper {
-        position: absolute;
+        position: relative;
         transition: transform 0.1s;
+        transform-origin: top left;
     }
 
     canvas {
         pointer-events: none;
-        transform-origin: top left;
         border-radius: var(--wjb-border-radius);
         image-rendering: crisp-edges;
         image-rendering: -moz-crisp-edges;
@@ -290,6 +295,7 @@ const onMouseWheel = function (event: WheelEvent): void {
 
     .selected-stitches-wrapper {
         position: absolute;
+        inset: 0;
 
         .selected-stitches {
             position: absolute;
@@ -298,6 +304,32 @@ const onMouseWheel = function (event: WheelEvent): void {
             box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.5), 1px 2px 10px rgba(0, 0, 0, 0.2);
             background-color: rgba(33, 33, 200, 0.2);
             transition: transform 0.1s;
+        }
+
+        .top-axis,
+        .left-axis {
+            width: 2rem;
+            aspect-ratio: 1;
+            line-height: 2rem;
+            text-align: center;
+            background-color: var(--wjb-background-colour);
+            border-radius: 50%;
+
+            @include shadow-medium();
+        }
+
+        .top-axis {
+            position: absolute;
+            top: -2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .left-axis {
+            position: absolute;
+            left: -2.5rem;
+            top: 50%;
+            transform: translateY(-50%);
         }
     }
 
