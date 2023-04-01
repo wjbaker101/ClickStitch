@@ -1,5 +1,5 @@
 <template>
-    <CardComponent class="pattern-component" border="top" @click="onClick">
+    <CardComponent class="pattern-component" border="top" hoverable @click="onClick">
         <div class="text-centered">
             <img :src="pattern.thumbnailUrl">
         </div>
@@ -61,13 +61,7 @@ const onAddToBasket = async function (pattern: IPattern): Promise<void> {
 .pattern-component {
     padding: 1rem;
     background-color: var(--wjb-background-colour-dark);
-    outline: 2px dashed transparent;
-    outline-offset: 1px;
     cursor: pointer;
-
-    &:hover {
-        outline: 2px dashed var(--wjb-tertiary);
-    }
 
     img {
         border-radius: var(--wjb-border-radius);

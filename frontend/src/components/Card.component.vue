@@ -1,5 +1,11 @@
 <template>
-    <div class="card-component" :class="{ [`border-${border}`]: true }">
+    <div
+        class="card-component"
+        :class="{
+            [`border-${border}`]: true,
+            'is-hoverable': hoverable
+        }"
+    >
         <slot></slot>
     </div>
 </template>
@@ -7,6 +13,7 @@
 <script setup lang="ts">
 defineProps<{
     border?: 'top' | 'right' | 'bottom' | 'left';
+    hoverable?: boolean;
 }>();
 </script>
 
@@ -19,8 +26,18 @@ defineProps<{
     border-width: 0;
     border-style: solid;
     border-color: var(--wjb-primary);
+    outline: 2px dashed transparent;
+    outline-offset: 1px;
 
     @include shadow-small();
+
+    &.is-hoverable {
+        cursor: pointer;
+
+        &:hover {
+            outline: 2px dashed var(--wjb-tertiary);
+        }
+    }
 
     &.border-top {
         border-top-width: 4px;

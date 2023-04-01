@@ -1,6 +1,6 @@
 <template>
     <RouterLink class="project-component text-centered" :to="`/project/${project.pattern.reference}`">
-        <CardComponent border="top">
+        <CardComponent border="top" hoverable>
             <img :src="project.pattern.thumbnailUrl">
             <p></p>
             <strong>{{ project.pattern.title }}</strong>
