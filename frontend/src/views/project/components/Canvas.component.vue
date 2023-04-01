@@ -145,6 +145,8 @@ const maxOffsetY = computed<number>(() => {
 });
 
 onMounted(() => {
+    offset.value = Position.at(width.value / 2 - canvasWidth.value / 2, height.value / 2 - canvasHeight.value / 2);
+
     graphics.value.fillStyle = '#eef';
 
     for (let x = 0; x < props.project.project.pattern.width; ++x) {
