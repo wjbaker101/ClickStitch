@@ -6,7 +6,11 @@ export const currency = function (price: number): string {
     return new Intl.NumberFormat('en-GB', {
         style: 'currency',
         currency: 'gbp',
-      }).format(price);
+    }).format(price);
+};
+
+export const formatNumber = function (value: number): string {
+    return new Intl.NumberFormat('en-GB').format(value);
 };
 
 export const setTitle = function (title: string): void {

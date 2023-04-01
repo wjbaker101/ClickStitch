@@ -2,10 +2,18 @@
     <div class="pattern-modal-component">
         <h2>{{ pattern.title }}</h2>
         <div class="flex gap align-items-center">
-            <img class="flex-auto" :src="pattern.thumbnailUrl">
+            <div class="flex-auto">
+                <img :src="pattern.thumbnailUrl">
+            </div>
+            <div>
+                <strong>Size:</strong> {{ pattern.width }}&times;{{ pattern.height }}
+                <br>
+                <strong>Threads:</strong> {{ pattern.threadCount }}
+                <br>
+                <strong>Stitches:</strong> {{ formatNumber(pattern.stitchCount) }}
+            </div>
             <div>
                 <p><strong>{{ currency(pattern.price) }}</strong></p>
-                <p>{{ pattern.width }}&times;{{ pattern.height }}</p>
             </div>
         </div>
         <p class="text-centered">
@@ -21,7 +29,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { currency } from '@/helper/helper';
+import { currency, formatNumber } from '@/helper/helper';
 import { useMarketplace } from '@/use/marketplace/Marketplace.use';
 
 import { IPattern } from '@/models/Pattern.model';
