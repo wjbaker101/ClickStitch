@@ -11,7 +11,7 @@ export const useStitch = function ({ pattern, scale, mousePosition, offset, sele
     selectStart: Ref<Position | null>,
     selectEnd: Ref<Position | null>,
 }) {
-    const baseStitchSize = 15;
+    const baseStitchSize = 60;
     const stitchSize = computed<number>(() => Math.round(baseStitchSize * scale.value));
 
     const mouseStitchPosition = computed<Position>(() => mousePosition.value

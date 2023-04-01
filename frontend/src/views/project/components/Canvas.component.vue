@@ -59,6 +59,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 
+import { isDark } from '@/helper/helper';
 import { Position } from '@/class/Position.class';
 import { useMouse } from '@/views/project/use/Mouse.use';
 import { useSharedStitch } from '@/views/project/use/SharedStitch';
@@ -109,6 +110,8 @@ onMounted(() => {
     offset.value = Position.at(width.value / 2 - canvasWidth.value / 2, height.value / 2 - canvasHeight.value / 2);
 
     graphics.value.fillStyle = '#eef';
+    graphics.value.textAlign = 'center';
+    graphics.value.font = 'normal 28px sans-serif';
 
     for (let x = 0; x < props.project.project.pattern.width; ++x) {
         for (let y = 0; y < props.project.project.pattern.height; ++y) {
@@ -122,7 +125,43 @@ onMounted(() => {
 
         graphics.value.fillStyle = thread.colour;
         graphics.value.fillRect(stitch.x * baseStitchSize, stitch.y * baseStitchSize, baseStitchSize, baseStitchSize);
+
+        graphics.value.fillStyle = isDark(thread.colour) ? '#ddd' :  '#111';
+        graphics.value.fillText(stitch.threadIndex.toString(), stitch.x * baseStitchSize + (baseStitchSize / 2), (stitch.y + 1) * baseStitchSize - (baseStitchSize / 2) + 10);
     }
+
+    graphics.value.strokeStyle = '#666';
+    graphics.value.lineWidth = 2;
+
+    for (let x = 0; x < props.project.project.pattern.width; ++x) {
+        graphics.value.beginPath();
+        graphics.value.moveTo(x * baseStitchSize, 0);
+        graphics.value.lineTo(x * baseStitchSize, props.project.project.pattern.height * baseStitchSize);
+        graphics.value.closePath();
+        graphics.value.stroke();
+    }
+
+    for (let y = 0; y < props.project.project.pattern.height; ++y) {
+        graphics.value.beginPath();
+        graphics.value.moveTo(0, y * baseStitchSize);
+        graphics.value.lineTo(props.project.project.pattern.width * baseStitchSize, y * baseStitchSize);
+        graphics.value.closePath();
+        graphics.value.stroke();
+    }
+
+    graphics.value.strokeStyle = '#f00';
+
+    graphics.value.beginPath();
+    graphics.value.moveTo(0, props.project.project.pattern.width / 2 * baseStitchSize);
+    graphics.value.lineTo(props.project.project.pattern.width * baseStitchSize, props.project.project.pattern.width / 2 * baseStitchSize);
+    graphics.value.closePath();
+    graphics.value.stroke();
+
+    graphics.value.beginPath();
+    graphics.value.moveTo(props.project.project.pattern.height / 2 * baseStitchSize, 0);
+    graphics.value.lineTo(props.project.project.pattern.height / 2 * baseStitchSize, props.project.project.pattern.height * baseStitchSize);
+    graphics.value.closePath();
+    graphics.value.stroke();
 });
 
 const onClick = function (): void {
@@ -199,7 +238,7 @@ const onMouseWheel = function (event: WheelEvent): void {
     }
 
     const prevScale = scale.value;
-    scale.value = Math.max(0.2, Math.min(2, scale.value * factor));
+    scale.value = Math.max(0.1, Math.min(1, scale.value * factor));
 
     if (scale.value === prevScale)
         return;
