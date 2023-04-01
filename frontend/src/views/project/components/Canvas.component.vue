@@ -139,7 +139,7 @@ onMounted(() => {
     graphics.value.strokeStyle = '#666';
     graphics.value.lineWidth = 2;
 
-    for (let x = 0; x < props.project.project.pattern.width; ++x) {
+    for (let x = 1; x < props.project.project.pattern.width; ++x) {
         graphics.value.beginPath();
         graphics.value.moveTo(x * baseStitchSize, 0);
         graphics.value.lineTo(x * baseStitchSize, props.project.project.pattern.height * baseStitchSize);
@@ -147,7 +147,7 @@ onMounted(() => {
         graphics.value.stroke();
     }
 
-    for (let y = 0; y < props.project.project.pattern.height; ++y) {
+    for (let y = 1; y < props.project.project.pattern.height; ++y) {
         graphics.value.beginPath();
         graphics.value.moveTo(0, y * baseStitchSize);
         graphics.value.lineTo(props.project.project.pattern.width * baseStitchSize, y * baseStitchSize);
