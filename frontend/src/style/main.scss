@@ -17,6 +17,8 @@
     --wjb-text-colour-opposite: #222;
 
     --wjb-border-radius: 0.5rem;
+
+    --wjb_modal-content-background-colour: var(--wjb-background-colour);
 }
 
 .\@wjb-button-component {
@@ -26,12 +28,28 @@
         var(--wjb-primary),
     );
 
+    &:hover {
+        background: linear-gradient(
+            -45deg,
+            var(--wjb-primary-dark),
+            var(--wjb-primary-dark),
+        );
+    }
+
     &.secondary {
         background: linear-gradient(
             -45deg,
             var(--wjb-secondary-dark),
             var(--wjb-secondary),
         );
+
+        &:hover {
+            background: linear-gradient(
+                -45deg,
+                var(--wjb-secondary-dark),
+                var(--wjb-secondary-dark),
+            );
+        }
     }
 
     &.tertiary {
@@ -40,6 +58,30 @@
             var(--wjb-tertiary-dark),
             var(--wjb-tertiary),
         );
+
+        &:hover {
+            background: linear-gradient(
+                -45deg,
+                var(--wjb-tertiary-dark),
+                var(--wjb-tertiary-dark),
+            );
+        }
+    }
+
+    &.danger {
+        background: linear-gradient(
+            -45deg,
+            var(--wjb-danger-dark),
+            var(--wjb-danger),
+        );
+
+        &:hover {
+            background: linear-gradient(
+                -45deg,
+                var(--wjb-danger-dark),
+                var(--wjb-danger-dark),
+            );
+        }
     }
 }
 
@@ -49,4 +91,12 @@
         var(--wjb-danger-dark),
         var(--wjb-danger),
     );
+
+    &:hover {
+        background: linear-gradient(
+            -45deg,
+            var(--wjb-danger-dark),
+            var(--wjb-danger-dark),
+        );
+    }
 }

@@ -1,6 +1,7 @@
 <template>
     <NavComponent />
     <RouterView></RouterView>
+    <ModalComponent />
 </template>
 
 <script setup lang="ts">

@@ -1,5 +1,5 @@
 <template>
-    <CardComponent class="pattern-component" border="top">
+    <CardComponent class="pattern-component" border="top" @click="onClick">
         <div class="text-centered">
             <img :src="pattern.thumbnailUrl">
         </div>
@@ -10,7 +10,7 @@
                 {{ currency(pattern.price) }}
             </div>
             <div class="flex-auto">
-                <ButtonComponent class="add-to-basket-button mini" :title="hoverText" @click="onAddToBasket(pattern)" :disabled="isInBasket">
+                <ButtonComponent class="add-to-basket-button mini" :title="hoverText" @click.stop="onAddToBasket(pattern)" :disabled="isInBasket">
                     <IconComponent v-if="isInBasket" icon="tick" />
                     <IconComponent v-else icon="cart" />
                 </ButtonComponent>
@@ -22,8 +22,11 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+import PatternModal from '@/views/marketplace/modal/PatternModal.component.vue';
+
 import { currency } from '@/helper/helper';
 import { useMarketplace } from '@/use/marketplace/Marketplace.use';
+import { useModal } from '@wjb/vue/use/modal.use';
 
 import { IPattern } from '@/models/Pattern.model';
 
@@ -32,10 +35,20 @@ const props = defineProps<{
 }>();
 
 const marketplace = useMarketplace();
+const modal = useModal();
 
 const patternsInBasket = marketplace.patternReferences;
 const isInBasket = computed<boolean>(() => patternsInBasket.value.has(props.pattern.reference));
 const hoverText = computed<string>(() => isInBasket.value ? 'Already in basket!' : 'Add to basket');
+
+const onClick = function (): void {
+    modal.show({
+        component: PatternModal,
+        componentProps: {
+            pattern: props.pattern,
+        },
+    });
+};
 
 const onAddToBasket = async function (pattern: IPattern): Promise<void> {
     await marketplace.addItem(pattern);
@@ -48,6 +61,13 @@ const onAddToBasket = async function (pattern: IPattern): Promise<void> {
 .pattern-component {
     padding: 1rem;
     background-color: var(--wjb-background-colour-dark);
+    outline: 2px dashed transparent;
+    outline-offset: 1px;
+    cursor: pointer;
+
+    &:hover {
+        outline: 2px dashed var(--wjb-tertiary);
+    }
 
     img {
         border-radius: var(--wjb-border-radius);
