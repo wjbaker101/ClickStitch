@@ -19,7 +19,7 @@
         <div v-else>
             <h3>Kit Details:</h3>
             <p>
-                Suggested aida count: <strong>16</strong>
+                Suggested aida count: <strong>{{ getProject.aidaCount }}</strong>
                 <br>
                 Suggested fabric size: <strong>{{ fabricSize.in.width }} &times; {{ fabricSize.in.height }}</strong> inches (<strong>{{ fabricSize.cm.width }} &times; {{ fabricSize.cm.height}}</strong> cm)
             </p>

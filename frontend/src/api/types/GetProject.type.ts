@@ -3,6 +3,7 @@ import { IApiProject } from '@/api/types/ApiProject.type';
 
 export interface IGetProjectResponse {
     readonly project: IApiProject;
+    readonly aidaCount: number;
     readonly stitches: Array<IApiStitch>;
     readonly threads: Array<IApiThread>;
 }

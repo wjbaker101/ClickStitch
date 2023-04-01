@@ -150,6 +150,7 @@ export const api = {
 
             return {
                 project: projectMapper.map(result.project),
+                aidaCount: result.aidaCount,
                 stitches: result.stitches.map(x => ({
                     threadIndex: x.threadIndex,
                     x: x.x,
