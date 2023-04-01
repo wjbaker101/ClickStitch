@@ -176,35 +176,32 @@ const onMouseUp = function (event: MouseEvent): void {
 };
 
 const handleHoveredStitch = function (): void {
-    if (mouseStitchPosition.value.x > 0 &&
-        mouseStitchPosition.value.y > 0 &&
-        mouseStitchPosition.value.x < props.project.project.pattern.width &&
-        mouseStitchPosition.value.y < props.project.project.pattern.height)
-    {
-        const stitch = pattern.get(`${mouseStitchPosition.value.x}:${mouseStitchPosition.value.y}`);
-        if (!stitch) {
-            hoveredStitch.value = null;
-            return;
-        }
+    if (!isMouseOverPattern.value)
+        return;
 
-        const thread = palette.get(stitch.threadIndex);
-        if (!thread || thread.index === 0) {
-            hoveredStitch.value = null;
-            return;
-        }
-
-        hoveredStitch.value = {
-            x: mouseStitchPosition.value.x,
-            y: mouseStitchPosition.value.y,
-            thread: {
-                index: thread.index,
-                name: thread.name,
-                description: thread.description,
-                colour: thread.colour,
-            },
-            isDone: false,
-        };
+    const stitch = pattern.get(`${mouseStitchPosition.value.x}:${mouseStitchPosition.value.y}`);
+    if (!stitch) {
+        hoveredStitch.value = null;
+        return;
     }
+
+    const thread = palette.get(stitch.threadIndex);
+    if (!thread || thread.index === 0) {
+        hoveredStitch.value = null;
+        return;
+    }
+
+    hoveredStitch.value = {
+        x: mouseStitchPosition.value.x,
+        y: mouseStitchPosition.value.y,
+        thread: {
+            index: thread.index,
+            name: thread.name,
+            description: thread.description,
+            colour: thread.colour,
+        },
+        isDone: false,
+    };
 };
 
 const onMouseMove = function (event: MouseEvent): void {
