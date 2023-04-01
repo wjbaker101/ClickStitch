@@ -82,11 +82,12 @@ for (const stitch of props.project.stitches) {
     pattern.set(`${stitch.x}:${stitch.y}`, stitch);
 }
 
+const component = ref<HTMLDivElement>({} as HTMLDivElement);
+
 const globalData = useGlobalData();
 const { mousePosition, prevMousePosition, isDragMoving, isDragSelecting, selectStart, selectEnd } = useMouse();
-const { offset, scale } = useTransformation();
+const { width, height, offset, scale } = useTransformation(component);
 
-const component = ref<HTMLDivElement>({} as HTMLDivElement);
 const canvasElement = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const graphics = computed<CanvasRenderingContext2D>(() => canvasElement.value.getContext('2d') as CanvasRenderingContext2D);
 
@@ -94,9 +95,6 @@ const hoveredStitch = globalData.hoveredStitch;
 
 const baseStitchSize = 15;
 const stitchSize = computed<number>(() => Math.round(baseStitchSize * scale.value));
-
-const width = computed<number>(() => component.value.offsetWidth ?? 0);
-const height = computed<number>(() => component.value.offsetHeight ?? 0);
 
 const canvasWidth = computed<number>(() => props.project.project.pattern.width * stitchSize.value);
 const canvasHeight = computed<number>(() => props.project.project.pattern.height * stitchSize.value);
