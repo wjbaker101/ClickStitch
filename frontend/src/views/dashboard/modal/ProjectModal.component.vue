@@ -17,12 +17,35 @@
             <LoadingComponent itemName="extra details" />
         </div>
         <div v-else>
-            <h3>Threads:</h3>
-            <ul class="threads">
-                <li v-for="threadCount in threadCounts.values()">
-                    <strong>{{ threadCount.thread.name }}</strong> &mdash; {{ threadCount.thread.description }} <strong class="thread-count">({{ threadCounts.get(threadCount.thread.index)?.count }})</strong>
-                </li>
-            </ul>
+            <h3>Kit Details:</h3>
+            <p>
+                Suggested aida count: <strong>16</strong>
+                <br>
+                Suggested fabric size: <strong>{{ fabricSize.in.width }} &times; {{ fabricSize.in.height }}</strong> inches (<strong>{{ fabricSize.cm.width }} &times; {{ fabricSize.cm.height}}</strong> cm)
+            </p>
+            <table class="hoverable">
+                <thead>
+                    <tr>
+                        <th>Thread Code</th>
+                        <th>Description</th>
+                        <th>Count</th>
+                        <th>Skeins*</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="threadCount in sortedThreadCounts">
+                        <td><strong>{{ threadCount.thread.name }}</strong></td>
+                        <td>{{ threadCount.thread.description }}</td>
+                        <td class="thread-count">{{ threadCounts.get(threadCount.thread.index)?.count }}</td>
+                        <td>{{ calculateSkeins(16, threadCount.count) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                * Approximate, based on suggested aida count and using 2 strands of thread
+                <br>
+                <strong>It is recommended to buy extra skeins for high stitch count colours</strong>
+            </p>
         </div>
     </div>
 </template>
@@ -31,6 +54,7 @@
 import { onMounted, ref } from 'vue';
 
 import { api } from '@/api/api';
+import { calculateFabricSize, calculateSkeins } from '@/helper/stitch.helper';
 import { formatNumber } from '@/helper/helper';
 
 import { IProject } from '@/models/Project.model';
@@ -49,6 +73,9 @@ interface IThreadCount {
 const getProject = ref<IGetProject | null>(null);
 
 const threadCounts = new Map<number, IThreadCount>();
+const sortedThreadCounts = ref<Array<IThreadCount>>([]);
+
+const fabricSize = calculateFabricSize(props.project.pattern.width, props.project.pattern.height, 16);
 
 onMounted(async () => {
     const result = await api.projects.get(props.project.pattern.reference);
@@ -73,6 +100,8 @@ onMounted(async () => {
         const threadCount = threadCounts.get(stitch.threadIndex) as IThreadCount;
         threadCount.count ++;
     }
+
+    sortedThreadCounts.value = Array.from(threadCounts.values()).sort((a, b) => b.count - a.count);
 });
 </script>
 

@@ -71,4 +71,41 @@ input {
         padding-top: 6rem;
     }
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: var(--wjb-border-radius);
+    overflow: hidden;
+
+    th {
+        text-align: left;
+        background-color: var(--wjb-background-colour-dark);
+
+        @include shadow-small();
+
+        &:first-child {
+            border-bottom-left-radius: var(--wjb-border-radius);
+        }
+
+        &:last-child {
+            border-bottom-right-radius: var(--wjb-border-radius);
+        }
+    }
+
+    th,
+    td {
+        padding: 0.25rem 0.5rem;
+    }
+
+    @include shadow-small();
+
+    &.hoverable {
+        tbody {
+            tr:hover {
+                background-color: var(--wjb-background-colour-dark);
+            }
+        }
+    }
+}
 </style>
