@@ -28,17 +28,17 @@
             </canvas>
         </div>
         <div
-            v-if="selectionStart && selectionEnd"
+            v-if="stitchSelectStart && stitchSelectEnd"
             class="selected-stitches-wrapper"
             :style="{
-                'transform': `translate(${selectionStart.x * stitchSize + offset.x}px, ${selectionStart.y * stitchSize + offset.y}px)`,
+                'transform': `translate(${stitchSelectStart.x * stitchSize + offset.x}px, ${stitchSelectStart.y * stitchSize + offset.y}px)`,
             }"
         >
             <div
                 class="selected-stitches"
                 :style="{
-                    'width': `${baseStitchSize * (selectionEnd.x - selectionStart.x)}px`,
-                    'height': `${baseStitchSize * (selectionEnd.y - selectionStart.y)}px`,
+                    'width': `${baseStitchSize * (stitchSelectEnd.x - stitchSelectStart.x)}px`,
+                    'height': `${baseStitchSize * (stitchSelectEnd.y - stitchSelectStart.y)}px`,
                     'transform': `scale(${scale})`,
                 }"
             ></div>
@@ -63,6 +63,7 @@ import { useGlobalData } from '@/use/global-data/global-data.use';
 
 import { Position } from '@/class/Position.class';
 import { useMouse } from '../use/Mouse.use';
+import { useStitch } from '../use/Stitch.use';
 import { useTransformation } from '../use/Transformation.use';
 
 import { IGetProject } from '@/models/GetProject.model';
@@ -88,46 +89,22 @@ const globalData = useGlobalData();
 const { mousePosition, prevMousePosition, isDragMoving, isDragSelecting, selectStart, selectEnd } = useMouse();
 const { width, height, offset, scale } = useTransformation(component);
 
+const { baseStitchSize, stitchSize, mouseStitchPosition, isMouseOverPattern, stitchSelectStart, stitchSelectEnd } = useStitch({
+    pattern: props.project.project.pattern,
+    scale,
+    mousePosition,
+    offset,
+    selectStart,
+    selectEnd,
+});
+
 const canvasElement = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const graphics = computed<CanvasRenderingContext2D>(() => canvasElement.value.getContext('2d') as CanvasRenderingContext2D);
 
 const hoveredStitch = globalData.hoveredStitch;
 
-const baseStitchSize = 15;
-const stitchSize = computed<number>(() => Math.round(baseStitchSize * scale.value));
-
 const canvasWidth = computed<number>(() => props.project.project.pattern.width * stitchSize.value);
 const canvasHeight = computed<number>(() => props.project.project.pattern.height * stitchSize.value);
-
-const isMouseOverPattern = computed<boolean>(() => {
-    return mouseStitchPosition.value.x > 0 &&
-        mouseStitchPosition.value.y > 0 &&
-        mouseStitchPosition.value.x < props.project.project.pattern.width &&
-        mouseStitchPosition.value.y < props.project.project.pattern.height
-});
-
-const mouseStitchPosition = computed<Position>(() => mousePosition.value
-    .translate(-offset.value.x, -offset.value.y)
-    .scale(1.0 / stitchSize.value, 1.0 / stitchSize.value)
-    .floor());
-
-const selectionStart = computed<Position | null>(() => {
-    if (selectStart.value === null)
-        return null;
-
-    return Position.at(
-        Math.min(selectStart.value.x, selectEnd.value?.x ?? mouseStitchPosition.value.x),
-        Math.min(selectStart.value.y, selectEnd.value?.y ?? mouseStitchPosition.value.y));
-});
-
-const selectionEnd = computed<Position | null>(() => {
-    if (selectStart.value === null)
-        return null;
-
-    return Position.at(
-        Math.max(selectStart.value.x, selectEnd.value?.x ?? mouseStitchPosition.value.x),
-        Math.max(selectStart.value.y, selectEnd.value?.y ?? mouseStitchPosition.value.y));
-});
 
 onMounted(() => {
     offset.value = Position.at(width.value / 2 - canvasWidth.value / 2, height.value / 2 - canvasHeight.value / 2);
