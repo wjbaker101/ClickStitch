@@ -59,10 +59,9 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 
-import { useGlobalData } from '@/use/global-data/global-data.use';
-
 import { Position } from '@/class/Position.class';
 import { useMouse } from '@/views/project/use/Mouse.use';
+import { useSharedStitch } from '@/views/project/use/SharedStitch';
 import { useStitch } from '@/views/project/use/Stitch.use';
 import { useTransformation } from '@/views/project/use/Transformation.use';
 
@@ -85,7 +84,7 @@ for (const stitch of props.project.stitches) {
 
 const component = ref<HTMLDivElement>({} as HTMLDivElement);
 
-const globalData = useGlobalData();
+const sharedStitch = useSharedStitch();
 const { mousePosition, prevMousePosition, isDragMoving, isDragSelecting, selectStart, selectEnd } = useMouse();
 const { width, height, offset, scale } = useTransformation(component);
 
@@ -101,7 +100,7 @@ const { baseStitchSize, stitchSize, mouseStitchPosition, isMouseOverPattern, sti
 const canvasElement = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const graphics = computed<CanvasRenderingContext2D>(() => canvasElement.value.getContext('2d') as CanvasRenderingContext2D);
 
-const hoveredStitch = globalData.hoveredStitch;
+const hoveredStitch = sharedStitch.hoveredStitch;
 
 const canvasWidth = computed<number>(() => props.project.project.pattern.width * stitchSize.value);
 const canvasHeight = computed<number>(() => props.project.project.pattern.height * stitchSize.value);
@@ -166,17 +165,7 @@ const handleHoveredStitch = function (): void {
         return;
     }
 
-    hoveredStitch.value = {
-        x: mouseStitchPosition.value.x,
-        y: mouseStitchPosition.value.y,
-        thread: {
-            index: thread.index,
-            name: thread.name,
-            description: thread.description,
-            colour: thread.colour,
-        },
-        isDone: false,
-    };
+    hoveredStitch.value = stitch;
 };
 
 const onMouseMove = function (event: MouseEvent): void {

@@ -1,15 +1,15 @@
 <template>
     <div class="stitch-count-component">
-        <div class="thread" v-for="threadCount in threadCounts.values()" :class="{ 'is-hovered': threadCount.thread.index === hoveredStitch?.thread.index }">
+        <div class="thread" v-for="threadCount in threadCounts.values()" :class="{ 'is-hovered': threadCount.thread.index === hoveredStitch?.threadIndex }">
             <div class="thread-colour" :style="{ 'background-color': threadCount.thread.colour }"></div><small>{{ threadCount.thread.description }} <strong>({{ 0 }}/{{ threadCount.count }})</strong></small>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { useGlobalData } from '@/use/global-data/global-data.use';
+import { useSharedStitch } from '@/views/project/use/SharedStitch';
 
-import { IThread } from '@/model/thread.model';
+import { IThread } from '@/models/Pattern.model';
 import { IGetProject } from '@/models/GetProject.model';
 
 const props = defineProps<{
@@ -20,6 +20,8 @@ interface IThreadCount {
     readonly thread: IThread;
     count: number;
 }
+
+const sharedStitch = useSharedStitch();
 
 const palette = new Map<number, IThread>();
 for (const thread of props.project.threads) {
@@ -39,9 +41,7 @@ for (const stitch of props.project.stitches) {
     threadCount.count++;
 }
 
-const globalData = useGlobalData();
-
-const hoveredStitch = globalData.hoveredStitch;
+const hoveredStitch = sharedStitch.hoveredStitch;
 </script>
 
 <style lang="scss">
