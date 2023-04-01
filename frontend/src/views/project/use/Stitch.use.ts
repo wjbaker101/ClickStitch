@@ -20,8 +20,8 @@ export const useStitch = function ({ pattern, scale, mousePosition, offset, sele
         .floor());
 
     const isMouseOverPattern = computed<boolean>(() => {
-        return mouseStitchPosition.value.x > 0 &&
-            mouseStitchPosition.value.y > 0 &&
+        return mouseStitchPosition.value.x >= 0 &&
+            mouseStitchPosition.value.y >= 0 &&
             mouseStitchPosition.value.x < pattern.width &&
             mouseStitchPosition.value.y < pattern.height;
     });

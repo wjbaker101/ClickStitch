@@ -34,8 +34,8 @@
                 <div
                     class="selected-stitches"
                     :style="{
-                        'width': `${stitchSize * (stitchSelectEnd.x - stitchSelectStart.x + 1) / scale}px`,
-                        'height': `${stitchSize * (stitchSelectEnd.y - stitchSelectStart.y + 1) / scale}px`,
+                        'width': `${baseStitchSize * (stitchSelectEnd.x - stitchSelectStart.x + 1)}px`,
+                        'height': `${baseStitchSize * (stitchSelectEnd.y - stitchSelectStart.y + 1)}px`,
                         'transform': `translate(${stitchSelectStart.x * stitchSize / scale}px, ${stitchSelectStart.y * stitchSize / scale}px)`,
                     }"
                 >
@@ -57,6 +57,8 @@
             <div>mouseOverPattern: {{ isMouseOverPattern }}</div>
             <div v-if="selectStart !== null">selectStart | x {{ selectStart.x }} y: {{ selectStart.y }}</div>
             <div v-if="selectEnd !== null">selectEnd | x {{ selectEnd.x }} y: {{ selectEnd.y }}</div>
+            <div v-if="stitchSelectStart !== null">stitchSelectStart | x {{ stitchSelectStart.x }} y: {{ stitchSelectStart.y }}</div>
+            <div v-if="stitchSelectEnd !== null">stitchSelectEnd | x {{ stitchSelectEnd.x }} y: {{ stitchSelectEnd.y }}</div>
             <div></div>
         </div>
     </div>
