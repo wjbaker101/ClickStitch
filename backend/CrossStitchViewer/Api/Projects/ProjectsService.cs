@@ -58,6 +58,7 @@ public sealed class ProjectsService : IProjectsService
         return new GetProjectResponse
         {
             Project = ProjectMapper.Map(project),
+            AidaCount = pattern.AidaCount,
             Stitches = pattern.Stitches.Select(PatternMapper.MapStitch).ToList(),
             Threads = pattern.Threads.Select(PatternMapper.MapThread).ToList()
         };

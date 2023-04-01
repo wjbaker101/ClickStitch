@@ -15,6 +15,7 @@ public class PatternRecord : IDatabaseRecord
     public virtual required string? ThumbnailUrl { get; set; }
     public virtual required int ThreadCount { get; set; }
     public virtual required int StitchCount { get; set; }
+    public virtual required int AidaCount { get; set; }
     public virtual required ISet<PatternStitchRecord> Stitches { get; init; }
     public virtual required ISet<PatternThreadRecord> Threads { get; init; }
 }
@@ -35,6 +36,7 @@ public sealed class PatternRecordMap : ClassMap<PatternRecord>
         Map(x => x.ThumbnailUrl, "thumbnail_url");
         Map(x => x.ThreadCount, "thread_count");
         Map(x => x.StitchCount, "stitch_count");
+        Map(x => x.AidaCount, "aida_count");
         HasMany(x => x.Stitches).KeyColumn("pattern_id");
         HasMany(x => x.Threads).KeyColumn("pattern_id");
     }

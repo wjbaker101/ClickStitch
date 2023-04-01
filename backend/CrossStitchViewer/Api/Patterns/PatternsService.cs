@@ -63,6 +63,7 @@ public sealed class PatternsService : IPatternsService
             ThumbnailUrl = null,
             ThreadCount = json.palette.threads.Count,
             StitchCount = json.canvas.stitches.Count,
+            AidaCount = 16,
             Stitches = new HashSet<PatternStitchRecord>(),
             Threads = new HashSet<PatternThreadRecord>()
         });
