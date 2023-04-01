@@ -222,6 +222,8 @@ const onMouseMove = function (event: MouseEvent): void {
 
         offset.value = offset.value
             .translate(diff.x, diff.y)
+            .min(-canvasWidth.value + width.value * 0.333, -canvasHeight.value + height.value * 0.333)
+            .max(width.value * 0.666, height.value * 0.666)
             .floor();
     }
 
