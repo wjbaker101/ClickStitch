@@ -1,32 +1,41 @@
 <template>
-    <RouterLink class="project-component text-centered" :to="`/project/${project.pattern.reference}`">
-        <CardComponent border="top" hoverable>
-            <img :src="project.pattern.thumbnailUrl">
-            <p></p>
-            <strong>{{ project.pattern.title }}</strong>
-            <p>{{ project.pattern.width }} &times; {{ project.pattern.height }}</p>
-        </CardComponent>
-    </RouterLink>
+    <CardComponent class="project-component text-centered" border="top" hoverable @click="onClick">
+        <img :src="project.pattern.thumbnailUrl">
+        <p></p>
+        <strong>{{ project.pattern.title }}</strong>
+        <p>{{ project.pattern.width }} &times; {{ project.pattern.height }}</p>
+        <ButtonComponent class="mini" @click.stop="onDetails">
+            <IconComponent icon="info" gap="right" />
+            <span>Details</span>
+        </ButtonComponent>
+    </CardComponent>
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
+
 import { IProject } from '@/models/Project.model';
 
-defineProps<{
+const props = defineProps<{
     project: IProject;
 }>();
+
+const router = useRouter();
+
+const onClick = function (): void {
+    router.push({ path: `/project/${props.project.pattern.reference}` });
+};
+
+const onDetails = function (): void {};
 </script>
 
 <style lang="scss">
 @use '@/style/variables' as *;
 
 .project-component {
+    padding: 1rem;
     color: inherit;
     text-decoration: inherit;
-
-    .card-component {
-        padding: 1rem;
-    }
 
     img {
         border-radius: var(--wjb-border-radius);
