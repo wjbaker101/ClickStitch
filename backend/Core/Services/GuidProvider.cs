@@ -1,11 +1,11 @@
 ﻿namespace Core.Services;
 
-public interface IGuidService
+public interface IGuid
 {
     Guid NewGuid();
 }
 
-public sealed class GuidService : IGuidService
+public sealed class GuidProvider : IGuid
 {
     public Guid NewGuid() => Guid.NewGuid();
 }

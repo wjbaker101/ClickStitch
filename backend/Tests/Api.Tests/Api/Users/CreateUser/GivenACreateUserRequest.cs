@@ -28,8 +28,8 @@ public sealed class GivenACreateUserRequest
         var subject = new UsersService(
             _userRepository.Object,
             new PasswordService(),
-            FakeGuidService.With(Guid.Parse("55993eb0-9824-4dbf-a674-1f5a09205287")),
-            FakeDateTimeService.With(new DateTime(2023, 04, 27, 18, 22, 58)));
+            FakeGuid.With(Guid.Parse("55993eb0-9824-4dbf-a674-1f5a09205287")),
+            FakeDateTime.With(new DateTime(2023, 04, 27, 18, 22, 58)));
 
         _result = await subject.CreateUser(new CreateUserRequest
         {

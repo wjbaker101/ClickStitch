@@ -41,8 +41,8 @@ public sealed class GivenADeleteUserRequest
         var subject = new UsersService(
             _userRepository.Object,
             new PasswordService(),
-            FakeGuidService.Default(),
-            FakeDateTimeService.Default());
+            FakeGuid.Default(),
+            FakeDateTime.Default());
         
         _result = await subject.DeleteUser(new TestUserModel(), Guid.Parse("5f69355e-7498-4620-bd6f-cf3968fb37a4"));
     }

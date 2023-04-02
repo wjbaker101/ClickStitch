@@ -6,6 +6,7 @@ using Core.Services;
 using Core.Types;
 using Data.Records;
 using Data.Repositories.User;
+using Guid = System.Guid;
 
 namespace ClickStitch.Api.Users;
 
@@ -21,15 +22,15 @@ public sealed class UsersService : IUsersService
 {
     private readonly IUserRepository _userRepository;
     private readonly IPasswordService _passwordService;
-    private readonly IGuidService _guidService;
-    private readonly IDateTimeService _dateTimeService;
+    private readonly IGuid _guid;
+    private readonly IDateTime _dateTime;
 
-    public UsersService(IUserRepository userRepository, IPasswordService passwordService, IGuidService guidService, IDateTimeService dateTimeService)
+    public UsersService(IUserRepository userRepository, IPasswordService passwordService, IGuid guid, IDateTime dateTime)
     {
         _userRepository = userRepository;
         _passwordService = passwordService;
-        _guidService = guidService;
-        _dateTimeService = dateTimeService;
+        _guid = guid;
+        _dateTime = dateTime;
     }
 
     public async Task<Result<GetSelfResponse>> GetSelf(UserModel requestUser)
@@ -54,13 +55,13 @@ public sealed class UsersService : IUsersService
         if (byUsernameResult.IsSuccess)
             return Result<CreateUserResponse>.Failure("Cannot use that username, an existing user already has it. Please try again with a different username.");
 
-        var passwordSalt = _guidService.NewGuid();
+        var passwordSalt = _guid.NewGuid();
         var password = _passwordService.Hash(request.Password, passwordSalt);
 
         var user = await _userRepository.SaveAsync(new UserRecord
         {
-            Reference = _guidService.NewGuid(),
-            CreatedAt = _dateTimeService.UtcNow(),
+            Reference = _guid.NewGuid(),
+            CreatedAt = _dateTime.UtcNow(),
             Email = request.Email,
             Username = request.Username,
             Password = password,

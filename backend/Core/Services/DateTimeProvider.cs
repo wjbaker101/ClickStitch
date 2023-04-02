@@ -1,11 +1,11 @@
 ﻿namespace Core.Services;
 
-public interface IDateTimeService
+public interface IDateTime
 {
     DateTime UtcNow();
 }
 
-public sealed class DateTimeService : IDateTimeService
+public sealed class DateTimeProvider : IDateTime
 {
     public DateTime UtcNow() => DateTime.UtcNow;
 }

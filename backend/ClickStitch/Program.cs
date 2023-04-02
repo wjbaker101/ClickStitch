@@ -18,8 +18,8 @@ var services = builder.Services;
 SetupSettings();
 services.AddSingleton(builder.Configuration.Get<AppSecrets>()!);
 
-services.AddSingleton<IDateTimeService, DateTimeService>();
-services.AddSingleton<IGuidService, GuidService>();
+services.AddSingleton<IDateTime, DateTimeProvider>();
+services.AddSingleton<IGuid, GuidProvider>();
 
 services.AddSingleton<IDatabase, Database>();
 services.AddSingleton<IBasketRepository, BasketRepository>();
