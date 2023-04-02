@@ -3,16 +3,19 @@ using CrossStitchViewer.Api.Patterns.Types;
 using CrossStitchViewer.Clients.Cloudinary;
 using CrossStitchViewer.Clients.Cloudinary.Types;
 using CrossStitchViewer.Mappers;
+using CrossStitchViewer.Models;
 using Data.Records;
 using Data.Repositories.Pattern;
 using Data.Repositories.Pattern.Types;
+using Data.Repositories.User;
+using Data.Repositories.UserPattern;
 using System.Text.Json;
 
 namespace CrossStitchViewer.Api.Patterns;
 
 public interface IPatternsService
 {
-    Result<GetPatternsResponse> GetPatterns();
+    Result<GetPatternsResponse> GetPatterns(UserModel requestUser);
     Result CreatePattern();
     Result UpdatePatternImage(Guid patternReference, UpdatePatternImageRequest request);
 }
@@ -23,22 +26,37 @@ public sealed class PatternsService : IPatternsService
     private readonly IPatternStitchRepository _patternStitchRepository;
     private readonly IPatternThreadRepository _patternThreadRepository;
     private readonly ICloudinaryClient _cloudinary;
+    private readonly IUserRepository _userRepository;
+    private readonly IUserPatternRepository _userPatternRepository;
 
     public PatternsService(
         IPatternRepository patternRepository,
         IPatternStitchRepository patternStitchRepository,
         IPatternThreadRepository patternThreadRepository,
-        ICloudinaryClient cloudinary)
+        ICloudinaryClient cloudinary,
+        IUserRepository userRepository,
+        IUserPatternRepository userPatternRepository)
     {
         _patternRepository = patternRepository;
         _patternStitchRepository = patternStitchRepository;
         _patternThreadRepository = patternThreadRepository;
         _cloudinary = cloudinary;
+        _userRepository = userRepository;
+        _userPatternRepository = userPatternRepository;
     }
 
-    public Result<GetPatternsResponse> GetPatterns()
+    public Result<GetPatternsResponse> GetPatterns(UserModel requestUser)
     {
-        var patterns = _patternRepository.Search(new SearchPatternsParameters());
+        var userResult = _userRepository.GetByReference(requestUser.Reference);
+        if (!userResult.TrySuccess(out var user))
+            return Result<GetPatternsResponse>.FromFailure(userResult);
+
+        var projects = _userPatternRepository.GetByUser(user);
+
+        var patterns = _patternRepository.Search(new SearchPatternsParameters
+        {
+            PatternFilter = projects.Select(x => x.Pattern).ToList()
+        });
 
         return new GetPatternsResponse
         {

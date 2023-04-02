@@ -1,5 +1,6 @@
 ﻿using CrossStitchViewer.Api.Auth.Attributes;
 using CrossStitchViewer.Api.Patterns.Types;
+using CrossStitchViewer.Helper;
 using CrossStitchViewer.Types;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +21,9 @@ public sealed class PatternsController : ApiController
     [Authorisation]
     public IActionResult SearchPatterns()
     {
-        var result = _patternsService.GetPatterns();
+        var user = RequestHelper.GetUser(Request);
+
+        var result = _patternsService.GetPatterns(user);
         
         return ToApiResponse(result);
     }

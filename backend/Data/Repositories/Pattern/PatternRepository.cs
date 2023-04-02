@@ -25,6 +25,7 @@ public sealed class PatternRepository : Repository<PatternRecord>, IPatternRepos
 
         var patterns = session
             .Query<PatternRecord>()
+            .Where(x => !parameters.PatternFilter.Contains(x))
             .ToList();
 
         transaction.Commit();
