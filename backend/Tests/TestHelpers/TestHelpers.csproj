@@ -7,7 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\CrossStitchViewer\CrossStitchViewer.csproj" />
+		<ProjectReference Include="..\..\ClickStitch\ClickStitch.csproj" />
 		<ProjectReference Include="..\..\Data\Data.csproj" />
 	</ItemGroup>
 

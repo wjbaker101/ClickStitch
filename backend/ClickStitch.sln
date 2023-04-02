@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossStitchViewer", "CrossStitchViewer\CrossStitchViewer.csproj", "{EA282D00-9248-4590-BEF8-A9D2309720E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClickStitch", "ClickStitch\ClickStitch.csproj", "{EA282D00-9248-4590-BEF8-A9D2309720E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{CC04F4F1-8021-425F-8C72-CCE47D9A20A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{CC04F4F1-8021-425F-8C72-CCE47D9A20A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Records", "Data.Records\Data.Records.csproj", "{BCBBC3B1-4915-4714-844C-E4AB65908D61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Records", "Data.Records\Data.Records.csproj", "{BCBBC3B1-4915-4714-844C-E4AB65908D61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{CCE714E2-DB0F-4B40-B8B8-839C632DCD4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{CCE714E2-DB0F-4B40-B8B8-839C632DCD4B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{06DE5996-2410-4CD3-8BEE-4DA6ABBB235F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Tests", "Tests\Api.Tests\Api.Tests.csproj", "{5275DB6E-FF65-49A9-ACEB-A1A31729A3C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.Tests", "Tests\Api.Tests\Api.Tests.csproj", "{5275DB6E-FF65-49A9-ACEB-A1A31729A3C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHelpers", "Tests\TestHelpers\TestHelpers.csproj", "{D43B3426-14DF-4266-AD60-08B930215571}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestHelpers", "Tests\TestHelpers\TestHelpers.csproj", "{D43B3426-14DF-4266-AD60-08B930215571}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
