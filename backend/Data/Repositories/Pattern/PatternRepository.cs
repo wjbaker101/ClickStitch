@@ -65,8 +65,9 @@ public sealed class PatternRepository : Repository<PatternRecord>, IPatternRepos
             .FetchMany(x => x.Threads)
             .ToFuture();
 
-        var pattern = await query
-            .SingleOrDefaultAsync();
+        var pattern = query
+            .ToFuture()
+            .SingleOrDefault();
 
         if (pattern == null)
             return Result<PatternRecord>.Failure($"Unable to find pattern with reference: '{patternReference}'.");
