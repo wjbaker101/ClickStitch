@@ -46,6 +46,10 @@ public sealed class UsersService : IUsersService
 
     public async Task<Result<CreateUserResponse>> CreateUser(CreateUserRequest request)
     {
+        var isValidResult = _passwordService.IsValid(request.Password);
+        if (isValidResult.IsFailure)
+            return Result<CreateUserResponse>.FromFailure(isValidResult);
+
         var byEmailResult = await _userRepository.GetByEmailAsync(request.Email);
         if (byEmailResult.IsSuccess)
             return Result<CreateUserResponse>.Failure("Cannot use that email, an existing user already has it. Please try again with a different email.");
