@@ -1,6 +1,5 @@
 ﻿using Core.Types;
 using Data.Records;
-using NHibernate.Linq;
 
 namespace Data.Repositories.User;
 
@@ -8,7 +7,6 @@ public interface IUserRepository : IRepository<UserRecord>
 {
     Result<UserRecord> GetByReference(Guid userReference);
     Result<UserRecord> GetByUsername(string username);
-    List<PatternRecord> GetProjectsByUser(UserRecord user);
 }
 
 public sealed class UserRepository : Repository<UserRecord>, IUserRepository
@@ -49,22 +47,5 @@ public sealed class UserRepository : Repository<UserRecord>, IUserRepository
         transaction.Commit();
 
         return user;
-    }
-
-    public List<PatternRecord> GetProjectsByUser(UserRecord user)
-    {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
-
-        var patterns = session
-            .Query<UserRecord>()
-            .FetchMany(x => x.Patterns)
-            .Where(x => x == user)
-            .SelectMany(x => x.Patterns)
-            .ToList();
-
-        transaction.Commit();
-
-        return patterns;
     }
 }
