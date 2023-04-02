@@ -12,10 +12,10 @@ namespace CrossStitchViewer.Api.Basket;
 
 public interface IBasketService
 {
-    Result<GetBasketResponse> GetBasket(UserModel requestUser);
-    Result<AddToBasketResponse> AddToBasket(UserModel requestUser, Guid patternReference);
-    Result<RemoveFromBasketResponse> RemoveFromBasket(UserModel requestUser, Guid patternReference);
-    Result<CompleteBasketResponse> CompleteBasket(UserModel requestUser);
+    Task<Result<GetBasketResponse>> GetBasket(UserModel requestUser);
+    Task<Result<AddToBasketResponse>> AddToBasket(UserModel requestUser, Guid patternReference);
+    Task<Result<RemoveFromBasketResponse>> RemoveFromBasket(UserModel requestUser, Guid patternReference);
+    Task<Result<CompleteBasketResponse>> CompleteBasket(UserModel requestUser);
 }
 
 public sealed class BasketService : IBasketService
@@ -37,13 +37,13 @@ public sealed class BasketService : IBasketService
         _userPatternRepository = userPatternRepository;
     }
 
-    public Result<GetBasketResponse> GetBasket(UserModel requestUser)
+    public async Task<Result<GetBasketResponse>> GetBasket(UserModel requestUser)
     {
-        var userResult = _userRepository.GetByReference(requestUser.Reference);
+        var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
         if (!userResult.TrySuccess(out var user))
             return Result<GetBasketResponse>.FromFailure(userResult);
 
-        var basketItems = _basketRepository.GetByUser(user);
+        var basketItems = await _basketRepository.GetByUserAsync(user);
 
         var totalPrice = basketItems.Sum(x => x.Pattern.Price);
 
@@ -53,18 +53,18 @@ public sealed class BasketService : IBasketService
         };
     }
 
-    public Result<AddToBasketResponse> AddToBasket(UserModel requestUser, Guid patternReference)
+    public async Task<Result<AddToBasketResponse>> AddToBasket(UserModel requestUser, Guid patternReference)
     {
-        var userResult = _userRepository.GetByReference(requestUser.Reference);
+        var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
         if (!userResult.TrySuccess(out var user))
             return Result<AddToBasketResponse>.FromFailure(userResult);
 
-        var basketItems = _basketRepository.GetByUser(user);
+        var basketItems = await _basketRepository.GetByUserAsync(user);
 
         if (basketItems.Any(x => x.Pattern.Reference == patternReference))
             return Result<AddToBasketResponse>.Failure("Cannot add pattern to basket, you already have it!");
 
-        var patternResult = _patternRepository.GetByReference(patternReference);
+        var patternResult = await _patternRepository.GetByReferenceAsync(patternReference);
         if (!patternResult.TrySuccess(out var pattern))
             return Result<AddToBasketResponse>.FromFailure(patternResult);
 
@@ -78,13 +78,13 @@ public sealed class BasketService : IBasketService
         return new AddToBasketResponse();
     }
 
-    public Result<RemoveFromBasketResponse> RemoveFromBasket(UserModel requestUser, Guid patternReference)
+    public async Task<Result<RemoveFromBasketResponse>> RemoveFromBasket(UserModel requestUser, Guid patternReference)
     {
-        var userResult = _userRepository.GetByReference(requestUser.Reference);
+        var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
         if (!userResult.TrySuccess(out var user))
             return Result<RemoveFromBasketResponse>.FromFailure(userResult);
 
-        var basketItems = _basketRepository.GetByUser(user);
+        var basketItems = await _basketRepository.GetByUserAsync(user);
 
         var basketItemToRemove = basketItems.SingleOrDefault(x => x.Pattern.Reference == patternReference);
         if (basketItemToRemove == null)
@@ -95,13 +95,13 @@ public sealed class BasketService : IBasketService
         return new RemoveFromBasketResponse();
     }
 
-    public Result<CompleteBasketResponse> CompleteBasket(UserModel requestUser)
+    public async Task<Result<CompleteBasketResponse>> CompleteBasket(UserModel requestUser)
     {
-        var userResult = _userRepository.GetByReference(requestUser.Reference);
+        var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
         if (!userResult.TrySuccess(out var user))
             return Result<CompleteBasketResponse>.FromFailure(userResult);
 
-        var basketItems = _basketRepository.GetByUser(user);
+        var basketItems = await _basketRepository.GetByUserAsync(user);
 
         _userPatternRepository.SaveMany(basketItems.ConvertAll(x => new UserPatternRecord
         {

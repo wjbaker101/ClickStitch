@@ -15,9 +15,9 @@ namespace CrossStitchViewer.Api.Patterns;
 
 public interface IPatternsService
 {
-    Result<GetPatternsResponse> GetPatterns(UserModel requestUser);
-    Result CreatePattern();
-    Result UpdatePatternImage(Guid patternReference, UpdatePatternImageRequest request);
+    Task<Result<GetPatternsResponse>> GetPatterns(UserModel requestUser);
+    Task<Result> CreatePattern();
+    Task<Result> UpdatePatternImage(Guid patternReference, UpdatePatternImageRequest request);
 }
 
 public sealed class PatternsService : IPatternsService
@@ -45,15 +45,15 @@ public sealed class PatternsService : IPatternsService
         _userPatternRepository = userPatternRepository;
     }
 
-    public Result<GetPatternsResponse> GetPatterns(UserModel requestUser)
+    public async Task<Result<GetPatternsResponse>> GetPatterns(UserModel requestUser)
     {
-        var userResult = _userRepository.GetByReference(requestUser.Reference);
+        var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
         if (!userResult.TrySuccess(out var user))
             return Result<GetPatternsResponse>.FromFailure(userResult);
 
-        var projects = _userPatternRepository.GetByUser(user);
+        var projects = await _userPatternRepository.GetByUserAsync(user);
 
-        var patterns = _patternRepository.Search(new SearchPatternsParameters
+        var patterns = await _patternRepository.SearchAsync(new SearchPatternsParameters
         {
             PatternFilter = projects.Select(x => x.Pattern).ToList()
         });
@@ -64,7 +64,7 @@ public sealed class PatternsService : IPatternsService
         };
     }
 
-    public Result CreatePattern()
+    public async Task<Result> CreatePattern()
     {
         var data = PatternData.GET;
 
@@ -106,9 +106,9 @@ public sealed class PatternsService : IPatternsService
         return Result.Success();
     }
 
-    public Result UpdatePatternImage(Guid patternReference, UpdatePatternImageRequest request)
+    public async Task<Result> UpdatePatternImage(Guid patternReference, UpdatePatternImageRequest request)
     {
-        var patternResult = _patternRepository.GetByReference(patternReference);
+        var patternResult = await _patternRepository.GetByReferenceAsync(patternReference);
         if (!patternResult.TrySuccess(out var pattern))
             return Result.FromFailure(patternResult);
 

@@ -19,29 +19,29 @@ public sealed class PatternsController : ApiController
     [HttpGet]
     [Route("")]
     [Authorisation]
-    public IActionResult SearchPatterns()
+    public async Task<IActionResult> SearchPatterns()
     {
         var user = RequestHelper.GetUser(Request);
 
-        var result = _patternsService.GetPatterns(user);
+        var result = await _patternsService.GetPatterns(user);
         
         return ToApiResponse(result);
     }
 
     [HttpPost]
     [Route("")]
-    public IActionResult CreatePattern()
+    public async Task<IActionResult> CreatePattern()
     {
-        var result = _patternsService.CreatePattern();
+        var result = await _patternsService.CreatePattern();
         
         return ToApiResponse(result);
     }
 
     [HttpPatch]
     [Route("{patternReference:guid}/image")]
-    public IActionResult UpdatePatternImage([FromRoute] Guid patternReference, UpdatePatternImageRequest request)
+    public async Task<IActionResult> UpdatePatternImage([FromRoute] Guid patternReference, UpdatePatternImageRequest request)
     {
-        var result = _patternsService.UpdatePatternImage(patternReference, request);
+        var result = await _patternsService.UpdatePatternImage(patternReference, request);
         
         return ToApiResponse(result);
     }

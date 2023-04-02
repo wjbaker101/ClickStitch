@@ -18,11 +18,11 @@ public sealed class BasketController : ApiController
     [HttpGet]
     [Route("")]
     [Authorisation]
-    public IActionResult GetBasket()
+    public async Task<IActionResult> GetBasket()
     {
         var user = RequestHelper.GetUser(Request);
 
-        var result = _basketService.GetBasket(user);
+        var result = await _basketService.GetBasket(user);
 
         return ToApiResponse(result);
     }
@@ -30,11 +30,11 @@ public sealed class BasketController : ApiController
     [HttpPost]
     [Route("item/{patternReference:guid}")]
     [Authorisation]
-    public IActionResult AddToBasket([FromRoute] Guid patternReference)
+    public async Task<IActionResult> AddToBasket([FromRoute] Guid patternReference)
     {
         var user = RequestHelper.GetUser(Request);
 
-        var result = _basketService.AddToBasket(user, patternReference);
+        var result = await _basketService.AddToBasket(user, patternReference);
 
         return ToApiResponse(result);
     }
@@ -42,11 +42,11 @@ public sealed class BasketController : ApiController
     [HttpDelete]
     [Route("item/{patternReference:guid}")]
     [Authorisation]
-    public IActionResult RemoveFromBasket([FromRoute] Guid patternReference)
+    public async Task<IActionResult> RemoveFromBasket([FromRoute] Guid patternReference)
     {
         var user = RequestHelper.GetUser(Request);
 
-        var result = _basketService.RemoveFromBasket(user, patternReference);
+        var result = await _basketService.RemoveFromBasket(user, patternReference);
 
         return ToApiResponse(result);
     }
@@ -54,11 +54,11 @@ public sealed class BasketController : ApiController
     [HttpPost]
     [Route("complete")]
     [Authorisation]
-    public IActionResult CompleteBasket()
+    public async Task<IActionResult> CompleteBasket()
     {
         var user = RequestHelper.GetUser(Request);
 
-        var result = _basketService.CompleteBasket(user);
+        var result = await _basketService.CompleteBasket(user);
 
         return ToApiResponse(result);
     }
