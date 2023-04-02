@@ -29,7 +29,7 @@ import { api } from '@/api/api';
 
 import { IProject } from '@/models/Project.model';
 
-const projects = ref<Array<IProject> | null>([]);
+const projects = ref<Array<IProject> | null>(null);
 
 onMounted(async () => {
     const result = await api.projects.getAll();
