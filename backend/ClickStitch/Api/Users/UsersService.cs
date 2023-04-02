@@ -58,7 +58,7 @@ public sealed class UsersService : IUsersService
         if (byUsernameResult.IsSuccess)
             return Result<CreateUserResponse>.Failure("Cannot use that username, an existing user already has it. Please try again with a different username.");
 
-        var passwordSalt = _guid.NewGuid();
+        var passwordSalt = _guid.NewGuid().ToString();
         var password = _passwordService.Hash(request.Password, passwordSalt);
 
         var user = await _userRepository.SaveAsync(new UserRecord
@@ -68,7 +68,7 @@ public sealed class UsersService : IUsersService
             Email = request.Email,
             Username = request.Username,
             Password = password,
-            PasswordSalt = passwordSalt.ToString()
+            PasswordSalt = passwordSalt
         });
 
         return new CreateUserResponse

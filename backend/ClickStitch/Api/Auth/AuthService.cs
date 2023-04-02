@@ -13,23 +13,27 @@ public interface IAuthService
 public sealed class AuthService : IAuthService
 {
     private readonly IUserRepository _userRepository;
+    private readonly IPasswordService _passwordService;
     private readonly ILoginTokenService _loginTokenService;
 
-    public AuthService(IUserRepository userRepository, ILoginTokenService loginTokenService)
+    public AuthService(IUserRepository userRepository, IPasswordService passwordService, ILoginTokenService loginTokenService)
     {
         _userRepository = userRepository;
+        _passwordService = passwordService;
         _loginTokenService = loginTokenService;
     }
 
     public async Task<Result<LogInResponse>> LogIn(LogInRequest request)
     {
         var userResult = await _userRepository.GetByUsernameAsync(request.Username);
-        if (userResult.IsFailure)
+        if (!userResult.TrySuccess(out var user))
             return Result<LogInResponse>.FromFailure(userResult);
 
-        var user = UserMapper.Map(userResult.Content);
+        var isMatch = _passwordService.IsMatch(user.Password, request.Password, user.PasswordSalt);
+        if (!isMatch)
+            return Result<LogInResponse>.Failure("The given password was incorrect, please try again.");
 
-        var loginToken = _loginTokenService.Create(user);
+        var loginToken = _loginTokenService.Create(UserMapper.Map(user));
 
         return new LogInResponse
         {
