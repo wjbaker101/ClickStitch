@@ -5,6 +5,7 @@ using Core.Types;
 using Data.Repositories.Pattern;
 using Data.Repositories.User;
 using Data.Repositories.UserPattern;
+using Data.Repositories.UserPatternStitch;
 
 namespace ClickStitch.Api.Projects;
 
@@ -19,12 +20,18 @@ public sealed class ProjectsService : IProjectsService
     private readonly IUserRepository _userRepository;
     private readonly IUserPatternRepository _userPatternRepository;
     private readonly IPatternRepository _patternRepository;
+    private readonly IUserPatternStitchRepository _userPatternStitchRepository;
 
-    public ProjectsService(IUserRepository userRepository, IUserPatternRepository userPatternRepository, IPatternRepository patternRepository)
+    public ProjectsService(
+        IUserRepository userRepository,
+        IUserPatternRepository userPatternRepository,
+        IPatternRepository patternRepository,
+        IUserPatternStitchRepository userPatternStitchRepository)
     {
         _userRepository = userRepository;
         _userPatternRepository = userPatternRepository;
         _patternRepository = patternRepository;
+        _userPatternStitchRepository = userPatternStitchRepository;
     }
 
     public async Task<Result<GetProjectsResponse>> GetProjects(UserModel requestUser)
@@ -55,11 +62,13 @@ public sealed class ProjectsService : IProjectsService
         if (!projectResult.TrySuccess(out var project))
             return Result<GetProjectResponse>.FromFailure(projectResult);
 
+        var stitches = await _userPatternStitchRepository.GetByUserPattern(project);
+
         return new GetProjectResponse
         {
             Project = ProjectMapper.Map(project),
             AidaCount = pattern.AidaCount,
-            Stitches = pattern.Stitches.Select(PatternMapper.MapStitch).ToList(),
+            Stitches = stitches.Select(PatternMapper.MapStitch).ToList(),
             Threads = pattern.Threads.Select(PatternMapper.MapThread).ToList()
         };
     }

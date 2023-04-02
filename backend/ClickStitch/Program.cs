@@ -11,6 +11,7 @@ using Data.Repositories.Basket;
 using Data.Repositories.Pattern;
 using Data.Repositories.User;
 using Data.Repositories.UserPattern;
+using Data.Repositories.UserPatternStitch;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -28,6 +29,7 @@ services.AddSingleton<IPatternStitchRepository, PatternStitchRepository>();
 services.AddSingleton<IPatternThreadRepository, PatternThreadRepository>();
 services.AddSingleton<IUserRepository, UserRepository>();
 services.AddSingleton<IUserPatternRepository, UserPatternRepository>();
+services.AddSingleton<IUserPatternStitchRepository, UserPatternStitchRepository>();
 
 services.AddSingleton<ICloudinaryClient, CloudinaryClient>();
 

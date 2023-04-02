@@ -59,9 +59,6 @@ public sealed class PatternRepository : Repository<PatternRecord>, IPatternRepos
             .Query<PatternRecord>()
             .Where(x => x.Reference == patternReference);
         query
-            .FetchMany(x => x.Stitches)
-            .ToFuture();
-        query
             .FetchMany(x => x.Threads)
             .ToFuture();
 
