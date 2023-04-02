@@ -9,7 +9,7 @@ public class UserPatternStitchRecord : IDatabaseRecord
     public virtual required Guid Reference { get; init; }
     public virtual required long UserPattern { get; init; }
     public virtual required PatternStitchRecord PatternStitch { get; init; }
-    public virtual required DateTime? StitchedAt { get; init; }
+    public virtual required DateTime? StitchedAt { get; set; }
 }
 
 public sealed class UserPatternStitchRecordMap : ClassMap<UserPatternStitchRecord>

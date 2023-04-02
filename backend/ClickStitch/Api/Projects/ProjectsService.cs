@@ -13,6 +13,7 @@ public interface IProjectsService
 {
     Task<Result<GetProjectsResponse>> GetProjects(UserModel requestUser);
     Task<Result<GetProjectResponse>> GetProject(UserModel requestUser, Guid patternReference);
+    Task<Result> MarkStitchesAsDone(MarkStitchesAsDoneRequest request);
 }
 
 public sealed class ProjectsService : IProjectsService
@@ -71,5 +72,19 @@ public sealed class ProjectsService : IProjectsService
             Stitches = stitches.Select(PatternMapper.MapStitch).ToList(),
             Threads = pattern.Threads.Select(PatternMapper.MapThread).ToList()
         };
+    }
+
+    public async Task<Result> MarkStitchesAsDone(MarkStitchesAsDoneRequest request)
+    {
+        var userStitchResult = await _userPatternStitchRepository.GetManyByReference(request.References);
+        if (!userStitchResult.TrySuccess(out var userStitches))
+            return Result<GetProjectResponse>.FromFailure(userStitchResult);
+
+        foreach (var userStitch in userStitches)
+            userStitch.StitchedAt = DateTime.UtcNow;
+
+        await _userPatternStitchRepository.UpdateManyAsync(userStitches);
+
+        return Result.Success();
     }
 }
