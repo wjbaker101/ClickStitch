@@ -1,6 +1,6 @@
 <template>
     <div class="stitch-count-component">
-        <div class="thread" v-for="threadCount in threadCounts.values()" :class="{ 'is-hovered': threadCount.thread.index === hoveredStitch?.threadIndex }">
+        <div class="thread" v-for="threadCount in sortedThreadCounts" :class="{ 'is-hovered': threadCount.thread.index === hoveredStitch?.threadIndex }">
             <div class="thread-colour" :style="{ 'background-color': threadCount.thread.colour }"></div><small>{{ threadCount.thread.description }} <strong>({{ 0 }}/{{ threadCount.count }})</strong></small>
         </div>
     </div>
@@ -29,6 +29,7 @@ for (const thread of props.project.threads) {
 }
 
 const threadCounts = new Map<number, IThreadCount>();
+
 for (const stitch of props.project.stitches) {
     if (!threadCounts.has(stitch.threadIndex)) {
         threadCounts.set(stitch.threadIndex, {
@@ -40,6 +41,8 @@ for (const stitch of props.project.stitches) {
     const threadCount = threadCounts.get(stitch.threadIndex) as IThreadCount;
     threadCount.count++;
 }
+
+const sortedThreadCounts = Array.from(threadCounts.values()).sort((a, b) => b.count - a.count);
 
 const hoveredStitch = sharedStitch.hoveredStitch;
 </script>
