@@ -8,12 +8,12 @@ namespace CrossStitchViewer.Clients.Cloudinary;
 
 public interface ICloudinaryClient
 {
-    Result<UploadImageResponse> UploadImage(UploadImageRequest request);
+    Task<Result<UploadImageResponse>> UploadImageAsync(UploadImageRequest request);
 }
 
 public sealed class CloudinaryClient : ICloudinaryClient
 {
-    private CloudinaryDotNet.Cloudinary _client;
+    private readonly CloudinaryDotNet.Cloudinary _client;
 
     public CloudinaryClient(AppSecrets secrets)
     {
@@ -22,9 +22,9 @@ public sealed class CloudinaryClient : ICloudinaryClient
         _client = new CloudinaryDotNet.Cloudinary(new Account(cloudinary.CloudName, cloudinary.ApiKey, cloudinary.ApiSecret));
     }
 
-    public Result<UploadImageResponse> UploadImage(UploadImageRequest request)
+    public async Task<Result<UploadImageResponse>> UploadImageAsync(UploadImageRequest request)
     {
-        var response = _client.Upload(new ImageUploadParams
+        var response = await _client.UploadAsync(new ImageUploadParams
         {
             File = new FileDescription(request.FileName, request.FileContents),
             PublicId = request.FileName

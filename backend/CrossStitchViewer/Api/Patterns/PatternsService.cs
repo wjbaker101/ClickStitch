@@ -112,7 +112,7 @@ public sealed class PatternsService : IPatternsService
         if (!patternResult.TrySuccess(out var pattern))
             return Result.FromFailure(patternResult);
 
-        var uploadResult = _cloudinary.UploadImage(new UploadImageRequest
+        var uploadResult = await _cloudinary.UploadImageAsync(new UploadImageRequest
         {
             FileName = request.FileName,
             FileContents = request.File.OpenReadStream()
