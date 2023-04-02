@@ -4,6 +4,7 @@
         class="canvas-component"
         :class="{
             'is-drag-moving': isDragMoving,
+            'is-drag-selecting': isDragSelecting,
         }"
         @click="onClick"
         @mousedown="onMouseDown"
@@ -273,6 +274,12 @@ const onMouseWheel = function (event: WheelEvent): void {
 
     &.is-drag-moving {
         .canvas-wrapper {
+            transition: transform 0s;
+        }
+    }
+
+    &.is-drag-selecting {
+        .selected-stitches-wrapper .selected-stitches {
             transition: transform 0s;
         }
     }
