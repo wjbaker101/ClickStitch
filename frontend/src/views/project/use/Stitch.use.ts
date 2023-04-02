@@ -48,7 +48,7 @@ export const useStitch = function ({ pattern, scale, mousePosition, offset, sele
         return Position
             .at(x, y)
             .min(0, 0)
-            .max(pattern.width, pattern.height);
+            .max(pattern.width - 1, pattern.height - 1);
     });
 
     return {
