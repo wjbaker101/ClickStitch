@@ -1,4 +1,4 @@
-﻿namespace CrossStitchViewer.Api.Patterns;
+﻿namespace ClickStitch.Api.Patterns;
 
 public sealed class PatternDataDto
 {

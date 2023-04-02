@@ -1,7 +1,6 @@
-﻿using CrossStitchViewer.Models;
-using Data.Records;
+﻿using Data.Records;
 
-namespace CrossStitchViewer.Models.Mappers;
+namespace ClickStitch.Models.Mappers;
 
 public static class ProjectMapper
 {

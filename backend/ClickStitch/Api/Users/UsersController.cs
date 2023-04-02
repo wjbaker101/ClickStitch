@@ -1,10 +1,10 @@
-﻿using CrossStitchViewer.Api.Auth.Attributes;
-using CrossStitchViewer.Api.Users.Types;
-using CrossStitchViewer.Helper;
-using CrossStitchViewer.Types;
+﻿using ClickStitch.Api.Auth.Attributes;
+using ClickStitch.Api.Users.Types;
+using ClickStitch.Helper;
+using ClickStitch.Types;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CrossStitchViewer.Api.Users;
+namespace ClickStitch.Api.Users;
 
 [Route("api/users")]
 public sealed class UsersController : ApiController

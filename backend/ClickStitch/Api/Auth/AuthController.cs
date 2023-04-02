@@ -1,8 +1,8 @@
-﻿using CrossStitchViewer.Api.Auth.Types;
-using CrossStitchViewer.Types;
+﻿using ClickStitch.Api.Auth.Types;
+using ClickStitch.Types;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CrossStitchViewer.Api.Auth;
+namespace ClickStitch.Api.Auth;
 
 [Route("api/auth")]
 public sealed class AuthController : ApiController

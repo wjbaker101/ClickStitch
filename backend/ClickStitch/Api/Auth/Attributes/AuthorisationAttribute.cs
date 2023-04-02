@@ -1,9 +1,9 @@
-﻿using CrossStitchViewer.Models.Mappers;
+﻿using ClickStitch.Models.Mappers;
 using Data.Repositories.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace CrossStitchViewer.Api.Auth.Attributes;
+namespace ClickStitch.Api.Auth.Attributes;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 public sealed class AuthorisationAttribute : Attribute, IAsyncAuthorizationFilter

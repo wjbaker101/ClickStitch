@@ -1,6 +1,6 @@
-﻿using CrossStitchViewer.Models;
+﻿using ClickStitch.Models;
 
-namespace CrossStitchViewer.Helper;
+namespace ClickStitch.Helper;
 
 public static class RequestHelper
 {

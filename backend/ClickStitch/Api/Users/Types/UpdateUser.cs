@@ -1,6 +1,6 @@
-﻿using CrossStitchViewer.Models;
+﻿using ClickStitch.Models;
 
-namespace CrossStitchViewer.Api.Users.Types;
+namespace ClickStitch.Api.Users.Types;
 
 public sealed class UpdateUserRequest
 {

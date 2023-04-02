@@ -1,4 +1,4 @@
-﻿using CrossStitchViewer.Models;
+﻿using ClickStitch.Models;
 
 namespace TestHelpers.Models;
 

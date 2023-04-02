@@ -1,6 +1,6 @@
-﻿using CrossStitchViewer.Models;
+﻿using ClickStitch.Models;
 
-namespace CrossStitchViewer.Api.Projects.Types;
+namespace ClickStitch.Api.Projects.Types;
 
 public sealed class GetProjectResponse
 {

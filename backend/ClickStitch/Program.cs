@@ -1,11 +1,11 @@
+using ClickStitch.Api.Auth;
+using ClickStitch.Api.Basket;
+using ClickStitch.Api.Patterns;
+using ClickStitch.Api.Projects;
+using ClickStitch.Api.Users;
+using ClickStitch.Clients.Cloudinary;
 using Core.Services;
 using Core.Settings;
-using CrossStitchViewer.Api.Auth;
-using CrossStitchViewer.Api.Basket;
-using CrossStitchViewer.Api.Patterns;
-using CrossStitchViewer.Api.Projects;
-using CrossStitchViewer.Api.Users;
-using CrossStitchViewer.Clients.Cloudinary;
 using Data;
 using Data.Repositories.Basket;
 using Data.Repositories.Pattern;

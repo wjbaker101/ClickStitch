@@ -1,10 +1,10 @@
-﻿using CrossStitchViewer.Api.Auth.Attributes;
-using CrossStitchViewer.Api.Patterns.Types;
-using CrossStitchViewer.Helper;
-using CrossStitchViewer.Types;
+﻿using ClickStitch.Api.Auth.Attributes;
+using ClickStitch.Api.Patterns.Types;
+using ClickStitch.Helper;
+using ClickStitch.Types;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CrossStitchViewer.Api.Patterns;
+namespace ClickStitch.Api.Patterns;
 
 [Route("api/patterns")]
 public sealed class PatternsController : ApiController

@@ -1,14 +1,14 @@
-﻿using Core.Types;
-using CrossStitchViewer.Api.Basket.Types;
-using CrossStitchViewer.Models;
-using CrossStitchViewer.Models.Mappers;
+﻿using ClickStitch.Api.Basket.Types;
+using ClickStitch.Models;
+using ClickStitch.Models.Mappers;
+using Core.Types;
 using Data.Records;
 using Data.Repositories.Basket;
 using Data.Repositories.Pattern;
 using Data.Repositories.User;
 using Data.Repositories.UserPattern;
 
-namespace CrossStitchViewer.Api.Basket;
+namespace ClickStitch.Api.Basket;
 
 public interface IBasketService
 {

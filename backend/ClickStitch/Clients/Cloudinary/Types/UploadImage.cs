@@ -1,4 +1,4 @@
-﻿namespace CrossStitchViewer.Clients.Cloudinary.Types;
+﻿namespace ClickStitch.Clients.Cloudinary.Types;
 
 public sealed class UploadImageRequest
 {

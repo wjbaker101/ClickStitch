@@ -1,10 +1,10 @@
-﻿using CloudinaryDotNet;
+﻿using ClickStitch.Clients.Cloudinary.Types;
+using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Core.Settings;
 using Core.Types;
-using CrossStitchViewer.Clients.Cloudinary.Types;
 
-namespace CrossStitchViewer.Clients.Cloudinary;
+namespace ClickStitch.Clients.Cloudinary;
 
 public interface ICloudinaryClient
 {

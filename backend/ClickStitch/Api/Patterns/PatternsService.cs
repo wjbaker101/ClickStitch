@@ -1,9 +1,9 @@
-﻿using Core.Types;
-using CrossStitchViewer.Api.Patterns.Types;
-using CrossStitchViewer.Clients.Cloudinary;
-using CrossStitchViewer.Clients.Cloudinary.Types;
-using CrossStitchViewer.Models;
-using CrossStitchViewer.Models.Mappers;
+﻿using ClickStitch.Api.Patterns.Types;
+using ClickStitch.Clients.Cloudinary;
+using ClickStitch.Clients.Cloudinary.Types;
+using ClickStitch.Models;
+using ClickStitch.Models.Mappers;
+using Core.Types;
 using Data.Records;
 using Data.Repositories.Pattern;
 using Data.Repositories.Pattern.Types;
@@ -11,7 +11,7 @@ using Data.Repositories.User;
 using Data.Repositories.UserPattern;
 using System.Text.Json;
 
-namespace CrossStitchViewer.Api.Patterns;
+namespace ClickStitch.Api.Patterns;
 
 public interface IPatternsService
 {

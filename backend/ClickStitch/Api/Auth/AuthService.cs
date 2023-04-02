@@ -1,9 +1,9 @@
-﻿using Core.Types;
-using CrossStitchViewer.Api.Auth.Types;
-using CrossStitchViewer.Models.Mappers;
+﻿using ClickStitch.Api.Auth.Types;
+using ClickStitch.Models.Mappers;
+using Core.Types;
 using Data.Repositories.User;
 
-namespace CrossStitchViewer.Api.Auth;
+namespace ClickStitch.Api.Auth;
 
 public interface IAuthService
 {

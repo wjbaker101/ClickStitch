@@ -1,4 +1,4 @@
-﻿namespace CrossStitchViewer.Api.Users.Types;
+﻿namespace ClickStitch.Api.Users.Types;
 
 public sealed class DeleteUserResponse
 {

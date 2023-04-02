@@ -1,6 +1,6 @@
-﻿using CrossStitchViewer.Models;
+﻿using ClickStitch.Models;
 
-namespace CrossStitchViewer.Api.Patterns.Types;
+namespace ClickStitch.Api.Patterns.Types;
 
 public sealed class GetPatternsResponse
 {

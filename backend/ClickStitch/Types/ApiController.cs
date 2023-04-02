@@ -1,7 +1,7 @@
 ﻿using Core.Types;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CrossStitchViewer.Types;
+namespace ClickStitch.Types;
 
 public abstract class ApiController : ControllerBase
 {

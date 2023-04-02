@@ -1,4 +1,4 @@
-﻿namespace CrossStitchViewer.Types;
+﻿namespace ClickStitch.Types;
 
 public abstract class ApiResponse
 {

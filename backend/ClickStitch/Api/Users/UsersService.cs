@@ -1,13 +1,13 @@
-﻿using Core.Services;
+﻿using ClickStitch.Api.Auth;
+using ClickStitch.Api.Users.Types;
+using ClickStitch.Models;
+using ClickStitch.Models.Mappers;
+using Core.Services;
 using Core.Types;
-using CrossStitchViewer.Api.Auth;
-using CrossStitchViewer.Api.Users.Types;
-using CrossStitchViewer.Models;
-using CrossStitchViewer.Models.Mappers;
 using Data.Records;
 using Data.Repositories.User;
 
-namespace CrossStitchViewer.Api.Users;
+namespace ClickStitch.Api.Users;
 
 public interface IUsersService
 {

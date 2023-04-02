@@ -1,7 +1,7 @@
-﻿using Core.Types;
-using CrossStitchViewer.Api.Auth;
-using CrossStitchViewer.Api.Users;
-using CrossStitchViewer.Api.Users.Types;
+﻿using ClickStitch.Api.Auth;
+using ClickStitch.Api.Users;
+using ClickStitch.Api.Users.Types;
+using Core.Types;
 using Data.Records;
 using Data.Repositories.User;
 using Moq;

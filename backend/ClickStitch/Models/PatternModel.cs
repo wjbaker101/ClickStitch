@@ -1,4 +1,4 @@
-﻿namespace CrossStitchViewer.Models;
+﻿namespace ClickStitch.Models;
 
 public sealed class PatternModel
 {

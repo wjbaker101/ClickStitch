@@ -1,11 +1,11 @@
-﻿using Core.Types;
-using CrossStitchViewer.Models;
+﻿using ClickStitch.Models;
+using Core.Types;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace CrossStitchViewer.Api.Auth;
+namespace ClickStitch.Api.Auth;
 
 public interface ILoginTokenService
 {

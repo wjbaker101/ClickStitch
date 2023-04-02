@@ -1,6 +1,6 @@
-﻿using CrossStitchViewer.Models;
+﻿using ClickStitch.Models;
 
-namespace CrossStitchViewer.Api.Basket.Types;
+namespace ClickStitch.Api.Basket.Types;
 
 public sealed class GetBasketResponse
 {

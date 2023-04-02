@@ -1,9 +1,9 @@
-﻿using CrossStitchViewer.Api.Auth.Attributes;
-using CrossStitchViewer.Helper;
-using CrossStitchViewer.Types;
+﻿using ClickStitch.Api.Auth.Attributes;
+using ClickStitch.Helper;
+using ClickStitch.Types;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CrossStitchViewer.Api.Basket;
+namespace ClickStitch.Api.Basket;
 
 [Route("api/basket")]
 public sealed class BasketController : ApiController
