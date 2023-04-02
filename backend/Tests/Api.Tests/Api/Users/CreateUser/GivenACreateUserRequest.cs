@@ -24,12 +24,18 @@ public sealed class GivenACreateUserRequest
         _userRepository
             .Setup(mock => mock.SaveAsync(It.IsAny<UserRecord>()))
             .ReturnsAsync((UserRecord user) => user);
+        _userRepository
+            .Setup(mock => mock.GetByEmailAsync(It.IsAny<string>()))
+            .ReturnsAsync(Result<UserRecord>.Failure("TestFailure"));
+        _userRepository
+            .Setup(mock => mock.GetByUsernameAsync(It.IsAny<string>()))
+            .ReturnsAsync(Result<UserRecord>.Failure("TestFailure"));
 
         var subject = new UsersService(
             _userRepository.Object,
             new PasswordService(),
             FakeGuid.With(Guid.Parse("55993eb0-9824-4dbf-a674-1f5a09205287")),
-            FakeDateTime.With(new DateTime(2023, 04, 27, 18, 22, 58)));
+            FakeDateTime.Default());
 
         _result = await subject.CreateUser(new CreateUserRequest
         {
@@ -56,7 +62,7 @@ public sealed class GivenACreateUserRequest
         Assert.Multiple(() =>
         {
             Assert.That(user.Reference, Is.EqualTo(Guid.Parse("55993eb0-9824-4dbf-a674-1f5a09205287")), nameof(user.Reference));
-            Assert.That(user.CreatedAt, Is.EqualTo(new DateTime(2023, 04, 27, 18, 22, 58)), nameof(user.CreatedAt));
+            Assert.That(user.CreatedAt, Is.EqualTo(new DateTime(2020, 01, 02, 23, 24, 25)), nameof(user.CreatedAt));
             Assert.That(user.Email, Is.EqualTo("test@email.com"), nameof(user.Email));
             Assert.That(user.Username, Is.EqualTo("TestUsername"), nameof(user.Username));
             Assert.That(user.Password, Is.EqualTo("gAPyiuD6HF4UdLEAxv5Cr9qW3goqMMp7vU98IXG2eQ0="), nameof(user.Password));
@@ -74,7 +80,7 @@ public sealed class GivenACreateUserRequest
         Assert.Multiple(() =>
         {
             Assert.That(user.Reference, Is.EqualTo(Guid.Parse("55993eb0-9824-4dbf-a674-1f5a09205287")), nameof(user.Reference));
-            Assert.That(user.CreatedAt, Is.EqualTo(new DateTime(2023, 04, 27, 18, 22, 58)), nameof(user.CreatedAt));
+            Assert.That(user.CreatedAt, Is.EqualTo(new DateTime(2020, 01, 02, 23, 24, 25)), nameof(user.CreatedAt));
             Assert.That(user.Email, Is.EqualTo("test@email.com"), nameof(user.Email));
             Assert.That(user.Username, Is.EqualTo("TestUsername"), nameof(user.Username));
         });

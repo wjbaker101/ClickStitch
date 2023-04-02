@@ -12,7 +12,7 @@ public sealed class FakeDateTime : IDateTime
         _now = now;
     }
 
-    public static FakeDateTime Default() => new(DateTime.UtcNow);
+    public static FakeDateTime Default() => new(new DateTime(2020, 01, 02, 23, 24, 25));
 
     public static FakeDateTime With(DateTime dateTime) => new(dateTime);
 
