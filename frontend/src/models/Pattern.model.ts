@@ -13,9 +13,11 @@ export interface IPattern {
 }
 
 export interface IStitch {
+    readonly reference: string;
     readonly threadIndex: number;
     readonly x: number;
     readonly y: number;
+    readonly stitchedAt: Dayjs | null;
 }
 
 export interface IThread {

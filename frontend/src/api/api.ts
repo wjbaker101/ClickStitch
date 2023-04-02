@@ -151,17 +151,8 @@ export const api = {
             return {
                 project: projectMapper.map(result.project),
                 aidaCount: result.aidaCount,
-                stitches: result.stitches.map(x => ({
-                    threadIndex: x.threadIndex,
-                    x: x.x,
-                    y: x.y,
-                })),
-                threads: result.threads.map(x => ({
-                    index: x.index,
-                    name: x.name,
-                    description: x.description,
-                    colour: x.colour,
-                })),
+                stitches: result.stitches.map(patternMapper.mapStitch),
+                threads: result.threads.map(patternMapper.mapThread),
             };
         },
 

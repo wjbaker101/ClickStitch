@@ -21,9 +21,11 @@ export const patternMapper = {
 
     mapStitch(stitch: IApiStitch): IStitch {
         return {
+            reference: stitch.reference,
             threadIndex: stitch.threadIndex,
             x: stitch.x,
             y: stitch.y,
+            stitchedAt: stitch.stitchedAt === null ? null : dayjs(stitch.stitchedAt),
         };
     },
 
