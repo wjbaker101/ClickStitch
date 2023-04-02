@@ -16,9 +16,9 @@ public sealed class AuthController : ApiController
 
     [HttpPost]
     [Route("log_in")]
-    public IActionResult LogIn([FromBody] LogInRequest request)
+    public async Task<IActionResult> LogIn([FromBody] LogInRequest request)
     {
-        var result = _authService.LogIn(request);
+        var result = await _authService.LogIn(request);
 
         return ToApiResponse(result);
     }

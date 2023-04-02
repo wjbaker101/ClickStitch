@@ -7,7 +7,7 @@ namespace CrossStitchViewer.Api.Auth;
 
 public interface IAuthService
 {
-    Result<LogInResponse> LogIn(LogInRequest request);
+    Task<Result<LogInResponse>> LogIn(LogInRequest request);
 }
 
 public sealed class AuthService : IAuthService
@@ -21,9 +21,9 @@ public sealed class AuthService : IAuthService
         _loginTokenService = loginTokenService;
     }
 
-    public Result<LogInResponse> LogIn(LogInRequest request)
+    public async Task<Result<LogInResponse>> LogIn(LogInRequest request)
     {
-        var userResult = _userRepository.GetByUsername(request.Username);
+        var userResult = await _userRepository.GetByUsernameAsync(request.Username);
         if (userResult.IsFailure)
             return Result<LogInResponse>.FromFailure(userResult);
 
