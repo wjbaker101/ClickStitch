@@ -46,6 +46,14 @@ public sealed class UsersService : IUsersService
 
     public async Task<Result<CreateUserResponse>> CreateUser(CreateUserRequest request)
     {
+        var byEmailResult = await _userRepository.GetByEmailAsync(request.Email);
+        if (byEmailResult.IsSuccess)
+            return Result<CreateUserResponse>.Failure("Cannot use that email, an existing user already has it. Please try again with a different email.");
+
+        var byUsernameResult = await _userRepository.GetByUsernameAsync(request.Username);
+        if (byUsernameResult.IsSuccess)
+            return Result<CreateUserResponse>.Failure("Cannot use that username, an existing user already has it. Please try again with a different username.");
+
         var passwordSalt = _guidService.NewGuid();
         var password = _passwordService.Hash(request.Password, passwordSalt);
 
