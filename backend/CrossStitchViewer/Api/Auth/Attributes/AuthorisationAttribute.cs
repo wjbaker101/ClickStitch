@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc.Filters;
 namespace CrossStitchViewer.Api.Auth.Attributes;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-public sealed class AuthorisationAttribute : Attribute, IAuthorizationFilter
+public sealed class AuthorisationAttribute : Attribute, IAsyncAuthorizationFilter
 {
-    public void OnAuthorization(AuthorizationFilterContext context)
+    public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
     {
         if (!context.HttpContext.Request.Headers.TryGetValue("Authorization", out var authHeader))
         {
@@ -35,7 +35,7 @@ public sealed class AuthorisationAttribute : Attribute, IAuthorizationFilter
 
         var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
 
-        var userResult = userRepository.GetByReference(userReferenceResult.Content);
+        var userResult = await userRepository.GetByReferenceAsync(userReferenceResult.Content);
         if (userResult.IsFailure)
         {
             context.Result = new UnauthorizedResult();
