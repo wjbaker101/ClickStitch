@@ -1,7 +1,7 @@
 ﻿using Core.Types;
 using CrossStitchViewer.Api.Projects.Types;
-using CrossStitchViewer.Mappers;
 using CrossStitchViewer.Models;
+using CrossStitchViewer.Models.Mappers;
 using Data.Repositories.Pattern;
 using Data.Repositories.User;
 using Data.Repositories.UserPattern;

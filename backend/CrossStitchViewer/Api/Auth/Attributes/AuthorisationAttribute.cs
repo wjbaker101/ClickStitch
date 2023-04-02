@@ -1,4 +1,4 @@
-﻿using CrossStitchViewer.Mappers;
+﻿using CrossStitchViewer.Models.Mappers;
 using Data.Repositories.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;

@@ -2,8 +2,8 @@
 using CrossStitchViewer.Api.Patterns.Types;
 using CrossStitchViewer.Clients.Cloudinary;
 using CrossStitchViewer.Clients.Cloudinary.Types;
-using CrossStitchViewer.Mappers;
 using CrossStitchViewer.Models;
+using CrossStitchViewer.Models.Mappers;
 using Data.Records;
 using Data.Repositories.Pattern;
 using Data.Repositories.Pattern.Types;

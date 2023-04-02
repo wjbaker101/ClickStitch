@@ -1,7 +1,7 @@
 ﻿using Core.Types;
 using CrossStitchViewer.Api.Basket.Types;
-using CrossStitchViewer.Mappers;
 using CrossStitchViewer.Models;
+using CrossStitchViewer.Models.Mappers;
 using Data.Records;
 using Data.Repositories.Basket;
 using Data.Repositories.Pattern;

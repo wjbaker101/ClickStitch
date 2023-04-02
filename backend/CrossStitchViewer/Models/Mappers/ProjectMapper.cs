@@ -1,7 +1,7 @@
 ﻿using CrossStitchViewer.Models;
 using Data.Records;
 
-namespace CrossStitchViewer.Mappers;
+namespace CrossStitchViewer.Models.Mappers;
 
 public static class ProjectMapper
 {

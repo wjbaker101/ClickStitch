@@ -1,6 +1,6 @@
 ﻿using Core.Types;
 using CrossStitchViewer.Api.Auth.Types;
-using CrossStitchViewer.Mappers;
+using CrossStitchViewer.Models.Mappers;
 using Data.Repositories.User;
 
 namespace CrossStitchViewer.Api.Auth;

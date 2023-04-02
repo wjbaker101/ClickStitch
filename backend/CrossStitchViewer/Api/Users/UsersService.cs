@@ -2,8 +2,8 @@
 using Core.Types;
 using CrossStitchViewer.Api.Auth;
 using CrossStitchViewer.Api.Users.Types;
-using CrossStitchViewer.Mappers;
 using CrossStitchViewer.Models;
+using CrossStitchViewer.Models.Mappers;
 using Data.Records;
 using Data.Repositories.User;
 
