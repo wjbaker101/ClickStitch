@@ -10,8 +10,8 @@ namespace CrossStitchViewer.Api.Projects;
 
 public interface IProjectsService
 {
-    Result<GetProjectsResponse> GetProjects(UserModel requestUser);
-    Result<GetProjectResponse> GetProject(UserModel requestUser, Guid patternReference);
+    Task<Result<GetProjectsResponse>> GetProjects(UserModel requestUser);
+    Task<Result<GetProjectResponse>> GetProject(UserModel requestUser, Guid patternReference);
 }
 
 public sealed class ProjectsService : IProjectsService
@@ -27,13 +27,13 @@ public sealed class ProjectsService : IProjectsService
         _patternRepository = patternRepository;
     }
 
-    public Result<GetProjectsResponse> GetProjects(UserModel requestUser)
+    public async Task<Result<GetProjectsResponse>> GetProjects(UserModel requestUser)
     {
-        var userResult = _userRepository.GetByReference(requestUser.Reference);
+        var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
         if (!userResult.TrySuccess(out var user))
             return Result<GetProjectsResponse>.FromFailure(userResult);
 
-        var projects = _userPatternRepository.GetByUser(user);
+        var projects = await _userPatternRepository.GetByUserAsync(user);
 
         return new GetProjectsResponse
         {
@@ -41,17 +41,17 @@ public sealed class ProjectsService : IProjectsService
         };
     }
 
-    public Result<GetProjectResponse> GetProject(UserModel requestUser, Guid patternReference)
+    public async Task<Result<GetProjectResponse>> GetProject(UserModel requestUser, Guid patternReference)
     {
-        var userResult = _userRepository.GetByReference(requestUser.Reference);
+        var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
         if (!userResult.TrySuccess(out var user))
             return Result<GetProjectResponse>.FromFailure(userResult);
 
-        var patternResult = _patternRepository.GetFullByReference(patternReference);
+        var patternResult = await _patternRepository.GetFullByReferenceAsync(patternReference);
         if (!patternResult.TrySuccess(out var pattern))
             return Result<GetProjectResponse>.FromFailure(patternResult);
 
-        var projectResult = _userPatternRepository.GetByUserAndPattern(user, pattern);
+        var projectResult = await _userPatternRepository.GetByUserAndPatternAsync(user, pattern);
         if (!projectResult.TrySuccess(out var project))
             return Result<GetProjectResponse>.FromFailure(projectResult);
 

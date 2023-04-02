@@ -11,10 +11,10 @@ namespace CrossStitchViewer.Api.Users;
 
 public interface IUsersService
 {
-    Result<GetSelfResponse> GetSelf(UserModel requestUser);
-    Result<CreateUserResponse> CreateUser(CreateUserRequest request);
-    Result<UpdateUserResponse> UpdateUser(UserModel requestUser, Guid userReference, UpdateUserRequest request);
-    Result<DeleteUserResponse> DeleteUser(UserModel requestUser, Guid userReference);
+    Task<Result<GetSelfResponse>> GetSelf(UserModel requestUser);
+    Task<Result<CreateUserResponse>> CreateUser(CreateUserRequest request);
+    Task<Result<UpdateUserResponse>> UpdateUser(UserModel requestUser, Guid userReference, UpdateUserRequest request);
+    Task<Result<DeleteUserResponse>> DeleteUser(UserModel requestUser, Guid userReference);
 }
 
 public sealed class UsersService : IUsersService
@@ -32,9 +32,9 @@ public sealed class UsersService : IUsersService
         _dateTimeService = dateTimeService;
     }
 
-    public Result<GetSelfResponse> GetSelf(UserModel requestUser)
+    public async Task<Result<GetSelfResponse>> GetSelf(UserModel requestUser)
     {
-        var userResult = _userRepository.GetByReference(requestUser.Reference);
+        var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
         if (!userResult.TrySuccess(out var user))
             return Result<GetSelfResponse>.FromFailure(userResult);
 
@@ -44,12 +44,12 @@ public sealed class UsersService : IUsersService
         };
     }
 
-    public Result<CreateUserResponse> CreateUser(CreateUserRequest request)
+    public async Task<Result<CreateUserResponse>> CreateUser(CreateUserRequest request)
     {
         var passwordSalt = _guidService.NewGuid();
         var password = _passwordService.Hash(request.Password, passwordSalt);
 
-        var user = _userRepository.Save(new UserRecord
+        var user = await _userRepository.SaveAsync(new UserRecord
         {
             Reference = _guidService.NewGuid(),
             CreatedAt = _dateTimeService.UtcNow(),
@@ -65,15 +65,15 @@ public sealed class UsersService : IUsersService
         };
     }
 
-    public Result<UpdateUserResponse> UpdateUser(UserModel requestUser, Guid userReference, UpdateUserRequest request)
+    public async Task<Result<UpdateUserResponse>> UpdateUser(UserModel requestUser, Guid userReference, UpdateUserRequest request)
     {
-        var userResult = _userRepository.GetByReference(userReference);
+        var userResult = await _userRepository.GetByReferenceAsync(userReference);
         if (!userResult.TrySuccess(out var user))
             return Result<UpdateUserResponse>.FromFailure(userResult);
 
         user.Username = request.Username;
 
-        _userRepository.Update(user);
+        await _userRepository.UpdateAsync(user);
 
         return new UpdateUserResponse
         {
@@ -81,13 +81,13 @@ public sealed class UsersService : IUsersService
         };
     }
 
-    public Result<DeleteUserResponse> DeleteUser(UserModel requestUser, Guid userReference)
+    public async Task<Result<DeleteUserResponse>> DeleteUser(UserModel requestUser, Guid userReference)
     {
-        var userResult = _userRepository.GetByReference(userReference);
+        var userResult = await _userRepository.GetByReferenceAsync(userReference);
         if (!userResult.TrySuccess(out var user))
             return Result<DeleteUserResponse>.FromFailure(userResult);
 
-        _userRepository.Delete(user);
+        await _userRepository.DeleteAsync(user);
 
         return new DeleteUserResponse();
     }

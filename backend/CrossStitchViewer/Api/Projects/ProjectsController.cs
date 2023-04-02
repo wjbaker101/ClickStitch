@@ -18,11 +18,11 @@ public sealed class ProjectsController : ApiController
     [HttpGet]
     [Route("")]
     [Authorisation]
-    public IActionResult GetProjects()
+    public async Task<IActionResult> GetProjects()
     {
         var user = RequestHelper.GetUser(Request);
 
-        var result = _projectsService.GetProjects(user);
+        var result = await _projectsService.GetProjects(user);
 
         return ToApiResponse(result);
     }
@@ -30,11 +30,11 @@ public sealed class ProjectsController : ApiController
     [HttpGet]
     [Route("{patternReference:guid}")]
     [Authorisation]
-    public IActionResult GetProject([FromRoute] Guid patternReference)
+    public async Task<IActionResult> GetProject([FromRoute] Guid patternReference)
     {
         var user = RequestHelper.GetUser(Request);
 
-        var result = _projectsService.GetProject(user, patternReference);
+        var result = await _projectsService.GetProject(user, patternReference);
 
         return ToApiResponse(result);
     }

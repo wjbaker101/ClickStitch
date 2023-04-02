@@ -19,12 +19,12 @@ public sealed class GivenAnUpdateUserRequest
     private Result<UpdateUserResponse> _result = null!;
 
     [OneTimeSetUp]
-    public void Setup()
+    public async Task Setup()
     {
         _userRepository = new Mock<IUserRepository>();
         _userRepository
-            .Setup(mock => mock.GetByReference(It.IsAny<Guid>()))
-            .Returns(new UserRecord
+            .Setup(mock => mock.GetByReferenceAsync(It.IsAny<Guid>()))
+            .ReturnsAsync(new UserRecord
             {
                 Reference = Guid.Parse("85e41403-d6e1-4c50-bf48-50f65713ea53"),
                 CreatedAt = new DateTime(2023, 06, 02, 11, 56, 01),
@@ -34,8 +34,8 @@ public sealed class GivenAnUpdateUserRequest
                 PasswordSalt = "TestPasswordSalt"
             });
         _userRepository
-            .Setup(mock => mock.Update(It.IsAny<UserRecord>()))
-            .Returns((UserRecord user) => user);
+            .Setup(mock => mock.UpdateAsync(It.IsAny<UserRecord>()))
+            .ReturnsAsync((UserRecord user) => user);
 
         var subject = new UsersService(
             _userRepository.Object,
@@ -43,7 +43,7 @@ public sealed class GivenAnUpdateUserRequest
             FakeGuidService.Default(),
             FakeDateTimeService.Default());
         
-        _result = subject.UpdateUser(TestUserModel.Get(), Guid.Parse("5f69355e-7498-4620-bd6f-cf3968fb37a4"), new UpdateUserRequest
+        _result = await subject.UpdateUser(TestUserModel.Get(), Guid.Parse("5f69355e-7498-4620-bd6f-cf3968fb37a4"), new UpdateUserRequest
         {
             Username = "TestUsername2"
         });
@@ -58,7 +58,7 @@ public sealed class GivenAnUpdateUserRequest
     [Test]
     public void ThenTheCorrectUserIsUpdated()
     {
-        _userRepository.Verify(mock => mock.Update(It.Is<UserRecord>(request => AssertUserRecord(request))), Times.Once);
+        _userRepository.Verify(mock => mock.UpdateAsync(It.Is<UserRecord>(request => AssertUserRecord(request))), Times.Once);
     }
 
     private static bool AssertUserRecord(UserRecord user)

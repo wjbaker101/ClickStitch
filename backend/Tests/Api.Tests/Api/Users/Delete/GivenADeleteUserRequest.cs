@@ -21,7 +21,7 @@ public sealed class GivenADeleteUserRequest
     private Result<DeleteUserResponse> _result = null!;
 
     [OneTimeSetUp]
-    public void Setup()
+    public async Task Setup()
     {
         _user = new UserRecord
         {
@@ -35,8 +35,8 @@ public sealed class GivenADeleteUserRequest
 
         _userRepository = new Mock<IUserRepository>();
         _userRepository
-            .Setup(mock => mock.GetByReference(It.IsAny<Guid>()))
-            .Returns(_user);
+            .Setup(mock => mock.GetByReferenceAsync(It.IsAny<Guid>()))
+            .ReturnsAsync(_user);
 
         var subject = new UsersService(
             _userRepository.Object,
@@ -44,7 +44,7 @@ public sealed class GivenADeleteUserRequest
             FakeGuidService.Default(),
             FakeDateTimeService.Default());
         
-        _result = subject.DeleteUser(TestUserModel.Get(), Guid.Parse("5f69355e-7498-4620-bd6f-cf3968fb37a4"));
+        _result = await subject.DeleteUser(TestUserModel.Get(), Guid.Parse("5f69355e-7498-4620-bd6f-cf3968fb37a4"));
     }
 
     [Test]
@@ -56,6 +56,6 @@ public sealed class GivenADeleteUserRequest
     [Test]
     public void ThenTheCorrectUserIsDeleted()
     {
-        _userRepository.Verify(mock => mock.Delete(_user), Times.Once);
+        _userRepository.Verify(mock => mock.DeleteAsync(_user), Times.Once);
     }
 }

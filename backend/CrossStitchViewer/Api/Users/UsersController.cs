@@ -19,20 +19,20 @@ public sealed class UsersController : ApiController
     [HttpGet]
     [Route("self")]
     [Authorisation]
-    public IActionResult GetSelf()
+    public async Task<IActionResult> GetSelf()
     {
         var user = RequestHelper.GetUser(Request);
 
-        var result = _usersService.GetSelf(user);
+        var result = await _usersService.GetSelf(user);
 
         return ToApiResponse(result);
     }
 
     [HttpPost]
     [Route("")]
-    public IActionResult CreateUser([FromBody] CreateUserRequest request)
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request)
     {
-        var result = _usersService.CreateUser(request);
+        var result = await _usersService.CreateUser(request);
 
         return ToApiResponse(result);
     }
@@ -40,11 +40,11 @@ public sealed class UsersController : ApiController
     [HttpPut]
     [Route("{userReference:guid}")]
     [Authorisation]
-    public IActionResult UpdateUser([FromRoute] Guid userReference, [FromBody] UpdateUserRequest request)
+    public async Task<IActionResult> UpdateUser([FromRoute] Guid userReference, [FromBody] UpdateUserRequest request)
     {
         var user = RequestHelper.GetUser(Request);
 
-        var result = _usersService.UpdateUser(user, userReference, request);
+        var result = await _usersService.UpdateUser(user, userReference, request);
 
         return ToApiResponse(result);
     }
@@ -52,11 +52,11 @@ public sealed class UsersController : ApiController
     [HttpDelete]
     [Route("{userReference:guid}")]
     [Authorisation]
-    public IActionResult DeleteUser([FromRoute] Guid userReference)
+    public async Task<IActionResult> DeleteUser([FromRoute] Guid userReference)
     {
         var user = RequestHelper.GetUser(Request);
 
-        var result = _usersService.DeleteUser(user, userReference);
+        var result = await _usersService.DeleteUser(user, userReference);
 
         return ToApiResponse(result);
     }

@@ -18,12 +18,12 @@ public sealed class GivenACreateUserRequest
     private Result<CreateUserResponse> _result = null!;
 
     [OneTimeSetUp]
-    public void Setup()
+    public async Task Setup()
     {
         _userRepository = new Mock<IUserRepository>();
         _userRepository
-            .Setup(mock => mock.Save(It.IsAny<UserRecord>()))
-            .Returns((UserRecord user) => user);
+            .Setup(mock => mock.SaveAsync(It.IsAny<UserRecord>()))
+            .ReturnsAsync((UserRecord user) => user);
 
         var subject = new UsersService(
             _userRepository.Object,
@@ -31,7 +31,7 @@ public sealed class GivenACreateUserRequest
             FakeGuidService.With(Guid.Parse("55993eb0-9824-4dbf-a674-1f5a09205287")),
             FakeDateTimeService.With(new DateTime(2023, 04, 27, 18, 22, 58)));
 
-        _result = subject.CreateUser(new CreateUserRequest
+        _result = await subject.CreateUser(new CreateUserRequest
         {
             Email = "test@email.com",
             Username = "TestUsername",
@@ -48,7 +48,7 @@ public sealed class GivenACreateUserRequest
     [Test]
     public void ThenTheCorrectUserIsSaved()
     {
-        _userRepository.Verify(mock => mock.Save(It.Is<UserRecord>(request => AssertUserRecord(request))), Times.Once);
+        _userRepository.Verify(mock => mock.SaveAsync(It.Is<UserRecord>(request => AssertUserRecord(request))), Times.Once);
     }
 
     private static bool AssertUserRecord(UserRecord user)
