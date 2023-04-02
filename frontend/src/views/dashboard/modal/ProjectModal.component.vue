@@ -12,6 +12,14 @@
                 <br>
                 <strong>Stitches:</strong> {{ formatNumber(project.pattern.stitchCount) }}
             </div>
+            <div>
+                <RouterLink :to="`/project/${project.pattern.reference}`" @click.native="onOpenInEditor">
+                    <ButtonComponent>
+                        <IconComponent icon="external-link" gap="right" />
+                        <span>Open in editor</span>
+                    </ButtonComponent>
+                </RouterLink>
+            </div>
         </div>
         <div v-if="getProject === null">
             <LoadingComponent itemName="extra details" />
@@ -56,6 +64,7 @@ import { onMounted, ref } from 'vue';
 import { api } from '@/api/api';
 import { calculateFabricSize, calculateSkeins } from '@/helper/stitch.helper';
 import { formatNumber } from '@/helper/helper';
+import { useModal } from '@wjb/vue/use/modal.use';
 
 import { IProject } from '@/models/Project.model';
 import { IThread } from '@/models/Pattern.model';
@@ -64,6 +73,8 @@ import { IGetProject } from '@/models/GetProject.model';
 const props = defineProps<{
     project: IProject;
 }>();
+
+const modal = useModal();
 
 interface IThreadCount {
     readonly thread: IThread;
@@ -76,6 +87,10 @@ const threadCounts = new Map<number, IThreadCount>();
 const sortedThreadCounts = ref<Array<IThreadCount>>([]);
 
 const fabricSize = calculateFabricSize(props.project.pattern.width, props.project.pattern.height, 16);
+
+const onOpenInEditor = function (): void {
+    modal.hide();
+};
 
 onMounted(async () => {
     const result = await api.projects.get(props.project.pattern.reference);
