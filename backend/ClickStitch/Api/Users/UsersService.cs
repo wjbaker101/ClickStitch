@@ -6,7 +6,6 @@ using Core.Services;
 using Core.Types;
 using Data.Records;
 using Data.Repositories.User;
-using Guid = System.Guid;
 
 namespace ClickStitch.Api.Users;
 
