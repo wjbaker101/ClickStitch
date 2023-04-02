@@ -244,16 +244,13 @@ const onMouseWheel = function (event: WheelEvent): void {
     if (!isMouseOverPattern.value)
         return;
 
-    let factor = 0.8;
-    if (event.deltaY < 0) {
-        factor = 1 / factor;
-    }
+    const factor = event.deltaY < 0 ? 1.25 : 0.8;
 
-    const prevScale = scale.value;
-    scale.value = Math.max(0.1, Math.min(1, scale.value * factor));
-
-    if (scale.value === prevScale)
+    const newScale = scale.value * factor;
+    if (newScale > 1.1 || newScale < 0.1)
         return;
+
+    scale.value = newScale;
 
     const dx = (mousePosition.value.x - offset.value.x) * (factor - 1);
     const dy = (mousePosition.value.y - offset.value.y) * (factor - 1);
