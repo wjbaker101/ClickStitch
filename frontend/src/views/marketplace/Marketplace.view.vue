@@ -6,6 +6,9 @@
             <div v-if="patterns === null">
                 <LoadingComponent itemName="patterns" />
             </div>
+            <div v-else-if="patterns.length === 0">
+                <p>No patterns were recieved, you must own them all!</p>
+            </div>
             <div v-else class="patterns">
                 <PatternComponent :key="pattern.reference" v-for="pattern in patterns" :pattern="pattern" />
             </div>
