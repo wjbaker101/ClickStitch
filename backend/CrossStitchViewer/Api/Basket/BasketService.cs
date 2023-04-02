@@ -68,7 +68,7 @@ public sealed class BasketService : IBasketService
         if (!patternResult.TrySuccess(out var pattern))
             return Result<AddToBasketResponse>.FromFailure(patternResult);
 
-        _basketRepository.Save(new UserBasketItemRecord
+        await _basketRepository.SaveAsync(new UserBasketItemRecord
         {
             User = user,
             Pattern = pattern,
@@ -90,7 +90,7 @@ public sealed class BasketService : IBasketService
         if (basketItemToRemove == null)
             return Result<RemoveFromBasketResponse>.Failure("Cannot remove pattern from basket, it's not in there!");
 
-        _basketRepository.Delete(basketItemToRemove);
+        await _basketRepository.DeleteAsync(basketItemToRemove);
 
         return new RemoveFromBasketResponse();
     }
@@ -103,14 +103,14 @@ public sealed class BasketService : IBasketService
 
         var basketItems = await _basketRepository.GetByUserAsync(user);
 
-        _userPatternRepository.SaveMany(basketItems.ConvertAll(x => new UserPatternRecord
+        await _userPatternRepository.SaveManyAsync(basketItems.ConvertAll(x => new UserPatternRecord
         {
             User = user,
             Pattern = x.Pattern,
             CreatedAt = DateTime.UtcNow
         }));
 
-        _basketRepository.DeleteMany(basketItems);
+        await _basketRepository.DeleteManyAsync(basketItems);
 
         return new CompleteBasketResponse();
     }

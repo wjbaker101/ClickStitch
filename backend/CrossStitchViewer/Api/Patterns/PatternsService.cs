@@ -70,7 +70,7 @@ public sealed class PatternsService : IPatternsService
 
         var json = JsonSerializer.Deserialize<PatternDataDto>(data)!;
 
-        var pattern = _patternRepository.Save(new PatternRecord
+        var pattern = await _patternRepository.SaveAsync(new PatternRecord
         {
             Reference = Guid.NewGuid(),
             CreatedAt = DateTime.UtcNow,
@@ -86,7 +86,7 @@ public sealed class PatternsService : IPatternsService
             Threads = new HashSet<PatternThreadRecord>()
         });
 
-        _patternStitchRepository.SaveMany(json.canvas.stitches.ConvertAll(x => new PatternStitchRecord
+        await _patternStitchRepository.SaveManyAsync(json.canvas.stitches.ConvertAll(x => new PatternStitchRecord
         {
             Pattern = pattern,
             ThreadIndex = x.index,
@@ -94,7 +94,7 @@ public sealed class PatternsService : IPatternsService
             Y = x.y
         }));
 
-        _patternThreadRepository.SaveMany(json.palette.threads.ConvertAll(x => new PatternThreadRecord
+        await _patternThreadRepository.SaveManyAsync(json.palette.threads.ConvertAll(x => new PatternThreadRecord
         {
             Pattern = pattern,
             Name = x.name,
@@ -122,7 +122,7 @@ public sealed class PatternsService : IPatternsService
 
         pattern.ThumbnailUrl = upload.Url;
 
-        _patternRepository.Update(pattern);
+        await _patternRepository.UpdateAsync(pattern);
 
         return Result.Success();
     }
