@@ -62,7 +62,7 @@
 import { onMounted, ref } from 'vue';
 
 import { api } from '@/api/api';
-import { calculateFabricSize, calculateSkeins } from '@/helper/stitch.helper';
+import { calculateFabricSize, calculateSkeins, IFabricSize } from '@/helper/stitch.helper';
 import { formatNumber } from '@/helper/helper';
 import { useModal } from '@wjb/vue/use/modal.use';
 
@@ -86,7 +86,7 @@ const getProject = ref<IGetProject | null>(null);
 const threadCounts = new Map<number, IThreadCount>();
 const sortedThreadCounts = ref<Array<IThreadCount>>([]);
 
-const fabricSize = calculateFabricSize(props.project.pattern.width, props.project.pattern.height, 16);
+const fabricSize = ref<IFabricSize>({} as IFabricSize);
 
 const onOpenInEditor = function (): void {
     modal.hide();
@@ -117,6 +117,8 @@ onMounted(async () => {
     }
 
     sortedThreadCounts.value = Array.from(threadCounts.values()).sort((a, b) => b.count - a.count);
+
+    fabricSize.value = calculateFabricSize(props.project.pattern.width, props.project.pattern.height, getProject.value.aidaCount);
 });
 </script>
 

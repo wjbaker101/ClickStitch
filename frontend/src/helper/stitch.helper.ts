@@ -17,7 +17,7 @@ export const calculateSkeins = function (aidaCount: number, stitchCount: number,
     return Math.ceil(stitchCount / stitchesPerSkein);
 };
 
-interface IFabricSize {
+export interface IFabricSize {
     in: ISize;
     cm: ISize;
 }
