@@ -17,6 +17,7 @@
             </div>
         </div>
         <p class="text-centered">
+            <p>You'll be able to see the exact materials after purchase!</p>
             <ButtonComponent :class="{ 'danger': isInBasket }" @click="onAddToBasket">
                 <IconComponent icon="cart" gap="right" />
                 <span v-if="isInBasket">Remove from basket</span>
