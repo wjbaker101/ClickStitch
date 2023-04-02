@@ -7,7 +7,7 @@ using Data.Repositories.User;
 using Moq;
 using TestHelpers.Fakes;
 
-namespace Api.Tests.Api.Users.Create;
+namespace Api.Tests.Api.Users.CreateUser;
 
 [TestFixture]
 [Parallelizable]

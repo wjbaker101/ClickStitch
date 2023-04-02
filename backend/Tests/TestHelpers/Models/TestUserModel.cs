@@ -2,13 +2,21 @@
 
 namespace TestHelpers.Models;
 
-public static class TestUserModel
+public sealed class TestUserModel
 {
-    public static UserModel Get() => new()
+    public Guid Reference { get; set; } = Guid.Parse("eb782ea5-0bca-45a7-bf6b-853e2943c426");
+    public DateTime CreatedAt { get; set; } = new(2023, 05, 01, 16, 39, 14);
+    public string Email { get; set; } = "test@email.com";
+    public string Username { get; set; } = "TestUsername";
+
+    public static implicit operator UserModel(TestUserModel user)
     {
-        Reference = Guid.Parse("eb782ea5-0bca-45a7-bf6b-853e2943c426"),
-        CreatedAt = new DateTime(2023, 05, 01, 16, 39, 14),
-        Email = "test@email.com",
-        Username = "TestUsername"
-    };
+        return new UserModel
+        {
+            Reference = user.Reference,
+            CreatedAt = user.CreatedAt,
+            Email = user.Email,
+            Username = user.Username
+        };
+    }
 }
