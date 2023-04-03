@@ -11,7 +11,6 @@ public class UserRecord : IDatabaseRecord
     public virtual required string Email { get; set; }
     public virtual required string Password { get; set; }
     public virtual required string PasswordSalt { get; set; }
-    public virtual ISet<PatternRecord> Patterns { get; init; } = new HashSet<PatternRecord>();
 }
 
 public sealed class UserRecordMap : ClassMap<UserRecord>
@@ -26,11 +25,5 @@ public sealed class UserRecordMap : ClassMap<UserRecord>
         Map(x => x.Email, "email");
         Map(x => x.Password, "password");
         Map(x => x.PasswordSalt, "password_salt");
-        HasManyToMany(x => x.Patterns)
-            .Schema("cross_stitch_viewer")
-            .Table("user_pattern")
-            .ParentKeyColumn("user_id")
-            .ChildKeyColumn("pattern_id")
-            .Cascade.All();
     }
 }
