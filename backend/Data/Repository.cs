@@ -2,7 +2,7 @@
 
 namespace Data;
 
-public interface IRepository<TRecord>  where TRecord : IDatabaseRecord
+public interface IRepository<TRecord> where TRecord : IDatabaseRecord
 {
     Task<TRecord> SaveAsync(TRecord record);
     Task<List<TRecord>> SaveManyAsync(IEnumerable<TRecord> records);
