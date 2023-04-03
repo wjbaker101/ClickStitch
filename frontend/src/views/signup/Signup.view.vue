@@ -3,33 +3,44 @@
         <div class="left-side flex">
             <div class="centered flex-auto">
                 <h1>ClickStitch</h1>
-                <h2>Log In</h2>
-                <p>
+                <p class="back-to-login">
+                    <RouterLink class="back-to-login" to="/login">
+                        <IconComponent icon="arrow-left" /> Back to login
+                    </RouterLink>
+                </p>
+                <h2>Sign up</h2>
+                <p class="flex gap">
+                    <label>
+                        <strong>Email</strong>
+                        <br>
+                        <input type="text" v-model="email" placeholder="my@email.com">
+                    </label>
                     <label>
                         <strong>Username</strong>
                         <br>
                         <input type="text" v-model="username" placeholder="Username">
                     </label>
                 </p>
-                <p>
+                <p class="flex gap">
                     <label>
                         <strong>Password</strong>
                         <br>
                         <input type="password" v-model="password" placeholder="Password">
                     </label>
+                    <label>
+                        <strong>Confirm Password</strong>
+                        <br>
+                        <input type="password" v-model="confirmPassword" placeholder="Confirm Password">
+                    </label>
                 </p>
-                <ButtonComponent class="tertiary" @click="onSignup">Log In</ButtonComponent>
-                <p>
-                    Don't have an account? <RouterLink to="/signup"><ButtonComponent class="mini">Sign Up</ButtonComponent></RouterLink>
-                </p>
+                <ButtonComponent class="tertiary" @click="onLogin">Sign Up</ButtonComponent>
             </div>
         </div>
         <div class="right-side flex">
             <div class="right-side-content centered flex-auto">
-                <h2>Check out these Patterns!</h2>
+                <h2>So close to getting these! <IconComponent icon="arrow-down" /></h2>
                 <p class="description">
-                    <IconComponent icon="arrow-left" gap="right" />
-                    <span>Log in to be able to add them to your account</span>
+                    <span>Complete signup and add them to your account</span>
                 </p>
                 <div class="example-patterns">
                     <img class="example-pattern" src="@/assets/templar-knight.png">
@@ -48,26 +59,21 @@ import { useRouter } from 'vue-router';
 
 import { api } from '@/api/api';
 
-import { useAuth } from '@/use/auth/Auth.use';
-
-const auth = useAuth();
 const router = useRouter();
 
+const email = ref<string>('');
 const username = ref<string>('');
 const password = ref<string>('');
+const confirmPassword = ref<string>('');
 
-const onSignup = async function () {
-    const result = await api.auth.logIn({
+const onLogin = async function () {
+    const result = await api.users.createUser({
+        email: email.value,
         username: username.value,
         password: password.value,
     });
 
-    auth.set({
-        username: '',
-        loginToken: result.loginToken,
-    });
-
-    await router.push({ path: '/dashboard' });
+    await router.push({ path: '/login' });
 };
 </script>
 
@@ -98,6 +104,16 @@ const onSignup = async function () {
         margin-right: -$angle;
         clip-path: polygon(0 0, 100% 0, calc(100% - ($angle * 2)) 100%, 0% 100%);
         filter: drop-shadow(1px 2px 3px #fff);
+    }
+
+    .back-to-login {
+        margin-top: -2rem;
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 
     .right-side {

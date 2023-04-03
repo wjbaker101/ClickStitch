@@ -7,6 +7,8 @@ import { IApiResultResponse } from '@/api/types/ApiResponse.type';
 
 import { ILogInRequest, ILogInResponse } from '@/api/types/LogIn.type';
 
+import { ICreateUserRequest, ICreateUserResponse } from '@/api/types/CreateUser.type';
+
 import { IBasket } from '@/models/Basket.model';
 import { IGetBasketResponse } from '@/api/types/GetBasket.type';
 import { IAddToBasketResponse } from '@/api/types/AddToBasket.type';
@@ -154,6 +156,16 @@ export const api = {
                 stitches: result.stitches.map(patternMapper.mapStitch),
                 threads: result.threads.map(patternMapper.mapThread),
             };
+        },
+
+    },
+
+    users: {
+
+        async createUser(request: ICreateUserRequest): Promise<ICreateUserResponse> {
+            const response = await client.post<IApiResultResponse<ICreateUserResponse>>('/users', request);
+
+            return {};
         },
 
     },

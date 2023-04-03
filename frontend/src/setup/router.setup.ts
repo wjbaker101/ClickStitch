@@ -6,6 +6,7 @@ import LoginView from '@/views/login/Login.view.vue';
 import MarketplaceView from '@/views/marketplace/Marketplace.view.vue';
 import ProjectView from '@/views/project/Project.view.vue';
 import SettingsView from '@/views/settings/Settings.view.vue';
+import SignupView from '@/views/signup/Signup.view.vue';
 
 import { useAuth } from '@/use/auth/Auth.use';
 import { setTitle } from '@/helper/helper';
@@ -39,6 +40,13 @@ const routes: Array<RouteRecordRaw> = [
         component: LoginView,
         meta: {
             title: 'Login',
+        },
+    },
+    {
+        path: '/signup',
+        component: SignupView,
+        meta: {
+            title: 'Signup',
         },
     },
     {

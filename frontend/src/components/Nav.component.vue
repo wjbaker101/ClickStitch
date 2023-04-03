@@ -1,5 +1,5 @@
 <template>
-    <nav class="nav-component flex gap align-items-center" v-if="!isLoginPage">
+    <nav class="nav-component flex gap align-items-center" v-if="!isHidden">
         <strong>ClickStitch</strong>
         <div></div>
         <div class="menu flex-auto">
@@ -30,7 +30,7 @@ import { useRoute } from 'vue-router';
 
 const route = useRoute();
 
-const isLoginPage = computed<boolean>(() => route.path.startsWith('/login'));
+const isHidden = computed<boolean>(() => route.path.startsWith('/login') || route.path.startsWith('/signup'));
 const isMenuOpen = ref<boolean>(false);
 
 const onToggleMenu = function (): void {
