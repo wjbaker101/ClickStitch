@@ -8,7 +8,7 @@ const cacheKey = 'auth';
 const maxTime = 1000 * 60 * 60 * 24 * 6;
 
 export interface IAuth {
-    readonly username: string;
+    readonly email: string;
     readonly loginToken: string;
 }
 

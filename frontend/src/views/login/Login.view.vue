@@ -6,9 +6,9 @@
                 <h2>Log In</h2>
                 <p>
                     <label>
-                        <strong>Username</strong>
+                        <strong>Email</strong>
                         <br>
-                        <input type="text" v-model="username" placeholder="Username">
+                        <input type="text" v-model="email" placeholder="Email">
                     </label>
                 </p>
                 <p>
@@ -53,17 +53,17 @@ import { useAuth } from '@/use/auth/Auth.use';
 const auth = useAuth();
 const router = useRouter();
 
-const username = ref<string>('');
+const email = ref<string>('');
 const password = ref<string>('');
 
 const onSignup = async function () {
     const result = await api.auth.logIn({
-        email: username.value,
+        email: email.value,
         password: password.value,
     });
 
     auth.set({
-        username: '',
+        email: '',
         loginToken: result.loginToken,
     });
 

@@ -9,16 +9,11 @@
                     </RouterLink>
                 </p>
                 <h2>Sign up</h2>
-                <p class="flex gap">
+                <p>
                     <label>
                         <strong>Email</strong>
                         <br>
                         <input type="text" v-model="email" placeholder="my@email.com">
-                    </label>
-                    <label>
-                        <strong>Username</strong>
-                        <br>
-                        <input type="text" v-model="username" placeholder="Username">
                     </label>
                 </p>
                 <p class="flex gap">
@@ -62,14 +57,12 @@ import { api } from '@/api/api';
 const router = useRouter();
 
 const email = ref<string>('');
-const username = ref<string>('');
 const password = ref<string>('');
 const confirmPassword = ref<string>('');
 
 const onLogin = async function () {
     const result = await api.users.createUser({
         email: email.value,
-        username: username.value,
         password: password.value,
     });
 
