@@ -2,20 +2,21 @@
     <nav class="nav-component flex gap align-items-center" v-if="!isLoginPage">
         <strong>ClickStitch</strong>
         <div></div>
-        <div class="flex-auto">
-            <RouterLink to="/dashboard">
+        <div class="menu flex-auto">
+            <ButtonComponent class="mini" @click="onToggleMenu">
+                <IconComponent icon="menu" />
+            </ButtonComponent>
+        </div>
+        <div class="links flex gap flex-auto" :class="{ 'is-menu-open': isMenuOpen }">
+            <RouterLink class="flex-auto" to="/dashboard">
                 <IconComponent icon="home" gap="right" />
                 <span>Dashboard</span>
             </RouterLink>
-        </div>
-        <div class="flex-auto">
-            <RouterLink to="/marketplace">
+            <RouterLink class="flex-auto" to="/marketplace">
                 <IconComponent icon="download" gap="right" />
                 <span>Marketplace</span>
             </RouterLink>
-        </div>
-        <div class="flex-auto">
-            <RouterLink to="/settings">
+            <RouterLink class="flex-auto" to="/settings">
                 <IconComponent icon="settings" gap="right" />
                 <span>Settings</span>
             </RouterLink>
@@ -24,12 +25,17 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
 
 const isLoginPage = computed<boolean>(() => route.path.startsWith('/login'));
+const isMenuOpen = ref<boolean>(false);
+
+const onToggleMenu = function (): void {
+    isMenuOpen.value = !isMenuOpen.value;
+};
 </script>
 
 <style lang="scss">
@@ -59,6 +65,47 @@ const isLoginPage = computed<boolean>(() => route.path.startsWith('/login'));
 
         span {
             vertical-align: middle;
+        }
+    }
+
+    .menu {
+        display: none;
+    }
+
+    @media screen and (max-width: 720px) {
+        .menu {
+            display: unset;
+        }
+
+        .links {
+            display: block;
+            position: fixed;
+            padding: 1rem;
+            inset: 4rem 1rem auto 1rem;
+            background-color: var(--wjb-primary);
+            background: linear-gradient(
+                -5deg,
+                transparentize($primary-dark, 0.05),
+                transparentize($primary, 0.05),
+            );
+            backdrop-filter: blur(2px);
+            border-radius: var(--wjb-border-radius);
+            z-index: 1;
+            opacity: 0;
+
+            &.is-menu-open {
+                opacity: 1;
+            }
+
+            & > *{
+                display: block;
+                padding: 1rem;
+                border-radius: var(--wjb-border-radius);
+
+                &:hover {
+                    background-color: var(--wjb-primary-dark);
+                }
+            }
         }
     }
 }
