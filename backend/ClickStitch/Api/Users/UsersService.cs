@@ -6,6 +6,7 @@ using Core.Services;
 using Core.Types;
 using Data.Records;
 using Data.Repositories.User;
+using System.Text.RegularExpressions;
 
 namespace ClickStitch.Api.Users;
 
@@ -17,12 +18,15 @@ public interface IUsersService
     Task<Result<DeleteUserResponse>> DeleteUser(UserModel requestUser, Guid userReference);
 }
 
-public sealed class UsersService : IUsersService
+public sealed partial class UsersService : IUsersService
 {
     private readonly IUserRepository _userRepository;
     private readonly IPasswordService _passwordService;
     private readonly IGuid _guid;
     private readonly IDateTime _dateTime;
+
+    [GeneratedRegex(".+@.+\\..+")]
+    private static partial Regex EmailRegex();
 
     public UsersService(IUserRepository userRepository, IPasswordService passwordService, IGuid guid, IDateTime dateTime)
     {
@@ -46,6 +50,9 @@ public sealed class UsersService : IUsersService
 
     public async Task<Result<CreateUserResponse>> CreateUser(CreateUserRequest request)
     {
+        if (!EmailRegex().IsMatch(request.Email))
+            return Result<CreateUserResponse>.Failure("Email is invalid, please try again.");
+
         var isValidResult = _passwordService.IsValid(request.Password);
         if (isValidResult.IsFailure)
             return Result<CreateUserResponse>.FromFailure(isValidResult);
