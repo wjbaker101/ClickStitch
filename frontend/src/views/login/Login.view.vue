@@ -58,7 +58,7 @@ const password = ref<string>('');
 
 const onSignup = async function () {
     const result = await api.auth.logIn({
-        username: username.value,
+        email: username.value,
         password: password.value,
     });
 
