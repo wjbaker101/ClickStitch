@@ -13,19 +13,25 @@
                     <label>
                         <strong>Email</strong>
                         <br>
-                        <input type="text" v-model="email" placeholder="my@email.com">
+                        <input ref="emailInput" type="text" v-model="email" placeholder="my@email.com" @keyup.enter="nextInput('email')">
                     </label>
                 </p>
                 <p class="flex gap">
                     <label>
                         <strong>Password</strong>
                         <br>
-                        <input type="password" v-model="password" placeholder="Password">
+                        <input ref="passwordInput" type="password" v-model="password" placeholder="Password" @keyup.enter="nextInput('password')">
                     </label>
                     <label>
                         <strong>Confirm Password</strong>
                         <br>
-                        <input type="password" v-model="confirmPassword" placeholder="Confirm Password">
+                        <input
+                            ref="confirmPasswordInput"
+                            type="password"
+                            v-model="confirmPassword"
+                            placeholder="Confirm Password"
+                            @keyup.enter="nextInput('confirmPassword')"
+                        >
                     </label>
                 </p>
                 <UserMessageComponent ref="userMessageComponent" />
@@ -60,10 +66,48 @@ import { api } from '@/api/api';
 const router = useRouter();
 
 const userMessageComponent = ref<InstanceType<typeof UserMessageComponent>>({} as InstanceType<typeof UserMessageComponent>);
+const emailInput = ref<HTMLInputElement>({} as HTMLInputElement);
+const passwordInput = ref<HTMLInputElement>({} as HTMLInputElement);
+const confirmPasswordInput = ref<HTMLInputElement>({} as HTMLInputElement);
 
 const email = ref<string>('');
 const password = ref<string>('');
 const confirmPassword = ref<string>('');
+
+const nextInput = async function (input: 'email' | 'password' | 'confirmPassword'): Promise<void> {
+    if (input === 'email') {
+        if (passwordInput.value.value.length === 0) {
+            passwordInput.value.focus();
+            return;
+        }
+        if (confirmPasswordInput.value.value.length === 0) {
+            confirmPasswordInput.value.focus();
+            return;
+        }
+    }
+    if (input === 'password') {
+        if (confirmPasswordInput.value.value.length === 0) {
+            confirmPasswordInput.value.focus();
+            return;
+        }
+        if (emailInput.value.value.length === 0) {
+            emailInput.value.focus();
+            return;
+        }
+    }
+    if (input === 'confirmPassword') {
+        if (emailInput.value.value.length === 0) {
+            emailInput.value.focus();
+            return;
+        }
+        if (passwordInput.value.value.length === 0) {
+            passwordInput.value.focus();
+            return;
+        }
+    }
+
+    await onLogin();
+};
 
 const onLogin = async function () {
     userMessageComponent.value.clear();
