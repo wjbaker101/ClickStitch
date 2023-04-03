@@ -13,15 +13,23 @@
 import { ref } from 'vue';
 
 const message = ref<string | null>(null);
+const timeout = ref<number | null>(null);
 
 defineExpose({
 
     set(newMessage: string): void {
         message.value = newMessage;
 
-        setTimeout(() => {
+        timeout.value = setTimeout(() => {
             message.value = null;
         }, 8000);
+    },
+
+    clear(): void {
+        if (timeout.value !== null)
+            clearTimeout(timeout.value);
+
+        message.value = null;
     },
 
 });

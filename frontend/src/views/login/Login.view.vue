@@ -62,6 +62,8 @@ const email = ref<string>('');
 const password = ref<string>('');
 
 const onSignup = async function () {
+    userMessageComponent.value.clear();
+
     if (email.value.length === 0) {
         userMessageComponent.value.set('Please enter your email.');
         return;

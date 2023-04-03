@@ -28,6 +28,7 @@
                         <input type="password" v-model="confirmPassword" placeholder="Confirm Password">
                     </label>
                 </p>
+                <UserMessageComponent ref="userMessageComponent" />
                 <ButtonComponent class="tertiary" @click="onLogin">Sign Up</ButtonComponent>
             </div>
         </div>
@@ -52,16 +53,35 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+import UserMessageComponent from '@/components/UserMessage.component.vue';
+
 import { api } from '@/api/api';
 
 const router = useRouter();
+
+const userMessageComponent = ref<InstanceType<typeof UserMessageComponent>>({} as InstanceType<typeof UserMessageComponent>);
 
 const email = ref<string>('');
 const password = ref<string>('');
 const confirmPassword = ref<string>('');
 
 const onLogin = async function () {
-    const result = await api.users.createUser({
+    userMessageComponent.value.clear();
+
+    if (email.value.length === 0) {
+        userMessageComponent.value.set('Please enter your email.');
+        return;
+    }
+    if (password.value.length === 0) {
+        userMessageComponent.value.set('Please enter your password.');
+        return;
+    }
+    if (confirmPassword.value.length === 0) {
+        userMessageComponent.value.set('Please confirm your password.');
+        return;
+    }
+
+    await api.users.createUser({
         email: email.value,
         password: password.value,
     });
