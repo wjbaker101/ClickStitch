@@ -2,7 +2,7 @@ const { defineConfig } = require('@vue/cli-service');
 
 module.exports = defineConfig({
 
-    outputDir: '../backend/CrossStitchViewer/wwwroot',
+    outputDir: '../backend/ClickStitch/wwwroot',
 
     devServer: {
         proxy: {
