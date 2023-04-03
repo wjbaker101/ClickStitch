@@ -47,7 +47,7 @@ public sealed class GivenACreateUserRequestWithAnExistingUsername
         {
             Email = "test@email.com",
             Username = "TestUsername",
-            Password = "TestPassword"
+            Password = "TestPassword1!"
         });
     }
 

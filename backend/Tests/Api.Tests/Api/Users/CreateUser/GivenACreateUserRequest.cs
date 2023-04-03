@@ -41,7 +41,7 @@ public sealed class GivenACreateUserRequest
         {
             Email = "test@email.com",
             Username = "TestUsername",
-            Password = "TestPassword"
+            Password = "TestPassword1!"
         });
     }
 
@@ -65,7 +65,7 @@ public sealed class GivenACreateUserRequest
             Assert.That(user.CreatedAt, Is.EqualTo(new DateTime(2020, 01, 02, 23, 24, 25)), nameof(user.CreatedAt));
             Assert.That(user.Email, Is.EqualTo("test@email.com"), nameof(user.Email));
             Assert.That(user.Username, Is.EqualTo("TestUsername"), nameof(user.Username));
-            Assert.That(user.Password, Is.EqualTo("gAPyiuD6HF4UdLEAxv5Cr9qW3goqMMp7vU98IXG2eQ0="), nameof(user.Password));
+            Assert.That(user.Password, Is.EqualTo("B0E+C2riWQtxPAohh0W08xUa/OzPHAP4Rh5PqfJOY6U="), nameof(user.Password));
             Assert.That(user.PasswordSalt, Is.EqualTo("55993eb0-9824-4dbf-a674-1f5a09205287"), nameof(user.PasswordSalt));
         });
 

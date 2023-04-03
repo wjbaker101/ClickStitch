@@ -1,6 +1,7 @@
 ﻿using Core.Types;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace ClickStitch.Api.Auth;
 
@@ -11,9 +12,21 @@ public interface IPasswordService
     Result IsValid(string password);
 }
 
-public sealed class PasswordService : IPasswordService
+public sealed partial class PasswordService : IPasswordService
 {
     private const string PEPPER = "f11f9f6c-7ed6-4407-bc91-515b0cb7b25b";
+
+    [GeneratedRegex("[0-9]+")]
+    private static partial Regex HasNumberRegex();
+
+    [GeneratedRegex("[A-Z]+")]
+    private static partial Regex HasUpperCaseRegex();
+
+    [GeneratedRegex("[a-z]+")]
+    private static partial Regex HasLowerCaseRegex();
+
+    [GeneratedRegex("[!@#$%^&*()_+=\\[{\\]};:<>|./?,-]")]
+    private static partial Regex HasSymbolRegex();
 
     public string Hash(string password, string salt)
     {
@@ -31,10 +44,27 @@ public sealed class PasswordService : IPasswordService
 
     public Result IsValid(string password)
     {
-        const string requirements = "Password must be at least 8 characters.";
+        const string symbols = "!@#$%^&*()_+=\\[{\\]};:<>|./?,-";
+
+        const string requirements = $"Requirements: Password must be between 8 and 60 characters; contain at least 1 number, uppercase character, lowercase character; and a symbol ( {symbols} ).";
 
         if (password.Length < 8)
-            return Result.Failure($"Password length does not meet requirements. Requirements: {requirements}");
+            return Result.Failure($"Password length does not meet requirements. {requirements}");
+
+        if (password.Length > 60)
+            return Result.Failure($"Password length does not meet requirements. {requirements}");
+
+        if (!HasNumberRegex().IsMatch(password))
+            return Result.Failure($"Password does not contain a number. {requirements}");
+
+        if (!HasUpperCaseRegex().IsMatch(password))
+            return Result.Failure($"Password does not contain an uppercase character. {requirements}");
+
+        if (!HasLowerCaseRegex().IsMatch(password))
+            return Result.Failure($"Password does not contain a lowercase character. {requirements}");
+
+        if (!HasSymbolRegex().IsMatch(password))
+            return Result.Failure($"Password does not contain a symbol. {requirements}");
 
         return Result.Success();
     }
