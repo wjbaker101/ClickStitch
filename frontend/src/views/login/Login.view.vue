@@ -18,6 +18,7 @@
                         <input type="password" v-model="password" placeholder="Password">
                     </label>
                 </p>
+                <UserMessageComponent ref="userMessageComponent" />
                 <ButtonComponent class="tertiary" @click="onSignup">Log In</ButtonComponent>
                 <p>
                     Don't have an account? <RouterLink to="/signup"><ButtonComponent class="mini">Sign Up</ButtonComponent></RouterLink>
@@ -46,6 +47,8 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+import UserMessageComponent from '@/components/UserMessage.component.vue';
+
 import { api } from '@/api/api';
 
 import { useAuth } from '@/use/auth/Auth.use';
@@ -53,10 +56,21 @@ import { useAuth } from '@/use/auth/Auth.use';
 const auth = useAuth();
 const router = useRouter();
 
+const userMessageComponent = ref<InstanceType<typeof UserMessageComponent>>({} as InstanceType<typeof UserMessageComponent>);
+
 const email = ref<string>('');
 const password = ref<string>('');
 
 const onSignup = async function () {
+    if (email.value.length === 0) {
+        userMessageComponent.value.set('Please enter your email.');
+        return;
+    }
+    if (password.value.length === 0) {
+        userMessageComponent.value.set('Please enter your password.');
+        return;
+    }
+
     const result = await api.auth.logIn({
         email: email.value,
         password: password.value,
