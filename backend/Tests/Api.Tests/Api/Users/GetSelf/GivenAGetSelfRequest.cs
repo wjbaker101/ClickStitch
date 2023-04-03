@@ -25,7 +25,6 @@ public sealed class GivenAGetSelfRequest
                 Reference = Guid.Parse("7dafaed7-0c16-41ef-a247-8bf8990d128d"),
                 CreatedAt = new DateTime(2023, 05, 01, 16, 39, 14),
                 Email = "test@email.com",
-                Username = "TestUsername",
                 Password = "TestPassword",
                 PasswordSalt = "",
                 Patterns = new HashSet<PatternRecord>()
@@ -55,7 +54,6 @@ public sealed class GivenAGetSelfRequest
             Assert.That(user.Reference, Is.EqualTo(Guid.Parse("7dafaed7-0c16-41ef-a247-8bf8990d128d")), nameof(user.Reference));
             Assert.That(user.CreatedAt, Is.EqualTo(new DateTime(2023, 05, 01, 16, 39, 14)), nameof(user.CreatedAt));
             Assert.That(user.Email, Is.EqualTo("test@email.com"), nameof(user.Email));
-            Assert.That(user.Username, Is.EqualTo("TestUsername"), nameof(user.Username));
         });
     }
 }

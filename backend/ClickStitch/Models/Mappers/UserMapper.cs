@@ -8,7 +8,6 @@ public static class UserMapper
     {
         Reference = user.Reference,
         CreatedAt = user.CreatedAt,
-        Email = user.Email,
-        Username = user.Username
+        Email = user.Email
     };
 }

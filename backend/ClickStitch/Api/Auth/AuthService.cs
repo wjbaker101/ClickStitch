@@ -25,7 +25,7 @@ public sealed class AuthService : IAuthService
 
     public async Task<Result<LogInResponse>> LogIn(LogInRequest request)
     {
-        var userResult = await _userRepository.GetByUsernameAsync(request.Username);
+        var userResult = await _userRepository.GetByEmailAsync(request.Username);
         if (!userResult.TrySuccess(out var user))
             return Result<LogInResponse>.FromFailure(userResult);
 

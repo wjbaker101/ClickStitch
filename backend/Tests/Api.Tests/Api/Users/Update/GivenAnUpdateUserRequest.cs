@@ -29,7 +29,6 @@ public sealed class GivenAnUpdateUserRequest
                 Reference = Guid.Parse("85e41403-d6e1-4c50-bf48-50f65713ea53"),
                 CreatedAt = new DateTime(2023, 06, 02, 11, 56, 01),
                 Email = "test@email.com",
-                Username = "TestUsername",
                 Password = "TestPassword",
                 PasswordSalt = "TestPasswordSalt"
             });
@@ -45,7 +44,6 @@ public sealed class GivenAnUpdateUserRequest
         
         _result = await subject.UpdateUser(new TestUserModel(), Guid.Parse("5f69355e-7498-4620-bd6f-cf3968fb37a4"), new UpdateUserRequest
         {
-            Username = "TestUsername2"
         });
     }
 
@@ -68,7 +66,6 @@ public sealed class GivenAnUpdateUserRequest
             Assert.That(user.Reference, Is.EqualTo(Guid.Parse("85e41403-d6e1-4c50-bf48-50f65713ea53")), nameof(user.Reference));
             Assert.That(user.CreatedAt, Is.EqualTo(new DateTime(2023, 06, 02, 11, 56, 01)), nameof(user.CreatedAt));
             Assert.That(user.Email, Is.EqualTo("test@email.com"), nameof(user.Email));
-            Assert.That(user.Username, Is.EqualTo("TestUsername2"), nameof(user.Username));
             Assert.That(user.Password, Is.EqualTo("TestPassword"), nameof(user.Password));
             Assert.That(user.PasswordSalt, Is.EqualTo("TestPasswordSalt"), nameof(user.PasswordSalt));
         });
@@ -86,7 +83,6 @@ public sealed class GivenAnUpdateUserRequest
             Assert.That(user.Reference, Is.EqualTo(Guid.Parse("85e41403-d6e1-4c50-bf48-50f65713ea53")), nameof(user.Reference));
             Assert.That(user.CreatedAt, Is.EqualTo(new DateTime(2023, 06, 02, 11, 56, 01)), nameof(user.CreatedAt));
             Assert.That(user.Email, Is.EqualTo("test@email.com"), nameof(user.Email));
-            Assert.That(user.Username, Is.EqualTo("TestUsername2"), nameof(user.Username));
         });
     }
 }

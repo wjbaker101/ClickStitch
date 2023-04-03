@@ -28,7 +28,6 @@ public sealed class GivenACreateUserRequestWithAnExistingEmail
                 Reference = default,
                 CreatedAt = default,
                 Email = null!,
-                Username = null!,
                 Password = null!,
                 PasswordSalt = null!,
                 Patterns = null!
@@ -43,7 +42,6 @@ public sealed class GivenACreateUserRequestWithAnExistingEmail
         _result = await subject.CreateUser(new CreateUserRequest
         {
             Email = "test@email.com",
-            Username = "TestUsername",
             Password = "TestPassword1!"
         });
     }

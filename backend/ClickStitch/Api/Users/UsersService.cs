@@ -54,10 +54,6 @@ public sealed class UsersService : IUsersService
         if (byEmailResult.IsSuccess)
             return Result<CreateUserResponse>.Failure("Cannot use that email, an existing user already has it. Please try again with a different email.");
 
-        var byUsernameResult = await _userRepository.GetByUsernameAsync(request.Username);
-        if (byUsernameResult.IsSuccess)
-            return Result<CreateUserResponse>.Failure("Cannot use that username, an existing user already has it. Please try again with a different username.");
-
         var passwordSalt = _guid.NewGuid().ToString();
         var password = _passwordService.Hash(request.Password, passwordSalt);
 
@@ -66,7 +62,6 @@ public sealed class UsersService : IUsersService
             Reference = _guid.NewGuid(),
             CreatedAt = _dateTime.UtcNow(),
             Email = request.Email,
-            Username = request.Username,
             Password = password,
             PasswordSalt = passwordSalt
         });
@@ -82,8 +77,6 @@ public sealed class UsersService : IUsersService
         var userResult = await _userRepository.GetByReferenceAsync(userReference);
         if (!userResult.TrySuccess(out var user))
             return Result<UpdateUserResponse>.FromFailure(userResult);
-
-        user.Username = request.Username;
 
         await _userRepository.UpdateAsync(user);
 

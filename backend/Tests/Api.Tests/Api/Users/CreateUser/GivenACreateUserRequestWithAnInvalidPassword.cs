@@ -43,7 +43,6 @@ public sealed class GivenACreateUserRequestWithAnInvalidPassword
         _result = await subject.CreateUser(new CreateUserRequest
         {
             Email = "test@email.com",
-            Username = "TestUsername",
             Password = _password
         });
     }

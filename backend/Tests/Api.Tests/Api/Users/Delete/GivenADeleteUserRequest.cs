@@ -28,7 +28,6 @@ public sealed class GivenADeleteUserRequest
             Reference = Guid.Parse("85e41403-d6e1-4c50-bf48-50f65713ea53"),
             CreatedAt = new DateTime(2023, 06, 02, 11, 56, 01),
             Email = "test@email.com",
-            Username = "TestUsername",
             Password = "TestPassword",
             PasswordSalt = "TestPasswordSalt"
         };
