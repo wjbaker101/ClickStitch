@@ -35,7 +35,7 @@
                     </label>
                 </p>
                 <UserMessageComponent ref="userMessageComponent" />
-                <ButtonComponent class="tertiary" @click="onLogin">Sign Up</ButtonComponent>
+                <ButtonComponent class="tertiary" @click="onSignup">Sign Up</ButtonComponent>
             </div>
         </div>
         <div class="right-side flex">
@@ -88,10 +88,10 @@ const nextInput = async function (next: 'emailInput' | 'passwordInput' | 'confir
         return;
     }
 
-    await onLogin();
+    await onSignup();
 };
 
-const onLogin = async function () {
+const onSignup = async function () {
     userMessageComponent.value.clear();
 
     if (email.value.length === 0) {
