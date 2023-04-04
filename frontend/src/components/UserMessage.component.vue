@@ -39,6 +39,7 @@ defineExpose({
 @use '@/style/variables' as *;
 
 .user-message-component {
+    max-width: 450px;
     margin: 1rem 0;
     padding: 1rem;
     background-color: transparentize($danger, 0.2);
