@@ -2,7 +2,9 @@
     <div class="basket-view">
         <div class="content-width">
             <h1>Basket</h1>
-            <div v-if="basket === null"></div>
+            <div v-if="basket === null">
+                <LoadingComponent itemName="basket" />
+            </div>
             <div v-else-if="basket.items.length === 0" class="text-centered">
                 <IconComponent icon="cart" size="huge" />
                 <p>No patterns in your basket yet!</p>
