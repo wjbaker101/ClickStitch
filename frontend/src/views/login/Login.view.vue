@@ -8,18 +8,18 @@
                     <label>
                         <strong>Email</strong>
                         <br>
-                        <input type="text" v-model="email" placeholder="Email">
+                        <input ref="emailInput" type="text" v-model="email" placeholder="Email" @keyup.enter="nextInput('passwordInput')">
                     </label>
                 </p>
                 <p>
                     <label>
                         <strong>Password</strong>
                         <br>
-                        <input type="password" v-model="password" placeholder="Password">
+                        <input ref="passwordInput" type="password" v-model="password" placeholder="Password" @keyup.enter="nextInput('emailInput')">
                     </label>
                 </p>
                 <UserMessageComponent ref="userMessageComponent" />
-                <ButtonComponent class="tertiary" @click="onSignup">Log In</ButtonComponent>
+                <ButtonComponent class="tertiary" @click="onLogin">Log In</ButtonComponent>
                 <p>
                     Don't have an account? <RouterLink to="/signup"><ButtonComponent class="mini">Sign Up</ButtonComponent></RouterLink>
                 </p>
@@ -58,10 +58,29 @@ const router = useRouter();
 
 const userMessageComponent = ref<InstanceType<typeof UserMessageComponent>>({} as InstanceType<typeof UserMessageComponent>);
 
+const emailInput = ref<HTMLInputElement>({} as HTMLInputElement);
+const passwordInput = ref<HTMLInputElement>({} as HTMLInputElement);
+
+const inputs = {
+    emailInput,
+    passwordInput,
+};
+
 const email = ref<string>('');
 const password = ref<string>('');
 
-const onSignup = async function () {
+const nextInput = async function (next: 'emailInput' | 'passwordInput'): Promise<void> {
+    console.log(inputs)
+    const input = inputs[next].value;
+    if (input.value.length === 0) {
+        input.focus();
+        return;
+    }
+
+    await onLogin();
+};
+
+const onLogin = async function () {
     userMessageComponent.value.clear();
 
     if (email.value.length === 0) {
