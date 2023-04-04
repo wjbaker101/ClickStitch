@@ -163,20 +163,25 @@ export const api = {
             if (auth.details.value === null)
                 return new Error('You must be logged in for this action.');
 
-            const response = await client.get<IApiResultResponse<IGetProjectResponse>>(`/projects/${patternReference}`, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
+            try {
+                const response = await client.get<IApiResultResponse<IGetProjectResponse>>(`/projects/${patternReference}`, {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
 
-            const result = response.data.result;
+                const result = response.data.result;
 
-            return {
-                project: projectMapper.map(result.project),
-                aidaCount: result.aidaCount,
-                stitches: result.stitches.map(patternMapper.mapStitch),
-                threads: result.threads.map(patternMapper.mapThread),
-            };
+                return {
+                    project: projectMapper.map(result.project),
+                    aidaCount: result.aidaCount,
+                    stitches: result.stitches.map(patternMapper.mapStitch),
+                    threads: result.threads.map(patternMapper.mapThread),
+                };
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
         },
 
     },

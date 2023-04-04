@@ -21,10 +21,11 @@
                 </RouterLink>
             </div>
         </div>
-        <div v-if="getProject === null">
+        <UserMessageComponent ref="userMessageComponent" />
+        <div v-if="isLoading">
             <LoadingComponent itemName="extra details" />
         </div>
-        <div v-else>
+        <div v-else-if="getProject !== null">
             <h3>Kit Details:</h3>
             <p>
                 Suggested aida count: <strong>{{ getProject.aidaCount }}</strong>
@@ -61,6 +62,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
+import UserMessageComponent from '@/components/UserMessage.component.vue';
+
 import { api } from '@/api/api';
 import { calculateFabricSize, calculateSkeins, IFabricSize } from '@/helper/stitch.helper';
 import { formatNumber } from '@/helper/helper';
@@ -76,12 +79,15 @@ const props = defineProps<{
 
 const modal = useModal();
 
+const userMessageComponent = ref<InstanceType<typeof UserMessageComponent>>({} as InstanceType<typeof UserMessageComponent>);
+
 interface IThreadCount {
     readonly thread: IThread;
     count: number;
 }
 
 const getProject = ref<IGetProject | null>(null);
+const isLoading = ref<boolean>(false);
 
 const threadCounts = new Map<number, IThreadCount>();
 const sortedThreadCounts = ref<Array<IThreadCount>>([]);
@@ -93,9 +99,16 @@ const onOpenInEditor = function (): void {
 };
 
 onMounted(async () => {
+    isLoading.value = true;
+
     const result = await api.projects.get(props.project.pattern.reference);
-    if (result instanceof Error)
+
+    isLoading.value = false;
+
+    if (result instanceof Error) {
+        userMessageComponent.value.set(result.message, true);
         return;
+    }
 
     getProject.value = result;
 
