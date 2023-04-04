@@ -3,10 +3,11 @@
         <div class="content-width">
             <h1>Marketplace</h1>
             <p>Add patterns to your account and stitch away!</p>
-            <div v-if="patterns === null">
+            <UserMessageComponent ref="userMessageComponent" />
+            <div v-if="isLoading">
                 <LoadingComponent itemName="patterns" />
             </div>
-            <div v-else-if="patterns.length === 0">
+            <div v-else-if="patterns?.length === 0">
                 <p>No patterns were recieved, you must own them all!</p>
             </div>
             <div v-else class="patterns">
@@ -31,6 +32,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
+import UserMessageComponent from '@/components/UserMessage.component.vue';
 import PatternComponent from '@/views/marketplace/components/Pattern.component.vue';
 
 import { api } from '@/api/api';
@@ -40,12 +42,24 @@ import { IPattern } from '@/models/Pattern.model';
 
 const marketplace = useMarketplace();
 
+const userMessageComponent = ref<InstanceType<typeof UserMessageComponent>>({} as InstanceType<typeof UserMessageComponent>);
+
 const basket = marketplace.basket;
 
 const patterns = ref<Array<IPattern> | null>(null);
+const isLoading = ref<boolean>(false);
 
 onMounted(async () => {
+    isLoading.value = true;
+
     const result = await api.patterns.search();
+
+    isLoading.value = false;
+
+    if (result instanceof Error){
+        userMessageComponent.value.set(result.message);
+        return;
+    }
 
     patterns.value = result;
 });

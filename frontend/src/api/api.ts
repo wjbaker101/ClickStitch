@@ -56,21 +56,26 @@ export const api = {
             if (auth.details.value === null)
                 return new Error('You must be logged in for this action.');
 
-            const response = await client.get<IApiResultResponse<IGetBasketResponse>>('/basket', {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
+            try {
+                const response = await client.get<IApiResultResponse<IGetBasketResponse>>('/basket', {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
 
-            const basket = response.data.result.basket;
+                const basket = response.data.result.basket;
 
-            return {
-                items: basket.items.map(x =>({
-                    pattern: patternMapper.map(x.pattern),
-                    addedAt: dayjs(x.addedAt),
-                })),
-                totalPrice: basket.totalPrice,
-            };
+                return {
+                    items: basket.items.map(x =>({
+                        pattern: patternMapper.map(x.pattern),
+                        addedAt: dayjs(x.addedAt),
+                    })),
+                    totalPrice: basket.totalPrice,
+                };
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
         },
 
         async addItem(patternReference: string): Promise<void | Error> {
@@ -110,19 +115,24 @@ export const api = {
 
     patterns: {
 
-        async search(): Promise<Array<IPattern>> {
+        async search(): Promise<Array<IPattern> | Error> {
             if (auth.details.value === null)
-                return [];
+                return new Error('You must be logged in for this action.');
 
-            const response = await client.get<IApiResultResponse<ISearchPatternsResponse>>('/patterns', {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
+            try {
+                const response = await client.get<IApiResultResponse<ISearchPatternsResponse>>('/patterns', {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
 
-            const patterns = response.data.result.patterns;
+                const patterns = response.data.result.patterns;
 
-            return patterns.map(patternMapper.map);
+                return patterns.map(patternMapper.map);
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
         },
 
     },
