@@ -97,6 +97,11 @@ const onLogin = async function () {
         password: password.value,
     });
 
+    if (result instanceof Error) {
+        userMessageComponent.value.set(result.message);
+        return;
+    }
+
     auth.set({
         email: '',
         loginToken: result.loginToken,

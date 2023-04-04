@@ -2,6 +2,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 
 import { useAuth } from '@/use/auth/Auth.use';
+import { ApiErrorMapper } from '@/api/ApiErrorMapper';
 
 import { IApiResultResponse } from '@/api/types/ApiResponse.type';
 
@@ -34,12 +35,17 @@ export const api = {
 
     auth: {
 
-        async logIn(request: ILogInRequest): Promise<ILogInResponse> {
-            const response = await client.post<IApiResultResponse<ILogInResponse>>('/auth/log_in', request);
+        async logIn(request: ILogInRequest): Promise<ILogInResponse | Error> {
+            try {
+                const response = await client.post<IApiResultResponse<ILogInResponse>>('/auth/log_in', request);
 
-            const result = response.data.result;
+                const result = response.data.result;
 
-            return result;
+                return result;
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
         },
 
     },
