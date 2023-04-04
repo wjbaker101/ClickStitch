@@ -3,10 +3,11 @@
         <div class="content-width">
             <h1>Dashboard</h1>
             <h2>Your Projects:</h2>
-            <div v-if="projects === null">
+            <UserMessageComponent ref="userMessageComponent" />
+            <div v-if="isLoading">
                 <LoadingComponent itemName="projects" />
             </div>
-            <div v-else-if="projects.length === 0">
+            <div v-else-if="projects?.length === 0">
                 <p>No projects yet!</p>
                 <p>Visit the marketplace to get your first pattern!</p>
                 <RouterLink to="/marketplace">
@@ -23,16 +24,29 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
+import UserMessageComponent from '@/components/UserMessage.component.vue';
 import ProjectComponent from '@/views/dashboard/components/Project.component.vue';
 
 import { api } from '@/api/api';
 
 import { IProject } from '@/models/Project.model';
 
+const userMessageComponent = ref<InstanceType<typeof UserMessageComponent>>({} as InstanceType<typeof UserMessageComponent>);
+
 const projects = ref<Array<IProject> | null>(null);
+const isLoading = ref<boolean>(false);
 
 onMounted(async () => {
+    isLoading.value = true;
+
     const result = await api.projects.getAll();
+
+    isLoading.value = false;
+
+    if (result instanceof Error) {
+        userMessageComponent.value.set(result.message, true);
+        return;
+    }
 
     projects.value = result;
 });

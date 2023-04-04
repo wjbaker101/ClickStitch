@@ -139,19 +139,24 @@ export const api = {
 
     projects: {
 
-        async getAll(): Promise<Array<IProject>> {
+        async getAll(): Promise<Array<IProject> | Error> {
             if (auth.details.value === null)
-                return [];
+                return new Error('You must be logged in for this action.');
 
-            const response = await client.get<IApiResultResponse<IGetProjectsResponse>>('/projects', {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
+            try {
+                const response = await client.get<IApiResultResponse<IGetProjectsResponse>>('/projects', {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
 
-            const projects = response.data.result.projects;
+                const projects = response.data.result.projects;
 
-            return projects.map(projectMapper.map);
+                return projects.map(projectMapper.map);
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
         },
 
         async get(patternReference: string): Promise<IGetProject | Error> {
