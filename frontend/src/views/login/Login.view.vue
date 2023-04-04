@@ -19,7 +19,7 @@
                     </label>
                 </p>
                 <UserMessageComponent ref="userMessageComponent" />
-                <ButtonComponent class="tertiary" @click="onLogin">Log In</ButtonComponent>
+                <ButtonComponent class="tertiary" @click="onLogin" :loading="isLoading">Log In</ButtonComponent>
                 <p>
                     Don't have an account? <RouterLink to="/signup"><ButtonComponent class="mini">Sign Up</ButtonComponent></RouterLink>
                 </p>
@@ -69,8 +69,9 @@ const inputs = {
 const email = ref<string>('');
 const password = ref<string>('');
 
+const isLoading = ref<boolean>(false);
+
 const nextInput = async function (next: 'emailInput' | 'passwordInput'): Promise<void> {
-    console.log(inputs)
     const input = inputs[next].value;
     if (input.value.length === 0) {
         input.focus();
@@ -81,6 +82,9 @@ const nextInput = async function (next: 'emailInput' | 'passwordInput'): Promise
 };
 
 const onLogin = async function () {
+    if (isLoading.value)
+        return;
+
     userMessageComponent.value.clear();
 
     if (email.value.length === 0) {
@@ -92,10 +96,14 @@ const onLogin = async function () {
         return;
     }
 
+    isLoading.value = true;
+
     const result = await api.auth.logIn({
         email: email.value,
         password: password.value,
     });
+
+    isLoading.value = false;
 
     if (result instanceof Error) {
         userMessageComponent.value.set(result.message);

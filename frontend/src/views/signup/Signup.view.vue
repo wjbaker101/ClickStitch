@@ -35,7 +35,7 @@
                     </label>
                 </p>
                 <UserMessageComponent ref="userMessageComponent" />
-                <ButtonComponent class="tertiary" @click="onSignup">Sign Up</ButtonComponent>
+                <ButtonComponent class="tertiary" @click="onSignup" :loading="isLoading">Sign Up</ButtonComponent>
             </div>
         </div>
         <div class="right-side flex">
@@ -81,6 +81,8 @@ const email = ref<string>('');
 const password = ref<string>('');
 const confirmPassword = ref<string>('');
 
+const isLoading = ref<boolean>(false);
+
 const nextInput = async function (next: 'emailInput' | 'passwordInput' | 'confirmPasswordInput'): Promise<void> {
     const input = inputs[next].value;
     if (input.value.length === 0) {
@@ -92,6 +94,9 @@ const nextInput = async function (next: 'emailInput' | 'passwordInput' | 'confir
 };
 
 const onSignup = async function () {
+    if (isLoading.value)
+        return;
+
     userMessageComponent.value.clear();
 
     if (email.value.length === 0) {
@@ -107,10 +112,14 @@ const onSignup = async function () {
         return;
     }
 
+    isLoading.value = true;
+
     const result = await api.users.createUser({
         email: email.value,
         password: password.value,
     });
+
+    isLoading.value = false;
 
     if (result instanceof Error) {
         userMessageComponent.value.set(result.message);
