@@ -43,7 +43,7 @@ import { IBasketItem } from '@/models/Basket.model';
 
 const marketplace = useMarketplace();
 
-const basket = marketplace.get();
+const basket = marketplace.basket;
 
 const onDelete = async function (basketItem: IBasketItem): Promise<void> {
     await marketplace.removeItem(basketItem.pattern);

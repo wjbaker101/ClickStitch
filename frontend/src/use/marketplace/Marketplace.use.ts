@@ -26,9 +26,7 @@ const getBasket = async function (): Promise<void> {
 export const useMarketplace = function () {
     return {
 
-        get() {
-            return basket;
-        },
+        basket,
 
         patternReferences,
 

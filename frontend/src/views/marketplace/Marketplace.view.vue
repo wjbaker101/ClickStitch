@@ -40,7 +40,7 @@ import { IPattern } from '@/models/Pattern.model';
 
 const marketplace = useMarketplace();
 
-const basket = marketplace.get();
+const basket = marketplace.basket;
 
 const patterns = ref<Array<IPattern> | null>(null);
 
