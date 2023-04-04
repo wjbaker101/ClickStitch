@@ -107,10 +107,15 @@ const onSignup = async function () {
         return;
     }
 
-    await api.users.createUser({
+    const result = await api.users.createUser({
         email: email.value,
         password: password.value,
     });
+
+    if (result instanceof Error) {
+        userMessageComponent.value.set(result.message);
+        return;
+    }
 
     await router.push({ path: '/login' });
 };

@@ -168,10 +168,15 @@ export const api = {
 
     users: {
 
-        async createUser(request: ICreateUserRequest): Promise<ICreateUserResponse> {
-            const response = await client.post<IApiResultResponse<ICreateUserResponse>>('/users', request);
+        async createUser(request: ICreateUserRequest): Promise<ICreateUserResponse | Error> {
+            try {
+                const response = await client.post<IApiResultResponse<ICreateUserResponse>>('/users', request);
 
-            return {};
+                return {};
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
         },
 
     },
