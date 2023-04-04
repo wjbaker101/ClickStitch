@@ -4,6 +4,7 @@ using ClickStitch.Api.Patterns;
 using ClickStitch.Api.Projects;
 using ClickStitch.Api.Users;
 using ClickStitch.Clients.Cloudinary;
+using ClickStitch.Filters;
 using Core.Services;
 using Core.Settings;
 using Data;
@@ -45,7 +46,10 @@ services.AddSingleton<IProjectsService, ProjectsService>();
 
 services.AddSingleton<IUsersService, UsersService>();
 
-services.AddControllers();
+services.AddControllers(options =>
+{
+    options.Filters.Add<HttpResponseExceptionFilter>();
+});
 
 services.AddSpaStaticFiles(spa =>
 {
