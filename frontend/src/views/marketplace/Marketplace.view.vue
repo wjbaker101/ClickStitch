@@ -57,7 +57,7 @@ onMounted(async () => {
     isLoading.value = false;
 
     if (result instanceof Error){
-        userMessageComponent.value.set(result.message);
+        userMessageComponent.value.set(result.message, true);
         return;
     }
 

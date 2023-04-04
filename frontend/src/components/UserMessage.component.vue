@@ -17,8 +17,11 @@ const timeout = ref<number | null>(null);
 
 defineExpose({
 
-    set(newMessage: string): void {
+    set(newMessage: string, forever: boolean = false): void {
         message.value = newMessage;
+
+        if (forever)
+            return;
 
         timeout.value = setTimeout(() => {
             message.value = null;
