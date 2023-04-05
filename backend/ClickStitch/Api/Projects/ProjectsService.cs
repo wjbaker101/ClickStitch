@@ -62,11 +62,26 @@ public sealed class ProjectsService : IProjectsService
         if (!projectResult.TrySuccess(out var project))
             return Result<GetProjectResponse>.FromFailure(projectResult);
 
+        var userPatternStitches = await _userPatternStitchRepository.GetByUserPattern(project);
+
+        var stitches = pattern.Stitches.Select(x =>
+        {
+            userPatternStitches.TryGetValue(x.Id, out var userStitch);
+
+            return new StitchModel
+            {
+                ThreadIndex = x.ThreadIndex,
+                X = x.X,
+                Y = x.Y,
+                StitchedAt = userStitch?.StitchedAt
+            };
+        });
+
         return new GetProjectResponse
         {
             Project = ProjectMapper.Map(project),
             AidaCount = pattern.AidaCount,
-            Stitches = pattern.Stitches.Select(PatternMapper.MapStitch).ToList(),
+            Stitches = stitches.ToList(),
             Threads = pattern.Threads.Select(PatternMapper.MapThread).ToList()
         };
     }

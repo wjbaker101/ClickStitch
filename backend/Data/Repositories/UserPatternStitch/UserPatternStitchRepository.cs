@@ -1,11 +1,13 @@
-﻿using Data.Records;
+﻿using Core.Types;
+using Data.Records;
 using NHibernate.Linq;
 
 namespace Data.Repositories.UserPatternStitch;
 
 public interface IUserPatternStitchRepository : IRepository<UserPatternStitchRecord>
 {
-    Task<List<UserPatternStitchRecord>> GetByUserPattern(UserPatternRecord userPattern);
+    Task<Result> DeleteByPositionLookup(string positionLookup);
+    Task<Dictionary<long, UserPatternStitchRecord>> GetByUserPattern(UserPatternRecord userPattern);
 }
 
 public sealed class UserPatternStitchRepository : Repository<UserPatternStitchRecord>, IUserPatternStitchRepository
@@ -14,16 +16,30 @@ public sealed class UserPatternStitchRepository : Repository<UserPatternStitchRe
     {
     }
 
-    public async Task<List<UserPatternStitchRecord>> GetByUserPattern(UserPatternRecord userPattern)
+    public async Task<Result> DeleteByPositionLookup(string positionLookup)
     {
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();
 
-        var userPatterns = await session
+        await session
             .Query<UserPatternStitchRecord>()
-            .Fetch(x => x.PatternStitch)
-            .Where(x => x.UserPattern == userPattern.Id)
-            .ToListAsync();
+            .Where(x => x.PositionLookup == positionLookup)
+            .DeleteAsync();
+
+        await transaction.CommitAsync();
+
+        return Result.Success();
+    }
+
+    public async Task<Dictionary<long, UserPatternStitchRecord>> GetByUserPattern(UserPatternRecord userPattern)
+    {
+        using var session = Database.SessionFactory.OpenSession();
+        using var transaction = session.BeginTransaction();
+
+        var userPatterns = session
+            .Query<UserPatternStitchRecord>()
+            .Where(x => x.UserPattern == userPattern)
+            .ToDictionary(x => x.Stitch.Id, x => x);
 
         await transaction.CommitAsync();
 

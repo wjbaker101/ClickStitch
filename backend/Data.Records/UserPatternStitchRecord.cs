@@ -6,10 +6,11 @@ namespace Data.Records;
 public class UserPatternStitchRecord : IDatabaseRecord
 {
     public virtual long Id { get; init; }
-    public virtual required Guid Reference { get; init; }
-    public virtual required long UserPattern { get; init; }
-    public virtual required PatternStitchRecord PatternStitch { get; init; }
-    public virtual required DateTime? StitchedAt { get; set; }
+    public virtual required UserPatternRecord UserPattern { get; init; }
+    public virtual required PatternStitchRecord Stitch { get; init; }
+    public virtual required string PositionLookup { get; init; }
+    public virtual required int ThreadIndex { get; init; }
+    public virtual required DateTime StitchedAt { get; set; }
 }
 
 public sealed class UserPatternStitchRecordMap : ClassMap<UserPatternStitchRecord>
@@ -19,9 +20,10 @@ public sealed class UserPatternStitchRecordMap : ClassMap<UserPatternStitchRecor
         Schema("cross_stitch_viewer");
         Table("user_pattern_stitch");
         Id(x => x.Id, "id").GeneratedBy.SequenceIdentity("user_pattern_stitch_id_seq");
-        Map(x => x.Reference, "reference");
-        Map(x => x.UserPattern, "user_pattern_id");
-        References(x => x.PatternStitch, "pattern_stitch_id");
+        References(x => x.UserPattern, "user_pattern_id");
+        References(x => x.Stitch, "pattern_stitch_id");
+        Map(x => x.PositionLookup, "position_lookup");
+        Map(x => x.ThreadIndex, "thread_index");
         Map(x => x.StitchedAt, "stitched_at");
     }
 }

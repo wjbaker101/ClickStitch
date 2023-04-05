@@ -17,11 +17,12 @@ public static class PatternMapper
         StitchCount = pattern.StitchCount
     };
 
-    public static StitchModel MapStitch(PatternStitchRecord stitch) => new()
+    public static StitchModel MapStitch(PatternStitchRecord stitch, UserPatternStitchRecord? userPatternStitch) => new()
     {
         ThreadIndex = stitch.ThreadIndex,
         X = stitch.X,
-        Y = stitch.Y
+        Y = stitch.Y,
+        StitchedAt = userPatternStitch?.StitchedAt
     };
 
     public static ThreadModel MapThread(PatternThreadRecord thread) => new()
