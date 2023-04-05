@@ -11,7 +11,6 @@ export interface IApiPattern {
 }
 
 export interface IApiStitch {
-    readonly reference: string;
     readonly threadIndex: number;
     readonly x: number;
     readonly y: number;
