@@ -7,6 +7,7 @@
             'is-drag-selecting': isDragSelecting,
         }"
         @click="onClick"
+        @dblclick="onDoubleClick"
         @pointerdown="onMouseDown"
         @pointerup="onMouseUp"
         @pointermove="onMouseMove"
@@ -69,6 +70,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 
+import { api } from '@/api/api';
 import { isDark } from '@/helper/helper';
 import { Position } from '@/class/Position.class';
 import { useMouse } from '@/views/project/use/Mouse.use';
@@ -178,6 +180,17 @@ onMounted(() => {
 const onClick = function (): void {
     selectStart.value = null;
     selectEnd.value = null;
+};
+
+const onDoubleClick = async function (): Promise<void> {
+    await api.projects.completeStitches(props.project.project.pattern.reference, {
+        positions: [
+            {
+                x: mouseStitchPosition.value.x,
+                y: mouseStitchPosition.value.y,
+            },
+        ],
+    });
 };
 
 const onMouseDown = function (event: MouseEvent): void {
