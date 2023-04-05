@@ -1,4 +1,5 @@
 ﻿using Core.Settings;
+using Data.Interceptors;
 using Data.Records;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
@@ -27,6 +28,9 @@ public sealed class Database : IDatabase
                 .Username(database.Username)
                 .Password(database.Password)))
             .Mappings(m => m.FluentMappings.AddFromAssemblyOf<_Records>())
+            #if DEBUG
+            .ExposeConfiguration(x => x.SetInterceptor(new OutputSqlInterceptor()))
+            #endif
             .BuildSessionFactory();
     }
 }
