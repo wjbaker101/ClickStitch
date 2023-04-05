@@ -27,6 +27,12 @@
                 }"
             >
             </canvas>
+            <canvas
+                ref="completedStitchesCanvas"
+                :width="project.project.pattern.width * baseStitchSize"
+                :height="project.project.pattern.height * baseStitchSize"
+            >
+            </canvas>
             <div
                 v-if="stitchSelectStart && stitchSelectEnd"
                 class="selected-stitches-wrapper"
@@ -111,7 +117,10 @@ const { baseStitchSize, stitchSize, mouseStitchPosition, isMouseOverPattern, sti
 });
 
 const canvasElement = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
+const completedStitchesCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
+
 const graphics = computed<CanvasRenderingContext2D>(() => canvasElement.value.getContext('2d') as CanvasRenderingContext2D);
+const completedStitchesGraphics = computed<CanvasRenderingContext2D>(() => completedStitchesCanvas.value.getContext('2d') as CanvasRenderingContext2D);
 
 const hoveredStitch = sharedStitch.hoveredStitch;
 
@@ -140,6 +149,11 @@ onMounted(() => {
 
         graphics.value.fillStyle = isDark(thread.colour) ? '#ddd' :  '#111';
         graphics.value.fillText(stitch.threadIndex.toString(), stitch.x * baseStitchSize + (baseStitchSize / 2), (stitch.y + 1) * baseStitchSize - (baseStitchSize / 2) + 10);
+
+        completedStitchesGraphics.value.fillStyle = '#0f0';
+
+        if (stitch.stitchedAt !== null)
+            completedStitchesGraphics.value.fillRect(stitch.x * baseStitchSize, stitch.y * baseStitchSize, baseStitchSize, baseStitchSize);
     }
 
     graphics.value.strokeStyle = '#666';
@@ -304,6 +318,8 @@ const onMouseWheel = function (event: WheelEvent): void {
     }
 
     canvas {
+        position: absolute;
+        inset: 0;
         pointer-events: none;
         border-radius: var(--wjb-border-radius);
         image-rendering: crisp-edges;
