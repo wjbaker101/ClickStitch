@@ -2,6 +2,7 @@
 using ClickStitch.Models;
 using ClickStitch.Models.Mappers;
 using Core.Types;
+using Data.Records;
 using Data.Repositories.Pattern;
 using Data.Repositories.User;
 using Data.Repositories.UserPattern;
@@ -13,6 +14,7 @@ public interface IProjectsService
 {
     Task<Result<GetProjectsResponse>> GetProjects(UserModel requestUser);
     Task<Result<GetProjectResponse>> GetProject(UserModel requestUser, Guid patternReference);
+    Task<Result<CompleteStitchesResponse>> CompleteStitches(UserModel requestUser, Guid patternReference, CompleteStitchesRequest request);
 }
 
 public sealed class ProjectsService : IProjectsService
@@ -21,17 +23,20 @@ public sealed class ProjectsService : IProjectsService
     private readonly IUserPatternRepository _userPatternRepository;
     private readonly IPatternRepository _patternRepository;
     private readonly IUserPatternStitchRepository _userPatternStitchRepository;
+    private readonly IPatternStitchRepository _patternStitchRepository;
 
     public ProjectsService(
         IUserRepository userRepository,
         IUserPatternRepository userPatternRepository,
         IPatternRepository patternRepository,
-        IUserPatternStitchRepository userPatternStitchRepository)
+        IUserPatternStitchRepository userPatternStitchRepository,
+        IPatternStitchRepository patternStitchRepository)
     {
         _userRepository = userRepository;
         _userPatternRepository = userPatternRepository;
         _patternRepository = patternRepository;
         _userPatternStitchRepository = userPatternStitchRepository;
+        _patternStitchRepository = patternStitchRepository;
     }
 
     public async Task<Result<GetProjectsResponse>> GetProjects(UserModel requestUser)
@@ -84,5 +89,41 @@ public sealed class ProjectsService : IProjectsService
             Stitches = stitches.ToList(),
             Threads = pattern.Threads.Select(PatternMapper.MapThread).ToList()
         };
+    }
+
+    public async Task<Result<CompleteStitchesResponse>> CompleteStitches(UserModel requestUser, Guid patternReference, CompleteStitchesRequest request)
+    {
+        var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
+        if (!userResult.TrySuccess(out var user))
+            return Result<CompleteStitchesResponse>.FromFailure(userResult);
+
+        var patternResult = await _patternRepository.GetFullByReferenceAsync(patternReference);
+        if (!patternResult.TrySuccess(out var pattern))
+            return Result<CompleteStitchesResponse>.FromFailure(patternResult);
+
+        var projectResult = await _userPatternRepository.GetByUserAndPatternAsync(user, pattern);
+        if (!projectResult.TrySuccess(out var project))
+            return Result<CompleteStitchesResponse>.FromFailure(projectResult);
+
+        var stitches = new List<UserPatternStitchRecord>();
+        foreach (var position in request.Positions)
+        {
+            var stitchResult = await _patternStitchRepository.GetByPosition(pattern, position.X, position.Y);
+            if (!stitchResult.TrySuccess(out var stitch))
+                return Result<CompleteStitchesResponse>.FromFailure(stitchResult);
+
+            stitches.Add(new UserPatternStitchRecord
+            {
+                UserPattern = project,
+                Stitch = stitch,
+                StitchedAt = DateTime.UtcNow,
+                X = stitch.X,
+                Y = stitch.Y
+            });
+        }
+
+        await _userPatternStitchRepository.SaveManyAsync(stitches);
+
+        return new CompleteStitchesResponse();
     }
 }

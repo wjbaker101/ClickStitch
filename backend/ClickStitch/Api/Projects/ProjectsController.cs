@@ -1,4 +1,5 @@
 ﻿using ClickStitch.Api.Auth.Attributes;
+using ClickStitch.Api.Projects.Types;
 using ClickStitch.Helper;
 using ClickStitch.Types;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +36,18 @@ public sealed class ProjectsController : ApiController
         var user = RequestHelper.GetUser(Request);
 
         var result = await _projectsService.GetProject(user, patternReference);
+
+        return ToApiResponse(result);
+    }
+
+    [HttpPost]
+    [Route("{patternReference:guid}/stitches/complete")]
+    [Authorisation]
+    public async Task<IActionResult> CompleteStitches([FromRoute] Guid patternReference, [FromBody] CompleteStitchesRequest request)
+    {
+        var user = RequestHelper.GetUser(Request);
+
+        var result = await _projectsService.CompleteStitches(user, patternReference, request);
 
         return ToApiResponse(result);
     }
