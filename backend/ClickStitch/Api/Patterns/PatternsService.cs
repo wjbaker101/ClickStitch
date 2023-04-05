@@ -1,7 +1,6 @@
 ﻿using ClickStitch.Api.Patterns.Types;
 using ClickStitch.Clients.Cloudinary;
 using ClickStitch.Clients.Cloudinary.Types;
-using ClickStitch.Helper;
 using ClickStitch.Models.Mappers;
 using Core.Types;
 using Data.Records;
@@ -47,9 +46,7 @@ public sealed class PatternsService : IPatternsService
 
     public async Task<Result<GetPatternsResponse>> GetPatterns(RequestUser requestUser)
     {
-        var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
-        if (!userResult.TrySuccess(out var user))
-            return Result<GetPatternsResponse>.FromFailure(userResult);
+        var user = await _userRepository.GetByRequestUser(requestUser);
 
         var projects = await _userPatternRepository.GetByUserAsync(user);
 

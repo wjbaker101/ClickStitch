@@ -1,10 +1,6 @@
-﻿namespace ClickStitch.Helper;
+﻿using Core.Types;
 
-public sealed class RequestUser
-{
-    public required long Id { get; init; }
-    public required Guid Reference { get; init; }
-}
+namespace ClickStitch.Helper;
 
 public static class RequestHelper
 {

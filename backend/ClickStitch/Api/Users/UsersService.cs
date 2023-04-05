@@ -1,6 +1,5 @@
 ﻿using ClickStitch.Api.Auth;
 using ClickStitch.Api.Users.Types;
-using ClickStitch.Helper;
 using ClickStitch.Models.Mappers;
 using Core.Services;
 using Core.Types;

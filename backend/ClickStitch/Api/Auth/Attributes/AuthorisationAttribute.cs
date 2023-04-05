@@ -1,4 +1,5 @@
 ﻿using ClickStitch.Helper;
+using Core.Types;
 using Data.Repositories.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;

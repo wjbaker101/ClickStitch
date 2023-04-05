@@ -1,5 +1,4 @@
 ﻿using ClickStitch.Api.Basket.Types;
-using ClickStitch.Helper;
 using ClickStitch.Models.Mappers;
 using Core.Types;
 using Data.Records;
@@ -39,9 +38,7 @@ public sealed class BasketService : IBasketService
 
     public async Task<Result<GetBasketResponse>> GetBasket(RequestUser requestUser)
     {
-        var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
-        if (!userResult.TrySuccess(out var user))
-            return Result<GetBasketResponse>.FromFailure(userResult);
+        var user = await _userRepository.GetByRequestUser(requestUser);
 
         var basketItems = await _basketRepository.GetByUserAsync(user);
 
@@ -55,9 +52,7 @@ public sealed class BasketService : IBasketService
 
     public async Task<Result<AddToBasketResponse>> AddToBasket(RequestUser requestUser, Guid patternReference)
     {
-        var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
-        if (!userResult.TrySuccess(out var user))
-            return Result<AddToBasketResponse>.FromFailure(userResult);
+        var user = await _userRepository.GetByRequestUser(requestUser);
 
         var basketItems = await _basketRepository.GetByUserAsync(user);
 
@@ -80,9 +75,7 @@ public sealed class BasketService : IBasketService
 
     public async Task<Result<RemoveFromBasketResponse>> RemoveFromBasket(RequestUser requestUser, Guid patternReference)
     {
-        var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
-        if (!userResult.TrySuccess(out var user))
-            return Result<RemoveFromBasketResponse>.FromFailure(userResult);
+        var user = await _userRepository.GetByRequestUser(requestUser);
 
         var basketItems = await _basketRepository.GetByUserAsync(user);
 
@@ -97,9 +90,7 @@ public sealed class BasketService : IBasketService
 
     public async Task<Result<CompleteBasketResponse>> CompleteBasket(RequestUser requestUser)
     {
-        var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
-        if (!userResult.TrySuccess(out var user))
-            return Result<CompleteBasketResponse>.FromFailure(userResult);
+        var user = await _userRepository.GetByRequestUser(requestUser);
 
         var basketItems = await _basketRepository.GetByUserAsync(user);
 

@@ -1,5 +1,4 @@
 ﻿using ClickStitch.Api.Projects.Types;
-using ClickStitch.Helper;
 using ClickStitch.Models;
 using ClickStitch.Models.Mappers;
 using Core.Types;
@@ -42,9 +41,7 @@ public sealed class ProjectsService : IProjectsService
 
     public async Task<Result<GetProjectsResponse>> GetProjects(RequestUser requestUser)
     {
-        var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
-        if (!userResult.TrySuccess(out var user))
-            return Result<GetProjectsResponse>.FromFailure(userResult);
+        var user = await _userRepository.GetByRequestUser(requestUser);
 
         var projects = await _userPatternRepository.GetByUserAsync(user);
 
@@ -56,9 +53,7 @@ public sealed class ProjectsService : IProjectsService
 
     public async Task<Result<GetProjectResponse>> GetProject(RequestUser requestUser, Guid patternReference)
     {
-        var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
-        if (!userResult.TrySuccess(out var user))
-            return Result<GetProjectResponse>.FromFailure(userResult);
+        var user = await _userRepository.GetByRequestUser(requestUser);
 
         var patternResult = await _patternRepository.GetFullByReferenceAsync(patternReference);
         if (!patternResult.TrySuccess(out var pattern))
@@ -94,9 +89,7 @@ public sealed class ProjectsService : IProjectsService
 
     public async Task<Result<CompleteStitchesResponse>> CompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request)
     {
-        var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
-        if (!userResult.TrySuccess(out var user))
-            return Result<CompleteStitchesResponse>.FromFailure(userResult);
+        var user = await _userRepository.GetByRequestUser(requestUser);
 
         var patternResult = await _patternRepository.GetFullByReferenceAsync(patternReference);
         if (!patternResult.TrySuccess(out var pattern))
