@@ -1,5 +1,5 @@
 ﻿using ClickStitch.Api.Basket.Types;
-using ClickStitch.Models;
+using ClickStitch.Helper;
 using ClickStitch.Models.Mappers;
 using Core.Types;
 using Data.Records;
@@ -12,10 +12,10 @@ namespace ClickStitch.Api.Basket;
 
 public interface IBasketService
 {
-    Task<Result<GetBasketResponse>> GetBasket(UserModel requestUser);
-    Task<Result<AddToBasketResponse>> AddToBasket(UserModel requestUser, Guid patternReference);
-    Task<Result<RemoveFromBasketResponse>> RemoveFromBasket(UserModel requestUser, Guid patternReference);
-    Task<Result<CompleteBasketResponse>> CompleteBasket(UserModel requestUser);
+    Task<Result<GetBasketResponse>> GetBasket(RequestUser requestUser);
+    Task<Result<AddToBasketResponse>> AddToBasket(RequestUser requestUser, Guid patternReference);
+    Task<Result<RemoveFromBasketResponse>> RemoveFromBasket(RequestUser requestUser, Guid patternReference);
+    Task<Result<CompleteBasketResponse>> CompleteBasket(RequestUser requestUser);
 }
 
 public sealed class BasketService : IBasketService
@@ -37,7 +37,7 @@ public sealed class BasketService : IBasketService
         _userPatternRepository = userPatternRepository;
     }
 
-    public async Task<Result<GetBasketResponse>> GetBasket(UserModel requestUser)
+    public async Task<Result<GetBasketResponse>> GetBasket(RequestUser requestUser)
     {
         var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
         if (!userResult.TrySuccess(out var user))
@@ -53,7 +53,7 @@ public sealed class BasketService : IBasketService
         };
     }
 
-    public async Task<Result<AddToBasketResponse>> AddToBasket(UserModel requestUser, Guid patternReference)
+    public async Task<Result<AddToBasketResponse>> AddToBasket(RequestUser requestUser, Guid patternReference)
     {
         var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
         if (!userResult.TrySuccess(out var user))
@@ -78,7 +78,7 @@ public sealed class BasketService : IBasketService
         return new AddToBasketResponse();
     }
 
-    public async Task<Result<RemoveFromBasketResponse>> RemoveFromBasket(UserModel requestUser, Guid patternReference)
+    public async Task<Result<RemoveFromBasketResponse>> RemoveFromBasket(RequestUser requestUser, Guid patternReference)
     {
         var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
         if (!userResult.TrySuccess(out var user))
@@ -95,7 +95,7 @@ public sealed class BasketService : IBasketService
         return new RemoveFromBasketResponse();
     }
 
-    public async Task<Result<CompleteBasketResponse>> CompleteBasket(UserModel requestUser)
+    public async Task<Result<CompleteBasketResponse>> CompleteBasket(RequestUser requestUser)
     {
         var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
         if (!userResult.TrySuccess(out var user))

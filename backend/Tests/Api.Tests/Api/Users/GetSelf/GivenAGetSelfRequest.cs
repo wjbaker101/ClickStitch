@@ -1,10 +1,10 @@
 ﻿using ClickStitch.Api.Users;
 using ClickStitch.Api.Users.Types;
+using ClickStitch.Helper;
 using Core.Types;
 using Data.Records;
 using Data.Repositories.User;
 using Moq;
-using TestHelpers.Models;
 
 namespace Api.Tests.Api.Users.GetSelf;
 
@@ -26,14 +26,14 @@ public sealed class GivenAGetSelfRequest
                 CreatedAt = new DateTime(2023, 05, 01, 16, 39, 14),
                 Email = "test@email.com",
                 Password = "TestPassword",
-                PasswordSalt = "",
-                Patterns = new HashSet<PatternRecord>()
+                PasswordSalt = ""
             });
 
         var subject = new UsersService(userRepository.Object, null!, null!, null!);
 
-        _result = await subject.GetSelf(new TestUserModel
+        _result = await subject.GetSelf(new RequestUser
         {
+            Id = 9371,
             Reference = Guid.Parse("38eba7b8-e53c-4619-a391-7c3d6beff3de")
         });
     }

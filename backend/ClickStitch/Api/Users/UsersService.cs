@@ -1,6 +1,6 @@
 ﻿using ClickStitch.Api.Auth;
 using ClickStitch.Api.Users.Types;
-using ClickStitch.Models;
+using ClickStitch.Helper;
 using ClickStitch.Models.Mappers;
 using Core.Services;
 using Core.Types;
@@ -12,10 +12,10 @@ namespace ClickStitch.Api.Users;
 
 public interface IUsersService
 {
-    Task<Result<GetSelfResponse>> GetSelf(UserModel requestUser);
+    Task<Result<GetSelfResponse>> GetSelf(RequestUser requestUser);
     Task<Result<CreateUserResponse>> CreateUser(CreateUserRequest request);
-    Task<Result<UpdateUserResponse>> UpdateUser(UserModel requestUser, Guid userReference, UpdateUserRequest request);
-    Task<Result<DeleteUserResponse>> DeleteUser(UserModel requestUser, Guid userReference);
+    Task<Result<UpdateUserResponse>> UpdateUser(RequestUser requestUser, Guid userReference, UpdateUserRequest request);
+    Task<Result<DeleteUserResponse>> DeleteUser(RequestUser requestUser, Guid userReference);
 }
 
 public sealed partial class UsersService : IUsersService
@@ -36,7 +36,7 @@ public sealed partial class UsersService : IUsersService
         _dateTime = dateTime;
     }
 
-    public async Task<Result<GetSelfResponse>> GetSelf(UserModel requestUser)
+    public async Task<Result<GetSelfResponse>> GetSelf(RequestUser requestUser)
     {
         var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
         if (!userResult.TrySuccess(out var user))
@@ -79,7 +79,7 @@ public sealed partial class UsersService : IUsersService
         };
     }
 
-    public async Task<Result<UpdateUserResponse>> UpdateUser(UserModel requestUser, Guid userReference, UpdateUserRequest request)
+    public async Task<Result<UpdateUserResponse>> UpdateUser(RequestUser requestUser, Guid userReference, UpdateUserRequest request)
     {
         var userResult = await _userRepository.GetByReferenceAsync(userReference);
         if (!userResult.TrySuccess(out var user))
@@ -93,7 +93,7 @@ public sealed partial class UsersService : IUsersService
         };
     }
 
-    public async Task<Result<DeleteUserResponse>> DeleteUser(UserModel requestUser, Guid userReference)
+    public async Task<Result<DeleteUserResponse>> DeleteUser(RequestUser requestUser, Guid userReference)
     {
         var userResult = await _userRepository.GetByReferenceAsync(userReference);
         if (!userResult.TrySuccess(out var user))

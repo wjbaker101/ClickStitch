@@ -1,4 +1,5 @@
 ﻿using ClickStitch.Api.Projects.Types;
+using ClickStitch.Helper;
 using ClickStitch.Models;
 using ClickStitch.Models.Mappers;
 using Core.Types;
@@ -12,9 +13,9 @@ namespace ClickStitch.Api.Projects;
 
 public interface IProjectsService
 {
-    Task<Result<GetProjectsResponse>> GetProjects(UserModel requestUser);
-    Task<Result<GetProjectResponse>> GetProject(UserModel requestUser, Guid patternReference);
-    Task<Result<CompleteStitchesResponse>> CompleteStitches(UserModel requestUser, Guid patternReference, CompleteStitchesRequest request);
+    Task<Result<GetProjectsResponse>> GetProjects(RequestUser requestUser);
+    Task<Result<GetProjectResponse>> GetProject(RequestUser requestUser, Guid patternReference);
+    Task<Result<CompleteStitchesResponse>> CompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request);
 }
 
 public sealed class ProjectsService : IProjectsService
@@ -39,7 +40,7 @@ public sealed class ProjectsService : IProjectsService
         _patternStitchRepository = patternStitchRepository;
     }
 
-    public async Task<Result<GetProjectsResponse>> GetProjects(UserModel requestUser)
+    public async Task<Result<GetProjectsResponse>> GetProjects(RequestUser requestUser)
     {
         var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
         if (!userResult.TrySuccess(out var user))
@@ -53,7 +54,7 @@ public sealed class ProjectsService : IProjectsService
         };
     }
 
-    public async Task<Result<GetProjectResponse>> GetProject(UserModel requestUser, Guid patternReference)
+    public async Task<Result<GetProjectResponse>> GetProject(RequestUser requestUser, Guid patternReference)
     {
         var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
         if (!userResult.TrySuccess(out var user))
@@ -91,7 +92,7 @@ public sealed class ProjectsService : IProjectsService
         };
     }
 
-    public async Task<Result<CompleteStitchesResponse>> CompleteStitches(UserModel requestUser, Guid patternReference, CompleteStitchesRequest request)
+    public async Task<Result<CompleteStitchesResponse>> CompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request)
     {
         var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
         if (!userResult.TrySuccess(out var user))

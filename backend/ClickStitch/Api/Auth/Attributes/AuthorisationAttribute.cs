@@ -1,4 +1,4 @@
-﻿using ClickStitch.Models.Mappers;
+﻿using ClickStitch.Helper;
 using Data.Repositories.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -36,12 +36,16 @@ public sealed class AuthorisationAttribute : Attribute, IAsyncAuthorizationFilte
         var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
 
         var userResult = await userRepository.GetByReferenceAsync(userReferenceResult.Content);
-        if (userResult.IsFailure)
+        if (!userResult.TrySuccess(out var user))
         {
             context.Result = new UnauthorizedResult();
             return;
         }
 
-        context.HttpContext.Items["user"] = UserMapper.Map(userResult.Content);
+        context.HttpContext.Items[RequestHelper.REQUEST_USER_ITEM_KEY] = new RequestUser
+        {
+            Id = user.Id,
+            Reference = user.Reference
+        };
     }
 }

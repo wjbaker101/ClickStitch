@@ -1,12 +1,12 @@
 ﻿using ClickStitch.Api.Auth;
 using ClickStitch.Api.Users;
 using ClickStitch.Api.Users.Types;
+using ClickStitch.Helper;
 using Core.Types;
 using Data.Records;
 using Data.Repositories.User;
 using Moq;
 using TestHelpers.Fakes;
-using TestHelpers.Models;
 
 namespace Api.Tests.Api.Users.Delete;
 
@@ -43,7 +43,11 @@ public sealed class GivenADeleteUserRequest
             FakeGuid.Default(),
             FakeDateTime.Default());
         
-        _result = await subject.DeleteUser(new TestUserModel(), Guid.Parse("5f69355e-7498-4620-bd6f-cf3968fb37a4"));
+        _result = await subject.DeleteUser(new RequestUser
+        {
+            Id = 1913,
+            Reference = Guid.NewGuid()
+        }, Guid.Parse("5f69355e-7498-4620-bd6f-cf3968fb37a4"));
     }
 
     [Test]

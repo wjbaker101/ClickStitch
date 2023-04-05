@@ -1,12 +1,12 @@
 ﻿using ClickStitch.Api.Auth;
 using ClickStitch.Api.Users;
 using ClickStitch.Api.Users.Types;
+using ClickStitch.Helper;
 using Core.Types;
 using Data.Records;
 using Data.Repositories.User;
 using Moq;
 using TestHelpers.Fakes;
-using TestHelpers.Models;
 
 namespace Api.Tests.Api.Users.Update;
 
@@ -42,7 +42,11 @@ public sealed class GivenAnUpdateUserRequest
             FakeGuid.Default(),
             FakeDateTime.Default());
         
-        _result = await subject.UpdateUser(new TestUserModel(), Guid.Parse("5f69355e-7498-4620-bd6f-cf3968fb37a4"), new UpdateUserRequest
+        _result = await subject.UpdateUser(new RequestUser
+        {
+            Id = 6713,
+            Reference = Guid.NewGuid()
+        }, Guid.Parse("5f69355e-7498-4620-bd6f-cf3968fb37a4"), new UpdateUserRequest
         {
         });
     }

@@ -1,7 +1,7 @@
 ﻿using ClickStitch.Api.Patterns.Types;
 using ClickStitch.Clients.Cloudinary;
 using ClickStitch.Clients.Cloudinary.Types;
-using ClickStitch.Models;
+using ClickStitch.Helper;
 using ClickStitch.Models.Mappers;
 using Core.Types;
 using Data.Records;
@@ -15,7 +15,7 @@ namespace ClickStitch.Api.Patterns;
 
 public interface IPatternsService
 {
-    Task<Result<GetPatternsResponse>> GetPatterns(UserModel requestUser);
+    Task<Result<GetPatternsResponse>> GetPatterns(RequestUser requestUser);
     Task<Result> CreatePattern();
     Task<Result> UpdatePatternImage(Guid patternReference, UpdatePatternImageRequest request);
 }
@@ -45,7 +45,7 @@ public sealed class PatternsService : IPatternsService
         _userPatternRepository = userPatternRepository;
     }
 
-    public async Task<Result<GetPatternsResponse>> GetPatterns(UserModel requestUser)
+    public async Task<Result<GetPatternsResponse>> GetPatterns(RequestUser requestUser)
     {
         var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
         if (!userResult.TrySuccess(out var user))

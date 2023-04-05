@@ -29,8 +29,7 @@ public sealed class GivenACreateUserRequestWithAnExistingEmail
                 CreatedAt = default,
                 Email = null!,
                 Password = null!,
-                PasswordSalt = null!,
-                Patterns = null!
+                PasswordSalt = null!
             });
 
         var subject = new UsersService(
