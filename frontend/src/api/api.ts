@@ -24,6 +24,7 @@ import { IProject } from '@/models/Project.model';
 import { IGetProject } from '@/models/GetProject.model';
 import { IGetProjectsResponse } from '@/api/types/GetProjects.type';
 import { IGetProjectResponse } from '@/api/types/GetProject.type';
+import { ICompleteStitchesRequest } from './types/CompleteStitches.type';
 
 const auth = useAuth();
 
@@ -178,6 +179,22 @@ export const api = {
                     stitches: result.stitches.map(patternMapper.mapStitch),
                     threads: result.threads.map(patternMapper.mapThread),
                 };
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
+        },
+
+        async completeStitches(patternReference: string, request: ICompleteStitchesRequest): Promise<void | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
+            try {
+                const response = await client.post<IApiResultResponse<IGetProjectResponse>>(`/projects/${patternReference}/stitches/complete`, request, {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
             }
             catch (error) {
                 return ApiErrorMapper.map(error);
