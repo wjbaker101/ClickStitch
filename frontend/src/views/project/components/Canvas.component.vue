@@ -7,10 +7,10 @@
             'is-drag-selecting': isDragSelecting,
         }"
         @click="onClick"
-        @mousedown="onMouseDown"
-        @mouseup="onMouseUp"
-        @mousemove="onMouseMove"
-        @mouseleave="onMouseLeave"
+        @pointerdown="onMouseDown"
+        @pointerup="onMouseUp"
+        @pointermove="onMouseMove"
+        @pointerleave="onMouseLeave"
         @wheel="onMouseWheel"
     >
         <div class="canvas-wrapper"
