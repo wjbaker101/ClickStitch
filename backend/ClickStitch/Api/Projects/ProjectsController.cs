@@ -52,8 +52,8 @@ public sealed class ProjectsController : ApiController
         return ToApiResponse(result);
     }
 
-    [HttpDelete]
-    [Route("{patternReference:guid}/stitches/complete")]
+    [HttpPost]
+    [Route("{patternReference:guid}/stitches/uncomplete")]
     [Authorisation]
     public async Task<IActionResult> UnCompleteStitches([FromRoute] Guid patternReference, [FromBody] CompleteStitchesRequest request)
     {
