@@ -197,6 +197,8 @@ const onClick = function (): void {
 };
 
 const onDoubleClick = async function (): Promise<void> {
+    completedStitchesGraphics.value.fillRect(mouseStitchPosition.value.x * baseStitchSize, mouseStitchPosition.value.y * baseStitchSize, baseStitchSize, baseStitchSize);
+
     await api.projects.completeStitches(props.project.project.pattern.reference, {
         positions: [
             {
