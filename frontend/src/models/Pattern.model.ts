@@ -16,7 +16,7 @@ export interface IStitch {
     readonly threadIndex: number;
     readonly x: number;
     readonly y: number;
-    readonly stitchedAt: Dayjs | null;
+    stitchedAt: Dayjs | null;
 }
 
 export interface IThread {

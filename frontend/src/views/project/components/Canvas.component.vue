@@ -75,6 +75,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
+import dayjs from 'dayjs';
 
 import { api } from '@/api/api';
 import { isDark } from '@/helper/helper';
@@ -197,16 +198,47 @@ const onClick = function (): void {
 };
 
 const onDoubleClick = async function (): Promise<void> {
-    completedStitchesGraphics.value.fillRect(mouseStitchPosition.value.x * baseStitchSize, mouseStitchPosition.value.y * baseStitchSize, baseStitchSize, baseStitchSize);
+    if (hoveredStitch.value === null)
+        return;
 
-    await api.projects.completeStitches(props.project.project.pattern.reference, {
-        positions: [
-            {
-                x: mouseStitchPosition.value.x,
-                y: mouseStitchPosition.value.y,
-            },
-        ],
-    });
+    const stitch = hoveredStitch.value;
+
+    if (stitch.stitchedAt === null) {
+        completedStitchesGraphics.value.fillRect(
+            mouseStitchPosition.value.x * baseStitchSize,
+            mouseStitchPosition.value.y * baseStitchSize,
+            baseStitchSize,
+            baseStitchSize);
+
+        stitch.stitchedAt = dayjs();
+
+        await api.projects.completeStitches(props.project.project.pattern.reference, {
+            positions: [
+                {
+                    x: mouseStitchPosition.value.x,
+                    y: mouseStitchPosition.value.y,
+                },
+            ],
+        });
+    }
+    else {
+        completedStitchesGraphics.value.clearRect(
+            mouseStitchPosition.value.x * baseStitchSize,
+            mouseStitchPosition.value.y * baseStitchSize,
+            baseStitchSize,
+            baseStitchSize);
+
+        stitch.stitchedAt = null;
+
+        await api.projects.unCompleteStitches(props.project.project.pattern.reference, {
+            positions: [
+                {
+                    x: mouseStitchPosition.value.x,
+                    y: mouseStitchPosition.value.y,
+                },
+            ],
+        });
+    }
 };
 
 const onMouseDown = function (event: MouseEvent): void {

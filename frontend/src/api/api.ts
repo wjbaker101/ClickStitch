@@ -201,6 +201,23 @@ export const api = {
             }
         },
 
+        async unCompleteStitches(patternReference: string, request: ICompleteStitchesRequest): Promise<void | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
+            try {
+                const response = await client.post<IApiResultResponse<IGetProjectResponse>>(`/projects/${patternReference}/stitches/uncomplete`, request, {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+
+                });
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
+        },
+
     },
 
     users: {
