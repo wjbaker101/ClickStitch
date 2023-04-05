@@ -6,7 +6,7 @@ namespace Data.Repositories.UserPatternStitch;
 
 public interface IUserPatternStitchRepository : IRepository<UserPatternStitchRecord>
 {
-    Task<Result> DeleteByPositionLookup(UserPatternRecord userPattern, int posX, int posY);
+    Task<Result> DeleteByPositions(UserPatternRecord userPattern, List<(int posX, int posY)> positions);
     Task<Dictionary<long, UserPatternStitchRecord>> GetByUserPattern(UserPatternRecord userPattern);
 }
 
@@ -16,18 +16,21 @@ public sealed class UserPatternStitchRepository : Repository<UserPatternStitchRe
     {
     }
 
-    public async Task<Result> DeleteByPositionLookup(UserPatternRecord userPattern, int posX, int posY)
+    public async Task<Result> DeleteByPositions(UserPatternRecord userPattern, List<(int posX, int posY)> positions)
     {
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();
 
-        await session
-            .Query<UserPatternStitchRecord>()
-            .Where(x =>
-                x.UserPattern == userPattern &&
-                x.X == posX &&
-                x.Y == posY)
-            .DeleteAsync();
+        foreach (var position in positions)
+        {
+            await session
+                .Query<UserPatternStitchRecord>()
+                .Where(x =>
+                    x.UserPattern == userPattern &&
+                    x.X == position.posX &&
+                    x.Y == position.posY)
+                .DeleteAsync();
+        }
 
         await transaction.CommitAsync();
 

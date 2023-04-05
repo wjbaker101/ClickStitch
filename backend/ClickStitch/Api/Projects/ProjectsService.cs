@@ -15,6 +15,7 @@ public interface IProjectsService
     Task<Result<GetProjectsResponse>> GetProjects(RequestUser requestUser);
     Task<Result<GetProjectResponse>> GetProject(RequestUser requestUser, Guid patternReference);
     Task<Result<CompleteStitchesResponse>> CompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request);
+    Task<Result<CompleteStitchesResponse>> UnCompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request);
 }
 
 public sealed class ProjectsService : IProjectsService
@@ -117,6 +118,23 @@ public sealed class ProjectsService : IProjectsService
         }
 
         await _userPatternStitchRepository.SaveManyAsync(stitches);
+
+        return new CompleteStitchesResponse();
+    }
+
+    public async Task<Result<CompleteStitchesResponse>> UnCompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request)
+    {
+        var user = await _userRepository.GetByRequestUser(requestUser);
+
+        var patternResult = await _patternRepository.GetFullByReferenceAsync(patternReference);
+        if (!patternResult.TrySuccess(out var pattern))
+            return Result<CompleteStitchesResponse>.FromFailure(patternResult);
+
+        var projectResult = await _userPatternRepository.GetByUserAndPatternAsync(user, pattern);
+        if (!projectResult.TrySuccess(out var project))
+            return Result<CompleteStitchesResponse>.FromFailure(projectResult);
+
+        await _userPatternStitchRepository.DeleteByPositions(project, request.Positions.ConvertAll(x => (x.X, x.Y)));
 
         return new CompleteStitchesResponse();
     }
