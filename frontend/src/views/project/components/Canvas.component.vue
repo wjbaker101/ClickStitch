@@ -254,9 +254,6 @@ useInput('keypress', async (event) => {
     const width = stitchSelectEnd.value.x - stitchSelectStart.value.x + 1;
     const height = stitchSelectEnd.value.y - stitchSelectStart.value.y + 1;
 
-    if (width * height > 100)
-        return;
-
     for (let x = 0; x < width; ++x) {
         for (let y = 0; y < height; ++y) {
             const position = stitchSelectStart.value.translate(x, y);
@@ -265,27 +262,54 @@ useInput('keypress', async (event) => {
             if (!stitch)
                 continue;
 
-            if (stitch.stitchedAt !== null)
+            if (event.shiftKey && stitch.stitchedAt === null)
+                continue;
+            if (!event.shiftKey && stitch.stitchedAt !== null)
                 continue;
 
             stitches.push(stitch);
+        }
+    }
 
+    if (stitches.length > 100)
+        return;
+
+    if (event.shiftKey) {
+        for (const stitch of stitches) {
+            completedStitchesGraphics.value.clearRect(
+                stitch.x * baseStitchSize,
+                stitch.y * baseStitchSize,
+                baseStitchSize,
+                baseStitchSize);
+
+            stitch.stitchedAt = null;
+        }
+
+        await api.projects.unCompleteStitches(props.project.project.pattern.reference, {
+            positions: stitches.map(stitch => ({
+                x: stitch.x,
+                y: stitch.y,
+            })),
+        });
+    }
+    else {
+        for (const stitch of stitches) {
             completedStitchesGraphics.value.fillRect(
-                position.x * baseStitchSize,
-                position.y * baseStitchSize,
+                stitch.x * baseStitchSize,
+                stitch.y * baseStitchSize,
                 baseStitchSize,
                 baseStitchSize);
 
             stitch.stitchedAt = dayjs();
         }
-    }
 
-    await api.projects.completeStitches(props.project.project.pattern.reference, {
-        positions: stitches.map(stitch => ({
-            x: stitch.x,
-            y: stitch.y,
-        })),
-    });
+        await api.projects.completeStitches(props.project.project.pattern.reference, {
+            positions: stitches.map(stitch => ({
+                x: stitch.x,
+                y: stitch.y,
+            })),
+        });
+    }
 });
 
 const onMouseDown = function (event: MouseEvent): void {
