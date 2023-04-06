@@ -6,7 +6,7 @@
                 <IconComponent icon="menu" />
             </ButtonComponent>
         </div>
-        <div class="custom flex">
+        <div class="custom">
             <slot></slot>
         </div>
         <div class="links flex gap" :class="{ 'is-menu-open': isMenuOpen }">
@@ -28,7 +28,6 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useRoute } from 'vue-router';
 
 const isMenuOpen = ref<boolean>(false);
 
@@ -76,6 +75,7 @@ const onToggleMenu = function (): void {
     }
 
     .custom {
+        display: flex;
         justify-content: center;
     }
 

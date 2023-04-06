@@ -1,5 +1,8 @@
 <template>
     <ViewComponent class="pattern-view flex">
+        <template #nav>
+            <strong>{{ project?.project.pattern.title ?? '-' }}</strong>
+        </template>
         <div class="loading-container flex-auto">
             <UserMessageComponent ref="userMessageComponent" />
         </div>
