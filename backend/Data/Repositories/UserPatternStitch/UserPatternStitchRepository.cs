@@ -8,6 +8,7 @@ public interface IUserPatternStitchRepository : IRepository<UserPatternStitchRec
 {
     Task<Result> DeleteByPositions(UserPatternRecord userPattern, List<(int posX, int posY)> positions);
     Task<Dictionary<long, UserPatternStitchRecord>> GetByUserPattern(UserPatternRecord userPattern);
+    Task<Result> CompleteByPositions(PatternRecord pattern, UserPatternRecord userPattern, List<(int posX, int posY)> positions);
 }
 
 public sealed class UserPatternStitchRepository : Repository<UserPatternStitchRecord>, IUserPatternStitchRepository
@@ -50,5 +51,34 @@ public sealed class UserPatternStitchRepository : Repository<UserPatternStitchRe
         await transaction.CommitAsync();
 
         return userPatterns;
+    }
+
+    public async Task<Result> CompleteByPositions(PatternRecord pattern, UserPatternRecord userPattern, List<(int posX, int posY)> positions)
+    {
+        using var session = Database.SessionFactory.OpenSession();
+        using var transaction = session.BeginTransaction();
+
+        foreach (var position in positions)
+        {
+            var stitch = await session
+                .Query<PatternStitchRecord>()
+                .SingleOrDefaultAsync(x =>
+                    x.Pattern == pattern &&
+                    x.X == position.posX &&
+                    x.Y == position.posY);
+
+            await session.SaveAsync(new UserPatternStitchRecord
+            {
+                UserPattern = userPattern,
+                Stitch = stitch,
+                StitchedAt = DateTime.UtcNow,
+                X = stitch.X,
+                Y = stitch.Y
+            });
+        }
+
+        await transaction.CommitAsync();
+
+        return Result.Success();
     }
 }

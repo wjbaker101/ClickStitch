@@ -2,7 +2,6 @@
 using ClickStitch.Models;
 using ClickStitch.Models.Mappers;
 using Core.Types;
-using Data.Records;
 using Data.Repositories.Pattern;
 using Data.Repositories.User;
 using Data.Repositories.UserPattern;
@@ -100,24 +99,7 @@ public sealed class ProjectsService : IProjectsService
         if (!projectResult.TrySuccess(out var project))
             return Result<CompleteStitchesResponse>.FromFailure(projectResult);
 
-        var stitches = new List<UserPatternStitchRecord>();
-        foreach (var position in request.Positions)
-        {
-            var stitchResult = await _patternStitchRepository.GetByPosition(pattern, position.X, position.Y);
-            if (!stitchResult.TrySuccess(out var stitch))
-                return Result<CompleteStitchesResponse>.FromFailure(stitchResult);
-
-            stitches.Add(new UserPatternStitchRecord
-            {
-                UserPattern = project,
-                Stitch = stitch,
-                StitchedAt = DateTime.UtcNow,
-                X = stitch.X,
-                Y = stitch.Y
-            });
-        }
-
-        await _userPatternStitchRepository.SaveManyAsync(stitches);
+        await _userPatternStitchRepository.CompleteByPositions(pattern, project, request.Positions.Select(x => (x.X, x.Y)).ToList());
 
         return new CompleteStitchesResponse();
     }
