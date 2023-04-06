@@ -251,8 +251,14 @@ useInput('keypress', async (event) => {
 
     const stitches: Array<IStitch> = [];
 
-    for (let x = 0; x < stitchSelectEnd.value.x - stitchSelectStart.value.x + 1; ++x) {
-        for (let y = 0; y < stitchSelectEnd.value.y - stitchSelectStart.value.y + 1; ++y) {
+    const width = stitchSelectEnd.value.x - stitchSelectStart.value.x + 1;
+    const height = stitchSelectEnd.value.y - stitchSelectStart.value.y + 1;
+
+    if (width * height > 100)
+        return;
+
+    for (let x = 0; x < width; ++x) {
+        for (let y = 0; y < height; ++y) {
             const position = stitchSelectStart.value.translate(x, y);
 
             const stitch = pattern.get(`${position.x}:${position.y}`);
@@ -263,9 +269,6 @@ useInput('keypress', async (event) => {
                 continue;
 
             stitches.push(stitch);
-
-            if (stitches.length > 100)
-                return;
 
             completedStitchesGraphics.value.fillRect(
                 position.x * baseStitchSize,
