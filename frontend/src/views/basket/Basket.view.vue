@@ -16,7 +16,7 @@
                 <TransitionGroup name="items-transition-group" tag="div" class="basket-items">
                     <CardComponent :key="basketItem.pattern.reference" v-for="basketItem in basket?.items" class="basket-item flex gap align-items-center" border="left">
                         <div class="flex-auto">
-                            <img :src="basketItem.pattern.thumbnailUrl">
+                            <PatternImageComponent :pattern="basketItem.pattern" />
                         </div>
                         <div>
                             <strong>{{ basketItem.pattern.title }}</strong>
@@ -38,6 +38,8 @@
 </template>
 
 <script setup lang="ts">
+import PatternImageComponent from '@/components/shared/PatternImage.component.vue';
+
 import { currency } from '@/helper/helper';
 import { useMarketplace } from '@/use/marketplace/Marketplace.use';
 
@@ -66,13 +68,6 @@ const onPay = async function (): Promise<void> {
 
         & + .basket-item {
             margin-top: 1rem;
-        }
-
-        img {
-            border-radius: var(--wjb-border-radius);
-            vertical-align: middle;
-
-            @include shadow-small();
         }
     }
 

@@ -1,7 +1,7 @@
 <template>
     <CardComponent class="pattern-component" border="top" hoverable @click="onClick">
         <div class="text-centered">
-            <img :src="pattern.thumbnailUrl">
+            <PatternImageComponent :pattern="pattern" />
         </div>
         <div class="description flex align-items-center gap-small">
             <div>
@@ -22,6 +22,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+import PatternImageComponent from '@/components/shared/PatternImage.component.vue';
 import PatternModal from '@/views/marketplace/modal/PatternModal.component.vue';
 
 import { currency } from '@/helper/helper';
@@ -62,13 +63,6 @@ const onAddToBasket = async function (pattern: IPattern): Promise<void> {
     padding: 1rem;
     background-color: var(--wjb-background-colour-dark);
     cursor: pointer;
-
-    img {
-        border-radius: var(--wjb-border-radius);
-        vertical-align: middle;
-
-        @include shadow-small();
-    }
 
     .description {
         margin-top: 1rem;

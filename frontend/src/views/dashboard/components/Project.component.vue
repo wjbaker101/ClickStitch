@@ -1,6 +1,6 @@
 <template>
     <CardComponent class="project-component text-centered" border="top" hoverable @click="onClick">
-        <img :src="project.pattern.thumbnailUrl">
+        <PatternImageComponent :pattern="project.pattern" />
         <p></p>
         <strong>{{ project.pattern.title }}</strong>
         <p>{{ project.pattern.width }} &times; {{ project.pattern.height }}</p>
@@ -14,6 +14,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 
+import PatternImageComponent from '@/components/shared/PatternImage.component.vue';
 import ProjectModal from '@/views/dashboard/modal/ProjectModal.component.vue';
 
 import { useModal } from '@wjb/vue/use/modal.use';
@@ -48,12 +49,5 @@ const onDetails = function (): void {
     padding: 1rem;
     color: inherit;
     text-decoration: inherit;
-
-    img {
-        border-radius: var(--wjb-border-radius);
-        vertical-align: middle;
-
-        @include shadow-small();
-    }
 }
 </style>
