@@ -19,6 +19,8 @@ public interface IProjectsService
 
 public sealed class ProjectsService : IProjectsService
 {
+    private const int MAX_STITCH_SELECTION = 100;
+
     private readonly IUserRepository _userRepository;
     private readonly IUserPatternRepository _userPatternRepository;
     private readonly IPatternRepository _patternRepository;
@@ -89,6 +91,9 @@ public sealed class ProjectsService : IProjectsService
 
     public async Task<Result<CompleteStitchesResponse>> CompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request)
     {
+        if (request.Positions.Count > MAX_STITCH_SELECTION)
+            return Result<CompleteStitchesResponse>.Failure($"The number of stitches to complete exceeds maximum ({MAX_STITCH_SELECTION}), please try again with a smaller selection.");
+
         var user = await _userRepository.GetByRequestUser(requestUser);
 
         var patternResult = await _patternRepository.GetFullByReferenceAsync(patternReference);
@@ -106,6 +111,9 @@ public sealed class ProjectsService : IProjectsService
 
     public async Task<Result<CompleteStitchesResponse>> UnCompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request)
     {
+        if (request.Positions.Count > MAX_STITCH_SELECTION)
+            return Result<CompleteStitchesResponse>.Failure($"The number of stitches to un-complete exceeds maximum ({MAX_STITCH_SELECTION}), please try again with a smaller selection.");
+
         var user = await _userRepository.GetByRequestUser(requestUser);
 
         var patternResult = await _patternRepository.GetFullByReferenceAsync(patternReference);
