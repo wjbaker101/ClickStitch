@@ -56,6 +56,24 @@
                 </div>
             </div>
         </div>
+        <div
+            class="controls flex gap-small"
+            @click.stop=""
+            @dblclick.stop=""
+            @pointerdown.stop=""
+            @pointerup.stop=""
+            @pointermove.stop=""
+            @pointerleave.stop=""
+            @wheel.stop=""
+        >
+            <ButtonComponent title="Zoom in" @click="onZoomIn">
+                <IconComponent icon="plus" />
+            </ButtonComponent>
+            <ButtonComponent title="Zoom out" @click="onZoomOut">&mdash;</ButtonComponent>
+            <ButtonComponent title="Show options" @click="onShowOptions">
+                <IconComponent icon="menu" />
+            </ButtonComponent>
+        </div>
         <div class="debug">
             <div>w: {{ width.toFixed(0) }} h: {{ height.toFixed(0) }}</div>
             <div>mouse | x: {{ mousePosition.x }} y: {{ mousePosition.y }}</div>
@@ -373,11 +391,8 @@ const onMouseLeave = function (): void {
     hoveredStitch.value = null;
 };
 
-const onMouseWheel = function (event: WheelEvent): void {
-    if (!isMouseOverPattern.value)
-        return;
-
-    const factor = event.deltaY < 0 ? 1.25 : 0.8;
+const zoom = function (delta: number, centerX: number, centerY: number): void {
+    const factor = delta < 0 ? 1.25 : 0.8;
 
     const newScale = scale.value * factor;
     if (newScale > 1.1 || newScale < 0.1)
@@ -385,11 +400,28 @@ const onMouseWheel = function (event: WheelEvent): void {
 
     scale.value = newScale;
 
-    const dx = (mousePosition.value.x - offset.value.x) * (factor - 1);
-    const dy = (mousePosition.value.y - offset.value.y) * (factor - 1);
+    const dx = (centerX - offset.value.x) * (factor - 1);
+    const dy = (centerY - offset.value.y) * (factor - 1);
 
     offset.value = offset.value.translate(-dx, -dy);
 };
+
+const onMouseWheel = function (event: WheelEvent): void {
+    if (!isMouseOverPattern.value)
+        return;
+
+    zoom(event.deltaY, mousePosition.value.x, mousePosition.value.y);
+};
+
+const onZoomIn = function (): void {
+    zoom(-1, width.value / 2, height.value / 2);
+};
+
+const onZoomOut = function (): void {
+    zoom(1, width.value / 2, height.value / 2);
+};
+
+const onShowOptions = function (): void {};
 </script>
 
 <style lang="scss">
@@ -474,6 +506,33 @@ const onMouseWheel = function (event: WheelEvent): void {
             left: -2.5rem;
             top: 50%;
             transform: translateY(-50%);
+        }
+    }
+
+    .controls {
+        position: fixed;
+        inset: auto 1rem 1rem auto;
+        padding: 1rem;
+        line-height: 1em;
+        background-color: var(--wjb-primary);
+        background: linear-gradient(
+            -5deg,
+            transparentize($primary-dark, 0.05),
+            transparentize($primary, 0.05),
+        );
+        backdrop-filter: blur(2px);
+        border-radius: 2rem;
+
+        button {
+            box-shadow: none;
+        }
+
+        @include shadow-medium();
+
+        @media screen and (max-width: 720px) {
+            left: 50%;
+            right: auto;
+            transform: translateX(-50%);
         }
     }
 
