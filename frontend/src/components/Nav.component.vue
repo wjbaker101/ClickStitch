@@ -1,13 +1,15 @@
 <template>
     <nav class="nav-component flex gap align-items-center">
         <strong>ClickStitch</strong>
-        <div></div>
-        <div class="menu flex-auto">
+        <div class="menu text-right">
             <ButtonComponent class="mini" @click="onToggleMenu">
                 <IconComponent icon="menu" />
             </ButtonComponent>
         </div>
-        <div class="links flex gap flex-auto" :class="{ 'is-menu-open': isMenuOpen }">
+        <div class="custom flex">
+            <slot></slot>
+        </div>
+        <div class="links flex gap" :class="{ 'is-menu-open': isMenuOpen }">
             <RouterLink class="flex-auto" to="/dashboard">
                 <IconComponent icon="home" gap="right" />
                 <span>Dashboard</span>
@@ -27,8 +29,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
-
-const route = useRoute();
 
 const isMenuOpen = ref<boolean>(false);
 
@@ -71,9 +71,21 @@ const onToggleMenu = function (): void {
         display: none;
     }
 
+    .links {
+        justify-content: right;
+    }
+
+    .custom {
+        justify-content: center;
+    }
+
     @media screen and (max-width: 720px) {
         .menu {
             display: unset;
+        }
+
+        .custom {
+            display: none;
         }
 
         .links {
