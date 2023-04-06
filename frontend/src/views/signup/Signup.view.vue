@@ -1,5 +1,5 @@
 <template>
-    <ViewComponent class="login-view flex">
+    <ViewComponent class="login-view flex" hide-nav>
         <div class="left-side flex">
             <div class="centered flex-auto">
                 <h1>ClickStitch</h1>
