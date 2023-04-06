@@ -1,15 +1,15 @@
 <template>
     <nav class="nav-component flex gap align-items-center">
-        <strong>ClickStitch</strong>
+        <strong class="flex-auto">ClickStitch</strong>
+        <div class="custom align-items-center">
+            <slot></slot>
+        </div>
         <div class="menu text-right">
             <ButtonComponent class="mini" @click="onToggleMenu">
                 <IconComponent icon="menu" />
             </ButtonComponent>
         </div>
-        <div class="custom">
-            <slot></slot>
-        </div>
-        <div class="links flex gap" :class="{ 'is-menu-open': isMenuOpen }">
+        <div class="links flex gap flex-auto" :class="{ 'is-menu-open': isMenuOpen }">
             <RouterLink class="flex-auto" to="/dashboard">
                 <IconComponent icon="home" gap="right" />
                 <span>Dashboard</span>
@@ -77,15 +77,13 @@ const onToggleMenu = function (): void {
     .custom {
         display: flex;
         justify-content: center;
+        align-items: center;
+        line-height: 1.2em;
     }
 
     @media screen and (max-width: 720px) {
         .menu {
             display: unset;
-        }
-
-        .custom {
-            display: none;
         }
 
         .links {
