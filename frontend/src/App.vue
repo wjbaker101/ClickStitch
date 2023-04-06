@@ -6,18 +6,6 @@
 
 <script setup lang="ts">
 import NavComponent from '@/components/Nav.component.vue';
-
-import { useInput } from '@/use/input/input.use';
-
-const input = useInput();
-
-document.addEventListener('keydown', (event: KeyboardEvent) => {
-    input.keysDown.add(event.key);
-});
-
-document.addEventListener('keyup', (event: KeyboardEvent) => {
-    input.keysDown.delete(event.key);
-});
 </script>
 
 <style lang="scss">

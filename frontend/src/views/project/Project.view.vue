@@ -23,12 +23,10 @@ import StitchCountsComponent from '@/views/project/components/StitchCounts.compo
 
 import { api } from '@/api/api';
 import { setTitle } from '@/helper/helper';
-import { useInput } from '@/use/input/input.use';
 
 import { IGetProject } from '@/models/GetProject.model';
 
 const route = useRoute();
-const input = useInput();
 
 const userMessageComponent = ref<InstanceType<typeof UserMessageComponent>>({} as InstanceType<typeof UserMessageComponent>);
 
@@ -36,14 +34,6 @@ const patternReference = route.params.patternReference as string;
 
 const project = ref<IGetProject | null>(null);
 const isLoading = ref<boolean>(false);
-
-document.addEventListener('keydown', (event: KeyboardEvent) => {
-    input.keysDown.add(event.key);
-});
-
-document.addEventListener('keyup', (event: KeyboardEvent) => {
-    input.keysDown.delete(event.key);
-});
 
 onMounted(async () => {
     isLoading.value = true;
