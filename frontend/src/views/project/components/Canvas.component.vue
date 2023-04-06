@@ -83,6 +83,7 @@ import { Position } from '@/class/Position.class';
 import { useMouse } from '@/views/project/use/Mouse.use';
 import { useSharedStitch } from '@/views/project/use/SharedStitch';
 import { useStitch } from '@/views/project/use/Stitch.use';
+import { useInput } from '@/use/input/input.use';
 import { useTransformation } from '@/views/project/use/Transformation.use';
 
 import { IGetProject } from '@/models/GetProject.model';
@@ -240,6 +241,49 @@ const onDoubleClick = async function (): Promise<void> {
         });
     }
 };
+
+useInput('keypress', async (event) => {
+    if (event.key !== ' ')
+        return;
+
+    if (stitchSelectStart.value === null || stitchSelectEnd.value === null)
+        return;
+
+    const stitches: Array<IStitch> = [];
+
+    for (let x = 0; x < stitchSelectEnd.value.x - stitchSelectStart.value.x + 1; ++x) {
+        for (let y = 0; y < stitchSelectEnd.value.y - stitchSelectStart.value.y + 1; ++y) {
+            const position = stitchSelectStart.value.translate(x, y);
+
+            const stitch = pattern.get(`${position.x}:${position.y}`);
+            if (!stitch)
+                continue;
+
+            if (stitch.stitchedAt !== null)
+                continue;
+
+            stitches.push(stitch);
+
+            if (stitches.length > 100)
+                return;
+
+            completedStitchesGraphics.value.fillRect(
+                position.x * baseStitchSize,
+                position.y * baseStitchSize,
+                baseStitchSize,
+                baseStitchSize);
+
+            stitch.stitchedAt = dayjs();
+        }
+    }
+
+    await api.projects.completeStitches(props.project.project.pattern.reference, {
+        positions: stitches.map(stitch => ({
+            x: stitch.x,
+            y: stitch.y,
+        })),
+    });
+});
 
 const onMouseDown = function (event: MouseEvent): void {
     if (event.button === 1 && isMouseOverPattern.value) {
