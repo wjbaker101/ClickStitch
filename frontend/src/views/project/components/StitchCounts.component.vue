@@ -8,6 +8,8 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+
 import { sum } from '@/helper/array.helper';
 import { useSharedStitch } from '@/views/project/use/SharedStitch';
 
@@ -26,35 +28,39 @@ interface IThreadCount {
 
 const sharedStitch = useSharedStitch();
 
+const hoveredStitch = sharedStitch.hoveredStitch;
+
 const palette = new Map<number, IThread>();
 for (const thread of props.project.threads) {
     palette.set(thread.index, thread);
 }
 
-const threadCounts = new Map<number, IThreadCount>();
+const threadCounts = computed<Map<number, IThreadCount>>(() => {
+    const _threadCounts = new Map<number, IThreadCount>();
 
-for (const stitch of props.project.stitches) {
-    if (!threadCounts.has(stitch.threadIndex)) {
-        threadCounts.set(stitch.threadIndex, {
-            thread: palette.get(stitch.threadIndex) as IThread,
-            count: 0,
-            completeCount: 0,
-        });
+    for (const stitch of props.project.stitches) {
+        if (!_threadCounts.has(stitch.threadIndex)) {
+            _threadCounts.set(stitch.threadIndex, {
+                thread: palette.get(stitch.threadIndex) as IThread,
+                count: 0,
+                completeCount: 0,
+            });
+        }
+
+        const threadCount = _threadCounts.get(stitch.threadIndex) as IThreadCount;
+
+        if (stitch.stitchedAt === null)
+            threadCount.count++;
+        else
+            threadCount.completeCount++;
     }
 
-    const threadCount = threadCounts.get(stitch.threadIndex) as IThreadCount;
+    return _threadCounts;
+});
 
-    if (stitch.stitchedAt === null)
-        threadCount.count++;
-    else
-        threadCount.completeCount++;
-}
+const sortedThreadCounts = computed<Array<IThreadCount>>(() => Array.from(threadCounts.value.values()).sort((a, b) => b.count - a.count));
 
-const sortedThreadCounts = Array.from(threadCounts.values()).sort((a, b) => b.count - a.count);
-
-const hoveredStitch = sharedStitch.hoveredStitch;
-
-const percentage = sum(sortedThreadCounts, x => x.completeCount) / sum(sortedThreadCounts, x => x.count) * 100;
+const percentage = computed<number>(() => sum(sortedThreadCounts.value, x => x.completeCount) / sum(sortedThreadCounts.value, x => x.count) * 100);
 </script>
 
 <style lang="scss">
