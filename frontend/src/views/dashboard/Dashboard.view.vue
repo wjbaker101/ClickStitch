@@ -1,5 +1,5 @@
 <template>
-    <div class="dashboard-view">
+    <ViewComponent class="dashboard-view">
         <div class="content-width">
             <h1>Dashboard</h1>
             <h2>Your Projects:</h2>
@@ -18,7 +18,7 @@
                 <ProjectComponent :key="project.pattern.reference" v-for="project in projects" :project="project" />
             </div>
         </div>
-    </div>
+    </ViewComponent>
 </template>
 
 <script setup lang="ts">

@@ -1,5 +1,5 @@
 <template>
-    <div class="basket-view">
+    <ViewComponent class="basket-view">
         <div class="content-width">
             <h1>Basket</h1>
             <div v-if="basket === null">
@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </ViewComponent>
 </template>
 
 <script setup lang="ts">

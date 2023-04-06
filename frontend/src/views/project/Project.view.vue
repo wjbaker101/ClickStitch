@@ -1,5 +1,5 @@
 <template>
-    <div class="pattern-view flex">
+    <ViewComponent class="pattern-view flex">
         <div class="loading-container flex-auto">
             <UserMessageComponent ref="userMessageComponent" />
         </div>
@@ -10,7 +10,7 @@
             <CanvasComponent :project="project" />
             <StitchCountsComponent :project="project" />
         </template>
-    </div>
+    </ViewComponent>
 </template>
 
 <script setup lang="ts">

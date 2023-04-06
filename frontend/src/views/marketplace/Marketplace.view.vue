@@ -1,5 +1,5 @@
 <template>
-    <div class="marketplace-view">
+    <ViewComponent class="marketplace-view">
         <div class="content-width">
             <h1>Marketplace</h1>
             <p>Add patterns to your account and stitch away!</p>
@@ -26,7 +26,7 @@
                 </small>
             </div>
         </div>
-    </div>
+    </ViewComponent>
 </template>
 
 <script setup lang="ts">

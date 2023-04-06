@@ -1,10 +1,10 @@
 <template>
-    <div class="settings-view">
+    <ViewComponent class="settings-view">
         <div class="content-width">
             <h1>Settings</h1>
             <ButtonComponent @click="onLogOut">Log Out</ButtonComponent>
         </div>
-    </div>
+    </ViewComponent>
 </template>
 
 <script setup lang="ts">
