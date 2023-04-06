@@ -479,8 +479,7 @@ const onMouseWheel = function (event: WheelEvent): void {
 
     .debug {
         position: fixed;
-        bottom: 1px;
-        right: 1px;
+        inset: 50% 0.25rem auto auto;
         padding: 0.3rem;
         border-radius: var(--wjb-border-radius);
         text-align: right;
@@ -490,6 +489,7 @@ const onMouseWheel = function (event: WheelEvent): void {
         background-color: rgba(0, 0, 0, 0.6);
         color: #fff;
         pointer-events: none;
+        transform: translateY(-50%);
     }
 }
 </style>
