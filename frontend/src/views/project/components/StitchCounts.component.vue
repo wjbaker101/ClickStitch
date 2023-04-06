@@ -1,6 +1,5 @@
 <template>
     <div class="stitch-count-component">
-        {{ percentage.toFixed(2) }}% Complete
         <div class="thread" v-for="threadCount in sortedThreadCounts" :class="{ 'is-hovered': threadCount.thread.index === hoveredStitch?.threadIndex }">
             <div class="thread-colour" :style="{ 'background-color': threadCount.thread.colour }"></div><small>{{ threadCount.thread.description }} <strong>({{ threadCount.completeCount }}/{{ threadCount.count }})</strong></small>
         </div>
@@ -8,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 
 import { sum } from '@/helper/array.helper';
 import { useSharedStitch } from '@/views/project/use/SharedStitch';
@@ -60,7 +59,9 @@ const threadCounts = computed<Map<number, IThreadCount>>(() => {
 
 const sortedThreadCounts = computed<Array<IThreadCount>>(() => Array.from(threadCounts.value.values()).sort((a, b) => b.count - a.count));
 
-const percentage = computed<number>(() => sum(sortedThreadCounts.value, x => x.completeCount) / sum(sortedThreadCounts.value, x => x.count) * 100);
+watch(sortedThreadCounts, () => {
+    sharedStitch.percentageCompleted.value = sum(sortedThreadCounts.value, x => x.completeCount) / sum(sortedThreadCounts.value, x => x.count) * 100;
+}, { immediate: true });
 </script>
 
 <style lang="scss">
