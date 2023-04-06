@@ -73,5 +73,9 @@ onMounted(async () => {
         padding-left: 0.25rem;
         color: #ddd;
     }
+
+    .footer-component {
+        text-align: center;
+    }
 }
 </style>

@@ -177,5 +177,9 @@ const onLogin = async function () {
 
         @include shadow-small();
     }
+
+    .footer-component {
+        z-index: 0;
+    }
 }
 </style>

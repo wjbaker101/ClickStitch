@@ -1,5 +1,5 @@
 <template>
-    <ViewComponent class="login-view flex" hide-nav>
+    <ViewComponent class="signup-view flex" hide-nav>
         <div class="left-side flex">
             <div class="centered flex-auto">
                 <h1>ClickStitch</h1>
@@ -133,7 +133,7 @@ const onSignup = async function () {
 <style lang="scss">
 @use '@/style/variables' as *;
 
-.login-view {
+.signup-view {
     height: 100%;
 
     $angle: 4rem;
@@ -197,6 +197,10 @@ const onSignup = async function () {
         border-radius: var(--wjb-border-radius);
 
         @include shadow-small();
+    }
+
+    .footer-component {
+        z-index: 0;
     }
 }
 </style>
