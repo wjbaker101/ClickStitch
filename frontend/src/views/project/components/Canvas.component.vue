@@ -428,9 +428,9 @@ const onShowOptions = function (): void {};
 @use '@/style/variables' as *;
 
 .canvas-component {
-    position: relative;
+    position: absolute;
+    inset: 0;
     overflow: hidden;
-    flex: 1;
 
     * {
         transition: none;

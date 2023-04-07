@@ -1,5 +1,5 @@
 <template>
-    <ViewComponent class="pattern-view flex">
+    <ViewComponent class="pattern-view">
         <template #nav>
             <strong>{{ project?.project.pattern.title ?? '-' }}</strong>
             <sub class="percentage-completed">({{ percentage?.toFixed(2) ?? '-' }}%)</sub>
