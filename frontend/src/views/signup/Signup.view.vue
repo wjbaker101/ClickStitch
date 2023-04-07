@@ -1,5 +1,5 @@
 <template>
-    <ViewComponent class="signup-view flex" hide-nav>
+    <ViewComponent class="signup-view" hide-nav>
         <div class="left-side flex">
             <div class="centered flex-auto">
                 <h1>ClickStitch</h1>
@@ -16,13 +16,13 @@
                         <input ref="emailInput" type="text" v-model="email" placeholder="my@email.com" @keyup.enter="nextInput('passwordInput')">
                     </label>
                 </p>
-                <p class="flex gap">
+                <p class="passwords-container flex gap">
                     <label>
                         <strong>Password</strong>
                         <br>
                         <input ref="passwordInput" type="password" v-model="password" placeholder="Password" @keyup.enter="nextInput('confirmPasswordInput')">
                     </label>
-                    <label>
+                    <label class="confirm-password">
                         <strong>Confirm Password</strong>
                         <br>
                         <input
@@ -147,7 +147,8 @@ const onSignup = async function () {
     }
 
     .left-side {
-        position: relative;
+        inset: 0 50% 0 0;
+        position: absolute;
         background-color: var(--wjb-primary);
         background: linear-gradient(
             -45deg,
@@ -156,7 +157,14 @@ const onSignup = async function () {
         );
         margin-right: -$angle;
         clip-path: polygon(0 0, 100% 0, calc(100% - ($angle * 2)) 100%, 0% 100%);
-        filter: drop-shadow(1px 2px 3px #fff);
+        z-index: 1;
+
+        @media screen and (max-width: 720px) {
+            margin-right: 0;
+            position: static;
+            padding: 2rem 0;
+            clip-path: none;
+        }
     }
 
     .back-to-login {
@@ -170,11 +178,19 @@ const onSignup = async function () {
     }
 
     .right-side {
+        inset: 0 0 0 50%;
+        position: absolute;
         overflow-y: auto;
         background-color: var(--wjb-background-colour);
 
         .description {
             margin: 0.5rem 0 2rem 0;
+        }
+
+        @media screen and (max-width: 720px) {
+            position: static;
+            padding: 2rem 0;
+            background-color: transparent;
         }
     }
 
@@ -184,6 +200,12 @@ const onSignup = async function () {
 
     .centered {
         margin: auto;
+    }
+
+    .passwords-container {
+        @media screen and (max-width: 1280px) {
+            flex-direction: column;
+        }
     }
 
     .example-patterns {
@@ -200,7 +222,9 @@ const onSignup = async function () {
     }
 
     .footer-component {
-        z-index: 0;
+        position: relative;
+        color: #ddd;
+        z-index: 1;
     }
 }
 </style>

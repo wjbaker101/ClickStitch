@@ -3,7 +3,9 @@
         <NavComponent v-if="!hideNav">
             <slot name="nav"></slot>
         </NavComponent>
-        <slot></slot>
+        <div class="page-content">
+            <slot></slot>
+        </div>
         <FooterComponent v-if="!hideFooter" />
     </div>
 </template>
@@ -20,11 +22,8 @@ defineProps<{
 
 <style lang="scss">
 .view-component {
-    min-height: calc(100vh - var(--footer-height));
-
-    .footer-component {
-        position: absolute;
-        bottom: 0;
+    .page-content {
+        min-height: calc(100vh - var(--footer-height));
     }
 }
 </style>

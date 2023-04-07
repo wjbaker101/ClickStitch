@@ -1,5 +1,5 @@
 <template>
-    <ViewComponent class="login-view flex" hide-nav>
+    <ViewComponent class="login-view" hide-nav>
         <div class="left-side flex">
             <div class="centered flex-auto">
                 <h1>ClickStitch</h1>
@@ -136,7 +136,8 @@ const onLogin = async function () {
     }
 
     .left-side {
-        position: relative;
+        inset: 0 50% 0 0;
+        position: absolute;
         background-color: var(--wjb-primary);
         background: linear-gradient(
             -45deg,
@@ -145,15 +146,29 @@ const onLogin = async function () {
         );
         margin-right: -$angle;
         clip-path: polygon(0 0, 100% 0, calc(100% - ($angle * 2)) 100%, 0% 100%);
-        filter: drop-shadow(1px 2px 3px #fff);
+        z-index: 1;
+
+        @media screen and (max-width: 720px) {
+            margin-right: 0;
+            position: static;
+            padding: 2rem 0;
+            clip-path: none;
+        }
     }
 
     .right-side {
-        overflow-y: auto;
+        inset: 0 0 0 50%;
+        position: absolute;
         background-color: var(--wjb-background-colour);
 
         .description {
             margin: 0.5rem 0 2rem 0;
+        }
+
+        @media screen and (max-width: 720px) {
+            position: static;
+            padding: 2rem 0;
+            background-color: transparent;
         }
     }
 
@@ -179,7 +194,9 @@ const onLogin = async function () {
     }
 
     .footer-component {
-        z-index: 0;
+        position: relative;
+        color: #ddd;
+        z-index: 1;
     }
 }
 </style>
