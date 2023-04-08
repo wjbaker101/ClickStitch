@@ -7,9 +7,10 @@
             <div v-if="isLoading">
                 <LoadingComponent itemName="patterns" />
             </div>
-            <div v-else-if="patterns?.length === 0">
-                <p>No patterns were recieved, you must own them all!</p>
-            </div>
+            <ZeroStateComponent v-else-if="patterns?.length === 0" icon="info">
+                <p>Could not find any patterns, you must own them all!</p>
+                <p>Check back later for more!</p>
+            </ZeroStateComponent>
             <div v-else class="patterns">
                 <PatternComponent :key="pattern.reference" v-for="pattern in patterns" :pattern="pattern" />
             </div>
@@ -33,6 +34,7 @@
 import { onMounted, ref } from 'vue';
 
 import UserMessageComponent from '@/components/UserMessage.component.vue';
+import ZeroStateComponent from '@/components/ZeroState.component.vue';
 import PatternComponent from '@/views/marketplace/components/Pattern.component.vue';
 
 import { api } from '@/api/api';
