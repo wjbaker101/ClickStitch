@@ -7,7 +7,7 @@ export const useTransformation = function (component: Ref<HTMLDivElement>) {
     const height = ref<number>(0);
 
     const offset = ref<Position>(Position.ZERO);
-    const scale = ref<number>(1);
+    const scale = ref<number>(0.5);
 
     const onResize = function (): void {
         width.value = component.value.offsetWidth;
