@@ -5,13 +5,15 @@
             <div v-if="basket === null">
                 <LoadingComponent itemName="basket" />
             </div>
-            <div v-else-if="basket.items.length === 0" class="text-centered">
-                <IconComponent icon="cart" size="huge" />
+            <ZeroStateComponent v-else-if="basket.items.length === 0" icon="cart">
                 <p>No patterns in your basket yet!</p>
                 <RouterLink to="/marketplace">
-                    <ButtonComponent>Find Patterns</ButtonComponent>
+                    <ButtonComponent>
+                        <IconComponent icon="arrow-left" gap="right" />
+                        <span>Find Patterns</span>
+                    </ButtonComponent>
                 </RouterLink>
-            </div>
+            </ZeroStateComponent>
             <div v-else>
                 <TransitionGroup name="items-transition-group" tag="div" class="basket-items">
                     <CardComponent :key="basketItem.pattern.reference" v-for="basketItem in basket?.items" class="basket-item flex gap align-items-center" border="left">
@@ -44,6 +46,7 @@ import { currency } from '@/helper/helper';
 import { useMarketplace } from '@/use/marketplace/Marketplace.use';
 
 import { IBasketItem } from '@/models/Basket.model';
+import ZeroStateComponent from '@/components/ZeroState.component.vue';
 
 const marketplace = useMarketplace();
 
