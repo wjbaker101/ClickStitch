@@ -7,13 +7,13 @@
             <div v-if="isLoading">
                 <LoadingComponent itemName="projects" />
             </div>
-            <div v-else-if="projects?.length === 0">
+            <ZeroStateComponent v-else-if="projects?.length === 0" icon="info">
                 <p>No projects yet!</p>
                 <p>Visit the marketplace to get your first pattern!</p>
                 <RouterLink to="/marketplace">
                     <ButtonComponent>Go to Marketplace</ButtonComponent>
                 </RouterLink>
-            </div>
+            </ZeroStateComponent>
             <div v-else class="projects">
                 <ProjectComponent :key="project.pattern.reference" v-for="project in projects" :project="project" />
             </div>
@@ -25,6 +25,7 @@
 import { onMounted, ref } from 'vue';
 
 import UserMessageComponent from '@/components/UserMessage.component.vue';
+import ZeroStateComponent from '@/components/ZeroState.component.vue';
 import ProjectComponent from '@/views/dashboard/components/Project.component.vue';
 
 import { api } from '@/api/api';

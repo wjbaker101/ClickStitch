@@ -40,13 +40,13 @@
 </template>
 
 <script setup lang="ts">
+import ZeroStateComponent from '@/components/ZeroState.component.vue';
 import PatternImageComponent from '@/components/shared/PatternImage.component.vue';
 
 import { currency } from '@/helper/helper';
 import { useMarketplace } from '@/use/marketplace/Marketplace.use';
 
 import { IBasketItem } from '@/models/Basket.model';
-import ZeroStateComponent from '@/components/ZeroState.component.vue';
 
 const marketplace = useMarketplace();
 
