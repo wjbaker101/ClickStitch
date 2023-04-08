@@ -71,14 +71,14 @@ public sealed class PatternsService : IPatternsService
         {
             Reference = Guid.NewGuid(),
             CreatedAt = DateTime.UtcNow,
-            Title = "Templar Knight",
+            Title = "Bat Silhouette",
             Width = json.canvas.width,
             Height = json.canvas.height,
             Price = 2.5m,
-            ThumbnailUrl = null,
-            ThreadCount = json.palette.threads.Count,
+            ThumbnailUrl = "",
+            ThreadCount = json.palette.threads.Count - 1,
             StitchCount = json.canvas.stitches.Count,
-            AidaCount = 16,
+            AidaCount = 14,
             Stitches = new HashSet<PatternStitchRecord>(),
             Threads = new HashSet<PatternThreadRecord>()
         });
