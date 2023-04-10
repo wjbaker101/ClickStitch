@@ -83,7 +83,7 @@ public sealed class PatternsService : IPatternsService
             Threads = new HashSet<PatternThreadRecord>()
         });
 
-        await _patternStitchRepository.SaveManyAsync(json.canvas.stitches.ConvertAll(x => new PatternStitchRecord
+        await _patternStitchRepository.SaveStitches(json.canvas.stitches.ConvertAll(x => new PatternStitchRecord
         {
             Pattern = pattern,
             ThreadIndex = x.index,
