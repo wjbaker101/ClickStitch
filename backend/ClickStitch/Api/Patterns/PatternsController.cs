@@ -33,14 +33,15 @@ public sealed class PatternsController : ApiController
     [HttpPost]
     [Route("")]
     public async Task<IActionResult> CreatePattern(
-        [FromForm(Name = "file")] IFormFile file,
+        [FromForm(Name = "thumbnail")] IFormFile thumbnail,
+        [FromForm(Name = "banner_image")] IFormFile bannerImage,
         [FromForm(Name = "request_body")] string requestAsString,
         [FromForm(Name = "pattern_data")] string patternDataAsString)
     {
         var request = JsonConvert.DeserializeObject<CreatePatternRequest>(requestAsString)!;
         var patternData = JsonSerializer.Deserialize<CreatePatternData>(patternDataAsString);
 
-        var result = await _patternsService.CreatePattern(request, patternData, file);
+        var result = await _patternsService.CreatePattern(request, patternData, thumbnail, bannerImage);
         
         return ToApiResponse(result);
     }

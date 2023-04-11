@@ -14,7 +14,7 @@ namespace ClickStitch.Api.Patterns;
 public interface IPatternsService
 {
     Task<Result<GetPatternsResponse>> GetPatterns(RequestUser requestUser);
-    Task<Result> CreatePattern(CreatePatternRequest request, CreatePatternData patternData, IFormFile thumbnail);
+    Task<Result> CreatePattern(CreatePatternRequest request, CreatePatternData patternData, IFormFile thumbnail, IFormFile bannerImage);
     Task<Result> UpdatePatternImage(Guid patternReference, UpdatePatternImageRequest request);
 }
 
@@ -60,12 +60,20 @@ public sealed class PatternsService : IPatternsService
         };
     }
 
-    public async Task<Result> CreatePattern(CreatePatternRequest request, CreatePatternData patternData, IFormFile thumbnail)
+    public async Task<Result> CreatePattern(CreatePatternRequest request, CreatePatternData patternData, IFormFile thumbnail, IFormFile bannerImage)
     {
         var thumbnailResult = await _cloudinary.UploadImageAsync(new UploadImageRequest
         {
-            FileName = request.ThumbnailFileName,
+            FileName = $"{request.ImageFileName}.thumbnail",
             FileContents = thumbnail.OpenReadStream()
+        });
+        if (thumbnailResult.IsFailure)
+            return Result.FromFailure(thumbnailResult);
+
+        var bannerImageResult = await _cloudinary.UploadImageAsync(new UploadImageRequest
+        {
+            FileName = $"{request.ImageFileName}.banner",
+            FileContents = bannerImage.OpenReadStream()
         });
         if (thumbnailResult.IsFailure)
             return Result.FromFailure(thumbnailResult);
@@ -82,6 +90,7 @@ public sealed class PatternsService : IPatternsService
             ThreadCount = patternData.palette.threads.Count - 1,
             StitchCount = patternData.canvas.stitches.Count,
             AidaCount = request.AidaCount,
+            BannerImageUrl = bannerImageResult.Content.Url,
             Stitches = new HashSet<PatternStitchRecord>(),
             Threads = new HashSet<PatternThreadRecord>()
         });
