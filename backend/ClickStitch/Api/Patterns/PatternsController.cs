@@ -3,6 +3,8 @@ using ClickStitch.Api.Patterns.Types;
 using ClickStitch.Helper;
 using ClickStitch.Types;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using JsonSerializer = Utf8Json.JsonSerializer;
 
 namespace ClickStitch.Api.Patterns;
 
@@ -30,9 +32,15 @@ public sealed class PatternsController : ApiController
 
     [HttpPost]
     [Route("")]
-    public async Task<IActionResult> CreatePattern()
+    public async Task<IActionResult> CreatePattern(
+        [FromForm(Name = "file")] IFormFile file,
+        [FromForm(Name = "request_body")] string requestAsString,
+        [FromForm(Name = "pattern_data")] string patternDataAsString)
     {
-        var result = await _patternsService.CreatePattern();
+        var request = JsonConvert.DeserializeObject<CreatePatternRequest>(requestAsString)!;
+        var patternData = JsonSerializer.Deserialize<CreatePatternData>(patternDataAsString);
+
+        var result = await _patternsService.CreatePattern(request, patternData, file);
         
         return ToApiResponse(result);
     }

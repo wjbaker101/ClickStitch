@@ -8,14 +8,13 @@ using Data.Repositories.Pattern;
 using Data.Repositories.Pattern.Types;
 using Data.Repositories.User;
 using Data.Repositories.UserPattern;
-using System.Text.Json;
 
 namespace ClickStitch.Api.Patterns;
 
 public interface IPatternsService
 {
     Task<Result<GetPatternsResponse>> GetPatterns(RequestUser requestUser);
-    Task<Result> CreatePattern();
+    Task<Result> CreatePattern(CreatePatternRequest request, CreatePatternData patternData, IFormFile thumbnail);
     Task<Result> UpdatePatternImage(Guid patternReference, UpdatePatternImageRequest request);
 }
 
@@ -61,29 +60,33 @@ public sealed class PatternsService : IPatternsService
         };
     }
 
-    public async Task<Result> CreatePattern()
+    public async Task<Result> CreatePattern(CreatePatternRequest request, CreatePatternData patternData, IFormFile thumbnail)
     {
-        var data = PatternData.GET;
-
-        var json = JsonSerializer.Deserialize<PatternDataDto>(data)!;
+        var thumbnailResult = await _cloudinary.UploadImageAsync(new UploadImageRequest
+        {
+            FileName = request.ThumbnailFileName,
+            FileContents = thumbnail.OpenReadStream()
+        });
+        if (thumbnailResult.IsFailure)
+            return Result.FromFailure(thumbnailResult);
 
         var pattern = await _patternRepository.SaveAsync(new PatternRecord
         {
             Reference = Guid.NewGuid(),
             CreatedAt = DateTime.UtcNow,
-            Title = "Bat Silhouette",
-            Width = json.canvas.width,
-            Height = json.canvas.height,
-            Price = 2.5m,
-            ThumbnailUrl = "",
-            ThreadCount = json.palette.threads.Count - 1,
-            StitchCount = json.canvas.stitches.Count,
-            AidaCount = 14,
+            Title = request.Title,
+            Width = patternData.canvas.width,
+            Height = patternData.canvas.height,
+            Price = request.Price,
+            ThumbnailUrl = thumbnailResult.Content.Url,
+            ThreadCount = patternData.palette.threads.Count - 1,
+            StitchCount = patternData.canvas.stitches.Count,
+            AidaCount = request.AidaCount,
             Stitches = new HashSet<PatternStitchRecord>(),
             Threads = new HashSet<PatternThreadRecord>()
         });
 
-        await _patternStitchRepository.SaveStitches(json.canvas.stitches.ConvertAll(x => new PatternStitchRecord
+        await _patternStitchRepository.SaveStitches(patternData.canvas.stitches.ConvertAll(x => new PatternStitchRecord
         {
             Pattern = pattern,
             ThreadIndex = x.index,
@@ -91,7 +94,7 @@ public sealed class PatternsService : IPatternsService
             Y = x.y
         }));
 
-        await _patternThreadRepository.SaveManyAsync(json.palette.threads.ConvertAll(x => new PatternThreadRecord
+        await _patternThreadRepository.SaveManyAsync(patternData.palette.threads.ConvertAll(x => new PatternThreadRecord
         {
             Pattern = pattern,
             Name = x.name,
