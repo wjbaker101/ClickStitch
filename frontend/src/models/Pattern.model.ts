@@ -10,6 +10,7 @@ export interface IPattern {
     readonly thumbnailUrl: string;
     readonly threadCount: number;
     readonly stitchCount: number;
+    readonly bannerImageUrl: string | null;
 }
 
 export interface IStitch {
