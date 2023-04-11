@@ -13,7 +13,7 @@
     --wjb-secondary-light: #9833ac;
     --wjb-secondary-dark: #591866;
 
-    --wjb-danger: $danger;
+    --wjb-danger: #{$danger};
 
     --wjb-text-colour: #efefef;
     --wjb-text-colour-opposite: #222;
