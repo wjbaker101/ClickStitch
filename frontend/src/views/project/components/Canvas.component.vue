@@ -76,7 +76,7 @@
                 <IconComponent icon="menu" />
             </ButtonComponent>
         </div>
-        <div class="debug">
+        <!-- <div class="debug">
             <div>w: {{ width.toFixed(0) }} h: {{ height.toFixed(0) }}</div>
             <div>mouse | x: {{ mousePosition.x }} y: {{ mousePosition.y }}</div>
             <div>scale {{ scale.toFixed(1) }}</div>
@@ -89,7 +89,7 @@
             <div v-if="stitchSelectStart !== null">stitchSelectStart | x {{ stitchSelectStart.x }} y: {{ stitchSelectStart.y }}</div>
             <div v-if="stitchSelectEnd !== null">stitchSelectEnd | x {{ stitchSelectEnd.x }} y: {{ stitchSelectEnd.y }}</div>
             <div>{{ hoveredStitch }}</div>
-        </div>
+        </div> -->
     </div>
 </template>
 
