@@ -24,6 +24,7 @@ import { computed } from 'vue';
 
 import PatternImageComponent from '@/components/shared/PatternImage.component.vue';
 import PatternModal from '@/views/marketplace/modal/PatternModal.component.vue';
+import PatternImagesModal from '@/views/marketplace/modal/PatternImagesModal.component.vue';
 
 import { currency } from '@/helper/helper';
 import { useMarketplace } from '@/use/marketplace/Marketplace.use';
@@ -44,7 +45,7 @@ const hoverText = computed<string>(() => isInBasket.value ? 'Already in basket!'
 
 const onClick = function (): void {
     modal.show({
-        component: PatternModal,
+        component: PatternImagesModal,
         componentProps: {
             pattern: props.pattern,
         },
