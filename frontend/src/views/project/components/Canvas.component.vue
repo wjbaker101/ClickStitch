@@ -333,6 +333,9 @@ useInput('keypress', async (event) => {
 });
 
 const onMouseDown = function (event: MouseEvent): void {
+    mousePosition.value = Position.at(event.x, event.y).translate(-(component.value.offsetLeft ?? 0), -(component.value.offsetTop ?? 0));
+    prevMousePosition.value = Position.copy(mousePosition.value);
+
     if (event.button === 1 && isMouseOverPattern.value) {
         isDragSelecting.value = true;
         selectStart.value = mouseStitchPosition.value;
