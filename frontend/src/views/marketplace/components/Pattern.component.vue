@@ -12,7 +12,7 @@
             <div class="flex-auto">
                 <ButtonComponent class="add-to-basket-button mini" :title="hoverText" @click.stop="onAddToBasket(pattern)" :disabled="isInBasket">
                     <IconComponent v-if="isInBasket" icon="tick" />
-                    <IconComponent v-else icon="cart" />
+                    <IconComponent v-else icon="plus" />
                 </ButtonComponent>
             </div>
         </div>
