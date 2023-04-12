@@ -4,7 +4,7 @@
         <div class="custom align-items-center">
             <slot></slot>
         </div>
-        <div class="menu text-right">
+        <div class="menu flex-auto text-right">
             <ButtonComponent class="mini" @click="onToggleMenu">
                 <IconComponent icon="menu" />
             </ButtonComponent>
