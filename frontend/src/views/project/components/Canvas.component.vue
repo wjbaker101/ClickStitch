@@ -111,6 +111,8 @@ const props = defineProps<{
     project: IGetProject;
 }>();
 
+const emit = defineEmits(['openInformation']);
+
 const palette = new Map<number, IThread>();
 for (const thread of props.project.threads) {
     palette.set(thread.index, thread);
@@ -421,7 +423,9 @@ const onZoomOut = function (): void {
     zoom(1, width.value / 2, height.value / 2);
 };
 
-const onShowOptions = function (): void {};
+const onShowOptions = function (): void {
+    emit('openInformation');
+};
 </script>
 
 <style lang="scss">

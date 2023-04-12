@@ -11,8 +11,8 @@
             <LoadingComponent itemName="pattern" />
         </div>
         <template v-else-if="project !== null">
-            <CanvasComponent :project="project" />
-            <StitchCountsComponent :project="project" />
+            <CanvasComponent :project="project" @openInformation="isInformationOpen = !isInformationOpen" />
+            <StitchCountsComponent :project="project" :isOpen="isInformationOpen" />
         </template>
     </ViewComponent>
 </template>
@@ -40,6 +40,7 @@ const patternReference = route.params.patternReference as string;
 
 const project = ref<IGetProject | null>(null);
 const isLoading = ref<boolean>(false);
+const isInformationOpen = ref<boolean>(false);
 
 const percentage = sharedStitch.percentageCompleted;
 

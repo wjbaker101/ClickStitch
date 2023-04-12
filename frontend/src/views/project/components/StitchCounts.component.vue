@@ -1,5 +1,5 @@
 <template>
-    <div class="stitch-count-component">
+    <div class="stitch-count-component" :class="{ 'is-open': isOpen }">
         <div class="thread" v-for="threadCount in sortedThreadCounts" :class="{ 'is-hovered': threadCount.thread.index === hoveredStitch?.threadIndex }">
             <div class="thread-colour" :style="{ 'background-color': threadCount.thread.colour }"></div><small>{{ threadCount.thread.description }} <strong>({{ threadCount.completeCount }}/{{ threadCount.count }})</strong></small>
         </div>
@@ -17,6 +17,7 @@ import { IGetProject } from '@/models/GetProject.model';
 
 const props = defineProps<{
     project: IGetProject;
+    isOpen: boolean;
 }>();
 
 interface IThreadCount {
@@ -70,8 +71,7 @@ watch(sortedThreadCounts, () => {
 .stitch-count-component {
     position: fixed;
     padding: 1rem;
-    left: 0.5rem;
-    bottom: 0.5rem;
+    inset: auto 1rem 5.5rem auto;
     color: var(--wjb-text-colour-opposite);
     background-color: var(--wjb-primary);
     background: linear-gradient(
@@ -83,8 +83,15 @@ watch(sortedThreadCounts, () => {
     border-left: 3px solid var(--wjb-tertiary);
     border-radius: var(--wjb-border-radius);
     z-index: 1;
+    opacity: 0;
+    pointer-events: none;
 
     @include shadow-large();
+
+    &.is-open {
+        opacity: 1;
+        pointer-events: all;
+    }
 
     .thread {
         border-radius: var(--wjb-border-radius);
@@ -101,6 +108,12 @@ watch(sortedThreadCounts, () => {
         &.is-hovered {
             @include shadow-small();
         }
+    }
+
+    @media screen and (max-width: 720px) {
+        left: 50%;
+        right: 1rem;
+        left: 1rem;
     }
 }
 </style>
