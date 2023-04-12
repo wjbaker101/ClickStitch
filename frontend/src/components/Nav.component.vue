@@ -101,9 +101,11 @@ const onToggleMenu = function (): void {
             border-radius: var(--wjb-border-radius);
             z-index: 1;
             opacity: 0;
+            pointer-events: none;
 
             &.is-menu-open {
                 opacity: 1;
+                pointer-events: all;
             }
 
             & > *{
