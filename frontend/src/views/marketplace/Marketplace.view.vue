@@ -15,7 +15,7 @@
                 <PatternComponent :key="pattern.reference" v-for="pattern in patterns" :pattern="pattern" />
             </div>
         </div>
-        <div class="basket-container">
+        <div v-if="false" class="basket-container">
             <RouterLink to="/basket">
                 <ButtonComponent>
                     <IconComponent icon="cart" />
