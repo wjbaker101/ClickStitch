@@ -28,6 +28,10 @@ body {
         $bg 100%,
     );
     color: var(--wjb-text-colour);
+
+    &.no-scroll {
+        overflow: hidden;
+    }
 }
 
 input {
