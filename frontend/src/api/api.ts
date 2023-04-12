@@ -101,6 +101,17 @@ export const api = {
             });
         },
 
+        async quickAdd(patternReference: string): Promise<void | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
+            await client.post<IApiResultResponse<IAddToBasketResponse>>(`/basket/item/${patternReference}/quick`, {}, {
+                headers: {
+                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                },
+            });
+        },
+
         async complete() {
             if (auth.details.value === null)
                 return new Error('You must be logged in for this action.');

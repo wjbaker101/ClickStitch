@@ -1,6 +1,7 @@
 <template>
     <RouterView></RouterView>
     <ModalComponent />
+    <PopupComponent />
 </template>
 
 <script setup lang="ts">

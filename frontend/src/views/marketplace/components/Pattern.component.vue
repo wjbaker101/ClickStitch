@@ -21,6 +21,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 
 import PatternImageComponent from '@/components/shared/PatternImage.component.vue';
 import PatternModal from '@/views/marketplace/modal/PatternModal.component.vue';
@@ -29,6 +30,7 @@ import PatternImagesModal from '@/views/marketplace/modal/PatternImagesModal.com
 import { currency } from '@/helper/helper';
 import { useMarketplace } from '@/use/marketplace/Marketplace.use';
 import { useModal } from '@wjb/vue/use/modal.use';
+import { usePopup } from '@wjb/vue/use/popup.use';
 
 import { IPattern } from '@/models/Pattern.model';
 
@@ -36,8 +38,10 @@ const props = defineProps<{
     pattern: IPattern;
 }>();
 
+const router = useRouter();
 const marketplace = useMarketplace();
 const modal = useModal();
+const popup = usePopup();
 
 const patternsInBasket = marketplace.patternReferences;
 const isInBasket = computed<boolean>(() => patternsInBasket.value.has(props.pattern.reference));
@@ -53,7 +57,14 @@ const onClick = function (): void {
 };
 
 const onAddToBasket = async function (pattern: IPattern): Promise<void> {
-    await marketplace.addItem(pattern);
+    await marketplace.quickAdd(pattern);
+
+    popup.trigger({
+        message: `${props.pattern.title} has been added to your dashboard!`,
+        style: 'success',
+    });
+
+    router.push({ path: '/dashboard' });
 };
 </script>
 

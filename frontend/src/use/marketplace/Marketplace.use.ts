@@ -47,6 +47,12 @@ export const useMarketplace = function () {
             await getBasket();
         },
 
+        async quickAdd(pattern: IPattern): Promise<void> {
+            const result = await api.basket.quickAdd(pattern.reference);
+            if (result instanceof Error)
+                return;
+        },
+
         async complete(): Promise<void> {
             await api.basket.complete();
 
