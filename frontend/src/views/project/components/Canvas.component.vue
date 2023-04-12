@@ -13,6 +13,7 @@
         @pointermove="onMouseMove"
         @pointerleave="onMouseLeave"
         @wheel="onMouseWheel"
+        @touchstart="onTouchStart"
     >
         <div class="canvas-wrapper"
             :style="{
@@ -65,6 +66,7 @@
             @pointermove.stop=""
             @pointerleave.stop=""
             @wheel.stop=""
+            @touchstart.stop=""
         >
             <ButtonComponent title="Zoom in" @click="onZoomIn">
                 <IconComponent icon="plus" />
@@ -74,7 +76,7 @@
                 <IconComponent icon="menu" />
             </ButtonComponent>
         </div>
-        <!-- <div class="debug">
+        <div class="debug">
             <div>w: {{ width.toFixed(0) }} h: {{ height.toFixed(0) }}</div>
             <div>mouse | x: {{ mousePosition.x }} y: {{ mousePosition.y }}</div>
             <div>scale {{ scale.toFixed(1) }}</div>
@@ -86,8 +88,8 @@
             <div v-if="selectEnd !== null">selectEnd | x {{ selectEnd.x }} y: {{ selectEnd.y }}</div>
             <div v-if="stitchSelectStart !== null">stitchSelectStart | x {{ stitchSelectStart.x }} y: {{ stitchSelectStart.y }}</div>
             <div v-if="stitchSelectEnd !== null">stitchSelectEnd | x {{ stitchSelectEnd.x }} y: {{ stitchSelectEnd.y }}</div>
-            <div></div>
-        </div> -->
+            <div>{{ hoveredStitch }}</div>
+        </div>
     </div>
 </template>
 
@@ -260,6 +262,25 @@ const onDoubleClick = async function (): Promise<void> {
             ],
         });
     }
+};
+
+let doubleTouched: number | null = null;
+const onTouchStart = async function (event: TouchEvent): Promise<void> {
+    if (doubleTouched === null) {
+        doubleTouched = setTimeout(() => {
+            doubleTouched = null;
+        }, 300);
+
+        return;
+    }
+
+    clearTimeout(doubleTouched);
+    doubleTouched = null;
+
+    handleHoveredStitch();
+    await onDoubleClick();
+
+    event.preventDefault();
 };
 
 useInput('keypress', async (event) => {
