@@ -21,7 +21,7 @@
                 </RouterLink>
             </div>
         </div>
-        <UserMessageComponent ref="userMessageComponent" />
+        <!-- <UserMessageComponent ref="userMessageComponent" />
         <div v-if="isLoading">
             <LoadingComponent itemName="extra details" />
         </div>
@@ -55,7 +55,7 @@
                 <br>
                 <strong>It is recommended to buy extra skeins for high stitch count colours</strong>
             </p>
-        </div>
+        </div> -->
     </div>
 </template>
 
