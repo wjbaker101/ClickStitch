@@ -52,6 +52,18 @@ public sealed class BasketController : ApiController
     }
 
     [HttpPost]
+    [Route("item/{patternReference:guid}/quick")]
+    [Authorisation]
+    public async Task<IActionResult> QuickAdd([FromRoute] Guid patternReference)
+    {
+        var user = RequestHelper.GetUser(Request);
+
+        var result = await _basketService.QuickAdd(user, patternReference);
+
+        return ToApiResponse(result);
+    }
+
+    [HttpPost]
     [Route("complete")]
     [Authorisation]
     public async Task<IActionResult> CompleteBasket()

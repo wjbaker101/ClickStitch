@@ -14,6 +14,7 @@ public interface IBasketService
     Task<Result<GetBasketResponse>> GetBasket(RequestUser requestUser);
     Task<Result<AddToBasketResponse>> AddToBasket(RequestUser requestUser, Guid patternReference);
     Task<Result<RemoveFromBasketResponse>> RemoveFromBasket(RequestUser requestUser, Guid patternReference);
+    Task<Result> QuickAdd(RequestUser requestUser, Guid patternReference);
     Task<Result<CompleteBasketResponse>> CompleteBasket(RequestUser requestUser);
 }
 
@@ -86,6 +87,24 @@ public sealed class BasketService : IBasketService
         await _basketRepository.DeleteAsync(basketItemToRemove);
 
         return new RemoveFromBasketResponse();
+    }
+
+    public async Task<Result> QuickAdd(RequestUser requestUser, Guid patternReference)
+    {
+        var user = await _userRepository.GetByRequestUser(requestUser);
+
+        var patternResult = await _patternRepository.GetByReferenceAsync(patternReference);
+        if (!patternResult.TrySuccess(out var pattern))
+            return Result<AddToBasketResponse>.FromFailure(patternResult);
+
+        await _userPatternRepository.SaveAsync(new UserPatternRecord
+        {
+            User = user,
+            Pattern = pattern,
+            CreatedAt = DateTime.UtcNow
+        });
+
+        return Result.Success();
     }
 
     public async Task<Result<CompleteBasketResponse>> CompleteBasket(RequestUser requestUser)
