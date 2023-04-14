@@ -2,6 +2,7 @@
 using ClickStitch.Api.Patterns.Types;
 using ClickStitch.Helper;
 using ClickStitch.Types;
+using Data.Records;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using JsonSerializer = Utf8Json.JsonSerializer;
@@ -32,6 +33,10 @@ public sealed class PatternsController : ApiController
 
     [HttpPost]
     [Route("")]
+    [Authorisation(requireTypes: new[]
+    {
+        PermissionType.Admin
+    })]
     public async Task<IActionResult> CreatePattern(
         [FromForm(Name = "thumbnail")] IFormFile thumbnail,
         [FromForm(Name = "banner_image")] IFormFile bannerImage,
@@ -48,6 +53,10 @@ public sealed class PatternsController : ApiController
 
     [HttpPatch]
     [Route("{patternReference:guid}/image")]
+    [Authorisation(requireTypes: new[]
+    {
+        PermissionType.Admin
+    })]
     public async Task<IActionResult> UpdatePatternImage([FromRoute] Guid patternReference, UpdatePatternImageRequest request)
     {
         var result = await _patternsService.UpdatePatternImage(patternReference, request);
