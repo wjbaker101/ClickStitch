@@ -91,6 +91,7 @@ public sealed class PatternsService : IPatternsService
             StitchCount = patternData.canvas.stitches.Count,
             AidaCount = request.AidaCount,
             BannerImageUrl = bannerImageResult.Content.Url,
+            ExternalShopUrl = null,
             Stitches = new HashSet<PatternStitchRecord>(),
             Threads = new HashSet<PatternThreadRecord>()
         });
