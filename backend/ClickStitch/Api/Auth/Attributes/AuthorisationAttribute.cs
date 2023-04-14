@@ -1,6 +1,8 @@
 ﻿using ClickStitch.Helper;
 using Core.Types;
+using Data.Records;
 using Data.Repositories.User;
+using Data.Repositories.UserPermission;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -10,6 +12,13 @@ namespace ClickStitch.Api.Auth.Attributes;
 public sealed class AuthorisationAttribute : Attribute, IAsyncAuthorizationFilter, IOrderedFilter
 {
     public int Order => 100;
+
+    private readonly PermissionType[] _requireTypes;
+
+    public AuthorisationAttribute(PermissionType[]? requireTypes = null)
+    {
+        _requireTypes = requireTypes ?? Array.Empty<PermissionType>();
+    }
 
     public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
     {
@@ -43,6 +52,20 @@ public sealed class AuthorisationAttribute : Attribute, IAsyncAuthorizationFilte
         {
             context.Result = new UnauthorizedResult();
             return;
+        }
+
+        if (_requireTypes.Any())
+        {
+            var userPermissionRepository = context.HttpContext.RequestServices.GetRequiredService<IUserPermissionRepository>();
+
+            var permissions = await userPermissionRepository.GetByUser(user);
+            var permissionsSet = permissions.Select(x => x.Type).ToHashSet();
+
+            if (_requireTypes.Any(x => !permissionsSet.Contains(x)))
+            {
+                context.Result = new UnauthorizedResult();
+                return;
+            }
         }
 
         context.HttpContext.Items[RequestHelper.REQUEST_USER_ITEM_KEY] = new RequestUser
