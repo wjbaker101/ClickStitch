@@ -2,6 +2,7 @@
 using ClickStitch.Models.Mappers;
 using Core.Types;
 using Data.Repositories.User;
+using Data.Repositories.UserPermission;
 
 namespace ClickStitch.Api.Auth;
 
@@ -15,12 +16,14 @@ public sealed class AuthService : IAuthService
     private readonly IUserRepository _userRepository;
     private readonly IPasswordService _passwordService;
     private readonly ILoginTokenService _loginTokenService;
+    private readonly IUserPermissionRepository _userPermissionRepository;
 
-    public AuthService(IUserRepository userRepository, IPasswordService passwordService, ILoginTokenService loginTokenService)
+    public AuthService(IUserRepository userRepository, IPasswordService passwordService, ILoginTokenService loginTokenService, IUserPermissionRepository userPermissionRepository)
     {
         _userRepository = userRepository;
         _passwordService = passwordService;
         _loginTokenService = loginTokenService;
+        _userPermissionRepository = userPermissionRepository;
     }
 
     public async Task<Result<LogInResponse>> LogIn(LogInRequest request)
@@ -35,9 +38,13 @@ public sealed class AuthService : IAuthService
 
         var loginToken = _loginTokenService.Create(UserMapper.Map(user));
 
+        var permissions = await _userPermissionRepository.GetByUser(user);
+
         return new LogInResponse
         {
-            LoginToken = loginToken
+            LoginToken = loginToken,
+            Email = user.Email,
+            Permissions = permissions.ConvertAll(PermissionMapper.Map)
         };
     }
 }
