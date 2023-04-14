@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Mvc.Filters;
 namespace ClickStitch.Api.Auth.Attributes;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-public sealed class AuthorisationAttribute : Attribute, IAsyncAuthorizationFilter
+public sealed class AuthorisationAttribute : Attribute, IAsyncAuthorizationFilter, IOrderedFilter
 {
+    public int Order => 100;
+
     public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
     {
         if (!context.HttpContext.Request.Headers.TryGetValue("Authorization", out var authHeader))
