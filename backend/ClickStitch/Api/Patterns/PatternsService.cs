@@ -14,12 +14,7 @@ namespace ClickStitch.Api.Patterns;
 public interface IPatternsService
 {
     Task<Result<GetPatternsResponse>> GetPatterns(RequestUser requestUser, CancellationToken cancellationToken);
-    Task<Result> CreatePattern(
-        CreatePatternRequest request,
-        CreatePatternData patternData,
-        IFormFile thumbnail,
-        IFormFile bannerImage,
-        CancellationToken cancellationToken);
+    Task<Result> CreatePattern(CreatePatternRequest request, CreatePatternData patternData, IFormFile thumbnail, IFormFile bannerImage, CancellationToken cancellationToken);
     Task<Result> UpdatePatternImage(Guid patternReference, UpdatePatternImageRequest request, CancellationToken cancellationToken);
 }
 
