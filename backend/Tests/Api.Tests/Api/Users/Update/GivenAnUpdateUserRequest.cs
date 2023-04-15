@@ -1,7 +1,6 @@
 ﻿using ClickStitch.Api.Auth;
 using ClickStitch.Api.Users;
 using ClickStitch.Api.Users.Types;
-using ClickStitch.Helper;
 using Core.Types;
 using Data.Records;
 using Data.Repositories.User;
@@ -23,7 +22,7 @@ public sealed class GivenAnUpdateUserRequest
     {
         _userRepository = new Mock<IUserRepository>();
         _userRepository
-            .Setup(mock => mock.GetByReferenceAsync(It.IsAny<Guid>()))
+            .Setup(mock => mock.GetByReferenceAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new UserRecord
             {
                 Reference = Guid.Parse("85e41403-d6e1-4c50-bf48-50f65713ea53"),
@@ -33,8 +32,8 @@ public sealed class GivenAnUpdateUserRequest
                 PasswordSalt = "TestPasswordSalt"
             });
         _userRepository
-            .Setup(mock => mock.UpdateAsync(It.IsAny<UserRecord>()))
-            .ReturnsAsync((UserRecord user) => user);
+            .Setup(mock => mock.UpdateAsync(It.IsAny<UserRecord>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync((UserRecord user, CancellationToken cancellationToken) => user);
 
         var subject = new UsersService(
             _userRepository.Object,
@@ -48,7 +47,7 @@ public sealed class GivenAnUpdateUserRequest
             Reference = Guid.NewGuid()
         }, Guid.Parse("5f69355e-7498-4620-bd6f-cf3968fb37a4"), new UpdateUserRequest
         {
-        });
+        }, CancellationToken.None);
     }
 
     [Test]
@@ -60,7 +59,7 @@ public sealed class GivenAnUpdateUserRequest
     [Test]
     public void ThenTheCorrectUserIsUpdated()
     {
-        _userRepository.Verify(mock => mock.UpdateAsync(It.Is<UserRecord>(request => AssertUserRecord(request))), Times.Once);
+        _userRepository.Verify(mock => mock.UpdateAsync(It.Is<UserRecord>(request => AssertUserRecord(request)), It.IsAny<CancellationToken>()), Times.Once);
     }
 
     private static bool AssertUserRecord(UserRecord user)

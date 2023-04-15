@@ -5,7 +5,7 @@ namespace Data.Repositories.Basket;
 
 public interface IBasketRepository : IRepository<UserBasketItemRecord>
 {
-    Task<List<UserBasketItemRecord>> GetByUserAsync(UserRecord user);
+    Task<List<UserBasketItemRecord>> GetByUserAsync(UserRecord user, CancellationToken cancellationToken);
 }
 
 public sealed class BasketRepository : Repository<UserBasketItemRecord>, IBasketRepository
@@ -14,7 +14,7 @@ public sealed class BasketRepository : Repository<UserBasketItemRecord>, IBasket
     {
     }
 
-    public async Task<List<UserBasketItemRecord>> GetByUserAsync(UserRecord user)
+    public async Task<List<UserBasketItemRecord>> GetByUserAsync(UserRecord user, CancellationToken cancellationToken)
     {
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();
@@ -23,9 +23,9 @@ public sealed class BasketRepository : Repository<UserBasketItemRecord>, IBasket
             .Query<UserBasketItemRecord>()
             .Fetch(x => x.Pattern)
             .Where(x => x.User == user)
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
 
-        await transaction.CommitAsync();
+        await transaction.CommitAsync(cancellationToken);
 
         return basket;
     }

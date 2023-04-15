@@ -1,6 +1,5 @@
 ﻿using ClickStitch.Api.Users;
 using ClickStitch.Api.Users.Types;
-using ClickStitch.Helper;
 using Core.Types;
 using Data.Records;
 using Data.Repositories.User;
@@ -19,7 +18,7 @@ public sealed class GivenAGetSelfRequest
     {
         var userRepository = new Mock<IUserRepository>();
         userRepository
-            .Setup(mock => mock.GetByReferenceAsync(It.IsAny<Guid>()))
+            .Setup(mock => mock.GetByReferenceAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new UserRecord
             {
                 Reference = Guid.Parse("7dafaed7-0c16-41ef-a247-8bf8990d128d"),
@@ -35,7 +34,7 @@ public sealed class GivenAGetSelfRequest
         {
             Id = 9371,
             Reference = Guid.Parse("38eba7b8-e53c-4619-a391-7c3d6beff3de")
-        });
+        }, CancellationToken.None);
     }
 
     [Test]

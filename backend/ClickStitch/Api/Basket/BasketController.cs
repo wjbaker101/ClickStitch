@@ -18,11 +18,11 @@ public sealed class BasketController : ApiController
     [HttpGet]
     [Route("")]
     [Authorisation]
-    public async Task<IActionResult> GetBasket()
+    public async Task<IActionResult> GetBasket(CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetUser(Request);
 
-        var result = await _basketService.GetBasket(user);
+        var result = await _basketService.GetBasket(user, cancellationToken);
 
         return ToApiResponse(result);
     }
@@ -30,11 +30,11 @@ public sealed class BasketController : ApiController
     [HttpPost]
     [Route("item/{patternReference:guid}")]
     [Authorisation]
-    public async Task<IActionResult> AddToBasket([FromRoute] Guid patternReference)
+    public async Task<IActionResult> AddToBasket([FromRoute] Guid patternReference, CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetUser(Request);
 
-        var result = await _basketService.AddToBasket(user, patternReference);
+        var result = await _basketService.AddToBasket(user, patternReference, cancellationToken);
 
         return ToApiResponse(result);
     }
@@ -42,11 +42,11 @@ public sealed class BasketController : ApiController
     [HttpDelete]
     [Route("item/{patternReference:guid}")]
     [Authorisation]
-    public async Task<IActionResult> RemoveFromBasket([FromRoute] Guid patternReference)
+    public async Task<IActionResult> RemoveFromBasket([FromRoute] Guid patternReference, CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetUser(Request);
 
-        var result = await _basketService.RemoveFromBasket(user, patternReference);
+        var result = await _basketService.RemoveFromBasket(user, patternReference, cancellationToken);
 
         return ToApiResponse(result);
     }
@@ -54,11 +54,11 @@ public sealed class BasketController : ApiController
     [HttpPost]
     [Route("item/{patternReference:guid}/quick")]
     [Authorisation]
-    public async Task<IActionResult> QuickAdd([FromRoute] Guid patternReference)
+    public async Task<IActionResult> QuickAdd([FromRoute] Guid patternReference, CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetUser(Request);
 
-        var result = await _basketService.QuickAdd(user, patternReference);
+        var result = await _basketService.QuickAdd(user, patternReference, cancellationToken);
 
         return ToApiResponse(result);
     }
@@ -66,11 +66,11 @@ public sealed class BasketController : ApiController
     [HttpPost]
     [Route("complete")]
     [Authorisation]
-    public async Task<IActionResult> CompleteBasket()
+    public async Task<IActionResult> CompleteBasket(CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetUser(Request);
 
-        var result = await _basketService.CompleteBasket(user);
+        var result = await _basketService.CompleteBasket(user, cancellationToken);
 
         return ToApiResponse(result);
     }

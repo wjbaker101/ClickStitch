@@ -6,8 +6,8 @@ namespace Data.Repositories.UserPattern;
 
 public interface IUserPatternRepository : IRepository<UserPatternRecord>
 {
-    Task<List<UserPatternRecord>> GetByUserAsync(UserRecord user);
-    Task<Result<UserPatternRecord>> GetByUserAndPatternAsync(UserRecord user, PatternRecord pattern);
+    Task<List<UserPatternRecord>> GetByUserAsync(UserRecord user, CancellationToken cancellationToken);
+    Task<Result<UserPatternRecord>> GetByUserAndPatternAsync(UserRecord user, PatternRecord pattern, CancellationToken cancellationToken);
 }
 
 public sealed class UserPatternRepository : Repository<UserPatternRecord>, IUserPatternRepository
@@ -16,7 +16,7 @@ public sealed class UserPatternRepository : Repository<UserPatternRecord>, IUser
     {
     }
 
-    public async Task<List<UserPatternRecord>> GetByUserAsync(UserRecord user)
+    public async Task<List<UserPatternRecord>> GetByUserAsync(UserRecord user, CancellationToken cancellationToken)
     {
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();
@@ -32,7 +32,7 @@ public sealed class UserPatternRepository : Repository<UserPatternRecord>, IUser
         return userPatterns;
     }
 
-    public async Task<Result<UserPatternRecord>> GetByUserAndPatternAsync(UserRecord user, PatternRecord pattern)
+    public async Task<Result<UserPatternRecord>> GetByUserAndPatternAsync(UserRecord user, PatternRecord pattern, CancellationToken cancellationToken)
     {
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();

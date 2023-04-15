@@ -7,7 +7,7 @@ namespace Data.Repositories.UserPatternStitch;
 public interface IUserPatternStitchRepository : IRepository<UserPatternStitchRecord>
 {
     Task<Result> DeleteByPositions(UserPatternRecord userPattern, List<(int posX, int posY)> positions);
-    Task<Dictionary<long, UserPatternStitchRecord>> GetByUserPattern(UserPatternRecord userPattern);
+    Task<Dictionary<long, UserPatternStitchRecord>> GetByUserPattern(UserPatternRecord userPattern, CancellationToken cancellationToken);
     Task<Result> CompleteByPositions(PatternRecord pattern, UserPatternRecord userPattern, List<(int posX, int posY)> positions);
 }
 
@@ -38,7 +38,7 @@ public sealed class UserPatternStitchRepository : Repository<UserPatternStitchRe
         return Result.Success();
     }
 
-    public async Task<Dictionary<long, UserPatternStitchRecord>> GetByUserPattern(UserPatternRecord userPattern)
+    public async Task<Dictionary<long, UserPatternStitchRecord>> GetByUserPattern(UserPatternRecord userPattern, CancellationToken cancellationToken)
     {
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();

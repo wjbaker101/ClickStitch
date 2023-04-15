@@ -19,11 +19,11 @@ public sealed class ProjectsController : ApiController
     [HttpGet]
     [Route("")]
     [Authorisation]
-    public async Task<IActionResult> GetProjects()
+    public async Task<IActionResult> GetProjects(CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetUser(Request);
 
-        var result = await _projectsService.GetProjects(user);
+        var result = await _projectsService.GetProjects(user, cancellationToken);
 
         return ToApiResponse(result);
     }
@@ -31,11 +31,11 @@ public sealed class ProjectsController : ApiController
     [HttpGet]
     [Route("{patternReference:guid}")]
     [Authorisation]
-    public async Task<IActionResult> GetProject([FromRoute] Guid patternReference)
+    public async Task<IActionResult> GetProject([FromRoute] Guid patternReference, CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetUser(Request);
 
-        var result = await _projectsService.GetProject(user, patternReference);
+        var result = await _projectsService.GetProject(user, patternReference, cancellationToken);
 
         return ToApiResponse(result);
     }
@@ -43,11 +43,11 @@ public sealed class ProjectsController : ApiController
     [HttpPost]
     [Route("{patternReference:guid}/stitches/complete")]
     [Authorisation]
-    public async Task<IActionResult> CompleteStitches([FromRoute] Guid patternReference, [FromBody] CompleteStitchesRequest request)
+    public async Task<IActionResult> CompleteStitches([FromRoute] Guid patternReference, [FromBody] CompleteStitchesRequest request, CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetUser(Request);
 
-        var result = await _projectsService.CompleteStitches(user, patternReference, request);
+        var result = await _projectsService.CompleteStitches(user, patternReference, request, cancellationToken);
 
         return ToApiResponse(result);
     }
@@ -55,11 +55,11 @@ public sealed class ProjectsController : ApiController
     [HttpPost]
     [Route("{patternReference:guid}/stitches/uncomplete")]
     [Authorisation]
-    public async Task<IActionResult> UnCompleteStitches([FromRoute] Guid patternReference, [FromBody] CompleteStitchesRequest request)
+    public async Task<IActionResult> UnCompleteStitches([FromRoute] Guid patternReference, [FromBody] CompleteStitchesRequest request, CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetUser(Request);
 
-        var result = await _projectsService.UnCompleteStitches(user, patternReference, request);
+        var result = await _projectsService.UnCompleteStitches(user, patternReference, request, cancellationToken);
 
         return ToApiResponse(result);
     }

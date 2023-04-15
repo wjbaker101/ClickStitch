@@ -11,10 +11,10 @@ namespace ClickStitch.Api.Projects;
 
 public interface IProjectsService
 {
-    Task<Result<GetProjectsResponse>> GetProjects(RequestUser requestUser);
-    Task<Result<GetProjectResponse>> GetProject(RequestUser requestUser, Guid patternReference);
-    Task<Result<CompleteStitchesResponse>> CompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request);
-    Task<Result<CompleteStitchesResponse>> UnCompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request);
+    Task<Result<GetProjectsResponse>> GetProjects(RequestUser requestUser, CancellationToken cancellationToken);
+    Task<Result<GetProjectResponse>> GetProject(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken);
+    Task<Result<CompleteStitchesResponse>> CompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request, CancellationToken cancellationToken);
+    Task<Result<CompleteStitchesResponse>> UnCompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request, CancellationToken cancellationToken);
 }
 
 public sealed class ProjectsService : IProjectsService
@@ -41,11 +41,11 @@ public sealed class ProjectsService : IProjectsService
         _patternStitchRepository = patternStitchRepository;
     }
 
-    public async Task<Result<GetProjectsResponse>> GetProjects(RequestUser requestUser)
+    public async Task<Result<GetProjectsResponse>> GetProjects(RequestUser requestUser, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetByRequestUser(requestUser);
+        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
 
-        var projects = await _userPatternRepository.GetByUserAsync(user);
+        var projects = await _userPatternRepository.GetByUserAsync(user, cancellationToken);
 
         return new GetProjectsResponse
         {
@@ -53,19 +53,19 @@ public sealed class ProjectsService : IProjectsService
         };
     }
 
-    public async Task<Result<GetProjectResponse>> GetProject(RequestUser requestUser, Guid patternReference)
+    public async Task<Result<GetProjectResponse>> GetProject(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetByRequestUser(requestUser);
+        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
 
-        var patternResult = await _patternRepository.GetFullByReferenceAsync(patternReference);
+        var patternResult = await _patternRepository.GetFullByReferenceAsync(patternReference, cancellationToken);
         if (!patternResult.TrySuccess(out var pattern))
             return Result<GetProjectResponse>.FromFailure(patternResult);
 
-        var projectResult = await _userPatternRepository.GetByUserAndPatternAsync(user, pattern);
+        var projectResult = await _userPatternRepository.GetByUserAndPatternAsync(user, pattern, cancellationToken);
         if (!projectResult.TrySuccess(out var project))
             return Result<GetProjectResponse>.FromFailure(projectResult);
 
-        var userPatternStitches = await _userPatternStitchRepository.GetByUserPattern(project);
+        var userPatternStitches = await _userPatternStitchRepository.GetByUserPattern(project, cancellationToken);
 
         var stitches = pattern.Stitches.Select(x =>
         {
@@ -89,18 +89,18 @@ public sealed class ProjectsService : IProjectsService
         };
     }
 
-    public async Task<Result<CompleteStitchesResponse>> CompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request)
+    public async Task<Result<CompleteStitchesResponse>> CompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request, CancellationToken cancellationToken)
     {
         if (request.Positions.Count > MAX_STITCH_SELECTION)
             return Result<CompleteStitchesResponse>.Failure($"The number of stitches to complete exceeds maximum ({MAX_STITCH_SELECTION}), please try again with a smaller selection.");
 
-        var user = await _userRepository.GetByRequestUser(requestUser);
+        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
 
-        var patternResult = await _patternRepository.GetFullByReferenceAsync(patternReference);
+        var patternResult = await _patternRepository.GetFullByReferenceAsync(patternReference, cancellationToken);
         if (!patternResult.TrySuccess(out var pattern))
             return Result<CompleteStitchesResponse>.FromFailure(patternResult);
 
-        var projectResult = await _userPatternRepository.GetByUserAndPatternAsync(user, pattern);
+        var projectResult = await _userPatternRepository.GetByUserAndPatternAsync(user, pattern, cancellationToken);
         if (!projectResult.TrySuccess(out var project))
             return Result<CompleteStitchesResponse>.FromFailure(projectResult);
 
@@ -109,18 +109,18 @@ public sealed class ProjectsService : IProjectsService
         return new CompleteStitchesResponse();
     }
 
-    public async Task<Result<CompleteStitchesResponse>> UnCompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request)
+    public async Task<Result<CompleteStitchesResponse>> UnCompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request, CancellationToken cancellationToken)
     {
         if (request.Positions.Count > MAX_STITCH_SELECTION)
             return Result<CompleteStitchesResponse>.Failure($"The number of stitches to un-complete exceeds maximum ({MAX_STITCH_SELECTION}), please try again with a smaller selection.");
 
-        var user = await _userRepository.GetByRequestUser(requestUser);
+        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
 
-        var patternResult = await _patternRepository.GetFullByReferenceAsync(patternReference);
+        var patternResult = await _patternRepository.GetFullByReferenceAsync(patternReference, cancellationToken);
         if (!patternResult.TrySuccess(out var pattern))
             return Result<CompleteStitchesResponse>.FromFailure(patternResult);
 
-        var projectResult = await _userPatternRepository.GetByUserAndPatternAsync(user, pattern);
+        var projectResult = await _userPatternRepository.GetByUserAndPatternAsync(user, pattern, cancellationToken);
         if (!projectResult.TrySuccess(out var project))
             return Result<CompleteStitchesResponse>.FromFailure(projectResult);
 

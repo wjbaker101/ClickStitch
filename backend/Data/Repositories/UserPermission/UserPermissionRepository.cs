@@ -5,7 +5,7 @@ namespace Data.Repositories.UserPermission;
 
 public interface IUserPermissionRepository : IRepository<UserPermissionRecord>
 {
-    Task<List<PermissionRecord>> GetByUser(UserRecord user);
+    Task<List<PermissionRecord>> GetByUser(UserRecord user, CancellationToken cancellationToken);
 }
 
 public sealed class UserPermissionRepository : Repository<UserPermissionRecord>, IUserPermissionRepository
@@ -14,7 +14,7 @@ public sealed class UserPermissionRepository : Repository<UserPermissionRecord>,
     {
     }
 
-    public async Task<List<PermissionRecord>> GetByUser(UserRecord user)
+    public async Task<List<PermissionRecord>> GetByUser(UserRecord user, CancellationToken cancellationToken)
     {
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();
@@ -24,9 +24,9 @@ public sealed class UserPermissionRepository : Repository<UserPermissionRecord>,
             .Fetch(x => x.Permission)
             .Where(x => x.User == user)
             .Select(x => x.Permission)
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
 
-        await transaction.CommitAsync();
+        await transaction.CommitAsync(cancellationToken);
 
         return permissions;
     }

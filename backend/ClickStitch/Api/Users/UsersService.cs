@@ -11,10 +11,10 @@ namespace ClickStitch.Api.Users;
 
 public interface IUsersService
 {
-    Task<Result<GetSelfResponse>> GetSelf(RequestUser requestUser);
-    Task<Result<CreateUserResponse>> CreateUser(CreateUserRequest request);
-    Task<Result<UpdateUserResponse>> UpdateUser(RequestUser requestUser, Guid userReference, UpdateUserRequest request);
-    Task<Result<DeleteUserResponse>> DeleteUser(RequestUser requestUser, Guid userReference);
+    Task<Result<GetSelfResponse>> GetSelf(RequestUser requestUser, CancellationToken cancellationToken);
+    Task<Result<CreateUserResponse>> CreateUser(CreateUserRequest request, CancellationToken cancellationToken);
+    Task<Result<UpdateUserResponse>> UpdateUser(RequestUser requestUser, Guid userReference, UpdateUserRequest request, CancellationToken cancellationToken);
+    Task<Result<DeleteUserResponse>> DeleteUser(RequestUser requestUser, Guid userReference, CancellationToken cancellationToken);
 }
 
 public sealed partial class UsersService : IUsersService
@@ -35,9 +35,9 @@ public sealed partial class UsersService : IUsersService
         _dateTime = dateTime;
     }
 
-    public async Task<Result<GetSelfResponse>> GetSelf(RequestUser requestUser)
+    public async Task<Result<GetSelfResponse>> GetSelf(RequestUser requestUser, CancellationToken cancellationToken)
     {
-        var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference);
+        var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference, cancellationToken);
         if (!userResult.TrySuccess(out var user))
             return Result<GetSelfResponse>.FromFailure(userResult);
 
@@ -47,7 +47,7 @@ public sealed partial class UsersService : IUsersService
         };
     }
 
-    public async Task<Result<CreateUserResponse>> CreateUser(CreateUserRequest request)
+    public async Task<Result<CreateUserResponse>> CreateUser(CreateUserRequest request, CancellationToken cancellationToken)
     {
         if (!EmailRegex().IsMatch(request.Email))
             return Result<CreateUserResponse>.Failure("Email is invalid, please try again.");
@@ -56,7 +56,7 @@ public sealed partial class UsersService : IUsersService
         if (isValidResult.IsFailure)
             return Result<CreateUserResponse>.FromFailure(isValidResult);
 
-        var byEmailResult = await _userRepository.GetByEmailAsync(request.Email);
+        var byEmailResult = await _userRepository.GetByEmailAsync(request.Email, cancellationToken);
         if (byEmailResult.IsSuccess)
             return Result<CreateUserResponse>.Failure("Cannot use that email, an existing user already has it. Please try again with a different email.");
 
@@ -70,7 +70,7 @@ public sealed partial class UsersService : IUsersService
             Email = request.Email,
             Password = password,
             PasswordSalt = passwordSalt
-        });
+        }, cancellationToken);
 
         return new CreateUserResponse
         {
@@ -78,13 +78,13 @@ public sealed partial class UsersService : IUsersService
         };
     }
 
-    public async Task<Result<UpdateUserResponse>> UpdateUser(RequestUser requestUser, Guid userReference, UpdateUserRequest request)
+    public async Task<Result<UpdateUserResponse>> UpdateUser(RequestUser requestUser, Guid userReference, UpdateUserRequest request, CancellationToken cancellationToken)
     {
-        var userResult = await _userRepository.GetByReferenceAsync(userReference);
+        var userResult = await _userRepository.GetByReferenceAsync(userReference, cancellationToken);
         if (!userResult.TrySuccess(out var user))
             return Result<UpdateUserResponse>.FromFailure(userResult);
 
-        await _userRepository.UpdateAsync(user);
+        await _userRepository.UpdateAsync(user, cancellationToken);
 
         return new UpdateUserResponse
         {
@@ -92,13 +92,13 @@ public sealed partial class UsersService : IUsersService
         };
     }
 
-    public async Task<Result<DeleteUserResponse>> DeleteUser(RequestUser requestUser, Guid userReference)
+    public async Task<Result<DeleteUserResponse>> DeleteUser(RequestUser requestUser, Guid userReference, CancellationToken cancellationToken)
     {
-        var userResult = await _userRepository.GetByReferenceAsync(userReference);
+        var userResult = await _userRepository.GetByReferenceAsync(userReference, cancellationToken);
         if (!userResult.TrySuccess(out var user))
             return Result<DeleteUserResponse>.FromFailure(userResult);
 
-        await _userRepository.DeleteAsync(user);
+        await _userRepository.DeleteAsync(user, cancellationToken);
 
         return new DeleteUserResponse();
     }

@@ -4,11 +4,11 @@ namespace Data;
 
 public interface IRepository<TRecord> where TRecord : IDatabaseRecord
 {
-    Task<TRecord> SaveAsync(TRecord record);
-    Task<List<TRecord>> SaveManyAsync(IEnumerable<TRecord> records);
-    Task<TRecord> UpdateAsync(TRecord record);
+    Task<TRecord> SaveAsync(TRecord record, CancellationToken cancellationToken);
+    Task<List<TRecord>> SaveManyAsync(IEnumerable<TRecord> records, CancellationToken cancellationToken);
+    Task<TRecord> UpdateAsync(TRecord record, CancellationToken cancellationToken);
     Task<List<TRecord>> UpdateManyAsync(IEnumerable<TRecord> records);
-    Task<TRecord> DeleteAsync(TRecord record);
+    Task<TRecord> DeleteAsync(TRecord record, CancellationToken cancellationToken);
     Task<List<TRecord>> DeleteManyAsync(IEnumerable<TRecord> records);
 }
 
@@ -21,7 +21,7 @@ public abstract class Repository<TRecord> : IRepository<TRecord> where TRecord :
         Database = database;
     }
 
-    public async Task<TRecord> SaveAsync(TRecord record)
+    public async Task<TRecord> SaveAsync(TRecord record, CancellationToken cancellationToken)
     {
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();
@@ -33,7 +33,7 @@ public abstract class Repository<TRecord> : IRepository<TRecord> where TRecord :
         return record;
     }
 
-    public async Task<List<TRecord>> SaveManyAsync(IEnumerable<TRecord> records)
+    public async Task<List<TRecord>> SaveManyAsync(IEnumerable<TRecord> records, CancellationToken cancellationToken)
     {
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();
@@ -48,7 +48,7 @@ public abstract class Repository<TRecord> : IRepository<TRecord> where TRecord :
         return recordsAsList;
     }
 
-    public async Task<TRecord> UpdateAsync(TRecord record)
+    public async Task<TRecord> UpdateAsync(TRecord record, CancellationToken cancellationToken)
     {
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();
@@ -75,7 +75,7 @@ public abstract class Repository<TRecord> : IRepository<TRecord> where TRecord :
         return recordsAsList;
     }
 
-    public async Task<TRecord> DeleteAsync(TRecord record)
+    public async Task<TRecord> DeleteAsync(TRecord record, CancellationToken cancellationToken)
     {
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();

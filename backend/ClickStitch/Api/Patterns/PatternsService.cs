@@ -13,9 +13,14 @@ namespace ClickStitch.Api.Patterns;
 
 public interface IPatternsService
 {
-    Task<Result<GetPatternsResponse>> GetPatterns(RequestUser requestUser);
-    Task<Result> CreatePattern(CreatePatternRequest request, CreatePatternData patternData, IFormFile thumbnail, IFormFile bannerImage);
-    Task<Result> UpdatePatternImage(Guid patternReference, UpdatePatternImageRequest request);
+    Task<Result<GetPatternsResponse>> GetPatterns(RequestUser requestUser, CancellationToken cancellationToken);
+    Task<Result> CreatePattern(
+        CreatePatternRequest request,
+        CreatePatternData patternData,
+        IFormFile thumbnail,
+        IFormFile bannerImage,
+        CancellationToken cancellationToken);
+    Task<Result> UpdatePatternImage(Guid patternReference, UpdatePatternImageRequest request, CancellationToken cancellationToken);
 }
 
 public sealed class PatternsService : IPatternsService
@@ -43,16 +48,16 @@ public sealed class PatternsService : IPatternsService
         _userPatternRepository = userPatternRepository;
     }
 
-    public async Task<Result<GetPatternsResponse>> GetPatterns(RequestUser requestUser)
+    public async Task<Result<GetPatternsResponse>> GetPatterns(RequestUser requestUser, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetByRequestUser(requestUser);
+        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
 
-        var projects = await _userPatternRepository.GetByUserAsync(user);
+        var projects = await _userPatternRepository.GetByUserAsync(user, cancellationToken);
 
         var patterns = await _patternRepository.SearchAsync(new SearchPatternsParameters
         {
             PatternFilter = projects.Select(x => x.Pattern).ToList()
-        });
+        }, cancellationToken);
 
         return new GetPatternsResponse
         {
@@ -60,7 +65,12 @@ public sealed class PatternsService : IPatternsService
         };
     }
 
-    public async Task<Result> CreatePattern(CreatePatternRequest request, CreatePatternData patternData, IFormFile thumbnail, IFormFile bannerImage)
+    public async Task<Result> CreatePattern(
+        CreatePatternRequest request,
+        CreatePatternData patternData,
+        IFormFile thumbnail,
+        IFormFile bannerImage,
+        CancellationToken cancellationToken)
     {
         var thumbnailResult = await _cloudinary.UploadImageAsync(new UploadImageRequest
         {
@@ -94,7 +104,7 @@ public sealed class PatternsService : IPatternsService
             ExternalShopUrl = null,
             Stitches = new HashSet<PatternStitchRecord>(),
             Threads = new HashSet<PatternThreadRecord>()
-        });
+        }, cancellationToken);
 
         await _patternStitchRepository.SaveStitches(patternData.canvas.stitches.ConvertAll(x => new PatternStitchRecord
         {
@@ -102,7 +112,7 @@ public sealed class PatternsService : IPatternsService
             ThreadIndex = x.index,
             X = x.x,
             Y = x.y
-        }));
+        }), cancellationToken);
 
         await _patternThreadRepository.SaveManyAsync(patternData.palette.threads.ConvertAll(x => new PatternThreadRecord
         {
@@ -111,14 +121,14 @@ public sealed class PatternsService : IPatternsService
             Description = x.description,
             Index = x.index,
             Colour = $"#{x.colour.ToLower()}"
-        }));
+        }), cancellationToken);
 
         return Result.Success();
     }
 
-    public async Task<Result> UpdatePatternImage(Guid patternReference, UpdatePatternImageRequest request)
+    public async Task<Result> UpdatePatternImage(Guid patternReference, UpdatePatternImageRequest request, CancellationToken cancellationToken)
     {
-        var patternResult = await _patternRepository.GetByReferenceAsync(patternReference);
+        var patternResult = await _patternRepository.GetByReferenceAsync(patternReference, cancellationToken);
         if (!patternResult.TrySuccess(out var pattern))
             return Result.FromFailure(patternResult);
 
@@ -132,7 +142,7 @@ public sealed class PatternsService : IPatternsService
 
         pattern.ThumbnailUrl = upload.Url;
 
-        await _patternRepository.UpdateAsync(pattern);
+        await _patternRepository.UpdateAsync(pattern, cancellationToken);
 
         return Result.Success();
     }

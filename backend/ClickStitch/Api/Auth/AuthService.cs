@@ -8,7 +8,7 @@ namespace ClickStitch.Api.Auth;
 
 public interface IAuthService
 {
-    Task<Result<LogInResponse>> LogIn(LogInRequest request);
+    Task<Result<LogInResponse>> LogIn(LogInRequest request, CancellationToken cancellationToken);
 }
 
 public sealed class AuthService : IAuthService
@@ -26,9 +26,9 @@ public sealed class AuthService : IAuthService
         _userPermissionRepository = userPermissionRepository;
     }
 
-    public async Task<Result<LogInResponse>> LogIn(LogInRequest request)
+    public async Task<Result<LogInResponse>> LogIn(LogInRequest request, CancellationToken cancellationToken)
     {
-        var userResult = await _userRepository.GetByEmailAsync(request.Email);
+        var userResult = await _userRepository.GetByEmailAsync(request.Email, cancellationToken);
         if (!userResult.TrySuccess(out var user))
             return Result<LogInResponse>.FromFailure(userResult);
 
@@ -38,7 +38,7 @@ public sealed class AuthService : IAuthService
 
         var loginToken = _loginTokenService.Create(UserMapper.Map(user));
 
-        var permissions = await _userPermissionRepository.GetByUser(user);
+        var permissions = await _userPermissionRepository.GetByUser(user, cancellationToken);
 
         return new LogInResponse
         {

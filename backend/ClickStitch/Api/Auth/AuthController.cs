@@ -16,9 +16,9 @@ public sealed class AuthController : ApiController
 
     [HttpPost]
     [Route("log_in")]
-    public async Task<IActionResult> LogIn([FromBody] LogInRequest request)
+    public async Task<IActionResult> LogIn([FromBody] LogInRequest request, CancellationToken cancellationToken)
     {
-        var result = await _authService.LogIn(request);
+        var result = await _authService.LogIn(request, cancellationToken);
 
         return ToApiResponse(result);
     }

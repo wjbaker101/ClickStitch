@@ -7,9 +7,9 @@ namespace Data.Repositories.Pattern;
 
 public interface IPatternRepository : IRepository<PatternRecord>
 {
-    Task<List<PatternRecord>> SearchAsync(SearchPatternsParameters parameters);
-    Task<Result<PatternRecord>> GetByReferenceAsync(Guid patternReference);
-    Task<Result<PatternRecord>> GetFullByReferenceAsync(Guid patternReference);
+    Task<List<PatternRecord>> SearchAsync(SearchPatternsParameters parameters, CancellationToken cancellationToken);
+    Task<Result<PatternRecord>> GetByReferenceAsync(Guid patternReference, CancellationToken cancellationToken);
+    Task<Result<PatternRecord>> GetFullByReferenceAsync(Guid patternReference, CancellationToken cancellationToken);
 }
 
 public sealed class PatternRepository : Repository<PatternRecord>, IPatternRepository
@@ -18,7 +18,7 @@ public sealed class PatternRepository : Repository<PatternRecord>, IPatternRepos
     {
     }
 
-    public async Task<List<PatternRecord>> SearchAsync(SearchPatternsParameters parameters)
+    public async Task<List<PatternRecord>> SearchAsync(SearchPatternsParameters parameters, CancellationToken cancellationToken)
     {
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();
@@ -26,31 +26,31 @@ public sealed class PatternRepository : Repository<PatternRecord>, IPatternRepos
         var patterns = await session
             .Query<PatternRecord>()
             .Where(x => !parameters.PatternFilter.Contains(x))
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
 
-        await transaction.CommitAsync();
+        await transaction.CommitAsync(cancellationToken);
 
         return patterns;
     }
 
-    public async Task<Result<PatternRecord>> GetByReferenceAsync(Guid patternReference)
+    public async Task<Result<PatternRecord>> GetByReferenceAsync(Guid patternReference, CancellationToken cancellationToken)
     {
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();
 
         var pattern = await session
             .Query<PatternRecord>()
-            .SingleOrDefaultAsync(x => x.Reference == patternReference);
+            .SingleOrDefaultAsync(x => x.Reference == patternReference, cancellationToken);
 
         if (pattern == null)
             return Result<PatternRecord>.Failure($"Unable to find pattern with reference: '{patternReference}'.");
 
-        await transaction.CommitAsync();
+        await transaction.CommitAsync(cancellationToken);
 
         return pattern;
     }
 
-    public async Task<Result<PatternRecord>> GetFullByReferenceAsync(Guid patternReference)
+    public async Task<Result<PatternRecord>> GetFullByReferenceAsync(Guid patternReference, CancellationToken cancellationToken)
     {
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();
@@ -72,7 +72,7 @@ public sealed class PatternRepository : Repository<PatternRecord>, IPatternRepos
         if (pattern == null)
             return Result<PatternRecord>.Failure($"Unable to find pattern with reference: '{patternReference}'.");
 
-        await transaction.CommitAsync();
+        await transaction.CommitAsync(cancellationToken);
 
         return pattern;
     }

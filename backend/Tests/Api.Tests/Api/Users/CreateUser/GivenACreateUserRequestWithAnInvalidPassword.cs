@@ -44,7 +44,7 @@ public sealed class GivenACreateUserRequestWithAnInvalidPassword
         {
             Email = "test@email.com",
             Password = _password
-        });
+        }, CancellationToken.None);
     }
 
     [Test]

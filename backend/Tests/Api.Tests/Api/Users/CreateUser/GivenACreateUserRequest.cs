@@ -22,10 +22,10 @@ public sealed class GivenACreateUserRequest
     {
         _userRepository = new Mock<IUserRepository>();
         _userRepository
-            .Setup(mock => mock.SaveAsync(It.IsAny<UserRecord>()))
-            .ReturnsAsync((UserRecord user) => user);
+            .Setup(mock => mock.SaveAsync(It.IsAny<UserRecord>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync((UserRecord user, CancellationToken cancellationToken) => user);
         _userRepository
-            .Setup(mock => mock.GetByEmailAsync(It.IsAny<string>()))
+            .Setup(mock => mock.GetByEmailAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result<UserRecord>.Failure("TestFailure"));
 
         var subject = new UsersService(
@@ -38,7 +38,7 @@ public sealed class GivenACreateUserRequest
         {
             Email = "test@email.com",
             Password = "TestPassword1!"
-        });
+        }, CancellationToken.None);
     }
 
     [Test]
@@ -50,7 +50,7 @@ public sealed class GivenACreateUserRequest
     [Test]
     public void ThenTheCorrectUserIsSaved()
     {
-        _userRepository.Verify(mock => mock.SaveAsync(It.Is<UserRecord>(request => AssertUserRecord(request))), Times.Once);
+        _userRepository.Verify(mock => mock.SaveAsync(It.Is<UserRecord>(request => AssertUserRecord(request)), It.IsAny<CancellationToken>()), Times.Once);
     }
 
     private static bool AssertUserRecord(UserRecord user)

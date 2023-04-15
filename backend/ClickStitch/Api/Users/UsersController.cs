@@ -19,20 +19,20 @@ public sealed class UsersController : ApiController
     [HttpGet]
     [Route("self")]
     [Authorisation]
-    public async Task<IActionResult> GetSelf()
+    public async Task<IActionResult> GetSelf(CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetUser(Request);
 
-        var result = await _usersService.GetSelf(user);
+        var result = await _usersService.GetSelf(user, cancellationToken);
 
         return ToApiResponse(result);
     }
 
     [HttpPost]
     [Route("")]
-    public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request)
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request, CancellationToken cancellationToken)
     {
-        var result = await _usersService.CreateUser(request);
+        var result = await _usersService.CreateUser(request, cancellationToken);
 
         return ToApiResponse(result);
     }
@@ -40,11 +40,11 @@ public sealed class UsersController : ApiController
     [HttpPut]
     [Route("{userReference:guid}")]
     [Authorisation]
-    public async Task<IActionResult> UpdateUser([FromRoute] Guid userReference, [FromBody] UpdateUserRequest request)
+    public async Task<IActionResult> UpdateUser([FromRoute] Guid userReference, [FromBody] UpdateUserRequest request, CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetUser(Request);
 
-        var result = await _usersService.UpdateUser(user, userReference, request);
+        var result = await _usersService.UpdateUser(user, userReference, request, cancellationToken);
 
         return ToApiResponse(result);
     }
@@ -52,11 +52,11 @@ public sealed class UsersController : ApiController
     [HttpDelete]
     [Route("{userReference:guid}")]
     [Authorisation]
-    public async Task<IActionResult> DeleteUser([FromRoute] Guid userReference)
+    public async Task<IActionResult> DeleteUser([FromRoute] Guid userReference, CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetUser(Request);
 
-        var result = await _usersService.DeleteUser(user, userReference);
+        var result = await _usersService.DeleteUser(user, userReference, cancellationToken);
 
         return ToApiResponse(result);
     }

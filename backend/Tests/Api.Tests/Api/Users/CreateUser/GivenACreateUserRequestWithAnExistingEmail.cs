@@ -22,7 +22,7 @@ public sealed class GivenACreateUserRequestWithAnExistingEmail
     {
         _userRepository = new Mock<IUserRepository>();
         _userRepository
-            .Setup(mock => mock.GetByEmailAsync(It.IsAny<string>()))
+            .Setup(mock => mock.GetByEmailAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new UserRecord
             {
                 Reference = default,
@@ -42,7 +42,7 @@ public sealed class GivenACreateUserRequestWithAnExistingEmail
         {
             Email = "test@email.com",
             Password = "TestPassword1!"
-        });
+        }, CancellationToken.None);
     }
 
     [Test]
@@ -54,7 +54,7 @@ public sealed class GivenACreateUserRequestWithAnExistingEmail
     [Test]
     public void ThenTheCorrectUserIsNotSaved()
     {
-        _userRepository.Verify(mock => mock.SaveAsync(It.IsAny<UserRecord>()), Times.Never);
+        _userRepository.Verify(mock => mock.SaveAsync(It.IsAny<UserRecord>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 
     [Test]

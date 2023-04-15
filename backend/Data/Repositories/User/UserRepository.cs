@@ -8,9 +8,9 @@ namespace Data.Repositories.User;
 
 public interface IUserRepository : IRepository<UserRecord>
 {
-    Task<UserRecord> GetByRequestUser(RequestUser requestUser);
-    Task<Result<UserRecord>> GetByReferenceAsync(Guid userReference);
-    Task<Result<UserRecord>> GetByEmailAsync(string email);
+    Task<UserRecord> GetByRequestUser(RequestUser requestUser, CancellationToken cancellationToken);
+    Task<Result<UserRecord>> GetByReferenceAsync(Guid userReference, CancellationToken cancellationToken);
+    Task<Result<UserRecord>> GetByEmailAsync(string email, CancellationToken cancellationToken);
 }
 
 public sealed class UserRepository : Repository<UserRecord>, IUserRepository
@@ -19,43 +19,43 @@ public sealed class UserRepository : Repository<UserRecord>, IUserRepository
     {
     }
 
-    public async Task<UserRecord> GetByRequestUser(RequestUser requestUser)
+    public async Task<UserRecord> GetByRequestUser(RequestUser requestUser, CancellationToken cancellationToken)
     {
         using var session = Database.SessionFactory.OpenSession();
 
-        return await session.LoadAsync<UserRecord>(requestUser.Id);
+        return await session.LoadAsync<UserRecord>(requestUser.Id, cancellationToken);
     }
 
-    public async Task<Result<UserRecord>> GetByReferenceAsync(Guid userReference)
+    public async Task<Result<UserRecord>> GetByReferenceAsync(Guid userReference, CancellationToken cancellationToken)
     {
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();
 
         var user = await session
             .Query<UserRecord>()
-            .SingleOrDefaultAsync(x => x.Reference == userReference);
+            .SingleOrDefaultAsync(x => x.Reference == userReference, cancellationToken);
 
         if (user == null)
             return Result<UserRecord>.Failure($"Unable to find user with reference: '{userReference}'.");
 
-        await transaction.CommitAsync();
+        await transaction.CommitAsync(cancellationToken);
 
         return user;
     }
 
-    public async Task<Result<UserRecord>> GetByEmailAsync(string email)
+    public async Task<Result<UserRecord>> GetByEmailAsync(string email, CancellationToken cancellationToken)
     {
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();
 
         var user = await session
             .Query<UserRecord>()
-            .SingleOrDefaultAsync(x => x.Email.ToLower() == email.ToLower());
+            .SingleOrDefaultAsync(x => x.Email.ToLower() == email.ToLower(), cancellationToken);
 
         if (user == null)
             return Result<UserRecord>.Failure($"Unable to find user with email: '{email}'.");
 
-        await transaction.CommitAsync();
+        await transaction.CommitAsync(cancellationToken);
 
         return user;
     }
