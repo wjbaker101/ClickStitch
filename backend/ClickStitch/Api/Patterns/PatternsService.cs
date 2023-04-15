@@ -71,7 +71,7 @@ public sealed class PatternsService : IPatternsService
         {
             FileName = $"{request.ImageFileName}.thumbnail",
             FileContents = thumbnail.OpenReadStream()
-        });
+        }, cancellationToken);
         if (thumbnailResult.IsFailure)
             return Result.FromFailure(thumbnailResult);
 
@@ -79,7 +79,7 @@ public sealed class PatternsService : IPatternsService
         {
             FileName = $"{request.ImageFileName}.banner",
             FileContents = bannerImage.OpenReadStream()
-        });
+        }, cancellationToken);
         if (thumbnailResult.IsFailure)
             return Result.FromFailure(thumbnailResult);
 
@@ -131,7 +131,7 @@ public sealed class PatternsService : IPatternsService
         {
             FileName = request.FileName,
             FileContents = request.File.OpenReadStream()
-        });
+        }, cancellationToken);
         if (!uploadResult.TrySuccess(out var upload))
             return Result.FromFailure(uploadResult);
 

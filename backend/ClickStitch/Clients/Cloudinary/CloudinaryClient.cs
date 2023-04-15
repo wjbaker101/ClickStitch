@@ -8,7 +8,7 @@ namespace ClickStitch.Clients.Cloudinary;
 
 public interface ICloudinaryClient
 {
-    Task<Result<UploadImageResponse>> UploadImageAsync(UploadImageRequest request);
+    Task<Result<UploadImageResponse>> UploadImageAsync(UploadImageRequest request, CancellationToken cancellationToken);
 }
 
 public sealed class CloudinaryClient : ICloudinaryClient
@@ -22,13 +22,13 @@ public sealed class CloudinaryClient : ICloudinaryClient
         _client = new CloudinaryDotNet.Cloudinary(new Account(cloudinary.CloudName, cloudinary.ApiKey, cloudinary.ApiSecret));
     }
 
-    public async Task<Result<UploadImageResponse>> UploadImageAsync(UploadImageRequest request)
+    public async Task<Result<UploadImageResponse>> UploadImageAsync(UploadImageRequest request, CancellationToken cancellationToken)
     {
         var response = await _client.UploadAsync(new ImageUploadParams
         {
             File = new FileDescription(request.FileName, request.FileContents),
             PublicId = request.FileName
-        });
+        }, cancellationToken);
 
         return new UploadImageResponse
         {
