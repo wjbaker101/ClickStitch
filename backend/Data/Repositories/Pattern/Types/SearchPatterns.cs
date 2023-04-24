@@ -4,5 +4,5 @@ namespace Data.Repositories.Pattern.Types;
 
 public sealed class SearchPatternsParameters
 {
-    public required List<PatternRecord> PatternFilter { get; init; }
+    public required List<PatternRecord> PatternsToExclude { get; init; }
 }

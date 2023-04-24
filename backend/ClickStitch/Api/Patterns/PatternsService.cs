@@ -51,7 +51,7 @@ public sealed class PatternsService : IPatternsService
 
         var patterns = await _patternRepository.SearchAsync(new SearchPatternsParameters
         {
-            PatternFilter = projects.Select(x => x.Pattern).ToList()
+            PatternsToExclude = projects.ConvertAll(x => x.Pattern)
         }, cancellationToken);
 
         return new GetPatternsResponse

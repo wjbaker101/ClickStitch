@@ -25,7 +25,7 @@ public sealed class PatternRepository : Repository<PatternRecord>, IPatternRepos
 
         var patterns = await session
             .Query<PatternRecord>()
-            .Where(x => !parameters.PatternFilter.Contains(x))
+            .Where(x => !parameters.PatternsToExclude.Contains(x))
             .ToListAsync(cancellationToken);
 
         await transaction.CommitAsync(cancellationToken);
