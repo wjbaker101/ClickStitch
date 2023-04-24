@@ -1,7 +1,7 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
 
-import { useAuth } from '@/use/auth/Auth.use';
+import { IAuth, useAuth } from '@/use/auth/Auth.use';
 import { ApiErrorMapper } from '@/api/ApiErrorMapper';
 
 import { IApiResultResponse } from '@/api/types/ApiResponse.type';
@@ -36,13 +36,17 @@ export const api = {
 
     auth: {
 
-        async logIn(request: ILogInRequest): Promise<ILogInResponse | Error> {
+        async logIn(request: ILogInRequest): Promise<IAuth | Error> {
             try {
                 const response = await client.post<IApiResultResponse<ILogInResponse>>('/auth/log_in', request);
 
                 const result = response.data.result;
 
-                return result;
+                return {
+                    loginToken: result.loginToken,
+                    email: result.email,
+                    loggedInAt: dayjs(response.data.responseAt),
+                };
             }
             catch (error) {
                 return ApiErrorMapper.map(error);

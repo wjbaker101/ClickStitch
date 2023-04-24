@@ -1,4 +1,5 @@
 import { ref } from 'vue';
+import { Dayjs } from 'dayjs';
 
 import { useCache } from '@/use/cache/Cache.use';
 
@@ -10,6 +11,7 @@ const maxTime = 1000 * 60 * 60 * 24 * 6;
 export interface IAuth {
     readonly email: string;
     readonly loginToken: string;
+    readonly loggedInAt: Dayjs;
 }
 
 const auth = ref<IAuth | null>(cache.get(cacheKey));

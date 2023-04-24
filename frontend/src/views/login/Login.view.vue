@@ -110,10 +110,7 @@ const onLogin = async function () {
         return;
     }
 
-    auth.set({
-        email: '',
-        loginToken: result.loginToken,
-    });
+    auth.set(result);
 
     await router.push({ path: '/dashboard' });
 };

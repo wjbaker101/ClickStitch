@@ -5,4 +5,5 @@ export interface ILogInRequest {
 
 export interface ILogInResponse {
     readonly loginToken: string;
+    readonly email: string;
 }

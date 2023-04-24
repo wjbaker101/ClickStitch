@@ -2,17 +2,27 @@
     <ViewComponent class="settings-view">
         <div class="content-width">
             <h1>Settings</h1>
-            <ButtonComponent @click="onLogOut">Log Out</ButtonComponent>
+            <CardComponent border="top" padded v-if="authDetails !== null">
+                <h2>Authentication</h2>
+                <p><strong>Currently logged in as: </strong>{{ authDetails.email }}</p>
+                <p><strong>Last login:</strong> {{ authDetails.loggedInAt }}</p>
+                <p class="text-centered">
+                    <ButtonComponent @click="onLogOut">Log Out</ButtonComponent>
+                </p>
+            </CardComponent>
         </div>
     </ViewComponent>
 </template>
 
 <script setup lang="ts">
-import { useAuth } from '@/use/auth/Auth.use';
 import { useRouter } from 'vue-router';
+
+import { useAuth } from '@/use/auth/Auth.use';
 
 const auth = useAuth();
 const router = useRouter();
+
+const authDetails = auth.details;
 
 const onLogOut = function (): void {
     auth.clear();

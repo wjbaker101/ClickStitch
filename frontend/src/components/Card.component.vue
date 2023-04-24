@@ -3,7 +3,8 @@
         class="card-component"
         :class="{
             [`border-${border}`]: true,
-            'is-hoverable': hoverable
+            'is-hoverable': hoverable,
+            'is-padded': padded,
         }"
     >
         <slot></slot>
@@ -14,6 +15,7 @@
 defineProps<{
     border?: 'top' | 'right' | 'bottom' | 'left';
     hoverable?: boolean;
+    padded?: boolean;
 }>();
 </script>
 
@@ -36,6 +38,18 @@ defineProps<{
 
         &:hover {
             outline: 2px dashed var(--wjb-tertiary);
+        }
+    }
+
+    &.is-padded {
+        padding: 2rem 1rem;
+
+        & > *:first-child {
+            margin-top: 0;
+        }
+
+        & > *:last-child {
+            margin-bottom: 0;
         }
     }
 
