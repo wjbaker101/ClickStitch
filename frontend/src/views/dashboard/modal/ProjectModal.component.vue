@@ -19,6 +19,13 @@
                         <span>Open in editor</span>
                     </ButtonComponent>
                 </RouterLink>
+                <p></p>
+                <a v-if="project.pattern.externalShopUrl !== null" :href="project.pattern.externalShopUrl" target="_blank">
+                    <ButtonComponent>
+                        <IconComponent icon="cart" gap="right" />
+                        <span>Open Shop Link</span>
+                    </ButtonComponent>
+                </a>
             </div>
         </div>
         <!-- <UserMessageComponent ref="userMessageComponent" />
