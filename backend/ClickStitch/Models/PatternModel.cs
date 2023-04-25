@@ -12,6 +12,7 @@ public sealed class PatternModel
     public required int ThreadCount { get; init; }
     public required int StitchCount { get; init; }
     public required string BannerImageUrl { get; init; }
+    public required string? ExternalShopUrl { get; init; }
 }
 
 public sealed class StitchModel

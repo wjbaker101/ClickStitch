@@ -15,7 +15,8 @@ public static class PatternMapper
         ThumbnailUrl = pattern.ThumbnailUrl,
         ThreadCount = pattern.ThreadCount,
         StitchCount = pattern.StitchCount,
-        BannerImageUrl = pattern.BannerImageUrl
+        BannerImageUrl = pattern.BannerImageUrl,
+        ExternalShopUrl = pattern.ExternalShopUrl
     };
 
     public static StitchModel MapStitch(PatternStitchRecord stitch, UserPatternStitchRecord? userPatternStitch) => new()
