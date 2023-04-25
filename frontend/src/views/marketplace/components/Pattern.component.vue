@@ -7,7 +7,7 @@
             <div>
                 <strong>{{ pattern.title }}</strong>
                 <br>
-                {{ currency(pattern.price) }}
+                <!-- {{ currency(pattern.price) }} -->
             </div>
             <div class="flex-auto">
                 <ButtonComponent class="add-to-basket-button mini" :title="hoverText" @click.stop="onAddToBasket(pattern)" :disabled="isInBasket">
