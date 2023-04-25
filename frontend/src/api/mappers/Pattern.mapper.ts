@@ -17,6 +17,7 @@ export const patternMapper = {
             threadCount: pattern.threadCount,
             stitchCount: pattern.stitchCount,
             bannerImageUrl: pattern.bannerImageUrl,
+            externalShopUrl: pattern.externalShopUrl,
         };
     },
 
