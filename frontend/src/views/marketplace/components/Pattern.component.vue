@@ -9,11 +9,16 @@
                 <br>
                 <!-- {{ currency(pattern.price) }} -->
             </div>
-            <div class="flex-auto">
+            <div class="flex flex-auto gap-small">
                 <ButtonComponent class="add-to-basket-button mini" :title="hoverText" @click.stop="onAddToBasket(pattern)" :disabled="isInBasket">
                     <IconComponent v-if="isInBasket" icon="tick" />
                     <IconComponent v-else icon="plus" />
                 </ButtonComponent>
+                <a v-if="pattern.externalShopUrl !== null" :href="pattern.externalShopUrl" target="_blank">
+                    <ButtonComponent class="mini" @click.stop="">
+                        <IconComponent icon="external-link" />
+                    </ButtonComponent>
+                </a>
             </div>
         </div>
     </CardComponent>
