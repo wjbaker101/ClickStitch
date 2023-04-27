@@ -1,5 +1,5 @@
 <template>
-    <nav class="nav-component flex gap align-items-center">
+    <nav class="nav-component">
         <strong class="flex-auto">ClickStitch</strong>
         <div class="custom align-items-center">
             <slot></slot>
@@ -42,7 +42,12 @@ const onToggleMenu = function (): void {
 .nav-component {
     $inset: 1rem;
 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    gap: 1rem;
     position: fixed;
+    justify-content: center;
     inset: $inset $inset auto $inset;
     padding: 1rem;
     line-height: 1em;
