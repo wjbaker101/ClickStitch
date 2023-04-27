@@ -18,7 +18,7 @@
     --wjb-text-colour: #efefef;
     --wjb-text-colour-opposite: #222;
 
-    --wjb-border-radius: 0.5rem;
+    --wjb-border-radius: 0.1rem;
 
     --wjb_modal-content-background-colour: var(--wjb-background-colour);
 
@@ -102,5 +102,12 @@
             var(--wjb-danger-dark),
             var(--wjb-danger-dark),
         );
+    }
+}
+
+.\@wjb-modal-component {
+    & > .content-container {
+        border-top: 2px solid var(--wjb-primary);
+        border-radius: var(--wjb-border-radius) !important;
     }
 }

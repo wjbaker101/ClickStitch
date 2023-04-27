@@ -18,7 +18,7 @@
 body {
     $bg: #202628;
 
-    font-family: 'Nunito', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Mulish', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--wjb-background-colour);
     background: linear-gradient(
         -70deg,

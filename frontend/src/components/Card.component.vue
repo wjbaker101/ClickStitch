@@ -54,19 +54,19 @@ defineProps<{
     }
 
     &.border-top {
-        border-top-width: 4px;
+        border-top-width: 2px;
     }
 
     &.border-right {
-        border-right-width: 4px;
+        border-right-width: 2px;
     }
 
     &.border-bottom {
-        border-bottom-width: 4px;
+        border-bottom-width: 2px;
     }
 
     &.border-left {
-        border-left-width: 4px;
+        border-left-width: 2px;
     }
 }
 </style>
