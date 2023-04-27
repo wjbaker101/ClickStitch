@@ -40,8 +40,10 @@ const onToggleMenu = function (): void {
 @use '@/style/variables' as *;
 
 .nav-component {
+    $inset: 1rem;
+
     position: fixed;
-    inset: 0.5rem 0.5rem auto 0.5rem;
+    inset: $inset $inset auto $inset;
     padding: 1rem;
     line-height: 1em;
     background-color: var(--wjb-primary);
