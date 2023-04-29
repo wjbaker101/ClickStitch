@@ -13,7 +13,7 @@
                 <strong>Stitches:</strong> {{ formatNumber(project.pattern.stitchCount) }}
             </div>
             <div>
-                <RouterLink :to="`/project/${project.pattern.reference}`" @click.native="onOpenInEditor">
+                <RouterLink :to="`/project/${project.pattern.reference}`" @click.native="closeModal">
                     <ButtonComponent>
                         <IconComponent icon="external-link" gap="right" />
                         <span>Open in editor</span>
@@ -26,6 +26,13 @@
                         <span>Open Shop Link</span>
                     </ButtonComponent>
                 </a>
+                <p></p>
+                <RouterLink :to="`/project/${project.pattern.reference}/analytics`" @click.native="closeModal">
+                    <ButtonComponent>
+                        <IconComponent icon="activity" gap="right" />
+                        <span>Analytics</span>
+                    </ButtonComponent>
+                </RouterLink>
             </div>
         </div>
         <!-- <UserMessageComponent ref="userMessageComponent" />
@@ -101,7 +108,7 @@ const sortedThreadCounts = ref<Array<IThreadCount>>([]);
 
 const fabricSize = ref<IFabricSize>({} as IFabricSize);
 
-const onOpenInEditor = function (): void {
+const closeModal = function (): void {
     modal.hide();
 };
 

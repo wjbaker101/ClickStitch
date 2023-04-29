@@ -5,6 +5,7 @@ import BasketView from '@/views/basket/Basket.view.vue';
 import LoginView from '@/views/login/Login.view.vue';
 import MarketplaceView from '@/views/marketplace/Marketplace.view.vue';
 import ProjectView from '@/views/project/Project.view.vue';
+import ProjectAnalyticsView from '@/views/project-analytics/ProjectAnalytics.view.vue';
 import SettingsView from '@/views/settings/Settings.view.vue';
 import SignupView from '@/views/signup/Signup.view.vue';
 
@@ -87,6 +88,14 @@ const routes: Array<RouteRecordRaw> = [
         beforeEnter: [ requireAuth ],
         meta: {
             title: 'Project',
+        },
+    },
+    {
+        path: '/project/:patternReference/analytics',
+        component: ProjectAnalyticsView,
+        beforeEnter: [ requireAuth ],
+        meta: {
+            title: 'Project Analytics',
         },
     },
 ];
