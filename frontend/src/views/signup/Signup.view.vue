@@ -38,7 +38,7 @@
                 <ButtonComponent class="tertiary" @click="onSignup" :loading="isLoading">Sign Up</ButtonComponent>
             </div>
         </div>
-        <div class="right-side flex">
+        <div class="right-side flex textured-background">
             <div class="right-side-content centered flex-auto">
                 <h2>So close to getting these! <IconComponent icon="arrow-down" /></h2>
                 <p class="description">
@@ -156,6 +156,7 @@ const onSignup = async function () {
             var(--wjb-primary),
         );
         margin-right: -$angle;
+        color: var(--wjb-light);
         clip-path: polygon(0 0, 100% 0, calc(100% - ($angle * 2)) 100%, 0% 100%);
         z-index: 1;
 
@@ -181,7 +182,6 @@ const onSignup = async function () {
         inset: 0 0 0 50%;
         position: absolute;
         overflow-y: auto;
-        background-color: var(--wjb-background-colour);
 
         .description {
             margin: 0.5rem 0 2rem 0;

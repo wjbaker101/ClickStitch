@@ -5,6 +5,15 @@
 :root {
     @include setup-variables();
 
+    --wjb-light: #ececec;
+    --wjb-dark: #222226;
+
+    --wjb-background-colour: var(--wjb-light);
+    --wjb-background-colour-dark: #ddd;
+
+    --wjb-text-colour: var(--wjb-dark);
+    --wjb-text-colour-opposite: var(--wjb-light);
+
     --wjb-primary: #{$primary};
     --wjb-primary-light: #30a390;
     --wjb-primary-dark: #{$primary-dark};
@@ -15,17 +24,24 @@
 
     --wjb-danger: #{$danger};
 
-    --wjb-text-colour: #efefef;
-    --wjb-text-colour-opposite: #222;
-
-    --wjb-border-radius: 0.1rem;
+    --wjb-border-radius: 0.3rem;
 
     --wjb_modal-content-background-colour: var(--wjb-background-colour);
 
     --footer-height: 88px;
+
+    @media (prefers-color-scheme: dark) {
+        --wjb-background-colour: var(--wjb-dark);
+        --wjb-background-colour-dark: #111;
+
+        --wjb-text-colour: var(--wjb-light);
+        --wjb-text-colour-opposite: var(--wjb-dark);
+    }
 }
 
 .\@wjb-button-component {
+    --wjb-text-colour: var(--wjb-light);
+
     background: linear-gradient(
         -45deg,
         var(--wjb-primary-dark),

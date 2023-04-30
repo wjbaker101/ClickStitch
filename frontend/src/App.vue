@@ -19,18 +19,19 @@ body {
     $bg: #202628;
 
     font-family: 'Mulish', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--wjb-background-colour);
-    background: linear-gradient(
-        -70deg,
-        var(--wjb-background-colour) 0%,
-        var(--wjb-background-colour) 50%,
-        $bg 50%,
-        $bg 100%,
-    );
     color: var(--wjb-text-colour);
 
     &.no-scroll {
         overflow: hidden;
+    }
+}
+
+.textured-background {
+    background-color: var(--wjb-background-colour);
+    background: url(@/assets/bg-light.jpg);
+
+    @media (prefers-color-scheme: dark) {
+        background: url(@/assets/bg-dark.jpg);
     }
 }
 

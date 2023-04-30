@@ -59,6 +59,7 @@ const onToggleMenu = function (): void {
     );
     backdrop-filter: blur(2px);
     border-radius: 2rem;
+    color: var(--wjb-light);
     z-index: 1;
 
     @include shadow-large();

@@ -23,8 +23,7 @@ defineProps<{
 @use '@/style/variables' as *;
 
 .card-component {
-    background-color: var(--wjb-background-colour-dark);
-    border-radius: var(--wjb-border-radius);
+    background-color: var(--wjb-background-colour);
     border-width: 0;
     border-style: solid;
     border-color: var(--wjb-primary);
@@ -55,18 +54,26 @@ defineProps<{
 
     &.border-top {
         border-top-width: 2px;
+        border-bottom-left-radius: var(--wjb-border-radius);
+        border-bottom-right-radius: var(--wjb-border-radius);
     }
 
     &.border-right {
         border-right-width: 2px;
+        border-top-left-radius: var(--wjb-border-radius);
+        border-bottom-left-radius: var(--wjb-border-radius);
     }
 
     &.border-bottom {
         border-bottom-width: 2px;
+        border-top-left-radius: var(--wjb-border-radius);
+        border-top-right-radius: var(--wjb-border-radius);
     }
 
     &.border-left {
         border-left-width: 2px;
+        border-top-right-radius: var(--wjb-border-radius);
+        border-bottom-right-radius: var(--wjb-border-radius);
     }
 }
 </style>
