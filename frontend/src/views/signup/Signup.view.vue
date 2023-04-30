@@ -45,10 +45,10 @@
                     <span>Complete signup and add them to your account</span>
                 </p>
                 <div class="example-patterns">
-                    <img class="example-pattern" src="@/assets/templar-knight.png">
-                    <img class="example-pattern" src="@/assets/howling-wolf.jpg">
-                    <img class="example-pattern" src="@/assets/howling-wolf.jpg">
-                    <img class="example-pattern" src="@/assets/templar-knight.png">
+                    <img class="example-pattern" src="@/assets/examples/templar-knight.png">
+                    <img class="example-pattern" src="@/assets/examples/howling-wolf.jpg">
+                    <img class="example-pattern" src="@/assets/examples/bat-silhouette.png">
+                    <img class="example-pattern" src="@/assets/examples/dragon-silhouette.png">
                 </div>
             </div>
         </div>
