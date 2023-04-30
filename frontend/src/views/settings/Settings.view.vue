@@ -5,7 +5,7 @@
             <CardComponent border="top" padded v-if="authDetails !== null">
                 <h2>Authentication</h2>
                 <p><strong>Currently logged in as: </strong>{{ authDetails.email }}</p>
-                <p><strong>Last login:</strong> {{ authDetails.loggedInAt }}</p>
+                <p><strong>Session started at:</strong> {{ authDetails.loggedInAt }}</p>
                 <p class="text-centered">
                     <ButtonComponent @click="onLogOut">Log Out</ButtonComponent>
                 </p>
