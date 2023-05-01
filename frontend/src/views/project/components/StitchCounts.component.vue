@@ -49,9 +49,9 @@ const threadCounts = computed<Map<number, IThreadCount>>(() => {
 
         const threadCount = _threadCounts.get(stitch.threadIndex) as IThreadCount;
 
-        if (stitch.stitchedAt === null)
-            threadCount.count++;
-        else
+        threadCount.count++;
+
+        if (stitch.stitchedAt !== null)
             threadCount.completeCount++;
     }
 
