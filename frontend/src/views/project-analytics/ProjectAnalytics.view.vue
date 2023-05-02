@@ -10,18 +10,45 @@
             <div class="loading-container" v-if="isLoading">
                 <LoadingComponent itemName="pattern" />
             </div>
-            <div v-else-if="project !== null">
-                <section>
+            <div v-else-if="analytics !== null">
+                <section class="top-grid">
+                    <CardComponent class="text-centered" border="top" padded>
+                        <img width="150" height="150" :src="analytics.thumbnailUrl ?? undefined">
+                    </CardComponent>
                     <CardComponent border="top" padded>
-                        <h3>{{ project.project.pattern.title }}</h3>
-                        <p><strong>Added to your account: </strong> {{ project.project.purchasedAt }}</p>
+                        <h2>{{ analytics.title }}</h2>
+                        <p><strong>Added At: </strong> {{ analytics.purchasedAt }}</p>
+                        <p><strong>Total Stitches: </strong> {{ formatNumber(analytics.totalStitches) }}</p>
+                        <p>
+                            <RouterLink :to="`/project/${patternReference}`" @click.native="closeModal">
+                                <ButtonComponent>
+                                    <IconComponent icon="external-link" gap="right" />
+                                    <span>Open in editor</span>
+                                </ButtonComponent>
+                            </RouterLink>
+                        </p>
                     </CardComponent>
                 </section>
                 <section>
                     <CardComponent border="top" padded>
-                        <p><strong>Completed Stitches: </strong> {{ completedStitches }}</p>
-                        <p><strong>Total Stitches: </strong> {{ project.stitches.length }}</p>
-                        <p><strong>Remaining Stitches: </strong> {{ project.stitches.length - completedStitches }}</p>
+                        <h3>At a Glance:</h3>
+                        <p><strong>Remaining Stitches: </strong> {{ formatNumber(analytics.remainingStitches) }}</p>
+                        <p><strong>Completed Stitches: </strong> {{ formatNumber(analytics.completedStitches) }} ({{ completedPercentage.toFixed(2) }}%)</p>
+                    </CardComponent>
+                </section>
+                <section>
+                    <CardComponent border="top" padded>
+                        <Bar
+                            :data="{
+                                labels: analytics.data.headings,
+                                datasets: [{
+                                    data: analytics.data.values,
+                                    label: 'Stitches per Day',
+                                    backgroundColor: '#30a390',
+                                }],
+                            }"
+                            :options="{}"
+                        />
                     </CardComponent>
                 </section>
             </div>
@@ -30,32 +57,59 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale
+} from 'chart.js'
+import { Bar } from 'vue-chartjs'
 
 import UserMessageComponent from '@/components/UserMessage.component.vue';
 
 import { api } from '@/api/api';
-import { setTitle } from '@/helper/helper';
+import { formatNumber, setTitle } from '@/helper/helper';
+import { useModal } from '@wjb/vue/use/modal.use';
 
-import { IGetProject } from '@/models/GetProject.model';
-import { computed } from '@vue/reactivity';
+import { IGetAnalytics } from '@/models/GetAnalytics.model';
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const route = useRoute();
+const modal = useModal();
 
 const userMessageComponent = ref<InstanceType<typeof UserMessageComponent>>({} as InstanceType<typeof UserMessageComponent>);
 
 const patternReference = route.params.patternReference as string;
 
-const project = ref<IGetProject | null>(null);
+const analytics = ref<IGetAnalytics | null>(null);
 const isLoading = ref<boolean>(false);
 
-const completedStitches = computed<number>(() => project.value?.stitches.filter(x => x.stitchedAt !== null).length ?? 0);
+const completedPercentage = computed<number>(() => (analytics.value?.completedStitches ?? 1) / (analytics.value?.totalStitches ?? 1) * 100);
+
+const closeModal = function (): void {
+    modal.hide();
+};
+
+const plByMonth = [
+  { name: 'Jan', pl: 1000, avg: 500, inc: 300 },
+  { name: 'Feb', pl: 2000, avg: 900, inc: 400 },
+  { name: 'Apr', pl: 400, avg: 400, inc: 500 },
+  { name: 'Mar', pl: 3100, avg: 1300, inc: 700 },
+  { name: 'May', pl: 200, avg: 100, inc: 200 },
+  { name: 'Jun', pl: 600, avg: 400, inc: 300 },
+  { name: 'Jul', pl: 500, avg: 90, inc: 100 }
+]
 
 onMounted(async () => {
     isLoading.value = true;
 
-    const result = await api.projects.get(patternReference);
+    const result = await api.projects.getAnalytics(patternReference);
 
     isLoading.value = false;
 
@@ -64,11 +118,18 @@ onMounted(async () => {
         return;
     }
 
-    project.value = result;
+    analytics.value = result;
 
-    setTitle(`Analytics - ${project.value.project.pattern.title}`);
+    setTitle(`Analytics - ${analytics.value.title}`);
 });
 </script>
 
 <style lang="scss">
+.project-analytics-view {
+    .top-grid {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 1fr 2fr;
+    }
+}
 </style>
