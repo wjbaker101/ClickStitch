@@ -8,4 +8,11 @@ public sealed class GetAnalyticsResponse
     public required int TotalStitches { get; init; }
     public required int CompletedStitches { get; init; }
     public required int RemainingStitches { get; init; }
+    public required DataDetails Data { get; init; }
+
+    public sealed class DataDetails
+    {
+        public required List<string> Headings { get; init; }
+        public required List<int> Values { get; init; }
+    }
 }

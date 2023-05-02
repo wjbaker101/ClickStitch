@@ -144,6 +144,11 @@ public sealed class ProjectsService : IProjectsService
 
         var userPatternStitches = await _userPatternStitchRepository.GetByUserPattern(project, cancellationToken);
 
+        var grouped = userPatternStitches
+            .Select(x => x.Value)
+            .GroupBy(x => x.StitchedAt.Date)
+            .ToList();
+
         return new GetAnalyticsResponse
         {
             Title = pattern.Title,
@@ -151,7 +156,12 @@ public sealed class ProjectsService : IProjectsService
             PurchasedAt = project.CreatedAt,
             TotalStitches = pattern.StitchCount,
             CompletedStitches = userPatternStitches.Count,
-            RemainingStitches = pattern.StitchCount - userPatternStitches.Count
+            RemainingStitches = pattern.StitchCount - userPatternStitches.Count,
+            Data = new GetAnalyticsResponse.DataDetails
+            {
+                Headings = grouped.ConvertAll(x => x.Key.ToShortDateString()),
+                Values = grouped.ConvertAll(x => x.Count())
+            }
         };
     }
 }
