@@ -250,6 +250,8 @@ export const api = {
                 const result = response.data.result;
 
                 return {
+                    title: result.title,
+                    thumbnailUrl: result.thumbnailUrl,
                     purchasedAt: dayjs(result.purchasedAt),
                     totalStitches: result.totalStitches,
                     remainingStitches: result.remainingStitches,
