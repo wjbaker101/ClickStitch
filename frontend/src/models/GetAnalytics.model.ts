@@ -7,4 +7,8 @@ export interface IGetAnalytics {
     readonly totalStitches: number;
     readonly completedStitches: number;
     readonly remainingStitches: number;
+    readonly data: {
+        readonly headings: Array<string>;
+        readonly values: Array<number>;
+    };
 }

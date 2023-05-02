@@ -256,6 +256,10 @@ export const api = {
                     totalStitches: result.totalStitches,
                     remainingStitches: result.remainingStitches,
                     completedStitches: result.completedStitches,
+                    data: {
+                        headings: result.data.headings,
+                        values: result.data.values,
+                    },
                 };
             }
             catch (error) {
