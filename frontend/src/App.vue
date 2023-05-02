@@ -52,6 +52,12 @@ input {
     }
 }
 
+section {
+    & + section {
+        margin-top: 1rem;
+    }
+}
+
 .content-width {
     position: relative;
     max-width: 1200px;

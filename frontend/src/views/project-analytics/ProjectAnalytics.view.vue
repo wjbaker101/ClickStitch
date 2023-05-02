@@ -11,15 +11,19 @@
                 <LoadingComponent itemName="pattern" />
             </div>
             <div v-else-if="project !== null">
-                <CardComponent border="top" padded>
-                    <h3>{{ project.project.pattern.title }}</h3>
-                    <p><strong>Added to your account: </strong> {{ project.project.purchasedAt }}</p>
-                </CardComponent>
-                <CardComponent border="top" padded>
-                    <p><strong>Completed Stitches: </strong> {{ completedStitches }}</p>
-                    <p><strong>Total Stitches: </strong> {{ project.stitches.length }}</p>
-                    <p><strong>Remaining Stitches: </strong> {{ project.stitches.length - completedStitches }}</p>
-                </CardComponent>
+                <section>
+                    <CardComponent border="top" padded>
+                        <h3>{{ project.project.pattern.title }}</h3>
+                        <p><strong>Added to your account: </strong> {{ project.project.purchasedAt }}</p>
+                    </CardComponent>
+                </section>
+                <section>
+                    <CardComponent border="top" padded>
+                        <p><strong>Completed Stitches: </strong> {{ completedStitches }}</p>
+                        <p><strong>Total Stitches: </strong> {{ project.stitches.length }}</p>
+                        <p><strong>Remaining Stitches: </strong> {{ project.stitches.length - completedStitches }}</p>
+                    </CardComponent>
+                </section>
             </div>
         </div>
     </ViewComponent>
