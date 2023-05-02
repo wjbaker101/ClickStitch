@@ -13,7 +13,8 @@
         "axios": "^1.3.4",
         "dayjs": "^1.11.7",
         "vue": "^3.2.47",
-        "vue-router": "^4.1.6"
+        "vue-router": "^4.1.6",
+        "vue3-charts": "^1.1.33"
     },
     "devDependencies": {
         "@vue/cli-plugin-typescript": "~5.0.0",
