@@ -3,10 +3,10 @@
         <div>
             Copyright &copy; ClickStitch 2023<!-- &ndash;{{ new Date().getFullYear() }} -->,
             <br>
-            All rights reserved. Created by <a href="https://wjbaker.com">William Baker</a>.
+            All rights reserved.
         </div>
         <div>
-            Icons by <a href="https://akveo.github.io/eva-icons/#/">Eva icons</a>, fonts by <a href="https://fonts.google.com/">Google Fonts</a>.
+            Icons by <LinkComponent href="https://akveo.github.io/eva-icons/#/" external>Eva icons</LinkComponent>, fonts by <LinkComponent href="https://fonts.google.com/" external>Google Fonts</LinkComponent>.
         </div>
     </footer>
 </template>
@@ -21,15 +21,5 @@
     padding: 0.5rem;
     color: var(--wjb-text-colour);
     z-index: -1;
-
-    a {
-        color: var(--wjb-primary);
-        font-weight: bold;
-        text-decoration: none;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
 }
 </style>
