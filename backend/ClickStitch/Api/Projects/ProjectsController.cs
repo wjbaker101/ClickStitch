@@ -63,4 +63,16 @@ public sealed class ProjectsController : ApiController
 
         return ToApiResponse(result);
     }
+
+    [HttpGet]
+    [Route("{patternReference:guid}/analytics")]
+    [Authorisation]
+    public async Task<IActionResult> GetAnalytics([FromRoute] Guid patternReference, CancellationToken cancellationToken)
+    {
+        var user = RequestHelper.GetUser(Request);
+
+        var result = await _projectsService.GetAnalytics(user, patternReference, cancellationToken);
+
+        return ToApiResponse(result);
+    }
 }

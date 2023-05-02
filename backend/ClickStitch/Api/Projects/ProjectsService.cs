@@ -15,6 +15,7 @@ public interface IProjectsService
     Task<Result<GetProjectResponse>> GetProject(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken);
     Task<Result<CompleteStitchesResponse>> CompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request, CancellationToken cancellationToken);
     Task<Result<CompleteStitchesResponse>> UnCompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request, CancellationToken cancellationToken);
+    Task<Result<GetAnalyticsResponse>> GetAnalytics(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken);
 }
 
 public sealed class ProjectsService : IProjectsService
@@ -127,5 +128,28 @@ public sealed class ProjectsService : IProjectsService
         await _userPatternStitchRepository.DeleteByPositions(project, request.Positions.ConvertAll(x => (x.X, x.Y)));
 
         return new CompleteStitchesResponse();
+    }
+
+    public async Task<Result<GetAnalyticsResponse>> GetAnalytics(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken)
+    {
+        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
+
+        var patternResult = await _patternRepository.GetByReferenceAsync(patternReference, cancellationToken);
+        if (!patternResult.TrySuccess(out var pattern))
+            return Result<GetAnalyticsResponse>.FromFailure(patternResult);
+
+        var projectResult = await _userPatternRepository.GetByUserAndPatternAsync(user, pattern, cancellationToken);
+        if (!projectResult.TrySuccess(out var project))
+            return Result<GetAnalyticsResponse>.FromFailure(projectResult);
+
+        var userPatternStitches = await _userPatternStitchRepository.GetByUserPattern(project, cancellationToken);
+
+        return new GetAnalyticsResponse
+        {
+            PurchasedAt = project.CreatedAt,
+            TotalStitches = pattern.StitchCount,
+            CompletedStitches = userPatternStitches.Count,
+            RemainingStitches = pattern.StitchCount - userPatternStitches.Count
+        };
     }
 }
