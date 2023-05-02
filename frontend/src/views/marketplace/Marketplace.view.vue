@@ -16,7 +16,7 @@
                 <section>
                     <CardComponent border="top" padded>
                         <p>Once patterns are added to your account, you can start tracking your progress!</p>
-                        <p><strong>Make sure to purchase the digital patterns from the <a href="https://www.etsy.com/uk/shop/ClickStitchStudio" target="_blank">Etsy Store</a> first.</strong></p>
+                        <p><strong>Make sure to purchase the digital patterns from the <LinkComponent href="https://www.etsy.com/uk/shop/ClickStitchStudio" external>Etsy Store</LinkComponent> first.</strong></p>
                     </CardComponent>
                 </section>
                 <section>
