@@ -4,7 +4,6 @@
             <strong>Marketplace</strong>
         </template>
         <div class="content-width">
-            <p>Add patterns to your account and stitch away!</p>
             <UserMessageComponent ref="userMessageComponent" />
             <div v-if="isLoading">
                 <LoadingComponent itemName="patterns" />
@@ -13,9 +12,19 @@
                 <p>Could not find any patterns, you must own them all!</p>
                 <p>Check back later for more!</p>
             </ZeroStateComponent>
-            <div v-else class="patterns">
-                <PatternComponent :key="pattern.reference" v-for="pattern in patterns" :pattern="pattern" />
-            </div>
+            <template v-else>
+                <section>
+                    <CardComponent border="top" padded>
+                        <p>Once patterns are added to your account, you can start tracking your progress!</p>
+                        <p><strong>Make sure to purchase the digital patterns from the <a href="https://www.etsy.com/uk/shop/ClickStitchStudio" target="_blank">Etsy Store</a> first.</strong></p>
+                    </CardComponent>
+                </section>
+                <section>
+                    <div class="patterns">
+                        <PatternComponent :key="pattern.reference" v-for="pattern in patterns" :pattern="pattern" />
+                    </div>
+                </section>
+            </template>
         </div>
         <div v-if="false" class="basket-container">
             <RouterLink to="/basket">
