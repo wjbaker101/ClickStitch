@@ -25,6 +25,8 @@ import { IGetProject } from '@/models/GetProject.model';
 import { IGetProjectsResponse } from '@/api/types/GetProjects.type';
 import { IGetProjectResponse } from '@/api/types/GetProject.type';
 import { ICompleteStitchesRequest } from './types/CompleteStitches.type';
+import { IGetAnalytics } from '@/models/GetAnalytics.model';
+import { IGetAnalyticsResponse } from './types/GetAnalytics.type';
 
 const auth = useAuth();
 
@@ -227,6 +229,32 @@ export const api = {
                     },
 
                 });
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
+        },
+
+        async getAnalytics(patternReference: string): Promise<IGetAnalytics | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
+            try {
+                const response = await client.get<IApiResultResponse<IGetAnalyticsResponse>>(`/projects/${patternReference}/analytics`, {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+
+                });
+
+                const result = response.data.result;
+
+                return {
+                    purchasedAt: dayjs(result.purchasedAt),
+                    totalStitches: result.totalStitches,
+                    remainingStitches: result.remainingStitches,
+                    completedStitches: result.completedStitches,
+                };
             }
             catch (error) {
                 return ApiErrorMapper.map(error);
