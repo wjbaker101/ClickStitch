@@ -1,4 +1,5 @@
 ﻿using ClickStitch.Models;
+using Core.Services;
 using Core.Types;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -18,6 +19,13 @@ public sealed class LoginTokenService : ILoginTokenService
     private const string SECRET_KEY = "ac8763b1-eeac-4965-8a60-8e0ccb5f9a3d";
     private const string CLAIM_USER_REFERENCE = "userReference";
 
+    private readonly IDateTime _dateTime;
+
+    public LoginTokenService(IDateTime dateTime)
+    {
+        _dateTime = dateTime;
+    }
+
     public string Create(UserModel user)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -28,7 +36,7 @@ public sealed class LoginTokenService : ILoginTokenService
             {
                 new(CLAIM_USER_REFERENCE, user.Reference.ToString())
             }),
-            Expires = DateTime.UtcNow.AddDays(7),
+            Expires = _dateTime.UtcNow().AddDays(7),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SECRET_KEY)), SecurityAlgorithms.HmacSha512Signature)
         };
 
