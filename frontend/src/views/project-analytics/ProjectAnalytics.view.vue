@@ -23,7 +23,7 @@
                             <RouterLink :to="`/project/${patternReference}`" @click.native="closeModal">
                                 <ButtonComponent>
                                     <IconComponent icon="external-link" gap="right" />
-                                    <span>Open in editor</span>
+                                    <span>Continue Stitching!</span>
                                 </ButtonComponent>
                             </RouterLink>
                         </p>
