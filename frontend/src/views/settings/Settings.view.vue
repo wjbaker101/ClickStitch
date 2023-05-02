@@ -1,7 +1,9 @@
 <template>
     <ViewComponent class="settings-view">
+        <template #nav>
+            <strong>Settings</strong>
+        </template>
         <div class="content-width">
-            <h1>Settings</h1>
             <CardComponent border="top" padded v-if="authDetails !== null">
                 <h2>Authentication</h2>
                 <p><strong>Currently logged in as: </strong>{{ authDetails.email }}</p>

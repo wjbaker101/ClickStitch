@@ -1,7 +1,9 @@
 <template>
     <ViewComponent class="project-analytics-view">
+        <template #nav>
+            <strong>Analytics</strong>
+        </template>
         <div class="content-width">
-            <h1>Analytics</h1>
             <div class="loading-container flex-auto">
                 <UserMessageComponent ref="userMessageComponent" />
             </div>

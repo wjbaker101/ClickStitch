@@ -23,6 +23,7 @@ defineProps<{
 <style lang="scss">
 .view-component {
     .page-content {
+        padding-top: calc(2rem + 50px);
         min-height: calc(100vh - var(--footer-height));
     }
 }

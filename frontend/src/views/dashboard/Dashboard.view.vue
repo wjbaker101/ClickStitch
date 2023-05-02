@@ -1,7 +1,9 @@
 <template>
     <ViewComponent class="dashboard-view">
+        <template #nav>
+            <strong>Dashboard</strong>
+        </template>
         <div class="content-width">
-            <h1>Dashboard</h1>
             <h2>Your Projects:</h2>
             <UserMessageComponent ref="userMessageComponent" />
             <div v-if="isLoading">

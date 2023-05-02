@@ -1,7 +1,9 @@
 <template>
     <ViewComponent class="basket-view">
+        <template #nav>
+            <strong>Basket</strong>
+        </template>
         <div class="content-width">
-            <h1>Basket</h1>
             <div v-if="basket === null">
                 <LoadingComponent itemName="basket" />
             </div>

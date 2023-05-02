@@ -57,11 +57,6 @@ input {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem;
-
-    & > h1 {
-        margin-top: 0;
-        padding-top: 6rem;
-    }
 }
 
 table {

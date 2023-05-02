@@ -1,7 +1,9 @@
 <template>
     <ViewComponent class="marketplace-view">
+        <template #nav>
+            <strong>Marketplace</strong>
+        </template>
         <div class="content-width">
-            <h1>Marketplace</h1>
             <p>Add patterns to your account and stitch away!</p>
             <UserMessageComponent ref="userMessageComponent" />
             <div v-if="isLoading">
