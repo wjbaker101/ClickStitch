@@ -146,6 +146,8 @@ public sealed class ProjectsService : IProjectsService
 
         return new GetAnalyticsResponse
         {
+            Title = pattern.Title,
+            ThumbnailUrl = pattern.ThumbnailUrl,
             PurchasedAt = project.CreatedAt,
             TotalStitches = pattern.StitchCount,
             CompletedStitches = userPatternStitches.Count,
