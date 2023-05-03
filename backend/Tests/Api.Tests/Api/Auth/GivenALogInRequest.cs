@@ -17,7 +17,9 @@ public sealed class GivenALogInRequest
     {
         var dateTime = new DateTime(3052, 11, 29, 14, 58, 13);
 
-        var subject = new AuthService(FakeUserRepository.Default(), new PasswordService(), new LoginTokenService(FakeDateTime.With(dateTime)), FakeUserPermissionRepository.Default());
+        var loginTokenService = new LoginTokenService(FakeDateTime.With(dateTime));
+
+        var subject = new AuthService(FakeUserRepository.Default(), new PasswordService(), loginTokenService, FakeUserPermissionRepository.Default());
 
         _result = await subject.LogIn(new LogInRequest
         {
