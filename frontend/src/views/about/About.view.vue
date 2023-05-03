@@ -25,6 +25,22 @@
                     <p>If you wish to complete multiple stitches in one go, hold and drag the middle mouse button then press the space bar.</p>
                 </CardComponent>
             </section>
+            <section>
+                <CardComponent border="top" padded>
+                    <h3>Please Note:</h3>
+                    <em>
+                        <p>Pictures of patterns on this website or the Etsy store may not be exact representations of the finished product. For example, due to different aida counts/ lighting/ hoop sizes.</p>
+                        <p>However, a lot of care has been taken to make the digital patterns as realistic as possible, so I hope they turn out fantastic!</p>
+                    </em>
+                </CardComponent>
+            </section>
+            <section>
+                <CardComponent border="top" padded>
+                    <h3>Lastly:</h3>
+                    <p>Any bugs or suggestions, please feel free to contact me!</p>
+                    <p>Thanks for your time, happy stitching!</p>
+                </CardComponent>
+            </section>
         </div>
     </ViewComponent>
 </template>
