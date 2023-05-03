@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, NavigationGuardWithThis, RouteRecordRaw } from 'vue-router';
 
+import AboutView from '@/views/about/About.view.vue';
 import DashboardView from '@/views/dashboard/Dashboard.view.vue';
 import BasketView from '@/views/basket/Basket.view.vue';
 import LoginView from '@/views/login/Login.view.vue';
@@ -96,6 +97,13 @@ const routes: Array<RouteRecordRaw> = [
         beforeEnter: [ requireAuth ],
         meta: {
             title: 'Project Analytics',
+        },
+    },
+    {
+        path: '/about',
+        component: AboutView,
+        meta: {
+            title: 'About',
         },
     },
 ];
