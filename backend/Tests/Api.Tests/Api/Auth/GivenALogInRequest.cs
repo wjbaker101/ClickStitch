@@ -35,12 +35,15 @@ public sealed class GivenALogInRequest
     [Test]
     public void ThenTheCorrectResponseIsReturned()
     {
-        Assert.That(_result.Content.Email, Is.EqualTo("test@email.com"));
-        Assert.That(_result.Content.LoginToken, Does.StartWith("eyJhbGciOi"));
+        Assert.Multiple(() =>
+        {
+            Assert.That(_result.Content.Email, Is.EqualTo("test@email.com"), nameof(_result.Content.Email));
+            Assert.That(_result.Content.LoginToken, Does.StartWith("eyJhbGciOi"), nameof(_result.Content.LoginToken));
 
-        var permission = _result.Content.Permissions[0];
+            var permission = _result.Content.Permissions[0];
 
-        Assert.That(permission.Type, Is.EqualTo(ApiPermissionType.Admin));
-        Assert.That(permission.Name, Is.EqualTo("Admin"));
+            Assert.That(permission.Type, Is.EqualTo(ApiPermissionType.Admin), nameof(permission.Type));
+            Assert.That(permission.Name, Is.EqualTo("Admin"), nameof(permission.Name));
+        });
     }
 }
