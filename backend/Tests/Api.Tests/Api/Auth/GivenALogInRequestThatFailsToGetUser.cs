@@ -14,13 +14,9 @@ public sealed class GivenALogInRequestThatFailsToGetUser
     [OneTimeSetUp]
     public async Task Setup()
     {
-        var dateTime = new DateTime(3052, 11, 29, 14, 58, 13);
-
-        var loginTokenService = new LoginTokenService(FakeDateTime.With(dateTime));
-
         var userRepository = FakeUserRepository.WithResult(Result.Failure("TestFailureMessage"));
 
-        var subject = new AuthService(userRepository, new PasswordService(), loginTokenService, FakeUserPermissionRepository.Default());
+        var subject = new AuthService(userRepository, null!, null!, null!);
 
         _result = await subject.LogIn(new LogInRequest
         {
