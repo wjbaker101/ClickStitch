@@ -7,21 +7,19 @@ namespace Api.Tests.Api.Auth;
 
 [TestFixture]
 [Parallelizable]
-public sealed class GivenALogInRequestThatFailsToGetUser
+public sealed class GivenALogInRequestWithAnInvalidPassword
 {
     private Result<LogInResponse> _result = null!;
 
     [OneTimeSetUp]
     public async Task Setup()
     {
-        var userRepository = FakeUserRepository.WithResult(Result.Failure("TestFailureMessage"));
-
-        var subject = new AuthService(userRepository, null!, null!, null!);
+        var subject = new AuthService(FakeUserRepository.Default(), new PasswordService(), null!, null!);
 
         _result = await subject.LogIn(new LogInRequest
         {
             Email = "",
-            Password = "TestPassword1!"
+            Password = "InvalidPassword"
         }, CancellationToken.None);
     }
 
@@ -34,6 +32,6 @@ public sealed class GivenALogInRequestThatFailsToGetUser
     [Test]
     public void ThenTheCorrectErrorIsReturned()
     {
-        Assert.That(_result.FailureMessage, Is.EqualTo("TestFailureMessage"));
+        Assert.That(_result.FailureMessage, Is.EqualTo("The given password was incorrect, please try again."));
     }
 }
