@@ -16,7 +16,7 @@
                 <section>
                     <CardComponent border="top" padded>
                         <p>Once patterns are added to your account, you can start tracking your progress!</p>
-                        <p><strong>Make sure to purchase the digital patterns from the <LinkComponent href="https://www.etsy.com/uk/shop/ClickStitchStudio" external>Etsy Store</LinkComponent> first.</strong></p>
+                        <p><strong>Make sure to purchase the digital patterns from the <LinkComponent :href="etsyStoreUrl" external>Etsy Store</LinkComponent> first.</strong></p>
                     </CardComponent>
                 </section>
                 <section>
@@ -48,6 +48,7 @@ import UserMessageComponent from '@/components/UserMessage.component.vue';
 import ZeroStateComponent from '@/components/ZeroState.component.vue';
 import PatternComponent from '@/views/marketplace/components/Pattern.component.vue';
 
+import { etsyStoreUrl } from '@/data/data';
 import { api } from '@/api/api';
 import { useMarketplace } from '@/use/marketplace/Marketplace.use';
 
