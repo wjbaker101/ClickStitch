@@ -5,7 +5,7 @@
                 <img src="@/assets/logo.png">
             </div>
         </div>
-        <div class="flex-auto">
+        <div class="logo-text flex-auto">
             <strong>ClickStitch</strong>
         </div>
         <div class="custom align-items-center">
@@ -112,6 +112,12 @@ const onToggleMenu = function (): void {
     }
 
     @media screen and (max-width: 720px) {
+        grid-template-columns: auto 1fr auto;
+
+        .logo-text {
+            display: none;
+        }
+
         .menu {
             display: unset;
         }
