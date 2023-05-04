@@ -1,11 +1,9 @@
 <template>
     <nav class="nav-component">
-        <div>
-            <div class="logo-container">
+        <div class="flex gap align-items-center">
+            <div class="logo-container flex-auto">
                 <img src="@/assets/logo.png">
             </div>
-        </div>
-        <div class="logo-text">
             <strong>ClickStitch</strong>
         </div>
         <div class="custom align-items-center">
@@ -54,7 +52,7 @@ const onToggleMenu = function (): void {
     $inset: 1rem;
 
     display: grid;
-    grid-template-columns: auto auto 1fr auto;
+    grid-template-columns: repeat(3, 1fr);
     align-items: center;
     gap: 1rem;
     position: fixed;
