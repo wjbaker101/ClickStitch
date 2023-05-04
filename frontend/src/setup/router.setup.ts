@@ -68,6 +68,14 @@ const routes: Array<RouteRecordRaw> = [
         },
     },
     {
+        path: '/patterns',
+        component: MarketplaceView,
+        beforeEnter: [ requireAuth ],
+        meta: {
+            title: 'Patterns',
+        },
+    },
+    {
         path: '/basket',
         component: BasketView,
         beforeEnter: [ requireAuth ],

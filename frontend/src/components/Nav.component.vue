@@ -19,9 +19,9 @@
                 <IconComponent icon="home" gap="right" />
                 <span>Dashboard</span>
             </RouterLink>
-            <RouterLink class="flex-auto" to="/marketplace">
+            <RouterLink class="flex-auto" to="/patterns">
                 <IconComponent icon="download" gap="right" />
-                <span>Marketplace</span>
+                <span>Patterns</span>
             </RouterLink>
             <RouterLink class="flex-auto" to="/about">
                 <IconComponent icon="info" gap="right" />

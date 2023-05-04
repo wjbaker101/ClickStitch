@@ -1,7 +1,7 @@
 <template>
     <ViewComponent class="marketplace-view">
         <template #nav>
-            <strong>Marketplace</strong>
+            <strong>Patterns</strong>
         </template>
         <div class="content-width">
             <UserMessageComponent ref="userMessageComponent" />
