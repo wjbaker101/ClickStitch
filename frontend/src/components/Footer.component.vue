@@ -1,5 +1,18 @@
 <template>
     <footer class="footer-component">
+        <p>
+            <div class="flex gap-small">
+                <div class="flex-auto">Links:</div>
+                <div class="flex-auto"><RouterLink class="link-component" to="/dashboard">Dashboard</RouterLink></div>
+                <div class="flex-auto"><RouterLink class="link-component" to="/about">About</RouterLink></div>
+                <div class="flex-auto"><RouterLink class="link-component" to="/about">Marketplace</RouterLink></div>
+                <div class="flex-auto"><RouterLink class="link-component" to="/about">Settings</RouterLink></div>
+            </div>
+            <div class="flex gap-small">
+                <div class="flex-auto">Follow on:</div>
+                <div class="flex-auto"><LinkComponent :href="instagramUrl" external>Instagram</LinkComponent></div>
+            </div>
+        </p>
         <div>
             Copyright &copy; ClickStitch 2023<!-- &ndash;{{ new Date().getFullYear() }} -->,
             <br>
@@ -12,6 +25,7 @@
 </template>
 
 <script setup lang="ts">
+import { instagramUrl } from '@/data/data';
 </script>
 
 <style lang="scss">
