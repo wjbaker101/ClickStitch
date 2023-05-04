@@ -4,8 +4,8 @@
             <div class="flex gap-small">
                 <div class="flex-auto">Links:</div>
                 <div class="flex-auto"><RouterLink class="link-component" to="/dashboard">Dashboard</RouterLink></div>
-                <div class="flex-auto"><RouterLink class="link-component" to="/about">About</RouterLink></div>
                 <div class="flex-auto"><RouterLink class="link-component" to="/marketplace">Marketplace</RouterLink></div>
+                <div class="flex-auto"><RouterLink class="link-component" to="/about">About</RouterLink></div>
                 <div class="flex-auto"><RouterLink class="link-component" to="/settings">Settings</RouterLink></div>
             </div>
             <div class="flex gap-small">

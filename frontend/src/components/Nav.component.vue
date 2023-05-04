@@ -1,17 +1,17 @@
 <template>
     <nav class="nav-component">
-        <div class="flex-auto">
+        <div>
             <div class="logo-container">
                 <img src="@/assets/logo.png">
             </div>
         </div>
-        <div class="logo-text flex-auto">
+        <div class="logo-text">
             <strong>ClickStitch</strong>
         </div>
         <div class="custom align-items-center">
             <slot></slot>
         </div>
-        <div class="menu flex-auto text-right">
+        <div class="menu text-right">
             <ButtonComponent class="mini" @click="onToggleMenu">
                 <IconComponent icon="menu" />
             </ButtonComponent>
@@ -24,6 +24,10 @@
             <RouterLink class="flex-auto" to="/marketplace">
                 <IconComponent icon="download" gap="right" />
                 <span>Marketplace</span>
+            </RouterLink>
+            <RouterLink class="flex-auto" to="/about">
+                <IconComponent icon="info" gap="right" />
+                <span>About</span>
             </RouterLink>
             <RouterLink class="flex-auto" to="/settings">
                 <IconComponent icon="settings" gap="right" />
