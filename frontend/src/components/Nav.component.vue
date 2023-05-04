@@ -1,6 +1,13 @@
 <template>
     <nav class="nav-component">
-        <strong class="flex-auto">ClickStitch</strong>
+        <div class="flex-auto">
+            <div class="logo-container">
+                <img src="@/assets/logo.png">
+            </div>
+        </div>
+        <div class="flex-auto">
+            <strong>ClickStitch</strong>
+        </div>
         <div class="custom align-items-center">
             <slot></slot>
         </div>
@@ -43,7 +50,7 @@ const onToggleMenu = function (): void {
     $inset: 1rem;
 
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: auto auto 1fr auto;
     align-items: center;
     gap: 1rem;
     position: fixed;
@@ -71,6 +78,21 @@ const onToggleMenu = function (): void {
 
         span {
             vertical-align: middle;
+        }
+    }
+
+    .logo-container {
+        width: 40px;
+        height: 40px;
+        margin: -1rem -0.5rem -1rem 0;
+        padding: 0.25rem;
+        background-color: var(--wjb-light);
+        border-radius: 50%;
+
+        @include shadow-small();
+
+        img {
+            max-width: 100%;
         }
     }
 
