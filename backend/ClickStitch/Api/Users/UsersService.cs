@@ -67,7 +67,8 @@ public sealed partial class UsersService : IUsersService
             CreatedAt = _dateTime.UtcNow(),
             Email = request.Email,
             Password = password,
-            PasswordSalt = passwordSalt
+            PasswordSalt = passwordSalt,
+            LastLoginAt = null
         }, cancellationToken);
 
         return new CreateUserResponse

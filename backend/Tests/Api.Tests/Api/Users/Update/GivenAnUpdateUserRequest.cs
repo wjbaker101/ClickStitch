@@ -29,7 +29,8 @@ public sealed class GivenAnUpdateUserRequest
                 CreatedAt = new DateTime(2023, 06, 02, 11, 56, 01),
                 Email = "test@email.com",
                 Password = "TestPassword",
-                PasswordSalt = "TestPasswordSalt"
+                PasswordSalt = "TestPasswordSalt",
+                LastLoginAt = null
             });
         _userRepository
             .Setup(mock => mock.UpdateAsync(It.IsAny<UserRecord>(), It.IsAny<CancellationToken>()))

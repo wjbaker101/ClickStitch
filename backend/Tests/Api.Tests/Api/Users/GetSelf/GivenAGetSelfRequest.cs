@@ -25,7 +25,8 @@ public sealed class GivenAGetSelfRequest
                 CreatedAt = new DateTime(2023, 05, 01, 16, 39, 14),
                 Email = "test@email.com",
                 Password = "TestPassword",
-                PasswordSalt = ""
+                PasswordSalt = "",
+                LastLoginAt = null
             });
 
         var subject = new UsersService(userRepository.Object, null!, null!, null!);

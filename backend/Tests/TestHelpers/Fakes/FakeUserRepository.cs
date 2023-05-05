@@ -14,7 +14,8 @@ public sealed class FakeUserRepository : FakeRepository<UserRecord>, IUserReposi
         CreatedAt = new DateTime(2023, 04, 16, 02, 55, 32),
         Email = "test@email.com",
         Password = "LV9DQ2T04FnF+OoBJQZHzGh+hABV2sSeIEp/2LtExU0=",
-        PasswordSalt = "356ee6d2-7ace-4229-b467-bcded8797379"
+        PasswordSalt = "356ee6d2-7ace-4229-b467-bcded8797379",
+        LastLoginAt = new DateTime(2021, 05, 14, 08, 08, 31)
     })
     {
         _fakeResult = FakeValue;
