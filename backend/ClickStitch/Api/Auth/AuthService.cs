@@ -40,7 +40,7 @@ public sealed class AuthService : IAuthService
 
         user.LastLoginAt = DateTime.UtcNow;
 
-        await _userRepository.SaveAsync(user, cancellationToken);
+        await _userRepository.UpdateAsync(user, cancellationToken);
 
         return new LogInResponse
         {
