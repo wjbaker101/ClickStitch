@@ -1,6 +1,4 @@
-﻿using ClickStitch.Models;
-
-namespace ClickStitch.Api.Auth.Types;
+﻿namespace ClickStitch.Api.Auth.Types;
 
 public sealed class LogInRequest
 {

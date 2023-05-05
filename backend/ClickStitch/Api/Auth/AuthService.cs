@@ -1,6 +1,4 @@
 ﻿using ClickStitch.Api.Auth.Types;
-using ClickStitch.Models.Mappers;
-using Core.Types;
 using Data.Repositories.User;
 using Data.Repositories.UserPermission;
 

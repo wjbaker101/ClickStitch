@@ -1,6 +1,4 @@
-﻿using Core.Types;
-
-namespace ClickStitch.Helper;
+﻿namespace ClickStitch.Helper;
 
 public static class RequestHelper
 {

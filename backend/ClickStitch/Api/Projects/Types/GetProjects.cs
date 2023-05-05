@@ -1,6 +1,4 @@
-﻿using ClickStitch.Models;
-
-namespace ClickStitch.Api.Projects.Types;
+﻿namespace ClickStitch.Api.Projects.Types;
 
 public sealed class GetProjectsResponse
 {

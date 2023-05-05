@@ -1,6 +1,4 @@
-﻿using ClickStitch.Models;
-
-namespace ClickStitch.Api.Basket.Types;
+﻿namespace ClickStitch.Api.Basket.Types;
 
 public sealed class GetBasketResponse
 {

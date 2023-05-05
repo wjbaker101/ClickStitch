@@ -2,7 +2,6 @@
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Core.Settings;
-using Core.Types;
 
 namespace ClickStitch.Clients.Cloudinary;
 

@@ -1,6 +1,4 @@
-﻿using ClickStitch.Models;
-using Core.Services;
-using Core.Types;
+﻿using Core.Services;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

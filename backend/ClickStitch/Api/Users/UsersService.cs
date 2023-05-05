@@ -1,8 +1,6 @@
 ﻿using ClickStitch.Api.Auth;
 using ClickStitch.Api.Users.Types;
-using ClickStitch.Models.Mappers;
 using Core.Services;
-using Core.Types;
 using Data.Records;
 using Data.Repositories.User;
 using System.Text.RegularExpressions;

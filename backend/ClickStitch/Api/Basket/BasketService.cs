@@ -1,6 +1,4 @@
 ﻿using ClickStitch.Api.Basket.Types;
-using ClickStitch.Models.Mappers;
-using Core.Types;
 using Data.Records;
 using Data.Repositories.Basket;
 using Data.Repositories.Pattern;

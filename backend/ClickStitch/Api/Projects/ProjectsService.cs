@@ -1,7 +1,4 @@
 ﻿using ClickStitch.Api.Projects.Types;
-using ClickStitch.Models;
-using ClickStitch.Models.Mappers;
-using Core.Types;
 using Data.Repositories.Pattern;
 using Data.Repositories.User;
 using Data.Repositories.UserPattern;

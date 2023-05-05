@@ -1,6 +1,4 @@
-﻿using ClickStitch.Models;
-
-namespace ClickStitch.Api.Users.Types;
+﻿namespace ClickStitch.Api.Users.Types;
 
 public sealed class UpdateUserRequest
 {

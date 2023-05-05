@@ -1,8 +1,6 @@
 ﻿using ClickStitch.Api.Patterns.Types;
 using ClickStitch.Clients.Cloudinary;
 using ClickStitch.Clients.Cloudinary.Types;
-using ClickStitch.Models.Mappers;
-using Core.Types;
 using Data.Records;
 using Data.Repositories.Pattern;
 using Data.Repositories.Pattern.Types;
