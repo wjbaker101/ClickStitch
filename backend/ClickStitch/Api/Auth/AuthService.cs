@@ -38,6 +38,10 @@ public sealed class AuthService : IAuthService
 
         var permissions = await _userPermissionRepository.GetByUser(user, cancellationToken);
 
+        user.LastLoginAt = DateTime.UtcNow;
+
+        await _userRepository.SaveAsync(user, cancellationToken);
+
         return new LogInResponse
         {
             LoginToken = loginToken,
