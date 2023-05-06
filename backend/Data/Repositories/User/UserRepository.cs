@@ -1,6 +1,4 @@
-﻿using Core.Types;
-using Data.Records;
-using NHibernate.Linq;
+﻿
 
 // ReSharper disable SpecifyStringComparison
 

@@ -1,8 +1,4 @@
-﻿using Core.Types;
-using Data.Records;
-using NHibernate.Linq;
-
-namespace Data.Repositories.UserPatternStitch;
+﻿namespace Data.Repositories.UserPatternStitch;
 
 public interface IUserPatternStitchRepository : IRepository<UserPatternStitchRecord>
 {

@@ -1,7 +1,4 @@
-﻿using Core.Types;
-using Data.Records;
-using Data.Repositories.Pattern.Types;
-using NHibernate.Linq;
+﻿using Data.Repositories.Pattern.Types;
 
 namespace Data.Repositories.Pattern;
 

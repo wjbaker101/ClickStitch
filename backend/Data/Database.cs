@@ -1,6 +1,5 @@
 ﻿using Core.Settings;
 using Data.Interceptors;
-using Data.Records;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;

@@ -1,8 +1,4 @@
-﻿using Core.Types;
-using Data.Records;
-using NHibernate.Linq;
-
-namespace Data.Repositories.UserPattern;
+﻿namespace Data.Repositories.UserPattern;
 
 public interface IUserPatternRepository : IRepository<UserPatternRecord>
 {

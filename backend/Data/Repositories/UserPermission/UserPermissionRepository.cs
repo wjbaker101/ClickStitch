@@ -1,7 +1,4 @@
-﻿using Data.Records;
-using NHibernate.Linq;
-
-namespace Data.Repositories.UserPermission;
+﻿namespace Data.Repositories.UserPermission;
 
 public interface IUserPermissionRepository : IRepository<UserPermissionRecord>
 {

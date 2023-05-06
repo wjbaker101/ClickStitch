@@ -1,7 +1,4 @@
-﻿using Data.Records;
-using NHibernate.Linq;
-
-namespace Data.Repositories.Basket;
+﻿namespace Data.Repositories.Basket;
 
 public interface IBasketRepository : IRepository<UserBasketItemRecord>
 {
