@@ -1,4 +1,5 @@
 ﻿using Data.Records.Types;
+using Data.Records.Values;
 using FluentNHibernate.Mapping;
 
 namespace Data.Records;
@@ -15,7 +16,7 @@ public sealed class UserPatternRecordMap : ClassMap<UserPatternRecord>
 {
     public UserPatternRecordMap()
     {
-        Schema("cross_stitch_viewer");
+        Schema(DatabaseValues.SCHEMA);
         Table("user_pattern");
         Id(x => x.Id, "id").GeneratedBy.SequenceIdentity("user_pattern_id_seq");
         References(x => x.User, "user_id");

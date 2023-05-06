@@ -1,4 +1,5 @@
 ﻿using Data.Records.Types;
+using Data.Records.Values;
 using FluentNHibernate.Mapping;
 
 namespace Data.Records;
@@ -14,7 +15,7 @@ public sealed class UserPermissionRecordMap : ClassMap<UserPermissionRecord>
 {
     public UserPermissionRecordMap()
     {
-        Schema("cross_stitch_viewer");
+        Schema(DatabaseValues.SCHEMA);
         Table("user_permission");
         Id(x => x.Id, "id").GeneratedBy.SequenceIdentity("user_permission_id_seq");
         References(x => x.User, "user_id");
