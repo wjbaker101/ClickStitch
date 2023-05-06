@@ -1,8 +1,4 @@
-﻿using Data.Records.Types;
-using Data.Records.Values;
-using FluentNHibernate.Mapping;
-
-namespace Data.Records;
+﻿namespace Data.Records;
 
 public class UserPatternStitchRecord : IDatabaseRecord
 {
