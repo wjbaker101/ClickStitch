@@ -194,6 +194,15 @@ const onLogin = async function () {
         position: relative;
         color: #ddd;
         z-index: 1;
+
+        a {
+            color: var(--wjb-light);
+            box-shadow: 0 1px 0px var(--wjb-light);
+
+            &:hover {
+                box-shadow: none;
+            }
+        }
     }
 }
 </style>
