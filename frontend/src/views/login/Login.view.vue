@@ -2,7 +2,12 @@
     <ViewComponent class="login-view" hide-nav>
         <div class="left-side flex">
             <div class="centered flex-auto">
-                <h1>ClickStitch</h1>
+                <h1 class="flex gap-small align-items-center">
+                    <div class="logo-container flex-auto">
+                        <img width="" src="@/assets/logo.png">
+                    </div>
+                    <span>ClickStitch</span>
+                </h1>
                 <h2>Log In</h2>
                 <p>
                     <label>
@@ -130,6 +135,20 @@ const onLogin = async function () {
 
     h2 {
         margin: 0;
+    }
+
+    .logo-container {
+        width: 40px;
+        height: 40px;
+        padding: 0.25rem;
+        background-color: var(--wjb-light);
+        border-radius: 50%;
+
+        @include shadow-small();
+
+        img {
+            max-width: 100%;
+        }
     }
 
     .left-side {
