@@ -19,7 +19,7 @@ static ServiceProvider CreateServices()
         .AddFluentMigratorCore()
         .ConfigureRunner(runner => runner
             .AddPostgres()
-            .WithGlobalConnectionString("Server=localhost;Port=5432;Database=cross_stitch_viewer;User Id=postgres;Password=password;")
+            .WithGlobalConnectionString("Server=localhost;Port=5432;Database=clickstitch;User Id=postgres;Password=password;")
             .ConfigureGlobalProcessorOptions(options =>
             {
                 options.ProviderSwitches = "Force Quote=false";
