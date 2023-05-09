@@ -1,3 +1,4 @@
+using ClickStitch.Api.Admin;
 using ClickStitch.Api.Auth;
 using ClickStitch.Api.Basket;
 using ClickStitch.Api.Patterns;
@@ -37,6 +38,8 @@ services.AddSingleton<IPermissionRepository, PermissionRepository>();
 services.AddSingleton<IUserPermissionRepository, UserPermissionRepository>();
 
 services.AddSingleton<ICloudinaryClient, CloudinaryClient>();
+
+services.AddSingleton<IAdminService, AdminService>();
 
 services.AddSingleton<IBasketService, BasketService>();
 
