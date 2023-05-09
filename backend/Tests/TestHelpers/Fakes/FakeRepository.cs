@@ -27,7 +27,7 @@ public abstract class FakeRepository<T> : IRepository<T> where T : IDatabaseReco
         return Task.FromResult(record);
     }
 
-    public Task<List<T>> UpdateManyAsync(IEnumerable<T> records)
+    public Task<List<T>> UpdateManyAsync(IEnumerable<T> records, CancellationToken cancellationToken)
     {
         return Task.FromResult(records.ToList());
     }
@@ -37,7 +37,7 @@ public abstract class FakeRepository<T> : IRepository<T> where T : IDatabaseReco
         return Task.FromResult(record);
     }
 
-    public Task<List<T>> DeleteManyAsync(IEnumerable<T> records)
+    public Task<List<T>> DeleteManyAsync(IEnumerable<T> records, CancellationToken cancellationToken)
     {
         return Task.FromResult(records.ToList());
     }

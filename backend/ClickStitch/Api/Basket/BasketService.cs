@@ -118,7 +118,7 @@ public sealed class BasketService : IBasketService
             CreatedAt = DateTime.UtcNow
         }), cancellationToken);
 
-        await _basketRepository.DeleteManyAsync(basketItems);
+        await _basketRepository.DeleteManyAsync(basketItems, cancellationToken);
 
         return new CompleteBasketResponse();
     }

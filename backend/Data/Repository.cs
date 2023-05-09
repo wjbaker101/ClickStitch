@@ -7,9 +7,9 @@ public interface IRepository<TRecord> where TRecord : IDatabaseRecord
     Task<TRecord> SaveAsync(TRecord record, CancellationToken cancellationToken);
     Task<List<TRecord>> SaveManyAsync(IEnumerable<TRecord> records, CancellationToken cancellationToken);
     Task<TRecord> UpdateAsync(TRecord record, CancellationToken cancellationToken);
-    Task<List<TRecord>> UpdateManyAsync(IEnumerable<TRecord> records);
+    Task<List<TRecord>> UpdateManyAsync(IEnumerable<TRecord> records, CancellationToken cancellationToken);
     Task<TRecord> DeleteAsync(TRecord record, CancellationToken cancellationToken);
-    Task<List<TRecord>> DeleteManyAsync(IEnumerable<TRecord> records);
+    Task<List<TRecord>> DeleteManyAsync(IEnumerable<TRecord> records, CancellationToken cancellationToken);
 }
 
 public abstract class Repository<TRecord> : IRepository<TRecord> where TRecord : IDatabaseRecord
@@ -60,7 +60,7 @@ public abstract class Repository<TRecord> : IRepository<TRecord> where TRecord :
         return record;
     }
 
-    public async Task<List<TRecord>> UpdateManyAsync(IEnumerable<TRecord> records)
+    public async Task<List<TRecord>> UpdateManyAsync(IEnumerable<TRecord> records, CancellationToken cancellationToken)
     {
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();
@@ -68,9 +68,9 @@ public abstract class Repository<TRecord> : IRepository<TRecord> where TRecord :
         var recordsAsList = records.ToList();
 
         foreach (var record in recordsAsList)
-            await session.UpdateAsync(record);
+            await session.UpdateAsync(record, cancellationToken);
 
-        await transaction.CommitAsync();
+        await transaction.CommitAsync(cancellationToken);
 
         return recordsAsList;
     }
@@ -87,7 +87,7 @@ public abstract class Repository<TRecord> : IRepository<TRecord> where TRecord :
         return record;
     }
 
-    public async Task<List<TRecord>> DeleteManyAsync(IEnumerable<TRecord> records)
+    public async Task<List<TRecord>> DeleteManyAsync(IEnumerable<TRecord> records, CancellationToken cancellationToken)
     {
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();
@@ -95,9 +95,9 @@ public abstract class Repository<TRecord> : IRepository<TRecord> where TRecord :
         var recordsAsList = records.ToList();
 
         foreach (var record in recordsAsList)
-            await session.DeleteAsync(record);
+            await session.DeleteAsync(record, cancellationToken);
 
-        await transaction.CommitAsync();
+        await transaction.CommitAsync(cancellationToken);
 
         return recordsAsList;
     }
