@@ -26,9 +26,9 @@ public abstract class Repository<TRecord> : IRepository<TRecord> where TRecord :
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();
 
-        await session.SaveAsync(record);
+        await session.SaveAsync(record, cancellationToken);
 
-        await transaction.CommitAsync();
+        await transaction.CommitAsync(cancellationToken);
 
         return record;
     }
@@ -41,9 +41,9 @@ public abstract class Repository<TRecord> : IRepository<TRecord> where TRecord :
         var recordsAsList = records.ToList();
 
         foreach (var record in recordsAsList)
-            await session.SaveAsync(record);
+            await session.SaveAsync(record, cancellationToken);
 
-        await transaction.CommitAsync();
+        await transaction.CommitAsync(cancellationToken);
 
         return recordsAsList;
     }
@@ -53,9 +53,9 @@ public abstract class Repository<TRecord> : IRepository<TRecord> where TRecord :
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();
 
-        await session.UpdateAsync(record);
+        await session.UpdateAsync(record, cancellationToken);
 
-        await transaction.CommitAsync();
+        await transaction.CommitAsync(cancellationToken);
 
         return record;
     }
@@ -80,9 +80,9 @@ public abstract class Repository<TRecord> : IRepository<TRecord> where TRecord :
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();
 
-        await session.DeleteAsync(record);
+        await session.DeleteAsync(record, cancellationToken);
 
-        await transaction.CommitAsync();
+        await transaction.CommitAsync(cancellationToken);
 
         return record;
     }
