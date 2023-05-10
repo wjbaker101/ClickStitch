@@ -21,7 +21,7 @@ public sealed class ProjectsController : ApiController
     [Authorisation]
     public async Task<IActionResult> GetProjects(CancellationToken cancellationToken)
     {
-        var user = RequestHelper.GetUser(Request);
+        var user = RequestHelper.GetRequiredUser(Request);
 
         var result = await _projectsService.GetProjects(user, cancellationToken);
 
@@ -33,7 +33,7 @@ public sealed class ProjectsController : ApiController
     [Authorisation]
     public async Task<IActionResult> GetProject([FromRoute] Guid patternReference, CancellationToken cancellationToken)
     {
-        var user = RequestHelper.GetUser(Request);
+        var user = RequestHelper.GetRequiredUser(Request);
 
         var result = await _projectsService.GetProject(user, patternReference, cancellationToken);
 
@@ -45,7 +45,7 @@ public sealed class ProjectsController : ApiController
     [Authorisation]
     public async Task<IActionResult> CompleteStitches([FromRoute] Guid patternReference, [FromBody] CompleteStitchesRequest request, CancellationToken cancellationToken)
     {
-        var user = RequestHelper.GetUser(Request);
+        var user = RequestHelper.GetRequiredUser(Request);
 
         var result = await _projectsService.CompleteStitches(user, patternReference, request, cancellationToken);
 
@@ -57,7 +57,7 @@ public sealed class ProjectsController : ApiController
     [Authorisation]
     public async Task<IActionResult> UnCompleteStitches([FromRoute] Guid patternReference, [FromBody] CompleteStitchesRequest request, CancellationToken cancellationToken)
     {
-        var user = RequestHelper.GetUser(Request);
+        var user = RequestHelper.GetRequiredUser(Request);
 
         var result = await _projectsService.UnCompleteStitches(user, patternReference, request, cancellationToken);
 
@@ -69,7 +69,7 @@ public sealed class ProjectsController : ApiController
     [Authorisation]
     public async Task<IActionResult> GetAnalytics([FromRoute] Guid patternReference, CancellationToken cancellationToken)
     {
-        var user = RequestHelper.GetUser(Request);
+        var user = RequestHelper.GetRequiredUser(Request);
 
         var result = await _projectsService.GetAnalytics(user, patternReference, cancellationToken);
 

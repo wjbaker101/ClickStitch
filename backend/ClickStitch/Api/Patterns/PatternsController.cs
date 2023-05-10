@@ -21,10 +21,9 @@ public sealed class PatternsController : ApiController
 
     [HttpGet]
     [Route("")]
-    [Authorisation]
     public async Task<IActionResult> SearchPatterns(CancellationToken cancellationToken)
     {
-        var user = RequestHelper.GetUser(Request);
+        var user = RequestHelper.GetRequiredUser(Request);
 
         var result = await _patternsService.GetPatterns(user, cancellationToken);
         

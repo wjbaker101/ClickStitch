@@ -20,7 +20,7 @@ public sealed class BasketController : ApiController
     [Authorisation]
     public async Task<IActionResult> GetBasket(CancellationToken cancellationToken)
     {
-        var user = RequestHelper.GetUser(Request);
+        var user = RequestHelper.GetRequiredUser(Request);
 
         var result = await _basketService.GetBasket(user, cancellationToken);
 
@@ -32,7 +32,7 @@ public sealed class BasketController : ApiController
     [Authorisation]
     public async Task<IActionResult> AddToBasket([FromRoute] Guid patternReference, CancellationToken cancellationToken)
     {
-        var user = RequestHelper.GetUser(Request);
+        var user = RequestHelper.GetRequiredUser(Request);
 
         var result = await _basketService.AddToBasket(user, patternReference, cancellationToken);
 
@@ -44,7 +44,7 @@ public sealed class BasketController : ApiController
     [Authorisation]
     public async Task<IActionResult> RemoveFromBasket([FromRoute] Guid patternReference, CancellationToken cancellationToken)
     {
-        var user = RequestHelper.GetUser(Request);
+        var user = RequestHelper.GetRequiredUser(Request);
 
         var result = await _basketService.RemoveFromBasket(user, patternReference, cancellationToken);
 
@@ -56,7 +56,7 @@ public sealed class BasketController : ApiController
     [Authorisation]
     public async Task<IActionResult> QuickAdd([FromRoute] Guid patternReference, CancellationToken cancellationToken)
     {
-        var user = RequestHelper.GetUser(Request);
+        var user = RequestHelper.GetRequiredUser(Request);
 
         var result = await _basketService.QuickAdd(user, patternReference, cancellationToken);
 
@@ -68,7 +68,7 @@ public sealed class BasketController : ApiController
     [Authorisation]
     public async Task<IActionResult> CompleteBasket(CancellationToken cancellationToken)
     {
-        var user = RequestHelper.GetUser(Request);
+        var user = RequestHelper.GetRequiredUser(Request);
 
         var result = await _basketService.CompleteBasket(user, cancellationToken);
 
