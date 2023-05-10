@@ -11,7 +11,7 @@ namespace ClickStitch.Api.Patterns;
 
 public interface IPatternsService
 {
-    Task<Result<GetPatternsResponse>> GetPatterns(RequestUser requestUser, CancellationToken cancellationToken);
+    Task<Result<GetPatternsResponse>> GetPatterns(RequestUser? requestUser, CancellationToken cancellationToken);
     Task<Result> CreatePattern(CreatePatternRequest request, CreatePatternData patternData, IFormFile thumbnail, IFormFile bannerImage, CancellationToken cancellationToken);
     Task<Result> UpdatePatternImage(Guid patternReference, UpdatePatternImageRequest request, CancellationToken cancellationToken);
 }
@@ -41,15 +41,22 @@ public sealed class PatternsService : IPatternsService
         _userPatternRepository = userPatternRepository;
     }
 
-    public async Task<Result<GetPatternsResponse>> GetPatterns(RequestUser requestUser, CancellationToken cancellationToken)
+    public async Task<Result<GetPatternsResponse>> GetPatterns(RequestUser? requestUser, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
+        var patternsToExclude = new List<PatternRecord>();
 
-        var projects = await _userPatternRepository.GetByUserAsync(user, cancellationToken);
+        if (requestUser != null)
+        {
+            var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
+
+            var projects = await _userPatternRepository.GetByUserAsync(user, cancellationToken);
+
+            patternsToExclude.AddRange(projects.ConvertAll(x => x.Pattern));
+        }
 
         var patterns = await _patternRepository.SearchAsync(new SearchPatternsParameters
         {
-            PatternsToExclude = projects.ConvertAll(x => x.Pattern)
+            PatternsToExclude = patternsToExclude
         }, cancellationToken);
 
         return new GetPatternsResponse
