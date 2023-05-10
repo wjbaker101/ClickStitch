@@ -1,6 +1,21 @@
 <template>
     <ViewComponent class="login-view" hide-nav>
-        <div class="left-side flex">
+        <div class="left-side flex flex-vertical">
+            <header class="flex flex-auto gap">
+                <div></div>
+                <div class="flex-auto">
+                    <RouterLink to="/about">
+                        <IconComponent icon="info" gap="right" />
+                        <span>About ClickStitch</span>
+                    </RouterLink>
+                </div>
+                <div class="flex-auto">
+                    <RouterLink to="/patterns">
+                        <IconComponent icon="download" gap="right" />
+                        <span>View Patterns</span>
+                    </RouterLink>
+                </div>
+            </header>
             <div class="centered flex-auto">
                 <h1 class="flex gap-small align-items-center">
                     <div class="logo-container flex-auto">
@@ -170,6 +185,20 @@ const onLogin = async function () {
             position: static;
             padding: 2rem 0;
             clip-path: none;
+        }
+
+        header {
+            padding: 1rem;
+            margin-right: 1rem;
+
+            a {
+                color: inherit;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
         }
     }
 
