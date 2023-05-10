@@ -62,7 +62,6 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/marketplace',
         component: MarketplaceView,
-        beforeEnter: [ requireAuth ],
         meta: {
             title: 'Marketplace',
         },
