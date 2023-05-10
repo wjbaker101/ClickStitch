@@ -10,7 +10,7 @@
                 <!-- {{ currency(pattern.price) }} -->
             </div>
             <div class="flex flex-auto gap-small">
-                <ButtonComponent class="add-to-basket-button mini" :title="hoverText" @click.stop="onAddToBasket(pattern)" :disabled="isInBasket">
+                <ButtonComponent v-if="authDetails !== null" class="add-to-basket-button mini" :title="hoverText" @click.stop="onAddToBasket(pattern)" :disabled="isInBasket">
                     <IconComponent v-if="isInBasket" icon="tick" />
                     <IconComponent v-else icon="plus" />
                 </ButtonComponent>
@@ -33,6 +33,7 @@ import PatternModal from '@/views/marketplace/modal/PatternModal.component.vue';
 import PatternImagesModal from '@/views/marketplace/modal/PatternImagesModal.component.vue';
 
 import { currency } from '@/helper/helper';
+import { useAuth } from '@/use/auth/Auth.use';
 import { useMarketplace } from '@/use/marketplace/Marketplace.use';
 import { useModal } from '@wjb/vue/use/modal.use';
 import { usePopup } from '@wjb/vue/use/popup.use';
@@ -43,10 +44,13 @@ const props = defineProps<{
     pattern: IPattern;
 }>();
 
+const auth = useAuth();
 const router = useRouter();
 const marketplace = useMarketplace();
 const modal = useModal();
 const popup = usePopup();
+
+const authDetails = auth.details;
 
 const patternsInBasket = marketplace.patternReferences;
 const isInBasket = computed<boolean>(() => patternsInBasket.value.has(props.pattern.reference));
