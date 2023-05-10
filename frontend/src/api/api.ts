@@ -134,12 +134,9 @@ export const api = {
     patterns: {
 
         async search(): Promise<Array<IPattern> | Error> {
-            if (auth.details.value === null)
-                return new Error('You must be logged in for this action.');
-
             try {
                 const response = await client.get<IApiResultResponse<ISearchPatternsResponse>>('/patterns', {
-                    headers: {
+                    headers: (auth.details.value === null) ? {} : {
                         'Authorization': `Bearer ${auth.details.value.loginToken}`,
                     },
                 });
