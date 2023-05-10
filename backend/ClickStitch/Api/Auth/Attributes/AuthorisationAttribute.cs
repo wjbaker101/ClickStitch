@@ -25,7 +25,6 @@ public sealed class AuthorisationAttribute : Attribute, IAsyncAuthorizationFilte
 
         if (!context.HttpContext.Request.Headers.TryGetValue("Authorization", out var authHeader))
         {
-            context.Result = new UnauthorizedResult();
             return;
         }
 
