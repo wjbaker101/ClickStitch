@@ -15,34 +15,68 @@
             </ButtonComponent>
         </div>
         <div class="links flex gap flex-auto" :class="{ 'is-menu-open': isMenuOpen }">
-            <RouterLink class="flex-auto" to="/dashboard">
-                <IconComponent icon="home" gap="right" />
-                <span>Dashboard</span>
-            </RouterLink>
-            <RouterLink class="flex-auto" to="/patterns">
-                <IconComponent icon="download" gap="right" />
-                <span>Patterns</span>
-            </RouterLink>
-            <RouterLink class="flex-auto" to="/about">
-                <IconComponent icon="info" gap="right" />
-                <span>About</span>
-            </RouterLink>
-            <RouterLink class="flex-auto" to="/settings">
-                <IconComponent icon="settings" gap="right" />
-                <span>Settings</span>
+            <RouterLink class="flex-auto" v-for="link in links.filter(x => x.isVisible)" :to="link.path">
+                <IconComponent :icon="link.iconName" gap="right" />
+                <span>{{ link.title }}</span>
             </RouterLink>
         </div>
     </nav>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+
+import { useAuth } from '@/use/auth/Auth.use';
+
+const auth = useAuth();
+
+const authDetails = auth.details;
 
 const isMenuOpen = ref<boolean>(false);
 
 const onToggleMenu = function (): void {
     isMenuOpen.value = !isMenuOpen.value;
 };
+
+interface ILink {
+    path: string;
+    iconName: string;
+    title: string;
+    isVisible: boolean;
+}
+
+const links = computed<Array<ILink>>(() => [
+    {
+        path: '/dashboard',
+        iconName: 'home',
+        title: 'Dashboard',
+        isVisible: authDetails.value !== null,
+    },
+    {
+        path: '/patterns',
+        iconName: 'download',
+        title: 'Patterns',
+        isVisible: true,
+    },
+    {
+        path: '/about',
+        iconName: 'info',
+        title: 'About',
+        isVisible: true,
+    },
+    {
+        path: '/settings',
+        iconName: 'settings',
+        title: 'Settings',
+        isVisible: authDetails.value !== null,
+    },
+    {
+        path: '/login',
+        iconName: 'user',
+        title: 'Login/Signup',
+        isVisible: authDetails.value === null,
+    },
+]);
 </script>
 
 <style lang="scss">
