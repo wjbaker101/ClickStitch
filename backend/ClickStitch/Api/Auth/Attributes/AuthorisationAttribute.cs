@@ -23,7 +23,7 @@ public sealed class AuthorisationAttribute : Attribute, IAsyncAuthorizationFilte
     {
         var cancellationToken = context.HttpContext.RequestAborted;
 
-        if (!context.HttpContext.Request.Headers.TryGetValue("Authorization", out var authHeader))
+        if (!context.HttpContext.Request.Headers.TryGetValue("Authorization", out var authHeader) && !_requireTypes.Any())
         {
             return;
         }
