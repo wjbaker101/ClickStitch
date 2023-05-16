@@ -1,7 +1,6 @@
 ﻿using ClickStitch.Helper;
 using Data.Records;
 using Data.Repositories.User;
-using Data.Repositories.UserPermission;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -47,7 +46,7 @@ public sealed class AuthorisationAttribute : Attribute, IAsyncAuthorizationFilte
 
         var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
 
-        var userResult = await userRepository.GetByReferenceAsync(userReferenceResult.Content, cancellationToken);
+        var userResult = await userRepository.GetWithPermissionsByReferenceAsync(userReferenceResult.Content, cancellationToken);
         if (!userResult.TrySuccess(out var user))
         {
             context.Result = new UnauthorizedResult();
@@ -56,10 +55,7 @@ public sealed class AuthorisationAttribute : Attribute, IAsyncAuthorizationFilte
 
         if (_requireTypes.Any())
         {
-            var userPermissionRepository = context.HttpContext.RequestServices.GetRequiredService<IUserPermissionRepository>();
-
-            var permissions = await userPermissionRepository.GetByUser(user, cancellationToken);
-            var permissionsSet = permissions.Select(x => x.Type).ToHashSet();
+            var permissionsSet = user.Permissions.Select(x => x.Type).ToHashSet();
 
             if (_requireTypes.Any(x => !permissionsSet.Contains(x)))
             {
