@@ -1,5 +1,4 @@
 ﻿using ClickStitch.Helper;
-using Data.Records;
 using Data.Repositories.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -11,21 +10,12 @@ public sealed class AuthorisationAttribute : Attribute, IAsyncAuthorizationFilte
 {
     public int Order => 100;
 
-    private readonly PermissionType[] _requireTypes;
-
-    public AuthorisationAttribute(PermissionType[]? requireTypes = null)
-    {
-        _requireTypes = requireTypes ?? Array.Empty<PermissionType>();
-    }
-
     public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
     {
         var cancellationToken = context.HttpContext.RequestAborted;
 
-        if (!context.HttpContext.Request.Headers.TryGetValue("Authorization", out var authHeader) && !_requireTypes.Any())
-        {
+        if (!context.HttpContext.Request.Headers.TryGetValue("Authorization", out var authHeader))
             return;
-        }
 
         if (!authHeader.ToString().StartsWith("Bearer "))
         {
@@ -51,17 +41,6 @@ public sealed class AuthorisationAttribute : Attribute, IAsyncAuthorizationFilte
         {
             context.Result = new UnauthorizedResult();
             return;
-        }
-
-        if (_requireTypes.Any())
-        {
-            var permissionsSet = user.Permissions.Select(x => x.Type).ToHashSet();
-
-            if (_requireTypes.Any(x => !permissionsSet.Contains(x)))
-            {
-                context.Result = new UnauthorizedResult();
-                return;
-            }
         }
 
         context.HttpContext.Items[RequestHelper.REQUEST_USER_ITEM_KEY] = new RequestUser
