@@ -27,6 +27,9 @@ import { IGetProjectResponse } from '@/api/types/GetProject.type';
 import { ICompleteStitchesRequest } from './types/CompleteStitches.type';
 import { IGetAnalytics } from '@/models/GetAnalytics.model';
 import { IGetAnalyticsResponse } from './types/GetAnalytics.type';
+import { IGetUsersResponse } from './types/GetUsers.type';
+import { IGetUsers } from '@/models/GetUsers.model';
+import { paginationMapper } from './mappers/Pagination.mapper';
 
 const auth = useAuth();
 
@@ -35,6 +38,37 @@ const client = axios.create({
 });
 
 export const api = {
+
+    admin: {
+
+        async getUsers(): Promise<IGetUsers | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
+            try {
+                const response = await client.get<IApiResultResponse<IGetUsersResponse>>('/admin/users', {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
+
+                const result = response.data.result;
+
+                return {
+                    users: result.users.map(x => ({
+                        reference: x.reference,
+                        createdAt: dayjs(x.createdAt),
+                        email: x.email,
+                    })),
+                    pagination: paginationMapper.map(result.pagination),
+                };
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
+        },
+
+    },
 
     auth: {
 
