@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 namespace ClickStitch.Api.Auth.Attributes;
 
 [AttributeUsage(AttributeTargets.Method)]
-public sealed class AuthorisationAttribute : Attribute, IAsyncAuthorizationFilter, IOrderedFilter
+public sealed class AuthenticateAttribute : Attribute, IAsyncAuthorizationFilter, IOrderedFilter
 {
     public int Order => 100;
 

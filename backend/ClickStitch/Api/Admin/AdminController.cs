@@ -16,7 +16,7 @@ public sealed class AdminController : ApiController
 
     [HttpGet]
     [Route("users")]
-    [Authorisation]
+    [Authenticate]
     [RequireAdmin]
     public async Task<IActionResult> GetUsers([FromQuery(Name = "page_number")] int pageNumber, [FromQuery(Name = "page_size")] int pageSize, CancellationToken cancellationToken)
     {

@@ -20,7 +20,7 @@ public sealed class PatternsController : ApiController
 
     [HttpGet]
     [Route("")]
-    [Authorisation]
+    [Authenticate]
     public async Task<IActionResult> SearchPatterns(CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetOptionalUser(Request);
@@ -32,7 +32,7 @@ public sealed class PatternsController : ApiController
 
     [HttpPost]
     [Route("")]
-    [Authorisation]
+    [Authenticate]
     [RequireAdmin]
     public async Task<IActionResult> CreatePattern(
         [FromForm(Name = "thumbnail")] IFormFile thumbnail,
@@ -50,7 +50,7 @@ public sealed class PatternsController : ApiController
     }
 
     [HttpPatch]
-    [Authorisation]
+    [Authenticate]
     [RequireAdmin]
     public async Task<IActionResult> UpdatePatternImage([FromRoute] Guid patternReference, UpdatePatternImageRequest request, CancellationToken cancellationToken)
     {

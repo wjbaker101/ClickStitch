@@ -18,7 +18,7 @@ public sealed class UsersController : ApiController
 
     [HttpGet]
     [Route("self")]
-    [Authorisation]
+    [Authenticate]
     public async Task<IActionResult> GetSelf(CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetRequiredUser(Request);
@@ -39,7 +39,7 @@ public sealed class UsersController : ApiController
 
     [HttpPut]
     [Route("{userReference:guid}")]
-    [Authorisation]
+    [Authenticate]
     public async Task<IActionResult> UpdateUser([FromRoute] Guid userReference, [FromBody] UpdateUserRequest request, CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetRequiredUser(Request);
@@ -51,7 +51,7 @@ public sealed class UsersController : ApiController
 
     [HttpDelete]
     [Route("{userReference:guid}")]
-    [Authorisation]
+    [Authenticate]
     public async Task<IActionResult> DeleteUser([FromRoute] Guid userReference, CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetRequiredUser(Request);

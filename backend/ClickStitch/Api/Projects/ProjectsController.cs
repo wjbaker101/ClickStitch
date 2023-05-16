@@ -18,7 +18,7 @@ public sealed class ProjectsController : ApiController
 
     [HttpGet]
     [Route("")]
-    [Authorisation]
+    [Authenticate]
     public async Task<IActionResult> GetProjects(CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetRequiredUser(Request);
@@ -30,7 +30,7 @@ public sealed class ProjectsController : ApiController
 
     [HttpGet]
     [Route("{patternReference:guid}")]
-    [Authorisation]
+    [Authenticate]
     public async Task<IActionResult> GetProject([FromRoute] Guid patternReference, CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetRequiredUser(Request);
@@ -42,7 +42,7 @@ public sealed class ProjectsController : ApiController
 
     [HttpPost]
     [Route("{patternReference:guid}/stitches/complete")]
-    [Authorisation]
+    [Authenticate]
     public async Task<IActionResult> CompleteStitches([FromRoute] Guid patternReference, [FromBody] CompleteStitchesRequest request, CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetRequiredUser(Request);
@@ -54,7 +54,7 @@ public sealed class ProjectsController : ApiController
 
     [HttpPost]
     [Route("{patternReference:guid}/stitches/uncomplete")]
-    [Authorisation]
+    [Authenticate]
     public async Task<IActionResult> UnCompleteStitches([FromRoute] Guid patternReference, [FromBody] CompleteStitchesRequest request, CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetRequiredUser(Request);
@@ -66,7 +66,7 @@ public sealed class ProjectsController : ApiController
 
     [HttpGet]
     [Route("{patternReference:guid}/analytics")]
-    [Authorisation]
+    [Authenticate]
     public async Task<IActionResult> GetAnalytics([FromRoute] Guid patternReference, CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetRequiredUser(Request);
