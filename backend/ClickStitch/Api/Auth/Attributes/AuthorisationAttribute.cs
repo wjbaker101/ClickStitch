@@ -67,7 +67,8 @@ public sealed class AuthorisationAttribute : Attribute, IAsyncAuthorizationFilte
         context.HttpContext.Items[RequestHelper.REQUEST_USER_ITEM_KEY] = new RequestUser
         {
             Id = user.Id,
-            Reference = user.Reference
+            Reference = user.Reference,
+            Permissions = user.Permissions.Select(x => (RequestPermissionType)x.Type).ToList()
         };
     }
 }

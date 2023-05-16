@@ -46,7 +46,8 @@ public sealed class GivenAnUpdateUserRequest
         _result = await subject.UpdateUser(new RequestUser
         {
             Id = 6713,
-            Reference = Guid.NewGuid()
+            Reference = Guid.NewGuid(),
+            Permissions = new List<RequestPermissionType>()
         }, Guid.Parse("5f69355e-7498-4620-bd6f-cf3968fb37a4"), new UpdateUserRequest
         {
         }, CancellationToken.None);

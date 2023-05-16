@@ -47,7 +47,8 @@ public sealed class GivenADeleteUserRequest
         _result = await subject.DeleteUser(new RequestUser
         {
             Id = 1913,
-            Reference = Guid.NewGuid()
+            Reference = Guid.NewGuid(),
+            Permissions = new List<RequestPermissionType>()
         }, Guid.Parse("5f69355e-7498-4620-bd6f-cf3968fb37a4"), CancellationToken.None);
     }
 

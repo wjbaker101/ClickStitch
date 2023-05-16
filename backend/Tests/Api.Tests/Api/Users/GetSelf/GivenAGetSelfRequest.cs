@@ -35,7 +35,8 @@ public sealed class GivenAGetSelfRequest
         _result = await subject.GetSelf(new RequestUser
         {
             Id = 9371,
-            Reference = Guid.Parse("38eba7b8-e53c-4619-a391-7c3d6beff3de")
+            Reference = Guid.Parse("38eba7b8-e53c-4619-a391-7c3d6beff3de"),
+            Permissions = new List<RequestPermissionType>()
         }, CancellationToken.None);
     }
 

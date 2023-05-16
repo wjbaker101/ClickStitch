@@ -12,7 +12,8 @@ public sealed class TestRequestUser
         return new RequestUser
         {
             Id = user.Id,
-            Reference = user.Reference
+            Reference = user.Reference,
+            Permissions = new List<RequestPermissionType>()
         };
     }
 }
