@@ -68,7 +68,8 @@ public sealed partial class UsersService : IUsersService
             Email = request.Email,
             Password = password,
             PasswordSalt = passwordSalt,
-            LastLoginAt = null
+            LastLoginAt = null,
+            Permissions = new List<PermissionRecord>()
         }, cancellationToken);
 
         return new CreateUserResponse

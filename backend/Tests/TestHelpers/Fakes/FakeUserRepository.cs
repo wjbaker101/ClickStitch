@@ -15,7 +15,8 @@ public sealed class FakeUserRepository : FakeRepository<UserRecord>, IUserReposi
         Email = "test@email.com",
         Password = "LV9DQ2T04FnF+OoBJQZHzGh+hABV2sSeIEp/2LtExU0=",
         PasswordSalt = "356ee6d2-7ace-4229-b467-bcded8797379",
-        LastLoginAt = new DateTime(2021, 05, 14, 08, 08, 31)
+        LastLoginAt = new DateTime(2021, 05, 14, 08, 08, 31),
+        Permissions = new List<PermissionRecord>()
     })
     {
         _fakeResult = FakeValue;
@@ -38,6 +39,11 @@ public sealed class FakeUserRepository : FakeRepository<UserRecord>, IUserReposi
     public Task<UserRecord> GetByRequestUser(RequestUser requestUser, CancellationToken cancellationToken)
     {
         return Task.FromResult(_fakeResult.Content);
+    }
+
+    public Task<Result<UserRecord>> GetWithPermissionsByReferenceAsync(Guid userReference, CancellationToken cancellationToken)
+    {
+        return Task.FromResult(_fakeResult);
     }
 
     public Task<Result<UserRecord>> GetByReferenceAsync(Guid userReference, CancellationToken cancellationToken)

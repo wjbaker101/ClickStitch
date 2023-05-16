@@ -29,7 +29,8 @@ public sealed class GivenADeleteUserRequest
             Email = "test@email.com",
             Password = "TestPassword",
             PasswordSalt = "TestPasswordSalt",
-            LastLoginAt = null
+            LastLoginAt = null,
+            Permissions = new List<PermissionRecord>()
         };
 
         _userRepository = new Mock<IUserRepository>();

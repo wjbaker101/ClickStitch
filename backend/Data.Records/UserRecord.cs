@@ -9,6 +9,7 @@ public class UserRecord : IDatabaseRecord
     public virtual required string Password { get; set; }
     public virtual required string PasswordSalt { get; set; }
     public virtual required DateTime? LastLoginAt { get; set; }
+    public virtual required IList<PermissionRecord> Permissions { get; init; }
 }
 
 public sealed class UserRecordMap : ClassMap<UserRecord>
@@ -24,5 +25,10 @@ public sealed class UserRecordMap : ClassMap<UserRecord>
         Map(x => x.Password, "password");
         Map(x => x.PasswordSalt, "password_salt");
         Map(x => x.LastLoginAt, "last_login_at");
+        HasManyToMany(x => x.Permissions)
+            .Schema(DatabaseValues.SCHEMA)
+            .Table("user_permission")
+            .ParentKeyColumn("user_id")
+            .ChildKeyColumn("permission_id");
     }
 }

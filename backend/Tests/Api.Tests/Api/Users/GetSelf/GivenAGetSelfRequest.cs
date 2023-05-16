@@ -26,7 +26,8 @@ public sealed class GivenAGetSelfRequest
                 Email = "test@email.com",
                 Password = "TestPassword",
                 PasswordSalt = "",
-                LastLoginAt = null
+                LastLoginAt = null,
+                Permissions = new List<PermissionRecord>()
             });
 
         var subject = new UsersService(userRepository.Object, null!, null!, null!);
