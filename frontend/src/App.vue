@@ -28,10 +28,11 @@ body {
 
 .textured-background {
     background-color: var(--wjb-background-colour);
-    background: url(@/assets/bg-light.jpg);
+    background-attachment: fixed;
+    background-image: url(@/assets/bg-light.png);
 
     @media (prefers-color-scheme: dark) {
-        background: url(@/assets/bg-dark.jpg);
+        background-image: url(@/assets/bg-dark.png);
     }
 }
 
