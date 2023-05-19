@@ -5,7 +5,7 @@ namespace Data.Repositories.Admin;
 
 public interface IAdminRepository
 {
-    Task<GetUsersDto> GetUsers(GetUsersParameters parameters, CancellationToken cancellationToken);
+    Task<GetUsersDto> SearchUsers(GetUsersParameters parameters, CancellationToken cancellationToken);
 }
 
 public sealed class AdminRepository : Repository<IDatabaseRecord>, IAdminRepository
@@ -14,7 +14,7 @@ public sealed class AdminRepository : Repository<IDatabaseRecord>, IAdminReposit
     {
     }
 
-    public async Task<GetUsersDto> GetUsers(GetUsersParameters parameters, CancellationToken cancellationToken)
+    public async Task<GetUsersDto> SearchUsers(GetUsersParameters parameters, CancellationToken cancellationToken)
     {
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();

@@ -6,7 +6,7 @@ namespace ClickStitch.Api.Admin;
 
 public interface IAdminService
 {
-    Task<Result<GetUsersResponse>> GetUsers(int pageNumber, int pageSize, CancellationToken cancellationToken);
+    Task<Result<GetUsersResponse>> SearchUsers(int pageNumber, int pageSize, CancellationToken cancellationToken);
 }
 
 public sealed class AdminService : IAdminService
@@ -18,9 +18,9 @@ public sealed class AdminService : IAdminService
         _adminRepository = adminRepository;
     }
 
-    public async Task<Result<GetUsersResponse>> GetUsers(int pageNumber, int pageSize, CancellationToken cancellationToken)
+    public async Task<Result<GetUsersResponse>> SearchUsers(int pageNumber, int pageSize, CancellationToken cancellationToken)
     {
-        var getUsers = await _adminRepository.GetUsers(new GetUsersParameters
+        var getUsers = await _adminRepository.SearchUsers(new GetUsersParameters
         {
             PageNumber = pageNumber,
             PageSize = pageSize

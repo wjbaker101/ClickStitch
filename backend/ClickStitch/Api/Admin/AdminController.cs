@@ -18,9 +18,9 @@ public sealed class AdminController : ApiController
     [Route("users")]
     [Authenticate]
     [RequireAdmin]
-    public async Task<IActionResult> GetUsers([FromQuery(Name = "page_number")] int pageNumber, [FromQuery(Name = "page_size")] int pageSize, CancellationToken cancellationToken)
+    public async Task<IActionResult> SearchUsers([FromQuery(Name = "page_number")] int pageNumber, [FromQuery(Name = "page_size")] int pageSize, CancellationToken cancellationToken)
     {
-        var result = await _adminService.GetUsers(pageNumber, pageSize, cancellationToken);
+        var result = await _adminService.SearchUsers(pageNumber, pageSize, cancellationToken);
 
         return ToApiResponse(result);
     }
