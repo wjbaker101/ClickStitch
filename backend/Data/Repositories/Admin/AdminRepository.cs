@@ -5,7 +5,7 @@ namespace Data.Repositories.Admin;
 
 public interface IAdminRepository
 {
-    Task<GetUsersDto> SearchUsers(GetUsersParameters parameters, CancellationToken cancellationToken);
+    Task<SearchUsersDto> SearchUsers(SearchUsersParameters parameters, CancellationToken cancellationToken);
 }
 
 public sealed class AdminRepository : Repository<IDatabaseRecord>, IAdminRepository
@@ -14,7 +14,7 @@ public sealed class AdminRepository : Repository<IDatabaseRecord>, IAdminReposit
     {
     }
 
-    public async Task<GetUsersDto> SearchUsers(GetUsersParameters parameters, CancellationToken cancellationToken)
+    public async Task<SearchUsersDto> SearchUsers(SearchUsersParameters parameters, CancellationToken cancellationToken)
     {
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();
@@ -33,7 +33,7 @@ public sealed class AdminRepository : Repository<IDatabaseRecord>, IAdminReposit
 
         await transaction.CommitAsync(cancellationToken);
 
-        return new GetUsersDto
+        return new SearchUsersDto
         {
             Users = users,
             TotalCount = await totalCount.GetValueAsync(cancellationToken)
