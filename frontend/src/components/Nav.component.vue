@@ -83,7 +83,7 @@ const links = computed<Array<ILink>>(() => [
 @use '@/style/variables' as *;
 
 .nav-component {
-    $inset: 1rem;
+    $inset: 0.5rem;
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -92,20 +92,25 @@ const links = computed<Array<ILink>>(() => [
     position: fixed;
     justify-content: center;
     inset: $inset $inset auto $inset;
-    padding: 1rem;
+    padding: 2rem 1rem;
     line-height: 1em;
     background-color: var(--wjb-primary);
     background: linear-gradient(
         -5deg,
-        transparentize($primary-dark, 0.05),
-        transparentize($primary, 0.05),
+        transparentize($primary-dark, 0.1),
+        transparentize($primary, 0.1),
     );
     backdrop-filter: blur(2px);
-    border-radius: 2rem;
     color: var(--wjb-light);
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 12px 24px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--wjb-primary-dark);
+    border-radius: var(--wjb-border-radius);
     z-index: 1;
 
-    @include shadow-large();
+    svg {
+        filter: drop-shadow(1px 1px rgba(0, 0, 0, 0.6));
+    }
 
     a {
         color: inherit;
@@ -148,6 +153,7 @@ const links = computed<Array<ILink>>(() => [
     }
 
     @media screen and (max-width: 720px) {
+        padding: 1rem;
         grid-template-columns: auto 1fr auto;
 
         .logo-text {
@@ -162,14 +168,17 @@ const links = computed<Array<ILink>>(() => [
             display: block;
             position: fixed;
             padding: 1rem;
-            inset: 4rem 1rem auto 1rem;
+            inset: 4rem 0 auto 0;
             background-color: var(--wjb-primary);
             background: linear-gradient(
                 -5deg,
-                transparentize($primary-dark, 0.05),
-                transparentize($primary, 0.05),
+                transparentize($primary-dark, 0.1),
+                transparentize($primary, 0.1),
             );
             backdrop-filter: blur(2px);
+            text-shadow: 1px 1px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 12px 24px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--wjb-primary-dark);
             border-radius: var(--wjb-border-radius);
             z-index: 1;
             opacity: 0;
@@ -180,7 +189,7 @@ const links = computed<Array<ILink>>(() => [
                 pointer-events: all;
             }
 
-            & > *{
+            & > * {
                 display: block;
                 padding: 1rem;
                 border-radius: var(--wjb-border-radius);
