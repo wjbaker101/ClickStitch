@@ -60,7 +60,7 @@ onMounted(async () => {
 
     .projects {
         display: grid;
-        gap: 1rem;
+        gap: 2rem;
         grid-template-columns: repeat(auto-fill, minmax(min(450px, 100%), 1fr));
     }
 }
