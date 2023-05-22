@@ -90,8 +90,8 @@ defineProps<{
         background-color: var(--wjb-primary);
         background: linear-gradient(
             -5deg,
-            transparentize($primary-dark, 0.1),
-            transparentize($primary, 0.1),
+            var(--wjb-primary-dark),
+            var(--wjb-primary),
         );
         backdrop-filter: blur(2px);
         color: var(--wjb-light);
