@@ -23,8 +23,12 @@ defineProps<{
 <style lang="scss">
 .view-component {
     .page-content {
-        padding-top: calc(2rem + 82px);
+        padding-top: calc(1.5rem + 82px);
         min-height: calc(100vh - var(--footer-height));
+
+        @media screen and (max-width: 720px) {
+            padding-top: calc(1.5rem + 59px);
+        }
     }
 }
 </style>
