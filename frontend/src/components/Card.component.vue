@@ -58,24 +58,28 @@ defineProps<{
 
     &.border-top {
         border-top-width: 2px;
+        border-radius: 0;
         border-bottom-left-radius: var(--wjb-border-radius);
         border-bottom-right-radius: var(--wjb-border-radius);
     }
 
     &.border-right {
         border-right-width: 2px;
+        border-radius: 0;
         border-top-left-radius: var(--wjb-border-radius);
         border-bottom-left-radius: var(--wjb-border-radius);
     }
 
     &.border-bottom {
         border-bottom-width: 2px;
+        border-radius: 0;
         border-top-left-radius: var(--wjb-border-radius);
         border-top-right-radius: var(--wjb-border-radius);
     }
 
     &.border-left {
         border-left-width: 2px;
+        border-radius: 0;
         border-top-right-radius: var(--wjb-border-radius);
         border-bottom-right-radius: var(--wjb-border-radius);
     }
