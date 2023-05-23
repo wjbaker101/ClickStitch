@@ -57,8 +57,7 @@ import { etsyStoreUrl, websiteUrl } from '@/data/data';
     .video {
         border-radius: var(--wjb-border-radius);
         vertical-align: middle;
-
-        @include shadow-medium();
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
     }
 }
 </style>
