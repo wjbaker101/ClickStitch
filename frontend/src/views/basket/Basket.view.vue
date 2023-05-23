@@ -20,7 +20,7 @@
                 <TransitionGroup name="items-transition-group" tag="div" class="basket-items">
                     <CardComponent :key="basketItem.pattern.reference" v-for="basketItem in basket?.items" class="basket-item flex gap align-items-center" border="left">
                         <div class="flex-auto">
-                            <PatternImageComponent :pattern="basketItem.pattern" />
+                            <PatternImageComponent :image="basketItem.pattern.bannerImageUrl" />
                         </div>
                         <div>
                             <strong>{{ basketItem.pattern.title }}</strong>
@@ -43,7 +43,7 @@
 
 <script setup lang="ts">
 import ZeroStateComponent from '@/components/ZeroState.component.vue';
-import PatternImageComponent from '@/components/shared/PatternImage.component.vue';
+import PatternImageComponent from '@/components/shared/PatternImage2.component.vue';
 
 import { currency } from '@/helper/helper';
 import { useMarketplace } from '@/use/marketplace/Marketplace.use';
