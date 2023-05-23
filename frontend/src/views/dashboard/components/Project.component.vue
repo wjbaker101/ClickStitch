@@ -6,7 +6,7 @@
         <PatternImageComponent :image="project.pattern.bannerImageUrl" />
         <p></p>
         <div class="flex gap">
-            <RouterLink class="flex" :to="`/project/${project.pattern.reference}/analytics`">
+            <RouterLink class="flex" :to="`/project/${project.pattern.reference}/analytics`" @click.stop="">
                 <ButtonComponent class="secondary">
                     <IconComponent icon="activity" gap="right" />
                     <span>Analytics</span>
