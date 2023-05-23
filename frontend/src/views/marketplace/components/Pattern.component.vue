@@ -1,22 +1,24 @@
 <template>
-    <CardComponent class="pattern-component" border="top" hoverable @click="onClick">
+    <CardComponent class="pattern-component" header hoverable @click="onClick">
+        <template #header>
+            <h3 class="text-centered">{{ pattern.title }}</h3>
+        </template>
         <div class="text-centered">
-            <PatternImageComponent :pattern="pattern" />
+            <PatternImageComponent :image="pattern.bannerImageUrl" />
         </div>
         <div class="description flex align-items-center gap-small">
-            <div>
-                <strong>{{ pattern.title }}</strong>
-                <br>
-                <!-- {{ currency(pattern.price) }} -->
-            </div>
-            <div class="flex flex-auto gap-small">
-                <ButtonComponent v-if="authDetails !== null" class="add-to-basket-button mini" :title="hoverText" @click.stop="onAddToBasket(pattern)" :disabled="isInBasket">
-                    <IconComponent v-if="isInBasket" icon="tick" />
-                    <IconComponent v-else icon="plus" />
-                </ButtonComponent>
-                <a v-if="pattern.externalShopUrl !== null" :href="pattern.externalShopUrl" target="_blank">
-                    <ButtonComponent class="mini" @click.stop="">
-                        <IconComponent icon="external-link" />
+            <div class="flex gap-small">
+                <div v-if="authDetails !== null" class="flex">
+                    <ButtonComponent class="add-to-basket-button" :title="hoverText" @click.stop="onAddToBasket(pattern)" :disabled="isInBasket">
+                        <IconComponent v-if="isInBasket" icon="tick" gap="right" />
+                        <IconComponent v-else icon="plus" gap="right" />
+                        <span>Add</span>
+                    </ButtonComponent>
+                </div>
+                <a v-if="pattern.externalShopUrl !== null" class="flex" :href="pattern.externalShopUrl" target="_blank">
+                    <ButtonComponent class="secondary" @click.stop="">
+                        <IconComponent icon="external-link" gap="right" />
+                        <span>View Page</span>
                     </ButtonComponent>
                 </a>
             </div>
@@ -28,11 +30,9 @@
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 
-import PatternImageComponent from '@/components/shared/PatternImage.component.vue';
-import PatternModal from '@/views/marketplace/modal/PatternModal.component.vue';
+import PatternImageComponent from '@/components/shared/PatternImage2.component.vue';
 import PatternImagesModal from '@/views/marketplace/modal/PatternImagesModal.component.vue';
 
-import { currency } from '@/helper/helper';
 import { useAuth } from '@/use/auth/Auth.use';
 import { useMarketplace } from '@/use/marketplace/Marketplace.use';
 import { useModal } from '@wjb/vue/use/modal.use';

@@ -102,4 +102,8 @@ table {
         }
     }
 }
+
+a {
+    text-decoration: none;
+}
 </style>
