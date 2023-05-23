@@ -93,7 +93,6 @@ defineProps<{
             var(--wjb-primary-dark),
             var(--wjb-primary),
         );
-        backdrop-filter: blur(2px);
         color: var(--wjb-light);
         text-shadow: 1px 1px rgba(0, 0, 0, 0.6);
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
