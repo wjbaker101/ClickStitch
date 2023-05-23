@@ -43,7 +43,7 @@
 
 <script setup lang="ts">
 import ZeroStateComponent from '@/components/ZeroState.component.vue';
-import PatternImageComponent from '@/components/shared/PatternImage2.component.vue';
+import PatternImageComponent from '@/components/shared/PatternImage.component.vue';
 
 import { currency } from '@/helper/helper';
 import { useMarketplace } from '@/use/marketplace/Marketplace.use';
