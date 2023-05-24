@@ -58,11 +58,7 @@ export const api = {
                 const result = response.data.result;
 
                 return {
-                    users: result.users.map(x => ({
-                        reference: x.reference,
-                        createdAt: dayjs(x.createdAt),
-                        email: x.email,
-                    })),
+                    users: result.users.map(userMapper.map),
                     pagination: paginationMapper.map(result.pagination),
                 };
             }
