@@ -2,7 +2,7 @@
 
 public class CreatorRecord : IDatabaseRecord
 {
-    public virtual required long Id { get; init; }
+    public virtual long Id { get; init; }
     public virtual required Guid Reference { get; init; }
     public virtual required DateTime CreatedAt { get; init; }
     public virtual required string Name { get; set; }
