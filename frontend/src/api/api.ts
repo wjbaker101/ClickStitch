@@ -30,6 +30,9 @@ import { IGetAnalyticsResponse } from './types/GetAnalytics.type';
 import { IGetUsersResponse } from './types/GetUsers.type';
 import { IGetUsers } from '@/models/GetUsers.model';
 import { paginationMapper } from './mappers/Pagination.mapper';
+import { IUser } from '@/models/User.model';
+import { IGetSelfResponse } from './types/GetSelf.type';
+import { userMapper } from './mappers/User.mapper';
 
 const auth = useAuth();
 
@@ -301,6 +304,20 @@ export const api = {
     },
 
     users: {
+
+        async getSelf(): Promise<IUser | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
+            try {
+                const response = await client.get<IApiResultResponse<IGetSelfResponse>>('/users/self');
+
+                return userMapper.map(response.data.result.user);
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
+        },
 
         async createUser(request: ICreateUserRequest): Promise<ICreateUserResponse | Error> {
             try {
