@@ -22,6 +22,8 @@ public sealed class CreatorRecordMap : ClassMap<CreatorRecord>
         Map(x => x.Name, "name");
         Map(x => x.StoreUrl, "store_url");
         HasManyToMany(x => x.Users)
+            .Table("user_creator")
+            .Schema(DatabaseValues.SCHEMA)
             .ParentKeyColumn("creator_id")
             .ChildKeyColumn("user_id");
     }
