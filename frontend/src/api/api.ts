@@ -306,7 +306,11 @@ export const api = {
                 return new Error('You must be logged in for this action.');
 
             try {
-                const response = await client.get<IApiResultResponse<IGetSelfResponse>>('/users/self');
+                const response = await client.get<IApiResultResponse<IGetSelfResponse>>('/users/self', {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
 
                 return userMapper.map(response.data.result.user);
             }
