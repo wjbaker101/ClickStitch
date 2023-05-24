@@ -13,6 +13,7 @@ public static class PermissionMapper
     private static ApiPermissionType MapType(PermissionType type) => type switch
     {
         PermissionType.Admin => ApiPermissionType.Admin,
+        PermissionType.Creator => ApiPermissionType.Creator,
 
         PermissionType.Unknown or _ => throw new NotSupportedException($"Unable to map permission type: '{type}'.")
     };
