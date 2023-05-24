@@ -10,7 +10,8 @@ public class PermissionRecord : IDatabaseRecord
 public enum PermissionType
 {
     Unknown = 0,
-    Admin = 1
+    Admin = 1,
+    Creator = 2
 }
 
 public sealed class PermissionRecordMap : ClassMap<PermissionRecord>

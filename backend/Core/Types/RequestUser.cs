@@ -10,5 +10,6 @@ public sealed class RequestUser
 public enum RequestPermissionType
 {
     Unknown = 0,
-    Admin = 1
+    Admin = 1,
+    Creator = 2
 }
