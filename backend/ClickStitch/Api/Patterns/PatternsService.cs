@@ -102,6 +102,7 @@ public sealed class PatternsService : IPatternsService
             AidaCount = request.AidaCount,
             BannerImageUrl = bannerImageResult.Content.Url,
             ExternalShopUrl = null,
+            Creator = null,
             Stitches = new HashSet<PatternStitchRecord>(),
             Threads = new HashSet<PatternThreadRecord>()
         }, cancellationToken);
