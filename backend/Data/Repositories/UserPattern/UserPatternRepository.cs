@@ -21,9 +21,9 @@ public sealed class UserPatternRepository : Repository<UserPatternRecord>, IUser
             .Query<UserPatternRecord>()
             .Fetch(x => x.Pattern)
             .Where(x => x.User == user)
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
 
-        await transaction.CommitAsync();
+        await transaction.CommitAsync(cancellationToken);
 
         return userPatterns;
     }
@@ -36,12 +36,12 @@ public sealed class UserPatternRepository : Repository<UserPatternRecord>, IUser
         var userPattern = await session
             .Query<UserPatternRecord>()
             .Fetch(x => x.Pattern)
-            .SingleOrDefaultAsync(x => x.User == user && x.Pattern == pattern);
+            .SingleOrDefaultAsync(x => x.User == user && x.Pattern == pattern, cancellationToken);
 
         if (userPattern == null)
             return Result<UserPatternRecord>.Failure("Unable to find pattern for user.");
 
-        await transaction.CommitAsync();
+        await transaction.CommitAsync(cancellationToken);
 
         return userPattern;
     }
