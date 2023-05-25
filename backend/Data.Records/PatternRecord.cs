@@ -15,7 +15,7 @@ public class PatternRecord : IDatabaseRecord
     public virtual required int AidaCount { get; set; }
     public virtual required string BannerImageUrl { get; set; }
     public virtual required string? ExternalShopUrl { get; set; }
-    public virtual required CreatorRecord? Creator { get; init; }
+    public virtual required CreatorRecord Creator { get; init; }
     public virtual required ISet<PatternStitchRecord> Stitches { get; init; }
     public virtual required ISet<PatternThreadRecord> Threads { get; init; }
 }
