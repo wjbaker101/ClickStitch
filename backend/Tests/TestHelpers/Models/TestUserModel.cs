@@ -14,7 +14,8 @@ public sealed class TestUserModel
         {
             Reference = user.Reference,
             CreatedAt = user.CreatedAt,
-            Email = user.Email
+            Email = user.Email,
+            LastLoginAt = new DateTime(2022, 12, 29, 13, 54, 02)
         };
     }
 }
