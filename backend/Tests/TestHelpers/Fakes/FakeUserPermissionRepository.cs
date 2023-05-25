@@ -15,7 +15,8 @@ public sealed class FakeUserPermissionRepository : FakeRepository<UserPermission
         {
             Type = PermissionType.Admin,
             Name = "Admin"
-        }
+        },
+        CreatedAt = new DateTime(2023, 01, 14, 22, 19, 02)
     })
     {
         _fakeResult = new List<PermissionRecord>
