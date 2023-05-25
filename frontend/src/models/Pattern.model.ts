@@ -1,5 +1,7 @@
 import { Dayjs } from 'dayjs';
 
+import { ICreator } from './Creator.model';
+
 export interface IPattern {
     readonly reference: string;
     readonly createdAt: Dayjs;
@@ -12,6 +14,7 @@ export interface IPattern {
     readonly stitchCount: number;
     readonly bannerImageUrl: string | null;
     readonly externalShopUrl: string | null;
+    readonly creator: ICreator;
 }
 
 export interface IStitch {

@@ -1,3 +1,5 @@
+import { IApiCreator } from './ApiCreator.type';
+
 export interface IApiPattern {
     readonly reference: string;
     readonly createdAt: string;
@@ -10,6 +12,7 @@ export interface IApiPattern {
     readonly stitchCount: number;
     readonly bannerImageUrl: string | null;
     readonly externalShopUrl: string | null;
+    readonly creator: IApiCreator;
 }
 
 export interface IApiStitch {
