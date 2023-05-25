@@ -25,6 +25,14 @@ public sealed class FakeUserPatternRepository : FakeRepository<UserPatternRecord
             AidaCount = 243,
             BannerImageUrl = "TestBannerImageUrl",
             ExternalShopUrl = "TestExternalShopUrl",
+            Creator = new CreatorRecord
+            {
+                Reference = Guid.Parse("0a30e82e-b2f3-47be-bba1-f6a4370f66ba"),
+                CreatedAt = new DateTime(2021, 14, 02, 16, 55, 09),
+                Name = "TestCreatorName",
+                StoreUrl = "TestStoreUrl",
+                Users = new List<UserRecord>()
+            },
             Stitches = new HashSet<PatternStitchRecord>
             {
                 new()

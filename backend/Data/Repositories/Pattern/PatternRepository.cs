@@ -22,6 +22,7 @@ public sealed class PatternRepository : Repository<PatternRecord>, IPatternRepos
 
         var patterns = await session
             .Query<PatternRecord>()
+            .Fetch(x => x.Creator)
             .Where(x => !parameters.PatternsToExclude.Contains(x))
             .ToListAsync(cancellationToken);
 
@@ -37,6 +38,7 @@ public sealed class PatternRepository : Repository<PatternRecord>, IPatternRepos
 
         var pattern = await session
             .Query<PatternRecord>()
+            .Fetch(x => x.Creator)
             .SingleOrDefaultAsync(x => x.Reference == patternReference, cancellationToken);
 
         if (pattern == null)
@@ -54,6 +56,7 @@ public sealed class PatternRepository : Repository<PatternRecord>, IPatternRepos
 
         var query = session
             .Query<PatternRecord>()
+            .Fetch(x => x.Creator)
             .Where(x => x.Reference == patternReference);
         query
             .FetchMany(x => x.Threads)
