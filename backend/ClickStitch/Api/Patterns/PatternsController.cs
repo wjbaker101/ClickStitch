@@ -41,10 +41,12 @@ public sealed class PatternsController : ApiController
         [FromForm(Name = "pattern_data")] string patternDataAsString,
         CancellationToken cancellationToken)
     {
+        var requestUser = RequestHelper.GetRequiredUser(Request);
+
         var request = JsonConvert.DeserializeObject<CreatePatternRequest>(requestAsString)!;
         var patternData = JsonSerializer.Deserialize<CreatePatternData>(patternDataAsString);
 
-        var result = await _patternsService.CreatePattern(request, patternData, thumbnail, bannerImage, cancellationToken);
+        var result = await _patternsService.CreatePattern(requestUser, request, patternData, thumbnail, bannerImage, cancellationToken);
         
         return ToApiResponse(result);
     }
