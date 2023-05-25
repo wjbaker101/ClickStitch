@@ -4,7 +4,10 @@
             <h3>{{ project.pattern.title }}</h3>
         </template>
         <PatternImageComponent :image="project.pattern.bannerImageUrl" />
-        <p></p>
+        <p>
+            <IconComponent icon="user" gap="right" />
+            <span class="created-by">{{ project.pattern.creator.name }}</span>
+        </p>
         <div class="flex gap">
             <RouterLink class="flex" :to="`/project/${project.pattern.reference}/analytics`" @click.stop="">
                 <ButtonComponent class="secondary">
@@ -66,6 +69,10 @@ const onDetails = function (): void {
         height: auto;
         border-radius: var(--wjb-border-radius);
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
+    }
+
+    .created-by {
+        vertical-align: middle;
     }
 }
 </style>
