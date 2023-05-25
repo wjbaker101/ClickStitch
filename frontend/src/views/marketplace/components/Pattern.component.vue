@@ -1,11 +1,13 @@
 <template>
-    <CardComponent class="pattern-component" header hoverable @click="onClick">
+    <CardComponent class="pattern-component text-centered" header hoverable @click="onClick">
         <template #header>
-            <h3 class="text-centered">{{ pattern.title }}</h3>
+            <h3>{{ pattern.title }}</h3>
         </template>
-        <div class="text-centered">
-            <PatternImageComponent :image="pattern.bannerImageUrl" />
-        </div>
+        <PatternImageComponent :image="pattern.bannerImageUrl" />
+        <p>
+            <IconComponent icon="user" gap="right" />
+            <span class="created-by">{{ pattern.creator.name }}</span>
+        </p>
         <div class="description flex align-items-center gap-small">
             <div class="flex gap-small">
                 <div v-if="authDetails !== null" class="flex">
@@ -95,6 +97,8 @@ const onAddToBasket = async function (pattern: IPattern): Promise<void> {
         }
     }
 
-    @include shadow-small();
+    .created-by {
+        vertical-align: middle;
+    }
 }
 </style>
