@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using Core.Settings;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -13,8 +14,6 @@ public interface IPasswordService
 
 public sealed partial class PasswordService : IPasswordService
 {
-    private const string PEPPER = "f11f9f6c-7ed6-4407-bc91-515b0cb7b25b";
-
     [GeneratedRegex("[0-9]+")]
     private static partial Regex HasNumberRegex();
 
@@ -27,9 +26,16 @@ public sealed partial class PasswordService : IPasswordService
     [GeneratedRegex("[!@#$%^&*()_+=\\[{\\]};:<>|./?,-]")]
     private static partial Regex HasSymbolRegex();
 
+    private readonly string _pepper;
+
+    public PasswordService(AppSecrets secrets)
+    {
+        _pepper = secrets.Auth.Password.Pepper;
+    }
+
     public string Hash(string password, string salt)
     {
-        var toHash = password + salt + PEPPER;
+        var toHash = password + salt + _pepper;
 
         return Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(toHash)));
     }

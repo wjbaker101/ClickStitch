@@ -2,6 +2,7 @@
 using ClickStitch.Api.Users;
 using ClickStitch.Api.Users.Types;
 using Core.Types;
+using TestHelpers.Settings;
 
 namespace Api.Tests.Api.Users.CreateUser;
 
@@ -38,7 +39,7 @@ public sealed class GivenACreateUserRequestWithAnInvalidPassword
     [OneTimeSetUp]
     public async Task Setup()
     {
-        var subject = new UsersService(null!, new PasswordService(), null!, null!);
+        var subject = new UsersService(null!, new PasswordService(new TestAppSecrets()), null!, null!);
 
         _result = await subject.CreateUser(new CreateUserRequest
         {

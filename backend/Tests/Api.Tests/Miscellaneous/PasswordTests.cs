@@ -1,4 +1,5 @@
 ﻿using ClickStitch.Api.Auth;
+using TestHelpers.Settings;
 
 namespace Api.Tests.Miscellaneous;
 
@@ -11,7 +12,7 @@ public sealed class GivenAPasswordAndSalt
     [OneTimeSetUp]
     public void Setup()
     {
-        var subject = new PasswordService();
+        var subject = new PasswordService(new TestAppSecrets());
 
         _result = subject.Hash("<password>", "<password_salt>");
     }

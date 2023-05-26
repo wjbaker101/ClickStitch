@@ -2,6 +2,7 @@
 using ClickStitch.Api.Auth.Types;
 using Core.Types;
 using TestHelpers.Fakes;
+using TestHelpers.Settings;
 
 namespace Api.Tests.Api.Auth;
 
@@ -14,7 +15,7 @@ public sealed class GivenALogInRequestWithAnInvalidPassword
     [OneTimeSetUp]
     public async Task Setup()
     {
-        var subject = new AuthService(FakeUserRepository.Default(), new PasswordService(), null!, null!);
+        var subject = new AuthService(FakeUserRepository.Default(), new PasswordService(new TestAppSecrets()), null!, null!);
 
         _result = await subject.LogIn(new LogInRequest
         {

@@ -6,6 +6,7 @@ using Data.Records;
 using Data.Repositories.User;
 using Moq;
 using TestHelpers.Fakes;
+using TestHelpers.Settings;
 
 namespace Api.Tests.Api.Users.Update;
 
@@ -39,7 +40,7 @@ public sealed class GivenAnUpdateUserRequest
 
         var subject = new UsersService(
             _userRepository.Object,
-            new PasswordService(),
+            new PasswordService(new TestAppSecrets()),
             FakeGuid.Default(),
             FakeDateTime.Default());
         

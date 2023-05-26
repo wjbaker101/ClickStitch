@@ -13,7 +13,7 @@ public sealed class FakeUserRepository : FakeRepository<UserRecord>, IUserReposi
         Reference = Guid.Parse("2140f104-f614-47cf-ba30-9fe1d77f6f47"),
         CreatedAt = new DateTime(2023, 04, 16, 02, 55, 32),
         Email = "test@email.com",
-        Password = "LV9DQ2T04FnF+OoBJQZHzGh+hABV2sSeIEp/2LtExU0=",
+        Password = "URxPFqmHJ+hAq+GuoLHTQVbP+SfE8fpEdz4fpnGEzhE=",
         PasswordSalt = "356ee6d2-7ace-4229-b467-bcded8797379",
         LastLoginAt = new DateTime(2021, 05, 14, 08, 08, 31),
         Permissions = new List<PermissionRecord>()

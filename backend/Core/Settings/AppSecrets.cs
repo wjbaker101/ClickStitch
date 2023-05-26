@@ -4,6 +4,7 @@ public sealed class AppSecrets
 {
     public required DatabaseSettings Database { get; init; }
     public required CloudinarySettings Cloudinary { get; init; }
+    public required AuthSettings Auth { get; init; }
 
     public sealed class DatabaseSettings
     {
@@ -19,5 +20,21 @@ public sealed class AppSecrets
         public required string CloudName { get; init; }
         public required string ApiKey { get; init; }
         public required string ApiSecret { get; init; }
+    }
+
+    public sealed class AuthSettings
+    {
+        public required LoginTokenSettings LoginToken { get; init; }
+        public required PasswordSettings Password { get; init; }
+
+        public sealed class LoginTokenSettings
+        {
+            public required string SecretKey { get; init; }
+        }
+
+        public sealed class PasswordSettings
+        {
+            public required string Pepper { get; init; }
+        }
     }
 }

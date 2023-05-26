@@ -1,4 +1,5 @@
 ﻿using Core.Services;
+using Core.Settings;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -14,14 +15,15 @@ public interface ILoginTokenService
 
 public sealed class LoginTokenService : ILoginTokenService
 {
-    private const string SECRET_KEY = "ac8763b1-eeac-4965-8a60-8e0ccb5f9a3d";
     private const string CLAIM_USER_REFERENCE = "userReference";
 
     private readonly IDateTime _dateTime;
+    private readonly string _secretKey;
 
-    public LoginTokenService(IDateTime dateTime)
+    public LoginTokenService(IDateTime dateTime, AppSecrets secrets)
     {
         _dateTime = dateTime;
+        _secretKey = secrets.Auth.LoginToken.SecretKey;
     }
 
     public string Create(UserModel user)
@@ -35,7 +37,7 @@ public sealed class LoginTokenService : ILoginTokenService
                 new(CLAIM_USER_REFERENCE, user.Reference.ToString())
             }),
             Expires = _dateTime.UtcNow().AddDays(7),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SECRET_KEY)), SecurityAlgorithms.HmacSha512Signature)
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey)), SecurityAlgorithms.HmacSha512Signature)
         };
 
         var token = tokenHandler.CreateToken(tokenDescriptor);
@@ -48,7 +50,7 @@ public sealed class LoginTokenService : ILoginTokenService
         {
             ValidateIssuer = false,
             ValidateAudience = false,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SECRET_KEY))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey))
         };
 
         try
