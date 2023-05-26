@@ -53,10 +53,7 @@ public sealed partial class PasswordService : IPasswordService
 
         const string requirements = $"Requirements: Password must be between 8 and 60 characters; contain at least 1 number, uppercase character, lowercase character; and a symbol ( {symbols} ).";
 
-        if (password.Length < 8)
-            return Result.Failure($"Password length does not meet requirements. {requirements}");
-
-        if (password.Length > 60)
+        if (password.Length is < 8 or > 60)
             return Result.Failure($"Password length does not meet requirements. {requirements}");
 
         if (!HasNumberRegex().IsMatch(password))
