@@ -8,6 +8,7 @@ public class CreatorRecord : IDatabaseRecord
     public virtual required string Name { get; set; }
     public virtual required string StoreUrl { get; set; }
     public virtual required IList<UserRecord> Users { get; init; }
+    public virtual required IList<PatternRecord> Patterns { get; init; }
 }
 
 public sealed class CreatorRecordMap : ClassMap<CreatorRecord>
@@ -26,5 +27,7 @@ public sealed class CreatorRecordMap : ClassMap<CreatorRecord>
             .Schema(DatabaseValues.SCHEMA)
             .ParentKeyColumn("creator_id")
             .ChildKeyColumn("user_id");
+        HasMany(x => x.Patterns)
+            .KeyColumn("creator_id");
     }
 }

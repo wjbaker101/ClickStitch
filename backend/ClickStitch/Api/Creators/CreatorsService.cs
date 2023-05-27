@@ -46,7 +46,8 @@ public sealed class CreatorsService : ICreatorsService
             CreatedAt = DateTime.UtcNow,
             Name = request.Name,
             StoreUrl = request.StoreUrl,
-            Users = new List<UserRecord>()
+            Users = new List<UserRecord>(),
+            Patterns = new List<PatternRecord>()
         }, cancellationToken);
 
         return new CreateCreatorResponse
@@ -57,14 +58,15 @@ public sealed class CreatorsService : ICreatorsService
 
     public async Task<Result<GetCreatorResponse>> GetCreator(RequestUser requestUser, Guid creatorReference, CancellationToken cancellationToken)
     {
-        var creatorResult = await _creatorRepository.GetWithUsersByReference(creatorReference, cancellationToken);
+        var creatorResult = await _creatorRepository.GetFullByReference(creatorReference, cancellationToken);
         if (creatorResult.IsFailure)
             return Result<GetCreatorResponse>.FromFailure(creatorResult);
 
         return new GetCreatorResponse
         {
             Creator = CreatorMapper.Map(creatorResult.Content),
-            Users = creatorResult.Content.Users.MapAll(UserMapper.Map)
+            Users = creatorResult.Content.Users.MapAll(UserMapper.Map),
+            Patterns = creatorResult.Content.Patterns.MapAll(PatternMapper.Map)
         };
     }
 

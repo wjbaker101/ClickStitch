@@ -31,7 +31,8 @@ public sealed class FakeUserPatternRepository : FakeRepository<UserPatternRecord
                 CreatedAt = new DateTime(2021, 11, 02, 16, 55, 09),
                 Name = "TestCreatorName",
                 StoreUrl = "TestStoreUrl",
-                Users = new List<UserRecord>()
+                Users = new List<UserRecord>(),
+                Patterns = new List<PatternRecord>()
             },
             Stitches = new HashSet<PatternStitchRecord>
             {
