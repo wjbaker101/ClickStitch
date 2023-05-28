@@ -13,7 +13,7 @@ public interface ICreatorsService
 {
     Task<Result<CreateCreatorResponse>> CreateCreator(RequestUser requestUser, CreateCreatorRequest request, CancellationToken cancellationToken);
     Task<Result<GetCreatorResponse>> GetCreator(RequestUser requestUser, Guid creatorReference, CancellationToken cancellationToken);
-    Task<Result> AssignUserToCreator(RequestUser requestUser, Guid creatorReference, Guid userReference, CancellationToken cancellationToken);
+    Task<Result<AssignUserToCreatorResponse>> AssignUserToCreator(RequestUser requestUser, Guid creatorReference, Guid userReference, CancellationToken cancellationToken);
 }
 
 public sealed class CreatorsService : ICreatorsService
@@ -70,19 +70,19 @@ public sealed class CreatorsService : ICreatorsService
         };
     }
 
-    public async Task<Result> AssignUserToCreator(RequestUser requestUser, Guid creatorReference, Guid userReference, CancellationToken cancellationToken)
+    public async Task<Result<AssignUserToCreatorResponse>> AssignUserToCreator(RequestUser requestUser, Guid creatorReference, Guid userReference, CancellationToken cancellationToken)
     {
         var creatorResult = await _creatorRepository.GetWithUsersByReference(creatorReference, cancellationToken);
         if (creatorResult.IsFailure)
-            return Result<GetCreatorResponse>.FromFailure(creatorResult);
+            return Result<AssignUserToCreatorResponse>.FromFailure(creatorResult);
 
         var userResult = await _userRepository.GetByReferenceAsync(userReference, cancellationToken);
         if (userResult.IsFailure)
-            return Result<GetCreatorResponse>.FromFailure(userResult);
+            return Result<AssignUserToCreatorResponse>.FromFailure(userResult);
 
         var permissionResult = await _permissionRepository.GetByType(PermissionType.Creator, cancellationToken);
         if (permissionResult.IsFailure)
-            return Result<GetCreatorResponse>.FromFailure(permissionResult);
+            return Result<AssignUserToCreatorResponse>.FromFailure(permissionResult);
 
         await _userPermissionRepository.SaveAsync(new UserPermissionRecord
         {
@@ -97,6 +97,6 @@ public sealed class CreatorsService : ICreatorsService
             Creator = creatorResult.Content
         }, cancellationToken);
 
-        return Result.Success();
+        return new AssignUserToCreatorResponse();
     }
 }
