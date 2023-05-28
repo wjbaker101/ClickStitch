@@ -13,7 +13,7 @@
                 <strong>Stitches:</strong> {{ formatNumber(project.pattern.stitchCount) }}
             </div>
             <div>
-                <RouterLink :to="`/project/${project.pattern.reference}`" @click.native="closeModal">
+                <RouterLink :to="`/projects/${project.pattern.reference}`" @click.native="closeModal">
                     <ButtonComponent>
                         <IconComponent icon="external-link" gap="right" />
                         <span>Open in editor</span>
@@ -27,7 +27,7 @@
                     </ButtonComponent>
                 </a>
                 <p></p>
-                <RouterLink :to="`/project/${project.pattern.reference}/analytics`" @click.native="closeModal">
+                <RouterLink :to="`/projects/${project.pattern.reference}/analytics`" @click.native="closeModal">
                     <ButtonComponent>
                         <IconComponent icon="activity" gap="right" />
                         <span>Analytics</span>

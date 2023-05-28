@@ -98,7 +98,7 @@ const routes: Array<RouteRecordRaw> = [
         },
     },
     {
-        path: '/project/:patternReference',
+        path: '/projects/:patternReference',
         component: ProjectView,
         beforeEnter: [ requireAuth ],
         meta: {
@@ -106,7 +106,7 @@ const routes: Array<RouteRecordRaw> = [
         },
     },
     {
-        path: '/project/:patternReference/analytics',
+        path: '/projects/:patternReference/analytics',
         component: ProjectAnalyticsView,
         beforeEnter: [ requireAuth ],
         meta: {

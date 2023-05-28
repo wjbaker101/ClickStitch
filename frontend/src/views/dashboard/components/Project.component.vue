@@ -9,7 +9,7 @@
             <span class="created-by">{{ project.pattern.creator.name }}</span>
         </p>
         <div class="flex gap">
-            <RouterLink class="flex" :to="`/project/${project.pattern.reference}/analytics`" @click.stop="">
+            <RouterLink class="flex" :to="`/projects/${project.pattern.reference}/analytics`" @click.stop="">
                 <ButtonComponent class="secondary">
                     <IconComponent icon="activity" gap="right" />
                     <span>Analytics</span>
@@ -43,7 +43,7 @@ const modal = useModal();
 const router = useRouter();
 
 const onClick = function (): void {
-    router.push({ path: `/project/${props.project.pattern.reference}` });
+    router.push({ path: `/projects/${props.project.pattern.reference}` });
 };
 
 const onDetails = function (): void {

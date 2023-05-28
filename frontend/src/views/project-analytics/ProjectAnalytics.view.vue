@@ -20,7 +20,7 @@
                         <p><strong>Added At: </strong> {{ analytics.purchasedAt }}</p>
                         <p><strong>Total Stitches: </strong> {{ formatNumber(analytics.totalStitches) }}</p>
                         <p>
-                            <RouterLink :to="`/project/${patternReference}`" @click.native="closeModal">
+                            <RouterLink :to="`/projects/${patternReference}`" @click.native="closeModal">
                                 <ButtonComponent>
                                     <IconComponent icon="external-link" gap="right" />
                                     <span>Continue Stitching!</span>
