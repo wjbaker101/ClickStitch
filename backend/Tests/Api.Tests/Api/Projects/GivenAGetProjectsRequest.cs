@@ -1,8 +1,5 @@
 ﻿using ClickStitch.Api.Projects;
 using ClickStitch.Api.Projects.Types;
-using Core.Types;
-using TestHelpers.Fakes;
-using TestHelpers.Models;
 
 namespace Api.Tests.Api.Projects;
 

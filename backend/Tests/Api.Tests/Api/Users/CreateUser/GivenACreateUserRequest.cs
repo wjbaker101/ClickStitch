@@ -1,11 +1,9 @@
 ﻿using ClickStitch.Api.Auth;
 using ClickStitch.Api.Users;
 using ClickStitch.Api.Users.Types;
-using Core.Types;
 using Data.Records;
 using Data.Repositories.User;
 using Moq;
-using TestHelpers.Fakes;
 using TestHelpers.Settings;
 
 namespace Api.Tests.Api.Users.CreateUser;

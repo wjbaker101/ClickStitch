@@ -1,6 +1,5 @@
 ﻿using ClickStitch.Api.Users;
 using ClickStitch.Api.Users.Types;
-using Core.Types;
 
 namespace Api.Tests.Api.Users.CreateUser;
 

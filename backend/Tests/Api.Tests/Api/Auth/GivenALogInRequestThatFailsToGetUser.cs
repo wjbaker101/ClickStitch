@@ -1,7 +1,5 @@
 ﻿using ClickStitch.Api.Auth;
 using ClickStitch.Api.Auth.Types;
-using Core.Types;
-using TestHelpers.Fakes;
 
 namespace Api.Tests.Api.Auth;
 

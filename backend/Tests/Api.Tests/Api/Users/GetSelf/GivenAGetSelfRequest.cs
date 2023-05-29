@@ -1,6 +1,5 @@
 ﻿using ClickStitch.Api.Users;
 using ClickStitch.Api.Users.Types;
-using Core.Types;
 using Data.Records;
 using Data.Repositories.User;
 using Moq;

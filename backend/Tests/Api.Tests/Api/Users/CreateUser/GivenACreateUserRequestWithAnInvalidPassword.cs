@@ -1,7 +1,6 @@
 ﻿using ClickStitch.Api.Auth;
 using ClickStitch.Api.Users;
 using ClickStitch.Api.Users.Types;
-using Core.Types;
 using TestHelpers.Settings;
 
 namespace Api.Tests.Api.Users.CreateUser;
