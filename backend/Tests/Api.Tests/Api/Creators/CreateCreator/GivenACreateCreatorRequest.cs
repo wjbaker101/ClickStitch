@@ -1,7 +1,7 @@
 ﻿using ClickStitch.Api.Creators;
 using ClickStitch.Api.Creators.Types;
 
-namespace Api.Tests.Api.Creators;
+namespace Api.Tests.Api.Creators.CreateCreator;
 
 [TestFixture]
 [Parallelizable]
