@@ -1,6 +1,4 @@
 ﻿using ClickStitch.Api.Patterns.Types;
-using ClickStitch.Clients.Cloudinary;
-using ClickStitch.Clients.Cloudinary.Types;
 using Data.Records;
 using Data.Repositories.Creator;
 using Data.Repositories.Pattern;
@@ -14,7 +12,6 @@ public interface IPatternsService
 {
     Task<Result<GetPatternsResponse>> GetPatterns(RequestUser? requestUser, CancellationToken cancellationToken);
     Task<Result> CreatePattern(RequestUser requestUser, CreatePatternRequest request, CreatePatternData patternData, IFormFile thumbnail, IFormFile bannerImage, CancellationToken cancellationToken);
-    Task<Result> UpdatePatternImage(Guid patternReference, UpdatePatternImageRequest request, CancellationToken cancellationToken);
 }
 
 public sealed class PatternsService : IPatternsService
@@ -22,7 +19,7 @@ public sealed class PatternsService : IPatternsService
     private readonly IPatternRepository _patternRepository;
     private readonly IPatternStitchRepository _patternStitchRepository;
     private readonly IPatternThreadRepository _patternThreadRepository;
-    private readonly ICloudinaryClient _cloudinary;
+    private readonly IPatternUploadService _patternUploadService;
     private readonly IUserRepository _userRepository;
     private readonly IUserPatternRepository _userPatternRepository;
     private readonly ICreatorRepository _creatorRepository;
@@ -31,7 +28,7 @@ public sealed class PatternsService : IPatternsService
         IPatternRepository patternRepository,
         IPatternStitchRepository patternStitchRepository,
         IPatternThreadRepository patternThreadRepository,
-        ICloudinaryClient cloudinary,
+        IPatternUploadService patternUploadService,
         IUserRepository userRepository,
         IUserPatternRepository userPatternRepository,
         ICreatorRepository creatorRepository)
@@ -39,7 +36,7 @@ public sealed class PatternsService : IPatternsService
         _patternRepository = patternRepository;
         _patternStitchRepository = patternStitchRepository;
         _patternThreadRepository = patternThreadRepository;
-        _cloudinary = cloudinary;
+        _patternUploadService = patternUploadService;
         _userRepository = userRepository;
         _userPatternRepository = userPatternRepository;
         _creatorRepository = creatorRepository;
@@ -80,21 +77,13 @@ public sealed class PatternsService : IPatternsService
         if (requestUser.Permissions.All(x => x != RequestPermissionType.Creator))
             return Result.Failure("You cannot create patterns if you are not a creator.");
 
-        var thumbnailResult = await _cloudinary.UploadImageAsync(new UploadImageRequest
-        {
-            FileName = $"{request.ImageFileName}.thumbnail",
-            FileContents = thumbnail.OpenReadStream()
-        }, cancellationToken);
-        if (thumbnailResult.IsFailure)
-            return Result.FromFailure(thumbnailResult);
+        var thumbnailUrlResult = await _patternUploadService.UploadImage(request.ImageFileName, PatternImageType.Thumbnail, thumbnail.OpenReadStream(), cancellationToken);
+        if (thumbnailUrlResult.IsFailure)
+            return Result.FromFailure(thumbnailUrlResult);
 
-        var bannerImageResult = await _cloudinary.UploadImageAsync(new UploadImageRequest
-        {
-            FileName = $"{request.ImageFileName}.banner",
-            FileContents = bannerImage.OpenReadStream()
-        }, cancellationToken);
-        if (bannerImageResult.IsFailure)
-            return Result.FromFailure(bannerImageResult);
+        var bannerUrlResult = await _patternUploadService.UploadImage(request.ImageFileName, PatternImageType.Banner, bannerImage.OpenReadStream(), cancellationToken);
+        if (bannerUrlResult.IsFailure)
+            return Result.FromFailure(bannerUrlResult);
 
         var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
 
@@ -110,11 +99,11 @@ public sealed class PatternsService : IPatternsService
             Width = patternData.canvas.width,
             Height = patternData.canvas.height,
             Price = request.Price,
-            ThumbnailUrl = thumbnailResult.Content.Url,
+            ThumbnailUrl = thumbnailUrlResult.Content,
             ThreadCount = patternData.palette.threads.Count - 1,
             StitchCount = patternData.canvas.stitches.Count,
             AidaCount = request.AidaCount,
-            BannerImageUrl = bannerImageResult.Content.Url,
+            BannerImageUrl = bannerUrlResult.Content,
             ExternalShopUrl = null,
             Creator = creatorResult.Content,
             Stitches = new HashSet<PatternStitchRecord>(),
@@ -137,27 +126,6 @@ public sealed class PatternsService : IPatternsService
             Index = x.index,
             Colour = $"#{x.colour.ToLower()}"
         }), cancellationToken);
-
-        return Result.Success();
-    }
-
-    public async Task<Result> UpdatePatternImage(Guid patternReference, UpdatePatternImageRequest request, CancellationToken cancellationToken)
-    {
-        var patternResult = await _patternRepository.GetByReferenceAsync(patternReference, cancellationToken);
-        if (!patternResult.TrySuccess(out var pattern))
-            return Result.FromFailure(patternResult);
-
-        var uploadResult = await _cloudinary.UploadImageAsync(new UploadImageRequest
-        {
-            FileName = request.FileName,
-            FileContents = request.File.OpenReadStream()
-        }, cancellationToken);
-        if (!uploadResult.TrySuccess(out var upload))
-            return Result.FromFailure(uploadResult);
-
-        pattern.ThumbnailUrl = upload.Url;
-
-        await _patternRepository.UpdateAsync(pattern, cancellationToken);
 
         return Result.Success();
     }

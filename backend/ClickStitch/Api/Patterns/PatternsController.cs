@@ -50,14 +50,4 @@ public sealed class PatternsController : ApiController
         
         return ToApiResponse(result);
     }
-
-    [HttpPatch]
-    [Authenticate]
-    [RequireAdmin]
-    public async Task<IActionResult> UpdatePatternImage([FromRoute] Guid patternReference, UpdatePatternImageRequest request, CancellationToken cancellationToken)
-    {
-        var result = await _patternsService.UpdatePatternImage(patternReference, request, cancellationToken);
-        
-        return ToApiResponse(result);
-    }
 }

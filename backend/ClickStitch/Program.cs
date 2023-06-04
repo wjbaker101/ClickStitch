@@ -57,6 +57,7 @@ services.AddSingleton<ILoginTokenService, LoginTokenService>();
 services.AddSingleton<IPasswordService, PasswordService>();
 
 services.AddSingleton<IPatternsService, PatternsService>();
+services.AddSingleton<IPatternUploadService, PatternUploadService>();
 
 services.AddSingleton<IProjectsService, ProjectsService>();
 
