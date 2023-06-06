@@ -9,18 +9,11 @@
                     <h2>Users</h2>
                     <LoadingComponent v-if="getUsers === null" />
                     <div v-else>
-                        <ItemComponent
-                            class="user-item hover"
+                        <UserItemComponent
                             :key="userDetails.user.reference"
                             v-for="userDetails in getUsers.users"
-                            :class="{
-                                'is-admin': userDetails.permissions.find(x => x.type === 'Admin') !== undefined
-                            }"
-                        >
-                            <strong>{{ userDetails.user.email }}</strong>
-                            <br>
-                            <span>{{ userDetails.user.createdAt.format('DD/MM/YYYY HH:mm:ss') }} ({{ userDetails.user.createdAt.fromNow() }})</span>
-                        </ItemComponent>
+                            :userDetails="userDetails"
+                        />
                     </div>
                 </CardComponent>
             </section>
@@ -31,7 +24,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
-import ItemComponent from '@/views/admin/components/Item.component.vue';
+import UserItemComponent from './components/UserItem.component.vue';
 
 import { api } from '@/api/api';
 
