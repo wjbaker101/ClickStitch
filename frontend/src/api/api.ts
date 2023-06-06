@@ -33,6 +33,7 @@ import { paginationMapper } from './mappers/Pagination.mapper';
 import { IUser } from '@/models/User.model';
 import { IGetSelfResponse } from './types/GetSelf.type';
 import { userMapper } from './mappers/User.mapper';
+import { permissionMapper } from './mappers/Permission.mapper';
 
 const auth = useAuth();
 
@@ -60,7 +61,10 @@ export const api = {
                 const result = response.data.result;
 
                 return {
-                    users: result.users.map(userMapper.map),
+                    users: result.users.map(x => ({
+                        user: userMapper.map(x.user),
+                        permissions: x.permissions.map(permissionMapper.map),
+                    })),
                     pagination: paginationMapper.map(result.pagination),
                 };
             }

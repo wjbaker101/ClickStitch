@@ -11,15 +11,15 @@
                     <div v-else>
                         <ItemComponent
                             class="user-item hover"
-                            :key="user.reference"
-                            v-for="user in getUsers.users"
+                            :key="userDetails.user.reference"
+                            v-for="userDetails in getUsers.users"
                             :class="{
-                                'is-admin': true
+                                'is-admin': userDetails.permissions.find(x => x.type === 'Admin') !== undefined
                             }"
                         >
-                            <strong>{{ user.email }}</strong>
+                            <strong>{{ userDetails.user.email }}</strong>
                             <br>
-                            <span>{{ user.createdAt.format('DD/MM/YYYY HH:mm:ss') }} ({{ user.createdAt.fromNow() }})</span>
+                            <span>{{ userDetails.user.createdAt.format('DD/MM/YYYY HH:mm:ss') }} ({{ userDetails.user.createdAt.fromNow() }})</span>
                         </ItemComponent>
                     </div>
                 </CardComponent>
