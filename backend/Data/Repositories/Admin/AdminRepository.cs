@@ -24,9 +24,15 @@ public sealed class AdminRepository : Repository<IDatabaseRecord>, IAdminReposit
 
         var totalCount = query.ToFutureValue(x => x.Count());
 
-        var users = (await query
+        var usersQuery = query
             .Skip((parameters.PageNumber - 1) * parameters.PageSize)
-            .Take(parameters.PageSize)
+            .Take(parameters.PageSize);
+
+        usersQuery
+            .FetchMany(x => x.Permissions)
+            .ToFuture();
+
+        var users = (await usersQuery
             .ToFuture()
             .GetEnumerableAsync(cancellationToken))
             .ToList();
