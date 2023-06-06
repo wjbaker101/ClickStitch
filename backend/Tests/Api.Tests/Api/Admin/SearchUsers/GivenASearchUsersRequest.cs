@@ -1,5 +1,6 @@
 ﻿using ClickStitch.Api.Admin;
 using ClickStitch.Api.Admin.Types;
+using ClickStitch.Models;
 using Data.Records;
 using Data.Repositories.Admin;
 using Data.Repositories.Admin.Types;
@@ -33,7 +34,14 @@ public sealed class GivenASearchUsersRequest
                         Password = "",
                         PasswordSalt = "",
                         LastLoginAt = new DateTime(2023, 06, 02, 23, 15, 20),
-                        Permissions = new List<PermissionRecord>()
+                        Permissions = new List<PermissionRecord>
+                        {
+                            new()
+                            {
+                                Type = PermissionType.Creator,
+                                Name = "TestPermissionName"
+                            }
+                        }
                     }
                 },
                 TotalCount = 4023
@@ -55,9 +63,9 @@ public sealed class GivenASearchUsersRequest
     }
 
     [Test]
-    public void ThenTheUsersAreMappedCorrectly()
+    public void ThenTheUserIsMappedCorrectly()
     {
-        var user = _result.Content.Users[0];
+        var user = _result.Content.Users[0].User;
 
         Assert.Multiple(() =>
         {
@@ -65,6 +73,18 @@ public sealed class GivenASearchUsersRequest
             Assert.That(user.CreatedAt, Is.EqualTo(new DateTime(2023, 06, 02, 23, 15, 10)), nameof(user.CreatedAt));
             Assert.That(user.Email, Is.EqualTo("test@email.com"), nameof(user.Email));
             Assert.That(user.LastLoginAt, Is.EqualTo(new DateTime(2023, 06, 02, 23, 15, 20)), nameof(user.LastLoginAt));
+        });
+    }
+
+    [Test]
+    public void ThenThePermissionIsMappedCorrectly()
+    {
+        var permission = _result.Content.Users[0].Permissions[0];
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(permission.Type, Is.EqualTo(ApiPermissionType.Creator), nameof(permission.Type));
+            Assert.That(permission.Name, Is.EqualTo("TestPermissionName"), nameof(permission.Name));
         });
     }
 }

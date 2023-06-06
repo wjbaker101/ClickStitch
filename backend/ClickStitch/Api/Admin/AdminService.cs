@@ -1,4 +1,5 @@
 ﻿using ClickStitch.Api.Admin.Types;
+using Core.Extensions;
 using Data.Repositories.Admin;
 using Data.Repositories.Admin.Types;
 
@@ -28,7 +29,11 @@ public sealed class AdminService : IAdminService
 
         return new SearchUsersResponse
         {
-            Users = getUsers.Users.ConvertAll(UserMapper.Map),
+            Users = getUsers.Users.ConvertAll(x => new SearchUsersResponse.UserDetails
+            {
+                User = UserMapper.Map(x),
+                Permissions = x.Permissions.MapAll(PermissionMapper.Map)
+            }),
             Pagination = PaginationModel.Create(pageNumber, pageSize, getUsers.TotalCount)
         };
     }
