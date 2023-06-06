@@ -44,12 +44,14 @@ export const api = {
 
     admin: {
 
-        async getUsers(): Promise<IGetUsers | Error> {
+        async getUsers(pageNumber: number, pageSize: number): Promise<IGetUsers | Error> {
             if (auth.details.value === null)
                 return new Error('You must be logged in for this action.');
 
+            const url = `/admin/users?page_number=${pageNumber}&page_size=${pageSize}`;
+
             try {
-                const response = await client.get<IApiResultResponse<IGetUsersResponse>>('/admin/users', {
+                const response = await client.get<IApiResultResponse<IGetUsersResponse>>(url, {
                     headers: {
                         'Authorization': `Bearer ${auth.details.value.loginToken}`,
                     },

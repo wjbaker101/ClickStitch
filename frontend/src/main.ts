@@ -1,5 +1,7 @@
 import { createApp } from 'vue';
 
+import '@/setup/dayjs.setup';
+
 import App from '@/App.vue';
 
 import { router } from '@/setup/router.setup';
