@@ -34,6 +34,8 @@ import { IUser } from '@/models/User.model';
 import { IGetSelfResponse } from './types/GetSelf.type';
 import { userMapper } from './mappers/User.mapper';
 import { permissionMapper } from './mappers/Permission.mapper';
+import { IPermission } from '@/models/Permission.model';
+import { IGetPermissionsResponse } from './types/GetPermissions.type';
 
 const auth = useAuth();
 
@@ -67,6 +69,26 @@ export const api = {
                     })),
                     pagination: paginationMapper.map(result.pagination),
                 };
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
+        },
+
+        async getPermissions(): Promise<Array<IPermission> | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
+            try {
+                const response = await client.get<IApiResultResponse<IGetPermissionsResponse>>('/admin/permissions', {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
+
+                const result = response.data.result;
+
+                return result.permissions.map(permissionMapper.map);
             }
             catch (error) {
                 return ApiErrorMapper.map(error);
