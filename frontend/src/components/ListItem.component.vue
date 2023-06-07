@@ -16,7 +16,9 @@
             </div>
         </div>
         <div class="more-content" v-if="slots.expanded">
-            <slot name="expanded"></slot>
+            <div>
+                <slot name="expanded"></slot>
+            </div>
         </div>
     </div>
 </template>
@@ -62,13 +64,19 @@ const onToggleOpen = function (): void {
 
     &.is-expanded {
         .more-content {
-            display: block;
+            grid-template-rows: 1fr;
+            margin-top: 1rem;
         }
     }
 
     .more-content {
-        display: none;
-        margin-top: 1rem;
+        display: grid;
+        grid-template-rows: 0fr;
+        margin-top: 0rem;
+
+        & > div {
+            overflow: hidden;
+        }
 
         section {
             margin-left: 0.5rem;
