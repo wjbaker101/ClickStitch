@@ -15,6 +15,17 @@ public sealed class AdminController : ApiController
     }
 
     [HttpGet]
+    [Route("permissions")]
+    [Authenticate]
+    [RequireAdmin]
+    public async Task<IActionResult> GetPermissions(CancellationToken cancellationToken)
+    {
+        var result = await _adminService.GetPermissions(cancellationToken);
+
+        return ToApiResponse(result);
+    }
+
+    [HttpGet]
     [Route("users")]
     [Authenticate]
     [RequireAdmin]

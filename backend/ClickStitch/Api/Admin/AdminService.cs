@@ -7,6 +7,7 @@ namespace ClickStitch.Api.Admin;
 
 public interface IAdminService
 {
+    Task<Result<GetPermissionsResponse>> GetPermissions(CancellationToken cancellationToken);
     Task<Result<SearchUsersResponse>> SearchUsers(int pageNumber, int pageSize, CancellationToken cancellationToken);
 }
 
@@ -17,6 +18,16 @@ public sealed class AdminService : IAdminService
     public AdminService(IAdminRepository adminRepository)
     {
         _adminRepository = adminRepository;
+    }
+
+    public async Task<Result<GetPermissionsResponse>> GetPermissions(CancellationToken cancellationToken)
+    {
+        var permissions = await _adminRepository.GetPermissions(cancellationToken);
+
+        return new GetPermissionsResponse
+        {
+            Permissions = permissions.ConvertAll(PermissionMapper.Map)
+        };
     }
 
     public async Task<Result<SearchUsersResponse>> SearchUsers(int pageNumber, int pageSize, CancellationToken cancellationToken)

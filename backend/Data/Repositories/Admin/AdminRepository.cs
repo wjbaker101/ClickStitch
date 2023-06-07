@@ -5,6 +5,7 @@ namespace Data.Repositories.Admin;
 
 public interface IAdminRepository
 {
+    Task<List<PermissionRecord>> GetPermissions(CancellationToken cancellationToken);
     Task<SearchUsersDto> SearchUsers(SearchUsersParameters parameters, CancellationToken cancellationToken);
 }
 
@@ -12,6 +13,20 @@ public sealed class AdminRepository : Repository<IDatabaseRecord>, IAdminReposit
 {
     public AdminRepository(IDatabase database) : base(database)
     {
+    }
+
+    public async Task<List<PermissionRecord>> GetPermissions(CancellationToken cancellationToken)
+    {
+        using var session = Database.SessionFactory.OpenSession();
+        using var transaction = session.BeginTransaction();
+
+        var permissions = await session
+            .Query<PermissionRecord>()
+            .ToListAsync(cancellationToken);
+
+        await transaction.CommitAsync(cancellationToken);
+
+        return permissions;
     }
 
     public async Task<SearchUsersDto> SearchUsers(SearchUsersParameters parameters, CancellationToken cancellationToken)
