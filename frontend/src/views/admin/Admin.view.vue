@@ -6,6 +6,17 @@
         <div class="content-width">
             <section>
                 <CardComponent border="top" padded>
+                    <h2>Permissions</h2>
+                    <LoadingComponent v-if="getUsers === null" />
+                    <div v-else>
+                        <ListItemComponent :key="permission.type" v-for="permission in permissions">
+                            {{ permission.name }}
+                        </ListItemComponent>
+                    </div>
+                </CardComponent>
+            </section>
+            <section>
+                <CardComponent border="top" padded>
                     <h2>Users</h2>
                     <LoadingComponent v-if="getUsers === null" />
                     <div v-else>
@@ -29,15 +40,24 @@ import UserItemComponent from './components/UserItem.component.vue';
 import { api } from '@/api/api';
 
 import { IGetUsers } from '@/models/GetUsers.model';
+import { IPermission } from '@/models/Permission.model';
+import ListItemComponent from '@/components/ListItem.component.vue';
 
 const getUsers = ref<IGetUsers | null>(null);
+const permissions = ref<Array<IPermission> | null>(null);
 
 onMounted(async () => {
-    const result = await api.admin.getUsers(1, 50);
-    if (result instanceof Error)
+    const usersResult = await api.admin.getUsers(1, 50);
+    if (usersResult instanceof Error)
         return;
 
-    getUsers.value = result;
+    getUsers.value = usersResult;
+
+    const permissionsResult = await api.admin.getPermissions();
+    if (permissionsResult instanceof Error)
+        return;
+
+    permissions.value = permissionsResult;
 });
 </script>
 
