@@ -1,5 +1,5 @@
 <template>
-    <ItemComponent
+    <ListItemComponent
         class="user-item-component hover"
         :class="{
             'is-admin': userDetails.permissions.find(x => x.type === 'Admin') !== undefined,
@@ -28,13 +28,13 @@
                 </div>
             </section>
         </div>
-    </ItemComponent>
+    </ListItemComponent>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import ItemComponent from './Item.component.vue';
+import ListItemComponent from '@/components/ListItem.component.vue';
 
 import { IUserDetails } from '@/models/GetUsers.model';
 

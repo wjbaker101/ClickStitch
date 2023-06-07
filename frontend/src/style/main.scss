@@ -5,9 +5,13 @@
 :root {
     @include setup-variables();
 
+    --wjb-white: #f8f8f8;
+    --wjb-black: #141416;
+
     --wjb-light: #ececec;
     --wjb-dark: #222226;
 
+    --wjb-background-colour-light: var(--wjb-white);
     --wjb-background-colour: var(--wjb-light);
     --wjb-background-colour-dark: #ddd;
 
@@ -31,6 +35,7 @@
     --footer-height: 162px;
 
     @media (prefers-color-scheme: dark) {
+        --wjb-background-colour-light: var(--wjb-black);
         --wjb-background-colour: var(--wjb-dark);
         --wjb-background-colour-dark: #111;
 
