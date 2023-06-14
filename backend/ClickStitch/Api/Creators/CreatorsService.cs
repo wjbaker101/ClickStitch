@@ -40,6 +40,8 @@ public sealed class CreatorsService : ICreatorsService
 
     public async Task<Result<CreateCreatorResponse>> CreateCreator(RequestUser requestUser, CreateCreatorRequest request, CancellationToken cancellationToken)
     {
+        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
+
         var creator = await _creatorRepository.SaveAsync(new CreatorRecord
         {
             Reference = Guid.NewGuid(),
@@ -48,6 +50,12 @@ public sealed class CreatorsService : ICreatorsService
             StoreUrl = request.StoreUrl,
             Users = new List<UserRecord>(),
             Patterns = new List<PatternRecord>()
+        }, cancellationToken);
+
+        await _userCreatorRepository.SaveAsync(new UserCreatorRecord
+        {
+            User = user,
+            Creator = creator
         }, cancellationToken);
 
         return new CreateCreatorResponse
