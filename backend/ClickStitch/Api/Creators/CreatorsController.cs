@@ -19,6 +19,7 @@ public sealed class CreatorsController : ApiController
     [HttpPost]
     [Route("")]
     [Authenticate]
+    [RequireCreator]
     public async Task<IActionResult> CreateCreator([FromBody] CreateCreatorRequest request, CancellationToken cancellationToken)
     {
         var requestUser = RequestHelper.GetRequiredUser(Request);
