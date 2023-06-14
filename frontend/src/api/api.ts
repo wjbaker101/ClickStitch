@@ -36,6 +36,8 @@ import { userMapper } from './mappers/User.mapper';
 import { permissionMapper } from './mappers/Permission.mapper';
 import { IPermission } from '@/models/Permission.model';
 import { IGetPermissionsResponse } from './types/GetPermissions.type';
+import { IAssignPermissionToUserRequest, IAssignPermissionToUserResponse } from './types/AssignPermissionToUser.type';
+import { IRemovePermissionFromUserResponse } from './types/RemovePermissionFromUser.type';
 
 const auth = useAuth();
 
@@ -89,6 +91,46 @@ export const api = {
                 const result = response.data.result;
 
                 return result.permissions.map(permissionMapper.map);
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
+        },
+
+        async assignPermissionToUser(userReference: string, request: IAssignPermissionToUserRequest): Promise<void | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
+            const url = `/admin/users/${userReference}/permissions`;
+
+            try {
+                const response = await client.post<IApiResultResponse<IAssignPermissionToUserResponse>>(url, request, {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
+
+                const result = response.data.result;
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
+        },
+
+        async removePermissionFromUser(userReference: string, permissionType: number): Promise<void | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
+            const url = `/admin/users/${userReference}/permissions/${permissionType}`;
+
+            try {
+                const response = await client.delete<IApiResultResponse<IRemovePermissionFromUserResponse>>(url, {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
+
+                const result = response.data.result;
             }
             catch (error) {
                 return ApiErrorMapper.map(error);
