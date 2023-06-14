@@ -13,6 +13,7 @@
                             :key="userDetails.user.reference"
                             v-for="userDetails in getUsers.users"
                             :userDetails="userDetails"
+                            :permissions="permissions"
                         />
                     </div>
                 </CardComponent>

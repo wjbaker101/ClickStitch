@@ -21,4 +21,15 @@ export const permissionMapper = {
         }
     },
 
+    mapTypeToApi(type: PermissionType): number {
+        switch (type) {
+            case 'Admin':
+                return 1;
+            case 'Creator':
+                return 2;
+            default:
+                throw new Error(`Unable to map permission type: '${type}.`);
+        }
+    },
+
 };
