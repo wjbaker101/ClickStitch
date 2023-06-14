@@ -2,10 +2,8 @@
 using Core.Extensions;
 using Data.Records;
 using Data.Repositories.Creator;
-using Data.Repositories.Permission;
 using Data.Repositories.User;
 using Data.Repositories.UserCreator;
-using Data.Repositories.UserPermission;
 
 namespace ClickStitch.Api.Creators;
 
@@ -19,21 +17,15 @@ public sealed class CreatorsService : ICreatorsService
 {
     private readonly ICreatorRepository _creatorRepository;
     private readonly IUserRepository _userRepository;
-    private readonly IUserPermissionRepository _userPermissionRepository;
-    private readonly IPermissionRepository _permissionRepository;
     private readonly IUserCreatorRepository _userCreatorRepository;
 
     public CreatorsService(
         ICreatorRepository creatorRepository,
         IUserRepository userRepository,
-        IUserPermissionRepository userPermissionRepository,
-        IPermissionRepository permissionRepository,
         IUserCreatorRepository userCreatorRepository)
     {
         _creatorRepository = creatorRepository;
         _userRepository = userRepository;
-        _userPermissionRepository = userPermissionRepository;
-        _permissionRepository = permissionRepository;
         _userCreatorRepository = userCreatorRepository;
     }
 
