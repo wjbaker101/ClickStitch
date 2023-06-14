@@ -43,4 +43,9 @@ public sealed class FakeUserPermissionRepository : FakeRepository<UserPermission
     {
         return Task.FromResult(_fakeResult.Content);
     }
+
+    public Task<Result<UserPermissionRecord>> GetByUserAndPermission(UserRecord user, PermissionRecord permission, CancellationToken cancellationToken)
+    {
+        return Task.FromResult<Result<UserPermissionRecord>>(null!);
+    }
 }

@@ -48,7 +48,7 @@ public sealed class GivenAGetCreatorRequest
         });
 
 
-        var subject = new CreatorsService(creatorRepository, null!, null!, null!, null!);
+        var subject = new CreatorsService(creatorRepository, null!, null!);
 
         _result = await subject.GetCreator(new TestRequestUser(), Guid.Parse("3f4a482d-5d96-4e1e-b5ae-7d7f04034fc6"), CancellationToken.None);
     }

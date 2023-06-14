@@ -47,7 +47,7 @@ public sealed class GivenASearchUsersRequest
                 TotalCount = 4023
             });
 
-        var subject = new AdminService(_adminRepository.Object);
+        var subject = new AdminService(_adminRepository.Object, FakeUserRepository.Default(), null!, FakeUserPermissionRepository.Default());
 
         _result = await subject.SearchUsers(2979, 8556, CancellationToken.None);
     }

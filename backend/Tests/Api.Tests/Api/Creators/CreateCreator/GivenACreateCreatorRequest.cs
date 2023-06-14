@@ -1,5 +1,7 @@
 ﻿using ClickStitch.Api.Creators;
 using ClickStitch.Api.Creators.Types;
+using Data.Repositories.UserCreator;
+using Moq;
 
 namespace Api.Tests.Api.Creators.CreateCreator;
 
@@ -12,7 +14,9 @@ public sealed class GivenACreateCreatorRequest
     [OneTimeSetUp]
     public async Task Setup()
     {
-        var subject = new CreatorsService(FakeCreatorRepository.Default(), null!, null!, null!, null!);
+        var userCreatorRepository = new Mock<IUserCreatorRepository>();
+
+        var subject = new CreatorsService(FakeCreatorRepository.Default(), FakeUserRepository.Default(), userCreatorRepository.Object);
 
         _result = await subject.CreateCreator(new TestRequestUser(), new CreateCreatorRequest
         {
