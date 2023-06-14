@@ -1,5 +1,5 @@
 export interface IAssignPermissionToUserRequest {
-    readonly type: number;
+    readonly permissionType: number;
 }
 
 export interface IAssignPermissionToUserResponse {
