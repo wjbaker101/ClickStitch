@@ -14,7 +14,7 @@ public interface IAdminService
     Task<Result<GetPermissionsResponse>> GetPermissions(CancellationToken cancellationToken);
     Task<Result<SearchUsersResponse>> SearchUsers(int pageNumber, int pageSize, CancellationToken cancellationToken);
     Task<Result<AssignPermissionToUserResponse>> AssignPermissionToUser(Guid userReference, AssignPermissionToUserRequest request, CancellationToken cancellationToken);
-    Task<Result<RemovePermissionFromUserResponse>> RemovePermissionFromUser(Guid userReference, RemovePermissionFromUserRequest request, CancellationToken cancellationToken);
+    Task<Result<RemovePermissionFromUserResponse>> RemovePermissionFromUser(Guid userReference, ApiPermissionType permissionType, CancellationToken cancellationToken);
 }
 
 public sealed class AdminService : IAdminService
@@ -85,13 +85,13 @@ public sealed class AdminService : IAdminService
         return new AssignPermissionToUserResponse();
     }
 
-    public async Task<Result<RemovePermissionFromUserResponse>> RemovePermissionFromUser(Guid userReference, RemovePermissionFromUserRequest request, CancellationToken cancellationToken)
+    public async Task<Result<RemovePermissionFromUserResponse>> RemovePermissionFromUser(Guid userReference, ApiPermissionType permissionType, CancellationToken cancellationToken)
     {
         var userResult = await _userRepository.GetWithPermissionsByReferenceAsync(userReference, cancellationToken);
         if (!userResult.TrySuccess(out var user))
             return Result<RemovePermissionFromUserResponse>.FromFailure(userResult);
 
-        var permission = user.Permissions.SingleOrDefault(x => x.Type == (PermissionType)request.PermissionType);
+        var permission = user.Permissions.SingleOrDefault(x => x.Type == (PermissionType)permissionType);
         if (permission is null)
             return Result<RemovePermissionFromUserResponse>.Failure("Unable to remove permission as the user does not have it.");
 
