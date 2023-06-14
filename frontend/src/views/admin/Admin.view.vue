@@ -3,7 +3,7 @@
         <template #nav>
             <strong>Admin</strong>
         </template>
-        <div class="content-width">
+        <div class="content-width" v-if="permissions">
             <section>
                 <CardComponent border="top" padded>
                     <h2>Users</h2>
@@ -30,7 +30,6 @@ import { api } from '@/api/api';
 
 import { IGetUsers } from '@/models/GetUsers.model';
 import { IPermission } from '@/models/Permission.model';
-import ListItemComponent from '@/components/ListItem.component.vue';
 
 const getUsers = ref<IGetUsers | null>(null);
 const permissions = ref<Array<IPermission> | null>(null);
