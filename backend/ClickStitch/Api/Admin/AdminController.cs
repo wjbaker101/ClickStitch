@@ -47,4 +47,15 @@ public sealed class AdminController : ApiController
 
         return ToApiResponse(result);
     }
+
+    [HttpDelete]
+    [Route("users/{userReference:guid}/permission")]
+    [Authenticate]
+    [RequireAdmin]
+    public async Task<IActionResult> RemovePermissionFromUser([FromRoute] Guid userReference, [FromBody] RemovePermissionFromUserRequest request, CancellationToken cancellationToken)
+    {
+        var result = await _adminService.RemovePermissionFromUser(userReference, request, cancellationToken);
+
+        return ToApiResponse(result);
+    }
 }
