@@ -6,17 +6,6 @@
         <div class="content-width">
             <section>
                 <CardComponent border="top" padded>
-                    <h2>Permissions</h2>
-                    <LoadingComponent v-if="getUsers === null" />
-                    <div v-else>
-                        <ListItemComponent :key="permission.type" v-for="permission in permissions">
-                            {{ permission.name }}
-                        </ListItemComponent>
-                    </div>
-                </CardComponent>
-            </section>
-            <section>
-                <CardComponent border="top" padded>
                     <h2>Users</h2>
                     <LoadingComponent v-if="getUsers === null" />
                     <div v-else>
