@@ -1,4 +1,5 @@
-﻿using ClickStitch.Api.Auth.Attributes;
+﻿using ClickStitch.Api.Admin.Types;
+using ClickStitch.Api.Auth.Attributes;
 using ClickStitch.Types;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,6 +33,17 @@ public sealed class AdminController : ApiController
     public async Task<IActionResult> SearchUsers([FromQuery(Name = "page_number")] int pageNumber, [FromQuery(Name = "page_size")] int pageSize, CancellationToken cancellationToken)
     {
         var result = await _adminService.SearchUsers(pageNumber, pageSize, cancellationToken);
+
+        return ToApiResponse(result);
+    }
+
+    [HttpPost]
+    [Route("users/{userReference:guid}/permission")]
+    [Authenticate]
+    [RequireAdmin]
+    public async Task<IActionResult> AssignPermissionToUser([FromRoute] Guid userReference, [FromBody] AssignPermissionToUserRequest request, CancellationToken cancellationToken)
+    {
+        var result = await _adminService.AssignPermissionToUser(userReference, request, cancellationToken);
 
         return ToApiResponse(result);
     }

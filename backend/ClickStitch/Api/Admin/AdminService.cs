@@ -1,7 +1,11 @@
 ﻿using ClickStitch.Api.Admin.Types;
 using Core.Extensions;
+using Data.Records;
 using Data.Repositories.Admin;
 using Data.Repositories.Admin.Types;
+using Data.Repositories.Permission;
+using Data.Repositories.User;
+using Data.Repositories.UserPermission;
 
 namespace ClickStitch.Api.Admin;
 
@@ -9,15 +13,26 @@ public interface IAdminService
 {
     Task<Result<GetPermissionsResponse>> GetPermissions(CancellationToken cancellationToken);
     Task<Result<SearchUsersResponse>> SearchUsers(int pageNumber, int pageSize, CancellationToken cancellationToken);
+    Task<Result<AssignPermissionToUserResponse>> AssignPermissionToUser(Guid userReference, AssignPermissionToUserRequest request, CancellationToken cancellationToken);
 }
 
 public sealed class AdminService : IAdminService
 {
     private readonly IAdminRepository _adminRepository;
+    private readonly IUserRepository _userRepository;
+    private readonly IPermissionRepository _permissionRepository;
+    private readonly IUserPermissionRepository _userPermissionRepository;
 
-    public AdminService(IAdminRepository adminRepository)
+    public AdminService(
+        IAdminRepository adminRepository,
+        IUserRepository userRepository,
+        IPermissionRepository permissionRepository,
+        IUserPermissionRepository userPermissionRepository)
     {
         _adminRepository = adminRepository;
+        _userRepository = userRepository;
+        _permissionRepository = permissionRepository;
+        _userPermissionRepository = userPermissionRepository;
     }
 
     public async Task<Result<GetPermissionsResponse>> GetPermissions(CancellationToken cancellationToken)
@@ -47,5 +62,25 @@ public sealed class AdminService : IAdminService
             }),
             Pagination = PaginationModel.Create(pageNumber, pageSize, getUsers.TotalCount)
         };
+    }
+
+    public async Task<Result<AssignPermissionToUserResponse>> AssignPermissionToUser(Guid userReference, AssignPermissionToUserRequest request, CancellationToken cancellationToken)
+    {
+        var userResult = await _userRepository.GetByReferenceAsync(userReference, cancellationToken);
+        if (!userResult.TrySuccess(out var user))
+            return Result<AssignPermissionToUserResponse>.FromFailure(userResult);
+
+        var permissionResult = await _permissionRepository.GetByType((PermissionType) request.PermissionType, cancellationToken);
+        if (!permissionResult.TrySuccess(out var permission))
+            return Result<AssignPermissionToUserResponse>.FromFailure(permissionResult);
+
+        await _userPermissionRepository.SaveAsync(new UserPermissionRecord
+        {
+            User = user,
+            Permission = permission,
+            CreatedAt = DateTime.UtcNow
+        }, cancellationToken);
+
+        return new AssignPermissionToUserResponse();
     }
 }
