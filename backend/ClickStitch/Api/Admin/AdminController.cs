@@ -38,7 +38,7 @@ public sealed class AdminController : ApiController
     }
 
     [HttpPost]
-    [Route("users/{userReference:guid}/permission")]
+    [Route("users/{userReference:guid}/permissions")]
     [Authenticate]
     [RequireAdmin]
     public async Task<IActionResult> AssignPermissionToUser([FromRoute] Guid userReference, [FromBody] AssignPermissionToUserRequest request, CancellationToken cancellationToken)
@@ -49,7 +49,7 @@ public sealed class AdminController : ApiController
     }
 
     [HttpDelete]
-    [Route("users/{userReference:guid}/permission")]
+    [Route("users/{userReference:guid}/permissions")]
     [Authenticate]
     [RequireAdmin]
     public async Task<IActionResult> RemovePermissionFromUser([FromRoute] Guid userReference, [FromBody] RemovePermissionFromUserRequest request, CancellationToken cancellationToken)
