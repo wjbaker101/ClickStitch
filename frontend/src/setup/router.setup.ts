@@ -13,8 +13,11 @@ import SignupView from '@/views/signup/Signup.view.vue';
 
 import { useAuth } from '@/use/auth/Auth.use';
 import { setTitle } from '@/helper/helper';
+import { routerHelper } from './router/router-helper';
 
 const auth = useAuth();
+
+const subdomain = routerHelper.subdomain();
 
 const requireAuth: NavigationGuardWithThis<void> = function (to, from, next): void {
     if (auth.details.value === null) {
