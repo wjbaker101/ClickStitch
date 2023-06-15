@@ -66,7 +66,7 @@ public sealed class CreatorsService : ICreatorsService
         if (!creatorResult.TrySuccess(out var creator))
             return Result<UpdateCreatorResponse>.FromFailure(creatorResult);
 
-        if (!creator.Users.Contains(user))
+        if (creator.Users.All(x => x.Id != user.Id))
             return Result<UpdateCreatorResponse>.Failure("Unable to update a creator you are not assigned to.");
 
         creator.Name = request.Name;
