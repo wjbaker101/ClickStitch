@@ -48,6 +48,10 @@ input {
 
     @include shadow-small();
 
+    &[type=text] {
+        width: 100%;
+    }
+
     &:focus {
         outline-color: var(--wjb-primary);
     }
