@@ -245,7 +245,11 @@ export const api = {
                 return new Error('You must be logged in for this action.');
 
             try {
-                const response = await client.get<IApiResultResponse<IGetSelfCreator>>('/creators/self');
+                const response = await client.get<IApiResultResponse<IGetSelfCreator>>('/creators/self', {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
 
                 const result = response.data.result;
 
