@@ -39,6 +39,9 @@ import { IGetPermissionsResponse } from './types/GetPermissions.type';
 import { IAssignPermissionToUserRequest, IAssignPermissionToUserResponse } from './types/AssignPermissionToUser.type';
 import { IRemovePermissionFromUserResponse } from './types/RemovePermissionFromUser.type';
 import { IGetSelf } from '@/models/GetSelf.model';
+import { IGetSelfCreator } from './types/GetSelfCreator.type';
+import { ICreator } from '@/models/Creator.model';
+import { creatorMapper } from './mappers/Creator.mapper';
 
 const auth = useAuth();
 
@@ -233,6 +236,28 @@ export const api = {
             });
         },
 
+    },
+
+    creators: {
+
+        async getSelf(): Promise<ICreator | null | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
+            try {
+                const response = await client.get<IApiResultResponse<IGetSelfCreator>>('/creators/self');
+
+                const result = response.data.result;
+
+                if (result.creator === null)
+                    return null;
+
+                return creatorMapper.map(result.creator);
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
+        },
     },
 
     patterns: {
