@@ -1,4 +1,9 @@
-type Subdomain = 'creator';
+import { NavigationGuardWithThis } from 'vue-router';
+import { useAuth } from '@/use/auth/Auth.use';
+
+const auth = useAuth();
+
+export type Subdomain = 'creator';
 
 export const routerHelper = {
 
@@ -13,4 +18,13 @@ export const routerHelper = {
         return split.join('.') as Subdomain;
     },
 
+};
+
+export const requireAuth: NavigationGuardWithThis<void> = function (to, from, next): void {
+    if (auth.details.value === null) {
+        next('/login');
+        return;
+    }
+
+    next();
 };
