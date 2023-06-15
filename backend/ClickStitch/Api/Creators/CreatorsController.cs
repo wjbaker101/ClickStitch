@@ -29,6 +29,19 @@ public sealed class CreatorsController : ApiController
         return ToApiResponse(result);
     }
 
+    [HttpPut]
+    [Route("{creatorReference:guid}")]
+    [Authenticate]
+    [RequireCreator]
+    public async Task<IActionResult> UpdateCreator([FromRoute] Guid creatorReference, [FromBody] UpdateCreatorRequest request, CancellationToken cancellationToken)
+    {
+        var requestUser = RequestHelper.GetRequiredUser(Request);
+
+        var result = await _creatorsService.UpdateCreator(requestUser, creatorReference, request, cancellationToken);
+
+        return ToApiResponse(result);
+    }
+
     [HttpGet]
     [Route("{creatorReference:guid}")]
     [Authenticate]

@@ -11,6 +11,7 @@ namespace ClickStitch.Api.Creators;
 public interface ICreatorsService
 {
     Task<Result<CreateCreatorResponse>> CreateCreator(RequestUser requestUser, CreateCreatorRequest request, CancellationToken cancellationToken);
+    Task<Result<UpdateCreatorResponse>> UpdateCreator(RequestUser requestUser, Guid creatorReference, UpdateCreatorRequest request, CancellationToken cancellationToken);
     Task<Result<GetCreatorResponse>> GetCreator(RequestUser requestUser, Guid creatorReference, CancellationToken cancellationToken);
     Task<Result<GetCreatorByUserResponse>> GetCreatorByUser(RequestUser requestUser, CancellationToken cancellationToken);
 }
@@ -52,6 +53,28 @@ public sealed class CreatorsService : ICreatorsService
         }, cancellationToken);
 
         return new CreateCreatorResponse
+        {
+            Creator = CreatorMapper.Map(creator)
+        };
+    }
+
+    public async Task<Result<UpdateCreatorResponse>> UpdateCreator(RequestUser requestUser, Guid creatorReference, UpdateCreatorRequest request, CancellationToken cancellationToken)
+    {
+        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
+
+        var creatorResult = await _creatorRepository.GetWithUsersByReference(creatorReference, cancellationToken);
+        if (!creatorResult.TrySuccess(out var creator))
+            return Result<UpdateCreatorResponse>.FromFailure(creatorResult);
+
+        if (!creator.Users.Contains(user))
+            return Result<UpdateCreatorResponse>.Failure("Unable to update a creator you are not assigned to.");
+
+        creator.Name = request.Name;
+        creator.StoreUrl = request.StoreUrl;
+
+        await _creatorRepository.UpdateAsync(creator, cancellationToken);
+
+        return new UpdateCreatorResponse
         {
             Creator = CreatorMapper.Map(creator)
         };
