@@ -43,6 +43,7 @@ import { IGetSelfCreator } from './types/GetSelfCreator.type';
 import { ICreator } from '@/models/Creator.model';
 import { creatorMapper } from './mappers/Creator.mapper';
 import { IUpdateCreatorRequest, IUpdateCreatorResponse } from './types/UpdateCreator.type';
+import { ICreateCreatorRequest, ICreateCreatorResponse } from './types/CreateCreator.type';
 
 const auth = useAuth();
 
@@ -240,6 +241,26 @@ export const api = {
     },
 
     creators: {
+
+        async createCreator(request: ICreateCreatorRequest): Promise<ICreator | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
+            try {
+                const response = await client.put<IApiResultResponse<ICreateCreatorResponse>>('/creators', request, {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
+
+                const result = response.data.result;
+
+                return creatorMapper.map(result.creator);
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
+        },
 
         async updateCreator(creatorReference: string, request: IUpdateCreatorRequest): Promise<ICreator | Error> {
             if (auth.details.value === null)
