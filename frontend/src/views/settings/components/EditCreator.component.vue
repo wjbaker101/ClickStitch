@@ -40,9 +40,12 @@ import LoadingComponent from '@wjb/vue/component/LoadingComponent.vue';
 import PatternComponent from '@/views/marketplace/components/Pattern.component.vue';
 
 import { api } from '@/api/api';
+import { usePopup } from '@wjb/vue/use/popup.use';
 
 import { IPattern } from '@/models/Pattern.model';
 import { ICreator } from '@/models/Creator.model';
+
+const popup = usePopup();
 
 interface IForm {
     name: string;
@@ -77,6 +80,17 @@ const fakePattern = computed<IPattern>(() => ({
 const creator = ref<ICreator | null>(null);
 const isLoading = ref<boolean>(false);
 
+const setCreator = function (newCreator: ICreator | null): void {
+    creator.value = newCreator;
+
+    if (newCreator !== null) {
+        form.value = {
+            name: newCreator.name,
+            storeUrl: newCreator.storeUrl,
+        };
+    }
+};
+
 onMounted(async () => {
     isLoading.value = true;
 
@@ -85,24 +99,34 @@ onMounted(async () => {
     if (creatorResult instanceof Error)
         return;
 
-    creator.value = creatorResult;
-
-    if (creator.value !== null) {
-        form.value = {
-            name: creator.value.name,
-            storeUrl: creator.value.storeUrl,
-        };
-    }
+    setCreator(creatorResult);
 });
 
 const onSubmit = async function (): Promise<void> {
     if (creator.value === null) {
+        const creatorResult = await api.creators.createCreator({
+            name: form.value.name,
+            storeUrl: form.value.storeUrl,
+        });
+        if (creatorResult instanceof Error)
+            return;
 
+        setCreator(creatorResult);
+
+        popup.trigger({
+            message: 'Creator has been created!',
+            style: 'success',
+        });
     }
     else {
         await api.creators.updateCreator(creator.value.reference, {
             name: form.value.name,
             storeUrl: form.value.storeUrl,
+        });
+
+        popup.trigger({
+            message: 'Creator has been updated!',
+            style: 'success',
         });
     }
 };
