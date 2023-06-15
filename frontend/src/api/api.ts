@@ -247,7 +247,7 @@ export const api = {
                 return new Error('You must be logged in for this action.');
 
             try {
-                const response = await client.put<IApiResultResponse<ICreateCreatorResponse>>('/creators', request, {
+                const response = await client.post<IApiResultResponse<ICreateCreatorResponse>>('/creators', request, {
                     headers: {
                         'Authorization': `Bearer ${auth.details.value.loginToken}`,
                     },
