@@ -15,7 +15,6 @@ public interface IUsersService
     Task<Result<CreateUserResponse>> CreateUser(CreateUserRequest request, CancellationToken cancellationToken);
     Task<Result<UpdateUserResponse>> UpdateUser(RequestUser requestUser, Guid userReference, UpdateUserRequest request, CancellationToken cancellationToken);
     Task<Result<DeleteUserResponse>> DeleteUser(RequestUser requestUser, Guid userReference, CancellationToken cancellationToken);
-    Task<Result<GetCreatorByUserResponse>> GetCreatorByUser(RequestUser requestUser, CancellationToken cancellationToken);
 }
 
 public sealed partial class UsersService : IUsersService
@@ -107,24 +106,5 @@ public sealed partial class UsersService : IUsersService
         await _userRepository.DeleteAsync(user, cancellationToken);
 
         return new DeleteUserResponse();
-    }
-
-    public async Task<Result<GetCreatorByUserResponse>> GetCreatorByUser(RequestUser requestUser, CancellationToken cancellationToken)
-    {
-        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
-
-        var creatorResult = await _creatorRepository.GetByUser(user, cancellationToken);
-        if (creatorResult.IsFailure)
-        {
-            return new GetCreatorByUserResponse
-            {
-                Creator = null
-            };
-        }
-
-        return new GetCreatorByUserResponse
-        {
-            Creator = CreatorMapper.Map(creatorResult.Content)
-        };
     }
 }

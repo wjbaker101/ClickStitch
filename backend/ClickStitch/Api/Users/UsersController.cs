@@ -60,17 +60,4 @@ public sealed class UsersController : ApiController
 
         return ToApiResponse(result);
     }
-
-    [HttpGet]
-    [Route("creator")]
-    [Authenticate]
-    [RequireCreator]
-    public async Task<IActionResult> GetCreatorByUser(CancellationToken cancellationToken)
-    {
-        var user = RequestHelper.GetRequiredUser(Request);
-
-        var result = await _usersService.GetCreatorByUser(user, cancellationToken);
-
-        return ToApiResponse(result);
-    }
 }

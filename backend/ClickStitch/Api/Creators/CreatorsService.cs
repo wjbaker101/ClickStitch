@@ -1,4 +1,5 @@
 ﻿using ClickStitch.Api.Creators.Types;
+using ClickStitch.Api.Users.Types;
 using Core.Extensions;
 using Data.Records;
 using Data.Repositories.Creator;
@@ -11,6 +12,7 @@ public interface ICreatorsService
 {
     Task<Result<CreateCreatorResponse>> CreateCreator(RequestUser requestUser, CreateCreatorRequest request, CancellationToken cancellationToken);
     Task<Result<GetCreatorResponse>> GetCreator(RequestUser requestUser, Guid creatorReference, CancellationToken cancellationToken);
+    Task<Result<GetCreatorByUserResponse>> GetCreatorByUser(RequestUser requestUser, CancellationToken cancellationToken);
 }
 
 public sealed class CreatorsService : ICreatorsService
@@ -66,6 +68,25 @@ public sealed class CreatorsService : ICreatorsService
             Creator = CreatorMapper.Map(creatorResult.Content),
             Users = creatorResult.Content.Users.MapAll(UserMapper.Map),
             Patterns = creatorResult.Content.Patterns.MapAll(PatternMapper.Map)
+        };
+    }
+
+    public async Task<Result<GetCreatorByUserResponse>> GetCreatorByUser(RequestUser requestUser, CancellationToken cancellationToken)
+    {
+        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
+
+        var creatorResult = await _creatorRepository.GetByUser(user, cancellationToken);
+        if (creatorResult.IsFailure)
+        {
+            return new GetCreatorByUserResponse
+            {
+                Creator = null
+            };
+        }
+
+        return new GetCreatorByUserResponse
+        {
+            Creator = CreatorMapper.Map(creatorResult.Content)
         };
     }
 }
