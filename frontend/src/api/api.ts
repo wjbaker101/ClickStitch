@@ -38,6 +38,7 @@ import { IPermission } from '@/models/Permission.model';
 import { IGetPermissionsResponse } from './types/GetPermissions.type';
 import { IAssignPermissionToUserRequest, IAssignPermissionToUserResponse } from './types/AssignPermissionToUser.type';
 import { IRemovePermissionFromUserResponse } from './types/RemovePermissionFromUser.type';
+import { IGetSelf } from '@/models/GetSelf.model';
 
 const auth = useAuth();
 
@@ -371,7 +372,7 @@ export const api = {
 
     users: {
 
-        async getSelf(): Promise<IUser | Error> {
+        async getSelf(): Promise<IGetSelf | Error> {
             if (auth.details.value === null)
                 return new Error('You must be logged in for this action.');
 
@@ -382,7 +383,12 @@ export const api = {
                     },
                 });
 
-                return userMapper.map(response.data.result.user);
+                const result = response.data.result;
+
+                return {
+                    user: userMapper.map(result.user),
+                    permissions: result.permissions.map(permissionMapper.map),
+                };
             }
             catch (error) {
                 return ApiErrorMapper.map(error);
