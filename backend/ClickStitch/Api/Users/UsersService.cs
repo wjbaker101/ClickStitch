@@ -1,5 +1,6 @@
 ﻿using ClickStitch.Api.Auth;
 using ClickStitch.Api.Users.Types;
+using Core.Extensions;
 using Core.Services;
 using Data.Records;
 using Data.Repositories.User;
@@ -35,13 +36,14 @@ public sealed partial class UsersService : IUsersService
 
     public async Task<Result<GetSelfResponse>> GetSelf(RequestUser requestUser, CancellationToken cancellationToken)
     {
-        var userResult = await _userRepository.GetByReferenceAsync(requestUser.Reference, cancellationToken);
+        var userResult = await _userRepository.GetWithPermissionsByReferenceAsync(requestUser.Reference, cancellationToken);
         if (!userResult.TrySuccess(out var user))
             return Result<GetSelfResponse>.FromFailure(userResult);
 
         return new GetSelfResponse
         {
-            User = UserMapper.Map(user)
+            User = UserMapper.Map(user),
+            Permissions = user.Permissions.MapAll(PermissionMapper.Map)
         };
     }
 
