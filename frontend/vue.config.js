@@ -5,6 +5,7 @@ module.exports = defineConfig({
     outputDir: '../backend/ClickStitch/wwwroot',
 
     devServer: {
+        allowedHosts: 'all',
         proxy: {
             '/api': {
                 target: 'https://localhost:44371',
