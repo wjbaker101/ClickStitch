@@ -18,7 +18,16 @@
             <PatternComponent :pattern="fakePattern" />
         </div>
         <FormSectionComponent>
-            <ButtonComponent>Update</ButtonComponent>
+            <ButtonComponent @click="onSubmit">
+                <template v-if="creator === null">
+                    <IconComponent icon="plus" gap="right" />
+                    <span>Create</span>
+                </template>
+                <template v-else>
+                    <IconComponent icon="tick" gap="right" />
+                    <span>Update</span>
+                </template>
+            </ButtonComponent>
         </FormSectionComponent>
     </FormComponent>
 </template>
@@ -85,6 +94,18 @@ onMounted(async () => {
         };
     }
 });
+
+const onSubmit = async function (): Promise<void> {
+    if (creator.value === null) {
+
+    }
+    else {
+        await api.creators.updateCreator(creator.value.reference, {
+            name: form.value.name,
+            storeUrl: form.value.storeUrl,
+        });
+    }
+};
 </script>
 
 <style lang="scss">
