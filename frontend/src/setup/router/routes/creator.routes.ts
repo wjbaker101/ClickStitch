@@ -22,6 +22,13 @@ export const creatorRoutes: Array<RouteRecordRaw> = [
         },
     },
     {
+        path: '/login',
+        component: LoginView,
+        meta: {
+            title: 'Login',
+        },
+    },
+    {
         path: '/settings',
         component: SettingsView,
         beforeEnter: [ requireAuth ],
