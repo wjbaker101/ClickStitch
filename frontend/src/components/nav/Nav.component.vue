@@ -24,13 +24,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 
-import { useAuth } from '@/use/auth/Auth.use';
-
-const auth = useAuth();
-
-const authDetails = auth.details;
+import { linkFactory } from './link-factory';
+import { subdomain } from '@/setup/router/router-helper';
 
 const isMenuOpen = ref<boolean>(false);
 
@@ -38,45 +35,7 @@ const onToggleMenu = function (): void {
     isMenuOpen.value = !isMenuOpen.value;
 };
 
-interface ILink {
-    path: string;
-    iconName: string;
-    title: string;
-    isVisible: boolean;
-}
-
-const links = computed<Array<ILink>>(() => [
-    {
-        path: '/dashboard',
-        iconName: 'home',
-        title: 'Dashboard',
-        isVisible: authDetails.value !== null,
-    },
-    {
-        path: '/patterns',
-        iconName: 'download',
-        title: 'Patterns',
-        isVisible: true,
-    },
-    {
-        path: '/about',
-        iconName: 'info',
-        title: 'About',
-        isVisible: true,
-    },
-    {
-        path: '/settings',
-        iconName: 'settings',
-        title: 'Settings',
-        isVisible: authDetails.value !== null,
-    },
-    {
-        path: '/login',
-        iconName: 'user',
-        title: 'Login/Signup',
-        isVisible: authDetails.value === null,
-    },
-]);
+const links = linkFactory.get(subdomain);
 </script>
 
 <style lang="scss">
