@@ -1,5 +1,6 @@
 import { RouteRecordRaw } from 'vue-router';
 
+import AdminView from '@/views/admin/Admin.view.vue';
 import LoginView from '@/views/login/Login.view.vue';
 import SettingsView from '@/views/settings/Settings.view.vue';
 
@@ -26,6 +27,13 @@ export const adminRoutes: Array<RouteRecordRaw> = [
         component: LoginView,
         meta: {
             title: 'Login',
+        },
+    },
+    {
+        path: '/dashboard',
+        component: AdminView,
+        meta: {
+            title: 'Dashboard',
         },
     },
     {
