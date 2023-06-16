@@ -3,7 +3,7 @@ import { useAuth } from '@/use/auth/Auth.use';
 
 const auth = useAuth();
 
-export type Subdomain = 'creator';
+export type Subdomain = 'creator' | 'admin';
 
 export const routerHelper = {
 
