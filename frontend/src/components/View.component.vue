@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import NavComponent from '@/components/Nav.component.vue';
+import NavComponent from '@/components/nav/Nav.component.vue';
 import FooterComponent from '@/components/Footer.component.vue';
 
 defineProps<{
