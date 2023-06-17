@@ -48,7 +48,7 @@ const displayPermissions = computed<Array<IDisplayPermission>>(() => props.permi
     isEnabled: props.userDetails.permissions.find(y => y.type === x.type) !== undefined,
 })));
 
-const onPermissionChange = async function (permission: IPermission, event: InputEvent): Promise<void> {
+const onPermissionChange = async function (permission: IPermission, event: Event): Promise<void> {
     const element = event.target as HTMLInputElement;
     const isEnabled = element.checked;
 
