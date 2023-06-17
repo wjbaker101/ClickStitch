@@ -7,7 +7,7 @@
     <FormComponent v-else class="edit-creator-component">
         <div class="flex gap-small">
             <FormSectionComponent class="flex-2">
-                <h3>Edit Creator Details</h3>
+                <h3>{{ creator === null ? 'Setup your Creator Details' : 'Edit Creator Details' }}</h3>
                 <FormInputComponent label="Name">
                     <input class="creator-name" type="text" placeholder="Beautiful Patterns Co." v-model="form.name">
                 </FormInputComponent>
