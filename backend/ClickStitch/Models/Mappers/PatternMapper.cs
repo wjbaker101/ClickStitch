@@ -25,6 +25,21 @@ public static class PatternMapper
             StoreUrl = pattern.Creator.StoreUrl
         }
     };
+    public static PatternModel MapWithoutCreator(PatternRecord pattern) => new()
+    {
+        Reference = pattern.Reference,
+        CreatedAt = pattern.CreatedAt,
+        Title = pattern.Title,
+        Width = pattern.Width,
+        Height = pattern.Height,
+        Price = pattern.Price,
+        ThumbnailUrl = pattern.ThumbnailUrl,
+        ThreadCount = pattern.ThreadCount,
+        StitchCount = pattern.StitchCount,
+        BannerImageUrl = pattern.BannerImageUrl,
+        ExternalShopUrl = pattern.ExternalShopUrl,
+        Creator = null
+    };
 
     public static StitchModel MapStitch(PatternStitchRecord stitch, UserPatternStitchRecord? userPatternStitch) => new()
     {

@@ -128,7 +128,7 @@ public sealed class CreatorsService : ICreatorsService
 
         return new GetCreatorPatternsResponse
         {
-            Patterns = getPatterns.Patterns.ConvertAll(PatternMapper.MapWithCreator),
+            Patterns = getPatterns.Patterns.ConvertAll(PatternMapper.MapWithoutCreator),
             Pagination = PaginationModel.Create(pageNumber, pageSize, getPatterns.TotalCount)
         };
     }
