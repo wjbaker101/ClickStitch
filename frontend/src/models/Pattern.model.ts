@@ -14,7 +14,7 @@ export interface IPattern {
     readonly stitchCount: number;
     readonly bannerImageUrl: string | null;
     readonly externalShopUrl: string | null;
-    readonly creator: ICreator;
+    readonly creator: ICreator | null;
 }
 
 export interface IStitch {

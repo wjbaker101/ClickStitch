@@ -12,7 +12,7 @@ export interface IApiPattern {
     readonly stitchCount: number;
     readonly bannerImageUrl: string | null;
     readonly externalShopUrl: string | null;
-    readonly creator: IApiCreator;
+    readonly creator: IApiCreator | null;
 }
 
 export interface IApiStitch {
