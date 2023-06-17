@@ -2,6 +2,7 @@ import { RouteRecordRaw } from 'vue-router';
 
 import LoginView from '@/views/_shared/login/Login.view.vue';
 import SettingsView from '@/views/_shared/settings/Settings.view.vue';
+import CreatorDashboardView from '@/views/creator/creator-dashboard/CreatorDashboard.view.vue';
 
 import { requireAuth } from '../router-helper';
 import { useAuth } from '@/use/auth/Auth.use';
@@ -26,6 +27,13 @@ export const creatorRoutes: Array<RouteRecordRaw> = [
         component: LoginView,
         meta: {
             title: 'Login',
+        },
+    },
+    {
+        path: '/dashboard',
+        component: CreatorDashboardView,
+        meta: {
+            title: 'Creator Dashboard',
         },
     },
     {
