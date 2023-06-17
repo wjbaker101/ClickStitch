@@ -6,7 +6,7 @@ public static class ProjectMapper
 {
     public static ProjectModel Map(UserPatternRecord userPattern) => new()
     {
-        Pattern = PatternMapper.Map(userPattern.Pattern),
+        Pattern = PatternMapper.MapWithCreator(userPattern.Pattern),
         PurchasedAt = userPattern.CreatedAt
     };
 }
