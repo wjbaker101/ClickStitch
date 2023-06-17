@@ -1,10 +1,13 @@
-﻿namespace Data.Repositories.Creator;
+﻿using Data.Repositories.Creator.Types;
+
+namespace Data.Repositories.Creator;
 
 public interface ICreatorRepository : IRepository<CreatorRecord>
 {
     Task<Result<CreatorRecord>> GetFullByReference(Guid creatorReference, CancellationToken cancellationToken);
     Task<Result<CreatorRecord>> GetWithUsersByReference(Guid creatorReference, CancellationToken cancellationToken);
     Task<Result<CreatorRecord>> GetByUser(UserRecord user, CancellationToken cancellationToken);
+    Task<Result<GetCreatorPatternsDto>> GetCreatorPatterns(Guid creatorReference, GetCreatorPatternsParameters parameters, CancellationToken cancellationToken);
 }
 
 public sealed class CreatorRepository : Repository<CreatorRecord>, ICreatorRepository
@@ -79,5 +82,39 @@ public sealed class CreatorRepository : Repository<CreatorRecord>, ICreatorRepos
             return Result<CreatorRecord>.Failure("Unable to find creator for user.");
 
         return creator;
+    }
+
+    public async Task<Result<GetCreatorPatternsDto>> GetCreatorPatterns(Guid creatorReference, GetCreatorPatternsParameters parameters, CancellationToken cancellationToken)
+    {
+        using var session = Database.SessionFactory.OpenSession();
+        using var transaction = session.BeginTransaction();
+
+        var creator = await session
+            .Query<CreatorRecord>()
+            .SingleOrDefaultAsync(x => x.Reference == creatorReference, cancellationToken);
+
+        if (creator == null)
+            return Result<GetCreatorPatternsDto>.Failure($"Unable to find creator with reference: '{creatorReference}'.");
+
+        var query = session
+            .Query<PatternRecord>()
+            .Where(x => x.Creator == creator);
+
+        var totalCount = query.ToFutureValue(x => x.Count());
+
+        var patterns = (await query
+            .Skip((parameters.PageNumber - 1) * parameters.PageSize)
+            .Take(parameters.PageSize)
+            .ToFuture()
+            .GetEnumerableAsync(cancellationToken))
+            .ToList();
+
+        await transaction.CommitAsync(cancellationToken);
+
+        return new GetCreatorPatternsDto
+        {
+            Patterns = patterns,
+            TotalCount = await totalCount.GetValueAsync(cancellationToken)
+        };
     }
 }

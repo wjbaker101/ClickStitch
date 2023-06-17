@@ -66,4 +66,20 @@ public sealed class CreatorsController : ApiController
 
         return ToApiResponse(result);
     }
+
+    [HttpGet]
+    [Route("{creatorReference:guid}/patterns")]
+    [Authenticate]
+    public async Task<IActionResult> GetCreatorPatterns(
+        [FromRoute] Guid creatorReference,
+        [FromQuery(Name = "page_size")] int pageSize,
+        [FromQuery(Name = "page_number")] int pageNumber,
+        CancellationToken cancellationToken)
+    {
+        var requestUser = RequestHelper.GetRequiredUser(Request);
+
+        var result = await _creatorsService.GetCreatorPatterns(requestUser, creatorReference, pageSize, pageNumber, cancellationToken);
+
+        return ToApiResponse(result);
+    }
 }

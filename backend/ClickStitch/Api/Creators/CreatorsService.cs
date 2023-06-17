@@ -3,6 +3,7 @@ using ClickStitch.Api.Users.Types;
 using Core.Extensions;
 using Data.Records;
 using Data.Repositories.Creator;
+using Data.Repositories.Creator.Types;
 using Data.Repositories.User;
 using Data.Repositories.UserCreator;
 
@@ -14,6 +15,7 @@ public interface ICreatorsService
     Task<Result<UpdateCreatorResponse>> UpdateCreator(RequestUser requestUser, Guid creatorReference, UpdateCreatorRequest request, CancellationToken cancellationToken);
     Task<Result<GetCreatorResponse>> GetCreator(RequestUser requestUser, Guid creatorReference, CancellationToken cancellationToken);
     Task<Result<GetCreatorByUserResponse>> GetCreatorByUser(RequestUser requestUser, CancellationToken cancellationToken);
+    Task<Result<GetCreatorPatternsResponse>> GetCreatorPatterns(RequestUser user, Guid creatorReference, int pageSize, int pageNumber, CancellationToken cancellationToken);
 }
 
 public sealed class CreatorsService : ICreatorsService
@@ -110,6 +112,24 @@ public sealed class CreatorsService : ICreatorsService
         return new GetCreatorByUserResponse
         {
             Creator = CreatorMapper.Map(creatorResult.Content)
+        };
+    }
+
+    public async Task<Result<GetCreatorPatternsResponse>> GetCreatorPatterns(RequestUser user, Guid creatorReference, int pageSize, int pageNumber, CancellationToken cancellationToken)
+    {
+        var getPatternsResult = await _creatorRepository.GetCreatorPatterns(creatorReference, new GetCreatorPatternsParameters
+        {
+            PageSize = pageSize,
+            PageNumber = pageNumber
+        }, cancellationToken);
+
+        if (!getPatternsResult.TrySuccess(out var getPatterns))
+            return Result<GetCreatorPatternsResponse>.FromFailure(getPatternsResult);
+
+        return new GetCreatorPatternsResponse
+        {
+            Patterns = getPatterns.Patterns.ConvertAll(PatternMapper.Map),
+            Pagination = PaginationModel.Create(pageNumber, pageSize, getPatterns.TotalCount)
         };
     }
 }
