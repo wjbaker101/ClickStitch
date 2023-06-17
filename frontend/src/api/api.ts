@@ -44,6 +44,8 @@ import { ICreator } from '@/models/Creator.model';
 import { creatorMapper } from './mappers/Creator.mapper';
 import { IUpdateCreatorRequest, IUpdateCreatorResponse } from './types/UpdateCreator.type';
 import { ICreateCreatorRequest, ICreateCreatorResponse } from './types/CreateCreator.type';
+import { IGetCreatorPatternsResponse } from './types/GteCreatorPatterns.type';
+import { IGetCreatorPatterns } from '@/models/GetCreatorPatterns.model';
 
 const auth = useAuth();
 
@@ -299,6 +301,31 @@ export const api = {
                     return null;
 
                 return creatorMapper.map(result.creator);
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
+        },
+
+        async getPatterns(creatorReference: string, pageSize: number, pageNumber: number): Promise<IGetCreatorPatterns | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
+            const url = `/creators/${creatorReference}/patterns?page_size=${pageSize}&page_number=${pageNumber}`;
+
+            try {
+                const response = await client.get<IApiResultResponse<IGetCreatorPatternsResponse>>(url, {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
+
+                const result = response.data.result;
+
+                return {
+                    patterns: result.patterns.map(patternMapper.map),
+                    pagination: paginationMapper.map(result.pagination),
+                };
             }
             catch (error) {
                 return ApiErrorMapper.map(error);
