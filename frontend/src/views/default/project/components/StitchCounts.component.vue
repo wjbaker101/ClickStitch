@@ -10,7 +10,7 @@
 import { computed, watch } from 'vue';
 
 import { sum } from '@/helper/array.helper';
-import { useSharedStitch } from '@/views/project/use/SharedStitch';
+import { useSharedStitch } from '@/views/default/project/use/SharedStitch';
 
 import { IThread } from '@/models/Pattern.model';
 import { IGetProject } from '@/models/GetProject.model';

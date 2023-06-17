@@ -1,14 +1,14 @@
 import { RouteRecordRaw } from 'vue-router';
 
-import AboutView from '@/views/about/About.view.vue';
-import DashboardView from '@/views/dashboard/Dashboard.view.vue';
-import BasketView from '@/views/basket/Basket.view.vue';
-import LoginView from '@/views/login/Login.view.vue';
-import MarketplaceView from '@/views/marketplace/Marketplace.view.vue';
-import ProjectView from '@/views/project/Project.view.vue';
-import ProjectAnalyticsView from '@/views/project-analytics/ProjectAnalytics.view.vue';
-import SettingsView from '@/views/settings/Settings.view.vue';
-import SignupView from '@/views/signup/Signup.view.vue';
+import AboutView from '@/views/default/about/About.view.vue';
+import DashboardView from '@/views/default/dashboard/Dashboard.view.vue';
+import BasketView from '@/views/default/basket/Basket.view.vue';
+import LoginView from '@/views/_shared/login/Login.view.vue';
+import MarketplaceView from '@/views/default/marketplace/Marketplace.view.vue';
+import ProjectView from '@/views/default/project/Project.view.vue';
+import ProjectAnalyticsView from '@/views/default/project-analytics/ProjectAnalytics.view.vue';
+import SettingsView from '@/views/_shared/settings/Settings.view.vue';
+import SignupView from '@/views/_shared/signup/Signup.view.vue';
 
 import { requireAuth } from '../router-helper';
 import { useAuth } from '@/use/auth/Auth.use';

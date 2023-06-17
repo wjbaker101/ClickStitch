@@ -28,7 +28,7 @@ import { onMounted, ref } from 'vue';
 
 import UserMessageComponent from '@/components/UserMessage.component.vue';
 import ZeroStateComponent from '@/components/ZeroState.component.vue';
-import ProjectComponent from '@/views/dashboard/components/Project.component.vue';
+import ProjectComponent from '@/views/default/dashboard/components/Project.component.vue';
 
 import { api } from '@/api/api';
 

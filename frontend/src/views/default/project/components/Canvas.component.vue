@@ -100,11 +100,11 @@ import dayjs from 'dayjs';
 import { api } from '@/api/api';
 import { isDark } from '@/helper/helper';
 import { Position } from '@/class/Position.class';
-import { useMouse } from '@/views/project/use/Mouse.use';
-import { useSharedStitch } from '@/views/project/use/SharedStitch';
-import { useStitch } from '@/views/project/use/Stitch.use';
+import { useMouse } from '@/views/default/project/use/Mouse.use';
+import { useSharedStitch } from '@/views/default/project/use/SharedStitch';
+import { useStitch } from '@/views/default/project/use/Stitch.use';
 import { useInput } from '@/use/input/input.use';
-import { useTransformation } from '@/views/project/use/Transformation.use';
+import { useTransformation } from '@/views/default/project/use/Transformation.use';
 
 import { IGetProject } from '@/models/GetProject.model';
 import { IStitch, IThread } from '@/models/Pattern.model';

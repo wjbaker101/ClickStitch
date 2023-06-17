@@ -22,12 +22,12 @@ import { onMounted, onUnmounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 import UserMessageComponent from '@/components/UserMessage.component.vue';
-import CanvasComponent from '@/views/project/components/Canvas.component.vue';
-import StitchCountsComponent from '@/views/project/components/StitchCounts.component.vue';
+import CanvasComponent from '@/views/default/project/components/Canvas.component.vue';
+import StitchCountsComponent from '@/views/default/project/components/StitchCounts.component.vue';
 
 import { api } from '@/api/api';
 import { setTitle } from '@/helper/helper';
-import { useSharedStitch } from '@/views/project/use/SharedStitch';
+import { useSharedStitch } from '@/views/default/project/use/SharedStitch';
 
 import { IGetProject } from '@/models/GetProject.model';
 

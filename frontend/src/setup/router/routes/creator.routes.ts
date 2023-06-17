@@ -1,7 +1,7 @@
 import { RouteRecordRaw } from 'vue-router';
 
-import LoginView from '@/views/login/Login.view.vue';
-import SettingsView from '@/views/settings/Settings.view.vue';
+import LoginView from '@/views/_shared/login/Login.view.vue';
+import SettingsView from '@/views/_shared/settings/Settings.view.vue';
 
 import { requireAuth } from '../router-helper';
 import { useAuth } from '@/use/auth/Auth.use';

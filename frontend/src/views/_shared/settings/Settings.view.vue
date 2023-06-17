@@ -31,7 +31,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import LoadingComponent from '@wjb/vue/component/LoadingComponent.vue';
-import EditCreatorComponent from '@/views/settings/components/EditCreator.component.vue';
+import EditCreatorComponent from '@/views/_shared/settings/components/EditCreator.component.vue';
 
 import { api } from '@/api/api';
 import { useAuth } from '@/use/auth/Auth.use';
