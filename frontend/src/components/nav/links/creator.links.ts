@@ -10,6 +10,12 @@ export const creatorLinks = computed<Array<ILink>>(() => [
         isVisible: true,
     },
     {
+        path: '/patterns',
+        iconName: 'pencil',
+        title: 'Patterns',
+        isVisible: true,
+    },
+    {
         path: '/settings',
         iconName: 'settings',
         title: 'Settings',
