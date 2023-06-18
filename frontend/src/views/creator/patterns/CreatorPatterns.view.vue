@@ -5,9 +5,14 @@
         </template>
         <div class="content-width">
             <section>
-                <CardComponent border="top" padded>
-                    <h2>Your Patterns</h2>
-                    <p>Manage your patterns here.</p>
+                <CardComponent border="top" padded class="flex align-items-center gap">
+                    <div>
+                        <h2>Your Patterns</h2>
+                        <p>Manage your patterns here.</p>
+                    </div>
+                    <div class="flex-auto">
+                        Total: <strong class="total-count">{{ getPatterns?.pagination.totalCount }}</strong>
+                    </div>
                 </CardComponent>
             </section>
             <section>
@@ -63,11 +68,11 @@ const getPatternsLogic = async function (pageNumber: number, pageSize: number): 
     }
 
     if (self.value == null)
-            return new Error('Unable to retrieve creator.');
+        return new Error('Unable to retrieve creator.');
 
     const getPatternsResult = await api.creators.getPatterns(self.value.reference, pageSize, pageNumber);
     if (getPatternsResult instanceof Error)
-            return new Error('Unable to retrieve patterns.');
+        return new Error('Unable to retrieve patterns.');
 
     getPatterns.value = getPatternsResult;
 
@@ -76,5 +81,19 @@ const getPatternsLogic = async function (pageNumber: number, pageSize: number): 
 </script>
 
 <style lang="scss">
-.creator-patterns-view {}
+.creator-patterns-view {
+
+    .total-count {
+        $size: 2rem;
+
+        width: $size;
+        line-height: $size;
+        display: inline-block;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background-color: var(--wjb-secondary);
+        color: var(--wjb-light);
+        text-align: center;
+    }
+}
 </style>
