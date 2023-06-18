@@ -4,6 +4,7 @@ import LoginView from '@/views/_shared/login/Login.view.vue';
 import SettingsView from '@/views/_shared/settings/Settings.view.vue';
 import CreatorDashboardView from '@/views/creator/dashboard/CreatorDashboard.view.vue';
 import CreatorPatternsView from '@/views/creator/patterns/CreatorPatterns.view.vue';
+import NewPatternView from '@/views/creator/new-pattern/NewPattern.view.vue';
 
 import { requireAuth } from '../router-helper';
 import { useAuth } from '@/use/auth/Auth.use';
@@ -42,6 +43,13 @@ export const creatorRoutes: Array<RouteRecordRaw> = [
         component: CreatorPatternsView,
         meta: {
             title: 'Creator Patterns',
+        },
+    },
+    {
+        path: '/patterns/new',
+        component: NewPatternView,
+        meta: {
+            title: 'New Pattern',
         },
     },
     {

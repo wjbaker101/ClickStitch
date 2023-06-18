@@ -9,6 +9,12 @@
                     <div>
                         <h2>Your Patterns</h2>
                         <p>Manage your patterns here.</p>
+                        <RouterLink to="/patterns/new">
+                            <ButtonComponent>
+                                <IconComponent icon="plus" gap="right" />
+                                <span>New Pattern</span>
+                            </ButtonComponent>
+                        </RouterLink>
                     </div>
                     <div class="flex-auto">
                         Total: <strong class="total-count">{{ getPatterns?.pagination.totalCount ?? '-' }}</strong>
