@@ -11,7 +11,7 @@
                         <p>Manage your patterns here.</p>
                     </div>
                     <div class="flex-auto">
-                        Total: <strong class="total-count">{{ getPatterns?.pagination.totalCount }}</strong>
+                        Total: <strong class="total-count">{{ getPatterns?.pagination.totalCount ?? '-' }}</strong>
                     </div>
                 </CardComponent>
             </section>
