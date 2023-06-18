@@ -21,7 +21,7 @@
                     </FormInputComponent>
                 </FormSectionComponent>
                 <FormSectionComponent>
-                    <ButtonComponent @click="onUpdate">
+                    <ButtonComponent @click="onUpdate" :loading="isLoading">
                         <IconComponent icon="tick" gap="right" />
                         <span>Update</span>
                     </ButtonComponent>
@@ -58,11 +58,18 @@ const form = ref<IForm>({
     externalShopUrl: props.pattern.externalShopUrl ?? '',
 });
 
+const isLoading = ref<boolean>(false);
+
 const onUpdate = async function (): Promise<void> {
+    isLoading.value = true;
+
     const result = await api.patterns.update(props.pattern.reference, {
         title: form.value.title,
         externalShopUrl: form.value.externalShopUrl,
     });
+
+    isLoading.value = false;
+
     if (result instanceof Error) {
         popup.trigger({
             message: result.message,
