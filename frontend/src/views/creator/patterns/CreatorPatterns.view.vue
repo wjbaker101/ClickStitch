@@ -18,22 +18,7 @@
             <section>
                 <PaginatedContentComponent loadingItemName="patterns" :logic="getPatternsLogic">
                     <template v-if="getPatterns" #content>
-                        <ListItemComponent :key="pattern.reference" v-for="pattern in getPatterns.patterns">
-                            <div class="flex align-items-center gap">
-                                <PatternImageComponent width="150" height="100" class="flex-auto" :image="pattern.bannerImageUrl" />
-                                <h3>{{ pattern.title }}</h3>
-                            </div>
-                            <template #expanded>
-                                <FormComponent>
-                                    <FormSectionComponent>
-                                        <h4>Edit Pattern Details</h4>
-                                        <FormInputComponent label="Shop URL">
-                                            <input type="text" placeholder="https://etsy.com/shop/beautifulpatternsco/amazing_pattern" :value="pattern.externalShopUrl">
-                                        </FormInputComponent>
-                                    </FormSectionComponent>
-                                </FormComponent>
-                            </template>
-                        </ListItemComponent>
+                        <CreatorPatternComponent :key="pattern.reference" v-for="pattern in getPatterns.patterns" :pattern="pattern" />
                     </template>
                 </PaginatedContentComponent>
             </section>
@@ -44,9 +29,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import ListItemComponent from '@/components/ListItem.component.vue';
-import PatternImageComponent from '@/components/shared/PatternImage.component.vue';
 import PaginatedContentComponent from '@/components/paginated-content/PaginatedContent.component.vue';
+import CreatorPatternComponent from '@/views/creator/patterns/components/CreatorPattern.component.vue';
 
 import { api } from '@/api/api';
 
