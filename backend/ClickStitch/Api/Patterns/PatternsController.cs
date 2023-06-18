@@ -30,6 +30,19 @@ public sealed class PatternsController : ApiController
         return ToApiResponse(result);
     }
 
+    [HttpPut]
+    [Route("{patternReference:guid}")]
+    [Authenticate]
+    [RequireCreator]
+    public async Task<IActionResult> UpdatePattern([FromRoute] Guid patternReference, [FromBody] UpdatePatternRequest request, CancellationToken cancellationToken)
+    {
+        var user = RequestHelper.GetRequiredUser(Request);
+
+        var result = await _patternsService.UpdatePattern(user, patternReference, request, cancellationToken);
+        
+        return ToApiResponse(result);
+    }
+
     [HttpPost]
     [Route("")]
     [Authenticate]

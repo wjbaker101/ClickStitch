@@ -11,6 +11,7 @@ namespace ClickStitch.Api.Patterns;
 public interface IPatternsService
 {
     Task<Result<GetPatternsResponse>> GetPatterns(RequestUser? requestUser, CancellationToken cancellationToken);
+    Task<Result<UpdatePatternResponse>> UpdatePattern(RequestUser requestUser, Guid patternReference, UpdatePatternRequest request, CancellationToken cancellationToken);
     Task<Result> CreatePattern(RequestUser requestUser, CreatePatternRequest request, CreatePatternData patternData, IFormFile thumbnail, IFormFile bannerImage, CancellationToken cancellationToken);
 }
 
@@ -63,6 +64,36 @@ public sealed class PatternsService : IPatternsService
         return new GetPatternsResponse
         {
             Patterns = patterns.ConvertAll(PatternMapper.MapWithCreator)
+        };
+    }
+
+    public async Task<Result<UpdatePatternResponse>> UpdatePattern(
+        RequestUser requestUser,
+        Guid patternReference,
+        UpdatePatternRequest request,
+        CancellationToken cancellationToken)
+    {
+        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
+
+        var creatorResult = await _creatorRepository.GetByUser(user, cancellationToken);
+        if (!creatorResult.TrySuccess(out var creator))
+            return Result<UpdatePatternResponse>.FromFailure(creatorResult);
+
+        var patternResult = await _patternRepository.GetByReferenceAsync(patternReference, cancellationToken);
+        if (!patternResult.TrySuccess(out var pattern))
+            return Result<UpdatePatternResponse>.FromFailure(patternResult);
+
+        if (pattern.Creator.Id != creator.Id)
+            return Result<UpdatePatternResponse>.Failure("Unable to update pattern as you are not a creator of it.");
+
+        pattern.Title = request.Title;
+        pattern.ExternalShopUrl = request.ExternalShopUrl;
+
+        await _patternRepository.UpdateAsync(pattern, cancellationToken);
+
+        return new UpdatePatternResponse
+        {
+            Pattern = PatternMapper.MapWithoutCreator(pattern)
         };
     }
 
