@@ -7,7 +7,12 @@
         <template #expanded>
             <FormComponent>
                 <FormSectionComponent>
-                    <h4>Edit Pattern Details</h4>
+                    <div class="flex gap">
+                        <h4>Edit Pattern Details</h4>
+                        <div class="flex-auto">
+                            <small>{{ pattern.reference }}</small>
+                        </div>
+                    </div>
                     <FormInputComponent label="Shop URL">
                         <input type="text" placeholder="https://etsy.com/shop/beautifulpatternsco/amazing_pattern" :value="pattern.externalShopUrl">
                     </FormInputComponent>
