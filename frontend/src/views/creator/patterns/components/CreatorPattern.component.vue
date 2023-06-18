@@ -71,6 +71,9 @@ const onUpdate = async function (): Promise<void> {
         return;
     }
 
+    props.pattern.title = result.title;
+    props.pattern.externalShopUrl = result.externalShopUrl;
+
     popup.trigger({
         message: 'Pattern updated!',
         style: 'success',

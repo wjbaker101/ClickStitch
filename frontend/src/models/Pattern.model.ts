@@ -5,7 +5,7 @@ import { ICreator } from './Creator.model';
 export interface IPattern {
     readonly reference: string;
     readonly createdAt: Dayjs;
-    readonly title: string;
+    title: string;
     readonly width: number;
     readonly height: number;
     readonly price: number;
@@ -13,7 +13,7 @@ export interface IPattern {
     readonly threadCount: number;
     readonly stitchCount: number;
     readonly bannerImageUrl: string | null;
-    readonly externalShopUrl: string | null;
+    externalShopUrl: string | null;
     readonly creator: ICreator | null;
 }
 
