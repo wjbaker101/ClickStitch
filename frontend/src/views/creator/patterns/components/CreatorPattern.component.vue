@@ -12,6 +12,12 @@
                         <input type="text" placeholder="https://etsy.com/shop/beautifulpatternsco/amazing_pattern" :value="pattern.externalShopUrl">
                     </FormInputComponent>
                 </FormSectionComponent>
+                <FormSectionComponent>
+                    <ButtonComponent @click="onUpdate">
+                        <IconComponent icon="tick" gap="right" />
+                        <span>Update</span>
+                    </ButtonComponent>
+                </FormSectionComponent>
             </FormComponent>
         </template>
     </ListItemComponent>
@@ -21,11 +27,22 @@
 import ListItemComponent from '@/components/ListItem.component.vue';
 import PatternImageComponent from '@/components/shared/PatternImage.component.vue';
 
+import { usePopup } from '@wjb/vue/use/popup.use';
+
 import { IPattern } from '@/models/Pattern.model';
 
 defineProps<{
     pattern: IPattern;
 }>();
+
+const popup = usePopup();
+
+const onUpdate = async function (): Promise<void> {
+    popup.trigger({
+        message: 'Pattern updated!',
+        style: 'success',
+    });
+};
 </script>
 
 <style lang="scss">
