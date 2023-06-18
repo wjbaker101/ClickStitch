@@ -5,6 +5,7 @@ import SettingsView from '@/views/_shared/settings/Settings.view.vue';
 import CreatorDashboardView from '@/views/creator/dashboard/CreatorDashboard.view.vue';
 import CreatorPatternsView from '@/views/creator/patterns/CreatorPatterns.view.vue';
 import NewPatternView from '@/views/creator/new-pattern/NewPattern.view.vue';
+import NotFoundView from '@/views/_shared/not-found/NotFound.view.vue';
 
 import { requireAuth } from '../router-helper';
 import { useAuth } from '@/use/auth/Auth.use';
@@ -58,6 +59,13 @@ export const creatorRoutes: Array<RouteRecordRaw> = [
         beforeEnter: [ requireAuth ],
         meta: {
             title: 'Settings',
+        },
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        component: NotFoundView,
+        meta: {
+            title: 'Page Not Found',
         },
     },
 ];

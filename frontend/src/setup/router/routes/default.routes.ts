@@ -9,6 +9,7 @@ import ProjectView from '@/views/default/project/Project.view.vue';
 import ProjectAnalyticsView from '@/views/default/project-analytics/ProjectAnalytics.view.vue';
 import SettingsView from '@/views/_shared/settings/Settings.view.vue';
 import SignupView from '@/views/_shared/signup/Signup.view.vue';
+import NotFoundView from '@/views/_shared/not-found/NotFound.view.vue';
 
 import { requireAuth } from '../router-helper';
 import { useAuth } from '@/use/auth/Auth.use';
@@ -101,6 +102,13 @@ export const defaultRoutes: Array<RouteRecordRaw> = [
         component: AboutView,
         meta: {
             title: 'About',
+        },
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        component: NotFoundView,
+        meta: {
+            title: 'Page Not Found',
         },
     },
 ];
