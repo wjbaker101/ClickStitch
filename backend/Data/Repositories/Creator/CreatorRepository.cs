@@ -103,6 +103,7 @@ public sealed class CreatorRepository : Repository<CreatorRecord>, ICreatorRepos
         var totalCount = query.ToFutureValue(x => x.Count());
 
         var patterns = (await query
+            .OrderByDescending(x => x.CreatedAt)
             .Skip((parameters.PageNumber - 1) * parameters.PageSize)
             .Take(parameters.PageSize)
             .ToFuture()
