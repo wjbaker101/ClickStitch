@@ -17,9 +17,7 @@
             </section>
             <section>
                 <PaginatedContentComponent loadingItemName="patterns" :logic="getPatternsLogic">
-                    <template v-if="getPatterns" #content>
-                        <CreatorPatternComponent :key="pattern.reference" v-for="pattern in getPatterns.patterns" :pattern="pattern" />
-                    </template>
+                    <CreatorPatternComponent :key="pattern.reference" v-for="pattern in getPatterns?.patterns" :pattern="pattern" />
                 </PaginatedContentComponent>
             </section>
         </div>

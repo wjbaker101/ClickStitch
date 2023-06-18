@@ -6,7 +6,7 @@
         </div>
         <template v-else-if="logicResult !== null">
             <PaginationComponent :pagination="logicResult" @update="onUpdate" />
-            <slot name="content"></slot>
+            <slot></slot>
             <PaginationComponent :pagination="logicResult" @update="onUpdate" />
         </template>
     </div>
