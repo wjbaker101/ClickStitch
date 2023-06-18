@@ -46,6 +46,7 @@ import { IUpdateCreatorRequest, IUpdateCreatorResponse } from './types/UpdateCre
 import { ICreateCreatorRequest, ICreateCreatorResponse } from './types/CreateCreator.type';
 import { IGetCreatorPatternsResponse } from './types/GteCreatorPatterns.type';
 import { IGetCreatorPatterns } from '@/models/GetCreatorPatterns.model';
+import { IUpdatePatternRequest, IUpdatePatternResponse } from './types/UpdatePattern.type';
 
 const auth = useAuth();
 
@@ -346,6 +347,26 @@ export const api = {
                 const patterns = response.data.result.patterns;
 
                 return patterns.map(patternMapper.map);
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
+        },
+
+        async update(patternReference: string, request: IUpdatePatternRequest): Promise<IPattern | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
+            try {
+                const response = await client.put<IApiResultResponse<IUpdatePatternResponse>>(`/patterns/${patternReference}`, request, {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
+
+                const result = response.data.result;
+
+                return patternMapper.map(result.pattern);
             }
             catch (error) {
                 return ApiErrorMapper.map(error);
