@@ -6,7 +6,7 @@
         <PatternImageComponent :image="project.pattern.bannerImageUrl" />
         <p>
             <IconComponent icon="user" gap="right" />
-            <span class="created-by">{{ project.pattern.creator.name }}</span>
+            <span class="created-by">{{ project.pattern.creator?.name }}</span>
         </p>
         <div class="flex gap">
             <RouterLink class="flex" :to="`/projects/${project.pattern.reference}/analytics`" @click.stop="">
