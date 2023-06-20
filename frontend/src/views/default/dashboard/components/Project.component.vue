@@ -15,11 +15,13 @@
                     <span>Analytics</span>
                 </ButtonComponent>
             </RouterLink>
-            <div class="flex">
-                <ButtonComponent @click.stop="onDetails">
-                    <IconComponent icon="info" gap="right" />
-                    <span>Details</span>
-                </ButtonComponent>
+            <div v-if="project.pattern.externalShopUrl" class="flex">
+                <a class="flex" :href="project.pattern.externalShopUrl" @click.stop="">
+                    <ButtonComponent>
+                        <IconComponent icon="cart" gap="right" />
+                        <span>Shop Link</span>
+                    </ButtonComponent>
+                </a>
             </div>
         </div>
     </CardComponent>
