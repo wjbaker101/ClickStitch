@@ -13,6 +13,7 @@ public static class Names
         public const string PATTERN = "pattern";
         public const string PATTERN_STITCH = "pattern_stitch";
         public const string PATTERN_THREAD = "pattern_thread";
+        public const string PATTERN_THREAD_STITCH = "pattern_thread_stitch";
         public const string PERMISSION = "permission";
         public const string USER_BASKET_ITEM = "user_basket_item";
         public const string USER_PATTERN = "user_pattern";
