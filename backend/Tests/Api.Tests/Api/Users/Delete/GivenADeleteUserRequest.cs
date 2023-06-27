@@ -41,7 +41,8 @@ public sealed class GivenADeleteUserRequest
             _userRepository.Object,
             new PasswordService(new TestAppSecrets()),
             FakeGuid.Default(),
-            FakeDateTime.Default());
+            FakeDateTime.Default(),
+            null!);
         
         _result = await subject.DeleteUser(new RequestUser
         {

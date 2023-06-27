@@ -38,7 +38,7 @@ public sealed class GivenACreateUserRequestWithAnInvalidPassword
     [OneTimeSetUp]
     public async Task Setup()
     {
-        var subject = new UsersService(null!, new PasswordService(new TestAppSecrets()), null!, null!);
+        var subject = new UsersService(null!, new PasswordService(new TestAppSecrets()), null!, null!, null!);
 
         _result = await subject.CreateUser(new CreateUserRequest
         {

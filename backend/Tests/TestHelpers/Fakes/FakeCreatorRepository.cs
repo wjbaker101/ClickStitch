@@ -1,6 +1,7 @@
 ﻿using Core.Types;
 using Data.Records;
 using Data.Repositories.Creator;
+using Data.Repositories.Creator.Types;
 
 namespace TestHelpers.Fakes;
 
@@ -48,5 +49,14 @@ public sealed class FakeCreatorRepository : FakeRepository<CreatorRecord>, ICrea
     public Task<Result<CreatorRecord>> GetByUser(UserRecord user, CancellationToken cancellationToken)
     {
         return Task.FromResult(_fakeResult);
+    }
+
+    public Task<Result<GetCreatorPatternsDto>> GetCreatorPatterns(Guid creatorReference, GetCreatorPatternsParameters parameters, CancellationToken cancellationToken)
+    {
+        return Task.FromResult<Result<GetCreatorPatternsDto>>(new GetCreatorPatternsDto
+        {
+            Patterns = new List<PatternRecord>(),
+            TotalCount = 1247
+        });
     }
 }

@@ -17,7 +17,7 @@ public sealed class GivenAGetSelfRequest
     {
         var userRepository = new Mock<IUserRepository>();
         userRepository
-            .Setup(mock => mock.GetByReferenceAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
+            .Setup(mock => mock.GetWithPermissionsByReferenceAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new UserRecord
             {
                 Reference = Guid.Parse("7dafaed7-0c16-41ef-a247-8bf8990d128d"),
@@ -29,7 +29,7 @@ public sealed class GivenAGetSelfRequest
                 Permissions = new List<PermissionRecord>()
             });
 
-        var subject = new UsersService(userRepository.Object, null!, null!, null!);
+        var subject = new UsersService(userRepository.Object, null!, null!, null!, null!);
 
         _result = await subject.GetSelf(new RequestUser
         {

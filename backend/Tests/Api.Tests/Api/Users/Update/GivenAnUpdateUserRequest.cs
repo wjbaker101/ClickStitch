@@ -40,7 +40,8 @@ public sealed class GivenAnUpdateUserRequest
             _userRepository.Object,
             new PasswordService(new TestAppSecrets()),
             FakeGuid.Default(),
-            FakeDateTime.Default());
+            FakeDateTime.Default(),
+            null!);
         
         _result = await subject.UpdateUser(new RequestUser
         {
