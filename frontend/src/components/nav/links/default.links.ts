@@ -28,12 +28,6 @@ export const defaultLinks = computed<Array<ILink>>(() => [
         isVisible: true,
     },
     {
-        path: '/tools',
-        iconName: 'scissors',
-        title: 'Tools',
-        isVisible: true,
-    },
-    {
         path: '/settings',
         iconName: 'settings',
         title: 'Settings',
