@@ -1,4 +1,5 @@
 ﻿using ClickStitch.Api.Projects.Types;
+using Core.Extensions;
 using Data.Repositories.Pattern;
 using Data.Repositories.User;
 using Data.Repositories.UserPattern;
@@ -55,7 +56,7 @@ public sealed class ProjectsService : IProjectsService
     {
         var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
 
-        var patternResult = await _patternRepository.GetFullByReferenceAsync(patternReference, cancellationToken);
+        var patternResult = await _patternRepository.GetWithThreadsByReferenceAsync(patternReference, cancellationToken);
         if (!patternResult.TrySuccess(out var pattern))
             return Result<GetProjectResponse>.FromFailure(patternResult);
 
@@ -63,27 +64,17 @@ public sealed class ProjectsService : IProjectsService
         if (!projectResult.TrySuccess(out var project))
             return Result<GetProjectResponse>.FromFailure(projectResult);
 
-        var userPatternStitches = await _userPatternStitchRepository.GetByUserPattern(project, cancellationToken);
-
-        var stitches = pattern.Stitches.Select(x =>
-        {
-            userPatternStitches.TryGetValue(x.Id, out var userStitch);
-
-            return new StitchModel
-            {
-                ThreadIndex = x.ThreadIndex,
-                X = x.X,
-                Y = x.Y,
-                StitchedAt = userStitch?.StitchedAt
-            };
-        });
+        var stitches = await _patternRepository.GetStitchesByThreads(pattern.Threads.ToList(), cancellationToken);
 
         return new GetProjectResponse
         {
             Project = ProjectMapper.Map(project),
             AidaCount = pattern.AidaCount,
-            Stitches = stitches.ToList(),
-            Threads = pattern.Threads.Select(PatternMapper.MapThread).ToList()
+            Threads = pattern.Threads.MapAll(thread => new GetProjectResponse.ThreadDetails
+            {
+                Thread = PatternMapper.MapThread(thread),
+                Stitches = stitches[thread.Index].ConvertAll(stitch => new GetProjectResponse.StitchDetails(stitch.X, stitch.Y))
+            })
         };
     }
 

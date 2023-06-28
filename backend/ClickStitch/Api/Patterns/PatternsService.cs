@@ -1,4 +1,5 @@
 ﻿using ClickStitch.Api.Patterns.Types;
+using Core.Extensions;
 using Data.Records;
 using Data.Repositories.Creator;
 using Data.Repositories.Pattern;
@@ -24,6 +25,7 @@ public sealed class PatternsService : IPatternsService
     private readonly IUserRepository _userRepository;
     private readonly IUserPatternRepository _userPatternRepository;
     private readonly ICreatorRepository _creatorRepository;
+    private readonly IPatternThreadStitchRepository _patternThreadStitchRepository;
 
     public PatternsService(
         IPatternRepository patternRepository,
@@ -32,7 +34,8 @@ public sealed class PatternsService : IPatternsService
         IPatternUploadService patternUploadService,
         IUserRepository userRepository,
         IUserPatternRepository userPatternRepository,
-        ICreatorRepository creatorRepository)
+        ICreatorRepository creatorRepository,
+        IPatternThreadStitchRepository patternThreadStitchRepository)
     {
         _patternRepository = patternRepository;
         _patternStitchRepository = patternStitchRepository;
@@ -41,6 +44,7 @@ public sealed class PatternsService : IPatternsService
         _userRepository = userRepository;
         _userPatternRepository = userPatternRepository;
         _creatorRepository = creatorRepository;
+        _patternThreadStitchRepository = patternThreadStitchRepository;
     }
 
     public async Task<Result<GetPatternsResponse>> GetPatterns(RequestUser? requestUser, CancellationToken cancellationToken)
@@ -141,22 +145,32 @@ public sealed class PatternsService : IPatternsService
             Threads = new HashSet<PatternThreadRecord>()
         }, cancellationToken);
 
-        await _patternStitchRepository.SaveStitches(patternData.canvas.stitches.ConvertAll(x => new PatternStitchRecord
-        {
-            Pattern = pattern,
-            ThreadIndex = x.index,
-            X = x.x,
-            Y = x.y
-        }), cancellationToken);
+        var threads = await _patternThreadRepository.SaveManyAsync(patternData.palette.threads
+            .Where(x => x.index != 0)
+            .MapAll(x => new PatternThreadRecord
+            {
+                Pattern = pattern,
+                Name = x.name,
+                Description = x.description,
+                Index = x.index,
+                Colour = $"#{x.colour.ToLower()}"
+            }), cancellationToken);
 
-        await _patternThreadRepository.SaveManyAsync(patternData.palette.threads.ConvertAll(x => new PatternThreadRecord
+        var stitchesByThread = patternData.canvas.stitches
+            .GroupBy(x => x.index)
+            .ToDictionary(x => x.Key, x => x.ToList());
+
+        foreach (var thread in threads)
         {
-            Pattern = pattern,
-            Name = x.name,
-            Description = x.description,
-            Index = x.index,
-            Colour = $"#{x.colour.ToLower()}"
-        }), cancellationToken);
+            var stitches = stitchesByThread[thread.Index];
+
+            await _patternThreadStitchRepository.SaveManyAsync(stitches.ConvertAll(x => new PatternThreadStitchRecord
+            {
+                Thread = thread,
+                X = x.x,
+                Y = x.y
+            }), cancellationToken);
+        }
 
         return Result.Success();
     }
