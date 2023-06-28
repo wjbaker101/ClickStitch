@@ -117,12 +117,19 @@ const emit = defineEmits(['openInformation']);
 
 const palette = new Map<number, IThread>();
 for (const thread of props.project.threads) {
-    palette.set(thread.index, thread);
+    palette.set(thread.thread.index, thread.thread);
 }
 
+const stitches = props.project.threads.flatMap(x => x.stitches.map(y => ({ stitch: y, thread: x.thread })));
+
 const pattern = new Map<string, IStitch>();
-for (const stitch of props.project.stitches) {
-    pattern.set(`${stitch.x}:${stitch.y}`, stitch);
+for (const stitch of stitches) {
+    pattern.set(`${stitch.stitch[0]}:${stitch.stitch[1]}`, {
+        x: stitch.stitch[0],
+        y: stitch.stitch[1],
+        threadIndex: stitch.thread.index,
+        stitchedAt: null
+    });
 }
 
 const component = ref<HTMLDivElement>({} as HTMLDivElement);
@@ -164,20 +171,20 @@ onMounted(() => {
         }
     }
 
-    for (let index = 0; index < props.project.stitches.length; ++index) {
-        const stitch = props.project.stitches[index];
-        const thread = palette.get(stitch.threadIndex) as IThread;
+    for (let index = 0; index < stitches.length; ++index) {
+        const stitch = stitches[index];
+        const thread = palette.get(stitch.thread.index) as IThread;
 
         graphics.value.fillStyle = thread.colour;
-        graphics.value.fillRect(stitch.x * baseStitchSize, stitch.y * baseStitchSize, baseStitchSize, baseStitchSize);
+        graphics.value.fillRect(stitch.stitch[0] * baseStitchSize, stitch.stitch[1] * baseStitchSize, baseStitchSize, baseStitchSize);
 
         graphics.value.fillStyle = isDark(thread.colour) ? '#ddd' :  '#111';
-        graphics.value.fillText(stitch.threadIndex.toString(), stitch.x * baseStitchSize + (baseStitchSize / 2), (stitch.y + 1) * baseStitchSize - (baseStitchSize / 2) + 10);
+        graphics.value.fillText(stitch.thread.index.toString(), stitch.stitch[0] * baseStitchSize + (baseStitchSize / 2), (stitch.stitch[1] + 1) * baseStitchSize - (baseStitchSize / 2) + 10);
 
         completedStitchesGraphics.value.fillStyle = '#0f0';
 
-        if (stitch.stitchedAt !== null)
-            completedStitchesGraphics.value.fillRect(stitch.x * baseStitchSize, stitch.y * baseStitchSize, baseStitchSize, baseStitchSize);
+        // if (stitch.stitch.stitchedAt !== null)
+        //     completedStitchesGraphics.value.fillRect(stitch.stitch[0] * baseStitchSize, stitch.stitch[1] * baseStitchSize, baseStitchSize, baseStitchSize);
     }
 
     graphics.value.strokeStyle = '#666';

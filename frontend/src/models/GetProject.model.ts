@@ -1,9 +1,13 @@
-import { IStitch, IThread } from '@/models/Pattern.model';
+import { IThread } from '@/models/Pattern.model';
 import { IProject } from '@/models/Project.model';
 
 export interface IGetProject {
     readonly project: IProject;
     readonly aidaCount: number;
-    readonly stitches: Array<IStitch>;
-    readonly threads: Array<IThread>;
+    readonly threads: Array<IThreadDetails>;
+}
+
+interface IThreadDetails {
+    readonly thread: IThread;
+    readonly stitches: Array<[number, number]>;
 }

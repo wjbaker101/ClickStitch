@@ -1,9 +1,13 @@
-import { IApiStitch, IApiThread } from '@/api/types/ApiPattern.type';
+import { IApiThread } from '@/api/types/ApiPattern.type';
 import { IApiProject } from '@/api/types/ApiProject.type';
 
 export interface IGetProjectResponse {
     readonly project: IApiProject;
     readonly aidaCount: number;
-    readonly stitches: Array<IApiStitch>;
-    readonly threads: Array<IApiThread>;
+    readonly threads: Array<IThreadDetails>;
+}
+
+interface IThreadDetails {
+    readonly thread: IApiThread;
+    readonly stitches: Array<[number, number]>;
 }
