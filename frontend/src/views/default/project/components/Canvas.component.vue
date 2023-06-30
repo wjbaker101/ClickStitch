@@ -108,6 +108,7 @@ import { useTransformation } from '@/views/default/project/use/Transformation.us
 
 import { IGetProject } from '@/models/GetProject.model';
 import { IStitch, IThread } from '@/models/Pattern.model';
+import { IPosition } from '@/api/types/CompleteStitches.type';
 
 const props = defineProps<{
     project: IGetProject;
@@ -243,12 +244,14 @@ const onDoubleClick = async function (): Promise<void> {
         stitch.stitchedAt = dayjs();
 
         await api.projects.completeStitches(props.project.project.pattern.reference, {
-            positions: [
-                {
-                    x: mouseStitchPosition.value.x,
-                    y: mouseStitchPosition.value.y,
-                },
-            ],
+            stitchesByThread: {
+                [stitch.threadIndex]: [
+                    {
+                        x: mouseStitchPosition.value.x,
+                        y: mouseStitchPosition.value.y,
+                    },
+                ],
+            },
         });
     }
     else {
@@ -261,12 +264,14 @@ const onDoubleClick = async function (): Promise<void> {
         stitch.stitchedAt = null;
 
         await api.projects.unCompleteStitches(props.project.project.pattern.reference, {
-            positions: [
-                {
-                    x: mouseStitchPosition.value.x,
-                    y: mouseStitchPosition.value.y,
-                },
-            ],
+            stitchesByThread: {
+                [stitch.threadIndex]: [
+                    {
+                        x: mouseStitchPosition.value.x,
+                        y: mouseStitchPosition.value.y,
+                    },
+                ],
+            },
         });
     }
 };
@@ -322,6 +327,18 @@ useInput('keypress', async (event) => {
     if (stitches.length > 100)
         return;
 
+    const positions: Record<number, Array<IPosition>> = {};
+
+    for (const stitch of stitches) {
+        if (positions[stitch.threadIndex] === undefined)
+            positions[stitch.threadIndex] = [];
+
+        positions[stitch.threadIndex].push({
+            x: stitch.x,
+            y: stitch.y,
+        });
+    }
+
     if (event.shiftKey) {
         for (const stitch of stitches) {
             completedStitchesGraphics.value.clearRect(
@@ -334,10 +351,7 @@ useInput('keypress', async (event) => {
         }
 
         await api.projects.unCompleteStitches(props.project.project.pattern.reference, {
-            positions: stitches.map(stitch => ({
-                x: stitch.x,
-                y: stitch.y,
-            })),
+            stitchesByThread: positions,
         });
     }
     else {
@@ -352,10 +366,7 @@ useInput('keypress', async (event) => {
         }
 
         await api.projects.completeStitches(props.project.project.pattern.reference, {
-            positions: stitches.map(stitch => ({
-                x: stitch.x,
-                y: stitch.y,
-            })),
+            stitchesByThread: positions,
         });
     }
 });
