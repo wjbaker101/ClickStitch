@@ -10,6 +10,7 @@ public sealed class GetProjectResponse
     {
         public required ThreadModel Thread { get; init; }
         public required List<StitchDetails> Stitches { get; init; }
+        public required List<CompletedStitchDetails> CompletedStitches { get; init; }
     }
 
     public sealed class StitchDetails : List<int>
@@ -18,6 +19,16 @@ public sealed class GetProjectResponse
         {
             Add(x);
             Add(y);
+        }
+    }
+
+    public sealed class CompletedStitchDetails : List<object>
+    {
+        public CompletedStitchDetails(int x, int y, DateTime completedAt)
+        {
+            Add(x);
+            Add(y);
+            Add(completedAt);
         }
     }
 }

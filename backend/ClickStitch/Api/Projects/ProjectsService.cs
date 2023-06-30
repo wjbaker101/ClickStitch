@@ -4,6 +4,8 @@ using Data.Repositories.Pattern;
 using Data.Repositories.User;
 using Data.Repositories.UserPattern;
 using Data.Repositories.UserPatternStitch;
+using Data.Repositories.UserPatternThreadStitch;
+using Data.Repositories.UserPatternThreadStitch.Types;
 
 namespace ClickStitch.Api.Projects;
 
@@ -25,19 +27,22 @@ public sealed class ProjectsService : IProjectsService
     private readonly IPatternRepository _patternRepository;
     private readonly IUserPatternStitchRepository _userPatternStitchRepository;
     private readonly IPatternStitchRepository _patternStitchRepository;
+    private readonly IUserPatternThreadStitchRepository _userPatternThreadStitchRepository;
 
     public ProjectsService(
         IUserRepository userRepository,
         IUserPatternRepository userPatternRepository,
         IPatternRepository patternRepository,
         IUserPatternStitchRepository userPatternStitchRepository,
-        IPatternStitchRepository patternStitchRepository)
+        IPatternStitchRepository patternStitchRepository,
+        IUserPatternThreadStitchRepository userPatternThreadStitchRepository)
     {
         _userRepository = userRepository;
         _userPatternRepository = userPatternRepository;
         _patternRepository = patternRepository;
         _userPatternStitchRepository = userPatternStitchRepository;
         _patternStitchRepository = patternStitchRepository;
+        _userPatternThreadStitchRepository = userPatternThreadStitchRepository;
     }
 
     public async Task<Result<GetProjectsResponse>> GetProjects(RequestUser requestUser, CancellationToken cancellationToken)
@@ -73,14 +78,15 @@ public sealed class ProjectsService : IProjectsService
             Threads = pattern.Threads.MapAll(thread => new GetProjectResponse.ThreadDetails
             {
                 Thread = PatternMapper.MapThread(thread),
-                Stitches = stitches[thread.Index].ConvertAll(stitch => new GetProjectResponse.StitchDetails(stitch.X, stitch.Y))
+                Stitches = stitches[thread.Index].ConvertAll(stitch => new GetProjectResponse.StitchDetails(stitch.X, stitch.Y)),
+                CompletedStitches = new List<GetProjectResponse.CompletedStitchDetails>()
             })
         };
     }
 
     public async Task<Result<CompleteStitchesResponse>> CompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request, CancellationToken cancellationToken)
     {
-        if (request.Positions.Count > MAX_STITCH_SELECTION)
+        if (request.StitchesByThread.Sum(x => x.Value.Count) > MAX_STITCH_SELECTION)
             return Result<CompleteStitchesResponse>.Failure($"The number of stitches to complete exceeds maximum ({MAX_STITCH_SELECTION}), please try again with a smaller selection.");
 
         var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
@@ -93,27 +99,34 @@ public sealed class ProjectsService : IProjectsService
         if (!projectResult.TrySuccess(out var project))
             return Result<CompleteStitchesResponse>.FromFailure(projectResult);
 
-        await _userPatternStitchRepository.CompleteByPositions(pattern, project, request.Positions.Select(x => (x.X, x.Y)).ToList());
+        await _userPatternThreadStitchRepository.Complete(user, patternReference, new StitchPosition
+        {
+            StitchesByThread = request.StitchesByThread.ToDictionary(x => x.Key, x => x.Value.ConvertAll(pos => new StitchPosition.Position
+            {
+                X = pos.X,
+                Y = pos.Y
+            }))
+        }, cancellationToken);
 
         return new CompleteStitchesResponse();
     }
 
     public async Task<Result<CompleteStitchesResponse>> UnCompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request, CancellationToken cancellationToken)
     {
-        if (request.Positions.Count > MAX_STITCH_SELECTION)
-            return Result<CompleteStitchesResponse>.Failure($"The number of stitches to un-complete exceeds maximum ({MAX_STITCH_SELECTION}), please try again with a smaller selection.");
+        //if (request.Positions.Count > MAX_STITCH_SELECTION)
+        //    return Result<CompleteStitchesResponse>.Failure($"The number of stitches to un-complete exceeds maximum ({MAX_STITCH_SELECTION}), please try again with a smaller selection.");
 
-        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
+        //var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
 
-        var patternResult = await _patternRepository.GetFullByReferenceAsync(patternReference, cancellationToken);
-        if (!patternResult.TrySuccess(out var pattern))
-            return Result<CompleteStitchesResponse>.FromFailure(patternResult);
+        //var patternResult = await _patternRepository.GetFullByReferenceAsync(patternReference, cancellationToken);
+        //if (!patternResult.TrySuccess(out var pattern))
+        //    return Result<CompleteStitchesResponse>.FromFailure(patternResult);
 
-        var projectResult = await _userPatternRepository.GetByUserAndPatternAsync(user, pattern, cancellationToken);
-        if (!projectResult.TrySuccess(out var project))
-            return Result<CompleteStitchesResponse>.FromFailure(projectResult);
+        //var projectResult = await _userPatternRepository.GetByUserAndPatternAsync(user, pattern, cancellationToken);
+        //if (!projectResult.TrySuccess(out var project))
+        //    return Result<CompleteStitchesResponse>.FromFailure(projectResult);
 
-        await _userPatternStitchRepository.DeleteByPositions(project, request.Positions.ConvertAll(x => (x.X, x.Y)));
+        //await _userPatternStitchRepository.DeleteByPositions(project, request.Positions.ConvertAll(x => (x.X, x.Y)));
 
         return new CompleteStitchesResponse();
     }

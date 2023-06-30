@@ -19,6 +19,7 @@ using Data.Repositories.User;
 using Data.Repositories.UserCreator;
 using Data.Repositories.UserPattern;
 using Data.Repositories.UserPatternStitch;
+using Data.Repositories.UserPatternThreadStitch;
 using Data.Repositories.UserPermission;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -44,6 +45,7 @@ services.AddSingleton<IUserPatternStitchRepository, UserPatternStitchRepository>
 services.AddSingleton<IPermissionRepository, PermissionRepository>();
 services.AddSingleton<IUserCreatorRepository, UserCreatorRepository>();
 services.AddSingleton<IUserPermissionRepository, UserPermissionRepository>();
+services.AddSingleton<IUserPatternThreadStitchRepository, UserPatternThreadStitchRepository>();
 
 services.AddSingleton<ICloudinaryClient, CloudinaryClient>();
 

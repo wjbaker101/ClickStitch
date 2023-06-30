@@ -12,7 +12,7 @@ public sealed class GivenAGetProjectsRequest
     [OneTimeSetUp]
     public async Task Setup()
     {
-        var subject = new ProjectsService(FakeUserRepository.Default(), FakeUserPatternRepository.Default(), null!, null!, null!);
+        var subject = new ProjectsService(FakeUserRepository.Default(), FakeUserPatternRepository.Default(), null!, null!, null!, null!);
 
         _result = await subject.GetProjects(new TestRequestUser(), CancellationToken.None);
     }

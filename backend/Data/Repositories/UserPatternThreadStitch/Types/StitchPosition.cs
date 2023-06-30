@@ -1,6 +1,6 @@
-﻿namespace ClickStitch.Api.Projects.Types;
+﻿namespace Data.Repositories.UserPatternThreadStitch.Types;
 
-public sealed class CompleteStitchesRequest
+public sealed class StitchPosition
 {
     public required Dictionary<int, List<Position>> StitchesByThread { get; init; }
 
@@ -9,8 +9,4 @@ public sealed class CompleteStitchesRequest
         public required int X { get; init; }
         public required int Y { get; init; }
     }
-}
-
-public sealed class CompleteStitchesResponse
-{
 }
