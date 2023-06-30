@@ -28,19 +28,22 @@ public sealed class UserPatternThreadStitchRepository : Repository<UserPatternTh
 
         foreach (var thread in threads)
         {
-            var stitchPositions = positions.StitchesByThread[thread.Index];
+            var stitchPositions = positions.StitchesByThread[thread.Index].ConvertAll(x => x.X.ToString() + x.Y);
 
-            var stitch = await session
+            var stitches = await session
                 .Query<PatternThreadStitchRecord>()
-                .Where(stitch => stitch.Thread == thread && stitchPositions.Any(pos => pos.X == stitch.X && pos.Y == stitch.Y))
-                .SingleOrDefaultAsync(cancellationToken);
+                .Where(stitch => stitch.Thread == thread && stitchPositions.Contains(stitch.X.ToString() + stitch.Y.ToString()))
+                .ToListAsync(cancellationToken);
 
-            await session.SaveAsync(new UserPatternThreadStitchRecord
+            foreach (var stitch in stitches)
             {
-                User = user,
-                Stitch = stitch,
-                StitchedAt = DateTime.UtcNow
-            }, cancellationToken);
+                await session.SaveAsync(new UserPatternThreadStitchRecord
+                {
+                    User = user,
+                    Stitch = stitch,
+                    StitchedAt = DateTime.UtcNow
+                }, cancellationToken);
+            }
         }
 
         await transaction.CommitAsync(cancellationToken);
