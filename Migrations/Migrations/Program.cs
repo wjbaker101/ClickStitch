@@ -1,5 +1,6 @@
 ﻿using FluentMigrator.Runner;
 using Microsoft.Extensions.DependencyInjection;
+using Migrations;
 using Migrations.Migrations;
 
 Run();
@@ -19,7 +20,14 @@ static ServiceProvider CreateServices()
         .AddFluentMigratorCore()
         .ConfigureRunner(runner => runner
             .AddPostgres()
-            .WithGlobalConnectionString("Server=localhost;Port=5432;Database=clickstitch;User Id=postgres;Password=password;")
+            .WithGlobalConnectionString(ConnectionStringBuilder.Build(new ConnectionStringBuilder.ConnectionStringParameters
+            {
+                Host = "localhost",
+                Port = 5432,
+                Database = "clickstitch",
+                Username = "postgres",
+                Password = "password"
+            }))
             .ConfigureGlobalProcessorOptions(options =>
             {
                 options.ProviderSwitches = "Force Quote=false";
