@@ -17,6 +17,7 @@ public static class PatternMapper
         StitchCount = pattern.StitchCount,
         BannerImageUrl = pattern.BannerImageUrl,
         ExternalShopUrl = pattern.ExternalShopUrl,
+        TitleSlug = pattern.TitleSlug,
         Creator = new CreatorModel
         {
             Reference = pattern.Creator.Reference,
@@ -25,6 +26,7 @@ public static class PatternMapper
             StoreUrl = pattern.Creator.StoreUrl
         }
     };
+
     public static PatternModel MapWithoutCreator(PatternRecord pattern) => new()
     {
         Reference = pattern.Reference,
@@ -38,6 +40,7 @@ public static class PatternMapper
         StitchCount = pattern.StitchCount,
         BannerImageUrl = pattern.BannerImageUrl,
         ExternalShopUrl = pattern.ExternalShopUrl,
+        TitleSlug = pattern.TitleSlug,
         Creator = null
     };
 
