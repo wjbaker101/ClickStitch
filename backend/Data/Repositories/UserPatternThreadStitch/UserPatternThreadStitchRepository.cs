@@ -5,6 +5,7 @@ namespace Data.Repositories.UserPatternThreadStitch;
 public interface IUserPatternThreadStitchRepository : IRepository<UserPatternThreadStitchRecord>
 {
     Task Complete(UserRecord user, Guid patternReference, StitchPosition positions, CancellationToken cancellationToken);
+    Task UnComplete(UserRecord user, Guid patternReference, StitchPosition positions, CancellationToken cancellationToken);
 }
 
 public sealed class UserPatternThreadStitchRepository : Repository<UserPatternThreadStitchRecord>, IUserPatternThreadStitchRepository
@@ -44,6 +45,33 @@ public sealed class UserPatternThreadStitchRepository : Repository<UserPatternTh
                     StitchedAt = DateTime.UtcNow
                 }, cancellationToken);
             }
+        }
+
+        await transaction.CommitAsync(cancellationToken);
+    }
+
+    public async Task UnComplete(UserRecord user, Guid patternReference, StitchPosition positions, CancellationToken cancellationToken)
+    {
+        using var session = Database.SessionFactory.OpenSession();
+        using var transaction = session.BeginTransaction();
+
+        var threadIndexes = positions.StitchesByThread.Select(x => x.Key).ToHashSet();
+
+        var threads = await session
+            .Query<PatternThreadRecord>()
+            .Fetch(x => x.Pattern)
+            .Where(x => x.Pattern.Reference == patternReference && threadIndexes.Contains(x.Index))
+            .ToListAsync(cancellationToken);
+
+        foreach (var thread in threads)
+        {
+            var stitchPositions = positions.StitchesByThread[thread.Index].ConvertAll(x => x.X.ToString() + x.Y);
+
+            await session
+                .Query<UserPatternThreadStitchRecord>()
+                .Fetch(x => x.Stitch)
+                .Where(stitch => stitch.Stitch.Thread == thread && stitchPositions.Contains(stitch.Stitch.X.ToString() + stitch.Stitch.Y.ToString()))
+                .DeleteAsync(cancellationToken);
         }
 
         await transaction.CommitAsync(cancellationToken);

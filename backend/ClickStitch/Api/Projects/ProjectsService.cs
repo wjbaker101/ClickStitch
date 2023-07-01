@@ -113,10 +113,10 @@ public sealed class ProjectsService : IProjectsService
 
     public async Task<Result<CompleteStitchesResponse>> UnCompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request, CancellationToken cancellationToken)
     {
-        //if (request.Positions.Count > MAX_STITCH_SELECTION)
-        //    return Result<CompleteStitchesResponse>.Failure($"The number of stitches to un-complete exceeds maximum ({MAX_STITCH_SELECTION}), please try again with a smaller selection.");
+        if (request.StitchesByThread.Sum(x => x.Value.Count) > MAX_STITCH_SELECTION)
+            return Result<CompleteStitchesResponse>.Failure($"The number of stitches to un-complete exceeds maximum ({MAX_STITCH_SELECTION}), please try again with a smaller selection.");
 
-        //var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
+        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
 
         //var patternResult = await _patternRepository.GetFullByReferenceAsync(patternReference, cancellationToken);
         //if (!patternResult.TrySuccess(out var pattern))
@@ -127,6 +127,15 @@ public sealed class ProjectsService : IProjectsService
         //    return Result<CompleteStitchesResponse>.FromFailure(projectResult);
 
         //await _userPatternStitchRepository.DeleteByPositions(project, request.Positions.ConvertAll(x => (x.X, x.Y)));
+
+        await _userPatternThreadStitchRepository.UnComplete(user, patternReference, new StitchPosition
+        {
+            StitchesByThread = request.StitchesByThread.ToDictionary(x => x.Key, x => x.Value.ConvertAll(pos => new StitchPosition.Position
+            {
+                X = pos.X,
+                Y = pos.Y
+            }))
+        }, cancellationToken);
 
         return new CompleteStitchesResponse();
     }
