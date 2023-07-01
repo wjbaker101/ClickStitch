@@ -1,4 +1,5 @@
 ﻿using Core.Services;
+using Core.Types;
 
 namespace Core.Tests.Services.SlugServiceTests;
 
@@ -7,13 +8,16 @@ namespace Core.Tests.Services.SlugServiceTests;
 [TestFixture("test_pattern_title", "testpatterntitle")]
 [TestFixture("test----pattern----title", "test-pattern-title")]
 [TestFixture("!!test--123!----title!", "test-123-title")]
+[TestFixture("Test", "test")]
+[TestFixture("123", "123")]
+[TestFixture("a!!!", "a")]
 [Parallelizable]
 public sealed class GivenAGenerateRequest
 {
     private readonly string _incomingText;
     private readonly string _expectedSlug;
 
-    private string _result = null!;
+    private Result<string> _result = null!;
 
     public GivenAGenerateRequest(string incomingText, string expectedSlug)
     {
@@ -28,8 +32,14 @@ public sealed class GivenAGenerateRequest
     }
 
     [Test]
+    public void ThenTheResultIsASuccess()
+    {
+        Assert.That(_result.IsSuccess, Is.True);
+    }
+
+    [Test]
     public void ThenTheCorrectResultIsReturned()
     {
-        Assert.That(_result, Is.EqualTo(_expectedSlug));
+        Assert.That(_result.Content, Is.EqualTo(_expectedSlug));
     }
 }

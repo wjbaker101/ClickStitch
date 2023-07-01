@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using Core.Types;
+using System.Text.RegularExpressions;
 
 namespace Core.Services;
 
@@ -13,7 +14,7 @@ public static partial class SlugService
     [GeneratedRegex("-+")]
     private static partial Regex TrimDashesRegex();
 
-    public static string Generate(string text)
+    public static Result<string> Generate(string text)
     {
         var mutated = text;
 
@@ -21,6 +22,9 @@ public static partial class SlugService
         mutated = TrimSpacesRegex().Replace(mutated, " ");
         mutated = TrimDashesRegex().Replace(mutated, " ");
         mutated = mutated.Replace(" ", "-");
+
+        if (mutated.Length == 0)
+            return Result<string>.Failure("Generated slug cannot be empty.");
 
         return mutated;
     }
