@@ -174,7 +174,8 @@ public sealed class PatternsService : IPatternsService
             {
                 Thread = thread,
                 X = x.x,
-                Y = x.y
+                Y = x.y,
+                LookupHash = $"{x.x},{x.y}"
             }), cancellationToken);
         }
 

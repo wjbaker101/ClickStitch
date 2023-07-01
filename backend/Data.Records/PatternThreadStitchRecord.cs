@@ -6,6 +6,7 @@ public class PatternThreadStitchRecord : IDatabaseRecord
     public virtual required PatternThreadRecord Thread { get; init; }
     public virtual required int X { get; init; }
     public virtual required int Y { get; init; }
+    public virtual required string LookupHash { get; init; }
 }
 
 public sealed class PatternThreadStitchRecordMap : ClassMap<PatternThreadStitchRecord>
@@ -18,5 +19,6 @@ public sealed class PatternThreadStitchRecordMap : ClassMap<PatternThreadStitchR
         References(x => x.Thread, "pattern_thread_id");
         Map(x => x.X, "x");
         Map(x => x.Y, "y");
+        Map(x => x.LookupHash, "lookup_hash");
     }
 }
