@@ -416,6 +416,7 @@ export const api = {
                     threads: result.threads.map(thread => ({
                         thread: patternMapper.mapThread(thread.thread),
                         stitches: thread.stitches,
+                        completedStitches: thread.completedStitches.map(x => [x[0], x[1], dayjs(x[2])]),
                     })),
                 };
             }

@@ -10,4 +10,5 @@ export interface IGetProjectResponse {
 interface IThreadDetails {
     readonly thread: IApiThread;
     readonly stitches: Array<[number, number]>;
+    readonly completedStitches: Array<[number, number, string]>;
 }

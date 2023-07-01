@@ -126,7 +126,12 @@ const stitches = props.project.threads.flatMap(x => x.stitches.map<IStitch>(y =>
     y: y[1],
     threadIndex: x.thread.index,
     stitchedAt: null,
-})));
+}))).concat(props.project.threads.flatMap(x => x.completedStitches.map<IStitch>(y => ({
+    x: y[0],
+    y: y[1],
+    threadIndex: x.thread.index,
+    stitchedAt: y[2],
+}))));
 
 const pattern = new Map<string, IStitch>();
 for (const stitch of stitches) {
