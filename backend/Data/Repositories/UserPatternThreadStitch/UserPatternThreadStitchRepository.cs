@@ -92,12 +92,12 @@ public sealed class UserPatternThreadStitchRepository : Repository<UserPatternTh
         var stitches = new List<UserPatternThreadStitchRecord>();
         foreach (var thread in threads)
         {
-            var stitchPositions = positions.StitchesByThread[thread.Index].ConvertAll(x => x.X.ToString() + x.Y);
+            var stitchPositions = positions.StitchesByThread[thread.Index].ConvertAll(x => $"{x.X},{x.Y}");
 
             stitches.AddRange(await session
                 .Query<UserPatternThreadStitchRecord>()
                 .Fetch(x => x.Stitch)
-                .Where(stitch => stitch.Stitch.Thread == thread && stitchPositions.Contains(stitch.Stitch.X.ToString() + stitch.Stitch.Y.ToString()))
+                .Where(stitch => stitch.Stitch.Thread == thread && stitchPositions.Contains(stitch.Stitch.LookupHash))
                 .ToListAsync(cancellationToken));
         }
 
