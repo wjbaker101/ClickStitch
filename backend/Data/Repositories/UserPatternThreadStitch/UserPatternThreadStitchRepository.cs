@@ -4,6 +4,7 @@ namespace Data.Repositories.UserPatternThreadStitch;
 
 public interface IUserPatternThreadStitchRepository : IRepository<UserPatternThreadStitchRecord>
 {
+    Task<Dictionary<int, Dictionary<long, UserPatternThreadStitchRecord>>> GetByUser(UserRecord user, Guid patternReference, CancellationToken cancellationToken);
     Task Complete(UserRecord user, Guid patternReference, StitchPosition positions, CancellationToken cancellationToken);
     Task UnComplete(UserRecord user, Guid patternReference, StitchPosition positions, CancellationToken cancellationToken);
 }
@@ -12,6 +13,31 @@ public sealed class UserPatternThreadStitchRepository : Repository<UserPatternTh
 {
     public UserPatternThreadStitchRepository(IDatabase database) : base(database)
     {
+    }
+
+    public async Task<Dictionary<int, Dictionary<long, UserPatternThreadStitchRecord>>> GetByUser(UserRecord user, Guid patternReference, CancellationToken cancellationToken)
+    {
+        using var session = Database.SessionFactory.OpenSession();
+        using var transaction = session.BeginTransaction();
+
+        var threads = await session
+            .Query<PatternThreadRecord>()
+            .Fetch(x => x.Pattern)
+            .Where(x => x.Pattern.Reference == patternReference)
+            .ToListAsync(cancellationToken);
+
+        var userStitches = (await session
+            .Query<UserPatternThreadStitchRecord>()
+            .Fetch(x => x.Stitch)
+            .ThenFetch(x => x.Thread)
+            .Where(x => x.User == user && threads.Contains(x.Stitch.Thread))
+            .ToListAsync(cancellationToken))
+            .GroupBy(x => x.Stitch.Thread.Index)
+            .ToDictionary(x => x.Key, x => x.ToDictionary(y => y.Stitch.Id));
+
+        await transaction.CommitAsync(cancellationToken);
+
+        return userStitches;
     }
 
     public async Task Complete(UserRecord user, Guid patternReference, StitchPosition positions, CancellationToken cancellationToken)

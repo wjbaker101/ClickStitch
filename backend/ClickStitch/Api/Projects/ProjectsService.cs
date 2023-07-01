@@ -1,5 +1,6 @@
 ﻿using ClickStitch.Api.Projects.Types;
 using Core.Extensions;
+using Data.Records;
 using Data.Repositories.Pattern;
 using Data.Repositories.User;
 using Data.Repositories.UserPattern;
@@ -68,6 +69,8 @@ public sealed class ProjectsService : IProjectsService
 
         var stitches = await _patternRepository.GetStitchesByThreads(pattern.Threads.ToList(), cancellationToken);
 
+        var userStitches = await _userPatternThreadStitchRepository.GetByUser(user, patternReference, cancellationToken);
+
         return new GetProjectResponse
         {
             Project = ProjectMapper.Map(project),
@@ -75,10 +78,25 @@ public sealed class ProjectsService : IProjectsService
             Threads = pattern.Threads.MapAll(thread => new GetProjectResponse.ThreadDetails
             {
                 Thread = PatternMapper.MapThread(thread),
-                Stitches = stitches[thread.Index].ConvertAll(stitch => new GetProjectResponse.StitchDetails(stitch.X, stitch.Y)),
-                CompletedStitches = new List<GetProjectResponse.CompletedStitchDetails>()
+                Stitches = MapStitches(stitches[thread.Index], userStitches, thread.Index),
+                CompletedStitches = MapCompletedStitches(userStitches, thread.Index)
             })
         };
+    }
+
+    private static List<GetProjectResponse.StitchDetails> MapStitches(List<PatternThreadStitchRecord> stitches, Dictionary<int, Dictionary<long, UserPatternThreadStitchRecord>> userStitches, int threadIndex)
+    {
+        return stitches
+            .Where(x => !(userStitches.TryGetValue(threadIndex, out var userStitch) && userStitch.ContainsKey(x.Id)))
+            .MapAll(stitch => new GetProjectResponse.StitchDetails(stitch.X, stitch.Y));
+    }
+
+    private static List<GetProjectResponse.CompletedStitchDetails> MapCompletedStitches(Dictionary<int, Dictionary<long, UserPatternThreadStitchRecord>> userStitches, int threadIndex)
+    {
+        if (!userStitches.TryGetValue(threadIndex, out var threadStitches))
+            return new List<GetProjectResponse.CompletedStitchDetails>();
+
+        return threadStitches.Values.MapAll(x => new GetProjectResponse.CompletedStitchDetails(x.Stitch.X, x.Stitch.Y, x.StitchedAt));
     }
 
     public async Task<Result<CompleteStitchesResponse>> CompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request, CancellationToken cancellationToken)
