@@ -42,7 +42,7 @@ public sealed class GivenAGetCreatorRequest
                 BannerImageUrl = "TestBannerImageUrl",
                 ExternalShopUrl = "TestExternalShopUrl",
                 Creator = x,
-                TitleSlug = null,
+                TitleSlug = "test-title-slug",
                 Stitches = new HashSet<PatternStitchRecord>(),
                 Threads = new HashSet<PatternThreadRecord>()
             });
