@@ -26,7 +26,6 @@ public sealed class ProjectsService : IProjectsService
     private readonly IUserPatternRepository _userPatternRepository;
     private readonly IPatternRepository _patternRepository;
     private readonly IUserPatternStitchRepository _userPatternStitchRepository;
-    private readonly IPatternStitchRepository _patternStitchRepository;
     private readonly IUserPatternThreadStitchRepository _userPatternThreadStitchRepository;
 
     public ProjectsService(
@@ -34,14 +33,12 @@ public sealed class ProjectsService : IProjectsService
         IUserPatternRepository userPatternRepository,
         IPatternRepository patternRepository,
         IUserPatternStitchRepository userPatternStitchRepository,
-        IPatternStitchRepository patternStitchRepository,
         IUserPatternThreadStitchRepository userPatternThreadStitchRepository)
     {
         _userRepository = userRepository;
         _userPatternRepository = userPatternRepository;
         _patternRepository = patternRepository;
         _userPatternStitchRepository = userPatternStitchRepository;
-        _patternStitchRepository = patternStitchRepository;
         _userPatternThreadStitchRepository = userPatternThreadStitchRepository;
     }
 
