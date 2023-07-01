@@ -1,5 +1,6 @@
 ﻿using ClickStitch.Api.Patterns.Types;
 using Core.Extensions;
+using Core.Services;
 using Data.Records;
 using Data.Repositories.Creator;
 using Data.Repositories.Pattern;
@@ -126,6 +127,10 @@ public sealed class PatternsService : IPatternsService
         if (creatorResult.IsFailure)
             return Result.FromFailure(creatorResult);
 
+        var slugResult = SlugService.Generate(request.Title);
+        if (slugResult.IsFailure)
+            return Result.FromFailure(slugResult);
+
         var pattern = await _patternRepository.SaveAsync(new PatternRecord
         {
             Reference = Guid.NewGuid(),
@@ -141,7 +146,7 @@ public sealed class PatternsService : IPatternsService
             BannerImageUrl = bannerUrlResult.Content,
             ExternalShopUrl = null,
             Creator = creatorResult.Content,
-            TitleSlug = null,
+            TitleSlug = slugResult.Content,
             Stitches = new HashSet<PatternStitchRecord>(),
             Threads = new HashSet<PatternThreadRecord>()
         }, cancellationToken);
