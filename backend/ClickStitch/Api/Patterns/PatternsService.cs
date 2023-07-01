@@ -113,11 +113,15 @@ public sealed class PatternsService : IPatternsService
         if (requestUser.Permissions.All(x => x != RequestPermissionType.Creator))
             return Result.Failure("You cannot create patterns if you are not a creator.");
 
-        var thumbnailUrlResult = await _patternUploadService.UploadImage(request.ImageFileName, PatternImageType.Thumbnail, thumbnail.OpenReadStream(), cancellationToken);
+        var titleSlugResult = SlugService.Generate(request.Title);
+        if (!titleSlugResult.TrySuccess(out var titleSlug))
+            return Result.FromFailure(titleSlugResult);
+
+        var thumbnailUrlResult = await _patternUploadService.UploadImage(titleSlug, PatternImageType.Thumbnail, thumbnail.OpenReadStream(), cancellationToken);
         if (thumbnailUrlResult.IsFailure)
             return Result.FromFailure(thumbnailUrlResult);
 
-        var bannerUrlResult = await _patternUploadService.UploadImage(request.ImageFileName, PatternImageType.Banner, bannerImage.OpenReadStream(), cancellationToken);
+        var bannerUrlResult = await _patternUploadService.UploadImage(titleSlug, PatternImageType.Banner, bannerImage.OpenReadStream(), cancellationToken);
         if (bannerUrlResult.IsFailure)
             return Result.FromFailure(bannerUrlResult);
 
@@ -126,10 +130,6 @@ public sealed class PatternsService : IPatternsService
         var creatorResult = await _creatorRepository.GetByUser(user, cancellationToken);
         if (creatorResult.IsFailure)
             return Result.FromFailure(creatorResult);
-
-        var slugResult = SlugService.Generate(request.Title);
-        if (slugResult.IsFailure)
-            return Result.FromFailure(slugResult);
 
         var pattern = await _patternRepository.SaveAsync(new PatternRecord
         {
@@ -146,7 +146,7 @@ public sealed class PatternsService : IPatternsService
             BannerImageUrl = bannerUrlResult.Content,
             ExternalShopUrl = null,
             Creator = creatorResult.Content,
-            TitleSlug = slugResult.Content,
+            TitleSlug = titleSlug,
             Stitches = new HashSet<PatternStitchRecord>(),
             Threads = new HashSet<PatternThreadRecord>()
         }, cancellationToken);
