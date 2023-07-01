@@ -55,11 +55,11 @@ public sealed class UserPatternThreadStitchRepository : Repository<UserPatternTh
 
         foreach (var thread in threads)
         {
-            var stitchPositions = positions.StitchesByThread[thread.Index].ConvertAll(x => x.X.ToString() + x.Y);
+            var stitchPositions = positions.StitchesByThread[thread.Index].ConvertAll(x => $"{x.X},{x.Y}");
 
             var stitches = await session
                 .Query<PatternThreadStitchRecord>()
-                .Where(stitch => stitch.Thread == thread && stitchPositions.Contains(stitch.X.ToString() + stitch.Y.ToString()))
+                .Where(stitch => stitch.Thread == thread && stitchPositions.Contains(stitch.LookupHash))
                 .ToListAsync(cancellationToken);
 
             foreach (var stitch in stitches)
