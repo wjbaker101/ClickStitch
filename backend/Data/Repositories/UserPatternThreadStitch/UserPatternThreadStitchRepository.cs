@@ -89,16 +89,20 @@ public sealed class UserPatternThreadStitchRepository : Repository<UserPatternTh
             .Where(x => x.Pattern.Reference == patternReference && threadIndexes.Contains(x.Index))
             .ToListAsync(cancellationToken);
 
+        var stitches = new List<UserPatternThreadStitchRecord>();
         foreach (var thread in threads)
         {
             var stitchPositions = positions.StitchesByThread[thread.Index].ConvertAll(x => x.X.ToString() + x.Y);
 
-            await session
+            stitches.AddRange(await session
                 .Query<UserPatternThreadStitchRecord>()
                 .Fetch(x => x.Stitch)
                 .Where(stitch => stitch.Stitch.Thread == thread && stitchPositions.Contains(stitch.Stitch.X.ToString() + stitch.Stitch.Y.ToString()))
-                .DeleteAsync(cancellationToken);
+                .ToListAsync(cancellationToken));
         }
+
+        foreach (var stitch in stitches)
+            await session.DeleteAsync(stitch, cancellationToken);
 
         await transaction.CommitAsync(cancellationToken);
     }
