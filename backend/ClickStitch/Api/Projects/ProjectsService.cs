@@ -91,14 +91,6 @@ public sealed class ProjectsService : IProjectsService
 
         var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
 
-        var patternResult = await _patternRepository.GetFullByReferenceAsync(patternReference, cancellationToken);
-        if (!patternResult.TrySuccess(out var pattern))
-            return Result<CompleteStitchesResponse>.FromFailure(patternResult);
-
-        var projectResult = await _userPatternRepository.GetByUserAndPatternAsync(user, pattern, cancellationToken);
-        if (!projectResult.TrySuccess(out var project))
-            return Result<CompleteStitchesResponse>.FromFailure(projectResult);
-
         await _userPatternThreadStitchRepository.Complete(user, patternReference, new StitchPosition
         {
             StitchesByThread = request.StitchesByThread.ToDictionary(x => x.Key, x => x.Value.ConvertAll(pos => new StitchPosition.Position
@@ -117,16 +109,6 @@ public sealed class ProjectsService : IProjectsService
             return Result<CompleteStitchesResponse>.Failure($"The number of stitches to un-complete exceeds maximum ({MAX_STITCH_SELECTION}), please try again with a smaller selection.");
 
         var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
-
-        //var patternResult = await _patternRepository.GetFullByReferenceAsync(patternReference, cancellationToken);
-        //if (!patternResult.TrySuccess(out var pattern))
-        //    return Result<CompleteStitchesResponse>.FromFailure(patternResult);
-
-        //var projectResult = await _userPatternRepository.GetByUserAndPatternAsync(user, pattern, cancellationToken);
-        //if (!projectResult.TrySuccess(out var project))
-        //    return Result<CompleteStitchesResponse>.FromFailure(projectResult);
-
-        //await _userPatternStitchRepository.DeleteByPositions(project, request.Positions.ConvertAll(x => (x.X, x.Y)));
 
         await _userPatternThreadStitchRepository.UnComplete(user, patternReference, new StitchPosition
         {
