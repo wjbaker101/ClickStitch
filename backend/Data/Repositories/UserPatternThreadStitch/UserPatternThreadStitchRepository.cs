@@ -97,7 +97,7 @@ public sealed class UserPatternThreadStitchRepository : Repository<UserPatternTh
             stitches.AddRange(await session
                 .Query<UserPatternThreadStitchRecord>()
                 .Fetch(x => x.Stitch)
-                .Where(stitch => stitch.Stitch.Thread == thread && stitchPositions.Contains(stitch.Stitch.LookupHash))
+                .Where(userStitch => userStitch.User == user && userStitch.Stitch.Thread == thread && stitchPositions.Contains(userStitch.Stitch.LookupHash))
                 .ToListAsync(cancellationToken));
         }
 
