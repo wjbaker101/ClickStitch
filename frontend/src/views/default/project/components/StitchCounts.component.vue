@@ -32,27 +32,18 @@ const hoveredStitch = sharedStitch.hoveredStitch;
 
 const palette = new Map<number, IThread>();
 for (const thread of props.project.threads) {
-    palette.set(thread.index, thread);
+    palette.set(thread.thread.index, thread.thread);
 }
 
 const threadCounts = computed<Map<number, IThreadCount>>(() => {
     const _threadCounts = new Map<number, IThreadCount>();
 
-    for (const stitch of props.project.stitches) {
-        if (!_threadCounts.has(stitch.threadIndex)) {
-            _threadCounts.set(stitch.threadIndex, {
-                thread: palette.get(stitch.threadIndex) as IThread,
-                count: 0,
-                completeCount: 0,
-            });
-        }
-
-        const threadCount = _threadCounts.get(stitch.threadIndex) as IThreadCount;
-
-        threadCount.count++;
-
-        if (stitch.stitchedAt !== null)
-            threadCount.completeCount++;
+    for (const thread of props.project.threads) {
+        _threadCounts.set(thread.thread.index, {
+            thread: thread.thread,
+            count: thread.stitches.length + thread.completedStitches.length,
+            completeCount: thread.completedStitches.length,
+        });
     }
 
     return _threadCounts;
