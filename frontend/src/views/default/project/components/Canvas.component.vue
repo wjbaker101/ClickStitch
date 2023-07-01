@@ -258,6 +258,15 @@ const onDoubleClick = async function (): Promise<void> {
                 ],
             },
         });
+
+        const thread = props.project.threads.find(x => x.thread.index === stitch.threadIndex);
+        if (thread === undefined)
+            return;
+
+        thread.completedStitches.push([stitch.x, stitch.y, dayjs()]);
+
+        const stitchIndex = thread.stitches.findIndex(x => x[0] === stitch.x && x[1] === stitch.y);
+        thread.stitches.splice(stitchIndex, 1);
     }
     else {
         completedStitchesGraphics.value.clearRect(
@@ -278,6 +287,15 @@ const onDoubleClick = async function (): Promise<void> {
                 ],
             },
         });
+
+        const thread = props.project.threads.find(x => x.thread.index === stitch.threadIndex);
+        if (thread === undefined)
+            return;
+
+        thread.stitches.push([stitch.x, stitch.y]);
+
+        const completedStitchIndex = thread.completedStitches.findIndex(x => x[0] === stitch.x && x[1] === stitch.y);
+        thread.completedStitches.splice(completedStitchIndex, 1);
     }
 };
 
@@ -358,6 +376,17 @@ useInput('keypress', async (event) => {
         await api.projects.unCompleteStitches(props.project.project.pattern.reference, {
             stitchesByThread: positions,
         });
+
+        for (const stitch of stitches) {
+            const thread = props.project.threads.find(x => x.thread.index === stitch.threadIndex);
+            if (thread === undefined)
+                continue;
+
+            thread.stitches.push([stitch.x, stitch.y]);
+
+            const completedStitchIndex = thread.completedStitches.findIndex(x => x[0] === stitch.x && x[1] === stitch.y);
+            thread.completedStitches.splice(completedStitchIndex, 1);
+        }
     }
     else {
         for (const stitch of stitches) {
@@ -373,6 +402,17 @@ useInput('keypress', async (event) => {
         await api.projects.completeStitches(props.project.project.pattern.reference, {
             stitchesByThread: positions,
         });
+
+        for (const stitch of stitches) {
+            const thread = props.project.threads.find(x => x.thread.index === stitch.threadIndex);
+            if (thread === undefined)
+                return;
+
+            thread.completedStitches.push([stitch.x, stitch.y, dayjs()]);
+
+            const stitchIndex = thread.stitches.findIndex(x => x[0] === stitch.x && x[1] === stitch.y);
+            thread.stitches.splice(stitchIndex, 1);
+        }
     }
 });
 
