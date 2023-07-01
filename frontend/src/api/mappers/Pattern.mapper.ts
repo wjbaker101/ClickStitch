@@ -19,6 +19,7 @@ export const patternMapper = {
             stitchCount: pattern.stitchCount,
             bannerImageUrl: pattern.bannerImageUrl,
             externalShopUrl: pattern.externalShopUrl,
+            titleSlug: pattern.titleSlug,
             creator: pattern.creator === null ? null : creatorMapper.map(pattern.creator),
         };
     },

@@ -12,6 +12,7 @@ export interface IApiPattern {
     readonly stitchCount: number;
     readonly bannerImageUrl: string | null;
     readonly externalShopUrl: string | null;
+    readonly titleSlug: string;
     readonly creator: IApiCreator | null;
 }
 
