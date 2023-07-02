@@ -2,4 +2,5 @@
 
 public sealed class DeletePatternResponse
 {
+    public required string Message { get; init; }
 }

@@ -202,18 +202,24 @@ public sealed class PatternsService : IPatternsService
         if (doesProjectExist)
         {
             // Mark as deleted in the record
+
+            return new DeletePatternResponse
+            {
+                Message = "At least 1 user had this pattern, so it has been marked as deleted. It still exists, but won't show up for new users."
+            };
         }
-        else
+
+        var patternWithThreads = (await _patternRepository.GetWithThreadsByReferenceAsync(patternReference, cancellationToken)).Content;
+
+        var stitches = (await _patternRepository.GetStitchesByThreads(patternWithThreads.Threads.ToList(), cancellationToken)).SelectMany(x => x.Value).ToList();
+
+        await _patternThreadStitchRepository.DeleteManyAsync(stitches, cancellationToken);
+        await _patternThreadRepository.DeleteManyAsync(patternWithThreads.Threads, cancellationToken);
+        await _patternRepository.DeleteAsync(patternWithThreads, cancellationToken);
+
+        return new DeletePatternResponse
         {
-            var patternWithThreads = (await _patternRepository.GetWithThreadsByReferenceAsync(patternReference, cancellationToken)).Content;
-
-            var stitches = (await _patternRepository.GetStitchesByThreads(patternWithThreads.Threads.ToList(), cancellationToken)).SelectMany(x => x.Value).ToList();
-
-            await _patternThreadStitchRepository.DeleteManyAsync(stitches, cancellationToken);
-            await _patternThreadRepository.DeleteManyAsync(patternWithThreads.Threads, cancellationToken);
-            await _patternRepository.DeleteAsync(patternWithThreads, cancellationToken);
-        }
-
-        return new DeletePatternResponse();
+            Message = "No users had this pattern, so it has been permanently deleted."
+        };
     }
 }
