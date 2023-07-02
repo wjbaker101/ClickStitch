@@ -20,7 +20,7 @@ static ServiceProvider CreateServices()
         .AddFluentMigratorCore()
         .ConfigureRunner(runner => runner
             .AddPostgres()
-            .WithGlobalConnectionString(ConnectionStringBuilder.Build(new ConnectionStringBuilder.ConnectionStringParameters
+            .WithGlobalConnectionString(ConnectionStringBuilder.Build(new ConnectionStringParameters
             {
                 Host = "localhost",
                 Port = 5432,
