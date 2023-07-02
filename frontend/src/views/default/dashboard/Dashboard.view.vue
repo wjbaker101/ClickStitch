@@ -11,9 +11,9 @@
             </div>
             <ZeroStateComponent v-else-if="projects?.length === 0" icon="info">
                 <p>No projects yet!</p>
-                <p>Visit the marketplace to get your first pattern!</p>
+                <p>Visit the patterns page to get your first one and start stitching!</p>
                 <RouterLink to="/marketplace">
-                    <ButtonComponent>Go to Marketplace</ButtonComponent>
+                    <ButtonComponent>Patterns Page</ButtonComponent>
                 </RouterLink>
             </ZeroStateComponent>
             <div v-else class="projects">
