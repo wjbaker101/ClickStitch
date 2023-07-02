@@ -75,6 +75,7 @@ const fakePattern = computed<IPattern>(() => ({
     threadCount: 0,
     thumbnailUrl: '',
     width: 0,
+    titleSlug: '',
 }));
 
 const creator = ref<ICreator | null>(null);
