@@ -30,7 +30,19 @@
                     <h3>Delete Pattern</h3>
                     <p>If any user has already added your pattern to their dashboard this action will NOT delete the pattern, but will instead hide it from new users.</p>
                     <p>If this pattern has not been added by any users yet, this action will permanently delete the pattern.</p>
-                    <DeleteButtonComponent @delete="onDelete" />
+                    <p>
+                        <DeleteButtonComponent @delete="onDelete" />
+                    </p>
+                    <CardComponent v-if="deletionMessage" class="flex gap align-items-center" padded border="left">
+                        <div class="flex-auto">
+                            <IconComponent icon="info" gap="right" />
+                        </div>
+                        <div>
+                            {{ deletionMessage }}
+                            <br>
+                            Refresh the page to update the list patterns.
+                        </div>
+                    </CardComponent>
                 </FormSectionComponent>
             </FormComponent>
         </template>
@@ -65,6 +77,7 @@ const form = ref<IForm>({
 });
 
 const isLoading = ref<boolean>(false);
+const deletionMessage = ref<string | null>(null);
 
 const onUpdate = async function (): Promise<void> {
     isLoading.value = true;
@@ -97,6 +110,8 @@ const onDelete = async function () {
     const result = await api.patterns.delete(props.pattern.reference);
     if (result instanceof Error)
         return;
+
+    deletionMessage.value = result.message;
 
     popup.trigger({
         message: `${props.pattern.title} has been deleted.`,
