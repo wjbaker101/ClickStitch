@@ -15,6 +15,7 @@ public interface IPatternsService
     Task<Result<GetPatternsResponse>> GetPatterns(RequestUser? requestUser, CancellationToken cancellationToken);
     Task<Result<UpdatePatternResponse>> UpdatePattern(RequestUser requestUser, Guid patternReference, UpdatePatternRequest request, CancellationToken cancellationToken);
     Task<Result> CreatePattern(RequestUser requestUser, CreatePatternRequest request, CreatePatternData patternData, IFormFile thumbnail, IFormFile bannerImage, CancellationToken cancellationToken);
+    Task<Result<DeletePatternResponse>> DeletePattern(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken);
 }
 
 public sealed class PatternsService : IPatternsService
@@ -180,5 +181,39 @@ public sealed class PatternsService : IPatternsService
         }
 
         return Result.Success();
+    }
+
+    public async Task<Result<DeletePatternResponse>> DeletePattern(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken)
+    {
+        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
+
+        var creatorResult = await _creatorRepository.GetByUser(user, cancellationToken);
+        if (!creatorResult.TrySuccess(out var creator))
+            return Result<DeletePatternResponse>.FromFailure(creatorResult);
+
+        var patternResult = await _patternRepository.GetByReferenceAsync(patternReference, cancellationToken);
+        if (!patternResult.TrySuccess(out var pattern))
+            return Result<DeletePatternResponse>.FromFailure(patternResult);
+
+        if (pattern.Creator.Id != creator.Id)
+            return Result<DeletePatternResponse>.Failure("Unable to delete pattern as you are not a creator of it.");
+
+        var doesProjectExist = await _userPatternRepository.DoesProjectExistForPatternAsync(pattern, cancellationToken);
+        if (doesProjectExist)
+        {
+            // Mark as deleted in the record
+        }
+        else
+        {
+            var patternWithThreads = (await _patternRepository.GetWithThreadsByReferenceAsync(patternReference, cancellationToken)).Content;
+
+            var stitches = (await _patternRepository.GetStitchesByThreads(patternWithThreads.Threads.ToList(), cancellationToken)).SelectMany(x => x.Value).ToList();
+
+            await _patternThreadStitchRepository.DeleteManyAsync(stitches, cancellationToken);
+            await _patternThreadRepository.DeleteManyAsync(patternWithThreads.Threads, cancellationToken);
+            await _patternRepository.DeleteAsync(patternWithThreads, cancellationToken);
+        }
+
+        return new DeletePatternResponse();
     }
 }

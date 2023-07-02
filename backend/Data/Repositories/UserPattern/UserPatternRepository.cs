@@ -4,6 +4,7 @@ public interface IUserPatternRepository : IRepository<UserPatternRecord>
 {
     Task<List<UserPatternRecord>> GetByUserAsync(UserRecord user, CancellationToken cancellationToken);
     Task<Result<UserPatternRecord>> GetByUserAndPatternAsync(UserRecord user, PatternRecord pattern, CancellationToken cancellationToken);
+    Task<bool> DoesProjectExistForPatternAsync(PatternRecord pattern, CancellationToken cancellationToken);
 }
 
 public sealed class UserPatternRepository : Repository<UserPatternRecord>, IUserPatternRepository
@@ -46,5 +47,19 @@ public sealed class UserPatternRepository : Repository<UserPatternRecord>, IUser
         await transaction.CommitAsync(cancellationToken);
 
         return userPattern;
+    }
+
+    public async Task<bool> DoesProjectExistForPatternAsync(PatternRecord pattern, CancellationToken cancellationToken)
+    {
+        using var session = Database.SessionFactory.OpenSession();
+        using var transaction = session.BeginTransaction();
+
+        var anyProject = await session
+            .Query<UserPatternRecord>()
+            .AnyAsync(x => x.Pattern == pattern, cancellationToken);
+
+        await transaction.CommitAsync(cancellationToken);
+
+        return anyProject;
     }
 }

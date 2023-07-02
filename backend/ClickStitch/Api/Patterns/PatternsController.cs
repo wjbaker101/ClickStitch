@@ -63,4 +63,17 @@ public sealed class PatternsController : ApiController
         
         return ToApiResponse(result);
     }
+
+    [HttpDelete]
+    [Route("{patternReference:guid}")]
+    [Authenticate]
+    [RequireCreator]
+    public async Task<IActionResult> DeletePattern([FromRoute] Guid patternReference, CancellationToken cancellationToken)
+    {
+        var user = RequestHelper.GetRequiredUser(Request);
+
+        var result = await _patternsService.DeletePattern(user, patternReference, cancellationToken);
+
+        return ToApiResponse(result);
+    }
 }
