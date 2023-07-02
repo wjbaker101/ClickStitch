@@ -128,19 +128,14 @@ onMounted(async () => {
 
     const palette = new Map<number, IThread>();
     for (const thread of getProject.value.threads) {
-        palette.set(thread.index, thread);
+        palette.set(thread.thread.index, thread.thread);
     }
 
-    for (const stitch of getProject.value.stitches) {
-        if (!threadCounts.has(stitch.threadIndex)) {
-            threadCounts.set(stitch.threadIndex, {
-                thread: palette.get(stitch.threadIndex) as IThread,
-                count: 0,
-            });
-        }
-
-        const threadCount = threadCounts.get(stitch.threadIndex) as IThreadCount;
-        threadCount.count ++;
+    for (const thread of getProject.value.threads) {
+        threadCounts.set(thread.thread.index, {
+            thread: thread.thread,
+            count: thread.stitches.length + thread.completedStitches.length,
+        });
     }
 
     sortedThreadCounts.value = Array.from(threadCounts.values()).sort((a, b) => b.count - a.count);
