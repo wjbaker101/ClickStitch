@@ -47,6 +47,7 @@ import { ICreateCreatorRequest, ICreateCreatorResponse } from './types/CreateCre
 import { IGetCreatorPatternsResponse } from './types/GteCreatorPatterns.type';
 import { IGetCreatorPatterns } from '@/models/GetCreatorPatterns.model';
 import { IUpdatePatternRequest, IUpdatePatternResponse } from './types/UpdatePattern.type';
+import { IDeletePatternResponse } from './types/DeletePattern.type';
 
 const auth = useAuth();
 
@@ -367,6 +368,24 @@ export const api = {
                 const result = response.data.result;
 
                 return patternMapper.map(result.pattern);
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
+        },
+
+        async delete(patternReference: string): Promise<void | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
+            try {
+                const response = await client.delete<IApiResultResponse<IDeletePatternResponse>>(`/patterns/${patternReference}`, {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
+
+                const result = response.data.result;
             }
             catch (error) {
                 return ApiErrorMapper.map(error);
