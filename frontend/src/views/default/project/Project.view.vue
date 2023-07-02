@@ -27,10 +27,12 @@ import StitchCountsComponent from '@/views/default/project/components/StitchCoun
 
 import { api } from '@/api/api';
 import { setTitle } from '@/helper/helper';
+import { useCurrentProject } from '@/views/default/project/use/CurrentProject.use';
 import { useSharedStitch } from '@/views/default/project/use/SharedStitch';
 
 import { IGetProject } from '@/models/GetProject.model';
 
+const currentProject = useCurrentProject();
 const route = useRoute();
 const sharedStitch = useSharedStitch();
 
@@ -56,6 +58,7 @@ onMounted(async () => {
         return;
     }
 
+    currentProject.setProject(result);
     project.value = result;
 
     setTitle(`${project.value.project.pattern.title}`);

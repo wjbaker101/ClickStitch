@@ -10,6 +10,7 @@
 import { computed, watch } from 'vue';
 
 import { sum } from '@/helper/array.helper';
+import { useCurrentProject } from '@/views/default/project/use/CurrentProject.use';
 import { useSharedStitch } from '@/views/default/project/use/SharedStitch';
 
 import { IThread } from '@/models/Pattern.model';
@@ -26,14 +27,10 @@ interface IThreadCount {
     completeCount: number;
 }
 
+const currentProject = useCurrentProject();
 const sharedStitch = useSharedStitch();
 
 const hoveredStitch = sharedStitch.hoveredStitch;
-
-const palette = new Map<number, IThread>();
-for (const thread of props.project.threads) {
-    palette.set(thread.thread.index, thread.thread);
-}
 
 const threadCounts = computed<Map<number, IThreadCount>>(() => {
     const _threadCounts = new Map<number, IThreadCount>();

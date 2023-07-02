@@ -100,6 +100,7 @@ import dayjs from 'dayjs';
 import { api } from '@/api/api';
 import { isDark } from '@/helper/helper';
 import { Position } from '@/class/Position.class';
+import { useCurrentProject } from '@/views/default/project/use/CurrentProject.use';
 import { useMouse } from '@/views/default/project/use/Mouse.use';
 import { useSharedStitch } from '@/views/default/project/use/SharedStitch';
 import { useStitch } from '@/views/default/project/use/Stitch.use';
@@ -116,30 +117,9 @@ const props = defineProps<{
 
 const emit = defineEmits(['openInformation']);
 
-const palette = new Map<number, IThread>();
-for (const thread of props.project.threads) {
-    palette.set(thread.thread.index, thread.thread);
-}
-
-const stitches = props.project.threads.flatMap(x => x.stitches.map<IStitch>(y => ({
-    x: y[0],
-    y: y[1],
-    threadIndex: x.thread.index,
-    stitchedAt: null,
-}))).concat(props.project.threads.flatMap(x => x.completedStitches.map<IStitch>(y => ({
-    x: y[0],
-    y: y[1],
-    threadIndex: x.thread.index,
-    stitchedAt: y[2],
-}))));
-
-const pattern = new Map<string, IStitch>();
-for (const stitch of stitches) {
-    pattern.set(`${stitch.x}:${stitch.y}`, stitch);
-}
-
 const component = ref<HTMLDivElement>({} as HTMLDivElement);
 
+const currentProject = useCurrentProject();
 const sharedStitch = useSharedStitch();
 const { mousePosition, prevMousePosition, isDragMoving, isDragSelecting, selectStart, selectEnd } = useMouse();
 const { width, height, offset, scale } = useTransformation(component);
@@ -152,6 +132,11 @@ const { baseStitchSize, stitchSize, mouseStitchPosition, isMouseOverPattern, sti
     selectStart,
     selectEnd,
 });
+
+const pattern = new Map<string, IStitch>();
+for (const stitch of currentProject.stitches.value) {
+    pattern.set(`${stitch.x}:${stitch.y}`, stitch);
+}
 
 const canvasElement = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const completedStitchesCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
@@ -177,9 +162,9 @@ onMounted(() => {
         }
     }
 
-    for (let index = 0; index < stitches.length; ++index) {
-        const stitch = stitches[index];
-        const thread = palette.get(stitch.threadIndex) as IThread;
+    for (let index = 0; index < currentProject.stitches.value.length; ++index) {
+        const stitch = currentProject.stitches.value[index];
+        const thread = currentProject.palette.value.get(stitch.threadIndex) as IThread;
 
         graphics.value.fillStyle = thread.colour;
         graphics.value.fillRect(stitch.x * baseStitchSize, stitch.y * baseStitchSize, baseStitchSize, baseStitchSize);
@@ -448,7 +433,7 @@ const handleHoveredStitch = function (): void {
         return;
     }
 
-    const thread = palette.get(stitch.threadIndex);
+    const thread = currentProject.palette.value.get(stitch.threadIndex);
     if (!thread || thread.index === 0) {
         hoveredStitch.value = null;
         return;
