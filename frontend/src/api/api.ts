@@ -48,6 +48,7 @@ import { IGetCreatorPatternsResponse } from './types/GteCreatorPatterns.type';
 import { IGetCreatorPatterns } from '@/models/GetCreatorPatterns.model';
 import { IUpdatePatternRequest, IUpdatePatternResponse } from './types/UpdatePattern.type';
 import { IDeletePatternResponse } from './types/DeletePattern.type';
+import { IDeletePattern } from '@/models/DeletePattern.model';
 
 const auth = useAuth();
 
@@ -374,7 +375,7 @@ export const api = {
             }
         },
 
-        async delete(patternReference: string): Promise<void | Error> {
+        async delete(patternReference: string): Promise<IDeletePattern | Error> {
             if (auth.details.value === null)
                 return new Error('You must be logged in for this action.');
 
@@ -386,6 +387,10 @@ export const api = {
                 });
 
                 const result = response.data.result;
+
+                return {
+                    message: result.message,
+                };
             }
             catch (error) {
                 return ApiErrorMapper.map(error);
