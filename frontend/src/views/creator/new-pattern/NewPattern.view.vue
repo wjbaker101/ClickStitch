@@ -15,7 +15,10 @@
                         <FormSectionComponent>
                             <h3>Pattern Details</h3>
                             <FormInputComponent label="Title">
-                                <input type="text">
+                                <input type="text" placeholder="My Amazing Pattern">
+                                <p>
+                                    <small>This title will also be used as the slug which will be visible in URLs. It will be in the format "my-amazing-pattern".</small>
+                                </p>
                             </FormInputComponent>
                             <ImageUploadComponent heading="Banner Image/ Thumbnail" />
                             <p>
