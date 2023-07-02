@@ -8,7 +8,7 @@
             <FormComponent>
                 <FormSectionComponent>
                     <div class="flex gap">
-                        <h4>Edit Pattern Details</h4>
+                        <h3>Edit Pattern Details</h3>
                         <div class="flex-auto">
                             <small>{{ pattern.reference }}</small>
                         </div>
@@ -25,6 +25,12 @@
                         <IconComponent icon="tick" gap="right" />
                         <span>Update</span>
                     </ButtonComponent>
+                </FormSectionComponent>
+                <FormSectionComponent>
+                    <h3>Delete Pattern</h3>
+                    <p>If any user has already added your pattern to their dashboard this action will NOT delete the pattern, but will instead hide it from new users.</p>
+                    <p>If this pattern has not been added by any users yet, this action will permanently delete the pattern.</p>
+                    <DeleteButtonComponent @delete="onDelete" />
                 </FormSectionComponent>
             </FormComponent>
         </template>
@@ -83,6 +89,17 @@ const onUpdate = async function (): Promise<void> {
 
     popup.trigger({
         message: 'Pattern updated!',
+        style: 'success',
+    });
+};
+
+const onDelete = async function () {
+    const result = await api.patterns.delete(props.pattern.reference);
+    if (result instanceof Error)
+        return;
+
+    popup.trigger({
+        message: `${props.pattern.title} has been deleted.`,
         style: 'success',
     });
 };
