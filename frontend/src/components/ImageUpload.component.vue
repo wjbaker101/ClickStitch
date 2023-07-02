@@ -5,7 +5,9 @@
             <br>
             <input type="file" @change="onChange">
         </label>
-        <img v-if="image !== null" class="image" :src="image">
+        <div class="image-container">
+            <img v-if="image !== null" class="image" :src="image">
+        </div>
     </div>
 </template>
 
@@ -36,6 +38,10 @@ const onChange = function (event: Event): void {
 <style lang="scss">
 .image-upload-component {
     margin: 1rem 0;
+
+    .image-container {
+        margin-top: 1rem;
+    }
 
     .image {
         width: 250px;
