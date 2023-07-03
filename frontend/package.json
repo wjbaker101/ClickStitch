@@ -13,6 +13,7 @@
         "axios": "^1.3.4",
         "chart.js": "^4.3.0",
         "dayjs": "^1.11.7",
+        "hammerjs": "^2.0.8",
         "vue": "^3.2.47",
         "vue-chartjs": "^5.2.0",
         "vue-router": "^4.1.6"
