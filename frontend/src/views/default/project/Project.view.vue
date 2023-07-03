@@ -22,7 +22,7 @@ import { onMounted, onUnmounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 import UserMessageComponent from '@/components/UserMessage.component.vue';
-import CanvasComponent from '@/views/default/project/components/Canvas.component.vue';
+import CanvasComponent from '@/views/default/project/canvas/Canvas.component.vue';
 import StitchCountsComponent from '@/views/default/project/components/StitchCounts.component.vue';
 
 import { api } from '@/api/api';
