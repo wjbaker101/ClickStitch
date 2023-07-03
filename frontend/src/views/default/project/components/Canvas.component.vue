@@ -7,13 +7,11 @@
             'is-drag-selecting': isDragSelecting,
         }"
         @click="onClick"
-        @dblclick="onDoubleClick"
         @pointerdown="onMouseDown"
         @pointerup="onMouseUp"
         @pointermove="onMouseMove"
         @pointerleave="onMouseLeave"
         @wheel="onMouseWheel"
-        @touchstart="onTouchStart"
     >
         <div class="canvas-wrapper"
             :style="{
@@ -101,6 +99,7 @@ import { api } from '@/api/api';
 import { isDark } from '@/helper/helper';
 import { Position } from '@/class/Position.class';
 import { useCurrentProject } from '@/views/default/project/use/CurrentProject.use';
+import { useHammer } from '@/views/default/project/use/Hammer.use';
 import { useMouse } from '@/views/default/project/use/Mouse.use';
 import { useSharedStitch } from '@/views/default/project/use/SharedStitch';
 import { useStitch } from '@/views/default/project/use/Stitch.use';
@@ -211,6 +210,13 @@ onMounted(() => {
     graphics.value.lineTo(props.project.project.pattern.height / 2 * baseStitchSize, props.project.project.pattern.height * baseStitchSize);
     graphics.value.closePath();
     graphics.value.stroke();
+
+    const hammer = useHammer(component);
+
+    hammer.on('double-tap', () => {
+        handleHoveredStitch();
+        onDoubleClick();
+    });
 });
 
 const onClick = function (): void {
@@ -282,25 +288,6 @@ const onDoubleClick = async function (): Promise<void> {
         const completedStitchIndex = thread.completedStitches.findIndex(x => x[0] === stitch.x && x[1] === stitch.y);
         thread.completedStitches.splice(completedStitchIndex, 1);
     }
-};
-
-let doubleTouched: number | null = null;
-const onTouchStart = async function (event: TouchEvent): Promise<void> {
-    if (doubleTouched === null) {
-        doubleTouched = setTimeout(() => {
-            doubleTouched = null;
-        }, 300);
-
-        return;
-    }
-
-    clearTimeout(doubleTouched);
-    doubleTouched = null;
-
-    handleHoveredStitch();
-    await onDoubleClick();
-
-    event.preventDefault();
 };
 
 useInput('keypress', async (event) => {
