@@ -7,6 +7,9 @@
                 </div>
                 <span>ClickStitch</span>
             </h1>
+            <small>
+                <RouterLink to="/login"><IconComponent icon="arrow-left" gap="right" />Return to login</RouterLink>
+            </small>
             <CardComponent class="signup-card" padded border="top">
                 <h2><IconComponent icon="user" size="large" gap="right" />Sign up</h2>
                 <p>
