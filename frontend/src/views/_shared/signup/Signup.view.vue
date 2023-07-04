@@ -1,34 +1,14 @@
 <template>
     <ViewComponent class="signup-view" hide-nav>
-        <div class="left-side flex flex-vertical">
-            <header class="flex flex-auto gap">
-                <div></div>
-                <div class="flex-auto">
-                    <RouterLink to="/about">
-                        <IconComponent icon="info" gap="right" />
-                        <span>About ClickStitch</span>
-                    </RouterLink>
+        <div class="content-width">
+            <h1 class="flex gap-small align-items-center">
+                <div class="logo-container flex-auto">
+                    <img width="" src="@/assets/logo.png">
                 </div>
-                <div class="flex-auto">
-                    <RouterLink to="/patterns">
-                        <IconComponent icon="download" gap="right" />
-                        <span>View Patterns</span>
-                    </RouterLink>
-                </div>
-            </header>
-            <div class="centered flex-auto">
-                <h1 class="flex gap-small align-items-center">
-                    <div class="logo-container flex-auto">
-                        <img width="" src="@/assets/logo.png">
-                    </div>
-                    <span>ClickStitch</span>
-                </h1>
-                <p class="back-to-login">
-                    <RouterLink class="back-to-login" to="/login">
-                        <IconComponent icon="arrow-left" /> Back to login
-                    </RouterLink>
-                </p>
-                <h2>Sign up</h2>
+                <span>ClickStitch</span>
+            </h1>
+            <CardComponent class="signup-card" padded border="top">
+                <h2><IconComponent icon="user" size="large" gap="right" />Sign up</h2>
                 <p>
                     <label>
                         <strong>Email</strong>
@@ -56,21 +36,7 @@
                 </p>
                 <UserMessageComponent ref="userMessageComponent" />
                 <ButtonComponent class="tertiary" @click="onSignup" :loading="isLoading">Sign Up</ButtonComponent>
-            </div>
-        </div>
-        <div class="right-side flex textured-background">
-            <div class="right-side-content centered flex-auto">
-                <h2>So close to getting these! <IconComponent icon="arrow-down" /></h2>
-                <p class="description">
-                    <span>Complete signup and add them to your account</span>
-                </p>
-                <div class="example-patterns">
-                    <img class="example-pattern" src="@/assets/examples/templar-knight.png">
-                    <img class="example-pattern" src="@/assets/examples/howling-wolf.jpg">
-                    <img class="example-pattern" src="@/assets/examples/bat-silhouette.png">
-                    <img class="example-pattern" src="@/assets/examples/dragon-silhouette.png">
-                </div>
-            </div>
+            </CardComponent>
         </div>
     </ViewComponent>
 </template>
@@ -154,16 +120,9 @@ const onSignup = async function () {
 @use '@/style/variables' as *;
 
 .signup-view {
-    height: 100%;
 
-    $angle: 4rem;
-
-    h1 {
-        margin: 0 0 3rem 0;
-    }
-
-    h2 {
-        margin: 0;
+    .content-width {
+        max-width: 720px;
     }
 
     .logo-container {
@@ -180,108 +139,30 @@ const onSignup = async function () {
         }
     }
 
-    .left-side {
-        inset: 0 50% 0 0;
-        position: absolute;
+    .signup-card {
         background-color: var(--wjb-primary);
         background: linear-gradient(
-            -45deg,
+            -25deg,
             var(--wjb-primary-dark),
             var(--wjb-primary),
         );
-        margin-right: -$angle;
         color: var(--wjb-light);
-        clip-path: polygon(0 0, 100% 0, calc(100% - ($angle * 2)) 100%, 0% 100%);
-        z-index: 1;
-
-        @media screen and (max-width: 720px) {
-            margin-right: 0;
-            position: static;
-            padding: 2rem 0;
-            clip-path: none;
-        }
-
-        header {
-            padding: 1rem;
-            margin-right: 1rem;
-
-            a {
-                color: inherit;
-                text-decoration: none;
-
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-        }
-    }
-
-    .back-to-login {
-        margin-top: -2rem;
-        color: inherit;
-        text-decoration: none;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-
-    .right-side {
-        inset: 0 0 0 50%;
-        position: absolute;
-        overflow-y: auto;
-
-        .description {
-            margin: 0.5rem 0 2rem 0;
-        }
-
-        @media screen and (max-width: 720px) {
-            position: static;
-            padding: 2rem 0;
-            background-color: transparent;
-        }
-    }
-
-    .right-side-content {
-        padding-left: $angle;
-    }
-
-    .centered {
-        margin: auto;
+        border-color: var(--wjb-tertiary);
     }
 
     .passwords-container {
-        @media screen and (max-width: 1280px) {
-            flex-direction: column;
-        }
-    }
+        @media screen and (max-width: 720px) {
+            display: block;
 
-    .example-patterns {
-        width: calc(300px + 1rem);
-        display: grid;
-        gap: 1rem;
-        grid-template: 1fr 1fr / 1fr 1fr;
-    }
-
-    .example-pattern {
-        border-radius: var(--wjb-border-radius);
-
-        @include shadow-small();
-    }
-
-    .footer-component {
-        position: relative;
-        color: #ddd;
-        z-index: 1;
-
-        a {
-            color: var(--wjb-light);
-            box-shadow: 0 1px 0px var(--wjb-light);
-
-            &:hover {
-                box-shadow: none;
+            .confirm-password {
+                display: block;
+                margin-top: 1rem;
             }
         }
+    }
+
+    input {
+        width: 100%;
     }
 }
 </style>
