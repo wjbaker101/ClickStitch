@@ -8,9 +8,13 @@ export const useHammer = function (element: Ref<HTMLElement>) {
         event: 'double-tap',
         taps: 2,
     }));
+    hammer.add(new Hammer.Pan({
+        event: 'pan',
+        threshold: 2,
+    }));
 
     return {
-        on(event: 'tap' | 'double-tap', action: (input: HammerInput) => void): void {
+        on(event: 'tap' | 'double-tap' | 'pan', action: (input: HammerInput) => void): void {
             hammer.on(event, (input) => {
                 action(input);
             });

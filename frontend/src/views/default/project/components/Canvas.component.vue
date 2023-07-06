@@ -217,6 +217,18 @@ onMounted(() => {
         handleHoveredStitch();
         onDoubleClick();
     });
+
+    hammer.on('pan', () => {
+        const diff = mousePosition.value.translate(-prevMousePosition.value.x, -prevMousePosition.value.y);
+
+        offset.value = offset.value
+            .translate(diff.x, diff.y)
+            .min(-canvasWidth.value + width.value * 0.333, -canvasHeight.value + height.value * 0.333)
+            .max(width.value * 0.666, height.value * 0.666)
+            .floor();
+
+        prevMousePosition.value = Position.copy(mousePosition.value);
+    });
 });
 
 const onClick = function (): void {
@@ -432,19 +444,7 @@ const handleHoveredStitch = function (): void {
 const onMouseMove = function (event: MouseEvent): void {
     mousePosition.value = Position.at(event.x, event.y).translate(-(component.value.offsetLeft ?? 0), -(component.value.offsetTop ?? 0));
 
-    if (isDragMoving.value) {
-        const diff = mousePosition.value.translate(-prevMousePosition.value.x, -prevMousePosition.value.y);
-
-        offset.value = offset.value
-            .translate(diff.x, diff.y)
-            .min(-canvasWidth.value + width.value * 0.333, -canvasHeight.value + height.value * 0.333)
-            .max(width.value * 0.666, height.value * 0.666)
-            .floor();
-    }
-
     handleHoveredStitch();
-
-    prevMousePosition.value = Position.copy(mousePosition.value);
 };
 
 const onMouseLeave = function (): void {
