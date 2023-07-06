@@ -229,6 +229,10 @@ onMounted(() => {
 
         prevMousePosition.value = Position.copy(mousePosition.value);
     });
+
+    hammer.on('pinch', (e) => {
+        zoom(e.scale, e.center.x, e.center.y);
+    });
 });
 
 const onClick = function (): void {

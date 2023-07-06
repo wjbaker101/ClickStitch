@@ -10,11 +10,14 @@ export const useHammer = function (element: Ref<HTMLElement>) {
     }));
     hammer.add(new Hammer.Pan({
         event: 'pan',
-        threshold: 2,
+        threshold: 5,
+    }));
+    hammer.add(new Hammer.Pan({
+        event: 'pinch',
     }));
 
     return {
-        on(event: 'tap' | 'double-tap' | 'pan', action: (input: HammerInput) => void): void {
+        on(event: 'tap' | 'double-tap' | 'pan' | 'pinch', action: (input: HammerInput) => void): void {
             hammer.on(event, (input) => {
                 action(input);
             });
