@@ -86,6 +86,7 @@
             <div v-if="selectEnd !== null">selectEnd | x {{ selectEnd.x }} y: {{ selectEnd.y }}</div>
             <div v-if="stitchSelectStart !== null">stitchSelectStart | x {{ stitchSelectStart.x }} y: {{ stitchSelectStart.y }}</div>
             <div v-if="stitchSelectEnd !== null">stitchSelectEnd | x {{ stitchSelectEnd.x }} y: {{ stitchSelectEnd.y }}</div>
+            <div>Pinch: {{ pinchStart.toFixed(2) }} / {{ pinchDiff.toFixed(2) }}</div>
             <div>{{ hoveredStitch }}</div>
         </div> -->
     </div>
@@ -122,6 +123,8 @@ const currentProject = useCurrentProject();
 const sharedStitch = useSharedStitch();
 const { mousePosition, prevMousePosition, isDragMoving, isDragSelecting, selectStart, selectEnd } = useMouse();
 const { width, height, offset, scale } = useTransformation(component);
+const pinchStart = ref<number>(1);
+const pinchDiff = ref<number>(1);
 
 const { baseStitchSize, stitchSize, mouseStitchPosition, isMouseOverPattern, stitchSelectStart, stitchSelectEnd } = useStitch({
     pattern: props.project.project.pattern,
@@ -218,7 +221,10 @@ onMounted(() => {
         onDoubleClick();
     });
 
-    hammer.on('pan', () => {
+    hammer.on('pan', (e) => {
+        if (e.maxPointers > 1)
+            return;
+
         const diff = mousePosition.value.translate(-prevMousePosition.value.x, -prevMousePosition.value.y);
 
         offset.value = offset.value
@@ -231,7 +237,28 @@ onMounted(() => {
     });
 
     hammer.on('pinch', (e) => {
-        zoom(e.scale, e.center.x, e.center.y);
+        mousePosition.value = Position.at(e.center.x, e.center.y);
+
+        pinchDiff.value = e.scale - pinchStart.value;
+        const diff = pinchDiff.value / 2;
+        const newScale = scale.value + diff;
+
+        if (newScale > 1.1 || newScale < 0.1)
+            return;
+
+        const factor = newScale / scale.value;
+
+        scale.value = newScale;
+
+        const dx = (mousePosition.value.x - offset.value.x) * (factor - 1);
+        const dy = (mousePosition.value.y - offset.value.y) * (factor - 1);
+
+        offset.value = offset.value.translate(-dx, -dy);
+        pinchStart.value = e.scale;
+    });
+
+    hammer.on('pinchstart', (e) => {
+        pinchStart.value = e.scale;
     });
 });
 
