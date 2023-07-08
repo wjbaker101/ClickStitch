@@ -18,7 +18,6 @@ using Data.Repositories.Permission;
 using Data.Repositories.User;
 using Data.Repositories.UserCreator;
 using Data.Repositories.UserPattern;
-using Data.Repositories.UserPatternStitch;
 using Data.Repositories.UserPatternThreadStitch;
 using Data.Repositories.UserPermission;
 
@@ -41,7 +40,6 @@ services.AddSingleton<IPatternThreadRepository, PatternThreadRepository>();
 services.AddSingleton<IPatternThreadStitchRepository, PatternThreadStitchRepository>();
 services.AddSingleton<IUserRepository, UserRepository>();
 services.AddSingleton<IUserPatternRepository, UserPatternRepository>();
-services.AddSingleton<IUserPatternStitchRepository, UserPatternStitchRepository>();
 services.AddSingleton<IPermissionRepository, PermissionRepository>();
 services.AddSingleton<IUserCreatorRepository, UserCreatorRepository>();
 services.AddSingleton<IUserPermissionRepository, UserPermissionRepository>();

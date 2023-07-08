@@ -89,4 +89,9 @@ public sealed class FakeUserPatternRepository : FakeRepository<UserPatternRecord
     {
         return Task.FromResult<Result<UserPatternRecord>>(_fakeResult.Content[0]);
     }
+
+    public Task<bool> DoesProjectExistForPatternAsync(PatternRecord pattern, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -4,7 +4,6 @@ using Data.Records;
 using Data.Repositories.Pattern;
 using Data.Repositories.User;
 using Data.Repositories.UserPattern;
-using Data.Repositories.UserPatternStitch;
 using Data.Repositories.UserPatternThreadStitch;
 using Data.Repositories.UserPatternThreadStitch.Types;
 
@@ -26,20 +25,17 @@ public sealed class ProjectsService : IProjectsService
     private readonly IUserRepository _userRepository;
     private readonly IUserPatternRepository _userPatternRepository;
     private readonly IPatternRepository _patternRepository;
-    private readonly IUserPatternStitchRepository _userPatternStitchRepository;
     private readonly IUserPatternThreadStitchRepository _userPatternThreadStitchRepository;
 
     public ProjectsService(
         IUserRepository userRepository,
         IUserPatternRepository userPatternRepository,
         IPatternRepository patternRepository,
-        IUserPatternStitchRepository userPatternStitchRepository,
         IUserPatternThreadStitchRepository userPatternThreadStitchRepository)
     {
         _userRepository = userRepository;
         _userPatternRepository = userPatternRepository;
         _patternRepository = patternRepository;
-        _userPatternStitchRepository = userPatternStitchRepository;
         _userPatternThreadStitchRepository = userPatternThreadStitchRepository;
     }
 
