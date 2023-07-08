@@ -35,7 +35,6 @@ services.AddSingleton<IAdminRepository, AdminRepository>();
 services.AddSingleton<IBasketRepository, BasketRepository>();
 services.AddSingleton<ICreatorRepository, CreatorRepository>();
 services.AddSingleton<IPatternRepository, PatternRepository>();
-services.AddSingleton<IPatternStitchRepository, PatternStitchRepository>();
 services.AddSingleton<IPatternThreadRepository, PatternThreadRepository>();
 services.AddSingleton<IPatternThreadStitchRepository, PatternThreadStitchRepository>();
 services.AddSingleton<IUserRepository, UserRepository>();

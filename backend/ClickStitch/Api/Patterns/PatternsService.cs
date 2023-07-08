@@ -21,7 +21,6 @@ public interface IPatternsService
 public sealed class PatternsService : IPatternsService
 {
     private readonly IPatternRepository _patternRepository;
-    private readonly IPatternStitchRepository _patternStitchRepository;
     private readonly IPatternThreadRepository _patternThreadRepository;
     private readonly IPatternUploadService _patternUploadService;
     private readonly IUserRepository _userRepository;
@@ -31,7 +30,6 @@ public sealed class PatternsService : IPatternsService
 
     public PatternsService(
         IPatternRepository patternRepository,
-        IPatternStitchRepository patternStitchRepository,
         IPatternThreadRepository patternThreadRepository,
         IPatternUploadService patternUploadService,
         IUserRepository userRepository,
@@ -40,7 +38,6 @@ public sealed class PatternsService : IPatternsService
         IPatternThreadStitchRepository patternThreadStitchRepository)
     {
         _patternRepository = patternRepository;
-        _patternStitchRepository = patternStitchRepository;
         _patternThreadRepository = patternThreadRepository;
         _patternUploadService = patternUploadService;
         _userRepository = userRepository;
