@@ -141,7 +141,7 @@ public sealed class ProjectsService : IProjectsService
     {
         var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
 
-        var patternResult = await _patternRepository.GetByReferenceAsync(patternReference, cancellationToken);
+        var patternResult = await _patternRepository.GetWithThreadsByReferenceAsync(patternReference, cancellationToken);
         if (!patternResult.TrySuccess(out var pattern))
             return Result<GetAnalyticsResponse>.FromFailure(patternResult);
 
@@ -149,21 +149,21 @@ public sealed class ProjectsService : IProjectsService
         if (!projectResult.TrySuccess(out var project))
             return Result<GetAnalyticsResponse>.FromFailure(projectResult);
 
-        var userPatternStitches = await _userPatternStitchRepository.GetByUserPattern(project, cancellationToken);
+        var completedStitchesByThreads = await _userPatternThreadStitchRepository.GetByUser(user, patternReference, cancellationToken);
+        var completedStitches = completedStitchesByThreads.Values.SelectMany(x => x.Values).ToList();
 
-        var grouped = userPatternStitches
-            .Select(x => x.Value)
+        var grouped = completedStitches
             .GroupBy(x => x.StitchedAt.Date)
             .ToList();
 
         return new GetAnalyticsResponse
         {
-            Title = pattern.Title,
+            Title = pattern.Title,  
             ThumbnailUrl = pattern.ThumbnailUrl,
             PurchasedAt = project.CreatedAt,
             TotalStitches = pattern.StitchCount,
-            CompletedStitches = userPatternStitches.Count,
-            RemainingStitches = pattern.StitchCount - userPatternStitches.Count,
+            CompletedStitches = completedStitches.Count,
+            RemainingStitches = pattern.StitchCount - completedStitches.Count,
             Data = new GetAnalyticsResponse.DataDetails
             {
                 Headings = grouped.ConvertAll(x => x.Key.ToShortDateString()),
