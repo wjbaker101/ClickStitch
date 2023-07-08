@@ -161,6 +161,7 @@ export const api = {
                 return {
                     loginToken: result.loginToken,
                     email: result.email,
+                    permissions: result.permissions.map(permissionMapper.map),
                     loggedInAt: dayjs(response.data.responseAt),
                 };
             }

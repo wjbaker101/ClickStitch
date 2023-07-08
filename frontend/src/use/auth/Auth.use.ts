@@ -3,6 +3,8 @@ import { Dayjs } from 'dayjs';
 
 import { useCache } from '@/use/cache/Cache.use';
 
+import { IPermission } from '@/models/Permission.model';
+
 const cache = useCache();
 
 const cacheKey = 'auth';
@@ -11,6 +13,7 @@ const maxTime = 1000 * 60 * 60 * 24 * 6;
 export interface IAuth {
     readonly email: string;
     readonly loginToken: string;
+    readonly permissions: Array<IPermission>;
     readonly loggedInAt: Dayjs;
 }
 
