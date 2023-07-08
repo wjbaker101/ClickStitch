@@ -44,14 +44,6 @@ public static class PatternMapper
         Creator = null
     };
 
-    public static StitchModel MapStitch(PatternStitchRecord stitch, UserPatternStitchRecord? userPatternStitch) => new()
-    {
-        ThreadIndex = stitch.ThreadIndex,
-        X = stitch.X,
-        Y = stitch.Y,
-        StitchedAt = userPatternStitch?.StitchedAt
-    };
-
     public static ThreadModel MapThread(PatternThreadRecord thread) => new()
     {
         Index = thread.Index,

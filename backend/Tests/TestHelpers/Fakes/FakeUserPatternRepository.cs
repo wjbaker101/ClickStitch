@@ -35,16 +35,6 @@ public sealed class FakeUserPatternRepository : FakeRepository<UserPatternRecord
                 Users = new List<UserRecord>(),
                 Patterns = new List<PatternRecord>()
             },
-            Stitches = new HashSet<PatternStitchRecord>
-            {
-                new()
-                {
-                    Pattern = null!,
-                    ThreadIndex = 8533,
-                    X = 2061,
-                    Y = 9222
-                }
-            },
             Threads = new HashSet<PatternThreadRecord>
             {
                 new()

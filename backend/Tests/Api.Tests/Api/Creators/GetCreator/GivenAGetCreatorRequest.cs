@@ -43,7 +43,6 @@ public sealed class GivenAGetCreatorRequest
                 ExternalShopUrl = "TestExternalShopUrl",
                 Creator = x,
                 TitleSlug = "test-title-slug",
-                Stitches = new HashSet<PatternStitchRecord>(),
                 Threads = new HashSet<PatternThreadRecord>()
             });
         });

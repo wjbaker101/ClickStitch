@@ -145,7 +145,6 @@ public sealed class PatternsService : IPatternsService
             ExternalShopUrl = null,
             Creator = creatorResult.Content,
             TitleSlug = titleSlug,
-            Stitches = new HashSet<PatternStitchRecord>(),
             Threads = new HashSet<PatternThreadRecord>()
         }, cancellationToken);
 
