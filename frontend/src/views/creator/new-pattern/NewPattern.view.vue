@@ -7,9 +7,9 @@
             <section>
                 <CardComponent border="top" padded>
                     <h2>Create a New Pattern</h2>
-                    <RouterLink class="flex align-items-center" to="/patterns">
+                    <RouterLink class="link-component" to="/patterns">
                         <IconComponent class="flex-auto" icon="arrow-left" gap="right" />
-                        <small>Back to patterns</small>
+                        <small>Back to Patterns</small>
                     </RouterLink>
                     <FormComponent>
                         <FormSectionComponent>
