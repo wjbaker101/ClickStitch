@@ -68,7 +68,7 @@ const onChange = function (event: Event): void {
     }
 
     .image-placeholder {
-        background-color: var(--wjb-background-colour);
+        background-color: var(--wjb-background-colour-light);
         padding: 1rem;
     }
 }
