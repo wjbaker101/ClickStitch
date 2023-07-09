@@ -2,12 +2,14 @@
     <div class="image-upload-component">
         <label>
             <strong>{{ heading ?? 'Upload Image' }}</strong>
-            <br>
             <input type="file" @change="onChange">
+            <div v-if="image !== null">
+                <img class="image hoverable" :src="image">
+            </div>
+            <div v-else class="image-placeholder hoverable text-centered">
+                <p>Click to Upload Image</p>
+            </div>
         </label>
-        <div class="image-container">
-            <img v-if="image !== null" class="image" :src="image">
-        </div>
     </div>
 </template>
 
@@ -48,6 +50,26 @@ const onChange = function (event: Event): void {
         max-width: 100%;
         height: auto;
         max-height: 250px;
+    }
+
+    input {
+        display: none;
+    }
+
+    .hoverable {
+        border-radius: var(--wjb-border-radius);
+        outline: 2px dashed transparent;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
+        cursor: pointer;
+
+        &:hover {
+            outline: 2px dashed var(--wjb-tertiary);
+        }
+    }
+
+    .image-placeholder {
+        background-color: var(--wjb-background-colour);
+        padding: 1rem;
     }
 }
 </style>
