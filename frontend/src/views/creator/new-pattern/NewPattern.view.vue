@@ -20,6 +20,12 @@
                             <ImageUploadComponent heading="Banner Image/ Thumbnail" />
                         </FormSectionComponent>
                         <FormSectionComponent>
+                            <p>
+                                Once you're happy with the details, click the button below.
+                                <br>
+                                These details will be changable later, so don't worry if you spot a mistake after submitting!
+                            </p>
+                            <p>You will also need to upload a pattern schematic before the pattern will be available to users. Find your new pattern in the creator dashboard to do this.</p>
                             <ButtonComponent>
                                 <IconComponent icon="plus" gap="right" />
                                 <span>Create</span>
