@@ -59,11 +59,12 @@ const onChange = function (event: Event): void {
     .hoverable {
         border-radius: var(--wjb-border-radius);
         outline: 2px dashed transparent;
+        outline: 2px dashed var(--wjb-tertiary);
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
         cursor: pointer;
 
         &:hover {
-            outline: 2px dashed var(--wjb-tertiary);
+            outline-color: transparent;
         }
     }
 
