@@ -48,7 +48,7 @@
                             <p>
                                 <em>This may take a while, in some cases up to a few minutes.</em>
                             </p>
-                            <ButtonComponent @click="onCreate" :isLoading="isCreationLoading">
+                            <ButtonComponent @click="onCreate" :loading="isCreationLoading">
                                 <IconComponent icon="plus" gap="right" />
                                 <span>Create</span>
                             </ButtonComponent>
