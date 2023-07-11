@@ -142,7 +142,8 @@ public sealed class PatternsService : IPatternsService
             AidaCount = request.AidaCount,
             ThumbnailUrl = thumbnailUrlResult.Content,
             BannerImageUrl = bannerUrlResult.Content,
-            Creator = creatorResult.Content
+            Creator = creatorResult.Content,
+            ExternalShopUrl = request.ExternalShopUrl
         });
         if (parseResult.IsFailure)
             return Result.FromFailure(parseResult);

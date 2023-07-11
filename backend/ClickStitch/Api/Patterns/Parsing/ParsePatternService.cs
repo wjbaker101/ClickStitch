@@ -34,7 +34,7 @@ public sealed class PatternParserService : IPatternParserService
             StitchCount = data.canvas.stitches.Count,
             AidaCount = parameters.AidaCount,
             BannerImageUrl = parameters.BannerImageUrl,
-            ExternalShopUrl = null,
+            ExternalShopUrl = parameters.ExternalShopUrl,
             Creator = parameters.Creator,
             TitleSlug = parameters.TitleSlug,
             Threads = new HashSet<PatternThreadRecord>()

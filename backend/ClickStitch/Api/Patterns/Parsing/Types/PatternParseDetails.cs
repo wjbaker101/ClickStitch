@@ -12,6 +12,7 @@ public sealed class PatternParseParameters
     public required string ThumbnailUrl { get; init; }
     public required string BannerImageUrl { get; init; }
     public required CreatorRecord Creator { get; init; }
+    public required string ExternalShopUrl { get; init; }
 }
 
 public sealed class PatternParseDetails
