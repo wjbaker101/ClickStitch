@@ -376,6 +376,29 @@ export const api = {
             }
         },
 
+        async verify(patternReference: string, patternData: string): Promise<boolean | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
+            try {
+                const formData = new FormData();
+                formData.append('pattern_data', patternData);
+
+                const response = await client.post<IApiResultResponse<{}>>(`/patterns/${patternReference}`, formData, {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
+
+                const result = response.data.result;
+
+                return true;
+            }
+            catch (error) {
+                return false;
+            }
+        },
+
         async delete(patternReference: string): Promise<IDeletePattern | Error> {
             if (auth.details.value === null)
                 return new Error('You must be logged in for this action.');
