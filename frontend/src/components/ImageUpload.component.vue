@@ -25,12 +25,15 @@ defineProps<{
     subtext?: string;
 }>();
 
+const emit = defineEmits(['choose']);
+
 const image = ref<string | null>(null);
 
 const onChange = function (event: Event): void {
     const reader = new FileReader();
     reader.onload = function(){
         image.value = reader.result as string;
+        emit('choose', image.value);
     };
 
     const element = event.target as HTMLInputElement;
