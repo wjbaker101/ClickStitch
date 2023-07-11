@@ -523,6 +523,7 @@ export const api = {
                 return {
                     title: result.title,
                     thumbnailUrl: result.thumbnailUrl,
+                    bannerImageUrl: result.bannerImageUrl,
                     purchasedAt: dayjs(result.purchasedAt),
                     totalStitches: result.totalStitches,
                     remainingStitches: result.remainingStitches,
