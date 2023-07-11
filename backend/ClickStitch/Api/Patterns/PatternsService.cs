@@ -120,10 +120,6 @@ public sealed class PatternsService : IPatternsService
         if (!titleSlugResult.TrySuccess(out var titleSlug))
             return Result.FromFailure(titleSlugResult);
 
-        var thumbnailUrlResult = await _patternUploadService.UploadImage(titleSlug, PatternImageType.Thumbnail, thumbnail.OpenReadStream(), cancellationToken);
-        if (thumbnailUrlResult.IsFailure)
-            return Result.FromFailure(thumbnailUrlResult);
-
         var bannerUrlResult = await _patternUploadService.UploadImage(titleSlug, PatternImageType.Banner, bannerImage.OpenReadStream(), cancellationToken);
         if (bannerUrlResult.IsFailure)
             return Result.FromFailure(bannerUrlResult);
@@ -141,7 +137,7 @@ public sealed class PatternsService : IPatternsService
             TitleSlug = titleSlug,
             Price = request.Price,
             AidaCount = request.AidaCount,
-            ThumbnailUrl = thumbnailUrlResult.Content,
+            ThumbnailUrl = null,
             BannerImageUrl = bannerUrlResult.Content,
             Creator = creatorResult.Content,
             ExternalShopUrl = request.ExternalShopUrl
