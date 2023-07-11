@@ -18,6 +18,10 @@
                                 <input type="text" placeholder="My Amazing Pattern">
                             </FormInputComponent>
                             <ImageUploadComponent heading="Banner Image/ Thumbnail" />
+                            <FormInputComponent label="Shop Url">
+                                <small><em>A link to the pattern where stitchers can buy it</em></small>
+                                <input type="text" placeholder="https://etsy.com/shop/beautifulpatternsco/amazing_pattern">
+                            </FormInputComponent>
                         </FormSectionComponent>
                         <FormSectionComponent>
                             <p>
@@ -25,7 +29,6 @@
                                 <br>
                                 These details will be changable later, so don't worry if you spot a mistake after submitting!
                             </p>
-                            <p>You will also need to upload a pattern schematic before the pattern will be available to users. Find your new pattern in the creator dashboard to do this.</p>
                             <ButtonComponent>
                                 <IconComponent icon="plus" gap="right" />
                                 <span>Create</span>
