@@ -22,6 +22,22 @@
                                 <small><em>A link to the pattern where stitchers can buy it</em></small>
                                 <input type="text" placeholder="https://etsy.com/shop/beautifulpatternsco/amazing_pattern">
                             </FormInputComponent>
+                            <div class="flex gap">
+                                <FileUploadComponent class="flex-2" heading="Pattern Schematic" @choose="onPatternChoose" />
+                                <div v-if="isValid !== null || isLoading" class="pattern-upload-details flex align-items-center text-centered">
+                                    <template v-if="isLoading">
+                                        <LoadingComponent />
+                                    </template>
+                                    <template v-else-if="isValid === true">
+                                        <IconComponent class="flex-auto" icon="tick-circle" size="large" gap="right" />
+                                        <span class="text-left">Pattern is Valid!</span>
+                                    </template>
+                                    <template v-else-if="isValid === false">
+                                        <IconComponent class="flex-auto" icon="cross-circle" size="large" gap="right" />
+                                        <span class="text-left">Pattern is invalid, please check it is a supported format and try again.</span>
+                                    </template>
+                                </div>
+                            </div>
                         </FormSectionComponent>
                         <FormSectionComponent>
                             <p>
@@ -42,10 +58,39 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+
+import FileUploadComponent from '@/components/FileUpload.component.vue';
 import ImageUploadComponent from '@/components/ImageUpload.component.vue';
 
+import { api } from '@/api/api';
+
+const isLoading = ref<boolean>(false);
+const isValid = ref<boolean | null>(null);
+
+const onPatternChoose = function (file: File): void {
+    isLoading.value = true;
+
+    const reader = new FileReader();
+
+    reader.onload = async function (): Promise<void> {
+        const result = await api.patterns.verify(reader.result as string);
+        if (result instanceof Error)
+            return;
+
+        isValid.value = result;
+        isLoading.value = false;
+    };
+
+    reader.readAsText(file);
+};
 </script>
 
 <style lang="scss">
-.new-pattern-view {}
+.new-pattern-view {
+
+    .pattern-upload-details {
+        margin-top: 1rem;
+    }
+}
 </style>
