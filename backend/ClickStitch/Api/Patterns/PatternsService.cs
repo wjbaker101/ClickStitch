@@ -16,6 +16,7 @@ public interface IPatternsService
     Task<Result<GetPatternsResponse>> GetPatterns(RequestUser? requestUser, CancellationToken cancellationToken);
     Task<Result<UpdatePatternResponse>> UpdatePattern(RequestUser requestUser, Guid patternReference, UpdatePatternRequest request, CancellationToken cancellationToken);
     Task<Result> CreatePattern(RequestUser requestUser, CreatePatternRequest request, string patternData, IFormFile thumbnail, IFormFile bannerImage, CancellationToken cancellationToken);
+    Task<Result<VerifyPatternResponse>> VerifyPattern(string patternData, CancellationToken cancellationToken);
     Task<Result<DeletePatternResponse>> DeletePattern(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken);
 }
 
@@ -153,6 +154,26 @@ public sealed class PatternsService : IPatternsService
         await _patternThreadStitchRepository.SaveManyAsync(parseResult.Content.Stitches, cancellationToken);
 
         return Result.Success();
+    }
+
+    public async Task<Result<VerifyPatternResponse>> VerifyPattern(string patternData, CancellationToken cancellationToken)
+    {
+        var parseResult = _patternParserService.Parse(new PatternParseParameters
+        {
+            RawContent = patternData,
+            Title = "",
+            TitleSlug = "",
+            Price = 0,
+            AidaCount = 0,
+            ThumbnailUrl = "",
+            BannerImageUrl = "",
+            Creator = null!,
+            ExternalShopUrl = ""
+        });
+        if (parseResult.IsFailure)
+            return Result<VerifyPatternResponse>.FromFailure(parseResult);
+
+        return new VerifyPatternResponse();
     }
 
     public async Task<Result<DeletePatternResponse>> DeletePattern(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken)

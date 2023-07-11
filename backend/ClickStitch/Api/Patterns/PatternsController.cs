@@ -62,6 +62,19 @@ public sealed class PatternsController : ApiController
         return ToApiResponse(result);
     }
 
+    [HttpPost]
+    [Route("verify")]
+    [Authenticate]
+    [RequireCreator]
+    public async Task<IActionResult> VerifyPattern([FromForm(Name = "pattern_data")] string patternDataAsString, CancellationToken cancellationToken)
+    {
+        var requestUser = RequestHelper.GetRequiredUser(Request);
+
+        var result = await _patternsService.VerifyPattern(patternDataAsString, cancellationToken);
+        
+        return ToApiResponse(result);
+    }
+
     [HttpDelete]
     [Route("{patternReference:guid}")]
     [Authenticate]
