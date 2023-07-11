@@ -62,6 +62,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 import FileUploadComponent from '@/components/FileUpload.component.vue';
 import ImageUploadComponent, { IOnImageUploadChoose } from '@/components/ImageUpload.component.vue';
@@ -69,6 +70,7 @@ import ImageUploadComponent, { IOnImageUploadChoose } from '@/components/ImageUp
 import { api } from '@/api/api';
 import { usePopup } from '@wjb/vue/use/popup.use';
 
+const router = useRouter();
 const popup = usePopup();
 
 const isLoading = ref<boolean>(false);
@@ -131,6 +133,13 @@ const onCreate = async function (): Promise<void> {
     });
 
     isCreationLoading.value = false;
+
+    popup.trigger({
+        message: `Pattern '${title.value}' has been created!`,
+        style: 'success',
+    });
+
+    router.push({ path: '/patterns', });
 };
 </script>
 
