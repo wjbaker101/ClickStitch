@@ -4,7 +4,6 @@ using ClickStitch.Helper;
 using ClickStitch.Types;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using JsonSerializer = Utf8Json.JsonSerializer;
 
 namespace ClickStitch.Api.Patterns;
 
@@ -57,9 +56,8 @@ public sealed class PatternsController : ApiController
         var requestUser = RequestHelper.GetRequiredUser(Request);
 
         var request = JsonConvert.DeserializeObject<CreatePatternRequest>(requestAsString)!;
-        var patternData = JsonSerializer.Deserialize<CreatePatternData>(patternDataAsString);
 
-        var result = await _patternsService.CreatePattern(requestUser, request, patternData, thumbnail, bannerImage, cancellationToken);
+        var result = await _patternsService.CreatePattern(requestUser, request, patternDataAsString, thumbnail, bannerImage, cancellationToken);
         
         return ToApiResponse(result);
     }

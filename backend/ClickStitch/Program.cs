@@ -3,6 +3,7 @@ using ClickStitch.Api.Auth;
 using ClickStitch.Api.Basket;
 using ClickStitch.Api.Creators;
 using ClickStitch.Api.Patterns;
+using ClickStitch.Api.Patterns.Parsing;
 using ClickStitch.Api.Projects;
 using ClickStitch.Api.Users;
 using ClickStitch.Clients.Cloudinary;
@@ -58,6 +59,7 @@ services.AddSingleton<IPasswordService, PasswordService>();
 
 services.AddSingleton<IPatternsService, PatternsService>();
 services.AddSingleton<IPatternUploadService, PatternUploadService>();
+services.AddSingleton<IPatternParserService, PatternParserService>();
 
 services.AddSingleton<IProjectsService, ProjectsService>();
 

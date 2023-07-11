@@ -1,5 +1,6 @@
-﻿using ClickStitch.Api.Patterns.Types;
-using Core.Extensions;
+﻿using ClickStitch.Api.Patterns.Parsing;
+using ClickStitch.Api.Patterns.Parsing.Types;
+using ClickStitch.Api.Patterns.Types;
 using Core.Services;
 using Data.Records;
 using Data.Repositories.Creator;
@@ -14,7 +15,7 @@ public interface IPatternsService
 {
     Task<Result<GetPatternsResponse>> GetPatterns(RequestUser? requestUser, CancellationToken cancellationToken);
     Task<Result<UpdatePatternResponse>> UpdatePattern(RequestUser requestUser, Guid patternReference, UpdatePatternRequest request, CancellationToken cancellationToken);
-    Task<Result> CreatePattern(RequestUser requestUser, CreatePatternRequest request, CreatePatternData patternData, IFormFile thumbnail, IFormFile bannerImage, CancellationToken cancellationToken);
+    Task<Result> CreatePattern(RequestUser requestUser, CreatePatternRequest request, string patternData, IFormFile thumbnail, IFormFile bannerImage, CancellationToken cancellationToken);
     Task<Result<DeletePatternResponse>> DeletePattern(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken);
 }
 
@@ -27,6 +28,7 @@ public sealed class PatternsService : IPatternsService
     private readonly IUserPatternRepository _userPatternRepository;
     private readonly ICreatorRepository _creatorRepository;
     private readonly IPatternThreadStitchRepository _patternThreadStitchRepository;
+    private readonly IPatternParserService _patternParserService;
 
     public PatternsService(
         IPatternRepository patternRepository,
@@ -35,7 +37,8 @@ public sealed class PatternsService : IPatternsService
         IUserRepository userRepository,
         IUserPatternRepository userPatternRepository,
         ICreatorRepository creatorRepository,
-        IPatternThreadStitchRepository patternThreadStitchRepository)
+        IPatternThreadStitchRepository patternThreadStitchRepository,
+        IPatternParserService patternParserService)
     {
         _patternRepository = patternRepository;
         _patternThreadRepository = patternThreadRepository;
@@ -44,6 +47,7 @@ public sealed class PatternsService : IPatternsService
         _userPatternRepository = userPatternRepository;
         _creatorRepository = creatorRepository;
         _patternThreadStitchRepository = patternThreadStitchRepository;
+        _patternParserService = patternParserService;
     }
 
     public async Task<Result<GetPatternsResponse>> GetPatterns(RequestUser? requestUser, CancellationToken cancellationToken)
@@ -103,7 +107,7 @@ public sealed class PatternsService : IPatternsService
     public async Task<Result> CreatePattern(
         RequestUser requestUser,
         CreatePatternRequest request,
-        CreatePatternData patternData,
+        string patternData,
         IFormFile thumbnail,
         IFormFile bannerImage,
         CancellationToken cancellationToken)
@@ -129,52 +133,23 @@ public sealed class PatternsService : IPatternsService
         if (creatorResult.IsFailure)
             return Result.FromFailure(creatorResult);
 
-        var pattern = await _patternRepository.SaveAsync(new PatternRecord
+        var parseResult = _patternParserService.Parse(new PatternParseParameters
         {
-            Reference = Guid.NewGuid(),
-            CreatedAt = DateTime.UtcNow,
+            RawContent = patternData,
             Title = request.Title,
-            Width = patternData.canvas.width,
-            Height = patternData.canvas.height,
-            Price = request.Price,
-            ThumbnailUrl = thumbnailUrlResult.Content,
-            ThreadCount = patternData.palette.threads.Count - 1,
-            StitchCount = patternData.canvas.stitches.Count,
-            AidaCount = request.AidaCount,
-            BannerImageUrl = bannerUrlResult.Content,
-            ExternalShopUrl = null,
-            Creator = creatorResult.Content,
             TitleSlug = titleSlug,
-            Threads = new HashSet<PatternThreadRecord>()
-        }, cancellationToken);
+            Price = request.Price,
+            AidaCount = request.AidaCount,
+            ThumbnailUrl = thumbnailUrlResult.Content,
+            BannerImageUrl = bannerUrlResult.Content,
+            Creator = creatorResult.Content
+        });
+        if (parseResult.IsFailure)
+            return Result.FromFailure(parseResult);
 
-        var threads = await _patternThreadRepository.SaveManyAsync(patternData.palette.threads
-            .Where(x => x.index != 0)
-            .MapAll(x => new PatternThreadRecord
-            {
-                Pattern = pattern,
-                Name = x.name,
-                Description = x.description,
-                Index = x.index,
-                Colour = $"#{x.colour.ToLower()}"
-            }), cancellationToken);
-
-        var stitchesByThread = patternData.canvas.stitches
-            .GroupBy(x => x.index)
-            .ToDictionary(x => x.Key, x => x.ToList());
-
-        foreach (var thread in threads)
-        {
-            var stitches = stitchesByThread[thread.Index];
-
-            await _patternThreadStitchRepository.SaveManyAsync(stitches.ConvertAll(x => new PatternThreadStitchRecord
-            {
-                Thread = thread,
-                X = x.x,
-                Y = x.y,
-                LookupHash = $"{x.x},{x.y}"
-            }), cancellationToken);
-        }
+        await _patternRepository.SaveAsync(parseResult.Content.Pattern, cancellationToken);
+        await _patternThreadRepository.SaveManyAsync(parseResult.Content.Threads, cancellationToken);
+        await _patternThreadStitchRepository.SaveManyAsync(parseResult.Content.Stitches, cancellationToken);
 
         return Result.Success();
     }
