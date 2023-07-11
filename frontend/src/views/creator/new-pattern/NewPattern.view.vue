@@ -15,12 +15,12 @@
                         <FormSectionComponent>
                             <h3>Pattern Details</h3>
                             <FormInputComponent label="Title">
-                                <input type="text" placeholder="My Amazing Pattern">
+                                <input type="text" placeholder="My Amazing Pattern" v-model="title">
                             </FormInputComponent>
-                            <ImageUploadComponent heading="Banner Image/ Thumbnail" subtext="Recommended size: 1500x1000px" />
+                            <ImageUploadComponent heading="Banner Image/ Thumbnail" subtext="Recommended size: 1500x1000px" @choose="onBannerImageChoose" />
                             <FormInputComponent label="Shop Url">
                                 <small><em>A link to the pattern where stitchers can buy it</em></small>
-                                <input type="text" placeholder="https://etsy.com/shop/beautifulpatternsco/amazing_pattern">
+                                <input type="text" placeholder="https://etsy.com/shop/beautifulpatternsco/amazing_pattern" v-model="externalShopUrl">
                             </FormInputComponent>
                             <div class="flex gap">
                                 <FileUploadComponent class="flex-2" heading="Pattern Schematic" @choose="onPatternChoose" />
@@ -45,7 +45,10 @@
                                 <br>
                                 These details will be changable later, so don't worry if you spot a mistake after submitting!
                             </p>
-                            <ButtonComponent>
+                            <p>
+                                <em>This may take a while, in some cases up to a few minutes.</em>
+                            </p>
+                            <ButtonComponent @click="onCreate" :isLoading="isCreationLoading">
                                 <IconComponent icon="plus" gap="right" />
                                 <span>Create</span>
                             </ButtonComponent>
@@ -61,12 +64,26 @@
 import { ref } from 'vue';
 
 import FileUploadComponent from '@/components/FileUpload.component.vue';
-import ImageUploadComponent from '@/components/ImageUpload.component.vue';
+import ImageUploadComponent, { IOnImageUploadChoose } from '@/components/ImageUpload.component.vue';
 
 import { api } from '@/api/api';
+import { usePopup } from '@wjb/vue/use/popup.use';
+
+const popup = usePopup();
 
 const isLoading = ref<boolean>(false);
 const isValid = ref<boolean | null>(null);
+
+const isCreationLoading = ref<boolean>(false);
+
+const bannerImage = ref<File | null>(null);
+const title = ref<string>('');
+const externalShopUrl = ref<string>('');
+const patternData = ref<string | null>(null);
+
+const onBannerImageChoose = function (payload: IOnImageUploadChoose) {
+    bannerImage.value = payload.asFile;
+};
 
 const onPatternChoose = function (file: File): void {
     isLoading.value = true;
@@ -80,9 +97,40 @@ const onPatternChoose = function (file: File): void {
 
         isValid.value = result;
         isLoading.value = false;
+
+        if (isValid.value)
+            patternData.value = reader.result as string;
     };
 
     reader.readAsText(file);
+};
+
+const onCreate = async function (): Promise<void> {
+    if (bannerImage.value === null) {
+        popup.trigger({
+            message: 'Please choose a banner/thumbnail image.',
+            style: 'error',
+        });
+        return;
+    }
+    if (patternData.value === null) {
+        popup.trigger({
+            message: 'Please upload a valid pattern schematic.',
+            style: 'error',
+        });
+        return;
+    }
+
+    isCreationLoading.value = true;
+
+    await api.patterns.create(bannerImage.value, patternData.value, {
+        title: title.value,
+        externalShopUrl: externalShopUrl.value,
+        aidaCount: 16,
+        price: 1,
+    });
+
+    isCreationLoading.value = false;
 };
 </script>
 
