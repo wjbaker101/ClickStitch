@@ -23,6 +23,8 @@ defineProps<{
     heading?: string;
 }>();
 
+const emit = defineEmits(['choose']);
+
 const fileName = ref<string | null>(null);
 const image = ref<string | null>(null);
 
@@ -41,6 +43,8 @@ const onChange = function (event: Event): void {
 
     reader.readAsDataURL(file);
     fileName.value = file.name;
+
+    emit('choose', file);
 };
 </script>
 
