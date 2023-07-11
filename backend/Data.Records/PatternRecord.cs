@@ -9,12 +9,12 @@ public class PatternRecord : IDatabaseRecord
     public virtual required int Width { get; set; }
     public virtual required int Height { get; set; }
     public virtual required decimal Price { get; set; }
-    public virtual required string? ThumbnailUrl { get; set; }
+    public virtual required string ThumbnailUrl { get; set; }
     public virtual required int ThreadCount { get; set; }
     public virtual required int StitchCount { get; set; }
     public virtual required int AidaCount { get; set; }
     public virtual required string BannerImageUrl { get; set; }
-    public virtual required string? ExternalShopUrl { get; set; }
+    public virtual required string ExternalShopUrl { get; set; }
     public virtual required CreatorRecord Creator { get; init; }
     public virtual required string TitleSlug { get; init; }
     public virtual required ISet<PatternThreadRecord> Threads { get; init; }

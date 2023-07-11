@@ -137,7 +137,7 @@ public sealed class PatternsService : IPatternsService
             TitleSlug = titleSlug,
             Price = request.Price,
             AidaCount = request.AidaCount,
-            ThumbnailUrl = null,
+            ThumbnailUrl = "",
             BannerImageUrl = bannerUrlResult.Content,
             Creator = creatorResult.Content,
             ExternalShopUrl = request.ExternalShopUrl
