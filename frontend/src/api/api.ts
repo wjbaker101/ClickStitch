@@ -49,6 +49,7 @@ import { IGetCreatorPatterns } from '@/models/GetCreatorPatterns.model';
 import { IUpdatePatternRequest, IUpdatePatternResponse } from './types/UpdatePattern.type';
 import { IDeletePatternResponse } from './types/DeletePattern.type';
 import { IDeletePattern } from '@/models/DeletePattern.model';
+import { ICreatePatternRequest, ICreatePatternResponse } from './types/CreatePattern.type';
 
 const auth = useAuth();
 
@@ -370,6 +371,29 @@ export const api = {
                 const result = response.data.result;
 
                 return patternMapper.map(result.pattern);
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
+        },
+
+        async create(bannerImage: File, patternData: string, request: ICreatePatternRequest): Promise<void | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
+            try {
+                const formData = new FormData();
+                formData.append('banner_image', bannerImage);
+                formData.append('request_body', JSON.stringify(request));
+                formData.append('pattern_data', patternData);
+
+                const response = await client.post<IApiResultResponse<ICreatePatternResponse>>('/patterns', formData, {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
+
+                const result = response.data.result;
             }
             catch (error) {
                 return ApiErrorMapper.map(error);
