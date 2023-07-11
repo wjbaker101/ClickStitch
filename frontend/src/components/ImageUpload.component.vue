@@ -27,13 +27,23 @@ defineProps<{
 
 const emit = defineEmits(['choose']);
 
+export interface IOnImageUploadChoose {
+    readonly asFile: File;
+    readonly asString: string;
+}
+
 const image = ref<string | null>(null);
 
 const onChange = function (event: Event): void {
     const reader = new FileReader();
     reader.onload = function(){
         image.value = reader.result as string;
-        emit('choose', image.value);
+
+        const payload: IOnImageUploadChoose = {
+            asFile: element?.files?.[0] as File,
+            asString: image.value,
+        };
+        emit('choose', payload);
     };
 
     const element = event.target as HTMLInputElement;
