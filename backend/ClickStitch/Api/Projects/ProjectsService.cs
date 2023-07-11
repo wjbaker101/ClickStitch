@@ -156,6 +156,7 @@ public sealed class ProjectsService : IProjectsService
         {
             Title = pattern.Title,  
             ThumbnailUrl = pattern.ThumbnailUrl,
+            BannerImageUrl = pattern.BannerImageUrl,
             PurchasedAt = project.CreatedAt,
             TotalStitches = pattern.StitchCount,
             CompletedStitches = completedStitches.Count,
