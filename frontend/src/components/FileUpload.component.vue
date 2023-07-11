@@ -26,22 +26,14 @@ defineProps<{
 const emit = defineEmits(['choose']);
 
 const fileName = ref<string | null>(null);
-const image = ref<string | null>(null);
 
 const onChange = function (event: Event): void {
-    const reader = new FileReader();
-    reader.onload = function(){
-        image.value = reader.result as string;
-    };
-
     const element = event.target as HTMLInputElement;
-
     if (element.files === null)
         return;
 
     const file = element.files[0];
 
-    reader.readAsDataURL(file);
     fileName.value = file.name;
 
     emit('choose', file);
