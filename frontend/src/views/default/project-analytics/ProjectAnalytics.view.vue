@@ -12,8 +12,8 @@
             </div>
             <div v-else-if="analytics !== null">
                 <section class="top-grid">
-                    <CardComponent class="text-centered" border="top" padded>
-                        <img width="150" height="150" :src="analytics.thumbnailUrl ?? undefined">
+                    <CardComponent class="flex align-items-center text-centered">
+                        <img class="image" width="250" height="166" :src="analytics.bannerImageUrl">
                     </CardComponent>
                     <CardComponent border="top" padded>
                         <h2>{{ analytics.title }}</h2>
@@ -130,6 +130,13 @@ onMounted(async () => {
         display: grid;
         gap: 1rem;
         grid-template-columns: 1fr 2fr;
+    }
+
+    .image {
+        width: 100%;
+        height: auto;
+        vertical-align: middle;
+        border-radius: var(--wjb-border-radius);
     }
 }
 </style>
