@@ -376,7 +376,7 @@ export const api = {
             }
         },
 
-        async verify(patternReference: string, patternData: string): Promise<boolean | Error> {
+        async verify(patternData: string): Promise<boolean | Error> {
             if (auth.details.value === null)
                 return new Error('You must be logged in for this action.');
 
@@ -384,7 +384,7 @@ export const api = {
                 const formData = new FormData();
                 formData.append('pattern_data', patternData);
 
-                const response = await client.post<IApiResultResponse<{}>>(`/patterns/${patternReference}`, formData, {
+                const response = await client.post<IApiResultResponse<{}>>('/patterns/verify', formData, {
                     headers: {
                         'Authorization': `Bearer ${auth.details.value.loginToken}`,
                     },
