@@ -2,6 +2,10 @@
     <div class="image-upload-component">
         <label>
             <strong>{{ heading ?? 'Upload Image' }}</strong>
+            <br>
+            <small v-if="subtext">
+                <em>{{ subtext }}</em>
+            </small>
             <input type="file" @change="onChange">
             <div v-if="image !== null">
                 <img class="image hoverable" :src="image">
@@ -18,6 +22,7 @@ import { ref } from 'vue';
 
 defineProps<{
     heading?: string;
+    subtext?: string;
 }>();
 
 const image = ref<string | null>(null);
