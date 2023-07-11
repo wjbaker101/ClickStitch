@@ -17,7 +17,7 @@
                             <FormInputComponent label="Title">
                                 <input type="text" placeholder="My Amazing Pattern">
                             </FormInputComponent>
-                            <ImageUploadComponent heading="Banner Image/ Thumbnail" />
+                            <ImageUploadComponent heading="Banner Image/ Thumbnail" subtext="Recommended size: 1500x1000px" />
                             <FormInputComponent label="Shop Url">
                                 <small><em>A link to the pattern where stitchers can buy it</em></small>
                                 <input type="text" placeholder="https://etsy.com/shop/beautifulpatternsco/amazing_pattern">
