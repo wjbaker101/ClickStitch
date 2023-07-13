@@ -8,7 +8,7 @@ namespace ClickStitch.Api.Patterns.Parsing;
 
 public interface IPatternParserService
 {
-    Result<PatternParseDetails> Parse(PatternParseParameters parameters);
+    Result<ParsePatternResponse> Parse(ParsePatternParameters parameters);
 }
 
 public sealed class PatternParserService : IPatternParserService
@@ -17,7 +17,7 @@ public sealed class PatternParserService : IPatternParserService
     {
     }
 
-    public Result<PatternParseDetails> Parse(PatternParseParameters parameters)
+    public Result<ParsePatternResponse> Parse(ParsePatternParameters parameters)
     {
         var data = JsonSerializer.Deserialize<CreatePatternData>(parameters.RawContent);
 
@@ -71,7 +71,7 @@ public sealed class PatternParserService : IPatternParserService
             }));
         }
 
-        return new PatternParseDetails
+        return new ParsePatternResponse
         {
             Pattern = pattern,
             Threads = threads,

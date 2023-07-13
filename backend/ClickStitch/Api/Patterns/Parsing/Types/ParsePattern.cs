@@ -2,7 +2,7 @@
 
 namespace ClickStitch.Api.Patterns.Parsing.Types;
 
-public sealed class PatternParseParameters
+public sealed class ParsePatternParameters
 {
     public required string RawContent { get; init; }
     public required string Title { get; init; }
@@ -15,7 +15,7 @@ public sealed class PatternParseParameters
     public required string ExternalShopUrl { get; init; }
 }
 
-public sealed class PatternParseDetails
+public sealed class ParsePatternResponse
 {
     public required PatternRecord Pattern { get; init; }
     public required List<PatternThreadRecord> Threads { get; init; }

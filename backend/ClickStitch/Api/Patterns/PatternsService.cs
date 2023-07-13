@@ -130,7 +130,7 @@ public sealed class PatternsService : IPatternsService
         if (creatorResult.IsFailure)
             return Result.FromFailure(creatorResult);
 
-        var parseResult = _patternParserService.Parse(new PatternParseParameters
+        var parseResult = _patternParserService.Parse(new ParsePatternParameters
         {
             RawContent = patternData,
             Title = request.Title,
@@ -154,7 +154,7 @@ public sealed class PatternsService : IPatternsService
 
     public async Task<Result<VerifyPatternResponse>> VerifyPattern(string patternData, CancellationToken cancellationToken)
     {
-        var parseResult = _patternParserService.Parse(new PatternParseParameters
+        var parseResult = _patternParserService.Parse(new ParsePatternParameters
         {
             RawContent = patternData,
             Title = "",
