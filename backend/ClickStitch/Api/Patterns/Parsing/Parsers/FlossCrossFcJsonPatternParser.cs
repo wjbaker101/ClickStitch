@@ -9,6 +9,8 @@ public sealed class FlossCrossFcJsonPatternParser : IPatternParser
     #pragma warning disable IDE1006
     public sealed class PatternFormat
     {
+        public required Model model { get; init; }
+
         public sealed class Model
         {
             public required List<Image> images { get; init; }
