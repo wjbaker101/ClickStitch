@@ -16,6 +16,18 @@ public sealed class PatternParserService : IPatternParserService
 
     public Result<ParsePatternResponse> Parse(ParsePatternParameters parameters)
     {
-        return new DefaultPatternParser().Parse(parameters);
+        var isXml = parameters.RawContent.StartsWith("<?xml");
+
+        var parser = GetParser(isXml);
+
+        return parser.Parse(parameters);
+    }
+
+    private static IPatternParser GetParser(bool isXml)
+    {
+        if (isXml)
+            return new FlossCrossOxsPatternParser();
+
+        return new DefaultPatternParser();
     }
 }
