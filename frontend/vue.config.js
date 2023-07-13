@@ -9,7 +9,7 @@ module.exports = defineConfig({
             '.clickstitch.localdev',
         ],
         server: {
-            type: 'https',
+            type: 'http',
             options: {
                 key: '_wildcard.clickstitch.localdev+1-key.pem',
                 cert: '_wildcard.clickstitch.localdev+1.pem',
