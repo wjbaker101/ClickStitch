@@ -1,9 +1,41 @@
 ﻿using ClickStitch.Api.Patterns.Parsing.Types;
-using ClickStitch.Api.Patterns.Types;
 using Core.Extensions;
 using Utf8Json;
 
 namespace ClickStitch.Api.Patterns.Parsing.Parsers;
+
+public sealed class CreatePatternData
+{
+    public required Palette palette { get; init; }
+    public required Canvas canvas { get; init; }
+
+    public sealed class Palette
+    {
+        public required List<Thread> threads { get; init; }
+    }
+
+    public sealed class Thread
+    {
+        public required int index { get; init; }
+        public required string name { get; init; }
+        public required string description { get; init; }
+        public required string colour { get; init; }
+    }
+
+    public sealed class Canvas
+    {
+        public required int width { get; init; }
+        public required int height { get; init; }
+        public required List<Stitch> stitches { get; init; }
+    }
+
+    public sealed class Stitch
+    {
+        public required int x { get; init; }
+        public required int y { get; init; }
+        public required int index { get; init; }
+    }
+}
 
 public sealed class DefaultPatternParser : IPatternParser
 {
