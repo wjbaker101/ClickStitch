@@ -1,4 +1,5 @@
 ﻿using ClickStitch.Api.Patterns.Parsing.Types;
+using Core.Extensions;
 using Utf8Json;
 
 namespace ClickStitch.Api.Patterns.Parsing.Parsers;
@@ -43,7 +44,58 @@ public sealed class FlossCrossFcJsonPatternParser : IPatternParser
     public Result<ParsePatternResponse> Parse(ParsePatternParameters parameters)
     {
         var data = JsonSerializer.Deserialize<PatternFormat>(parameters.RawContent);
+        var image = data.model.images[0];
+        var layer = image.layers[0];
 
-        return null!;
+        var stitches = new List<ParsePatternResponse.StitchDetails>();
+        var posX = 0;
+        var posY = 0;
+
+        void IncrementPosition()
+        {
+            posX++;
+            if (posX % image.width == 0)
+            {
+                posY++;
+                posX = 0;
+            }
+        }
+
+        foreach (var threadIndex in layer.cross)
+        {
+            if (threadIndex == -1)
+            {
+                IncrementPosition();
+                continue;
+            }
+
+            stitches.Add(new ParsePatternResponse.StitchDetails
+            {
+                ThreadIndex = threadIndex,
+                X = posX,
+                Y = posY
+            });
+
+            IncrementPosition();
+        }
+
+        return new ParsePatternResponse
+        {
+            Pattern = new ParsePatternResponse.PatternDetails
+            {
+                Width = image.width,
+                Height = image.height,
+                ThreadCount = image.flossIndexes.Count,
+                StitchCount = layer.cross.Count
+            },
+            Threads = image.flossIndexes.MapAll((x, index) => new ParsePatternResponse.ThreadDetails
+            {
+                Name = $"{x.sys} {x.id}",
+                Description = x.name,
+                Index = index,
+                Colour = ParsingHelper.RgbToHex(x.rgb[0], x.rgb[1], x.rgb[2])
+            }),
+            Stitches = stitches
+        };
     }
 }
