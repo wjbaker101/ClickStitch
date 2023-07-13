@@ -46,6 +46,8 @@ public sealed class DefaultPatternParser : IPatternParser
     public Result<ParsePatternResponse> Parse(ParsePatternParameters parameters)
     {
         var data = JsonSerializer.Deserialize<PatternFormat>(parameters.RawContent);
+        if (data == null)
+            return Result<ParsePatternResponse>.Failure("Unable to parse pattern schematic.");
 
         var threadsWithoutCanvasThread = data.palette.threads
             .Where(x => x.index != 0)

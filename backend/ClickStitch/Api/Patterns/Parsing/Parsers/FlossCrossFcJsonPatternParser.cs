@@ -44,6 +44,9 @@ public sealed class FlossCrossFcJsonPatternParser : IPatternParser
     public Result<ParsePatternResponse> Parse(ParsePatternParameters parameters)
     {
         var data = JsonSerializer.Deserialize<PatternFormat>(parameters.RawContent);
+        if (data == null)
+            return Result<ParsePatternResponse>.Failure("Unable to parse pattern schematic.");
+
         var image = data.model.images[0];
         var layer = image.layers[0];
 
