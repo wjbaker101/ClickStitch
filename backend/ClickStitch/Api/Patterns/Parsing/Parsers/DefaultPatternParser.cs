@@ -6,6 +6,8 @@ namespace ClickStitch.Api.Patterns.Parsing.Parsers;
 
 public sealed class DefaultPatternParser : IPatternParser
 {
+    // ReSharper disable InconsistentNaming
+    #pragma warning disable IDE1006
     public sealed class PatternFormat
     {
         public required Palette palette { get; init; }
@@ -38,6 +40,8 @@ public sealed class DefaultPatternParser : IPatternParser
             public required int index { get; init; }
         }
     }
+    #pragma warning restore IDE1006
+    // ReSharper restore InconsistentNaming
 
     public Result<ParsePatternResponse> Parse(ParsePatternParameters parameters)
     {

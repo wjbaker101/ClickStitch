@@ -5,6 +5,8 @@ namespace ClickStitch.Api.Patterns.Parsing.Parsers;
 
 public sealed class FlossCrossFcJsonPatternParser : IPatternParser
 {
+    // ReSharper disable InconsistentNaming
+    #pragma warning disable IDE1006
     public sealed class PatternFormat
     {
         public sealed class Model
@@ -33,6 +35,8 @@ public sealed class FlossCrossFcJsonPatternParser : IPatternParser
             public required List<int> cross { get; init; }
         }
     }
+    #pragma warning restore IDE1006
+    // ReSharper restore InconsistentNaming
 
     public Result<ParsePatternResponse> Parse(ParsePatternParameters parameters)
     {
