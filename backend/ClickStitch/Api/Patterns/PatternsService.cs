@@ -142,12 +142,46 @@ public sealed class PatternsService : IPatternsService
             Creator = creatorResult.Content,
             ExternalShopUrl = request.ExternalShopUrl
         });
-        if (parseResult.IsFailure)
+        if (!parseResult.TrySuccess(out var parsed))
             return Result.FromFailure(parseResult);
 
-        await _patternRepository.SaveAsync(parseResult.Content.Pattern, cancellationToken);
-        await _patternThreadRepository.SaveManyAsync(parseResult.Content.Threads, cancellationToken);
-        await _patternThreadStitchRepository.SaveManyAsync(parseResult.Content.Stitches, cancellationToken);
+        var pattern = await _patternRepository.SaveAsync(new PatternRecord
+        {
+            Reference = Guid.NewGuid(),
+            CreatedAt = DateTime.UtcNow,
+            Title = request.Title,
+            Width = parsed.Pattern.Width,
+            Height = parsed.Pattern.Height,
+            Price = request.Price,
+            ThumbnailUrl = "",
+            ThreadCount = parsed.Pattern.ThreadCount,
+            StitchCount = parsed.Pattern.StitchCount,
+            AidaCount = request.AidaCount,
+            BannerImageUrl = bannerUrlResult.Content,
+            ExternalShopUrl = request.ExternalShopUrl,
+            Creator = creatorResult.Content,
+            TitleSlug = titleSlug,
+            Threads = new HashSet<PatternThreadRecord>()
+        }, cancellationToken);
+
+        var threads = await _patternThreadRepository.SaveManyAsync(parsed.Threads.ConvertAll(x => new PatternThreadRecord
+        {
+            Pattern = pattern,
+            Name = x.Name,
+            Description = x.Description,
+            Index = x.Index,
+            Colour = x.Colour
+        }), cancellationToken);
+
+        var threadLookup = threads.ToDictionary(x => x.Index);
+
+        var stitches = await _patternThreadStitchRepository.SaveManyAsync(parsed.Stitches.ConvertAll(x => new PatternThreadStitchRecord
+        {
+            Thread = threadLookup[x.ThreadIndex],
+            X = x.X,
+            Y = x.Y,
+            LookupHash = $"{x.X},{x.Y}"
+        }), cancellationToken);
 
         return Result.Success();
     }
