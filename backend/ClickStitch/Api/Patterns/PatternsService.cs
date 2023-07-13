@@ -132,15 +132,7 @@ public sealed class PatternsService : IPatternsService
 
         var parseResult = _patternParserService.Parse(new ParsePatternParameters
         {
-            RawContent = patternData,
-            Title = request.Title,
-            TitleSlug = titleSlug,
-            Price = request.Price,
-            AidaCount = request.AidaCount,
-            ThumbnailUrl = "",
-            BannerImageUrl = bannerUrlResult.Content,
-            Creator = creatorResult.Content,
-            ExternalShopUrl = request.ExternalShopUrl
+            RawContent = patternData
         });
         if (!parseResult.TrySuccess(out var parsed))
             return Result.FromFailure(parseResult);
@@ -190,15 +182,7 @@ public sealed class PatternsService : IPatternsService
     {
         var parseResult = _patternParserService.Parse(new ParsePatternParameters
         {
-            RawContent = patternData,
-            Title = "",
-            TitleSlug = "",
-            Price = 0,
-            AidaCount = 0,
-            ThumbnailUrl = "",
-            BannerImageUrl = "",
-            Creator = null!,
-            ExternalShopUrl = ""
+            RawContent = patternData
         });
         if (parseResult.IsFailure)
             return Result<VerifyPatternResponse>.FromFailure(parseResult);
