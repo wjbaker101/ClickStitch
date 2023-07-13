@@ -20,7 +20,9 @@ public sealed class PatternParserService : IPatternParserService
     {
         var data = JsonSerializer.Deserialize<CreatePatternData>(parameters.RawContent);
 
-        static bool IgnoreCanvasThread(CreatePatternData.Thread x) => x.index != 0;
+        var threadsWithoutCanvasThread = data.palette.threads
+            .Where(x => x.index != 0)
+            .ToList();
 
         return new ParsePatternResponse
         {
@@ -28,18 +30,16 @@ public sealed class PatternParserService : IPatternParserService
             {
                 Width = data.canvas.width,
                 Height = data.canvas.height,
-                ThreadCount = data.palette.threads.Count - 1,
+                ThreadCount = threadsWithoutCanvasThread.Count,
                 StitchCount = data.canvas.stitches.Count
             },
-            Threads = data.palette.threads
-                .Where(IgnoreCanvasThread)
-                .MapAll(x => new ParsePatternResponse.ThreadDetails
-                {
-                    Name = x.name,
-                    Description = x.description,
-                    Index = x.index,
-                    Colour = $"#{x.colour.ToLower()}"
-                }),
+            Threads = threadsWithoutCanvasThread.MapAll(x => new ParsePatternResponse.ThreadDetails
+            {
+                Name = x.name,
+                Description = x.description,
+                Index = x.index,
+                Colour = $"#{x.colour.ToLower()}"
+            }),
             Stitches = data.canvas.stitches.ConvertAll(x => new ParsePatternResponse.StitchDetails
             {
                 ThreadIndex = x.index,
