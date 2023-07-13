@@ -6,6 +6,7 @@ namespace ClickStitch.Api.Patterns.Parsing.Parsers;
 
 public sealed class FlossCrossOxsPatternParser : IPatternParser
 {
+    // ReSharper disable StringLiteralTypo
     [XmlRoot("chart")]
     public sealed class PatternFormat
     {
@@ -56,6 +57,7 @@ public sealed class FlossCrossOxsPatternParser : IPatternParser
             public required int ThreadIndex { get; init; }
         }
     }
+    // ReSharper restore StringLiteralTypo
 
     public Result<ParsePatternResponse> Parse(ParsePatternParameters parameters)
     {
