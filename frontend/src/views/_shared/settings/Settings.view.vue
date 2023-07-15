@@ -8,7 +8,10 @@
                 <CardComponent border="top" padded v-if="authDetails !== null">
                     <h2>Authentication</h2>
                     <p><strong>Currently logged in as: </strong>{{ authDetails.email }}</p>
-                    <p><strong>Session started at:</strong> {{ authDetails.loggedInAt }}</p>
+                    <LoadingComponent v-if="isLoading" itemName="user details" />
+                    <template v-else-if="self !== null">
+                        <p><strong>Last logged in:</strong> {{ self.user.lastLoginAt }}</p>
+                    </template>
                     <p class="text-centered">
                         <ButtonComponent @click="onLogOut">Log Out</ButtonComponent>
                     </p>
@@ -45,16 +48,21 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useAuth } from '@/use/auth/Auth.use';
+import { api } from '@/api/api';
+
 import { type Subdomain } from '@/setup/router/router-helper';
+import { type IGetSelf } from '@/models/GetSelf.model';
 
 const auth = useAuth();
 const router = useRouter();
 
 const authDetails = auth.details;
+const self = ref<IGetSelf | null>(null);
+const isLoading = ref<boolean>(false);
 
 const isCreator = computed<boolean>(() => authDetails.value?.permissions.find(x => x.type === 'Creator') !== undefined);
 const isAdmin = computed<boolean>(() => authDetails.value?.permissions.find(x => x.type === 'Admin') !== undefined);
@@ -70,6 +78,19 @@ const onLogOut = function (): void {
     auth.clear();
     router.push({ path: '/login' });
 };
+
+onMounted(async () => {
+    isLoading.value = true;
+
+    const result = await api.users.getSelf();
+
+    isLoading.value = false;
+
+    if (result instanceof Error)
+        return;
+
+    self.value = result;
+});
 </script>
 
 <style lang="scss">
