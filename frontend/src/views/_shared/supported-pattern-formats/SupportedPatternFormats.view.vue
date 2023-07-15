@@ -19,6 +19,7 @@
                         <li><code>.fcjson</code></li>
                         <li><code>.oxs</code></li>
                     </ul>
+                    <p>Example method of exporting via the dashboard:</p>
                     <img class="example-image" src="@/assets/supported-pattern-formats/flosscross.png">
                 </CardComponent>
             </section>
