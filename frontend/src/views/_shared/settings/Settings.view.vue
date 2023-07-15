@@ -49,7 +49,7 @@ import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useAuth } from '@/use/auth/Auth.use';
-import { Subdomain } from '@/setup/router/router-helper';
+import { type Subdomain } from '@/setup/router/router-helper';
 
 const auth = useAuth();
 const router = useRouter();
