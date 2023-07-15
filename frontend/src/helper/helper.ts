@@ -26,3 +26,7 @@ export const isDark = function (colour: string): boolean {
 
     return lightness < 90;
 };
+
+export const sum = function <T>(numbers: Array<T>, func: (t: T) => number): number {
+    return numbers.reduce((total, x) => total + func(x), 0);
+};

@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import { computed, watch } from 'vue';
 
-import { sum } from '@/helper/array.helper';
+import { sum } from '@/helper/helper';
 import { useCurrentProject } from '@/views/default/project/use/CurrentProject.use';
 import { useSharedStitch } from '@/views/default/project/use/SharedStitch';
 
