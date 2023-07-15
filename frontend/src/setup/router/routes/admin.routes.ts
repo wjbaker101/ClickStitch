@@ -4,6 +4,7 @@ import AdminView from '@/views/admin/admin/Admin.view.vue';
 import LoginView from '@/views/_shared/login/Login.view.vue';
 import SettingsView from '@/views/_shared/settings/Settings.view.vue';
 import NotFoundView from '@/views/_shared/not-found/NotFound.view.vue';
+import SupportedPatternFormats from '@/views/_shared/supported-pattern-formats/SupportedPatternFormats.view.vue';
 
 import { requireAuth } from '../router-helper';
 import { useAuth } from '@/use/auth/Auth.use';
@@ -43,6 +44,13 @@ export const adminRoutes: Array<RouteRecordRaw> = [
         beforeEnter: [ requireAuth ],
         meta: {
             title: 'Settings',
+        },
+    },
+    {
+        path: '/supported-pattern-formats',
+        component: SupportedPatternFormats,
+        meta: {
+            title: 'Supported File Formats',
         },
     },
     {
