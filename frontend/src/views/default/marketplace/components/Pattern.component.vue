@@ -6,7 +6,7 @@
         <PatternImageComponent :image="pattern.bannerImageUrl" />
         <p>
             <IconComponent icon="user" gap="right" />
-            <span class="created-by">{{ pattern.creator.name }}</span>
+            <span class="created-by">{{ pattern.creator?.name }}</span>
         </p>
         <div class="description flex align-items-center gap-small">
             <div class="flex gap-small">
