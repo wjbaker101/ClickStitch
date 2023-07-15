@@ -23,6 +23,10 @@ export default defineConfig({
         ],
     },
 
+    build: {
+        outDir: '../backend/ClickStitch/wwwroot',
+    },
+
     server: {
         https: true,
         proxy: {
