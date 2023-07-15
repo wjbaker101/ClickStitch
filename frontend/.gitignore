@@ -3,8 +3,6 @@ node_modules
 /dist
 
 tunnel.bat
-_wildcard.clickstitch.localdev+1-key.pem
-_wildcard.clickstitch.localdev+1.pem
 
 # local env files
 .env.local
