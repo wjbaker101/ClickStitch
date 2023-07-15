@@ -17,10 +17,18 @@
                     <h2>FlossCross.com</h2>
                     <ul>
                         <li><code>.fcjson</code></li>
-                        <li><code>.oxs</code></li>
+                        <li><code>.oxs</code> (Same as MacStitch / WinStitch)</li>
                     </ul>
                     <p>Example method of exporting via the dashboard:</p>
                     <img class="example-image" src="@/assets/supported-pattern-formats/flosscross.png">
+                </CardComponent>
+            </section>
+            <section>
+                <CardComponent border="top" padded>
+                    <h2>MacStitch / WinStitch</h2>
+                    <ul>
+                        <li><code>.oxs</code></li>
+                    </ul>
                 </CardComponent>
             </section>
         </div>
