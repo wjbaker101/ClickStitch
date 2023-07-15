@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import IconComponent, { IconName } from '@wjb/vue/component/IconComponent.vue';
+import IconComponent, { type IconName } from '@wjb/vue/component/IconComponent.vue';
 
 defineProps<{
     icon: IconName;

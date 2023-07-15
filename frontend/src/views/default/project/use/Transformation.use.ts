@@ -1,4 +1,4 @@
-import { Ref, onMounted, onUnmounted, ref } from 'vue';
+import { type Ref, onMounted, onUnmounted, ref } from 'vue';
 
 import { Position } from '@/class/Position.class';
 

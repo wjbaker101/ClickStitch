@@ -1,4 +1,4 @@
-import { Ref } from 'vue';
+import { type Ref } from 'vue';
 import Hammer from 'hammerjs';
 
 export const useHammer = function (element: Ref<HTMLElement>) {
