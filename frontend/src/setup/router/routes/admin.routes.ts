@@ -1,4 +1,4 @@
-import { RouteRecordRaw } from 'vue-router';
+import { type RouteRecordRaw } from 'vue-router';
 
 import AdminView from '@/views/admin/admin/Admin.view.vue';
 import LoginView from '@/views/_shared/login/Login.view.vue';

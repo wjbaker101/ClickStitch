@@ -1,4 +1,4 @@
-import { RouteRecordRaw } from 'vue-router';
+import { type RouteRecordRaw } from 'vue-router';
 
 import LoginView from '@/views/_shared/login/Login.view.vue';
 import SettingsView from '@/views/_shared/settings/Settings.view.vue';

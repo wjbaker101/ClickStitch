@@ -1,4 +1,4 @@
-import { RouteRecordRaw } from 'vue-router';
+import { type RouteRecordRaw } from 'vue-router';
 
 import AboutView from '@/views/default/about/About.view.vue';
 import DashboardView from '@/views/default/dashboard/Dashboard.view.vue';

@@ -1,4 +1,4 @@
-import { NavigationGuardWithThis } from 'vue-router';
+import { type NavigationGuardWithThis } from 'vue-router';
 import { useAuth } from '@/use/auth/Auth.use';
 
 const auth = useAuth();

@@ -1,6 +1,6 @@
-import { RouteRecordRaw } from 'vue-router';
+import { type RouteRecordRaw } from 'vue-router';
 
-import { Subdomain } from './router-helper';
+import { type Subdomain } from './router-helper';
 
 import { adminRoutes } from './routes/admin.routes';
 import { creatorRoutes } from './routes/creator.routes';
