@@ -117,7 +117,7 @@ export const defaultRoutes: Array<RouteRecordRaw> = [
         path: '/supported-pattern-formats',
         component: SupportedPatternFormats,
         meta: {
-            title: 'Supported File Formats',
+            title: 'Supported Pattern Formats',
         },
     },
     {
