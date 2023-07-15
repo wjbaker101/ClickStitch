@@ -4,8 +4,10 @@
     "private": true,
     "scripts": {
         "co:login": "aws codeartifact login --tool npm --repository npm-libs --domain wjb --domain-owner 144953083930 --region eu-west-2",
-        "serve": "vue-cli-service serve",
-        "build": "vue-cli-service build"
+        "dev": "vite",
+        "build": "vite build",
+        "serve": "vite preview",
+        "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src"
     },
     "dependencies": {
         "@wjb/styling": "^1.0.60",
@@ -20,11 +22,14 @@
     },
     "devDependencies": {
         "@types/hammerjs": "^2.0.41",
-        "@vue/cli-plugin-typescript": "~5.0.0",
-        "@vue/cli-service": "~5.0.0",
+        "@vitejs/plugin-vue": "^1.6.1",
+        "eslint": "8",
+        "eslint-plugin-vue": "8",
         "sass": "^1.60.0",
-        "sass-loader": "^13.2.2",
-        "typescript": "~5.0.3"
+        "typescript": "~5.0.3",
+        "vite": "^2.5.4",
+        "vite-plugin-mkcert": "^1.16.0",
+        "vue-tsc": "^1.8.5"
     },
     "browserslist": [
         "> 1%",
