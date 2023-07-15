@@ -2,6 +2,8 @@
     <div class="file-upload-component">
         <label>
             <strong>{{ heading ?? 'Upload File' }}</strong>
+            <br>
+            <slot name="subtext"></slot>
             <input type="file" @change="onChange">
             <div class="file-placeholder hoverable text-centered">
                 <template v-if="fileName !== null">
