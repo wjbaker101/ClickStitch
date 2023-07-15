@@ -18,8 +18,8 @@ import { onMounted, ref } from 'vue';
 import LoadingComponent from '@wjb/vue/component/LoadingComponent.vue';
 import PaginationComponent from '@/components/paginated-content/Pagination.component.vue';
 
-import { IPagination } from '@/models/Pagination.model';
-import { IPaginationEvent } from '@/components/paginated-content/PaginationEvent';
+import { type IPagination } from '@/models/Pagination.model';
+import { type IPaginationEvent } from '@/components/paginated-content/PaginationEvent';
 
 const props = defineProps<{
     loadingItemName?: string;

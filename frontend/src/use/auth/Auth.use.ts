@@ -3,7 +3,7 @@ import { Dayjs } from 'dayjs';
 
 import { useCache } from '@/use/cache/Cache.use';
 
-import { IPermission } from '@/models/Permission.model';
+import { type IPermission } from '@/models/Permission.model';
 
 const cache = useCache();
 

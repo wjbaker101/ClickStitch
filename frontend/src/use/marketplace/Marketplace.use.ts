@@ -2,8 +2,8 @@ import { ref } from 'vue';
 
 import { api } from '@/api/api';
 
-import { IPattern } from '@/models/Pattern.model';
-import { IBasket } from '@/models/Basket.model';
+import { type IPattern } from '@/models/Pattern.model';
+import { type IBasket } from '@/models/Basket.model';
 
 const basket = ref<IBasket | null>(null);
 

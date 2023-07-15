@@ -32,7 +32,7 @@ import ProjectComponent from '@/views/default/dashboard/components/Project.compo
 
 import { api } from '@/api/api';
 
-import { IProject } from '@/models/Project.model';
+import { type IProject } from '@/models/Project.model';
 
 const userMessageComponent = ref<InstanceType<typeof UserMessageComponent>>({} as InstanceType<typeof UserMessageComponent>);
 

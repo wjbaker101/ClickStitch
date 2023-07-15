@@ -29,8 +29,8 @@ import UserItemComponent from './components/UserItem.component.vue';
 
 import { api } from '@/api/api';
 
-import { IGetUsers } from '@/models/GetUsers.model';
-import { IPermission } from '@/models/Permission.model';
+import { type IGetUsers } from '@/models/GetUsers.model';
+import { type IPermission } from '@/models/Permission.model';
 
 const getUsers = ref<IGetUsers | null>(null);
 const permissions = ref<Array<IPermission> | null>(null);

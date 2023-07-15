@@ -58,7 +58,7 @@ import PatternImageComponent from '@/components/shared/PatternImage.component.vu
 import { api } from '@/api/api';
 import { usePopup } from '@wjb/vue/use/popup.use';
 
-import { IPattern } from '@/models/Pattern.model';
+import { type IPattern } from '@/models/Pattern.model';
 
 const props = defineProps<{
     pattern: IPattern;

@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
-import { IUser } from '@/models/User.model';
-import { IApiUser } from '../types/ApiUser.type';
+import { type IUser } from '@/models/User.model';
+import { type IApiUser } from '../types/ApiUser.type';
 
 export const userMapper = {
 

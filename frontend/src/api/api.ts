@@ -1,55 +1,54 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
 
-import { IAuth, useAuth } from '@/use/auth/Auth.use';
+import { type IAuth, useAuth } from '@/use/auth/Auth.use';
 import { ApiErrorMapper } from '@/api/ApiErrorMapper';
 
-import { IApiResultResponse } from '@/api/types/ApiResponse.type';
+import { type IApiResultResponse } from '@/api/types/ApiResponse.type';
 
-import { ILogInRequest, ILogInResponse } from '@/api/types/LogIn.type';
+import { type ILogInRequest, type ILogInResponse } from '@/api/types/LogIn.type';
 
-import { ICreateUserRequest, ICreateUserResponse } from '@/api/types/CreateUser.type';
+import { type ICreateUserRequest, type ICreateUserResponse } from '@/api/types/CreateUser.type';
 
-import { IBasket } from '@/models/Basket.model';
-import { IGetBasketResponse } from '@/api/types/GetBasket.type';
-import { IAddToBasketResponse } from '@/api/types/AddToBasket.type';
-import { IRemoveFromBasketResponse } from '@/api/types/RemoveFromBasket.type';
+import { type IBasket } from '@/models/Basket.model';
+import { type IGetBasketResponse } from '@/api/types/GetBasket.type';
+import { type IAddToBasketResponse } from '@/api/types/AddToBasket.type';
+import { type IRemoveFromBasketResponse } from '@/api/types/RemoveFromBasket.type';
 
 import { patternMapper } from '@/api/mappers/Pattern.mapper';
-import { IPattern } from '@/models/Pattern.model';
-import { ISearchPatternsResponse } from '@/api/types/SearchPatterns.type';
+import { type IPattern } from '@/models/Pattern.model';
+import { type ISearchPatternsResponse } from '@/api/types/SearchPatterns.type';
 
 import { projectMapper } from '@/api/mappers/Project.mapper';
-import { IProject } from '@/models/Project.model';
-import { IGetProject } from '@/models/GetProject.model';
-import { IGetProjectsResponse } from '@/api/types/GetProjects.type';
-import { IGetProjectResponse } from '@/api/types/GetProject.type';
-import { ICompleteStitchesRequest } from './types/CompleteStitches.type';
-import { IGetAnalytics } from '@/models/GetAnalytics.model';
-import { IGetAnalyticsResponse } from './types/GetAnalytics.type';
-import { IGetUsersResponse } from './types/GetUsers.type';
-import { IGetUsers } from '@/models/GetUsers.model';
+import { type IProject } from '@/models/Project.model';
+import { type IGetProject } from '@/models/GetProject.model';
+import { type IGetProjectsResponse } from '@/api/types/GetProjects.type';
+import { type IGetProjectResponse } from '@/api/types/GetProject.type';
+import { type ICompleteStitchesRequest } from './types/CompleteStitches.type';
+import { type IGetAnalytics } from '@/models/GetAnalytics.model';
+import { type IGetAnalyticsResponse } from './types/GetAnalytics.type';
+import { type IGetUsersResponse } from './types/GetUsers.type';
+import { type IGetUsers } from '@/models/GetUsers.model';
 import { paginationMapper } from './mappers/Pagination.mapper';
-import { IUser } from '@/models/User.model';
-import { IGetSelfResponse } from './types/GetSelf.type';
+import { type IGetSelfResponse } from './types/GetSelf.type';
 import { userMapper } from './mappers/User.mapper';
 import { permissionMapper } from './mappers/Permission.mapper';
-import { IPermission } from '@/models/Permission.model';
-import { IGetPermissionsResponse } from './types/GetPermissions.type';
-import { IAssignPermissionToUserRequest, IAssignPermissionToUserResponse } from './types/AssignPermissionToUser.type';
-import { IRemovePermissionFromUserResponse } from './types/RemovePermissionFromUser.type';
-import { IGetSelf } from '@/models/GetSelf.model';
-import { IGetSelfCreator } from './types/GetSelfCreator.type';
-import { ICreator } from '@/models/Creator.model';
+import { type IPermission } from '@/models/Permission.model';
+import { type IGetPermissionsResponse } from './types/GetPermissions.type';
+import { type IAssignPermissionToUserRequest, type IAssignPermissionToUserResponse } from './types/AssignPermissionToUser.type';
+import { type IRemovePermissionFromUserResponse } from './types/RemovePermissionFromUser.type';
+import { type IGetSelf } from '@/models/GetSelf.model';
+import { type IGetSelfCreator } from './types/GetSelfCreator.type';
+import { type ICreator } from '@/models/Creator.model';
 import { creatorMapper } from './mappers/Creator.mapper';
-import { IUpdateCreatorRequest, IUpdateCreatorResponse } from './types/UpdateCreator.type';
-import { ICreateCreatorRequest, ICreateCreatorResponse } from './types/CreateCreator.type';
-import { IGetCreatorPatternsResponse } from './types/GteCreatorPatterns.type';
-import { IGetCreatorPatterns } from '@/models/GetCreatorPatterns.model';
-import { IUpdatePatternRequest, IUpdatePatternResponse } from './types/UpdatePattern.type';
-import { IDeletePatternResponse } from './types/DeletePattern.type';
-import { IDeletePattern } from '@/models/DeletePattern.model';
-import { ICreatePatternRequest, ICreatePatternResponse } from './types/CreatePattern.type';
+import { type IUpdateCreatorRequest, type IUpdateCreatorResponse } from './types/UpdateCreator.type';
+import { type ICreateCreatorRequest, type ICreateCreatorResponse } from './types/CreateCreator.type';
+import { type IGetCreatorPatternsResponse } from './types/GteCreatorPatterns.type';
+import { type IGetCreatorPatterns } from '@/models/GetCreatorPatterns.model';
+import { type IUpdatePatternRequest, type IUpdatePatternResponse } from './types/UpdatePattern.type';
+import { type IDeletePatternResponse } from './types/DeletePattern.type';
+import { type IDeletePattern } from '@/models/DeletePattern.model';
+import { type ICreatePatternRequest, type ICreatePatternResponse } from './types/CreatePattern.type';
 
 const auth = useAuth();
 

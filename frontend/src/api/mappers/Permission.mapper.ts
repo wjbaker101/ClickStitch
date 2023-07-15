@@ -1,5 +1,5 @@
-import { IPermission, PermissionType } from '@/models/Permission.model';
-import { IApiPermission } from '../types/ApiPermission.type';
+import { type IPermission, type PermissionType } from '@/models/Permission.model';
+import { type IApiPermission } from '../types/ApiPermission.type';
 
 export const permissionMapper = {
 

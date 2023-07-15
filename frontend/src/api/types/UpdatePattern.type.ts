@@ -1,4 +1,4 @@
-import { IApiPattern } from './ApiPattern.type';
+import { type IApiPattern } from './ApiPattern.type';
 
 export interface IUpdatePatternRequest {
     readonly title: string;

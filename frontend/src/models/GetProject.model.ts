@@ -1,7 +1,7 @@
 import { Dayjs } from 'dayjs';
 
-import { IThread } from '@/models/Pattern.model';
-import { IProject } from '@/models/Project.model';
+import { type IThread } from '@/models/Pattern.model';
+import { type IProject } from '@/models/Project.model';
 
 export interface IGetProject {
     readonly project: IProject;

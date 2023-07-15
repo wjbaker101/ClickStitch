@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs';
 
-import { IPattern } from '@/models/Pattern.model';
+import { type IPattern } from '@/models/Pattern.model';
 
 export interface IBasket {
     readonly items: Array<IBasketItem>;

@@ -79,13 +79,13 @@ import { onMounted, ref } from 'vue';
 import UserMessageComponent from '@/components/UserMessage.component.vue';
 
 import { api } from '@/api/api';
-import { calculateFabricSize, calculateSkeins, IFabricSize } from '@/helper/stitch.helper';
+import { calculateFabricSize, calculateSkeins, type IFabricSize } from '@/helper/stitch.helper';
 import { formatNumber } from '@/helper/helper';
 import { useModal } from '@wjb/vue/use/modal.use';
 
-import { IProject } from '@/models/Project.model';
-import { IThread } from '@/models/Pattern.model';
-import { IGetProject } from '@/models/GetProject.model';
+import { type IProject } from '@/models/Project.model';
+import { type IThread } from '@/models/Pattern.model';
+import { type IGetProject } from '@/models/GetProject.model';
 
 const props = defineProps<{
     project: IProject;

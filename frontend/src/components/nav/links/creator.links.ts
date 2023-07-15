@@ -1,6 +1,6 @@
 import { computed } from 'vue';
 
-import { ILink } from '@/components/nav/types/Link.type';
+import { type ILink } from '@/components/nav/types/Link.type';
 
 export const creatorLinks = computed<Array<ILink>>(() => [
     {

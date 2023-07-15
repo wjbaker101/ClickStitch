@@ -38,9 +38,9 @@ import CreatorPatternComponent from '@/views/creator/patterns/components/Creator
 
 import { api } from '@/api/api';
 
-import { IGetCreatorPatterns } from '@/models/GetCreatorPatterns.model';
-import { ICreator } from '@/models/Creator.model';
-import { IPagination } from '@/models/Pagination.model';
+import { type IGetCreatorPatterns } from '@/models/GetCreatorPatterns.model';
+import { type ICreator } from '@/models/Creator.model';
+import { type IPagination } from '@/models/Pagination.model';
 
 const getPatterns = ref<IGetCreatorPatterns | null>(null);
 

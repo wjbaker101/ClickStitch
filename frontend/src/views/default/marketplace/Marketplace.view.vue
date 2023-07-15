@@ -52,7 +52,7 @@ import { etsyStoreUrl } from '@/data/data';
 import { api } from '@/api/api';
 import { useMarketplace } from '@/use/marketplace/Marketplace.use';
 
-import { IPattern } from '@/models/Pattern.model';
+import { type IPattern } from '@/models/Pattern.model';
 
 const marketplace = useMarketplace();
 

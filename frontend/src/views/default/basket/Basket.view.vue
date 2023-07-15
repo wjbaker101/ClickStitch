@@ -48,7 +48,7 @@ import PatternImageComponent from '@/components/shared/PatternImage.component.vu
 import { currency } from '@/helper/helper';
 import { useMarketplace } from '@/use/marketplace/Marketplace.use';
 
-import { IBasketItem } from '@/models/Basket.model';
+import { type IBasketItem } from '@/models/Basket.model';
 
 const marketplace = useMarketplace();
 

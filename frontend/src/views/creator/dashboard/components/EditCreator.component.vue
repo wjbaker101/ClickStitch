@@ -42,8 +42,8 @@ import PatternComponent from '@/views/default/marketplace/components/Pattern.com
 import { api } from '@/api/api';
 import { usePopup } from '@wjb/vue/use/popup.use';
 
-import { IPattern } from '@/models/Pattern.model';
-import { ICreator } from '@/models/Creator.model';
+import { type IPattern } from '@/models/Pattern.model';
+import { type ICreator } from '@/models/Creator.model';
 
 const popup = usePopup();
 

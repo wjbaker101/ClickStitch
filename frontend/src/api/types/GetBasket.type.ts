@@ -1,4 +1,4 @@
-import { IApiBasket } from '@/api/types/ApiBasket.type';
+import { type IApiBasket } from '@/api/types/ApiBasket.type';
 
 export interface IGetBasketResponse {
     readonly basket: IApiBasket;

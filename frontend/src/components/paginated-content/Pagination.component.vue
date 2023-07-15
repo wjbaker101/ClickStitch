@@ -13,8 +13,8 @@
 </template>
 
 <script setup lang="ts">
-import { IPagination } from '@/models/Pagination.model';
-import { IPaginationEvent } from '@/components/paginated-content/PaginationEvent';
+import { type IPagination } from '@/models/Pagination.model';
+import { type IPaginationEvent } from '@/components/paginated-content/PaginationEvent';
 
 const props = defineProps<{
     pagination: IPagination;

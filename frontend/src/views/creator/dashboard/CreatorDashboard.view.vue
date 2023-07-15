@@ -25,7 +25,7 @@ import EditCreatorComponent from '@/views/creator/dashboard/components/EditCreat
 
 import { api } from '@/api/api';
 
-import { IGetSelf } from '@/models/GetSelf.model';
+import { type IGetSelf } from '@/models/GetSelf.model';
 
 const self = ref<IGetSelf | null>(null);
 

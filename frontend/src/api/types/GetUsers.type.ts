@@ -1,6 +1,6 @@
-import { IApiUser } from './ApiUser.type';
-import { IApiPagination } from './ApiPagination.type';
-import { IApiPermission } from './ApiPermission.type';
+import { type IApiUser } from './ApiUser.type';
+import { type IApiPagination } from './ApiPagination.type';
+import { type IApiPermission } from './ApiPermission.type';
 
 export interface IGetUsersResponse {
     readonly users: Array<IUserDetails>;

@@ -1,11 +1,11 @@
-import { ComputedRef } from 'vue';
+import { type ComputedRef } from 'vue';
 
 import { creatorLinks } from '@/components/nav/links/creator.links';
 import { defaultLinks } from '@/components/nav/links/default.links';
 
-import { Subdomain } from '@/setup/router/router-helper';
+import { type Subdomain } from '@/setup/router/router-helper';
 
-import { ILink } from '@/components/nav/types/Link.type';
+import { type ILink } from '@/components/nav/types/Link.type';
 
 export const linkFactory = {
 

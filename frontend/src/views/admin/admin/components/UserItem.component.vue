@@ -27,8 +27,8 @@ import ListItemComponent from '@/components/ListItem.component.vue';
 
 import { api } from '@/api/api';
 
-import { IUserDetails } from '@/models/GetUsers.model';
-import { IPermission, PermissionType } from '@/models/Permission.model';
+import { type IUserDetails } from '@/models/GetUsers.model';
+import { type IPermission, type PermissionType } from '@/models/Permission.model';
 import { permissionMapper } from '@/api/mappers/Permission.mapper';
 
 const props = defineProps<{

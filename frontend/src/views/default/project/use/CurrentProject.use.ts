@@ -1,7 +1,7 @@
 import { computed, ref } from 'vue';
 
-import { IGetProject } from '@/models/GetProject.model';
-import { IStitch, IThread } from '@/models/Pattern.model';
+import { type IGetProject } from '@/models/GetProject.model';
+import { type IStitch, type IThread } from '@/models/Pattern.model';
 
 const project = ref<IGetProject | null>(null);
 

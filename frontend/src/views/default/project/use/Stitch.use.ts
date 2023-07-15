@@ -1,7 +1,7 @@
-import { Ref, computed } from 'vue';
+import { type Ref, computed } from 'vue';
 
 import { Position } from '@/class/Position.class';
-import { IPattern } from '@/models/Pattern.model';
+import { type IPattern } from '@/models/Pattern.model';
 
 export const useStitch = function ({ pattern, scale, mousePosition, offset, selectStart, selectEnd }: {
     pattern: IPattern;

@@ -1,5 +1,5 @@
-import { IPagination } from './Pagination.model';
-import { IPattern } from './Pattern.model';
+import { type IPagination } from './Pagination.model';
+import { type IPattern } from './Pattern.model';
 
 export interface IGetCreatorPatterns {
     readonly patterns: Array<IPattern>;

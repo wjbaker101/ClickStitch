@@ -30,7 +30,7 @@ import { setTitle } from '@/helper/helper';
 import { useCurrentProject } from '@/views/default/project/use/CurrentProject.use';
 import { useSharedStitch } from '@/views/default/project/use/SharedStitch';
 
-import { IGetProject } from '@/models/GetProject.model';
+import { type IGetProject } from '@/models/GetProject.model';
 
 const currentProject = useCurrentProject();
 const route = useRoute();

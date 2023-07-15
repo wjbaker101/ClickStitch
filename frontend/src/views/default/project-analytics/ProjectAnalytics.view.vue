@@ -76,7 +76,7 @@ import { api } from '@/api/api';
 import { formatNumber, setTitle } from '@/helper/helper';
 import { useModal } from '@wjb/vue/use/modal.use';
 
-import { IGetAnalytics } from '@/models/GetAnalytics.model';
+import { type IGetAnalytics } from '@/models/GetAnalytics.model';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 

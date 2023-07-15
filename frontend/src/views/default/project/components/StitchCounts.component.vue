@@ -13,8 +13,8 @@ import { sum } from '@/helper/array.helper';
 import { useCurrentProject } from '@/views/default/project/use/CurrentProject.use';
 import { useSharedStitch } from '@/views/default/project/use/SharedStitch';
 
-import { IThread } from '@/models/Pattern.model';
-import { IGetProject } from '@/models/GetProject.model';
+import { type IThread } from '@/models/Pattern.model';
+import { type IGetProject } from '@/models/GetProject.model';
 
 const props = defineProps<{
     project: IGetProject;

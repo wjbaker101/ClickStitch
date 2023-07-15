@@ -40,7 +40,7 @@ import { useMarketplace } from '@/use/marketplace/Marketplace.use';
 import { useModal } from '@wjb/vue/use/modal.use';
 import { usePopup } from '@wjb/vue/use/popup.use';
 
-import { IPattern } from '@/models/Pattern.model';
+import { type IPattern } from '@/models/Pattern.model';
 
 const props = defineProps<{
     pattern: IPattern;

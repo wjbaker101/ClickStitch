@@ -33,7 +33,7 @@ import { computed } from 'vue';
 import { currency, formatNumber } from '@/helper/helper';
 import { useMarketplace } from '@/use/marketplace/Marketplace.use';
 
-import { IPattern } from '@/models/Pattern.model';
+import { type IPattern } from '@/models/Pattern.model';
 
 const props = defineProps<{
     pattern: IPattern;

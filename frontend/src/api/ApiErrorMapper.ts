@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 
-import { IApiErrorResponse } from '@/api/types/ApiResponse.type';
+import { type IApiErrorResponse } from '@/api/types/ApiResponse.type';
 
 export const ApiErrorMapper = {
 

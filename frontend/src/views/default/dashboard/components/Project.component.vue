@@ -35,7 +35,7 @@ import ProjectModal from '@/views/default/dashboard/modal/ProjectModal.component
 
 import { useModal } from '@wjb/vue/use/modal.use';
 
-import { IProject } from '@/models/Project.model';
+import { type IProject } from '@/models/Project.model';
 
 const props = defineProps<{
     project: IProject;

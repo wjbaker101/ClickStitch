@@ -1,6 +1,6 @@
-import { IUser } from './User.model';
-import { IPagination } from './Pagination.model';
-import { IPermission } from './Permission.model';
+import { type IUser } from './User.model';
+import { type IPagination } from './Pagination.model';
+import { type IPermission } from './Permission.model';
 
 export interface IGetUsers {
     readonly users: Array<IUserDetails>;

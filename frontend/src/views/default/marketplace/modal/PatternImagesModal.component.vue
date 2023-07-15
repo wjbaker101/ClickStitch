@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { IPattern } from '@/models/Pattern.model';
+import { type IPattern } from '@/models/Pattern.model';
 
 defineProps<{
     pattern: IPattern;

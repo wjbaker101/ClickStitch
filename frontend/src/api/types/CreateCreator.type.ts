@@ -1,4 +1,4 @@
-import { IApiCreator } from './ApiCreator.type';
+import { type IApiCreator } from './ApiCreator.type';
 
 export interface ICreateCreatorRequest {
     readonly name: string;

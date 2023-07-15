@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs';
 
-import { ICreator } from './Creator.model';
+import { type ICreator } from './Creator.model';
 
 export interface IPattern {
     readonly reference: string;

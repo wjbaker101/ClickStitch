@@ -1,4 +1,4 @@
-import { IApiPattern } from '@/api/types/ApiPattern.type';
+import { type IApiPattern } from '@/api/types/ApiPattern.type';
 
 export interface IApiBasket {
     readonly items: Array<IApiBasketItem>;

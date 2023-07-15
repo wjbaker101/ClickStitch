@@ -107,9 +107,9 @@ import { useStitch } from '@/views/default/project/use/Stitch.use';
 import { useInput } from '@/use/input/input.use';
 import { useTransformation } from '@/views/default/project/use/Transformation.use';
 
-import { IGetProject } from '@/models/GetProject.model';
-import { IStitch, IThread } from '@/models/Pattern.model';
-import { IPosition } from '@/api/types/CompleteStitches.type';
+import { type IGetProject } from '@/models/GetProject.model';
+import { type IStitch, type IThread } from '@/models/Pattern.model';
+import { type IPosition } from '@/api/types/CompleteStitches.type';
 
 const props = defineProps<{
     project: IGetProject;

@@ -2,7 +2,7 @@ import { computed } from 'vue';
 
 import { useAuth } from '@/use/auth/Auth.use';
 
-import { ILink } from '@/components/nav/types/Link.type';
+import { type ILink } from '@/components/nav/types/Link.type';
 
 const auth = useAuth();
 
