@@ -29,6 +29,8 @@
                     <ul>
                         <li><code>.oxs</code></li>
                     </ul>
+                    <p>Example method of exporting in WinStitch:</p>
+                    <img class="example-image" src="@/assets/supported-pattern-formats/winstitch.png">
                 </CardComponent>
             </section>
         </div>
