@@ -25,11 +25,9 @@
                             <div class="flex gap">
                                 <FileUploadComponent class="flex-2" heading="Pattern Schematic" @choose="onPatternChoose">
                                     <template #subtext>
-                                        The program or website you used to create the pattern will usually have an export feature, upload that here. Currently supported formats:
-                                        <ul>
-                                            <li>FlossCross.com <code>.fcjson</code></li>
-                                            <li>FlossCross.com <code>.oxs</code></li>
-                                        </ul>
+                                        <RouterLink class="link-component" to="/supported-pattern-formats">
+                                            <small>View supported formats here</small>
+                                        </RouterLink>
                                     </template>
                                 </FileUploadComponent>
                                 <div v-if="isValid !== null || isLoading" class="pattern-upload-details flex align-items-center text-centered">
