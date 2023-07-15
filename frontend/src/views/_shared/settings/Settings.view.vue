@@ -6,11 +6,12 @@
         <div class="content-width">
             <section>
                 <CardComponent border="top" padded v-if="authDetails !== null">
-                    <h2>Authentication</h2>
+                    <h2>User Details</h2>
                     <p><strong>Currently logged in as: </strong>{{ authDetails.email }}</p>
                     <LoadingComponent v-if="isLoading" itemName="user details" />
                     <template v-else-if="self !== null">
-                        <p><strong>Last logged in:</strong> {{ self.user.lastLoginAt }}</p>
+                        <p><strong>Created at:</strong> {{ self.user.createdAt }} ({{ self.user.createdAt.fromNow() }})</p>
+                        <p><strong>Last logged in:</strong> {{ self.user.lastLoginAt }} ({{ self.user.lastLoginAt.fromNow() }})</p>
                     </template>
                     <p class="text-centered">
                         <ButtonComponent @click="onLogOut">Log Out</ButtonComponent>
