@@ -1,4 +1,4 @@
-import { Plugin } from 'vue';
+import { type Plugin } from 'vue';
 
 import { components as wjbComponents } from '@wjb/vue/setup/components';
 
