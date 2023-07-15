@@ -10,6 +10,7 @@ export const userMapper = {
             reference: user.reference,
             createdAt: dayjs(user.createdAt),
             email: user.email,
+            lastLoginAt: dayjs(user.lastLoginAt),
         };
     },
 
