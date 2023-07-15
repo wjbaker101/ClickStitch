@@ -12,7 +12,7 @@
     "dependencies": {
         "@wjb/styling": "^1.0.60",
         "@wjb/vue": "^1.0.71",
-        "axios": "^1.3.4",
+        "axios": "^1.4.0",
         "chart.js": "^4.3.0",
         "dayjs": "^1.11.7",
         "hammerjs": "^2.0.8",
