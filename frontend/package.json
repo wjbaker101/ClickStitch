@@ -11,7 +11,7 @@
     },
     "dependencies": {
         "@wjb/styling": "^1.0.60",
-        "@wjb/vue": "^1.0.71",
+        "@wjb/vue": "^1.0.72",
         "axios": "^1.4.0",
         "chart.js": "^4.3.0",
         "dayjs": "^1.11.9",

@@ -468,10 +468,10 @@
   resolved "https://wjb-144953083930.d.codeartifact.eu-west-2.amazonaws.com/npm/npm-libs/@wjb/styling/-/styling-1.0.60.tgz#cb47bfc196e656e2517f207e23bef240b04b2004"
   integrity sha512-QrsMylYUi3DC+9ai5F7yVyHNwod7+wKhIlu/EixfLtMZqKzprWKo5dUg6qXE7p078CukVwvtysPs/VEZAqtkQA==
 
-"@wjb/vue@^1.0.71":
-  version "1.0.71"
-  resolved "https://wjb-144953083930.d.codeartifact.eu-west-2.amazonaws.com/npm/npm-libs/@wjb/vue/-/vue-1.0.71.tgz#77d78ca896326566dcedd6b7f2b5f620adcff331"
-  integrity sha512-TcqE3mpRKrgMgRYOjqZyWCdfhJbbVYRF74J4Q9KrWAgoVMcYQzN4uDILzuY8BR4HwZBQqmaw4heOyOg08TiAVw==
+"@wjb/vue@^1.0.72":
+  version "1.0.72"
+  resolved "https://wjb-144953083930.d.codeartifact.eu-west-2.amazonaws.com/npm/npm-libs/@wjb/vue/-/vue-1.0.72.tgz#8293e5a54bb6ee6176856ab9ac3f8f62c63225c8"
+  integrity sha512-bes+xisoCO1zgqSWTuzoHyXw4n1gtkbRo1nLxIM2T8OV0ufCgC4Uk1SSUMLqx/8WyGpI/U4kYwEt39Pc9kVd6g==
   dependencies:
     "@wjb/styling" "^1.0.13"
 
