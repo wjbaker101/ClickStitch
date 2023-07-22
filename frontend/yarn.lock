@@ -1544,10 +1544,15 @@
     "@volar/typescript" "~1.9.0"
     "@vue/language-core" "1.8.5"
 
-"@wjb/styling@^1.0.13", "@wjb/styling@^1.0.60":
+"@wjb/styling@^1.0.13":
   version "1.0.60"
   resolved "https://wjb-144953083930.d.codeartifact.eu-west-2.amazonaws.com/npm/npm-libs/@wjb/styling/-/styling-1.0.60.tgz#cb47bfc196e656e2517f207e23bef240b04b2004"
   integrity sha512-QrsMylYUi3DC+9ai5F7yVyHNwod7+wKhIlu/EixfLtMZqKzprWKo5dUg6qXE7p078CukVwvtysPs/VEZAqtkQA==
+
+"@wjb/styling@^1.0.74":
+  version "1.0.74"
+  resolved "https://wjb-144953083930.d.codeartifact.eu-west-2.amazonaws.com/npm/npm-libs/@wjb/styling/-/styling-1.0.74.tgz#05c5008ca2e96eb4aadce4afa33cac80c115e0a9"
+  integrity sha512-wXrjeca2IEap/DI5FZWQLEx9JWP+TWPQw5OMQCVWXyrjUSlSZeZY8F6VkyzusLGIFy68lVmMM7LMA3hBw8WLkA==
 
 "@wjb/vue@^1.0.73":
   version "1.0.73"

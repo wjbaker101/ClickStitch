@@ -11,7 +11,7 @@
         "create-pwa-assets": "pwa-assets-generator --preset minimal public/logo_orig.png"
     },
     "dependencies": {
-        "@wjb/styling": "^1.0.60",
+        "@wjb/styling": "^1.0.74",
         "@wjb/vue": "^1.0.73",
         "axios": "^1.4.0",
         "chart.js": "^4.3.0",
