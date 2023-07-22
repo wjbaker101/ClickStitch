@@ -1549,15 +1549,15 @@
   resolved "https://wjb-144953083930.d.codeartifact.eu-west-2.amazonaws.com/npm/npm-libs/@wjb/styling/-/styling-1.0.60.tgz#cb47bfc196e656e2517f207e23bef240b04b2004"
   integrity sha512-QrsMylYUi3DC+9ai5F7yVyHNwod7+wKhIlu/EixfLtMZqKzprWKo5dUg6qXE7p078CukVwvtysPs/VEZAqtkQA==
 
-"@wjb/styling@^1.0.74":
-  version "1.0.74"
-  resolved "https://wjb-144953083930.d.codeartifact.eu-west-2.amazonaws.com/npm/npm-libs/@wjb/styling/-/styling-1.0.74.tgz#05c5008ca2e96eb4aadce4afa33cac80c115e0a9"
-  integrity sha512-wXrjeca2IEap/DI5FZWQLEx9JWP+TWPQw5OMQCVWXyrjUSlSZeZY8F6VkyzusLGIFy68lVmMM7LMA3hBw8WLkA==
+"@wjb/styling@^1.0.75":
+  version "1.0.75"
+  resolved "https://wjb-144953083930.d.codeartifact.eu-west-2.amazonaws.com/npm/npm-libs/@wjb/styling/-/styling-1.0.75.tgz#e71d6fde5e7f0df4287979c0df49749d8668f3e7"
+  integrity sha512-A8alqJJ3MNLxrG9MogIlS3luQ84OByikgaQnOLY4f/Un5464WokcHMe03D3TPVk34dKoGMOZFjxGD/78Cs2Kmg==
 
-"@wjb/vue@^1.0.73":
-  version "1.0.73"
-  resolved "https://wjb-144953083930.d.codeartifact.eu-west-2.amazonaws.com/npm/npm-libs/@wjb/vue/-/vue-1.0.73.tgz#d29352265c21940660a229f2d5d014139508817b"
-  integrity sha512-sbzPK/8tCZ9xnqT+x65pBsTLb+6JaPBojS2vTZOt7JJbdwxHbVd/Qdn9P5lxYfbj1tW6K2KbvgEM9dYWz5T7ZQ==
+"@wjb/vue@^1.0.75":
+  version "1.0.75"
+  resolved "https://wjb-144953083930.d.codeartifact.eu-west-2.amazonaws.com/npm/npm-libs/@wjb/vue/-/vue-1.0.75.tgz#b2b793d3428a7e688bc6a551c625f0ae0b87680d"
+  integrity sha512-IgL0+nTdlADHThtGPhEuT4lATmXTZ7s75S6207iQf3LifJ1t8DchG3gEYWYhOf+BVG0/ijqk9O/rD3kSXUsodA==
   dependencies:
     "@wjb/styling" "^1.0.13"
 
