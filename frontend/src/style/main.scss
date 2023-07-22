@@ -62,6 +62,8 @@
     }
 
     &.secondary {
+        --wjb-text-colour-opposite: var(--wjb-light);
+
         background: linear-gradient(
             -45deg,
             var(--wjb-secondary-dark),
