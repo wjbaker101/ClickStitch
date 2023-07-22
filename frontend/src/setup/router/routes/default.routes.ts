@@ -1,4 +1,4 @@
-import { type RouteRecordRaw } from 'vue-router';
+import { type NavigationGuardNext, type RouteLocationNormalized, type RouteRecordRaw } from 'vue-router';
 
 import AboutView from '@/views/default/about/About.view.vue';
 import DashboardView from '@/views/default/dashboard/Dashboard.view.vue';
@@ -18,22 +18,27 @@ import { useAuth } from '@/use/auth/Auth.use';
 
 const auth = useAuth();
 
+const requireNoAuth = (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
+    if (auth.details.value !== null) {
+        next('/dashboard');
+        return;
+    }
+
+    next();
+};
+
 export const defaultRoutes: Array<RouteRecordRaw> = [
     {
         path: '',
-        component: LoginView,
-        beforeEnter: (to, from, next) => {
-            if (auth.details.value === null) {
-                next('/login');
-                return;
-            }
-
-            next('/dashboard');
+        component: AboutView,
+        meta: {
+            title: 'About',
         },
     },
     {
         path: '/login',
         component: LoginView,
+        beforeEnter: [ requireNoAuth ],
         meta: {
             title: 'Login',
         },
