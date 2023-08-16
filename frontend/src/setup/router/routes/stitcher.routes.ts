@@ -8,6 +8,7 @@ import MarketplaceView from '@/views/stitcher/marketplace/Marketplace.view.vue';
 import ProjectView from '@/views/stitcher/project/Project.view.vue';
 import ToolsView from '@/views/stitcher/tools/Tools.view.vue';
 import ProjectAnalyticsView from '@/views/stitcher/project-analytics/ProjectAnalytics.view.vue';
+import InventoryView from '@/views/stitcher/inventory/Inventory.view.vue';
 import SettingsView from '@/views/_shared/settings/Settings.view.vue';
 import SignupView from '@/views/_shared/signup/Signup.view.vue';
 import NotFoundView from '@/views/_shared/not-found/NotFound.view.vue';
@@ -78,6 +79,13 @@ export const stitcherRoutes: Array<RouteRecordRaw> = [
         beforeEnter: [ requireAuth ],
         meta: {
             title: 'Basket',
+        },
+    },
+    {
+        path: '/inventory',
+        component: InventoryView,
+        meta: {
+            title: 'Inventory',
         },
     },
     {
