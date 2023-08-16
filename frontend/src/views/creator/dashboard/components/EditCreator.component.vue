@@ -37,7 +37,7 @@ import { computed, onMounted, ref } from 'vue';
 import dayjs from 'dayjs';
 
 import LoadingComponent from '@wjb/vue/component/LoadingComponent.vue';
-import PatternComponent from '@/views/default/marketplace/components/Pattern.component.vue';
+import PatternComponent from '@/views/stitcher/marketplace/components/Pattern.component.vue';
 
 import { api } from '@/api/api';
 import { usePopup } from '@wjb/vue/use/popup.use';

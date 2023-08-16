@@ -22,13 +22,13 @@ import { onMounted, onUnmounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 import UserMessageComponent from '@/components/UserMessage.component.vue';
-import CanvasComponent from '@/views/default/project/components/Canvas.component.vue';
-import StitchCountsComponent from '@/views/default/project/components/StitchCounts.component.vue';
+import CanvasComponent from '@/views/stitcher/project/components/Canvas.component.vue';
+import StitchCountsComponent from '@/views/stitcher/project/components/StitchCounts.component.vue';
 
 import { api } from '@/api/api';
 import { setTitle } from '@/helper/helper';
-import { useCurrentProject } from '@/views/default/project/use/CurrentProject.use';
-import { useSharedStitch } from '@/views/default/project/use/SharedStitch';
+import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
+import { useSharedStitch } from '@/views/stitcher/project/use/SharedStitch';
 
 import { type IGetProject } from '@/models/GetProject.model';
 

@@ -46,7 +46,7 @@ import { onMounted, ref } from 'vue';
 
 import UserMessageComponent from '@/components/UserMessage.component.vue';
 import ZeroStateComponent from '@/components/ZeroState.component.vue';
-import PatternComponent from '@/views/default/marketplace/components/Pattern.component.vue';
+import PatternComponent from '@/views/stitcher/marketplace/components/Pattern.component.vue';
 
 import { etsyStoreUrl } from '@/data/data';
 import { api } from '@/api/api';

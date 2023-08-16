@@ -1,13 +1,13 @@
 import { type NavigationGuardNext, type RouteLocationNormalized, type RouteRecordRaw } from 'vue-router';
 
-import AboutView from '@/views/default/about/About.view.vue';
-import DashboardView from '@/views/default/dashboard/Dashboard.view.vue';
-import BasketView from '@/views/default/basket/Basket.view.vue';
+import AboutView from '@/views/stitcher/about/About.view.vue';
+import DashboardView from '@/views/stitcher/dashboard/Dashboard.view.vue';
+import BasketView from '@/views/stitcher/basket/Basket.view.vue';
 import LoginView from '@/views/_shared/login/Login.view.vue';
-import MarketplaceView from '@/views/default/marketplace/Marketplace.view.vue';
-import ProjectView from '@/views/default/project/Project.view.vue';
-import ToolsView from '@/views/default/tools/Tools.view.vue';
-import ProjectAnalyticsView from '@/views/default/project-analytics/ProjectAnalytics.view.vue';
+import MarketplaceView from '@/views/stitcher/marketplace/Marketplace.view.vue';
+import ProjectView from '@/views/stitcher/project/Project.view.vue';
+import ToolsView from '@/views/stitcher/tools/Tools.view.vue';
+import ProjectAnalyticsView from '@/views/stitcher/project-analytics/ProjectAnalytics.view.vue';
 import SettingsView from '@/views/_shared/settings/Settings.view.vue';
 import SignupView from '@/views/_shared/signup/Signup.view.vue';
 import NotFoundView from '@/views/_shared/not-found/NotFound.view.vue';
@@ -27,7 +27,7 @@ const requireNoAuth = (to: RouteLocationNormalized, from: RouteLocationNormalize
     next();
 };
 
-export const defaultRoutes: Array<RouteRecordRaw> = [
+export const stitcherRoutes: Array<RouteRecordRaw> = [
     {
         path: '',
         component: AboutView,

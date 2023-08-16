@@ -4,7 +4,7 @@ import { type Subdomain } from './router-helper';
 
 import { adminRoutes } from './routes/admin.routes';
 import { creatorRoutes } from './routes/creator.routes';
-import { defaultRoutes } from './routes/default.routes';
+import { stitcherRoutes } from './routes/stitcher.routes';
 
 export const routeFactory = {
 
@@ -15,7 +15,7 @@ export const routeFactory = {
             case 'admin':
                 return adminRoutes;
             default:
-                return defaultRoutes;
+                return stitcherRoutes;
         }
     },
 

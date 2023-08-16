@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import CanvasSizeCalculatorComponent from '@/views/default/tools/components/CanvasSizeCalculator.component.vue';
+import CanvasSizeCalculatorComponent from '@/views/stitcher/tools/components/CanvasSizeCalculator.component.vue';
 </script>
 
 <style lang="scss">

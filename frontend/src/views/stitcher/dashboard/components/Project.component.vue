@@ -31,7 +31,7 @@
 import { useRouter } from 'vue-router';
 
 import PatternImageComponent from '@/components/shared/PatternImage.component.vue';
-import ProjectModal from '@/views/default/dashboard/modal/ProjectModal.component.vue';
+import ProjectModal from '@/views/stitcher/dashboard/modal/ProjectModal.component.vue';
 
 import { useModal } from '@wjb/vue/use/modal.use';
 
