@@ -49,6 +49,10 @@ export default defineConfig({
         ],
     },
 
+    optimizeDeps: {
+        exclude: ['@wjb/vue/use/modal.use'],
+    },
+
     build: {
         outDir: '../backend/ClickStitch/wwwroot',
     },
