@@ -12,6 +12,8 @@ public sealed class ThreadRecordMap : ClassMap<ThreadRecord>
 {
     public ThreadRecordMap()
     {
+        Schema(DatabaseValues.SCHEMA);
+        Table("thread");
         Id(x => x.Id, "id").GeneratedBy.SequenceIdentity("thread_id_seq");
         Map(x => x.Reference, "reference");
         Map(x => x.Code, "code");
