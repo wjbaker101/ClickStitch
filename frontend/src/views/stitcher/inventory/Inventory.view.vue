@@ -7,19 +7,31 @@
             <section>
                 <CardComponent border="top" padded>
                     <h2>Manage Your Threads</h2>
-                    <FormComponent>
-                        <FormSectionComponent class="flex align-items-center">
-                            <FormInputComponent label="Search">
-                                <input type="search" placeholder="DMC 814">
-                            </FormInputComponent>
-                            <div class="flex-auto">
-                                <ButtonComponent @click="onAddThread">
-                                    <IconComponent icon="plus" gap="right" />
-                                    <span>Add Thread</span>
-                                </ButtonComponent>
+                    <section>
+                        <FormComponent>
+                            <FormSectionComponent class="flex align-items-center">
+                                <FormInputComponent label="Search">
+                                    <input type="search" placeholder="DMC 814" v-model="searchTerm">
+                                </FormInputComponent>
+                            </FormSectionComponent>
+                        </FormComponent>
+                    </section>
+                    <section>
+                        <p v-if="matches.length === 0" class="text-centered">
+                            Enter a thread code above and select how many you have.
+                        </p>
+                        <ListItemComponent v-else v-for="match in matches">
+                            <div class="flex gap align-items-center">
+                                <div class="flex-auto">
+                                    <img class="thread-image" :src="match.image">
+                                </div>
+                                <div>
+                                    <strong>{{ match.code }}</strong>
+                                </div>
+                                <div class="flex-auto"></div>
                             </div>
-                        </FormSectionComponent>
-                    </FormComponent>
+                        </ListItemComponent>
+                    </section>
                 </CardComponent>
             </section>
         </div>
@@ -27,19 +39,36 @@
 </template>
 
 <script setup lang="ts">
-import AddThreadModalComponent from '@/views/stitcher/inventory/modals/AddThreadModal.component.vue';
+import { computed, ref, watch } from 'vue';
 
-import { useModal } from '@wjb/vue/use/modal.use';
+import ListItemComponent from '@/components/ListItem.component.vue';
 
-const modal = useModal();
+import { knownThreads, type IKnownThread } from '@/data/known-threads';
 
-const onAddThread = function (): void {
-    modal.show({
-        component: AddThreadModalComponent,
-        componentProps: {},
-    });
-};
+const searchTerm = ref<string>('');
+const matches = ref<Array<IKnownThread>>([]);
+
+const searchTermSanitised = computed<string>(() => searchTerm.value.trim().toLowerCase());
+
+watch(searchTerm, () => {
+    if (searchTermSanitised.value.length < 1)
+        return;
+
+    matches.value = knownThreads
+        .filter(x => x.code.toLowerCase().indexOf(searchTermSanitised.value) > -1)
+        .sort((a, b) => a.code.localeCompare(b.code));
+});
 </script>
 
 <style lang="scss">
+.inventory-view {
+
+    .thread-image {
+        width: 4rem;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        vertical-align: middle;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
+    }
+}
 </style>
