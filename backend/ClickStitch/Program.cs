@@ -17,11 +17,13 @@ using Data.Repositories.Basket;
 using Data.Repositories.Creator;
 using Data.Repositories.Pattern;
 using Data.Repositories.Permission;
+using Data.Repositories.Thread;
 using Data.Repositories.User;
 using Data.Repositories.UserCreator;
 using Data.Repositories.UserPattern;
 using Data.Repositories.UserPatternThreadStitch;
 using Data.Repositories.UserPermission;
+using Data.Repositories.UserThread;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -42,9 +44,11 @@ services.AddSingleton<IPatternThreadStitchRepository, PatternThreadStitchReposit
 services.AddSingleton<IUserRepository, UserRepository>();
 services.AddSingleton<IUserPatternRepository, UserPatternRepository>();
 services.AddSingleton<IPermissionRepository, PermissionRepository>();
+services.AddSingleton<IThreadRepository, ThreadRepository>();
 services.AddSingleton<IUserCreatorRepository, UserCreatorRepository>();
 services.AddSingleton<IUserPermissionRepository, UserPermissionRepository>();
 services.AddSingleton<IUserPatternThreadStitchRepository, UserPatternThreadStitchRepository>();
+services.AddSingleton<IUserThreadRepository, UserThreadRepository>();
 
 services.AddSingleton<ICloudinaryClient, CloudinaryClient>();
 
