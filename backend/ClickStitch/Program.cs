@@ -2,6 +2,7 @@ using ClickStitch.Api.Admin;
 using ClickStitch.Api.Auth;
 using ClickStitch.Api.Basket;
 using ClickStitch.Api.Creators;
+using ClickStitch.Api.Inventory;
 using ClickStitch.Api.Patterns;
 using ClickStitch.Api.Patterns.Parsing;
 using ClickStitch.Api.Projects;
@@ -52,6 +53,8 @@ services.AddSingleton<IAdminService, AdminService>();
 services.AddSingleton<IBasketService, BasketService>();
 
 services.AddSingleton<ICreatorsService, CreatorsService>();
+
+services.AddSingleton<IInventoryService, InventoryService>();
 
 services.AddSingleton<IAuthService, AuthService>();
 services.AddSingleton<ILoginTokenService, LoginTokenService>();
