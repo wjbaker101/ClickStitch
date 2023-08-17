@@ -8,7 +8,7 @@ public sealed class GetProjectResponse
 
     public sealed class ThreadDetails
     {
-        public required ThreadModel Thread { get; init; }
+        public required PatternThreadModel Thread { get; init; }
         public required List<StitchDetails> Stitches { get; init; }
         public required List<CompletedStitchDetails> CompletedStitches { get; init; }
     }

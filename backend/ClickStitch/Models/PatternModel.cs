@@ -25,7 +25,7 @@ public sealed class StitchModel
     public required DateTime? StitchedAt { get; init; }
 }
 
-public sealed class ThreadModel
+public sealed class PatternThreadModel
 {
     public required int Index { get; init; }
     public required string Name { get; init; }

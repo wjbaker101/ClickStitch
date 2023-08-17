@@ -44,7 +44,7 @@ public static class PatternMapper
         Creator = null
     };
 
-    public static ThreadModel MapThread(PatternThreadRecord thread) => new()
+    public static PatternThreadModel MapThread(PatternThreadRecord thread) => new()
     {
         Index = thread.Index,
         Name = thread.Name,
