@@ -4,6 +4,7 @@ using Data.Records;
 using Data.Repositories.Admin;
 using Data.Repositories.Admin.Types;
 using Data.Repositories.Permission;
+using Data.Repositories.Thread;
 using Data.Repositories.User;
 using Data.Repositories.UserPermission;
 
@@ -15,6 +16,9 @@ public interface IAdminService
     Task<Result<SearchUsersResponse>> SearchUsers(int pageNumber, int pageSize, CancellationToken cancellationToken);
     Task<Result<AssignPermissionToUserResponse>> AssignPermissionToUser(Guid userReference, AssignPermissionToUserRequest request, CancellationToken cancellationToken);
     Task<Result<RemovePermissionFromUserResponse>> RemovePermissionFromUser(Guid userReference, ApiPermissionType permissionType, CancellationToken cancellationToken);
+    Task<Result<CreateThreadResponse>> CreateThread(CreateThreadRequest request, CancellationToken cancellationToken);
+    Task<Result<UpdateThreadResponse>> UpdateThread(Guid threadReference, UpdateThreadRequest request, CancellationToken cancellationToken);
+    Task<Result<DeleteThreadResponse>> DeleteThread(Guid threadReference, CancellationToken cancellationToken);
 }
 
 public sealed class AdminService : IAdminService
@@ -23,17 +27,20 @@ public sealed class AdminService : IAdminService
     private readonly IUserRepository _userRepository;
     private readonly IPermissionRepository _permissionRepository;
     private readonly IUserPermissionRepository _userPermissionRepository;
+    private readonly IThreadRepository _threadRepository;
 
     public AdminService(
         IAdminRepository adminRepository,
         IUserRepository userRepository,
         IPermissionRepository permissionRepository,
-        IUserPermissionRepository userPermissionRepository)
+        IUserPermissionRepository userPermissionRepository,
+        IThreadRepository threadRepository)
     {
         _adminRepository = adminRepository;
         _userRepository = userRepository;
         _permissionRepository = permissionRepository;
         _userPermissionRepository = userPermissionRepository;
+        _threadRepository = threadRepository;
     }
 
     public async Task<Result<GetPermissionsResponse>> GetPermissions(CancellationToken cancellationToken)
@@ -102,5 +109,48 @@ public sealed class AdminService : IAdminService
         await _userPermissionRepository.DeleteAsync(userPermissionResult.Content, cancellationToken);
 
         return new RemovePermissionFromUserResponse();
+    }
+
+    public async Task<Result<CreateThreadResponse>> CreateThread(CreateThreadRequest request, CancellationToken cancellationToken)
+    {
+        var thread = await _threadRepository.SaveAsync(new ThreadRecord
+        {
+            Reference = Guid.NewGuid(),
+            Code = request.Code,
+            Description = request.Description
+        }, cancellationToken);
+
+        return new CreateThreadResponse
+        {
+            Thread = ThreadMapper.Map(thread)
+        };
+    }
+
+    public async Task<Result<UpdateThreadResponse>> UpdateThread(Guid threadReference, UpdateThreadRequest request, CancellationToken cancellationToken)
+    {
+        var threadResult = await _threadRepository.GetByReference(threadReference, cancellationToken);
+        if (!threadResult.TrySuccess(out var thread))
+            return Result<UpdateThreadResponse>.FromFailure(threadResult);
+
+        thread.Code = request.Code;
+        thread.Description = request.Description;
+
+        await _threadRepository.UpdateAsync(thread, cancellationToken);
+
+        return new UpdateThreadResponse
+        {
+            Thread = ThreadMapper.Map(thread)
+        };
+    }
+
+    public async Task<Result<DeleteThreadResponse>> DeleteThread(Guid threadReference, CancellationToken cancellationToken)
+    {
+        var threadResult = await _threadRepository.GetByReference(threadReference, cancellationToken);
+        if (threadResult.IsFailure)
+            return Result<DeleteThreadResponse>.FromFailure(threadResult);
+
+        await _threadRepository.DeleteAsync(threadResult.Content, cancellationToken);
+
+        return new DeleteThreadResponse();
     }
 }
