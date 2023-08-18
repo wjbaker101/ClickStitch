@@ -10,6 +10,12 @@ export const adminLinks = computed<Array<ILink>>(() => [
         isVisible: true,
     },
     {
+        path: '/threads',
+        iconName: 'suitcase',
+        title: 'Threads',
+        isVisible: true,
+    },
+    {
         path: '/settings',
         iconName: 'settings',
         title: 'Settings',
