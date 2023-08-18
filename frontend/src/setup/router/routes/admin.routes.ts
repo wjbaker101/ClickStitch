@@ -1,6 +1,7 @@
 import { type RouteRecordRaw } from 'vue-router';
 
 import AdminView from '@/views/admin/admin/Admin.view.vue';
+import ThreadsView from '@/views/admin/threads/Threads.view.vue';
 import LoginView from '@/views/_shared/login/Login.view.vue';
 import SettingsView from '@/views/_shared/settings/Settings.view.vue';
 import NotFoundView from '@/views/_shared/not-found/NotFound.view.vue';
@@ -35,6 +36,13 @@ export const adminRoutes: Array<RouteRecordRaw> = [
         component: AdminView,
         meta: {
             title: 'Users',
+        },
+    },
+    {
+        path: '/threads',
+        component: ThreadsView,
+        meta: {
+            title: 'Threads',
         },
     },
     {
