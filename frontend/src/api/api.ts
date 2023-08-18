@@ -10,6 +10,7 @@ import { permissionMapper } from '@/api/mappers/Permission.mapper';
 import { patternMapper } from '@/api/mappers/Pattern.mapper';
 import { projectMapper } from '@/api/mappers/Project.mapper';
 import { creatorMapper } from '@/api/mappers/Creator.mapper';
+import { threadMapper } from '@/api/mappers/Thread.mapper';
 
 import { type IApiResultResponse } from '@/api/types/ApiResponse.type';
 
@@ -24,6 +25,7 @@ import { type IPattern } from '@/models/Pattern.model';
 import { type IBasket } from '@/models/Basket.model';
 import { type IGetSelf } from '@/models/GetSelf.model';
 import { type ICreator } from '@/models/Creator.model';
+import { type IThread } from '@/models/Thread.model';
 
 import { type ILogInRequest, type ILogInResponse } from '@/api/types/LogIn.type';
 import { type ICreateUserRequest, type ICreateUserResponse } from '@/api/types/CreateUser.type';
@@ -47,6 +49,9 @@ import { type IGetCreatorPatternsResponse } from '@/api/types/GteCreatorPatterns
 import { type IUpdatePatternRequest, type IUpdatePatternResponse } from '@/api/types/UpdatePattern.type';
 import { type ICreatePatternRequest, type ICreatePatternResponse } from '@/api/types/CreatePattern.type';
 import { type IDeletePatternResponse } from '@/api/types/DeletePattern.type';
+import type { ICreateThreadRequest, ICreateThreadResponse } from '@/api/types/CreateThread.type';
+import type { IUpdateThreadRequest, IUpdateThreadResponse } from '@/api/types/UpdateThread.type';
+import type { IDeleteThreadResponse } from '@/api/types/DeleteThread.type';
 
 const auth = useAuth();
 
@@ -162,6 +167,43 @@ export const api = {
                     permissions: result.permissions.map(permissionMapper.map),
                     loggedInAt: dayjs(response.data.responseAt),
                 };
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
+        },
+
+        async createThread(request: ICreateThreadRequest): Promise<IThread | Error> {
+            try {
+                const response = await client.post<IApiResultResponse<ICreateThreadResponse>>('/admin/threads', request);
+
+                const thread = response.data.result.thread;
+
+                return threadMapper.map(thread);
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
+        },
+
+        async updateThread(threadReference: string, request: IUpdateThreadRequest): Promise<IThread | Error> {
+            try {
+                const response = await client.put<IApiResultResponse<IUpdateThreadResponse>>(`/admin/threads/${threadReference}`, request);
+
+                const thread = response.data.result.thread;
+
+                return threadMapper.map(thread);
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
+        },
+
+        async deleteThread(threadReference: string): Promise<void | Error> {
+            try {
+                const response = await client.post<IApiResultResponse<IDeleteThreadResponse>>(`/admin/threads/${threadReference}`);
+
+                const result = response.data.result;
             }
             catch (error) {
                 return ApiErrorMapper.map(error);
