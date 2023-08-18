@@ -2,7 +2,7 @@
 
 public class ThreadRecord : IDatabaseRecord
 {
-    public virtual required long Id { get; init; }
+    public virtual long Id { get; init; }
     public virtual required Guid Reference { get; init; }
     public virtual required string Code { get; init; }
     public virtual required string Description { get; init; }
