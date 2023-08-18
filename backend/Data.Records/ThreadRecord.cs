@@ -4,8 +4,8 @@ public class ThreadRecord : IDatabaseRecord
 {
     public virtual long Id { get; init; }
     public virtual required Guid Reference { get; init; }
-    public virtual required string Code { get; init; }
-    public virtual required string Description { get; init; }
+    public virtual required string Code { get; set; }
+    public virtual required string Description { get; set; }
 }
 
 public sealed class ThreadRecordMap : ClassMap<ThreadRecord>
