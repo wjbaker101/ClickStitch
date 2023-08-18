@@ -45,7 +45,7 @@ public sealed class PatternsController : ApiController
     [HttpPost]
     [Route("")]
     [Authenticate]
-    [RequireAdmin]
+    [RequireCreator]
     public async Task<IActionResult> CreatePattern(
         [FromForm(Name = "thumbnail")] IFormFile thumbnail,
         [FromForm(Name = "banner_image")] IFormFile bannerImage,
