@@ -13,7 +13,7 @@ import { sum } from '@/helper/helper';
 import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
 import { useSharedStitch } from '@/views/stitcher/project/use/SharedStitch';
 
-import { type IThread } from '@/models/Pattern.model';
+import { type IPatternThread } from '@/models/Pattern.model';
 import { type IGetProject } from '@/models/GetProject.model';
 
 const props = defineProps<{
@@ -22,7 +22,7 @@ const props = defineProps<{
 }>();
 
 interface IThreadCount {
-    readonly thread: IThread;
+    readonly thread: IPatternThread;
     count: number;
     completeCount: number;
 }

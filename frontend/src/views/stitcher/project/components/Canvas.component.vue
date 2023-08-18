@@ -108,7 +108,7 @@ import { useInput } from '@/use/input/input.use';
 import { useTransformation } from '@/views/stitcher/project/use/Transformation.use';
 
 import { type IGetProject } from '@/models/GetProject.model';
-import { type IStitch, type IThread } from '@/models/Pattern.model';
+import { type IStitch, type IPatternThread } from '@/models/Pattern.model';
 import { type IPosition } from '@/api/types/CompleteStitches.type';
 
 const props = defineProps<{
@@ -166,7 +166,7 @@ onMounted(() => {
 
     for (let index = 0; index < currentProject.stitches.value.length; ++index) {
         const stitch = currentProject.stitches.value[index];
-        const thread = currentProject.palette.value.get(stitch.threadIndex) as IThread;
+        const thread = currentProject.palette.value.get(stitch.threadIndex) as IPatternThread;
 
         graphics.value.fillStyle = thread.colour;
         graphics.value.fillRect(stitch.x * baseStitchSize, stitch.y * baseStitchSize, baseStitchSize, baseStitchSize);

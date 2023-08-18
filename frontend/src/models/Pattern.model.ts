@@ -25,7 +25,7 @@ export interface IStitch {
     stitchedAt: Dayjs | null;
 }
 
-export interface IThread {
+export interface IPatternThread {
     readonly index: number;
     readonly name: string;
     readonly description: string;

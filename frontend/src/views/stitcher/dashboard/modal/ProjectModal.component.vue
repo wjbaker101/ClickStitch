@@ -84,7 +84,7 @@ import { formatNumber } from '@/helper/helper';
 import { useModal } from '@wjb/vue/use/modal.use';
 
 import { type IProject } from '@/models/Project.model';
-import { type IThread } from '@/models/Pattern.model';
+import { type IPatternThread } from '@/models/Pattern.model';
 import { type IGetProject } from '@/models/GetProject.model';
 
 const props = defineProps<{
@@ -96,7 +96,7 @@ const modal = useModal();
 const userMessageComponent = ref<InstanceType<typeof UserMessageComponent>>({} as InstanceType<typeof UserMessageComponent>);
 
 interface IThreadCount {
-    readonly thread: IThread;
+    readonly thread: IPatternThread;
     count: number;
 }
 
@@ -126,7 +126,7 @@ onMounted(async () => {
 
     getProject.value = result;
 
-    const palette = new Map<number, IThread>();
+    const palette = new Map<number, IPatternThread>();
     for (const thread of getProject.value.threads) {
         palette.set(thread.thread.index, thread.thread);
     }

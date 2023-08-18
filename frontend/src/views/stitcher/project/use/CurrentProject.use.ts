@@ -1,15 +1,15 @@
 import { computed, ref } from 'vue';
 
 import { type IGetProject } from '@/models/GetProject.model';
-import { type IStitch, type IThread } from '@/models/Pattern.model';
+import { type IStitch, type IPatternThread } from '@/models/Pattern.model';
 
 const project = ref<IGetProject | null>(null);
 
-const palette = computed<Map<number, IThread>>(() => {
+const palette = computed<Map<number, IPatternThread>>(() => {
     if (project.value === null)
-        return new Map<number, IThread>();
+        return new Map<number, IPatternThread>();
 
-    const _palette = new Map<number, IThread>();
+    const _palette = new Map<number, IPatternThread>();
     for (const thread of project.value.threads) {
         _palette.set(thread.thread.index, thread.thread);
     }

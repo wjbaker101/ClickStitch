@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs';
 
-import { type IThread } from '@/models/Pattern.model';
+import { type IPatternThread } from '@/models/Pattern.model';
 import { type IProject } from '@/models/Project.model';
 
 export interface IGetProject {
@@ -10,7 +10,7 @@ export interface IGetProject {
 }
 
 interface IThreadDetails {
-    readonly thread: IThread;
+    readonly thread: IPatternThread;
     readonly stitches: Array<[number, number]>;
     readonly completedStitches: Array<[number, number, Dayjs]>;
 }
