@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
 import { type IPattern, type IStitch, type IPatternThread } from '@/models/Pattern.model';
-import { type IApiPattern, type IApiStitch, type IApiThread } from '@/api/types/ApiPattern.type';
+import { type IApiPattern, type IApiStitch, type IApiPatternThread } from '@/api/types/ApiPattern.type';
 import { creatorMapper } from './Creator.mapper';
 
 export const patternMapper = {
@@ -33,7 +33,7 @@ export const patternMapper = {
         };
     },
 
-    mapThread(thread: IApiThread): IPatternThread {
+    mapThread(thread: IApiPatternThread): IPatternThread {
         return {
             index: thread.index,
             name: thread.name,

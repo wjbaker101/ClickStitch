@@ -1,4 +1,4 @@
-import { type IApiThread } from '@/api/types/ApiPattern.type';
+import { type IApiPatternThread } from '@/api/types/ApiPattern.type';
 import { type IApiProject } from '@/api/types/ApiProject.type';
 
 export interface IGetProjectResponse {
@@ -8,7 +8,7 @@ export interface IGetProjectResponse {
 }
 
 interface IThreadDetails {
-    readonly thread: IApiThread;
+    readonly thread: IApiPatternThread;
     readonly stitches: Array<[number, number]>;
     readonly completedStitches: Array<[number, number, string]>;
 }

@@ -23,7 +23,7 @@ export interface IApiStitch {
     readonly stitchedAt: string | null;
 }
 
-export interface IApiThread {
+export interface IApiPatternThread {
     readonly index: number;
     readonly name: string;
     readonly description: string;
