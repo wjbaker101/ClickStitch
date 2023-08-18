@@ -151,28 +151,6 @@ export const api = {
             }
         },
 
-    },
-
-    auth: {
-
-        async logIn(request: ILogInRequest): Promise<IAuth | Error> {
-            try {
-                const response = await client.post<IApiResultResponse<ILogInResponse>>('/auth/log_in', request);
-
-                const result = response.data.result;
-
-                return {
-                    loginToken: result.loginToken,
-                    email: result.email,
-                    permissions: result.permissions.map(permissionMapper.map),
-                    loggedInAt: dayjs(response.data.responseAt),
-                };
-            }
-            catch (error) {
-                return ApiErrorMapper.map(error);
-            }
-        },
-
         async createThread(request: ICreateThreadRequest): Promise<IThread | Error> {
             try {
                 const response = await client.post<IApiResultResponse<ICreateThreadResponse>>('/admin/threads', request);
@@ -204,6 +182,28 @@ export const api = {
                 const response = await client.post<IApiResultResponse<IDeleteThreadResponse>>(`/admin/threads/${threadReference}`);
 
                 const result = response.data.result;
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
+        },
+
+    },
+
+    auth: {
+
+        async logIn(request: ILogInRequest): Promise<IAuth | Error> {
+            try {
+                const response = await client.post<IApiResultResponse<ILogInResponse>>('/auth/log_in', request);
+
+                const result = response.data.result;
+
+                return {
+                    loginToken: result.loginToken,
+                    email: result.email,
+                    permissions: result.permissions.map(permissionMapper.map),
+                    loggedInAt: dayjs(response.data.responseAt),
+                };
             }
             catch (error) {
                 return ApiErrorMapper.map(error);
