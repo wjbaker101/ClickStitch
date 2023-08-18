@@ -1,4 +1,4 @@
-import type { IApiPatternThread } from './ApiPattern.type';
+import type { IApiThread } from './ApiThread.type';
 
 export interface IUpdateThreadRequest {
     readonly code: string;
@@ -6,5 +6,5 @@ export interface IUpdateThreadRequest {
 }
 
 export interface IUpdateThreadResponse {
-    readonly thread: IApiPatternThread;
+    readonly thread: IApiThread;
 }
