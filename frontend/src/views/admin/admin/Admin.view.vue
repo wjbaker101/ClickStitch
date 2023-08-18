@@ -3,11 +3,11 @@
         <template #nav>
             <strong>Admin</strong>
         </template>
-        <div class="content-width" v-if="permissions">
+        <div class="content-width">
             <section>
                 <CardComponent border="top" padded>
                     <h2>Users</h2>
-                    <LoadingComponent v-if="getUsers === null" />
+                    <LoadingComponent v-if="getUsers === null || permissions === null" />
                     <div v-else>
                         <UserItemComponent
                             :key="userDetails.user.reference"
