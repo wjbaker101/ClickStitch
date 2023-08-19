@@ -10,9 +10,10 @@
                     <LoadingComponent v-if="threads === null" />
                     <div v-else>
                         <ListItemComponent
-                            :key="userDetails.user.reference"
-                            v-for="userDetails in threads.users"
+                            :key="thread.thread.reference"
+                            v-for="thread in threads"
                         >
+                            {{ thread.thread.description }}
                         </ListItemComponent>
                     </div>
                 </CardComponent>
@@ -28,16 +29,16 @@ import ListItemComponent from '@/components/ListItem.component.vue';
 
 import { api } from '@/api/api';
 
-import { type IGetUsers } from '@/models/GetUsers.model';
+import type { IInventoryThread } from '@/models/Inventory.model';
 
-const threads = ref<IGetUsers | null>(null);
+const threads = ref<Array<IInventoryThread> | null>(null);
 
 onMounted(async () => {
-    const usersResult = await api.admin.getUsers(1, 50);
-    if (usersResult instanceof Error)
+    const threadsResult = await api.inventory.getThreads();
+    if (threadsResult instanceof Error)
         return;
 
-    threads.value = usersResult;
+    threads.value = threadsResult;
 });
 </script>
 
