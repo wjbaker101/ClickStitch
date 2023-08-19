@@ -52,6 +52,8 @@ import { type IDeletePatternResponse } from '@/api/types/DeletePattern.type';
 import type { ICreateThreadRequest, ICreateThreadResponse } from '@/api/types/CreateThread.type';
 import type { IUpdateThreadRequest, IUpdateThreadResponse } from '@/api/types/UpdateThread.type';
 import type { IDeleteThreadResponse } from '@/api/types/DeleteThread.type';
+import type { IInventoryThread } from '@/models/Inventory.model';
+import type { IGetInventoryThreadsResponse } from './types/GetInventoryThreads.type';
 
 const auth = useAuth();
 
@@ -634,6 +636,33 @@ export const api = {
                 const response = await client.post<IApiResultResponse<ICreateUserResponse>>('/users', request);
 
                 return {};
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
+        },
+
+    },
+
+    inventory: {
+
+        async getThreads(): Promise<Array<IInventoryThread> | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
+            try {
+                const response = await client.get<IApiResultResponse<IGetInventoryThreadsResponse>>(`/inventory/threads`, {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
+
+                const threads = response.data.result.threads;
+
+                return threads.map(x => ({
+                    thread: threadMapper.map(x.thread),
+                    count: x.count,
+                }));
             }
             catch (error) {
                 return ApiErrorMapper.map(error);
