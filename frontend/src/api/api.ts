@@ -154,8 +154,15 @@ export const api = {
         },
 
         async createThread(request: ICreateThreadRequest): Promise<IThread | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
             try {
-                const response = await client.post<IApiResultResponse<ICreateThreadResponse>>('/admin/threads', request);
+                const response = await client.post<IApiResultResponse<ICreateThreadResponse>>('/admin/threads', request, {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
 
                 const thread = response.data.result.thread;
 
@@ -167,8 +174,15 @@ export const api = {
         },
 
         async updateThread(threadReference: string, request: IUpdateThreadRequest): Promise<IThread | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
             try {
-                const response = await client.put<IApiResultResponse<IUpdateThreadResponse>>(`/admin/threads/${threadReference}`, request);
+                const response = await client.put<IApiResultResponse<IUpdateThreadResponse>>(`/admin/threads/${threadReference}`, request, {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
 
                 const thread = response.data.result.thread;
 
@@ -180,8 +194,15 @@ export const api = {
         },
 
         async deleteThread(threadReference: string): Promise<void | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
             try {
-                const response = await client.post<IApiResultResponse<IDeleteThreadResponse>>(`/admin/threads/${threadReference}`);
+                const response = await client.post<IApiResultResponse<IDeleteThreadResponse>>(`/admin/threads/${threadReference}`, {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
 
                 const result = response.data.result;
             }
