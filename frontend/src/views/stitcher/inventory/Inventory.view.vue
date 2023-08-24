@@ -20,17 +20,7 @@
                         <p v-if="matches.length === 0" class="text-centered">
                             Enter a thread code above and select how many you have.
                         </p>
-                        <ListItemComponent v-else v-for="match in matches">
-                            <div class="flex gap align-items-center">
-                                <div class="flex-auto">
-                                    <img class="thread-image" :src="match.image">
-                                </div>
-                                <div>
-                                    <strong>{{ match.code }}</strong>
-                                </div>
-                                <div class="flex-auto"></div>
-                            </div>
-                        </ListItemComponent>
+                        <ThreadItemComponent v-for="thread in matches" :thread="thread" />
                     </section>
                 </CardComponent>
             </section>
@@ -41,7 +31,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 
-import ListItemComponent from '@/components/ListItem.component.vue';
+import ThreadItemComponent from '@/views/stitcher/inventory/components/ThreadItem.component.vue';
 
 import { knownThreads, type IKnownThread } from '@/data/known-threads';
 
