@@ -54,6 +54,7 @@ import type { IUpdateThreadRequest, IUpdateThreadResponse } from '@/api/types/Up
 import type { IDeleteThreadResponse } from '@/api/types/DeleteThread.type';
 import type { IInventoryThread } from '@/models/Inventory.model';
 import type { IGetInventoryThreadsResponse } from './types/GetInventoryThreads.type';
+import type { IUpdateInventoryThreadRequest, IUpdateInventoryThreadResponse } from './types/UpdateInventoryThread.type';
 
 const auth = useAuth();
 
@@ -684,6 +685,24 @@ export const api = {
                     thread: threadMapper.map(x.thread),
                     count: x.count,
                 }));
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
+        },
+
+        async updateThread(threadReference: string, request: IUpdateInventoryThreadRequest): Promise<void | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
+            try {
+                const response = await client.put<IApiResultResponse<IUpdateInventoryThreadResponse>>(`/inventory/threads/${threadReference}`, request, {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
+
+                const result = response.data.result;
             }
             catch (error) {
                 return ApiErrorMapper.map(error);
