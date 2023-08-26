@@ -2,6 +2,7 @@
 
 public sealed class UpdateThreadRequest
 {
+    public required string Brand { get; init; }
     public required string Code { get; init; }
 }
 

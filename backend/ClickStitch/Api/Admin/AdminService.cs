@@ -116,6 +116,7 @@ public sealed class AdminService : IAdminService
         var thread = await _threadRepository.SaveAsync(new ThreadRecord
         {
             Reference = Guid.NewGuid(),
+            Brand = request.Brand,
             Code = request.Code,
         }, cancellationToken);
 
@@ -131,6 +132,7 @@ public sealed class AdminService : IAdminService
         if (!threadResult.TrySuccess(out var thread))
             return Result<UpdateThreadResponse>.FromFailure(threadResult);
 
+        thread.Brand = request.Brand;
         thread.Code = request.Code;
 
         await _threadRepository.UpdateAsync(thread, cancellationToken);

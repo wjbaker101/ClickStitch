@@ -7,6 +7,7 @@ public static class ThreadMapper
     public static ThreadModel Map(ThreadRecord thread) => new()
     {
         Reference = thread.Reference,
+        Brand = thread.Brand,
         Code = thread.Code
     };
 }
