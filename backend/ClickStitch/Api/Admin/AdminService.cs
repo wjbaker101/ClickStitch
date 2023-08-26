@@ -117,7 +117,6 @@ public sealed class AdminService : IAdminService
         {
             Reference = Guid.NewGuid(),
             Code = request.Code,
-            Description = request.Description
         }, cancellationToken);
 
         return new CreateThreadResponse
@@ -133,7 +132,6 @@ public sealed class AdminService : IAdminService
             return Result<UpdateThreadResponse>.FromFailure(threadResult);
 
         thread.Code = request.Code;
-        thread.Description = request.Description;
 
         await _threadRepository.UpdateAsync(thread, cancellationToken);
 
