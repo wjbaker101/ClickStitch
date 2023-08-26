@@ -8,6 +8,7 @@ namespace ClickStitch.Api.Inventory;
 public interface IInventoryService
 {
     Task<Result<GetThreadsResponse>> GetThreads(RequestUser requestUser, CancellationToken cancellationToken);
+    Task<Result<UpdateThreadResponse>> UpdateThread(RequestUser requestUser, Guid threadReference, UpdateThreadRequest request, CancellationToken cancellationToken);
 }
 
 public sealed class InventoryService : IInventoryService
@@ -49,5 +50,24 @@ public sealed class InventoryService : IInventoryService
         {
             Threads = inventory.ToList()
         };
+    }
+
+    public async Task<Result<UpdateThreadResponse>> UpdateThread(RequestUser requestUser, Guid threadReference, UpdateThreadRequest request, CancellationToken cancellationToken)
+    {
+        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
+
+        var threadResult = await _threadRepository.GetByReference(threadReference, cancellationToken);
+        if (threadResult.IsFailure)
+            return Result<UpdateThreadResponse>.FromFailure(threadResult);
+
+        var userThreadResult = await _userThreadRepository.GetByUserAndThread(user, threadResult.Content, cancellationToken);
+        if (!userThreadResult.TrySuccess(out var userThread))
+            return Result<UpdateThreadResponse>.FromFailure(userThreadResult);
+
+        userThread.Count = request.Count;
+
+        await _userThreadRepository.SaveAsync(userThread, cancellationToken);
+
+        return new UpdateThreadResponse();
     }
 }

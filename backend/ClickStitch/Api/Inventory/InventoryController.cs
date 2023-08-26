@@ -1,4 +1,5 @@
 ﻿using ClickStitch.Api.Auth.Attributes;
+using ClickStitch.Api.Inventory.Types;
 using ClickStitch.Helper;
 using ClickStitch.Types;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,18 @@ public sealed class InventoryController : ApiController
         var requestUser = RequestHelper.GetRequiredUser(Request);
 
         var result = await _inventoryService.GetThreads(requestUser, cancellationToken);
+
+        return ToApiResponse(result);
+    }
+
+    [HttpPut]
+    [Route("threads/{threadReference:guid}")]
+    [Authenticate]
+    public async Task<IActionResult> UpdateThread([FromRoute] Guid threadReference, [FromBody] UpdateThreadRequest request, CancellationToken cancellationToken)
+    {
+        var requestUser = RequestHelper.GetRequiredUser(Request);
+
+        var result = await _inventoryService.UpdateThread(requestUser, threadReference, request, cancellationToken);
 
         return ToApiResponse(result);
     }
