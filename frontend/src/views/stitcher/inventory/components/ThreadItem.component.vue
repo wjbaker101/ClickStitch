@@ -5,7 +5,7 @@
                 <img class="thread-image">
             </div>
             <div>
-                <strong>{{ thread.thread.code }}</strong>
+                <strong>{{ thread.thread.brand }} {{ thread.thread.code }}</strong>
             </div>
             <div class="flex-auto">
                 <input class="counter" type="number" min="0" max="9999" v-model="count">
