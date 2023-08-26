@@ -45,7 +45,8 @@ public sealed class InventoryService : IInventoryService
                     Count = hasUserThread ? userThreadLookup[x.Id].Count : 0
                 };
             })
-            .OrderBy(x => x.Thread.Code);
+            .OrderByDescending(x => x.Count)
+            .ThenBy(x => x.Thread.Code);
 
         return new GetThreadsResponse
         {
