@@ -16,16 +16,27 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { watchDebounced } from '@vueuse/core';
 
 import ListItemComponent from '@/components/ListItem.component.vue';
 
+import { api } from '@/api/api';
+
 import type { IInventoryThread } from '@/models/Inventory.model';
 
-defineProps<{
+const props = defineProps<{
     thread: IInventoryThread;
 }>();
 
 const count = ref<number>(0);
+
+watchDebounced(count, async () => {
+    const result = await api.inventory.updateThread(props.thread.thread.reference, {
+        count: count.value,
+    });
+}, {
+    debounce: 500,
+});
 </script>
 
 <style lang="scss">
