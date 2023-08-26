@@ -17,10 +17,10 @@
                         </FormComponent>
                     </section>
                     <section>
-                        <p v-if="threads.length === 0" class="text-centered">
+                        <p v-if="displayThreads.length === 0" class="text-centered">
                             Enter a thread code above and select how many you have.
                         </p>
-                        <ThreadItemComponent v-for="thread in threads" :thread="thread" />
+                        <ThreadItemComponent v-for="thread in displayThreads" :thread="thread" />
                     </section>
                 </CardComponent>
             </section>
@@ -41,11 +41,14 @@ const searchTerm = ref<string>('');
 const searchTermSanitised = computed<string>(() => searchTerm.value.trim().toLowerCase());
 
 const threads = ref<Array<IInventoryThread>>([]);
-
+const displayThreads = ref<Array<IInventoryThread>>([]);
 
 watch(searchTerm, () => {
     if (searchTermSanitised.value.length < 1)
         return;
+
+    displayThreads.value = threads.value
+        .filter(x => x.thread.code.toLowerCase().indexOf(searchTermSanitised.value) > -1);
 });
 
 onMounted(async () => {
@@ -54,6 +57,7 @@ onMounted(async () => {
         return;
 
     threads.value = result;
+    displayThreads.value = threads.value;
 });
 </script>
 
