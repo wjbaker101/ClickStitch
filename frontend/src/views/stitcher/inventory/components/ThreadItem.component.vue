@@ -2,7 +2,7 @@
     <ListItemComponent class="thread-item-component">
         <div class="flex gap align-items-center">
             <div class="flex-auto">
-                <img class="thread-image">
+                <img class="thread-image" src="@/assets/skein-icon.png">
             </div>
             <div>
                 <strong>{{ thread.thread.brand }} {{ thread.thread.code }}</strong>
@@ -41,6 +41,10 @@ watchDebounced(count, async () => {
 
 <style lang="scss">
 .thread-item-component {
+
+    .thread-image {
+        padding: 1rem;
+    }
 
     .counter {
         width: 7rem;

@@ -20,7 +20,7 @@
             All rights reserved.
         </div>
         <div>
-            Icons by <LinkComponent href="https://akveo.github.io/eva-icons/#/" external>Eva icons</LinkComponent>, fonts by <LinkComponent href="https://fonts.google.com/" external>Google Fonts</LinkComponent>.
+            Icons by <LinkComponent href="https://akveo.github.io/eva-icons/#/" external>Eva icons</LinkComponent>, Skein icon by <LinkComponent href="https://www.flaticon.com/free-icon/skein_3943053" external>Freepik - Flaticon</LinkComponent>, fonts by <LinkComponent href="https://fonts.google.com/" external>Google Fonts</LinkComponent>.
         </div>
     </footer>
 </template>
