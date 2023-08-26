@@ -10,6 +10,7 @@
         "create-pwa-assets": "pwa-assets-generator --preset minimal public/logo_orig.png"
     },
     "dependencies": {
+        "@vueuse/core": "^10.4.0",
         "axios": "^1.4.0",
         "chart.js": "^4.3.3",
         "dayjs": "^1.11.9",
