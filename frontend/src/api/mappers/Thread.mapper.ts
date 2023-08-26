@@ -6,8 +6,8 @@ export const threadMapper = {
     map(thread: IApiThread): IThread {
         return {
             reference: thread.reference,
+            brand: thread.brand,
             code: thread.code,
-            description: thread.description,
         };
     },
 
