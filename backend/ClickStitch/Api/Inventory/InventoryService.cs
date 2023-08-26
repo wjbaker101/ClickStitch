@@ -32,16 +32,18 @@ public sealed class InventoryService : IInventoryService
         var userThreads = await _userThreadRepository.GetByUser(user, cancellationToken);
         var userThreadLookup = userThreads.ToDictionary(x => x.Thread.Id);
 
-        var inventory = threads.Select(x =>
-        {
-            var hasUserThread = userThreadLookup.ContainsKey(x.Id);
-
-            return new GetThreadsResponse.InventoryThread
+        var inventory = threads
+            .Select(x =>
             {
-                Thread = ThreadMapper.Map(x),
-                Count = hasUserThread ? userThreadLookup[x.Id].Count : 0
-            };
-        });
+                var hasUserThread = userThreadLookup.ContainsKey(x.Id);
+
+                return new GetThreadsResponse.InventoryThread
+                {
+                    Thread = ThreadMapper.Map(x),
+                    Count = hasUserThread ? userThreadLookup[x.Id].Count : 0
+                };
+            })
+            .OrderBy(x => x.Thread.Code);
 
         return new GetThreadsResponse
         {
