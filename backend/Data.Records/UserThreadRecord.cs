@@ -2,7 +2,7 @@
 
 public class UserThreadRecord : IDatabaseRecord
 {
-    public virtual required long Id { get; init; }
+    public virtual long Id { get; init; }
     public virtual required UserRecord User { get; init; }
     public virtual required ThreadRecord Thread { get; init; }
     public virtual required int Count { get; set; }

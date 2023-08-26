@@ -1,4 +1,5 @@
 ﻿using ClickStitch.Api.Inventory.Types;
+using Data.Records;
 using Data.Repositories.Thread;
 using Data.Repositories.User;
 using Data.Repositories.UserThread;
@@ -61,12 +62,21 @@ public sealed class InventoryService : IInventoryService
             return Result<UpdateThreadResponse>.FromFailure(threadResult);
 
         var userThreadResult = await _userThreadRepository.GetByUserAndThread(user, threadResult.Content, cancellationToken);
-        if (!userThreadResult.TrySuccess(out var userThread))
-            return Result<UpdateThreadResponse>.FromFailure(userThreadResult);
+        if (userThreadResult.TrySuccess(out var userThread))
+        {
+            userThread.Count = request.Count;
 
-        userThread.Count = request.Count;
-
-        await _userThreadRepository.SaveAsync(userThread, cancellationToken);
+            await _userThreadRepository.UpdateAsync(userThread, cancellationToken);
+        }
+        else
+        {
+            await _userThreadRepository.SaveAsync(new UserThreadRecord
+            {
+                User = user,
+                Thread = threadResult.Content,
+                Count = request.Count
+            }, cancellationToken);
+        }
 
         return new UpdateThreadResponse();
     }
