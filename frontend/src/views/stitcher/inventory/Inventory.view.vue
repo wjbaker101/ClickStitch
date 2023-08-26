@@ -49,6 +49,16 @@ watch(searchTerm, () => {
 
     displayThreads.value = threads.value
         .filter(x => x.thread.code.toLowerCase().indexOf(searchTermSanitised.value) > -1);
+
+    displayThreads.value.sort((a, b) => {
+        console.log('asd')
+        if (b.thread.code.startsWith(searchTermSanitised.value))
+            return 1;
+        if (a.thread.code.startsWith(searchTermSanitised.value))
+            return -1;
+
+        return 0;
+    });
 });
 
 onMounted(async () => {
