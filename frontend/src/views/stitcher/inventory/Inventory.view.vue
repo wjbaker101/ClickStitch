@@ -29,7 +29,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref } from 'vue';
+import { watchDebounced } from '@vueuse/core';
 
 import ThreadItemComponent from '@/views/stitcher/inventory/components/ThreadItem.component.vue';
 
@@ -43,10 +44,7 @@ const searchTermSanitised = computed<string>(() => searchTerm.value.trim().toLow
 const threads = ref<Array<IInventoryThread>>([]);
 const displayThreads = ref<Array<IInventoryThread>>([]);
 
-watch(searchTerm, () => {
-    if (searchTermSanitised.value.length < 1)
-        return;
-
+watchDebounced(searchTerm, () => {
     displayThreads.value = threads.value
         .filter(x => x.thread.code.toLowerCase().indexOf(searchTermSanitised.value) > -1);
 
@@ -58,6 +56,8 @@ watch(searchTerm, () => {
 
         return 0;
     });
+}, {
+    debounce: 500,
 });
 
 onMounted(async () => {
