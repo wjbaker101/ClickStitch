@@ -17,10 +17,10 @@
                         </FormComponent>
                     </section>
                     <section>
-                        <p v-if="matches.length === 0" class="text-centered">
+                        <p v-if="threads.length === 0" class="text-centered">
                             Enter a thread code above and select how many you have.
                         </p>
-                        <ThreadItemComponent v-for="thread in matches" :thread="thread" />
+                        <ThreadItemComponent v-for="thread in threads" :thread="thread" />
                     </section>
                 </CardComponent>
             </section>
@@ -29,24 +29,31 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 
 import ThreadItemComponent from '@/views/stitcher/inventory/components/ThreadItem.component.vue';
 
-import { knownThreads, type IKnownThread } from '@/data/known-threads';
+import { api } from '@/api/api';
+
+import type { IInventoryThread } from '@/models/Inventory.model';
 
 const searchTerm = ref<string>('');
-const matches = ref<Array<IKnownThread>>([]);
-
 const searchTermSanitised = computed<string>(() => searchTerm.value.trim().toLowerCase());
+
+const threads = ref<Array<IInventoryThread>>([]);
+
 
 watch(searchTerm, () => {
     if (searchTermSanitised.value.length < 1)
         return;
+});
 
-    matches.value = knownThreads
-        .filter(x => x.code.toLowerCase().indexOf(searchTermSanitised.value) > -1)
-        .sort((a, b) => a.code.localeCompare(b.code));
+onMounted(async () => {
+    const result = await api.inventory.getThreads();
+    if (result instanceof Error)
+        return;
+
+    threads.value = result;
 });
 </script>
 

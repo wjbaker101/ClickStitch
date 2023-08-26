@@ -2,10 +2,10 @@
     <ListItemComponent class="thread-item-component">
         <div class="flex gap align-items-center">
             <div class="flex-auto">
-                <img class="thread-image" :src="thread.image">
+                <img class="thread-image">
             </div>
             <div>
-                <strong>{{ thread.code }}</strong>
+                <strong>{{ thread.thread.code }}</strong>
             </div>
             <div class="flex-auto">
                 <input class="counter" type="number" min="0" max="9999" v-model="count">
@@ -19,10 +19,10 @@ import { ref } from 'vue';
 
 import ListItemComponent from '@/components/ListItem.component.vue';
 
-import { type IKnownThread } from '@/data/known-threads';
+import type { IInventoryThread } from '@/models/Inventory.model';
 
 defineProps<{
-    thread: IKnownThread;
+    thread: IInventoryThread;
 }>();
 
 const count = ref<number>(0);
