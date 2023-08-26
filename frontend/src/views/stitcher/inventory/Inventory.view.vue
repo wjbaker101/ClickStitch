@@ -20,7 +20,7 @@
                         <p v-if="displayThreads.length === 0" class="text-centered">
                             Enter a thread code above and select how many you have.
                         </p>
-                        <ThreadItemComponent v-for="thread in displayThreads" :thread="thread" />
+                        <ThreadItemComponent :key="thread.thread.reference" v-for="thread in displayThreads" :thread="thread" />
                     </section>
                 </CardComponent>
             </section>

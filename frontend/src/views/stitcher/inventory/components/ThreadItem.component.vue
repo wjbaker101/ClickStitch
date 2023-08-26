@@ -28,7 +28,7 @@ const props = defineProps<{
     thread: IInventoryThread;
 }>();
 
-const count = ref<number>(0);
+const count = ref<number>(props.thread.count);
 
 watchDebounced(count, async () => {
     const result = await api.inventory.updateThread(props.thread.thread.reference, {
