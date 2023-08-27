@@ -56,8 +56,10 @@ watchDebounced(searchTerm, () => {
 
         return 0;
     });
+
+    displayThreads.value.sort((a, b) => a.thread.code.localeCompare(b.thread.code));
 }, {
-    debounce: 500,
+    debounce: 300,
 });
 
 onMounted(async () => {
