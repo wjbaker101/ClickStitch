@@ -4,13 +4,13 @@
             <strong>{{ project?.project.pattern.title ?? '-' }}</strong>
             <sub class="percentage-completed">({{ percentage?.toFixed(2) ?? '-' }}%)</sub>
         </template>
-        <div class="loading-container flex-auto">
-            <UserMessageComponent ref="userMessageComponent" />
-        </div>
         <div class="loading-container" v-if="isLoading">
             <LoadingComponent itemName="pattern" />
         </div>
-        <template v-else-if="project !== null">
+        <div v-else-if="project === null" class="loading-container flex-auto">
+            <UserMessageComponent ref="userMessageComponent" />
+        </div>
+        <template v-else>
             <CanvasComponent :project="project" @openInformation="isInformationOpen = !isInformationOpen" />
             <StitchCountsComponent :project="project" :isOpen="isInformationOpen" />
         </template>
