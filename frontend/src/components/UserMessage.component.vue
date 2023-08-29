@@ -13,7 +13,7 @@
 import { ref } from 'vue';
 
 const message = ref<string | null>(null);
-const timeout = ref<number | null>(null);
+const timeout = ref<NodeJS.Timeout | null>(null);
 
 defineExpose({
 
