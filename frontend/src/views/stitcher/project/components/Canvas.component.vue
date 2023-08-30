@@ -93,7 +93,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import dayjs from 'dayjs';
 
 import { api } from '@/api/api';
@@ -122,7 +122,7 @@ const component = ref<HTMLDivElement>({} as HTMLDivElement);
 const currentProject = useCurrentProject();
 const sharedStitch = useSharedStitch();
 const { mousePosition, prevMousePosition, isDragMoving, isDragSelecting, selectStart, selectEnd } = useMouse();
-const { width, height, offset, scale } = useTransformation(component);
+const { width, height, offset, scale } = useTransformation();
 const pinchStart = ref<number>(1);
 const pinchDiff = ref<number>(1);
 
@@ -151,7 +151,15 @@ const hoveredStitch = sharedStitch.hoveredStitch;
 const canvasWidth = computed<number>(() => props.project.project.pattern.width * stitchSize.value);
 const canvasHeight = computed<number>(() => props.project.project.pattern.height * stitchSize.value);
 
+const onResize = function (): void {
+    width.value = component.value.offsetWidth;
+    height.value = component.value.offsetHeight;
+};
+
 onMounted(() => {
+    onResize();
+    window.addEventListener('resize', onResize);
+
     offset.value = Position.at(width.value / 2 - canvasWidth.value / 2, height.value / 2 - canvasHeight.value / 2);
 
     graphics.value.fillStyle = '#eef';
@@ -260,6 +268,10 @@ onMounted(() => {
     hammer.on('pinchstart', (e) => {
         pinchStart.value = e.scale;
     });
+});
+
+onUnmounted(() => {
+    window.removeEventListener('resize', onResize);
 });
 
 const onClick = function (): void {
