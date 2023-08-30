@@ -1,13 +1,13 @@
 <template>
     <div class="action-bar-component flex gap align-items-center text-centered">
-        <div></div>
+        <div>
+            <code v-if="hoveredStitch !== null">[{{ hoveredStitch.x }},{{ hoveredStitch.y }}]</code> - <small>{{ thread?.description }}</small>
+        </div>
         <div class="main-items">
             <span class="action-button" @click="onZoomClick(-1)"><IconComponent icon="zoom-in" gap="right" /><span>Zoom In</span></span>
             <span class="action-button" @click="onZoomClick(1)"><IconComponent icon="zoom-out" gap="right" /><span>Zoom Out</span></span>
         </div>
-        <div>
-            <code v-if="hoveredStitch !== null">[{{ hoveredStitch.x }},{{ hoveredStitch.y }}]</code> - <small>{{ thread?.description }}</small>
-        </div>
+        <div></div>
     </div>
 </template>
 
