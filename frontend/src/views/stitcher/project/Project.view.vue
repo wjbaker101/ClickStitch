@@ -11,8 +11,11 @@
             <UserMessageComponent ref="userMessageComponent" />
         </div>
         <template v-else>
-            <CanvasComponent :project="project" @openInformation="isInformationOpen = !isInformationOpen" />
-            <StitchCountsComponent :project="project" :isOpen="isInformationOpen" />
+            <div class="canvas-wrapper">
+                <CanvasComponent :project="project" @openInformation="isInformationOpen = !isInformationOpen" />
+                <StitchCountsComponent :project="project" :isOpen="isInformationOpen" />
+            </div>
+            <!-- <ActionBarComponent /> -->
         </template>
     </ViewComponent>
 </template>
@@ -24,6 +27,7 @@ import { useRoute } from 'vue-router';
 import UserMessageComponent from '@/components/UserMessage.component.vue';
 import CanvasComponent from '@/views/stitcher/project/components/Canvas.component.vue';
 import StitchCountsComponent from '@/views/stitcher/project/components/StitchCounts.component.vue';
+import ActionBarComponent from '@/views/stitcher/project/components/ActionBar.component.vue';
 
 import { api } from '@/api/api';
 import { setTitle } from '@/helper/helper';
@@ -75,6 +79,12 @@ onUnmounted(() => {
 .pattern-view {
     height: 100%;
 
+    .page-content {
+        padding-top: 0 !important;
+        min-height: calc(100vh) !important;
+        display: flex;
+    }
+
     .loading-container {
         margin: auto;
     }
@@ -82,6 +92,11 @@ onUnmounted(() => {
     .percentage-completed {
         padding-left: 0.25rem;
         color: #ddd;
+    }
+
+    .canvas-wrapper {
+        position: relative;
+        flex: 1;
     }
 }
 </style>
