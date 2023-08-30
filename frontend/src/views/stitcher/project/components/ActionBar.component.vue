@@ -2,8 +2,8 @@
     <div class="action-bar-component flex gap align-items-center text-centered">
         <div></div>
         <div class="main-items">
-            <span class="action-button"><IconComponent icon="zoom-in" gap="right" /><span>Zoom In</span></span>
-            <span class="action-button"><IconComponent icon="zoom-out" gap="right" /><span>Zoom Out</span></span>
+            <span class="action-button" @click="onZoomClick(-1)"><IconComponent icon="zoom-in" gap="right" /><span>Zoom In</span></span>
+            <span class="action-button" @click="onZoomClick(1)"><IconComponent icon="zoom-out" gap="right" /><span>Zoom Out</span></span>
         </div>
         <div>
             <code v-if="hoveredStitch !== null">[{{ hoveredStitch.x }},{{ hoveredStitch.y }}]</code> - <small>{{ thread?.description }}</small>
@@ -14,13 +14,15 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { useCurrentProject } from '../use/CurrentProject.use';
-import { useSharedStitch } from '../use/SharedStitch';
+import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
+import { useSharedStitch } from '@/views/stitcher/project/use/SharedStitch';
+import { useTransformation } from '@/views/stitcher/project/use/Transformation.use';
 
 import type { IPatternThread } from '@/models/Pattern.model';
 
 const sharedStitch = useSharedStitch();
 const currentProject = useCurrentProject();
+const { width, height, zoom } = useTransformation();
 
 const hoveredStitch = sharedStitch.hoveredStitch;
 
@@ -29,7 +31,11 @@ const thread = computed<IPatternThread | null>(() => {
         return null;
 
     return currentProject.palette.value.get(hoveredStitch.value.threadIndex) as IPatternThread;
-})
+});
+
+const onZoomClick = function (amount: number): void {
+    zoom(amount, width.value / 2, height.value / 2);
+};
 </script>
 
 <style lang="scss">

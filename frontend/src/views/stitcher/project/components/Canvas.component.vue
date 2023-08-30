@@ -66,10 +66,6 @@
             @wheel.stop=""
             @touchstart.stop=""
         >
-            <ButtonComponent title="Zoom in" @click="onZoomIn">
-                <IconComponent icon="plus" />
-            </ButtonComponent>
-            <ButtonComponent title="Zoom out" @click="onZoomOut">&mdash;</ButtonComponent>
             <ButtonComponent title="Show options" @click="onShowOptions">
                 <IconComponent icon="menu" />
             </ButtonComponent>
@@ -122,7 +118,7 @@ const component = ref<HTMLDivElement>({} as HTMLDivElement);
 const currentProject = useCurrentProject();
 const sharedStitch = useSharedStitch();
 const { mousePosition, prevMousePosition, isDragMoving, isDragSelecting, selectStart, selectEnd } = useMouse();
-const { width, height, offset, scale } = useTransformation();
+const { width, height, offset, scale, zoom } = useTransformation();
 const pinchStart = ref<number>(1);
 const pinchDiff = ref<number>(1);
 
@@ -495,34 +491,11 @@ const onMouseLeave = function (): void {
     hoveredStitch.value = null;
 };
 
-const zoom = function (delta: number, centerX: number, centerY: number): void {
-    const factor = delta < 0 ? 1.25 : 0.8;
-
-    const newScale = scale.value * factor;
-    if (newScale > 1.1 || newScale < 0.1)
-        return;
-
-    scale.value = newScale;
-
-    const dx = (centerX - offset.value.x) * (factor - 1);
-    const dy = (centerY - offset.value.y) * (factor - 1);
-
-    offset.value = offset.value.translate(-dx, -dy);
-};
-
 const onMouseWheel = function (event: WheelEvent): void {
     if (!isMouseOverPattern.value)
         return;
 
     zoom(event.deltaY, mousePosition.value.x, mousePosition.value.y);
-};
-
-const onZoomIn = function (): void {
-    zoom(-1, width.value / 2, height.value / 2);
-};
-
-const onZoomOut = function (): void {
-    zoom(1, width.value / 2, height.value / 2);
 };
 
 const onShowOptions = function (): void {
