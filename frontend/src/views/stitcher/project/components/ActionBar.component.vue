@@ -7,22 +7,33 @@
             <span class="action-button" @click="onZoomClick(-1)"><IconComponent icon="zoom-in" gap="right" /><span>Zoom In</span></span>
             <span class="action-button" @click="onZoomClick(1)"><IconComponent icon="zoom-out" gap="right" /><span>Zoom Out</span></span>
         </div>
-        <div></div>
+        <div>
+            <span class="action-button" @click="onShowModal"><IconComponent icon="arrow-up" gap="right" /><span>More Details</span></span>
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
 
+import ProjectStitchesModalComponent from '@/views/stitcher/project/modals/ProjectStitchesModal.component.vue';
+
 import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
 import { useSharedStitch } from '@/views/stitcher/project/use/SharedStitch';
 import { useTransformation } from '@/views/stitcher/project/use/Transformation.use';
+import { useModal } from '@wjb/vue/use/modal.use';
 
 import type { IPatternThread } from '@/models/Pattern.model';
+import type { IGetProject } from '@/models/GetProject.model';
+
+const props = defineProps<{
+    project: IGetProject;
+}>();
 
 const sharedStitch = useSharedStitch();
 const currentProject = useCurrentProject();
 const { width, height, zoom } = useTransformation();
+const modal = useModal();
 
 const hoveredStitch = sharedStitch.hoveredStitch;
 
@@ -35,6 +46,16 @@ const thread = computed<IPatternThread | null>(() => {
 
 const onZoomClick = function (amount: number): void {
     zoom(amount, width.value / 2, height.value / 2);
+};
+
+const onShowModal = function (): void {
+    modal.show({
+        component: ProjectStitchesModalComponent,
+        componentProps: {
+            project: props.project,
+        },
+        style: 'side-right',
+    });
 };
 </script>
 
