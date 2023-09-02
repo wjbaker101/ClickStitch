@@ -1,19 +1,30 @@
 <template>
     <div class="project-stitches-modal-component">
         <h2>Stitches</h2>
-        <ul class="stitches">
+        <div class="stitches">
             <ListItemComponent v-for="thread in threads">
-                <div class="thread-colour text-centered" :style="threadStyle(thread.thread)">
-                    {{ thread.thread.index }}
+                <div class="flex align-items-center">
+                    <div>
+                        <div class="thread-colour text-centered" :style="threadStyle(thread.thread)">
+                            {{ thread.thread.index }}
+                        </div>
+                        <span class="thread-text">
+                            <strong>{{ thread.thread.name }}</strong> - <small>{{ thread.thread.description }}</small>
+                        </span>
+                    </div>
+                    <div class="flex-auto">
+                        {{ thread.completedStitches.length }} <small>/ {{ thread.stitches.length }}</small>
+                    </div>
                 </div>
-                <span class="thread-text">
-                    <code>{{ thread.thread.name }}</code> - <small>{{ thread.thread.description }}</small>
-                </span>
-                <!-- <template #expanded>
-                    asd
-                </template> -->
+                <template #expanded>
+                    <div class="thread-actions flex gap align-items-center">
+                        <div>
+                            <strong>{{ thread.completedStitches.length / thread.stitches.length * 100 }}%</strong> Completed
+                        </div>
+                    </div>
+                </template>
             </ListItemComponent>
-        </ul>
+        </div>
     </div>
 </template>
 
@@ -49,23 +60,13 @@ const threadStyle = function (thread: IPatternThread): StyleValue {
         padding-right: 0.5rem;
 
         & + .list-item-component {
-            margin-top: 1px;
+            margin-top: 0.125rem;
         }
 
         &.is-expanded {
             .more-content {
                 margin-top: 0;
-                padding: 0.5rem;
             }
-        }
-    }
-
-    .stitches {
-        padding-left: 0;
-        list-style: none;
-
-        & > li {
-            margin-top: 1px;
         }
     }
 
@@ -81,6 +82,10 @@ const threadStyle = function (thread: IPatternThread): StyleValue {
 
     .thread-text {
         vertical-align: middle;
+    }
+
+    .thread-actions {
+        padding: 1rem;
     }
 }
 </style>
