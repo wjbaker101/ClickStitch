@@ -19,7 +19,7 @@
                 <template #expanded>
                     <div class="thread-actions flex gap align-items-center">
                         <div>
-                            <strong>{{ thread.completedStitches.length / thread.stitches.length * 100 }}%</strong> Completed
+                            <strong>{{ getPercentage(thread) }}%</strong> Completed
                         </div>
                     </div>
                 </template>
@@ -35,7 +35,7 @@ import ListItemComponent from '@/components/ListItem.component.vue';
 
 import { isDark } from '@/helper/helper';
 
-import type { IGetProject } from '@/models/GetProject.model';
+import type { IGetProject, IThreadDetails } from '@/models/GetProject.model';
 import type { IPatternThread } from '@/models/Pattern.model';
 
 const props = defineProps<{
@@ -49,6 +49,10 @@ const threadStyle = function (thread: IPatternThread): StyleValue {
         backgroundColor: thread.colour,
         color: isDark(thread.colour) ? '#fff' : '#000',
     };
+};
+
+const getPercentage = function (thread: IThreadDetails): string {
+    return (thread.completedStitches.length / thread.stitches.length * 100).toFixed(1);
 };
 </script>
 

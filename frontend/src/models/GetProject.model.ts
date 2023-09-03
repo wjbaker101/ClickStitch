@@ -9,7 +9,7 @@ export interface IGetProject {
     readonly threads: Array<IThreadDetails>;
 }
 
-interface IThreadDetails {
+export interface IThreadDetails {
     readonly thread: IPatternThread;
     readonly stitches: Array<[number, number]>;
     readonly completedStitches: Array<[number, number, Dayjs]>;
