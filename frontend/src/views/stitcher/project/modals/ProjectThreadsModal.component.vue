@@ -1,7 +1,7 @@
 <template>
-    <div class="project-stitches-modal-component">
-        <h2>Stitches</h2>
-        <div class="stitches">
+    <div class="project-threads-modal-component">
+        <h2>Threads</h2>
+        <div>
             <ThreadDetailsComponent v-for="thread in threads" :thread="thread" />
         </div>
     </div>
@@ -20,7 +20,7 @@ const threads = props.project.threads;
 </script>
 
 <style lang="scss">
-.project-stitches-modal-component {
+.project-threads-modal-component {
 
     .list-item-component {
         padding: 0;

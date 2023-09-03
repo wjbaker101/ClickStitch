@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import ProjectStitchesModalComponent from '@/views/stitcher/project/modals/ProjectStitchesModal.component.vue';
+import ProjectThreadsModalComponent from '@/views/stitcher/project/modals/ProjectThreadsModal.component.vue';
 
 import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
 import { useSharedStitch } from '@/views/stitcher/project/use/SharedStitch';
@@ -50,7 +50,7 @@ const onZoomClick = function (amount: number): void {
 
 const onShowModal = function (): void {
     modal.show({
-        component: ProjectStitchesModalComponent,
+        component: ProjectThreadsModalComponent,
         componentProps: {
             project: props.project,
         },
