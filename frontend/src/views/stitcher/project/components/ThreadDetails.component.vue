@@ -1,5 +1,5 @@
 <template>
-    <ListItemComponent>
+    <ListItemComponent class="thread-details-component">
         <div class="flex align-items-center">
             <div>
                 <div class="thread-colour text-centered" :style="threadStyle(thread.thread)">
@@ -15,8 +15,18 @@
         </div>
         <template #expanded>
             <div class="thread-actions flex gap align-items-center">
-                <div>
+                <div class="flex-auto">
                     <strong>{{ getPercentage(thread) }}%</strong> Completed
+                </div>
+                <div></div>
+                <div class="flex gap align-items-center flex-auto text-centered">
+                    <ButtonComponent class="mini flex-auto" title="Jump to previous">
+                        <IconComponent icon="arrow-left" />
+                    </ButtonComponent>
+                    <div class="flex-auto">Jump</div>
+                    <ButtonComponent class="mini flex-auto" title="Jump to next">
+                        <IconComponent icon="arrow-right" />
+                    </ButtonComponent>
                 </div>
             </div>
         </template>
@@ -50,4 +60,25 @@ const getPercentage = function (thread: IThreadDetails): string {
 </script>
 
 <style lang="scss">
+.thread-details-component {
+
+    .thread-colour {
+        width: 2rem;
+        line-height: 2rem;
+        margin-right: 0.5rem;
+        display: inline-block;
+        aspect-ratio: 1;
+        vertical-align: middle;
+        border-radius: var(--wjb-border-radius);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1), 0 3px 8px -6px rgba(0, 0, 0, 0.1);
+    }
+
+    .thread-text {
+        vertical-align: middle;
+    }
+
+    .thread-actions {
+        padding: 1rem;
+    }
+}
 </style>

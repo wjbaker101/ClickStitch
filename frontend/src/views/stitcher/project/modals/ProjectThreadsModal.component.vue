@@ -40,23 +40,5 @@ const threads = props.project.threads;
             }
         }
     }
-
-    .thread-colour {
-        width: 2rem;
-        line-height: 2rem;
-        margin-right: 0.5rem;
-        display: inline-block;
-        aspect-ratio: 1;
-        vertical-align: middle;
-        border-radius: var(--wjb-border-radius);
-    }
-
-    .thread-text {
-        vertical-align: middle;
-    }
-
-    .thread-actions {
-        padding: 1rem;
-    }
 }
 </style>
