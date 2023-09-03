@@ -30,6 +30,10 @@ const threads = props.project.threads;
             margin-top: 0.125rem;
         }
 
+        .more-content {
+            margin-right: -0.25rem;
+        }
+
         &.is-expanded {
             .more-content {
                 margin-top: 0;
