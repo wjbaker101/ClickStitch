@@ -55,21 +55,6 @@
                 </div>
             </div>
         </div>
-        <div
-            class="controls flex gap-small"
-            @click.stop=""
-            @dblclick.stop=""
-            @pointerdown.stop=""
-            @pointerup.stop=""
-            @pointermove.stop=""
-            @pointerleave.stop=""
-            @wheel.stop=""
-            @touchstart.stop=""
-        >
-            <ButtonComponent title="Show options" @click="onShowOptions">
-                <IconComponent icon="menu" />
-            </ButtonComponent>
-        </div>
         <!-- <div class="debug">
             <div>w: {{ width.toFixed(0) }} h: {{ height.toFixed(0) }}</div>
             <div>mouse | x: {{ mousePosition.x }} y: {{ mousePosition.y }}</div>
@@ -110,8 +95,6 @@ import { type IPosition } from '@/api/types/CompleteStitches.type';
 const props = defineProps<{
     project: IGetProject;
 }>();
-
-const emit = defineEmits(['openInformation']);
 
 const component = ref<HTMLDivElement>({} as HTMLDivElement);
 
@@ -497,10 +480,6 @@ const onMouseWheel = function (event: WheelEvent): void {
 
     zoom(event.deltaY, mousePosition.value.x, mousePosition.value.y);
 };
-
-const onShowOptions = function (): void {
-    emit('openInformation');
-};
 </script>
 
 <style lang="scss">
@@ -585,33 +564,6 @@ const onShowOptions = function (): void {
             left: -2.5rem;
             top: 50%;
             transform: translateY(-50%);
-        }
-    }
-
-    .controls {
-        position: fixed;
-        inset: auto 1rem 1rem auto;
-        padding: 1rem;
-        line-height: 1em;
-        background-color: var(--wjb-primary);
-        background: linear-gradient(
-            -5deg,
-            transparentize($primary-dark, 0.05),
-            transparentize($primary, 0.05),
-        );
-        backdrop-filter: blur(2px);
-        border-radius: 2rem;
-
-        button {
-            box-shadow: none;
-        }
-
-        @include shadow-medium();
-
-        @media screen and (max-width: 720px) {
-            left: 50%;
-            right: auto;
-            transform: translateX(-50%);
         }
     }
 

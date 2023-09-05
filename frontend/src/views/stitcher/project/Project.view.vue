@@ -12,10 +12,9 @@
         </div>
         <template v-else>
             <div class="canvas-wrapper">
-                <CanvasComponent :project="project" @openInformation="isInformationOpen = !isInformationOpen" />
-                <StitchCountsComponent :project="project" :isOpen="isInformationOpen" />
+                <CanvasComponent :project="project" />
             </div>
-            <!-- <ActionBarComponent /> -->
+            <ActionBarComponent :project="project" />
         </template>
     </ViewComponent>
 </template>
@@ -26,7 +25,6 @@ import { useRoute } from 'vue-router';
 
 import UserMessageComponent from '@/components/UserMessage.component.vue';
 import CanvasComponent from '@/views/stitcher/project/components/Canvas.component.vue';
-import StitchCountsComponent from '@/views/stitcher/project/components/StitchCounts.component.vue';
 import ActionBarComponent from '@/views/stitcher/project/components/ActionBar.component.vue';
 
 import { api } from '@/api/api';
@@ -46,7 +44,6 @@ const patternReference = route.params.patternReference as string;
 
 const project = ref<IGetProject | null>(null);
 const isLoading = ref<boolean>(false);
-const isInformationOpen = ref<boolean>(false);
 
 const percentage = sharedStitch.percentageCompleted;
 
