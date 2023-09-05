@@ -19,13 +19,10 @@
                     <strong>{{ getPercentage(thread) }}%</strong> Completed
                 </div>
                 <div></div>
-                <div class="flex gap align-items-center flex-auto text-centered">
-                    <ButtonComponent class="mini flex-auto" title="Jump to previous">
-                        <IconComponent icon="arrow-left" />
-                    </ButtonComponent>
-                    <div class="flex-auto">Jump</div>
-                    <ButtonComponent class="mini flex-auto" title="Jump to next">
-                        <IconComponent icon="arrow-right" />
+                <div class="flex-auto">
+                    <ButtonComponent class="mini" title="Jump to Stitches">
+                        <IconComponent icon="compass" gap="right" />
+                        <span>Jump to Stitches</span>
                     </ButtonComponent>
                 </div>
             </div>
