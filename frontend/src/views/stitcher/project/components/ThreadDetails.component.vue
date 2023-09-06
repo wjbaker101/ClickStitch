@@ -20,7 +20,7 @@
                 </div>
                 <div></div>
                 <div class="flex-auto">
-                    <ButtonComponent class="mini" title="Jump to Stitches">
+                    <ButtonComponent class="mini" title="Jump to Stitches" @click="onJumpToStitch">
                         <IconComponent icon="compass" gap="right" />
                         <span>Jump to Stitches</span>
                     </ButtonComponent>
@@ -36,13 +36,16 @@ import type { StyleValue } from 'vue';
 import ListItemComponent from '@/components/ListItem.component.vue';
 
 import { isDark } from '@/helper/helper';
+import { useJumpToStitch } from '@/views/stitcher/project/use/JumpToStitch.use';
 
 import type { IThreadDetails } from '@/models/GetProject.model';
 import type { IPatternThread } from '@/models/Pattern.model';
 
-defineProps<{
+const props = defineProps<{
     thread: IThreadDetails;
 }>();
+
+const jumpToStitch = useJumpToStitch();
 
 const threadStyle = function (thread: IPatternThread): StyleValue {
     return {
@@ -53,6 +56,10 @@ const threadStyle = function (thread: IPatternThread): StyleValue {
 
 const getPercentage = function (thread: IThreadDetails): string {
     return (thread.completedStitches.length / thread.stitches.length * 100).toFixed(1);
+};
+
+const onJumpToStitch = function (): void {
+    jumpToStitch.start(props.thread);
 };
 </script>
 
