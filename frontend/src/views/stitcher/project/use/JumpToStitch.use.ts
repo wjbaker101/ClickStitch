@@ -5,7 +5,7 @@ import type { IThreadDetails } from '@/models/GetProject.model';
 const isEnabled = ref<boolean>(false);
 const thread = ref<IThreadDetails | null>(null);
 
-export const useJumpToStitch = function () {
+export const useJumpToStitches = function () {
     return {
 
         start(newThread: IThreadDetails): void {
