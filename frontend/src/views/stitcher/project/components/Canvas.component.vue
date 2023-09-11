@@ -87,10 +87,12 @@ import { useSharedStitch } from '@/views/stitcher/project/use/SharedStitch';
 import { useStitch } from '@/views/stitcher/project/use/Stitch.use';
 import { useInput } from '@/use/input/input.use';
 import { useTransformation } from '@/views/stitcher/project/use/Transformation.use';
+import { useEvents } from '@/use/events/Events.use';
 
 import { type IGetProject } from '@/models/GetProject.model';
 import { type IStitch, type IPatternThread } from '@/models/Pattern.model';
 import { type IPosition } from '@/api/types/CompleteStitches.type';
+import type { IJumpToStitchEvent } from '@/use/events/types/EventsMap.type';
 
 const props = defineProps<{
     project: IGetProject;
@@ -99,6 +101,7 @@ const props = defineProps<{
 const component = ref<HTMLDivElement>({} as HTMLDivElement);
 
 const currentProject = useCurrentProject();
+const events = useEvents();
 const sharedStitch = useSharedStitch();
 const { mousePosition, prevMousePosition, isDragMoving, isDragSelecting, selectStart, selectEnd } = useMouse();
 const { width, height, offset, scale, zoom } = useTransformation();
@@ -133,6 +136,10 @@ const canvasHeight = computed<number>(() => props.project.project.pattern.height
 const onResize = function (): void {
     width.value = component.value.offsetWidth;
     height.value = component.value.offsetHeight;
+};
+
+const onJumpToStitch = function (event: IJumpToStitchEvent): void {
+    console.log('123', event);
 };
 
 onMounted(() => {
@@ -247,10 +254,13 @@ onMounted(() => {
     hammer.on('pinchstart', (e) => {
         pinchStart.value = e.scale;
     });
+
+    events.subscribe('JumpToStitch', onJumpToStitch);
 });
 
 onUnmounted(() => {
     window.removeEventListener('resize', onResize);
+    events.unsubscribe('JumpToStitch', onJumpToStitch);
 });
 
 const onClick = function (): void {

@@ -18,7 +18,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useJumpToStitches } from '../use/JumpToStitch.use';
+import { useEvents } from '@/use/events/Events.use';
 
+const events = useEvents();
 const jumpToStitches = useJumpToStitches();
 
 const isEnabled  = jumpToStitches.isEnabled;
@@ -39,6 +41,11 @@ const onNavigate = function (value: number): void {
 
     if (currentIndex.value > stitches.value.length - 1)
         currentIndex.value = 0;
+
+    events.publish('JumpToStitch', {
+        x: stitches.value[currentIndex.value][0],
+        y: stitches.value[currentIndex.value][1],
+    });
 };
 </script>
 

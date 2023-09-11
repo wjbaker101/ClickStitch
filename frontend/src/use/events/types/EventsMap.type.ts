@@ -5,4 +5,6 @@ export interface IEventsMap {
 export type EventNames = keyof IEventsMap;
 
 export interface IJumpToStitchEvent {
+    readonly x: number;
+    readonly y: number;
 }
