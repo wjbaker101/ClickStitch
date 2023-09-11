@@ -140,12 +140,6 @@ const hoveredStitch = sharedStitch.hoveredStitch;
 
 const canvasWidth = computed<number>(() => props.project.project.pattern.width * stitchSize.value);
 const canvasHeight = computed<number>(() => props.project.project.pattern.height * stitchSize.value);
-
-const onResize = function (): void {
-    width.value = component.value.offsetWidth;
-    height.value = component.value.offsetHeight;
-};
-
 const prevJumpedStitch = ref<Position>(Position.ZERO);
 
 const onJumpToStitch = function (event: IJumpToStitchEvent): void {
@@ -171,9 +165,15 @@ const onJumpToStitch = function (event: IJumpToStitchEvent): void {
     prevJumpedStitch.value = Position.at(event.x, event.y);
 };
 
+const resizeObserver = new ResizeObserver(entries => {
+    const entry = entries[0];
+
+    width.value = entry.contentRect.width;
+    height.value = entry.contentRect.height;
+});
+
 onMounted(() => {
-    onResize();
-    window.addEventListener('resize', onResize);
+    resizeObserver.observe(component.value);
 
     offset.value = Position.at(width.value / 2 - canvasWidth.value / 2, height.value / 2 - canvasHeight.value / 2);
 
@@ -288,7 +288,6 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-    window.removeEventListener('resize', onResize);
     events.unsubscribe('JumpToStitch', onJumpToStitch);
 });
 
