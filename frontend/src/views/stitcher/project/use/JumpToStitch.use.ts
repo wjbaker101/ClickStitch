@@ -8,6 +8,9 @@ const thread = ref<IThreadDetails | null>(null);
 export const useJumpToStitches = function () {
     return {
 
+        isEnabled,
+        thread,
+
         start(newThread: IThreadDetails): void {
             isEnabled.value = true;
             thread.value = newThread;
