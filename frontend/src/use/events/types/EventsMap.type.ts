@@ -1,4 +1,4 @@
-interface IEventsMap {
+export interface IEventsMap {
     readonly 'JumpToStitch': IJumpToStitchEvent;
 }
 

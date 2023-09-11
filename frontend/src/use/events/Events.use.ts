@@ -1,20 +1,20 @@
-import type { EventNames } from './types/EventsMap.type';
+import type { EventNames, IEventsMap } from './types/EventsMap.type';
 
-type EventFunction<TEventParameters> = (eventArgs: TEventParameters) => void;
+type EventFunction<TEvent extends IEventsMap[EventNames]> = (eventArgs: TEvent) => void;
 
 const events = new Map<EventNames, Array<EventFunction<any>>>();
 
 export const useEvents = function () {
     return {
 
-        subscribe<TEventParameters>(key: EventNames, func: EventFunction<TEventParameters>): void {
+        subscribe<TEvent extends IEventsMap[EventNames]>(key: EventNames, func: EventFunction<TEvent>): void {
             if (!events.has(key))
                 events.set(key, []);
 
             events.get(key)?.push(func);
         },
 
-        publish<TEventParameters>(key: EventNames, parameters: TEventParameters): void {
+        publish<TEvent extends IEventsMap[EventNames]>(key: EventNames, parameters: TEvent): void {
             events.get(key)?.forEach(x => x(parameters));
         },
 
