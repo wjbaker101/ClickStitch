@@ -14,6 +14,7 @@
             <div class="canvas-wrapper">
                 <CanvasComponent :project="project" />
             </div>
+            <JumpToStitchesComponent />
             <ActionBarComponent :project="project" />
         </template>
     </ViewComponent>
@@ -25,6 +26,7 @@ import { useRoute } from 'vue-router';
 
 import UserMessageComponent from '@/components/UserMessage.component.vue';
 import CanvasComponent from '@/views/stitcher/project/components/Canvas.component.vue';
+import JumpToStitchesComponent from '@/views/stitcher/project/components/JumpToStitches.component.vue';
 import ActionBarComponent from '@/views/stitcher/project/components/ActionBar.component.vue';
 
 import { api } from '@/api/api';
