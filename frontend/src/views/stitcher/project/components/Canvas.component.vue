@@ -32,6 +32,12 @@
                 :height="project.project.pattern.height * baseStitchSize"
             >
             </canvas>
+            <canvas
+                ref="jumpedStitchCanvas"
+                :width="project.project.pattern.width * baseStitchSize"
+                :height="project.project.pattern.height * baseStitchSize"
+            >
+            </canvas>
             <div
                 v-if="stitchSelectStart && stitchSelectEnd"
                 class="selected-stitches-wrapper"
@@ -124,9 +130,11 @@ for (const stitch of currentProject.stitches.value) {
 
 const canvasElement = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const completedStitchesCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
+const jumpedStitchCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 
 const graphics = computed<CanvasRenderingContext2D>(() => canvasElement.value.getContext('2d') as CanvasRenderingContext2D);
 const completedStitchesGraphics = computed<CanvasRenderingContext2D>(() => completedStitchesCanvas.value.getContext('2d') as CanvasRenderingContext2D);
+const jumpedStitchGraphics = computed<CanvasRenderingContext2D>(() => jumpedStitchCanvas.value.getContext('2d') as CanvasRenderingContext2D);
 
 const hoveredStitch = sharedStitch.hoveredStitch;
 
@@ -139,7 +147,14 @@ const onResize = function (): void {
 };
 
 const onJumpToStitch = function (event: IJumpToStitchEvent): void {
-    console.log('123', event);
+    offset.value = Position
+        .at(-event.x * stitchSize.value, -event.y * stitchSize.value)
+        .translate(width.value / 2, height.value / 2);
+
+    jumpedStitchGraphics.value.strokeStyle = '#ffb400';
+    jumpedStitchGraphics.value.lineWidth = 5;
+    jumpedStitchGraphics.value.strokeRect(event.x * baseStitchSize, event.y * baseStitchSize, baseStitchSize, baseStitchSize);
+    jumpedStitchGraphics.value.stroke();
 };
 
 onMounted(() => {
