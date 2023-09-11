@@ -146,15 +146,29 @@ const onResize = function (): void {
     height.value = component.value.offsetHeight;
 };
 
+const prevJumpedStitch = ref<Position>(Position.ZERO);
+
 const onJumpToStitch = function (event: IJumpToStitchEvent): void {
+    const borderWidth = 6;
+    scale.value = 1;
+
+    jumpedStitchGraphics.value.clearRect(
+        prevJumpedStitch.value.x * baseStitchSize - Math.ceil(borderWidth / 2),
+        prevJumpedStitch.value.y * baseStitchSize - Math.ceil(borderWidth / 2),
+        baseStitchSize + borderWidth + 1,
+        baseStitchSize + borderWidth + 1);
+
     offset.value = Position
         .at(-event.x * stitchSize.value, -event.y * stitchSize.value)
-        .translate(width.value / 2, height.value / 2);
+        .translate(width.value / 2, height.value / 2)
+        .translate(-stitchSize.value / 2, -stitchSize.value / 2);
 
     jumpedStitchGraphics.value.strokeStyle = '#ffb400';
-    jumpedStitchGraphics.value.lineWidth = 5;
+    jumpedStitchGraphics.value.lineWidth = borderWidth;
     jumpedStitchGraphics.value.strokeRect(event.x * baseStitchSize, event.y * baseStitchSize, baseStitchSize, baseStitchSize);
     jumpedStitchGraphics.value.stroke();
+
+    prevJumpedStitch.value = Position.at(event.x, event.y);
 };
 
 onMounted(() => {
