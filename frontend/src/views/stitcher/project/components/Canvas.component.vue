@@ -165,6 +165,16 @@ const onJumpToStitch = function (event: IJumpToStitchEvent): void {
     prevJumpedStitch.value = Position.at(event.x, event.y);
 };
 
+const onEndJumpToStitches = function (): void {
+    const borderWidth = 6;
+
+    jumpedStitchGraphics.value.clearRect(
+        prevJumpedStitch.value.x * baseStitchSize - Math.ceil(borderWidth / 2),
+        prevJumpedStitch.value.y * baseStitchSize - Math.ceil(borderWidth / 2),
+        baseStitchSize + borderWidth + 1,
+        baseStitchSize + borderWidth + 1);
+};
+
 const resizeObserver = new ResizeObserver(entries => {
     const entry = entries[0];
 
@@ -287,10 +297,12 @@ onMounted(() => {
     });
 
     events.subscribe('JumpToStitch', onJumpToStitch);
+    events.subscribe('EndJumpToStitches', onEndJumpToStitches);
 });
 
 onUnmounted(() => {
     events.unsubscribe('JumpToStitch', onJumpToStitch);
+    events.unsubscribe('EndJumpToStitches', onEndJumpToStitches);
 });
 
 const onClick = function (): void {

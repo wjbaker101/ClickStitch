@@ -68,6 +68,7 @@ const onStart = function (event: IStartJumpToStitchesEvent): void {
 
 const onClose = function (): void {
     isEnabled.value = false;
+    events.publish('EndJumpToStitches', {});
 };
 
 onMounted(() => {
