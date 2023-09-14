@@ -175,6 +175,8 @@ const resizeObserver = new ResizeObserver(entries => {
 onMounted(() => {
     resizeObserver.observe(component.value);
 
+    width.value = component.value.offsetWidth;
+    height.value = component.value.offsetHeight;
     offset.value = Position.at(width.value / 2 - canvasWidth.value / 2, height.value / 2 - canvasHeight.value / 2);
 
     graphics.value.fillStyle = '#eef';
