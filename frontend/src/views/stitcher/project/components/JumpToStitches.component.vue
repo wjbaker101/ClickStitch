@@ -1,6 +1,11 @@
 <template>
     <div class="jump-to-stitches-component" :class="{ 'is-enabled': isEnabled }">
-        Jump to Stitches
+        <div class="header flex gap align-items-center">
+            <div>Jump to Stitch</div>
+            <div class="close flex-auto" @click="onClose">
+                <IconComponent icon="cross" />
+            </div>
+        </div>
         <div class="flex gap align-items-center">
             <ButtonComponent class="secondary flex-auto" @click="onNavigate(-1)">
                 <IconComponent icon="arrow-left" />
@@ -61,6 +66,10 @@ const onStart = function (event: IStartJumpToStitchesEvent): void {
     });
 };
 
+const onClose = function (): void {
+    isEnabled.value = false;
+};
+
 onMounted(() => {
     events.subscribe('StartJumpToStitches', onStart);
 });
@@ -93,6 +102,20 @@ onUnmounted(() => {
     &.is-enabled {
         opacity: 1;
         pointer-events: all;
+    }
+
+    .header {
+        margin-bottom: 0.5rem;
+    }
+
+    .close {
+        padding: 0.5rem;
+        border-radius: var(--wjb-border-radius);
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--wjb-primary-dark);
+        }
     }
 }
 </style>
