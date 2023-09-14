@@ -11,7 +11,7 @@
                 <IconComponent icon="arrow-left" />
             </ButtonComponent>
             <div>
-                {{ thread?.thread.name }}
+                {{ thread?.thread.name }} (#{{ currentIndex + 1 }})
             </div>
             <ButtonComponent class="secondary flex-auto" @click="onNavigate(1)">
                 <IconComponent icon="arrow-right" />
