@@ -16,15 +16,17 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { useJumpToStitches } from '../use/JumpToStitch.use';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
+
 import { useEvents } from '@/use/events/Events.use';
 
-const events = useEvents();
-const jumpToStitches = useJumpToStitches();
+import type { IStartJumpToStitchesEvent } from '@/use/events/types/EventsMap.type';
+import type { IThreadDetails } from '@/models/GetProject.model';
 
-const isEnabled  = jumpToStitches.isEnabled;
-const thread = jumpToStitches.thread;
+const events = useEvents();
+
+const isEnabled  = ref<boolean>(false);
+const thread = ref<IThreadDetails | null>(null);
 
 const stitches = computed<Array<[number, number]>>(() => thread.value?.stitches ?? []);
 
@@ -47,6 +49,25 @@ const onNavigate = function (value: number): void {
         y: stitches.value[currentIndex.value][1],
     });
 };
+
+const onStart = function (event: IStartJumpToStitchesEvent): void {
+    thread.value = event.thread;
+    isEnabled.value = true;
+    currentIndex.value = 0;
+
+    events.publish('JumpToStitch', {
+        x: stitches.value[currentIndex.value][0],
+        y: stitches.value[currentIndex.value][1],
+    });
+};
+
+onMounted(() => {
+    events.subscribe('StartJumpToStitches', onStart);
+});
+
+onUnmounted(() => {
+    events.unsubscribe('StartJumpToStitches', onStart);
+});
 </script>
 
 <style lang="scss">

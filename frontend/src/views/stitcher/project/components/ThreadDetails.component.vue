@@ -36,8 +36,8 @@ import type { StyleValue } from 'vue';
 import ListItemComponent from '@/components/ListItem.component.vue';
 
 import { isDark } from '@/helper/helper';
+import { useEvents } from '@/use/events/Events.use';
 import { useModal } from '@wjb/vue/use/modal.use';
-import { useJumpToStitches } from '@/views/stitcher/project/use/JumpToStitch.use';
 
 import type { IThreadDetails } from '@/models/GetProject.model';
 import type { IPatternThread } from '@/models/Pattern.model';
@@ -46,8 +46,8 @@ const props = defineProps<{
     thread: IThreadDetails;
 }>();
 
+const events = useEvents();
 const modal = useModal();
-const jumpToStitches = useJumpToStitches();
 
 const threadStyle = function (thread: IPatternThread): StyleValue {
     return {
@@ -61,7 +61,9 @@ const getPercentage = function (thread: IThreadDetails): string {
 };
 
 const onJumpToStitch = function (): void {
-    jumpToStitches.start(props.thread);
+    events.publish('StartJumpToStitches', {
+        thread: props.thread,
+    });
     modal.hide();
 };
 </script>
