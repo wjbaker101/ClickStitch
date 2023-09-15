@@ -1,6 +1,6 @@
 <template>
     <div class="action-bar-component flex gap align-items-center text-centered">
-        <div>
+        <div class="hovered-stitch">
             <code v-if="hoveredStitch !== null">[{{ hoveredStitch.x }},{{ hoveredStitch.y }}]</code> - <small>{{ thread?.description }}</small>
         </div>
         <div class="main-items">
@@ -82,6 +82,12 @@ const onShowModal = function (): void {
     border-top-right-radius: var(--wjb-border-radius);
     border-top-left-radius: var(--wjb-border-radius);
     z-index: 1;
+
+    @media screen and (max-width: 720px) {
+        .hovered-stitch {
+            display: none;
+        }
+    }
 
     .action-button {
         padding: 0.25rem;
