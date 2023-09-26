@@ -11,24 +11,13 @@
     --wjb-light: #ececec;
     --wjb-dark: #222226;
 
-    --wjb-background-colour-light: var(--wjb-white);
     --wjb-background-colour: var(--wjb-light);
-    --wjb-background-colour-dark: #ddd;
 
     --wjb-text-colour: var(--wjb-dark);
     --wjb-text-colour-opposite: var(--wjb-light);
 
     --wjb-primary: #22927f;
-    --wjb-primary-light: color-mix(in srgb, var(--wjb-primary) 80%, #fff);
-    --wjb-primary-dark: color-mix(in srgb, var(--wjb-primary) 80%, #000);
-
     --wjb-secondary: #7f2292;
-    --wjb-secondary-light: color-mix(in srgb, var(--wjb-secondary) 80%, #fff);
-    --wjb-secondary-dark: color-mix(in srgb, var(--wjb-secondary) 80%, #000);
-
-    --wjb-danger: #aa0f0f;
-    --wjb-danger-light: color-mix(in srgb, var(--wjb-danger) 80%, #fff);
-    --wjb-danger-dark: color-mix(in srgb, var(--wjb-danger) 80%, #000);
 
     --wjb-border-radius: 0.3rem;
 
@@ -37,9 +26,7 @@
     --footer-height: 162px;
 
     @media (prefers-color-scheme: dark) {
-        --wjb-background-colour-light: var(--wjb-black);
         --wjb-background-colour: var(--wjb-dark);
-        --wjb-background-colour-dark: #171718;
 
         --wjb-text-colour: var(--wjb-light);
         --wjb-text-colour-opposite: var(--wjb-dark);

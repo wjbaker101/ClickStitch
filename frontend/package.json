@@ -24,7 +24,7 @@
         "@types/node": "^20.7.0",
         "@vite-pwa/assets-generator": "^0.0.10",
         "@vitejs/plugin-vue": "^4.3.4",
-        "@wjb/styling": "^1.0.75",
+        "@wjb/styling": "^1.0.82",
         "@wjb/vue": "^1.0.83",
         "sass": "^1.68.0",
         "typescript": "~5.2.2",
