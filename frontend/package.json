@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "co:login": "aws codeartifact login --tool npm --repository npm-libs --domain wjb --domain-owner 144953083930 --region eu-west-2",
+        "co:login": "aws codeartifact login --tool npm --repository npm-libs --domain wjb --domain-owner 144953083930 --region eu-west-2 --namespace @wjb",
         "dev": "vite",
         "build": "vite build",
         "serve": "vite preview",
