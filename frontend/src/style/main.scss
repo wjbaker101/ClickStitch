@@ -19,14 +19,16 @@
     --wjb-text-colour-opposite: var(--wjb-light);
 
     --wjb-primary: #22927f;
-    --wjb-primary-light: #30a390;
-    --wjb-primary-dark: #18695c;
+    --wjb-primary-light: color-mix(in srgb, var(--wjb-primary) 80%, #fff);
+    --wjb-primary-dark: color-mix(in srgb, var(--wjb-primary) 80%, #000);
 
     --wjb-secondary: #7f2292;
-    --wjb-secondary-light: #9833ac;
-    --wjb-secondary-dark: #591866;
+    --wjb-secondary-light: color-mix(in srgb, var(--wjb-secondary) 80%, #fff);
+    --wjb-secondary-dark: color-mix(in srgb, var(--wjb-secondary) 80%, #000);
 
     --wjb-danger: #aa0f0f;
+    --wjb-danger-light: color-mix(in srgb, var(--wjb-danger) 80%, #fff);
+    --wjb-danger-dark: color-mix(in srgb, var(--wjb-danger) 80%, #000);
 
     --wjb-border-radius: 0.3rem;
 
