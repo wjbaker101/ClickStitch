@@ -71,8 +71,8 @@ const onShowModal = function (): void {
     background-color: var(--wjb-primary);
     background: linear-gradient(
         -5deg,
-        transparentize($primary-dark, 0.1),
-        transparentize($primary, 0.1),
+        color-mix(in srgb, var(--wjb-primary-dark) 90%, transparent),
+        color-mix(in srgb, var(--wjb-primary) 90%, transparent),
     );
     backdrop-filter: blur(2px);
     color: var(--wjb-light);
