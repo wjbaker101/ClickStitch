@@ -45,7 +45,7 @@ defineExpose({
     max-width: 450px;
     margin: 1rem 0;
     padding: 1rem;
-    background-color: transparentize($danger, 0.2);
+    background-color: color-mix(in srgb, var(--wjb-danger) 80%, transparent);
     border-radius: var(--wjb-border-radius);
 
     @include shadow-small();
