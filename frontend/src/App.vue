@@ -16,8 +16,6 @@
 }
 
 body {
-    $bg: #202628;
-
     font-family: 'Mulish', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--wjb-text-colour);
 
