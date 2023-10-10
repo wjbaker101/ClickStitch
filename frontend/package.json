@@ -10,7 +10,7 @@
         "create-pwa-assets": "pwa-assets-generator --preset minimal public/logo_orig.png"
     },
     "dependencies": {
-        "@vueuse/core": "^10.4.1",
+        "@vueuse/core": "^10.5.0",
         "axios": "^1.5.1",
         "chart.js": "^4.4.0",
         "dayjs": "^1.11.10",
@@ -21,14 +21,14 @@
     },
     "devDependencies": {
         "@types/hammerjs": "^2.0.42",
-        "@types/node": "^20.7.0",
+        "@types/node": "^20.8.4",
         "@vite-pwa/assets-generator": "^0.0.10",
-        "@vitejs/plugin-vue": "^4.3.4",
+        "@vitejs/plugin-vue": "^4.4.0",
         "@wjb/styling": "^1.0.82",
         "@wjb/vue": "^1.0.83",
-        "sass": "^1.68.0",
+        "sass": "^1.69.2",
         "typescript": "~5.2.2",
-        "vite": "^4.4.9",
+        "vite": "^4.4.11",
         "vite-plugin-mkcert": "^1.16.0",
         "vite-plugin-pwa": "^0.16.5"
     },
