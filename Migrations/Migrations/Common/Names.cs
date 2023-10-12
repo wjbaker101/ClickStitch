@@ -22,5 +22,6 @@ public static class Names
         public const string USER_PERMISSION = "user_permission";
         public const string CREATOR = "creator";
         public const string USER_CREATOR = "user_creator";
+        public const string THREAD = "thread";
     }
 }
