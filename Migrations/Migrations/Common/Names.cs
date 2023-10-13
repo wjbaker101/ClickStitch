@@ -23,5 +23,6 @@ public static class Names
         public const string CREATOR = "creator";
         public const string USER_CREATOR = "user_creator";
         public const string THREAD = "thread";
+        public const string USER_THREAD = "user_thread";
     }
 }
