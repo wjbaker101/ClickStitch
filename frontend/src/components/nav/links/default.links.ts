@@ -22,6 +22,12 @@ export const defaultLinks = computed<Array<ILink>>(() => [
         isVisible: true,
     },
     {
+        path: '/inventory',
+        iconName: 'skein',
+        title: 'Inventory',
+        isVisible: true,
+    },
+    {
         path: '/about',
         iconName: 'info',
         title: 'About',
