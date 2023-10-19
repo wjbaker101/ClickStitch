@@ -113,9 +113,6 @@ public sealed class PatternsService : IPatternsService
         IFormFile bannerImage,
         CancellationToken cancellationToken)
     {
-        if (requestUser.Permissions.All(x => x != RequestPermissionType.Creator))
-            return Result.Failure("You cannot create patterns if you are not a creator.");
-
         var titleSlugResult = SlugService.Generate(request.Title);
         if (!titleSlugResult.TrySuccess(out var titleSlug))
             return Result.FromFailure(titleSlugResult);
@@ -153,7 +150,7 @@ public sealed class PatternsService : IPatternsService
             ExternalShopUrl = request.ExternalShopUrl,
             Creator = creatorResult.Content,
             TitleSlug = titleSlug,
-            IsPublic = true,
+            IsPublic = requestUser.Permissions.Any(x => x == RequestPermissionType.Admin),
             Threads = new HashSet<PatternThreadRecord>()
         }, cancellationToken);
 
@@ -175,6 +172,17 @@ public sealed class PatternsService : IPatternsService
             Y = x.Y,
             LookupHash = $"{x.X},{x.Y}"
         }), cancellationToken);
+
+        var isStitcher = requestUser.Permissions.All(x => x != RequestPermissionType.Creator);
+        if (isStitcher)
+        {
+            await _userPatternRepository.SaveAsync(new UserPatternRecord
+            {
+                User = user,
+                Pattern = pattern,
+                CreatedAt = DateTime.UtcNow
+            }, cancellationToken);
+        }
 
         return Result.Success();
     }
