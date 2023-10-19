@@ -11,5 +11,4 @@ public enum ApiPermissionType
     Unknown = 0,
     Admin = 1,
     Creator = 2,
-    Stitcher = 3
 }

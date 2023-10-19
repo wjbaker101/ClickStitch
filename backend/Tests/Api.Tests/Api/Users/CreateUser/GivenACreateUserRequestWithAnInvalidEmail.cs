@@ -24,7 +24,7 @@ public sealed class GivenACreateUserRequestWithAnInvalidEmail
     [OneTimeSetUp]
     public async Task Setup()
     {
-        var subject = new UsersService(null!, null!, null!, null!, null!, null!, null!);
+        var subject = new UsersService(null!, null!, null!, null!);
 
         _result = await subject.CreateUser(new CreateUserRequest
         {

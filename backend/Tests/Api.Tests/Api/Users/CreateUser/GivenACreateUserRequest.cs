@@ -31,10 +31,7 @@ public sealed class GivenACreateUserRequest
             _userRepository.Object,
             new PasswordService(new TestAppSecrets()),
             FakeGuid.With(Guid.Parse("55993eb0-9824-4dbf-a674-1f5a09205287")),
-            FakeDateTime.Default(),
-            null!,
-            null!,
-            null!);
+            FakeDateTime.Default());
 
         _result = await subject.CreateUser(new CreateUserRequest
         {

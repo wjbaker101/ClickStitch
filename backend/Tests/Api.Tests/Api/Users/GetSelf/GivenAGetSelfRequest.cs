@@ -29,7 +29,7 @@ public sealed class GivenAGetSelfRequest
                 Permissions = new List<PermissionRecord>()
             });
 
-        var subject = new UsersService(userRepository.Object, null!, null!, null!, null!, null!, null!);
+        var subject = new UsersService(userRepository.Object, null!, null!, null!);
 
         _result = await subject.GetSelf(new RequestUser
         {
