@@ -26,6 +26,7 @@ public sealed class FakeUserPatternRepository : FakeRepository<UserPatternRecord
             BannerImageUrl = "TestBannerImageUrl",
             ExternalShopUrl = "TestExternalShopUrl",
             TitleSlug = "test-title-slug",
+            IsPublic = true,
             Creator = new CreatorRecord
             {
                 Reference = Guid.Parse("0a30e82e-b2f3-47be-bba1-f6a4370f66ba"),

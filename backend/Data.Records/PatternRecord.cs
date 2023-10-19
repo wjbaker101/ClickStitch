@@ -17,6 +17,7 @@ public class PatternRecord : IDatabaseRecord
     public virtual required string ExternalShopUrl { get; set; }
     public virtual required CreatorRecord Creator { get; init; }
     public virtual required string TitleSlug { get; init; }
+    public virtual required bool IsPublic { get; init; }
     public virtual required ISet<PatternThreadRecord> Threads { get; init; }
 }
 
@@ -40,6 +41,7 @@ public sealed class PatternRecordMap : ClassMap<PatternRecord>
         Map(x => x.BannerImageUrl, "banner_image_url");
         Map(x => x.ExternalShopUrl, "external_shop_url");
         Map(x => x.TitleSlug, "title_slug");
+        Map(x => x.IsPublic, "is_public");
         References(x => x.Creator, "creator_id");
         HasMany(x => x.Threads).KeyColumn("pattern_id");
     }

@@ -153,6 +153,7 @@ public sealed class PatternsService : IPatternsService
             ExternalShopUrl = request.ExternalShopUrl,
             Creator = creatorResult.Content,
             TitleSlug = titleSlug,
+            IsPublic = true,
             Threads = new HashSet<PatternThreadRecord>()
         }, cancellationToken);
 
