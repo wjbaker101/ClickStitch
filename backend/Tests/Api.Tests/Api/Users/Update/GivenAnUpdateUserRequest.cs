@@ -41,6 +41,8 @@ public sealed class GivenAnUpdateUserRequest
             new PasswordService(new TestAppSecrets()),
             FakeGuid.Default(),
             FakeDateTime.Default(),
+            null!,
+            null!,
             null!);
         
         _result = await subject.UpdateUser(new RequestUser

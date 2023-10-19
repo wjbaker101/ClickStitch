@@ -4,7 +4,9 @@ using Core.Extensions;
 using Core.Services;
 using Data.Records;
 using Data.Repositories.Creator;
+using Data.Repositories.Permission;
 using Data.Repositories.User;
+using Data.Repositories.UserPermission;
 using System.Text.RegularExpressions;
 
 namespace ClickStitch.Api.Users;
@@ -24,17 +26,28 @@ public sealed partial class UsersService : IUsersService
     private readonly IGuid _guid;
     private readonly IDateTime _dateTime;
     private readonly ICreatorRepository _creatorRepository;
+    private readonly IPermissionRepository _permissionRepository;
+    private readonly IUserPermissionRepository _userPermissionRepository;
 
     [GeneratedRegex(".+@.+\\..+")]
     private static partial Regex EmailRegex();
 
-    public UsersService(IUserRepository userRepository, IPasswordService passwordService, IGuid guid, IDateTime dateTime, ICreatorRepository creatorRepository)
+    public UsersService(
+        IUserRepository userRepository,
+        IPasswordService passwordService,
+        IGuid guid,
+        IDateTime dateTime,
+        ICreatorRepository creatorRepository,
+        IPermissionRepository permissionRepository,
+        IUserPermissionRepository userPermissionRepository)
     {
         _userRepository = userRepository;
         _passwordService = passwordService;
         _guid = guid;
         _dateTime = dateTime;
         _creatorRepository = creatorRepository;
+        _permissionRepository = permissionRepository;
+        _userPermissionRepository = userPermissionRepository;
     }
 
     public async Task<Result<GetSelfResponse>> GetSelf(RequestUser requestUser, CancellationToken cancellationToken)
@@ -75,6 +88,17 @@ public sealed partial class UsersService : IUsersService
             PasswordSalt = passwordSalt,
             LastLoginAt = null,
             Permissions = new List<PermissionRecord>()
+        }, cancellationToken);
+
+        var permissionResult = await _permissionRepository.GetByType(PermissionType.Stitcher, cancellationToken);
+        if (permissionResult.IsFailure)
+            return Result<CreateUserResponse>.FromFailure(permissionResult);
+
+        await _userPermissionRepository.SaveAsync(new UserPermissionRecord
+        {
+            User = user,
+            Permission = permissionResult.Content,
+            CreatedAt = DateTime.UtcNow
         }, cancellationToken);
 
         return new CreateUserResponse
