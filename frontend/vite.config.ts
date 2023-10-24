@@ -28,7 +28,10 @@ export default defineConfig({
     },
 
     optimizeDeps: {
-        exclude: ['@wjb/vue/use/modal.use'],
+        exclude: [
+            '@wjb/vue/use/modal.use',
+            '@wjb/vue/use/popup.use',
+        ],
     },
 
     build: {
