@@ -74,7 +74,6 @@ const isValid = ref<boolean | null>(null);
 
 const isCreationLoading = ref<boolean>(false);
 
-const bannerImage = ref<File | null>(null);
 const title = ref<string>('');
 const patternData = ref<string | null>(null);
 
@@ -99,13 +98,6 @@ const onPatternChoose = function (file: File): void {
 };
 
 const onCreate = async function (): Promise<void> {
-    if (bannerImage.value === null) {
-        popup.trigger({
-            message: 'Please choose a banner/thumbnail image.',
-            style: 'error',
-        });
-        return;
-    }
     if (patternData.value === null) {
         popup.trigger({
             message: 'Please upload a valid pattern schematic.',
@@ -116,7 +108,7 @@ const onCreate = async function (): Promise<void> {
 
     isCreationLoading.value = true;
 
-    await api.patterns.create(bannerImage.value, patternData.value, {
+    await api.patterns.create(new File([], ''), patternData.value, {
         title: title.value,
         externalShopUrl: null,
         aidaCount: 16,
