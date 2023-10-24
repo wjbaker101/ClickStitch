@@ -98,6 +98,13 @@ const onPatternChoose = function (file: File): void {
 };
 
 const onCreate = async function (): Promise<void> {
+    if (title.value.length < 3) {
+        popup.trigger({
+            message: 'Please enter a valid title.',
+            style: 'error',
+        });
+        return;
+    }
     if (patternData.value === null) {
         popup.trigger({
             message: 'Please upload a valid pattern schematic.',
