@@ -2,7 +2,7 @@ import { type ComputedRef } from 'vue';
 
 import { adminLinks } from '@/components/nav/links/admin.links';
 import { creatorLinks } from '@/components/nav/links/creator.links';
-import { defaultLinks } from '@/components/nav/links/default.links';
+import { stitcherLinks } from '@/components/nav/links/stitcher.links';
 
 import { type Subdomain } from '@/setup/router/router-helper';
 
@@ -17,7 +17,7 @@ export const linkFactory = {
             case 'creator':
                 return creatorLinks;
             default:
-                return defaultLinks;
+                return stitcherLinks;
         }
     },
 

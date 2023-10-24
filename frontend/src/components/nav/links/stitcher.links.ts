@@ -8,7 +8,7 @@ const auth = useAuth();
 
 const authDetails = auth.details;
 
-export const defaultLinks = computed<Array<ILink>>(() => [
+export const stitcherLinks = computed<Array<ILink>>(() => [
     {
         path: '/dashboard',
         iconName: 'home',
