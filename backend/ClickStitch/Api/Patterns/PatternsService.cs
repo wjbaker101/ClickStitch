@@ -150,7 +150,7 @@ public sealed class PatternsService : IPatternsService
             ExternalShopUrl = request.ExternalShopUrl,
             Creator = creatorResult.Content,
             TitleSlug = titleSlug,
-            IsPublic = requestUser.Permissions.Any(x => x == RequestPermissionType.Admin),
+            IsPublic = requestUser.Permissions.Any(x => x == RequestPermissionType.Creator),
             Threads = new HashSet<PatternThreadRecord>()
         }, cancellationToken);
 
