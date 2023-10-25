@@ -64,7 +64,6 @@ public sealed class PatternsController : ApiController
     [HttpPost]
     [Route("verify")]
     [Authenticate]
-    [RequireCreator]
     public async Task<IActionResult> VerifyPattern([FromForm(Name = "pattern_data")] string patternDataAsString, CancellationToken cancellationToken)
     {
         var requestUser = RequestHelper.GetRequiredUser(Request);
