@@ -20,6 +20,14 @@
                 <ProjectComponent :key="project.pattern.reference" v-for="project in projects" :project="project" />
             </div>
         </div>
+        <div class="floating-action-button">
+            <RouterLink to="/patterns/new">
+                <ButtonComponent>
+                    <IconComponent icon="plus" gap="right" />
+                    <span>New Pattern</span>
+                </ButtonComponent>
+            </RouterLink>
+        </div>
     </ViewComponent>
 </template>
 
@@ -62,6 +70,21 @@ onMounted(async () => {
         display: grid;
         gap: 2rem;
         grid-template-columns: repeat(auto-fill, minmax(min(450px, 100%), 1fr));
+    }
+
+    .floating-action-button {
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+
+        button {
+            border-radius: 9999px;
+        }
+
+        @media screen and (max-width: 600px) {
+            right: 50%;
+            translate: 50% 0;
+        }
     }
 }
 </style>
