@@ -15,7 +15,7 @@ public interface IPatternsService
 {
     Task<Result<GetPatternsResponse>> GetPatterns(RequestUser? requestUser, CancellationToken cancellationToken);
     Task<Result<UpdatePatternResponse>> UpdatePattern(RequestUser requestUser, Guid patternReference, UpdatePatternRequest request, CancellationToken cancellationToken);
-    Task<Result> CreatePattern(RequestUser requestUser, CreatePatternRequest request, string patternData, IFormFile thumbnail, IFormFile bannerImage, CancellationToken cancellationToken);
+    Task<Result> CreatePattern(RequestUser requestUser, CreatePatternRequest request, string patternData, IFormFile thumbnail, IFormFile? bannerImage, CancellationToken cancellationToken);
     Task<Result<VerifyPatternResponse>> VerifyPattern(string patternData, CancellationToken cancellationToken);
     Task<Result<DeletePatternResponse>> DeletePattern(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken);
 }
@@ -110,16 +110,12 @@ public sealed class PatternsService : IPatternsService
         CreatePatternRequest request,
         string patternData,
         IFormFile thumbnail,
-        IFormFile bannerImage,
+        IFormFile? bannerImage,
         CancellationToken cancellationToken)
     {
         var titleSlugResult = SlugService.Generate(request.Title);
         if (!titleSlugResult.TrySuccess(out var titleSlug))
             return Result.FromFailure(titleSlugResult);
-
-        var bannerUrlResult = await _patternUploadService.UploadImage(titleSlug, PatternImageType.Banner, bannerImage.OpenReadStream(), cancellationToken);
-        if (bannerUrlResult.IsFailure)
-            return Result.FromFailure(bannerUrlResult);
 
         var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
 
@@ -133,6 +129,12 @@ public sealed class PatternsService : IPatternsService
         });
         if (!parseResult.TrySuccess(out var parsed))
             return Result.FromFailure(parseResult);
+
+        var bannerImageStream = bannerImage != null ? bannerImage.OpenReadStream() : PatternThumbnailGenerator.Create(parsed.Pattern.Width, parsed.Pattern.Height, parsed.Threads, parsed.Stitches);
+
+        var bannerUrlResult = await _patternUploadService.UploadImage(titleSlug, PatternImageType.Banner, bannerImageStream, cancellationToken);
+        if (bannerUrlResult.IsFailure)
+            return Result.FromFailure(bannerUrlResult);
 
         var pattern = await _patternRepository.SaveAsync(new PatternRecord
         {

@@ -47,7 +47,7 @@ public sealed class PatternsController : ApiController
     [Authenticate]
     public async Task<IActionResult> CreatePattern(
         [FromForm(Name = "thumbnail")] IFormFile thumbnail,
-        [FromForm(Name = "banner_image")] IFormFile bannerImage,
+        [FromForm(Name = "banner_image")] IFormFile? bannerImage,
         [FromForm(Name = "request_body")] string requestAsString,
         [FromForm(Name = "pattern_data")] string patternDataAsString,
         CancellationToken cancellationToken)
