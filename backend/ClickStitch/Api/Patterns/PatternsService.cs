@@ -97,7 +97,7 @@ public sealed class PatternsService : IPatternsService
 
         return new UpdatePatternResponse
         {
-            Pattern = PatternMapper.MapWithoutCreator(pattern)
+            Pattern = PatternMapper.MapWithCreator(pattern)
         };
     }
 
