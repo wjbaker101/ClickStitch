@@ -30,7 +30,8 @@ public sealed class GivenAnUpdateUserRequest
                 Password = "TestPassword",
                 PasswordSalt = "TestPasswordSalt",
                 LastLoginAt = null,
-                Permissions = new List<PermissionRecord>()
+                Permissions = new List<PermissionRecord>(),
+                UserCreator = null
             });
         _userRepository
             .Setup(mock => mock.UpdateAsync(It.IsAny<UserRecord>(), It.IsAny<CancellationToken>()))

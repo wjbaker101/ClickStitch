@@ -26,7 +26,8 @@ public sealed class GivenAGetSelfRequest
                 Password = "TestPassword",
                 PasswordSalt = "",
                 LastLoginAt = null,
-                Permissions = new List<PermissionRecord>()
+                Permissions = new List<PermissionRecord>(),
+                UserCreator = null
             });
 
         var subject = new UsersService(userRepository.Object, null!, null!, null!);

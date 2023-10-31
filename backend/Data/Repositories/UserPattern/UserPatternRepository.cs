@@ -21,6 +21,8 @@ public sealed class UserPatternRepository : Repository<UserPatternRecord>, IUser
         var userPatterns = await session
             .Query<UserPatternRecord>()
             .Fetch(x => x.Pattern)
+            .ThenFetch(x => x.User)
+            .ThenFetch(x => x.UserCreator)
             .ThenFetch(x => x.Creator)
             .Where(x => x.User == user)
             .ToListAsync(cancellationToken);
@@ -38,6 +40,8 @@ public sealed class UserPatternRepository : Repository<UserPatternRecord>, IUser
         var userPattern = await session
             .Query<UserPatternRecord>()
             .Fetch(x => x.Pattern)
+            .ThenFetch(x => x.User)
+            .ThenFetch(x => x.UserCreator)
             .ThenFetch(x => x.Creator)
             .SingleOrDefaultAsync(x => x.User == user && x.Pattern == pattern, cancellationToken);
 

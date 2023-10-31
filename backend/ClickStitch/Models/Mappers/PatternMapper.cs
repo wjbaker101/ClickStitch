@@ -20,10 +20,10 @@ public static class PatternMapper
         TitleSlug = pattern.TitleSlug,
         Creator = new CreatorModel
         {
-            Reference = pattern.Creator.Reference,
-            CreatedAt = pattern.Creator.CreatedAt,
-            Name = pattern.Creator.Name,
-            StoreUrl = pattern.Creator.StoreUrl
+            Reference = pattern.User.UserCreator.Creator.Reference,
+            CreatedAt = pattern.User.UserCreator.Creator.CreatedAt,
+            Name = pattern.User.UserCreator.Creator.Name,
+            StoreUrl = pattern.User.UserCreator.Creator.StoreUrl
         }
     };
 

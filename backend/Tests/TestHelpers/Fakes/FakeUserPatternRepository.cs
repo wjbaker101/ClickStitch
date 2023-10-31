@@ -27,14 +27,29 @@ public sealed class FakeUserPatternRepository : FakeRepository<UserPatternRecord
             ExternalShopUrl = "TestExternalShopUrl",
             TitleSlug = "test-title-slug",
             IsPublic = true,
-            Creator = new CreatorRecord
+            User = new UserRecord
             {
-                Reference = Guid.Parse("0a30e82e-b2f3-47be-bba1-f6a4370f66ba"),
-                CreatedAt = new DateTime(2021, 11, 02, 16, 55, 09),
-                Name = "TestCreatorName",
-                StoreUrl = "TestStoreUrl",
-                Users = new List<UserRecord>(),
-                Patterns = new List<PatternRecord>()
+                Id = 0,
+                Reference = default,
+                CreatedAt = default,
+                Email = null,
+                Password = null,
+                PasswordSalt = null,
+                LastLoginAt = null,
+                Permissions = null,
+                UserCreator = new UserCreatorRecord
+                {
+                    User = null!,
+                    Creator = new CreatorRecord
+                    {
+                        Reference = Guid.Parse("0a30e82e-b2f3-47be-bba1-f6a4370f66ba"),
+                        CreatedAt = new DateTime(2021, 11, 02, 16, 55, 09),
+                        Name = "TestCreatorName",
+                        StoreUrl = "TestStoreUrl",
+                        Users = new List<UserRecord>(),
+                        Patterns = new List<PatternRecord>()
+                    }
+                }
             },
             Threads = new HashSet<PatternThreadRecord>
             {

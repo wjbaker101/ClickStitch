@@ -83,15 +83,11 @@ public sealed class PatternsService : IPatternsService
     {
         var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
 
-        var creatorResult = await _creatorRepository.GetByUser(user, cancellationToken);
-        if (!creatorResult.TrySuccess(out var creator))
-            return Result<UpdatePatternResponse>.FromFailure(creatorResult);
-
         var patternResult = await _patternRepository.GetByReferenceAsync(patternReference, cancellationToken);
         if (!patternResult.TrySuccess(out var pattern))
             return Result<UpdatePatternResponse>.FromFailure(patternResult);
 
-        if (pattern.Creator.Id != creator.Id)
+        if (pattern.User.Id != user.Id)
             return Result<UpdatePatternResponse>.Failure("Unable to update pattern as you are not a creator of it.");
 
         pattern.Title = request.Title;
@@ -150,7 +146,7 @@ public sealed class PatternsService : IPatternsService
             AidaCount = request.AidaCount,
             BannerImageUrl = bannerUrlResult.Content,
             ExternalShopUrl = request.ExternalShopUrl,
-            Creator = creatorResult.Content,
+            User = user,
             TitleSlug = titleSlug,
             IsPublic = requestUser.Permissions.Any(x => x == RequestPermissionType.Creator),
             Threads = new HashSet<PatternThreadRecord>()
@@ -205,15 +201,11 @@ public sealed class PatternsService : IPatternsService
     {
         var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
 
-        var creatorResult = await _creatorRepository.GetByUser(user, cancellationToken);
-        if (!creatorResult.TrySuccess(out var creator))
-            return Result<DeletePatternResponse>.FromFailure(creatorResult);
-
         var patternResult = await _patternRepository.GetByReferenceAsync(patternReference, cancellationToken);
         if (!patternResult.TrySuccess(out var pattern))
             return Result<DeletePatternResponse>.FromFailure(patternResult);
 
-        if (pattern.Creator.Id != creator.Id)
+        if (pattern.User.Id != user.Id)
             return Result<DeletePatternResponse>.Failure("Unable to delete pattern as you are not a creator of it.");
 
         var doesProjectExist = await _userPatternRepository.DoesProjectExistForPatternAsync(pattern, cancellationToken);

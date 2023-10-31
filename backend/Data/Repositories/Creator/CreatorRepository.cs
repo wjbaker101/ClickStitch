@@ -98,7 +98,9 @@ public sealed class CreatorRepository : Repository<CreatorRecord>, ICreatorRepos
 
         var query = session
             .Query<PatternRecord>()
-            .Where(x => x.Creator == creator);
+            .Fetch(x => x.User)
+            .ThenFetch(x => x.UserCreator)
+            .Where(x => x.User.UserCreator != null && x.User.UserCreator.Creator == creator);
 
         var totalCount = query.ToFutureValue(x => x.Count());
 

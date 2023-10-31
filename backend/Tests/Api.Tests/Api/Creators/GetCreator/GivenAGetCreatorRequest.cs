@@ -24,7 +24,12 @@ public sealed class GivenAGetCreatorRequest
                 Password = "",
                 PasswordSalt = "",
                 LastLoginAt = new DateTime(2023, 05, 29, 15, 43, 36),
-                Permissions = new List<PermissionRecord>()
+                Permissions = new List<PermissionRecord>(),
+                UserCreator = new UserCreatorRecord
+                {
+                    User = null!,
+                    Creator = x
+                }
             });
 
             x.Patterns.Add(new PatternRecord
@@ -41,7 +46,7 @@ public sealed class GivenAGetCreatorRequest
                 AidaCount = 8967,
                 BannerImageUrl = "TestBannerImageUrl",
                 ExternalShopUrl = "TestExternalShopUrl",
-                Creator = x,
+                User = x.Users[0],
                 TitleSlug = "test-title-slug",
                 IsPublic = true,
                 Threads = new HashSet<PatternThreadRecord>()
