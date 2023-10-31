@@ -4,7 +4,7 @@ namespace ClickStitch.Models.Mappers;
 
 public static class PatternMapper
 {
-    public static PatternModel MapWithCreator(PatternRecord pattern) => new()
+    public static PatternModel Map(PatternRecord pattern) => new()
     {
         Reference = pattern.Reference,
         CreatedAt = pattern.CreatedAt,
@@ -25,23 +25,6 @@ public static class PatternMapper
             Name = pattern.User.UserCreator.Creator.Name,
             StoreUrl = pattern.User.UserCreator.Creator.StoreUrl
         }
-    };
-
-    public static PatternModel MapWithoutCreator(PatternRecord pattern) => new()
-    {
-        Reference = pattern.Reference,
-        CreatedAt = pattern.CreatedAt,
-        Title = pattern.Title,
-        Width = pattern.Width,
-        Height = pattern.Height,
-        Price = pattern.Price,
-        ThumbnailUrl = pattern.ThumbnailUrl,
-        ThreadCount = pattern.ThreadCount,
-        StitchCount = pattern.StitchCount,
-        BannerImageUrl = pattern.BannerImageUrl,
-        ExternalShopUrl = pattern.ExternalShopUrl,
-        TitleSlug = pattern.TitleSlug,
-        Creator = null
     };
 
     public static PatternThreadModel MapThread(PatternThreadRecord thread) => new()

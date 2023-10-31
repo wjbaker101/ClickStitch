@@ -92,7 +92,7 @@ public sealed class CreatorsService : ICreatorsService
         {
             Creator = CreatorMapper.Map(creatorResult.Content),
             Users = creatorResult.Content.Users.MapAll(UserMapper.Map),
-            Patterns = creatorResult.Content.Patterns.MapAll(PatternMapper.MapWithCreator)
+            Patterns = creatorResult.Content.Patterns.MapAll(PatternMapper.Map)
         };
     }
 
@@ -128,7 +128,7 @@ public sealed class CreatorsService : ICreatorsService
 
         return new GetCreatorPatternsResponse
         {
-            Patterns = getPatterns.Patterns.ConvertAll(PatternMapper.MapWithCreator),
+            Patterns = getPatterns.Patterns.ConvertAll(PatternMapper.Map),
             Pagination = PaginationModel.Create(pageNumber, pageSize, getPatterns.TotalCount)
         };
     }

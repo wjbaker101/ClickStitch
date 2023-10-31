@@ -71,7 +71,7 @@ public sealed class PatternsService : IPatternsService
 
         return new GetPatternsResponse
         {
-            Patterns = patterns.ConvertAll(PatternMapper.MapWithCreator)
+            Patterns = patterns.ConvertAll(PatternMapper.Map)
         };
     }
 
@@ -97,7 +97,7 @@ public sealed class PatternsService : IPatternsService
 
         return new UpdatePatternResponse
         {
-            Pattern = PatternMapper.MapWithCreator(pattern)
+            Pattern = PatternMapper.Map(pattern)
         };
     }
 

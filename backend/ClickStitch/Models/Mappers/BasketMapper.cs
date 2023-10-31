@@ -12,7 +12,7 @@ public static class BasketMapper
 
     public static BasketItemModel MapItem(PatternRecord pattern, DateTime addedAt) => new()
     {
-        Pattern = PatternMapper.MapWithCreator(pattern),
+        Pattern = PatternMapper.Map(pattern),
         AddedAt = addedAt
     };
 }
