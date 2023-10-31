@@ -115,10 +115,6 @@ public sealed class PatternsService : IPatternsService
 
         var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
 
-        var creatorResult = await _creatorRepository.GetByUser(user, cancellationToken);
-        if (creatorResult.IsFailure)
-            return Result.FromFailure(creatorResult);
-
         var parseResult = _patternParserService.Parse(new ParsePatternParameters
         {
             RawContent = patternData
