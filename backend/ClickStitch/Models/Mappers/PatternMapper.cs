@@ -18,7 +18,7 @@ public static class PatternMapper
         BannerImageUrl = pattern.BannerImageUrl,
         ExternalShopUrl = pattern.ExternalShopUrl,
         TitleSlug = pattern.TitleSlug,
-        Creator = new CreatorModel
+        Creator = pattern.User.UserCreator == null ? null : new CreatorModel
         {
             Reference = pattern.User.UserCreator.Creator.Reference,
             CreatedAt = pattern.User.UserCreator.Creator.CreatedAt,
