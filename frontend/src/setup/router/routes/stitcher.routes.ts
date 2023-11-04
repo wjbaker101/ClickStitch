@@ -4,7 +4,7 @@ import AboutView from '@/views/stitcher/about/About.view.vue';
 import DashboardView from '@/views/stitcher/dashboard/Dashboard.view.vue';
 import NewPatternView from '@/views/stitcher/new-pattern/NewPattern.view.vue';
 import LoginView from '@/views/_shared/login/Login.view.vue';
-import MarketplaceView from '@/views/stitcher/marketplace/Marketplace.view.vue';
+import PatternsView from '@/views/stitcher/patterns/Patterns.view.vue';
 import ProjectView from '@/views/stitcher/project/Project.view.vue';
 import ToolsView from '@/views/stitcher/tools/Tools.view.vue';
 import ProjectAnalyticsView from '@/views/stitcher/project-analytics/ProjectAnalytics.view.vue';
@@ -60,15 +60,8 @@ export const stitcherRoutes: Array<RouteRecordRaw> = [
         },
     },
     {
-        path: '/marketplace',
-        component: MarketplaceView,
-        meta: {
-            title: 'Marketplace',
-        },
-    },
-    {
         path: '/patterns',
-        component: MarketplaceView,
+        component: PatternsView,
         meta: {
             title: 'Patterns',
         },

@@ -33,7 +33,7 @@ import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 
 import PatternImageComponent from '@/components/shared/PatternImage.component.vue';
-import PatternImagesModal from '@/views/stitcher/marketplace/modal/PatternImagesModal.component.vue';
+import PatternImagesModal from '@/views/stitcher/patterns/modal/PatternImagesModal.component.vue';
 
 import { useAuth } from '@/use/auth/Auth.use';
 import { useMarketplace } from '@/use/marketplace/Marketplace.use';
