@@ -25,7 +25,6 @@
 import PatternImageComponent from '@/components/shared/PatternImage.component.vue';
 import PatternImagesModal from '@/views/stitcher/patterns/modal/PatternImagesModal.component.vue';
 
-import { useAuth } from '@/use/auth/Auth.use';
 import { useModal } from '@wjb/vue/use/modal.use';
 
 import { type IPattern } from '@/models/Pattern.model';
@@ -34,10 +33,7 @@ const props = defineProps<{
     pattern: IPattern;
 }>();
 
-const auth = useAuth();
 const modal = useModal();
-
-const authDetails = auth.details;
 
 const onClick = function (): void {
     modal.show({
