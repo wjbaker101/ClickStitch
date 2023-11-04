@@ -26,18 +26,6 @@
                 </section>
             </template>
         </div>
-        <div v-if="false" class="basket-container">
-            <RouterLink to="/basket">
-                <ButtonComponent>
-                    <IconComponent icon="cart" />
-                </ButtonComponent>
-            </RouterLink>
-            <div class="item-count" :class="{ 'is-visible': basket?.items.length ?? 0 > 0 }">
-                <small>
-                    <strong>{{ basket?.items.length }}</strong>
-                </small>
-            </div>
-        </div>
     </ViewComponent>
 </template>
 
@@ -50,15 +38,10 @@ import PatternComponent from '@/views/stitcher/marketplace/components/Pattern.co
 
 import { etsyStoreUrl } from '@/data/data';
 import { api } from '@/api/api';
-import { useMarketplace } from '@/use/marketplace/Marketplace.use';
 
 import { type IPattern } from '@/models/Pattern.model';
 
-const marketplace = useMarketplace();
-
 const userMessageComponent = ref<InstanceType<typeof UserMessageComponent>>({} as InstanceType<typeof UserMessageComponent>);
-
-const basket = marketplace.basket;
 
 const patterns = ref<Array<IPattern> | null>(null);
 const isLoading = ref<boolean>(false);
@@ -88,39 +71,6 @@ onMounted(async () => {
         display: grid;
         gap: 1rem;
         grid-template-columns: repeat(auto-fill, minmax(min(370px, 100%), 1fr));
-    }
-
-    .basket-container {
-        position: fixed;
-        inset: auto 3rem 3rem auto;
-
-        button {
-            width: 4rem;
-            border-radius: 50%;
-            aspect-ratio: 1;
-
-            @include shadow-large();
-        }
-
-        .item-count {
-            width: 2rem;
-            text-align: center;
-            line-height: 2rem;
-            position: absolute;
-            inset: -0.25rem auto auto -0.25rem;
-            aspect-ratio: 1;
-            background-color: var(--wjb-tertiary);
-            border-radius: 50%;
-            opacity: 0;
-            pointer-events: none;
-
-            &.is-visible {
-                opacity: 1;
-                pointer-events: all;
-            }
-
-            @include shadow-large();
-        }
     }
 }
 </style>
