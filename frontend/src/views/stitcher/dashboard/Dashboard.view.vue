@@ -12,7 +12,7 @@
             <ZeroStateComponent v-else-if="projects?.length === 0" icon="info">
                 <p>No projects yet!</p>
                 <p>Visit the patterns page to get your first one and start stitching!</p>
-                <RouterLink to="/marketplace">
+                <RouterLink to="/patterns">
                     <ButtonComponent>Patterns Page</ButtonComponent>
                 </RouterLink>
             </ZeroStateComponent>
