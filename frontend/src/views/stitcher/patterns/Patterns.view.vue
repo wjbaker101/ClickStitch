@@ -1,5 +1,5 @@
 <template>
-    <ViewComponent class="marketplace-view">
+    <ViewComponent class="patterns-view">
         <template #nav>
             <strong>Patterns</strong>
         </template>
@@ -65,7 +65,7 @@ onMounted(async () => {
 <style lang="scss">
 @use '@/style/variables' as *;
 
-.marketplace-view {
+.patterns-view {
 
     .patterns {
         display: grid;
