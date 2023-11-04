@@ -3,7 +3,6 @@ import { type NavigationGuardNext, type RouteLocationNormalized, type RouteRecor
 import AboutView from '@/views/stitcher/about/About.view.vue';
 import DashboardView from '@/views/stitcher/dashboard/Dashboard.view.vue';
 import NewPatternView from '@/views/stitcher/new-pattern/NewPattern.view.vue';
-import BasketView from '@/views/stitcher/basket/Basket.view.vue';
 import LoginView from '@/views/_shared/login/Login.view.vue';
 import MarketplaceView from '@/views/stitcher/marketplace/Marketplace.view.vue';
 import ProjectView from '@/views/stitcher/project/Project.view.vue';
@@ -79,14 +78,6 @@ export const stitcherRoutes: Array<RouteRecordRaw> = [
         component: NewPatternView,
         meta: {
             title: 'New Pattern',
-        },
-    },
-    {
-        path: '/basket',
-        component: BasketView,
-        beforeEnter: [ requireAuth ],
-        meta: {
-            title: 'Basket',
         },
     },
     {
