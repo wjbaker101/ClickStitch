@@ -16,42 +16,17 @@
                 <p><strong>{{ currency(pattern.price) }}</strong></p>
             </div>
         </div>
-        <p class="text-centered">
-            <p>You'll be able to see the exact materials after purchase!</p>
-            <ButtonComponent :class="{ 'danger': isInBasket }" @click="onAddToBasket">
-                <IconComponent icon="cart" gap="right" />
-                <span v-if="isInBasket">Remove from basket</span>
-                <span v-else>Add to basket</span>
-            </ButtonComponent>
-        </p>
     </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-
 import { currency, formatNumber } from '@/helper/helper';
-import { useMarketplace } from '@/use/marketplace/Marketplace.use';
 
 import { type IPattern } from '@/models/Pattern.model';
 
-const props = defineProps<{
+defineProps<{
     pattern: IPattern;
 }>();
-
-const marketplace = useMarketplace();
-
-const patternsInBasket = marketplace.patternReferences;
-const isInBasket = computed<boolean>(() => patternsInBasket.value.has(props.pattern.reference));
-
-const onAddToBasket = async function (): Promise<void> {
-    if (isInBasket.value) {
-        await marketplace.removeItem(props.pattern);
-        return;
-    }
-
-    await marketplace.addItem(props.pattern);
-};
 </script>
 
 <style lang="scss">
