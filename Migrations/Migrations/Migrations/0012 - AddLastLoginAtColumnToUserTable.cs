@@ -5,7 +5,7 @@ namespace Migrations.Migrations;
 
 // ReSharper disable once InconsistentNaming
 [Migration(0012)]
-public sealed class AddLastLoginAtColumnToUserTable_0012 : Migration
+public sealed class AddLastLoginAtColumnToUserTable_0012 : AutoReversingMigration
 {
     public override void Up()
     {
@@ -15,13 +15,5 @@ public sealed class AddLastLoginAtColumnToUserTable_0012 : Migration
             .InSchema(Names.Schemas.CLICK_STITCH)
             .AsDateTimeOffset()
             .Nullable();
-    }
-
-    public override void Down()
-    {
-        Delete
-            .Column("last_login_at")
-            .FromTable(Names.Tables.USER)
-            .InSchema(Names.Schemas.CLICK_STITCH);
     }
 }

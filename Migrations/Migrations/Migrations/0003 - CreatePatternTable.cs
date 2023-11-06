@@ -5,7 +5,7 @@ namespace Migrations.Migrations;
 
 // ReSharper disable once InconsistentNaming
 [Migration(0003)]
-public sealed class CreatePatternTable_0003 : Migration
+public sealed class CreatePatternTable_0003 : AutoReversingMigration
 {
     public override void Up()
     {
@@ -25,12 +25,5 @@ public sealed class CreatePatternTable_0003 : Migration
             .WithColumn("aida_count").AsInt32().NotNullable()
             .WithColumn("banner_image_url").AsString().Nullable()
             .WithColumn("external_shop_url").AsString().Nullable();
-    }
-
-    public override void Down()
-    {
-        Delete
-            .Table(Names.Tables.PATTERN)
-            .InSchema(Names.Schemas.CLICK_STITCH);
     }
 }

@@ -5,7 +5,7 @@ namespace Migrations.Migrations;
 
 // ReSharper disable once InconsistentNaming
 [Migration(0011)]
-public sealed class CreateUserPermissionTable_0011 : Migration
+public sealed class CreateUserPermissionTable_0011 : AutoReversingMigration
 {
     public override void Up()
     {
@@ -46,12 +46,5 @@ public sealed class CreateUserPermissionTable_0011 : Migration
             .OnTable(Names.Tables.USER_PERMISSION)
             .WithSchema(Names.Schemas.CLICK_STITCH)
             .Columns("user_id", "permission_id");
-    }
-
-    public override void Down()
-    {
-        Delete
-            .Table(Names.Tables.USER_PERMISSION)
-            .InSchema(Names.Schemas.CLICK_STITCH);
     }
 }

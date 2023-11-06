@@ -5,7 +5,7 @@ namespace Migrations.Migrations;
 
 // ReSharper disable once InconsistentNaming
 [Migration(0002)]
-public sealed class CreateUserTable_0002 : Migration
+public sealed class CreateUserTable_0002 : AutoReversingMigration
 {
     public override void Up()
     {
@@ -25,14 +25,5 @@ public sealed class CreateUserTable_0002 : Migration
             .InSchema(Names.Schemas.CLICK_STITCH)
             .OnColumn("lower(email)")
             .Unique();
-    }
-
-    public override void Down()
-    {
-        Delete.Index("IX_user_lower_email");
-
-        Delete
-            .Table(Names.Tables.USER)
-            .InSchema(Names.Schemas.CLICK_STITCH);
     }
 }

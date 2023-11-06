@@ -5,7 +5,7 @@ namespace Migrations.Migrations;
 
 // ReSharper disable once InconsistentNaming
 [Migration(0016)]
-public sealed class AddCreatorToPatternTable_0016 : Migration
+public sealed class AddCreatorToPatternTable_0016 : AutoReversingMigration
 {
     public override void Up()
     {
@@ -24,13 +24,5 @@ public sealed class AddCreatorToPatternTable_0016 : Migration
             .ToTable(Names.Tables.CREATOR)
             .InSchema(Names.Schemas.CLICK_STITCH)
             .PrimaryColumn("id");
-    }
-
-    public override void Down()
-    {
-        Delete
-            .Column("creator_id")
-            .FromTable(Names.Tables.PATTERN)
-            .InSchema(Names.Schemas.CLICK_STITCH);
     }
 }

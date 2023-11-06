@@ -5,7 +5,7 @@ namespace Migrations.Migrations;
 
 // ReSharper disable once InconsistentNaming
 [Migration(0013)]
-public sealed class CreateCreatorTable_0013 : Migration
+public sealed class CreateCreatorTable_0013 : AutoReversingMigration
 {
     public override void Up()
     {
@@ -17,12 +17,5 @@ public sealed class CreateCreatorTable_0013 : Migration
             .WithColumn("created_at").AsDateTimeOffset().NotNullable()
             .WithColumn("name").AsString().NotNullable().Unique()
             .WithColumn("store_url").AsString().NotNullable();
-    }
-
-    public override void Down()
-    {
-        Delete
-            .Table(Names.Tables.CREATOR)
-            .InSchema(Names.Schemas.CLICK_STITCH);
     }
 }

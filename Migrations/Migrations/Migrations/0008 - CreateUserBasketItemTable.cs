@@ -5,7 +5,7 @@ namespace Migrations.Migrations;
 
 // ReSharper disable once InconsistentNaming
 [Migration(0008)]
-public sealed class CreateUserBasketItemTable_0008 : Migration
+public sealed class CreateUserBasketItemTable_0008 : AutoReversingMigration
 {
     public override void Up()
     {
@@ -47,12 +47,5 @@ public sealed class CreateUserBasketItemTable_0008 : Migration
             .InSchema(Names.Schemas.CLICK_STITCH)
             .OnColumn("user_id, pattern_id")
             .Unique();
-    }
-
-    public override void Down()
-    {
-        Delete
-            .Table(Names.Tables.USER_BASKET_ITEM)
-            .InSchema(Names.Schemas.CLICK_STITCH);
     }
 }

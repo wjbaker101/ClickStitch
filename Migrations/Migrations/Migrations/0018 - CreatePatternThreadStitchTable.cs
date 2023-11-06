@@ -5,7 +5,7 @@ namespace Migrations.Migrations;
 
 // ReSharper disable once InconsistentNaming
 [Migration(0018)]
-public sealed class CreatePatternThreadStitchTable_0018 : Migration
+public sealed class CreatePatternThreadStitchTable_0018 : AutoReversingMigration
 {
     public override void Up()
     {
@@ -35,12 +35,5 @@ public sealed class CreatePatternThreadStitchTable_0018 : Migration
             .OnColumn("y").Ascending()
             .WithOptions()
             .Unique();
-    }
-
-    public override void Down()
-    {
-        Delete
-            .Table(Names.Tables.PATTERN_THREAD_STITCH)
-            .InSchema(Names.Schemas.CLICK_STITCH);
     }
 }

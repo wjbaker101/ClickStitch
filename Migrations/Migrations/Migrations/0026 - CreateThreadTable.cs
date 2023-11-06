@@ -6,7 +6,7 @@ namespace Migrations.Migrations;
 
 // ReSharper disable once InconsistentNaming
 [Migration(0026)]
-public sealed class CreateThreadTable_0026 : Migration
+public sealed class CreateThreadTable_0026 : AutoReversingMigration
 {
     public override void Up()
     {
@@ -17,12 +17,5 @@ public sealed class CreateThreadTable_0026 : Migration
             .WithColumn("reference").AsGuid().NotNullable().Unique()
             .WithColumn("brand").AsString().NotNullable()
             .WithColumn("code").AsString().NotNullable();
-    }
-
-    public override void Down()
-    {
-        Delete
-            .Table(Names.Tables.THREAD)
-            .InSchema(Names.Schemas.CLICK_STITCH);
     }
 }

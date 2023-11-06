@@ -5,7 +5,7 @@ namespace Migrations.Migrations;
 
 // ReSharper disable once InconsistentNaming
 [Migration(0005)]
-public sealed class CreatePatternThreadTable_0005 : Migration
+public sealed class CreatePatternThreadTable_0005 : AutoReversingMigration
 {
     public override void Up()
     {
@@ -33,12 +33,5 @@ public sealed class CreatePatternThreadTable_0005 : Migration
             .OnTable(Names.Tables.PATTERN_THREAD)
             .InSchema(Names.Schemas.CLICK_STITCH)
             .OnColumn("pattern_id");
-    }
-
-    public override void Down()
-    {
-        Delete
-            .Table(Names.Tables.PATTERN_THREAD)
-            .InSchema(Names.Schemas.CLICK_STITCH);
     }
 }
