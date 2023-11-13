@@ -10,6 +10,7 @@
             </div>
             <div class="flex gap-small">
                 <div class="flex-auto">Follow on:</div>
+                <div class="flex-auto"><LinkComponent :href="lemmyUrl" external>Lemmy</LinkComponent></div>
                 <div class="flex-auto"><LinkComponent :href="instagramUrl" external>Instagram</LinkComponent></div>
                 <div class="flex-auto"><LinkComponent :href="twitterUrl" external>Twitter</LinkComponent></div>
             </div>
@@ -26,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { instagramUrl, twitterUrl } from '@/data/data';
+import { instagramUrl, twitterUrl, lemmyUrl } from '@/data/data';
 </script>
 
 <style lang="scss">
