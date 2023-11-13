@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 import UserMessageComponent from '@/components/UserMessage.component.vue';
@@ -32,13 +32,11 @@ import ActionBarComponent from '@/views/stitcher/project/components/ActionBar.co
 import { api } from '@/api/api';
 import { setTitle } from '@/helper/helper';
 import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
-import { useSharedStitch } from '@/views/stitcher/project/use/SharedStitch';
 
 import { type IGetProject } from '@/models/GetProject.model';
 
 const currentProject = useCurrentProject();
 const route = useRoute();
-const sharedStitch = useSharedStitch();
 
 const userMessageComponent = ref<InstanceType<typeof UserMessageComponent>>({} as InstanceType<typeof UserMessageComponent>);
 
@@ -47,7 +45,19 @@ const patternReference = route.params.patternReference as string;
 const project = ref<IGetProject | null>(null);
 const isLoading = ref<boolean>(false);
 
-const percentage = sharedStitch.percentageCompleted;
+const percentage = computed<number>(() => {
+    let incomplete = 0;
+    let complete = 0;
+
+    for (const stitch of currentProject.stitches.value) {
+        if (stitch.stitchedAt === null)
+            incomplete++;
+        else
+            complete++;
+    }
+
+    return complete / incomplete * 100;
+});
 
 onMounted(async () => {
     isLoading.value = true;
