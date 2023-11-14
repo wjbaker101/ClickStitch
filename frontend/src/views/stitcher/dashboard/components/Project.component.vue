@@ -31,9 +31,6 @@
 import { useRouter } from 'vue-router';
 
 import PatternImageComponent from '@/components/shared/PatternImage.component.vue';
-import ProjectModal from '@/views/stitcher/dashboard/modal/ProjectModal.component.vue';
-
-import { useModal } from '@wjb/vue/use/modal.use';
 
 import { type IProject } from '@/models/Project.model';
 
@@ -41,20 +38,10 @@ const props = defineProps<{
     project: IProject;
 }>();
 
-const modal = useModal();
 const router = useRouter();
 
 const onClick = function (): void {
     router.push({ path: `/projects/${props.project.pattern.reference}` });
-};
-
-const onDetails = function (): void {
-    modal.show({
-        component: ProjectModal,
-        componentProps: {
-            project: props.project,
-        },
-    });
 };
 </script>
 
@@ -65,13 +52,6 @@ const onDetails = function (): void {
     padding: 1rem;
     color: inherit;
     text-decoration: inherit;
-
-    img {
-        max-width: 100%;
-        height: auto;
-        border-radius: var(--wjb-border-radius);
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
-    }
 
     .created-by {
         vertical-align: middle;
