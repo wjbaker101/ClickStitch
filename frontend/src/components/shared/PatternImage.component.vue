@@ -13,11 +13,14 @@ defineProps<{
 
 .pattern-image-component {
     max-width: 100%;
-    height: auto;
+    max-height: 350px;
+    width: auto;
     border-radius: var(--wjb-border-radius);
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
     vertical-align: middle;
     animation: pattern-image-component-load 0.5s;
+    image-rendering: pixelated;
+    object-fit: contain;
 
     @keyframes pattern-image-component-load {
         from {
