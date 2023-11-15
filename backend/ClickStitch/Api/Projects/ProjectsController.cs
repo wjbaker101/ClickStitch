@@ -64,6 +64,18 @@ public sealed class ProjectsController : ApiController
         return ToApiResponse(result);
     }
 
+    [HttpPost]
+    [Route("{patternReference:guid}/stitches/pause")]
+    [Authenticate]
+    public async Task<IActionResult> PauseStitching([FromRoute] Guid patternReference, [FromBody] PauseStitchingRequest request, CancellationToken cancellationToken)
+    {
+        var user = RequestHelper.GetRequiredUser(Request);
+
+        var result = await _projectsService.PauseStitching(user, patternReference, request, cancellationToken);
+
+        return ToApiResponse(result);
+    }
+
     [HttpGet]
     [Route("{patternReference:guid}/analytics")]
     [Authenticate]
