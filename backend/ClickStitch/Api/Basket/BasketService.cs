@@ -100,8 +100,8 @@ public sealed class BasketService : IBasketService
             User = user,
             Pattern = pattern,
             CreatedAt = DateTime.UtcNow,
-            LastPositionX = null,
-            LastPositionY = null
+            PausePositionX = null,
+            PausePositionY = null
         }, cancellationToken);
 
         return Result.Success();
@@ -118,8 +118,8 @@ public sealed class BasketService : IBasketService
             User = user,
             Pattern = x.Pattern,
             CreatedAt = DateTime.UtcNow,
-            LastPositionX = null,
-            LastPositionY = null
+            PausePositionX = null,
+            PausePositionY = null
         }), cancellationToken);
 
         await _basketRepository.DeleteManyAsync(basketItems, cancellationToken);

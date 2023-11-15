@@ -8,7 +8,7 @@ public static class ProjectMapper
     {
         Pattern = PatternMapper.Map(userPattern.Pattern),
         PurchasedAt = userPattern.CreatedAt,
-        LastPositionX = userPattern.LastPositionX,
-        LastPositionY = userPattern.LastPositionY
+        PausePositionX = userPattern.PausePositionX,
+        PausePositionY = userPattern.PausePositionY
     };
 }

@@ -146,8 +146,8 @@ public sealed class ProjectsService : IProjectsService
         if (!projectResult.TrySuccess(out var project))
             return Result<PauseStitchingResponse>.FromFailure(projectResult);
 
-        project.LastPositionX = request.X;
-        project.LastPositionY = request.Y;
+        project.PausePositionX = request.X;
+        project.PausePositionY = request.Y;
 
         await _userPatternRepository.UpdateAsync(project, cancellationToken);
 

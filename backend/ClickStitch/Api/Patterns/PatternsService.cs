@@ -175,8 +175,8 @@ public sealed class PatternsService : IPatternsService
                 User = user,
                 Pattern = pattern,
                 CreatedAt = DateTime.UtcNow,
-                LastPositionX = null,
-                LastPositionY = null
+                PausePositionX = null,
+                PausePositionY = null
             }, cancellationToken);
         }
 
