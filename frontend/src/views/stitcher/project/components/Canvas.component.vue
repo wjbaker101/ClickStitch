@@ -187,7 +187,15 @@ onMounted(() => {
 
     width.value = component.value.offsetWidth;
     height.value = component.value.offsetHeight;
-    offset.value = Position.at(width.value / 2 - canvasWidth.value / 2, height.value / 2 - canvasHeight.value / 2);
+
+    const pausePositionX = props.project.project.pausePositionX;
+    const pausePositionY = props.project.project.pausePositionY;
+    if (pausePositionX !== null && pausePositionY !== null) {
+        offset.value = Position.at(width.value / 2 - pausePositionX * stitchSize.value, height.value / 2 - pausePositionY * stitchSize.value);
+    }
+    else {
+        offset.value = Position.at(width.value / 2 - canvasWidth.value / 2, height.value / 2 - canvasHeight.value / 2);
+    }
 
     graphics.value.fillStyle = '#eef';
     graphics.value.textAlign = 'center';
