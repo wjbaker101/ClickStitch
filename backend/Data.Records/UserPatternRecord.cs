@@ -6,6 +6,8 @@ public class UserPatternRecord : IDatabaseRecord
     public virtual required UserRecord User { get; init; }
     public virtual required PatternRecord Pattern { get; init; }
     public virtual required DateTime CreatedAt { get; init; }
+    public virtual required int? LastPositionX { get; set; }
+    public virtual required int? LastPositionY { get; set; }
 }
 
 public sealed class UserPatternRecordMap : ClassMap<UserPatternRecord>
@@ -18,5 +20,7 @@ public sealed class UserPatternRecordMap : ClassMap<UserPatternRecord>
         References(x => x.User, "user_id");
         References(x => x.Pattern, "pattern_id");
         Map(x => x.CreatedAt, "created_at");
+        Map(x => x.LastPositionX, "last_position_x");
+        Map(x => x.LastPositionY, "last_position_y");
     }
 }

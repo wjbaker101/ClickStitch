@@ -99,7 +99,9 @@ public sealed class BasketService : IBasketService
         {
             User = user,
             Pattern = pattern,
-            CreatedAt = DateTime.UtcNow
+            CreatedAt = DateTime.UtcNow,
+            LastPositionX = null,
+            LastPositionY = null
         }, cancellationToken);
 
         return Result.Success();
@@ -115,7 +117,9 @@ public sealed class BasketService : IBasketService
         {
             User = user,
             Pattern = x.Pattern,
-            CreatedAt = DateTime.UtcNow
+            CreatedAt = DateTime.UtcNow,
+            LastPositionX = null,
+            LastPositionY = null
         }), cancellationToken);
 
         await _basketRepository.DeleteManyAsync(basketItems, cancellationToken);

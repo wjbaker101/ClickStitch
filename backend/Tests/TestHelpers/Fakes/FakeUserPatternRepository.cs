@@ -63,7 +63,9 @@ public sealed class FakeUserPatternRepository : FakeRepository<UserPatternRecord
                 }
             }
         },
-        CreatedAt = new DateTime(2023, 12, 07, 11, 19, 00)
+        CreatedAt = new DateTime(2023, 12, 07, 11, 19, 00),
+        LastPositionX = null,
+        LastPositionY = null
     })
     {
         _fakeResult = new List<UserPatternRecord>
