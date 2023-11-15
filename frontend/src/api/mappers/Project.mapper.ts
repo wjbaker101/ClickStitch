@@ -11,6 +11,8 @@ export const projectMapper = {
         return {
             pattern: patternMapper.map(project.pattern),
             purchasedAt: dayjs(project.purchasedAt),
+            pausePositionX: project.pausePositionX,
+            pausePositionY: project.pausePositionY,
         };
     },
 
