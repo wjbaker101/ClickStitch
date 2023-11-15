@@ -7,6 +7,8 @@ public static class ProjectMapper
     public static ProjectModel Map(UserPatternRecord userPattern) => new()
     {
         Pattern = PatternMapper.Map(userPattern.Pattern),
-        PurchasedAt = userPattern.CreatedAt
+        PurchasedAt = userPattern.CreatedAt,
+        LastPositionX = userPattern.LastPositionX,
+        LastPositionY = userPattern.LastPositionY
     };
 }
