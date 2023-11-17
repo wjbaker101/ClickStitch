@@ -38,7 +38,7 @@
                 :height="project.project.pattern.height * baseStitchSize"
             >
             </canvas>
-            <div v-if="stitchSelectStart && stitchSelectEnd" class="selected-stitches-wrapper">
+            <div v-if="stitchSelectStart && stitchSelectEnd" class="layer selected-stitches-layer">
                 <div
                     class="selected-stitches"
                     :style="{
@@ -567,9 +567,14 @@ const onMouseWheel = function (event: WheelEvent): void {
         transform-origin: top left;
     }
 
-    canvas {
+    canvas,
+    .layer {
         position: absolute;
         inset: 0;
+        transition: transform 0.1s;
+    }
+
+    canvas {
         pointer-events: none;
         border-radius: var(--wjb-border-radius);
         image-rendering: crisp-edges;
@@ -577,14 +582,11 @@ const onMouseWheel = function (event: WheelEvent): void {
         image-rendering: -webkit-optimize-contrast;
         image-rendering: optimize-contrast;
         -ms-interpolation-mode: nearest-neighbor;
-        transition: transform 0.1s;
 
         @include shadow-large();
     }
 
-    .selected-stitches-wrapper {
-        position: absolute;
-        inset: 0;
+    .selected-stitches-layer {
 
         .selected-stitches {
             position: absolute;
