@@ -55,6 +55,16 @@
                     </div>
                 </div>
             </div>
+            <div class="layer pause-position-layer" v-if="project.project.pausePositionX  !== null && project.project.pausePositionY !== null">
+                <div
+                    class="pause-position-indicator"
+                    :style="{
+                        'width': `${baseStitchSize}px`,
+                        'height': `${baseStitchSize}px`,
+                        'transform': `translate(${project.project.pausePositionX * stitchSize / scale}px, ${project.project.pausePositionY * stitchSize / scale}px)`,
+                    }"
+                ></div>
+            </div>
         </div>
         <!-- <div class="debug">
             <div>w: {{ width.toFixed(0) }} h: {{ height.toFixed(0) }}</div>
@@ -621,6 +631,16 @@ const onMouseWheel = function (event: WheelEvent): void {
             left: -2.5rem;
             top: 50%;
             transform: translateY(-50%);
+        }
+    }
+
+    .pause-position-layer {
+
+        .pause-position-indicator {
+            border-radius: 50%;
+            border: 3px solid #ffb400;
+            background-color: transparent;
+            box-shadow: 1px 2px 12px #000;
         }
     }
 
