@@ -38,12 +38,7 @@
                 :height="project.project.pattern.height * baseStitchSize"
             >
             </canvas>
-            <div
-                v-if="stitchSelectStart && stitchSelectEnd"
-                class="selected-stitches-wrapper"
-                :style="{
-                }"
-            >
+            <div v-if="stitchSelectStart && stitchSelectEnd" class="selected-stitches-wrapper">
                 <div
                     class="selected-stitches"
                     :style="{
