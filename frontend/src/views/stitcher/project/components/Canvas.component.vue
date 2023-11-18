@@ -12,6 +12,7 @@
         @pointermove="onMouseMove"
         @pointerleave="onMouseLeave"
         @wheel="onMouseWheel"
+        @contextmenu="onOpenContextMenu"
     >
         <div class="canvas-wrapper"
             :style="{
@@ -544,6 +545,9 @@ const onMouseWheel = function (event: WheelEvent): void {
         return;
 
     zoom(event.deltaY, mousePosition.value.x, mousePosition.value.y);
+};
+
+const onOpenContextMenu = function (event: Event): void {
 };
 </script>
 
