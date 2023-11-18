@@ -1,5 +1,5 @@
 <template>
-    <div v-if="schema !== null" class="context-menu-component" :class="{ 'is-visible': isVisible }">
+    <div v-if="schema !== null" class="context-menu-component" :class="{ 'is-visible': isVisible }" :style="{ '--x': position.x, '--y': position.y }">
         <div class="header">
             {{ schema.header }}
         </div>
@@ -18,17 +18,20 @@ import ContextMenuSeparatorComponent from '@/components/context-menu/ContextMenu
 
 import { useEvents } from '@/use/events/Events.use';
 
+import { Position } from '@/class/Position.class';
 import type { IContextMenuSchema } from '@/components/context-menu/types/ContextMenuSchema.type';
 import type { IOpenContextMenuEvent } from '@/use/events/types/EventsMap.type';
 
 const events = useEvents();
 
+const position = ref<Position>(Position.ZERO);
 const isVisible = ref<boolean>(false);
 const schema = ref<IContextMenuSchema | null>(null);
 
 onMounted(() => {
     events.subscribe('OpenContextMenu', (event: IOpenContextMenuEvent) => {
         schema.value = event.schema;
+        position.value = Position.at(event.x + 3, event.y + 3);
         isVisible.value = true;
     });
 });
@@ -38,8 +41,8 @@ onMounted(() => {
 <style lang="scss">
 .context-menu-component {
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top: calc(var(--y) * 1px);
+    left: calc(var(--x) * 1px);
     border-radius: var(--wjb-border-radius);
     border: 1px solid var(--wjb-background-colour-dark);
     background-color: var(--wjb-background-colour);

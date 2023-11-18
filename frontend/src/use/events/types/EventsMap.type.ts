@@ -23,5 +23,7 @@ export interface IEndJumpToStitchesEvent {
 }
 
 export interface IOpenContextMenuEvent {
+    readonly x: number;
+    readonly y: number;
     readonly schema: IContextMenuSchema;
 }

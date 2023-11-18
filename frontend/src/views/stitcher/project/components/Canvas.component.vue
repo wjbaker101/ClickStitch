@@ -547,8 +547,10 @@ const onMouseWheel = function (event: WheelEvent): void {
     zoom(event.deltaY, mousePosition.value.x, mousePosition.value.y);
 };
 
-const onOpenContextMenu = function (event: Event): void {
+const onOpenContextMenu = function (event: MouseEvent): void {
     events.publish('OpenContextMenu', {
+        x: event.pageX,
+        y: event.pageY,
         schema: {
             header: 'Actions',
             items: [],
