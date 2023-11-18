@@ -58,11 +58,11 @@ onMounted(() => {
         isVisible.value = true;
     });
 
-    document.addEventListener('click', onDocumentClick);
+    document.addEventListener('mousedown', onDocumentClick);
 });
 
 onUnmounted(() => {
-    document.addEventListener('click', onDocumentClick);
+    document.addEventListener('mousedown', onDocumentClick);
 });
 </script>
 
