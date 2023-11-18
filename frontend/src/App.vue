@@ -2,9 +2,11 @@
     <RouterView></RouterView>
     <ModalComponent />
     <PopupComponent />
+    <ContextMenuComponent />
 </template>
 
 <script setup lang="ts">
+import ContextMenuComponent from './components/context-menu/ContextMenu.component.vue';
 </script>
 
 <style lang="scss">

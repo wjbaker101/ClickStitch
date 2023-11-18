@@ -1,5 +1,5 @@
 <template>
-    <div class="context-menu-component">
+    <div v-if="schema !== null" class="context-menu-component" :class="{ 'is-visible': isVisible }">
         <div class="header">
             {{ schema.header }}
         </div>
@@ -11,14 +11,28 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted, ref } from 'vue';
+
 import ContextMenuItemComponent from '@/components/context-menu/ContextMenuItem.component.vue';
 import ContextMenuSeparatorComponent from '@/components/context-menu/ContextMenuSeparator.component.vue';
 
-import type { IContextMenuSchema } from '@/components/context-menu/types/ContextMenuSchema.type';
+import { useEvents } from '@/use/events/Events.use';
 
-defineProps<{
-    schema: IContextMenuSchema;
-}>();
+import type { IContextMenuSchema } from '@/components/context-menu/types/ContextMenuSchema.type';
+import type { IOpenContextMenuEvent } from '@/use/events/types/EventsMap.type';
+
+const events = useEvents();
+
+const isVisible = ref<boolean>(false);
+const schema = ref<IContextMenuSchema | null>(null);
+
+onMounted(() => {
+    events.subscribe('OpenContextMenu', (event: IOpenContextMenuEvent) => {
+        schema.value = event.schema;
+        isVisible.value = true;
+    });
+});
+
 </script>
 
 <style lang="scss">
@@ -30,6 +44,13 @@ defineProps<{
     border: 1px solid var(--wjb-background-colour-dark);
     background-color: var(--wjb-background-colour);
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
+    opacity: 0;
+    pointer-events: none;
+
+    &.is-visible {
+        opacity: 1;
+        pointer-events: all;
+    }
 
     .header {
         font-weight: bold;

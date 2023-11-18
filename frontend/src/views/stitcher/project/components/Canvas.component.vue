@@ -548,6 +548,15 @@ const onMouseWheel = function (event: WheelEvent): void {
 };
 
 const onOpenContextMenu = function (event: Event): void {
+    events.publish('OpenContextMenu', {
+        schema: {
+            header: 'Actions',
+            items: [],
+        },
+    });
+    console.log('asd');
+
+    event.preventDefault();
 };
 </script>
 
