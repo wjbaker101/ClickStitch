@@ -1,5 +1,15 @@
 <template>
-    <div v-if="schema !== null" class="context-menu-component" :class="{ 'is-visible': isVisible }" :style="{ '--x': position.x, '--y': position.y }">
+    <div
+        ref="contextMenuElement"
+        v-if="schema !== null"
+        class="context-menu-component"
+        :class="{ 'is-visible': isVisible }"
+        :style="{
+            '--x': position.x,
+            '--y': position.y,
+        }"
+        @contextmenu="onOpenContextMenu"
+    >
         <div class="header">
             {{ schema.header }}
         </div>
@@ -11,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 import ContextMenuItemComponent from '@/components/context-menu/ContextMenuItem.component.vue';
 import ContextMenuSeparatorComponent from '@/components/context-menu/ContextMenuSeparator.component.vue';
@@ -24,9 +34,22 @@ import type { IOpenContextMenuEvent } from '@/use/events/types/EventsMap.type';
 
 const events = useEvents();
 
+const contextMenuElement = ref<HTMLDivElement>({} as HTMLDivElement);
+
 const position = ref<Position>(Position.ZERO);
 const isVisible = ref<boolean>(false);
 const schema = ref<IContextMenuSchema | null>(null);
+
+const onOpenContextMenu = function (event: MouseEvent): void {
+    event.preventDefault();
+};
+
+const onDocumentClick = function (event: MouseEvent): void {
+    if (contextMenuElement.value.contains(event.target as Node | null))
+        return;
+
+    isVisible.value = false;
+};
 
 onMounted(() => {
     events.subscribe('OpenContextMenu', (event: IOpenContextMenuEvent) => {
@@ -34,8 +57,13 @@ onMounted(() => {
         position.value = Position.at(event.x + 3, event.y + 3);
         isVisible.value = true;
     });
+
+    document.addEventListener('click', onDocumentClick);
 });
 
+onUnmounted(() => {
+    document.addEventListener('click', onDocumentClick);
+});
 </script>
 
 <style lang="scss">
@@ -49,6 +77,7 @@ onMounted(() => {
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
     opacity: 0;
     pointer-events: none;
+    transition: opacity 0.1s;
 
     &.is-visible {
         opacity: 1;
