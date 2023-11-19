@@ -20,7 +20,7 @@
             }"
         >
             <canvas
-                ref="canvasElement"
+                ref="patternElement"
                 :width="project.project.pattern.width * baseStitchSize"
                 :height="project.project.pattern.height * baseStitchSize"
             >
@@ -122,11 +122,11 @@ for (const stitch of currentProject.stitches.value) {
     pattern.set(`${stitch.x}:${stitch.y}`, stitch);
 }
 
-const canvasElement = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
+const patternElement = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const completedStitchesCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const jumpedStitchCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 
-const { graphics } = useCanvasElement(canvasElement);
+const { graphics: patternGraphics } = useCanvasElement(patternElement);
 const { graphics: completedStitchesGraphics } = useCanvasElement(completedStitchesCanvas);
 const { graphics: jumpedStitchGraphics } = useCanvasElement(jumpedStitchCanvas);
 
@@ -191,13 +191,13 @@ onMounted(() => {
         offset.value = Position.at(width.value / 2 - canvasWidth.value / 2, height.value / 2 - canvasHeight.value / 2);
     }
 
-    graphics.value.fillStyle = '#eef';
-    graphics.value.textAlign = 'center';
-    graphics.value.font = 'normal 28px sans-serif';
+    patternGraphics.value.fillStyle = '#eef';
+    patternGraphics.value.textAlign = 'center';
+    patternGraphics.value.font = 'normal 28px sans-serif';
 
     for (let x = 0; x < props.project.project.pattern.width; ++x) {
         for (let y = 0; y < props.project.project.pattern.height; ++y) {
-            graphics.value.fillRect(x * baseStitchSize, y * baseStitchSize, baseStitchSize, baseStitchSize);
+            patternGraphics.value.fillRect(x * baseStitchSize, y * baseStitchSize, baseStitchSize, baseStitchSize);
         }
     }
 
@@ -205,11 +205,11 @@ onMounted(() => {
         const stitch = currentProject.stitches.value[index];
         const thread = currentProject.palette.value.get(stitch.threadIndex) as IPatternThread;
 
-        graphics.value.fillStyle = thread.colour;
-        graphics.value.fillRect(stitch.x * baseStitchSize, stitch.y * baseStitchSize, baseStitchSize, baseStitchSize);
+        patternGraphics.value.fillStyle = thread.colour;
+        patternGraphics.value.fillRect(stitch.x * baseStitchSize, stitch.y * baseStitchSize, baseStitchSize, baseStitchSize);
 
-        graphics.value.fillStyle = isDark(thread.colour) ? '#ddd' :  '#111';
-        graphics.value.fillText(stitch.threadIndex.toString(), stitch.x * baseStitchSize + (baseStitchSize / 2), (stitch.y + 1) * baseStitchSize - (baseStitchSize / 2) + 10);
+        patternGraphics.value.fillStyle = isDark(thread.colour) ? '#ddd' :  '#111';
+        patternGraphics.value.fillText(stitch.threadIndex.toString(), stitch.x * baseStitchSize + (baseStitchSize / 2), (stitch.y + 1) * baseStitchSize - (baseStitchSize / 2) + 10);
 
         completedStitchesGraphics.value.fillStyle = '#0f0';
 
@@ -217,39 +217,39 @@ onMounted(() => {
             completedStitchesGraphics.value.fillRect(stitch.x * baseStitchSize, stitch.y * baseStitchSize, baseStitchSize, baseStitchSize);
     }
 
-    graphics.value.strokeStyle = '#666';
-    graphics.value.lineWidth = 2;
+    patternGraphics.value.strokeStyle = '#666';
+    patternGraphics.value.lineWidth = 2;
 
     for (let x = 1; x < props.project.project.pattern.width; ++x) {
-        graphics.value.beginPath();
-        graphics.value.moveTo(x * baseStitchSize, 0);
-        graphics.value.lineTo(x * baseStitchSize, props.project.project.pattern.height * baseStitchSize);
-        graphics.value.closePath();
-        graphics.value.stroke();
+        patternGraphics.value.beginPath();
+        patternGraphics.value.moveTo(x * baseStitchSize, 0);
+        patternGraphics.value.lineTo(x * baseStitchSize, props.project.project.pattern.height * baseStitchSize);
+        patternGraphics.value.closePath();
+        patternGraphics.value.stroke();
     }
 
     for (let y = 1; y < props.project.project.pattern.height; ++y) {
-        graphics.value.beginPath();
-        graphics.value.moveTo(0, y * baseStitchSize);
-        graphics.value.lineTo(props.project.project.pattern.width * baseStitchSize, y * baseStitchSize);
-        graphics.value.closePath();
-        graphics.value.stroke();
+        patternGraphics.value.beginPath();
+        patternGraphics.value.moveTo(0, y * baseStitchSize);
+        patternGraphics.value.lineTo(props.project.project.pattern.width * baseStitchSize, y * baseStitchSize);
+        patternGraphics.value.closePath();
+        patternGraphics.value.stroke();
     }
 
-    graphics.value.lineWidth = 6;
-    graphics.value.strokeStyle = '#f00';
+    patternGraphics.value.lineWidth = 6;
+    patternGraphics.value.strokeStyle = '#f00';
 
-    graphics.value.beginPath();
-    graphics.value.moveTo(0, props.project.project.pattern.width / 2 * baseStitchSize);
-    graphics.value.lineTo(props.project.project.pattern.width * baseStitchSize, props.project.project.pattern.width / 2 * baseStitchSize);
-    graphics.value.closePath();
-    graphics.value.stroke();
+    patternGraphics.value.beginPath();
+    patternGraphics.value.moveTo(0, props.project.project.pattern.width / 2 * baseStitchSize);
+    patternGraphics.value.lineTo(props.project.project.pattern.width * baseStitchSize, props.project.project.pattern.width / 2 * baseStitchSize);
+    patternGraphics.value.closePath();
+    patternGraphics.value.stroke();
 
-    graphics.value.beginPath();
-    graphics.value.moveTo(props.project.project.pattern.height / 2 * baseStitchSize, 0);
-    graphics.value.lineTo(props.project.project.pattern.height / 2 * baseStitchSize, props.project.project.pattern.height * baseStitchSize);
-    graphics.value.closePath();
-    graphics.value.stroke();
+    patternGraphics.value.beginPath();
+    patternGraphics.value.moveTo(props.project.project.pattern.height / 2 * baseStitchSize, 0);
+    patternGraphics.value.lineTo(props.project.project.pattern.height / 2 * baseStitchSize, props.project.project.pattern.height * baseStitchSize);
+    patternGraphics.value.closePath();
+    patternGraphics.value.stroke();
 
     const hammer = useHammer(component);
 
