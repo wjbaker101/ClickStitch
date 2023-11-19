@@ -39,23 +39,12 @@
                 :height="project.project.pattern.height * baseStitchSize"
             >
             </canvas>
-            <div v-if="stitchSelectStart && stitchSelectEnd" class="layer selected-stitches-layer">
-                <div
-                    class="selected-stitches"
-                    :style="{
-                        'width': `${baseStitchSize * (stitchSelectEnd.x - stitchSelectStart.x + 1)}px`,
-                        'height': `${baseStitchSize * (stitchSelectEnd.y - stitchSelectStart.y + 1)}px`,
-                        'transform': `translate(${stitchSelectStart.x * stitchSize / scale}px, ${stitchSelectStart.y * stitchSize / scale}px)`,
-                    }"
-                >
-                    <div class="top-axis">
-                        {{ stitchSelectEnd.x - stitchSelectStart.x + 1 }}
-                    </div>
-                    <div class="left-axis">
-                        {{ stitchSelectEnd.y - stitchSelectStart.y + 1 }}
-                    </div>
-                </div>
-            </div>
+            <SelectedStitchesLayerComponent
+                v-if="stitchSelectStart !== null && stitchSelectEnd !== null"
+                :stitchSelectStart="stitchSelectStart"
+                :stitchSelectEnd="stitchSelectEnd"
+                :stitchSize="baseStitchSize"
+            />
             <div class="layer pause-position-layer" v-if="project.project.pausePositionX  !== null && project.project.pausePositionY !== null">
                 <div
                     class="pause-position-indicator"
@@ -88,6 +77,8 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import dayjs from 'dayjs';
+
+import SelectedStitchesLayerComponent from './layers/SelectedStitchesLayer.component.vue';
 
 import { api } from '@/api/api';
 import { isDark } from '@/helper/helper';
@@ -612,44 +603,6 @@ const onOpenContextMenu = function (event: MouseEvent): void {
         -ms-interpolation-mode: nearest-neighbor;
 
         @include shadow-large();
-    }
-
-    .selected-stitches-layer {
-
-        .selected-stitches {
-            position: absolute;
-            transform-origin: top left;
-            border-radius: 0.2rem;
-            box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.5), 1px 2px 10px rgba(0, 0, 0, 0.2);
-            background-color: rgba(33, 33, 200, 0.2);
-            transition: transform 0.1s;
-        }
-
-        .top-axis,
-        .left-axis {
-            width: 2rem;
-            aspect-ratio: 1;
-            line-height: 2rem;
-            text-align: center;
-            background-color: var(--wjb-background-colour);
-            border-radius: 50%;
-
-            @include shadow-medium();
-        }
-
-        .top-axis {
-            position: absolute;
-            top: -2.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .left-axis {
-            position: absolute;
-            left: -2.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-        }
     }
 
     .pause-position-layer {
