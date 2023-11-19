@@ -20,7 +20,7 @@
             }"
         >
             <canvas
-                ref="patternElement"
+                ref="patternCanvas"
                 :width="project.project.pattern.width * baseStitchSize"
                 :height="project.project.pattern.height * baseStitchSize"
             >
@@ -122,11 +122,11 @@ for (const stitch of currentProject.stitches.value) {
     pattern.set(`${stitch.x}:${stitch.y}`, stitch);
 }
 
-const patternElement = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
+const patternCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const completedStitchesCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const jumpedStitchCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 
-const { graphics: patternGraphics } = useCanvasElement(patternElement);
+const { graphics: patternGraphics } = useCanvasElement(patternCanvas);
 const { graphics: completedStitchesGraphics } = useCanvasElement(completedStitchesCanvas);
 const { graphics: jumpedStitchGraphics } = useCanvasElement(jumpedStitchCanvas);
 
