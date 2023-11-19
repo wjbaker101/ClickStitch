@@ -5,6 +5,6 @@ import { type IPattern } from '@/models/Pattern.model';
 export interface IProject {
     readonly pattern: IPattern;
     readonly purchasedAt: Dayjs;
-    readonly pausePositionX: number | null;
-    readonly pausePositionY: number | null;
+    pausePositionX: number | null;
+    pausePositionY: number | null;
 }

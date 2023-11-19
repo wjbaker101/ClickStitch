@@ -106,7 +106,7 @@ const { width, height, offset, scale, zoom } = useTransformation();
 const pinchStart = ref<number>(1);
 const pinchDiff = ref<number>(1);
 
-const { baseStitchSize, scaledStitchSize, mouseStitchPosition, isMouseOverPattern, stitchSelectStart, stitchSelectEnd } = useStitch({
+const { baseStitchSize, scaledStitchSize, mouseStitchPosition, isMouseOverPattern, stitchSelectStart, stitchSelectEnd, viewportToStitchPosition } = useStitch({
     pattern: props.project.project.pattern,
 });
 
@@ -485,14 +485,27 @@ const onMouseWheel = function (event: WheelEvent): void {
 };
 
 const onOpenContextMenu = function (event: MouseEvent): void {
+    const x = event.pageX;
+    const y = event.pageY;
+
+    const stitchPostiion = viewportToStitchPosition(Position.at(x, y));
+
     events.publish('OpenContextMenu', {
-        x: event.pageX,
-        y: event.pageY,
+        x,
+        y,
         schema: {
             header: 'Actions',
             items: [
                 factory.item('Toggle Completed', () => {}),
-                factory.item('Pause Here', () => {}),
+                factory.item('Pause Here', async () => {
+                    await api.projects.pause(props.project.project.pattern.reference, {
+                        x: stitchPostiion.x,
+                        y: stitchPostiion.y,
+                    });
+
+                    props.project.project.pausePositionX = stitchPostiion.x;
+                    props.project.project.pausePositionY = stitchPostiion.y;
+                }),
             ],
         },
     });
