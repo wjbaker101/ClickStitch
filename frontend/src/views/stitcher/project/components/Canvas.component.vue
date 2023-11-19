@@ -105,6 +105,7 @@ import { type IGetProject } from '@/models/GetProject.model';
 import { type IStitch, type IPatternThread } from '@/models/Pattern.model';
 import { type IPosition } from '@/api/types/CompleteStitches.type';
 import type { IJumpToStitchEvent } from '@/use/events/types/EventsMap.type';
+import { factory } from '@/components/context-menu/ContextMenuFactory';
 
 const props = defineProps<{
     project: IGetProject;
@@ -553,10 +554,12 @@ const onOpenContextMenu = function (event: MouseEvent): void {
         y: event.pageY,
         schema: {
             header: 'Actions',
-            items: [],
+            items: [
+                factory.item('Toggle Completed', () => {}),
+                factory.item('Pause Here', () => {}),
+            ],
         },
     });
-    console.log('asd');
 
     event.preventDefault();
 };
