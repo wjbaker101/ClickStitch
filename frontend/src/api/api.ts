@@ -55,6 +55,7 @@ import type { IDeleteThreadResponse } from '@/api/types/DeleteThread.type';
 import type { IInventoryThread } from '@/models/Inventory.model';
 import type { IGetInventoryThreadsResponse } from './types/GetInventoryThreads.type';
 import type { IUpdateInventoryThreadRequest, IUpdateInventoryThreadResponse } from './types/UpdateInventoryThread.type';
+import type { IPausePatternRequest, IPausePatternResponse } from './types/PausePattern.type';
 
 const auth = useAuth();
 
@@ -582,6 +583,23 @@ export const api = {
 
             try {
                 const response = await client.post<IApiResultResponse<IGetProjectResponse>>(`/projects/${patternReference}/stitches/uncomplete`, request, {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+
+                });
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
+        },
+
+        async pause(patternReference: string, request: IPausePatternRequest): Promise<void | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
+            try {
+                const response = await client.post<IApiResultResponse<IPausePatternResponse>>(`/projects/${patternReference}/stitches/pause`, request, {
                     headers: {
                         'Authorization': `Bearer ${auth.details.value.loginToken}`,
                     },
