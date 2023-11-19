@@ -31,12 +31,10 @@
                 :height="project.project.pattern.height * baseStitchSize"
             >
             </canvas>
-            <canvas
-                ref="jumpedStitchCanvas"
-                :width="project.project.pattern.width * baseStitchSize"
-                :height="project.project.pattern.height * baseStitchSize"
-            >
-            </canvas>
+            <JumpedStitchLayerComponent
+                :project="project.project"
+                :baseStitchSize="baseStitchSize"
+            />
             <SelectedStitchesLayerComponent
                 v-if="stitchSelectStart !== null && stitchSelectEnd !== null"
                 :stitchSelectStart="stitchSelectStart"
@@ -69,9 +67,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import dayjs from 'dayjs';
 
+import JumpedStitchLayerComponent from '@/views/stitcher/project/layers/JumpedStitchLayer.component.vue';
 import SelectedStitchesLayerComponent from '@/views/stitcher/project/layers/SelectedStitchesLayer.component.vue';
 import PausePositionLayerComponent from '@/views/stitcher/project/layers/PausePositionLayer.component.vue';
 
@@ -92,7 +91,6 @@ import { factory } from '@/components/context-menu/ContextMenuFactory';
 import { type IGetProject } from '@/models/GetProject.model';
 import { type IStitch, type IPatternThread } from '@/models/Pattern.model';
 import { type IPosition } from '@/api/types/CompleteStitches.type';
-import type { IJumpToStitchEvent } from '@/use/events/types/EventsMap.type';
 
 const props = defineProps<{
     project: IGetProject;
@@ -124,50 +122,14 @@ for (const stitch of currentProject.stitches.value) {
 
 const patternCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const completedStitchesCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
-const jumpedStitchCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 
 const { graphics: patternGraphics } = useCanvasElement(patternCanvas);
 const { graphics: completedStitchesGraphics } = useCanvasElement(completedStitchesCanvas);
-const { graphics: jumpedStitchGraphics } = useCanvasElement(jumpedStitchCanvas);
 
 const hoveredStitch = sharedStitch.hoveredStitch;
 
 const canvasWidth = computed<number>(() => props.project.project.pattern.width * stitchSize.value);
 const canvasHeight = computed<number>(() => props.project.project.pattern.height * stitchSize.value);
-const prevJumpedStitch = ref<Position>(Position.ZERO);
-
-const onJumpToStitch = function (event: IJumpToStitchEvent): void {
-    const borderWidth = 6;
-    scale.value = 1;
-
-    jumpedStitchGraphics.value.clearRect(
-        prevJumpedStitch.value.x * baseStitchSize - Math.ceil(borderWidth / 2),
-        prevJumpedStitch.value.y * baseStitchSize - Math.ceil(borderWidth / 2),
-        baseStitchSize + borderWidth + 1,
-        baseStitchSize + borderWidth + 1);
-
-    offset.value = Position
-        .at(-event.x * stitchSize.value, -event.y * stitchSize.value)
-        .translate(width.value / 2, height.value / 2)
-        .translate(-stitchSize.value / 2, -stitchSize.value / 2);
-
-    jumpedStitchGraphics.value.strokeStyle = '#ffb400';
-    jumpedStitchGraphics.value.lineWidth = borderWidth;
-    jumpedStitchGraphics.value.strokeRect(event.x * baseStitchSize, event.y * baseStitchSize, baseStitchSize, baseStitchSize);
-    jumpedStitchGraphics.value.stroke();
-
-    prevJumpedStitch.value = Position.at(event.x, event.y);
-};
-
-const onEndJumpToStitches = function (): void {
-    const borderWidth = 6;
-
-    jumpedStitchGraphics.value.clearRect(
-        prevJumpedStitch.value.x * baseStitchSize - Math.ceil(borderWidth / 2),
-        prevJumpedStitch.value.y * baseStitchSize - Math.ceil(borderWidth / 2),
-        baseStitchSize + borderWidth + 1,
-        baseStitchSize + borderWidth + 1);
-};
 
 const resizeObserver = new ResizeObserver(entries => {
     const entry = entries[0];
@@ -297,14 +259,6 @@ onMounted(() => {
     hammer.on('pinchstart', (e) => {
         pinchStart.value = e.scale;
     });
-
-    events.subscribe('JumpToStitch', onJumpToStitch);
-    events.subscribe('EndJumpToStitches', onEndJumpToStitches);
-});
-
-onUnmounted(() => {
-    events.unsubscribe('JumpToStitch', onJumpToStitch);
-    events.unsubscribe('EndJumpToStitches', onEndJumpToStitches);
 });
 
 const onClick = function (): void {
