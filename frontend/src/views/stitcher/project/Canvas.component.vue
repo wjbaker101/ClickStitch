@@ -23,8 +23,6 @@
                 ref="canvasElement"
                 :width="project.project.pattern.width * baseStitchSize"
                 :height="project.project.pattern.height * baseStitchSize"
-                :style="{
-                }"
             >
             </canvas>
             <canvas
@@ -74,8 +72,8 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import dayjs from 'dayjs';
 
-import SelectedStitchesLayerComponent from './layers/SelectedStitchesLayer.component.vue';
-import PausePositionLayerComponent from './layers/PausePositionLayer.component.vue';
+import SelectedStitchesLayerComponent from '@/views/stitcher/project/layers/SelectedStitchesLayer.component.vue';
+import PausePositionLayerComponent from '@/views/stitcher/project/layers/PausePositionLayer.component.vue';
 
 import { api } from '@/api/api';
 import { isDark } from '@/helper/helper';
@@ -88,12 +86,12 @@ import { useStitch } from '@/views/stitcher/project/use/Stitch.use';
 import { useInput } from '@/use/input/input.use';
 import { useTransformation } from '@/views/stitcher/project/use/Transformation.use';
 import { useEvents } from '@/use/events/Events.use';
+import { factory } from '@/components/context-menu/ContextMenuFactory';
 
 import { type IGetProject } from '@/models/GetProject.model';
 import { type IStitch, type IPatternThread } from '@/models/Pattern.model';
 import { type IPosition } from '@/api/types/CompleteStitches.type';
 import type { IJumpToStitchEvent } from '@/use/events/types/EventsMap.type';
-import { factory } from '@/components/context-menu/ContextMenuFactory';
 
 const props = defineProps<{
     project: IGetProject;
