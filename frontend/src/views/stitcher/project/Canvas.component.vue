@@ -45,16 +45,12 @@
                 :stitchSelectEnd="stitchSelectEnd"
                 :stitchSize="baseStitchSize"
             />
-            <div class="layer pause-position-layer" v-if="project.project.pausePositionX  !== null && project.project.pausePositionY !== null">
-                <div
-                    class="pause-position-indicator"
-                    :style="{
-                        'width': `${baseStitchSize}px`,
-                        'height': `${baseStitchSize}px`,
-                        'transform': `translate(${project.project.pausePositionX * stitchSize / scale}px, ${project.project.pausePositionY * stitchSize / scale}px)`,
-                    }"
-                ></div>
-            </div>
+            <PausePositionLayerComponent
+                v-if="project.project.pausePositionX !== null && project.project.pausePositionY !== null"
+                :x="project.project.pausePositionX"
+                :y="project.project.pausePositionY"
+                :stitchSize="baseStitchSize"
+            />
         </div>
         <!-- <div class="debug">
             <div>w: {{ width.toFixed(0) }} h: {{ height.toFixed(0) }}</div>
@@ -79,6 +75,7 @@ import { computed, onMounted, onUnmounted, ref } from 'vue';
 import dayjs from 'dayjs';
 
 import SelectedStitchesLayerComponent from './layers/SelectedStitchesLayer.component.vue';
+import PausePositionLayerComponent from './layers/PausePositionLayer.component.vue';
 
 import { api } from '@/api/api';
 import { isDark } from '@/helper/helper';
@@ -603,16 +600,6 @@ const onOpenContextMenu = function (event: MouseEvent): void {
         -ms-interpolation-mode: nearest-neighbor;
 
         @include shadow-large();
-    }
-
-    .pause-position-layer {
-
-        .pause-position-indicator {
-            border-radius: 50%;
-            border: 3px solid #ffb400;
-            background-color: transparent;
-            box-shadow: 1px 2px 12px #000;
-        }
     }
 
     .debug {
