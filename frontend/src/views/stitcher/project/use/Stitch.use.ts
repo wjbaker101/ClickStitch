@@ -12,11 +12,11 @@ export const useStitch = function ({ pattern, scale, mousePosition, offset, sele
     selectEnd: Ref<Position | null>,
 }) {
     const baseStitchSize = 60;
-    const stitchSize = computed<number>(() => baseStitchSize * scale.value);
+    const scaledStitchSize = computed<number>(() => baseStitchSize * scale.value);
 
     const mouseStitchPosition = computed<Position>(() => mousePosition.value
         .translate(-offset.value.x, -offset.value.y)
-        .scale(1.0 / stitchSize.value, 1.0 / stitchSize.value)
+        .scale(1.0 / scaledStitchSize.value, 1.0 / scaledStitchSize.value)
         .floor());
 
     const isMouseOverPattern = computed<boolean>(() => {
@@ -53,7 +53,7 @@ export const useStitch = function ({ pattern, scale, mousePosition, offset, sele
 
     return {
         baseStitchSize,
-        stitchSize,
+        scaledStitchSize,
         mouseStitchPosition,
         isMouseOverPattern,
         stitchSelectStart,

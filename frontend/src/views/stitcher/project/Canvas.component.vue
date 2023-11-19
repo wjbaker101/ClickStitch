@@ -106,7 +106,7 @@ const { width, height, offset, scale, zoom } = useTransformation();
 const pinchStart = ref<number>(1);
 const pinchDiff = ref<number>(1);
 
-const { baseStitchSize, stitchSize, mouseStitchPosition, isMouseOverPattern, stitchSelectStart, stitchSelectEnd } = useStitch({
+const { baseStitchSize, scaledStitchSize, mouseStitchPosition, isMouseOverPattern, stitchSelectStart, stitchSelectEnd } = useStitch({
     pattern: props.project.project.pattern,
     scale,
     mousePosition,
@@ -128,8 +128,8 @@ const { graphics: completedStitchesGraphics } = useCanvasElement(completedStitch
 
 const hoveredStitch = sharedStitch.hoveredStitch;
 
-const canvasWidth = computed<number>(() => props.project.project.pattern.width * stitchSize.value);
-const canvasHeight = computed<number>(() => props.project.project.pattern.height * stitchSize.value);
+const canvasWidth = computed<number>(() => props.project.project.pattern.width * scaledStitchSize.value);
+const canvasHeight = computed<number>(() => props.project.project.pattern.height * scaledStitchSize.value);
 
 const resizeObserver = new ResizeObserver(entries => {
     const entry = entries[0];
@@ -147,7 +147,7 @@ onMounted(() => {
     const pausePositionX = props.project.project.pausePositionX;
     const pausePositionY = props.project.project.pausePositionY;
     if (pausePositionX !== null && pausePositionY !== null) {
-        offset.value = Position.at(width.value / 2 - pausePositionX * stitchSize.value, height.value / 2 - pausePositionY * stitchSize.value);
+        offset.value = Position.at(width.value / 2 - pausePositionX * scaledStitchSize.value, height.value / 2 - pausePositionY * scaledStitchSize.value);
     }
     else {
         offset.value = Position.at(width.value / 2 - canvasWidth.value / 2, height.value / 2 - canvasHeight.value / 2);
