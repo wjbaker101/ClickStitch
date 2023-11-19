@@ -34,7 +34,7 @@ import type { IOpenContextMenuEvent } from '@/use/events/types/EventsMap.type';
 
 const events = useEvents();
 
-const contextMenuElement = ref<HTMLDivElement>({} as HTMLDivElement);
+const contextMenuElement = ref<HTMLDivElement | null>(null);
 
 const position = ref<Position>(Position.ZERO);
 const isVisible = ref<boolean>(false);
@@ -45,7 +45,7 @@ const onOpenContextMenu = function (event: MouseEvent): void {
 };
 
 const onDocumentClick = function (event: MouseEvent): void {
-    if (contextMenuElement.value.contains(event.target as Node | null))
+    if (contextMenuElement.value?.contains(event.target as Node | null))
         return;
 
     events.publish('CloseContextMenu', {});
