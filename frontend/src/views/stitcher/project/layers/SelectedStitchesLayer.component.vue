@@ -3,29 +3,30 @@
         <div
             class="selected-stitches"
             :style="{
-                'width': `${stitchSize * (stitchSelectEnd.x - stitchSelectStart.x + 1)}px`,
-                'height': `${stitchSize * (stitchSelectEnd.y - stitchSelectStart.y + 1)}px`,
+                'width': `${stitchSize * lengthX}px`,
+                'height': `${stitchSize * lengthY}px`,
                 'transform': `translate(${stitchSelectStart.x * stitchSize}px, ${stitchSelectStart.y * stitchSize}px)`,
             }"
         >
-            <div class="top-axis">
-                {{ stitchSelectEnd.x - stitchSelectStart.x + 1 }}
-            </div>
-            <div class="left-axis">
-                {{ stitchSelectEnd.y - stitchSelectStart.y + 1 }}
-            </div>
+            <div class="top-axis">{{ lengthX }}</div>
+            <div class="left-axis">{{ lengthY }}</div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+
 import { Position } from '@/class/Position.class';
 
-defineProps<{
+const props = defineProps<{
     stitchSelectStart: Position;
     stitchSelectEnd: Position;
     stitchSize: number;
 }>();
+
+const lengthX = computed<number>(() => props.stitchSelectEnd.x - props.stitchSelectStart.x + 1);
+const lengthY = computed<number>(() => props.stitchSelectEnd.y - props.stitchSelectStart.y + 1);
 </script>
 
 <style lang="scss">
