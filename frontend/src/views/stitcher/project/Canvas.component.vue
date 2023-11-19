@@ -86,6 +86,7 @@ import { useStitch } from '@/views/stitcher/project/use/Stitch.use';
 import { useInput } from '@/use/input/input.use';
 import { useTransformation } from '@/views/stitcher/project/use/Transformation.use';
 import { useEvents } from '@/use/events/Events.use';
+import { useCanvasElement } from '@/views/stitcher/project/use/CanvasElement.use';
 import { factory } from '@/components/context-menu/ContextMenuFactory';
 
 import { type IGetProject } from '@/models/GetProject.model';
@@ -125,9 +126,9 @@ const canvasElement = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const completedStitchesCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const jumpedStitchCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 
-const graphics = computed<CanvasRenderingContext2D>(() => canvasElement.value.getContext('2d') as CanvasRenderingContext2D);
-const completedStitchesGraphics = computed<CanvasRenderingContext2D>(() => completedStitchesCanvas.value.getContext('2d') as CanvasRenderingContext2D);
-const jumpedStitchGraphics = computed<CanvasRenderingContext2D>(() => jumpedStitchCanvas.value.getContext('2d') as CanvasRenderingContext2D);
+const { graphics } = useCanvasElement(canvasElement);
+const { graphics: completedStitchesGraphics } = useCanvasElement(completedStitchesCanvas);
+const { graphics: jumpedStitchGraphics } = useCanvasElement(jumpedStitchCanvas);
 
 const hoveredStitch = sharedStitch.hoveredStitch;
 
