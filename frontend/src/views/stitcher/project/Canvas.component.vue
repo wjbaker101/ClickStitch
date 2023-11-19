@@ -494,7 +494,7 @@ const onOpenContextMenu = function (event: MouseEvent): void {
         x,
         y,
         schema: {
-            header: 'Actions',
+            header: 'Actions:',
             items: [
                 factory.item('Toggle Completed', () => {}),
                 factory.item('Pause Here', async () => {
