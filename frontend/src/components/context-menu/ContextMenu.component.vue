@@ -48,7 +48,7 @@ const onDocumentClick = function (event: MouseEvent): void {
     if (contextMenuElement.value.contains(event.target as Node | null))
         return;
 
-    isVisible.value = false;
+    events.publish('CloseContextMenu', {});
 };
 
 onMounted(() => {
@@ -56,6 +56,10 @@ onMounted(() => {
         schema.value = event.schema;
         position.value = Position.at(event.x + 3, event.y + 3);
         isVisible.value = true;
+    });
+
+    events.subscribe('CloseContextMenu', () => {
+        isVisible.value = false;
     });
 
     document.addEventListener('mousedown', onDocumentClick);

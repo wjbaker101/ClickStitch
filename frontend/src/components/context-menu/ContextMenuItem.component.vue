@@ -1,5 +1,5 @@
 <template>
-    <div class="context-menu-item-component" @click.self="item.action">
+    <div class="context-menu-item-component" @click.self="onClick">
         {{ item.text }}
     </div>
 </template>
@@ -7,9 +7,18 @@
 <script setup lang="ts">
 import type { IContextMenuItem } from '@/components/context-menu/types/ContextMenuSchema.type';
 
-defineProps<{
+import { useEvents } from '@/use/events/Events.use';
+
+const props = defineProps<{
     item: IContextMenuItem;
 }>();
+
+const events = useEvents();
+
+const onClick = function (): void {
+    props.item.action();
+    events.publish('CloseContextMenu', {});
+};
 </script>
 
 <style lang="scss">

@@ -6,6 +6,7 @@ export interface IEventsMap {
     readonly 'StartJumpToStitches': IStartJumpToStitchesEvent;
     readonly 'EndJumpToStitches': IEndJumpToStitchesEvent;
     readonly 'OpenContextMenu': IOpenContextMenuEvent;
+    readonly 'CloseContextMenu': ICloseContextMenuEvent;
 }
 
 export type EventNames = keyof IEventsMap;
@@ -26,4 +27,7 @@ export interface IOpenContextMenuEvent {
     readonly x: number;
     readonly y: number;
     readonly schema: IContextMenuSchema;
+}
+
+export interface ICloseContextMenuEvent {
 }
