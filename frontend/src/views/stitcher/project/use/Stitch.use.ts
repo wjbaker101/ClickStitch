@@ -14,10 +14,14 @@ export const useStitch = function ({ pattern }: { pattern: IPattern; }) {
     const baseStitchSize = 60;
     const scaledStitchSize = computed<number>(() => baseStitchSize * scale.value);
 
-    const mouseStitchPosition = computed<Position>(() => mousePosition.value
-        .translate(-offset.value.x, -offset.value.y)
-        .scale(1.0 / scaledStitchSize.value, 1.0 / scaledStitchSize.value)
-        .floor());
+    const viewportToStitchPosition = function (position: Position): Position {
+        return position
+            .translate(-offset.value.x, -offset.value.y)
+            .scale(1.0 / scaledStitchSize.value, 1.0 / scaledStitchSize.value)
+            .floor()
+    };
+
+    const mouseStitchPosition = computed<Position>(() => viewportToStitchPosition(mousePosition.value));
 
     const isMouseOverPattern = computed<boolean>(() => {
         return mouseStitchPosition.value.x >= 0 &&
@@ -58,5 +62,7 @@ export const useStitch = function ({ pattern }: { pattern: IPattern; }) {
         isMouseOverPattern,
         stitchSelectStart,
         stitchSelectEnd,
+
+        viewportToStitchPosition,
     };
 };
