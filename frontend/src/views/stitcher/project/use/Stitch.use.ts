@@ -1,16 +1,16 @@
-import { type Ref, computed } from 'vue';
+import { computed } from 'vue';
+
+import { useMouse } from '@/views/stitcher/project/use/Mouse.use';
+import { useTransformation } from '@/views/stitcher/project/use/Transformation.use';
 
 import { Position } from '@/class/Position.class';
 import { type IPattern } from '@/models/Pattern.model';
 
-export const useStitch = function ({ pattern, scale, mousePosition, offset, selectStart, selectEnd }: {
-    pattern: IPattern;
-    scale: Ref<number>;
-    mousePosition: Ref<Position>;
-    offset: Ref<Position>;
-    selectStart: Ref<Position | null>,
-    selectEnd: Ref<Position | null>,
-}) {
+const { mousePosition, selectStart, selectEnd } = useMouse();
+const { offset, scale } = useTransformation();
+
+export const useStitch = function ({ pattern }: { pattern: IPattern; }) {
+
     const baseStitchSize = 60;
     const scaledStitchSize = computed<number>(() => baseStitchSize * scale.value);
 

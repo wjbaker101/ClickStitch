@@ -108,11 +108,6 @@ const pinchDiff = ref<number>(1);
 
 const { baseStitchSize, scaledStitchSize, mouseStitchPosition, isMouseOverPattern, stitchSelectStart, stitchSelectEnd } = useStitch({
     pattern: props.project.project.pattern,
-    scale,
-    mousePosition,
-    offset,
-    selectStart,
-    selectEnd,
 });
 
 const pattern = new Map<string, IStitch>();
