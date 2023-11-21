@@ -46,15 +46,11 @@ const project = ref<IGetProject | null>(null);
 const isLoading = ref<boolean>(false);
 
 const percentage = computed<number>(() => {
-    let incomplete = 0;
-    let complete = 0;
+    if (project.value === null)
+        return 0;
 
-    for (const stitch of currentProject.stitches.value) {
-        if (stitch.stitchedAt === null)
-            incomplete++;
-        else
-            complete++;
-    }
+    const complete = project.value.threads.reduce((total, x) => total + x.completedStitches.length, 0);
+    const incomplete = project.value.threads.reduce((total, x) => total + x.stitches.length, 0);
 
     return complete / incomplete * 100;
 });
