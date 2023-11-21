@@ -1,6 +1,6 @@
 <template>
     <canvas
-        ref="jumpedStitchCanvas"
+        ref="canvas"
         :width="project.pattern.width * baseStitchSize"
         :height="project.pattern.height * baseStitchSize"
     >
@@ -26,8 +26,8 @@ const props = defineProps<{
 const events = useEvents();
 const { width, height, offset, scale } = useTransformation();
 
-const jumpedStitchCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
-const { graphics: jumpedStitchGraphics } = useCanvasElement(jumpedStitchCanvas);
+const canvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
+const { graphics } = useCanvasElement(canvas);
 
 const prevJumpedStitch = ref<Position>(Position.ZERO);
 
@@ -37,7 +37,7 @@ const onJumpToStitch = function (event: IJumpToStitchEvent): void {
 
     const scaledStitchSize = scale.value * props.baseStitchSize;
 
-    jumpedStitchGraphics.value.clearRect(
+    graphics.value.clearRect(
         prevJumpedStitch.value.x * props.baseStitchSize - Math.ceil(borderWidth / 2),
         prevJumpedStitch.value.y * props.baseStitchSize - Math.ceil(borderWidth / 2),
         props.baseStitchSize + borderWidth + 1,
@@ -48,10 +48,10 @@ const onJumpToStitch = function (event: IJumpToStitchEvent): void {
         .translate(width.value / 2, height.value / 2)
         .translate(-scaledStitchSize / 2, -scaledStitchSize / 2);
 
-    jumpedStitchGraphics.value.strokeStyle = '#ffb400';
-    jumpedStitchGraphics.value.lineWidth = borderWidth;
-    jumpedStitchGraphics.value.strokeRect(event.x * props.baseStitchSize, event.y * props.baseStitchSize, props.baseStitchSize, props.baseStitchSize);
-    jumpedStitchGraphics.value.stroke();
+    graphics.value.strokeStyle = '#ffb400';
+    graphics.value.lineWidth = borderWidth;
+    graphics.value.strokeRect(event.x * props.baseStitchSize, event.y * props.baseStitchSize, props.baseStitchSize, props.baseStitchSize);
+    graphics.value.stroke();
 
     prevJumpedStitch.value = Position.at(event.x, event.y);
 };
@@ -59,7 +59,7 @@ const onJumpToStitch = function (event: IJumpToStitchEvent): void {
 const onEndJumpToStitches = function (): void {
     const borderWidth = 6;
 
-    jumpedStitchGraphics.value.clearRect(
+    graphics.value.clearRect(
         prevJumpedStitch.value.x * props.baseStitchSize - Math.ceil(borderWidth / 2),
         prevJumpedStitch.value.y * props.baseStitchSize - Math.ceil(borderWidth / 2),
         props.baseStitchSize + borderWidth + 1,
