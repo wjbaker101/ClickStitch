@@ -2,10 +2,13 @@ import { computed, ref, type Ref } from 'vue';
 
 import { type IGetProject } from '@/models/GetProject.model';
 import { type IStitch, type IPatternThread } from '@/models/Pattern.model';
+import { Position } from '@/class/Position.class';
 
 const project = ref<IGetProject | null>(null);
 
 const stitchPositionLookup = ref<Map<string, IStitch>>(new Map<string, IStitch>());
+
+const pausePosition = ref<Position | null>(null);
 
 const palette = computed<Map<number, IPatternThread>>(() => {
     if (project.value === null)
@@ -46,6 +49,7 @@ export const useCurrentProject = function () {
     return {
         project : project as Ref<IGetProject>,
         stitchPositionLookup,
+        pausePosition,
 
         palette,
         stitches,
@@ -76,6 +80,11 @@ export const useCurrentProject = function () {
             }
 
             stitchPositionLookup.value = _stitchPositionLookup;
+
+            if (project.value.project.pausePositionX !== null && project.value.project.pausePositionY !== null)
+                pausePosition.value = Position.at(project.value.project.pausePositionX, project.value.project.pausePositionY);
+            else
+                pausePosition.value = null;
         },
     };
 };

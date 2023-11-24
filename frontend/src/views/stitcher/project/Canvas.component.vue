@@ -38,9 +38,6 @@
                 :stitchSize="baseStitchSize"
             />
             <PausePositionLayerComponent
-                v-if="project.project.pausePositionX !== null && project.project.pausePositionY !== null"
-                :x="project.project.pausePositionX"
-                :y="project.project.pausePositionY"
                 :stitchSize="baseStitchSize"
             />
         </div>
@@ -318,8 +315,7 @@ const onOpenContextMenu = function (event: MouseEvent): void {
                         y: stitchPostiion.y,
                     });
 
-                    props.project.project.pausePositionX = stitchPostiion.x;
-                    props.project.project.pausePositionY = stitchPostiion.y;
+                    currentProject.pausePosition.value = Position.at(stitchPostiion.x, stitchPostiion.y);
                 }),
             ],
         },

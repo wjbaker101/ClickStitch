@@ -1,22 +1,24 @@
 <template>
-    <div class="layer pause-position-layer-component">
+    <div v-if="pausePosition !== null" class="layer pause-position-layer-component">
         <div
             class="pause-position-indicator"
             :style="{
                 'width': `${stitchSize}px`,
                 'height': `${stitchSize}px`,
-                'transform': `translate(${x * stitchSize}px, ${y * stitchSize}px)`,
+                'transform': `translate(${pausePosition.x * stitchSize}px, ${pausePosition.y * stitchSize}px)`,
             }"
         ></div>
     </div>
 </template>
 
 <script setup lang="ts">
+import { useCurrentProject } from '../use/CurrentProject.use';
+
 defineProps<{
-    x: number;
-    y: number;
     stitchSize: number;
 }>();
+
+const { pausePosition } = useCurrentProject();
 </script>
 
 <style lang="scss">
