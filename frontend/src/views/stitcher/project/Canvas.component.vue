@@ -102,11 +102,6 @@ const pinchDiff = ref<number>(1);
 
 const { baseStitchSize, scaledStitchSize, mouseStitchPosition, isMouseOverPattern, stitchSelectStart, stitchSelectEnd, viewportToStitchPosition } = useStitch();
 
-const pattern = new Map<string, IStitch>();
-for (const stitch of currentProject.stitches.value) {
-    pattern.set(`${stitch.x}:${stitch.y}`, stitch);
-}
-
 const patternCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 
 const { graphics: patternGraphics } = useCanvasElement(patternCanvas);
@@ -272,7 +267,7 @@ const handleHoveredStitch = function (): void {
     if (!isMouseOverPattern.value)
         return;
 
-    const stitch = pattern.get(`${mouseStitchPosition.value.x}:${mouseStitchPosition.value.y}`);
+    const stitch = currentProject.stitchPositionLookup.value.get(`${mouseStitchPosition.value.x}:${mouseStitchPosition.value.y}`);
     if (!stitch) {
         hoveredStitch.value = null;
         return;
