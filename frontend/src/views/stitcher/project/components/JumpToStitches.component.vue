@@ -23,7 +23,7 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 
-import { useEvents } from '@/use/events/Events.use';
+import { useEvent, useEvents } from '@/use/events/Events.use';
 
 import type { IStartJumpToStitchesEvent } from '@/use/events/types/EventsMap.type';
 import type { IThreadDetails } from '@/models/GetProject.model';
@@ -71,13 +71,7 @@ const onClose = function (): void {
     events.publish('EndJumpToStitches', {});
 };
 
-onMounted(() => {
-    events.subscribe('StartJumpToStitches', onStart);
-});
-
-onUnmounted(() => {
-    events.unsubscribe('StartJumpToStitches', onStart);
-});
+useEvent('StartJumpToStitches', onStart);
 </script>
 
 <style lang="scss">

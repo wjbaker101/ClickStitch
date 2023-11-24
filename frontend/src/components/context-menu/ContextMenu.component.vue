@@ -26,7 +26,7 @@ import { onMounted, onUnmounted, ref } from 'vue';
 import ContextMenuItemComponent from '@/components/context-menu/ContextMenuItem.component.vue';
 import ContextMenuSeparatorComponent from '@/components/context-menu/ContextMenuSeparator.component.vue';
 
-import { useEvents } from '@/use/events/Events.use';
+import { useEvent, useEvents } from '@/use/events/Events.use';
 
 import { Position } from '@/class/Position.class';
 import type { IContextMenuSchema } from '@/components/context-menu/types/ContextMenuSchema.type';
@@ -52,21 +52,21 @@ const onDocumentClick = function (event: MouseEvent): void {
 };
 
 onMounted(() => {
-    events.subscribe('OpenContextMenu', (event: IOpenContextMenuEvent) => {
-        schema.value = event.schema;
-        position.value = Position.at(event.x + 3, event.y + 3);
-        isVisible.value = true;
-    });
-
-    events.subscribe('CloseContextMenu', () => {
-        isVisible.value = false;
-    });
-
     document.addEventListener('mousedown', onDocumentClick);
 });
 
 onUnmounted(() => {
     document.addEventListener('mousedown', onDocumentClick);
+});
+
+useEvent('OpenContextMenu', (event: IOpenContextMenuEvent) => {
+    schema.value = event.schema;
+    position.value = Position.at(event.x + 3, event.y + 3);
+    isVisible.value = true;
+});
+
+useEvent('CloseContextMenu', () => {
+    isVisible.value = false;
 });
 </script>
 

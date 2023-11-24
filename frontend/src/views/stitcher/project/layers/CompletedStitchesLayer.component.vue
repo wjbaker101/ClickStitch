@@ -8,13 +8,13 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import dayjs from 'dayjs';
 
 import { api } from '@/api/api';
 import { useCanvasElement } from '../use/CanvasElement.use';
 import { useCurrentProject } from '../use/CurrentProject.use';
-import { useEvents } from '@/use/events/Events.use';
+import { useEvent, useEvents } from '@/use/events/Events.use';
 import { useSharedStitch } from '../use/SharedStitch';
 import { useStitch } from '../use/Stitch.use';
 import { useInput } from '@/use/input/input.use';
@@ -112,12 +112,6 @@ onMounted(() => {
 
         graphics.value.fillRect(stitch[0] * props.baseStitchSize, stitch[1] * props.baseStitchSize, props.baseStitchSize, props.baseStitchSize);
     }
-
-    events.subscribe('PatternDoubleClick', onPatternDoubleClick);
-});
-
-onUnmounted(() => {
-    events.unsubscribe('PatternDoubleClick', onPatternDoubleClick);
 });
 
 useInput('keypress', async (event) => {
@@ -217,6 +211,8 @@ useInput('keypress', async (event) => {
         }
     }
 });
+
+useEvent('PatternDoubleClick', onPatternDoubleClick);
 </script>
 
 <style lang="scss">
