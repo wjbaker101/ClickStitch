@@ -1,6 +1,5 @@
 <template>
     <canvas
-        v-if="project !== null"
         ref="canvas"
         :width="project.project.pattern.width * baseStitchSize"
         :height="project.project.pattern.height * baseStitchSize"

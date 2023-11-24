@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue';
+import { computed, ref, type Ref } from 'vue';
 
 import { type IGetProject } from '@/models/GetProject.model';
 import { type IStitch, type IPatternThread } from '@/models/Pattern.model';
@@ -44,7 +44,7 @@ const stitches = computed<Array<IStitch>>(() => {
 
 export const useCurrentProject = function () {
     return {
-        project,
+        project : project as Ref<IGetProject>,
         stitchPositionLookup,
 
         palette,

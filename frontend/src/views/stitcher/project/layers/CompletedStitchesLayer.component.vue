@@ -1,6 +1,5 @@
 <template>
     <canvas
-        v-if="project !== null"
         ref="canvas"
         :width="project.project.pattern.width * baseStitchSize"
         :height="project.project.pattern.height * baseStitchSize"
@@ -38,9 +37,6 @@ const { graphics: completedStitchesGraphics } = useCanvasElement(canvas);
 const hoveredStitch = sharedStitch.hoveredStitch;
 
 onMounted(() => {
-    if (project.value === null)
-        return;
-
     const completedStitches = project.value.threads.flatMap(x => x.completedStitches);
 
     for (let index = 0; index < completedStitches.length; ++index) {
@@ -53,7 +49,7 @@ onMounted(() => {
 });
 
 events.subscribe('PatternDoubleClick', async () => {
-    if (hoveredStitch.value === null || project.value === null)
+    if (hoveredStitch.value === null)
         return;
 
     const stitch = hoveredStitch.value;
@@ -122,7 +118,7 @@ useInput('keypress', async (event) => {
     if (event.key !== ' ')
         return;
 
-    if (stitchSelectStart.value === null || stitchSelectEnd.value === null || project.value === null)
+    if (stitchSelectStart.value === null || stitchSelectEnd.value === null)
         return;
 
     const stitches: Array<IStitch> = [];
