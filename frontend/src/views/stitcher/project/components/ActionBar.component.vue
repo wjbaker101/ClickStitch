@@ -84,7 +84,8 @@ const onShowModal = function (): void {
     z-index: 1;
 
     @media screen and (max-width: 720px) {
-        .hovered-stitch {
+        .hovered-stitch,
+        .main-items {
             display: none;
         }
     }
