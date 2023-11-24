@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import dayjs from 'dayjs';
 
 import { api } from '@/api/api';
@@ -36,19 +36,7 @@ const { graphics } = useCanvasElement(canvas);
 
 const hoveredStitch = sharedStitch.hoveredStitch;
 
-onMounted(() => {
-    const completedStitches = project.value.threads.flatMap(x => x.completedStitches);
-
-    for (let index = 0; index < completedStitches.length; ++index) {
-        const stitch = completedStitches[index];
-
-        graphics.value.fillStyle = '#0f0';
-
-        graphics.value.fillRect(stitch[0] * props.baseStitchSize, stitch[1] * props.baseStitchSize, props.baseStitchSize, props.baseStitchSize);
-    }
-});
-
-events.subscribe('PatternDoubleClick', async () => {
+const onPatternDoubleClick = async function () {
     if (hoveredStitch.value === null)
         return;
 
@@ -112,6 +100,24 @@ events.subscribe('PatternDoubleClick', async () => {
         const completedStitchIndex = thread.completedStitches.findIndex(x => x[0] === stitch.x && x[1] === stitch.y);
         thread.completedStitches.splice(completedStitchIndex, 1);
     }
+};
+
+onMounted(() => {
+    const completedStitches = project.value.threads.flatMap(x => x.completedStitches);
+
+    for (let index = 0; index < completedStitches.length; ++index) {
+        const stitch = completedStitches[index];
+
+        graphics.value.fillStyle = '#0f0';
+
+        graphics.value.fillRect(stitch[0] * props.baseStitchSize, stitch[1] * props.baseStitchSize, props.baseStitchSize, props.baseStitchSize);
+    }
+
+    events.subscribe('PatternDoubleClick', onPatternDoubleClick);
+});
+
+onUnmounted(() => {
+    events.unsubscribe('PatternDoubleClick', onPatternDoubleClick);
 });
 
 useInput('keypress', async (event) => {
