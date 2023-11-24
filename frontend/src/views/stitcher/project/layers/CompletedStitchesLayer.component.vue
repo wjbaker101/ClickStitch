@@ -20,12 +20,10 @@ import { useSharedStitch } from '../use/SharedStitch';
 import { useStitch } from '../use/Stitch.use';
 import { useInput } from '@/use/input/input.use';
 
-import type { IProject } from '@/models/Project.model';
 import type { IStitch } from '@/models/Pattern.model';
 import type { IPosition } from '@/api/types/CompleteStitches.type';
 
 const props = defineProps<{
-    project: IProject;
     baseStitchSize: number;
 }>();
 

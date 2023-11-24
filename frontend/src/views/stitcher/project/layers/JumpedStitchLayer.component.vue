@@ -1,8 +1,9 @@
 <template>
     <canvas
+        v-if="project !== null"
         ref="canvas"
-        :width="project.pattern.width * baseStitchSize"
-        :height="project.pattern.height * baseStitchSize"
+        :width="project.project.pattern.width * baseStitchSize"
+        :height="project.project.pattern.height * baseStitchSize"
     >
     </canvas>
 </template>
@@ -12,19 +13,19 @@ import { onMounted, onUnmounted, ref } from 'vue';
 
 import { useCanvasElement } from '@/views/stitcher/project/use/CanvasElement.use';
 import { useTransformation } from '@/views/stitcher/project/use/Transformation.use';
+import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
 import { useEvents } from '@/use/events/Events.use';
 
 import { Position } from '@/class/Position.class';
-import type { IProject } from '@/models/Project.model';
 import type { IJumpToStitchEvent } from '@/use/events/types/EventsMap.type';
 
 const props = defineProps<{
-    project: IProject;
     baseStitchSize: number;
 }>();
 
 const events = useEvents();
 const { width, height, offset, scale } = useTransformation();
+const { project } = useCurrentProject();
 
 const canvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const { graphics } = useCanvasElement(canvas);

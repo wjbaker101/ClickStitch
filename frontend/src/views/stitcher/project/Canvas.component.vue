@@ -26,11 +26,9 @@
             >
             </canvas>
             <CompletedStitchesLayerComponent
-                :project="project.project"
                 :baseStitchSize="baseStitchSize"
             />
             <JumpedStitchLayerComponent
-                :project="project.project"
                 :baseStitchSize="baseStitchSize"
             />
             <SelectedStitchesLayerComponent
