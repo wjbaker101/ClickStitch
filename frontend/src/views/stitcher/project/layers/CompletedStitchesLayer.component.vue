@@ -32,7 +32,7 @@ const sharedStitch = useSharedStitch();
 const { baseStitchSize, mouseStitchPosition, stitchSelectStart, stitchSelectEnd } = useStitch();
 
 const canvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
-const { graphics: completedStitchesGraphics } = useCanvasElement(canvas);
+const { graphics } = useCanvasElement(canvas);
 
 const hoveredStitch = sharedStitch.hoveredStitch;
 
@@ -42,9 +42,9 @@ onMounted(() => {
     for (let index = 0; index < completedStitches.length; ++index) {
         const stitch = completedStitches[index];
 
-        completedStitchesGraphics.value.fillStyle = '#0f0';
+        graphics.value.fillStyle = '#0f0';
 
-        completedStitchesGraphics.value.fillRect(stitch[0] * props.baseStitchSize, stitch[1] * props.baseStitchSize, props.baseStitchSize, props.baseStitchSize);
+        graphics.value.fillRect(stitch[0] * props.baseStitchSize, stitch[1] * props.baseStitchSize, props.baseStitchSize, props.baseStitchSize);
     }
 });
 
@@ -55,7 +55,7 @@ events.subscribe('PatternDoubleClick', async () => {
     const stitch = hoveredStitch.value;
 
     if (stitch.stitchedAt === null) {
-        completedStitchesGraphics.value.fillRect(
+        graphics.value.fillRect(
             mouseStitchPosition.value.x * baseStitchSize,
             mouseStitchPosition.value.y * baseStitchSize,
             baseStitchSize,
@@ -84,7 +84,7 @@ events.subscribe('PatternDoubleClick', async () => {
         thread.stitches.splice(stitchIndex, 1);
     }
     else {
-        completedStitchesGraphics.value.clearRect(
+        graphics.value.clearRect(
             mouseStitchPosition.value.x * baseStitchSize,
             mouseStitchPosition.value.y * baseStitchSize,
             baseStitchSize,
@@ -160,7 +160,7 @@ useInput('keypress', async (event) => {
 
     if (event.shiftKey) {
         for (const stitch of stitches) {
-            completedStitchesGraphics.value.clearRect(
+            graphics.value.clearRect(
                 stitch.x * baseStitchSize,
                 stitch.y * baseStitchSize,
                 baseStitchSize,
@@ -186,7 +186,7 @@ useInput('keypress', async (event) => {
     }
     else {
         for (const stitch of stitches) {
-            completedStitchesGraphics.value.fillRect(
+            graphics.value.fillRect(
                 stitch.x * baseStitchSize,
                 stitch.y * baseStitchSize,
                 baseStitchSize,
