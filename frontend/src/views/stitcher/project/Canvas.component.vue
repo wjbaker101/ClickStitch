@@ -25,12 +25,10 @@
                 :height="project.project.pattern.height * baseStitchSize"
             >
             </canvas>
-            <canvas
-                ref="completedStitchesCanvas"
-                :width="project.project.pattern.width * baseStitchSize"
-                :height="project.project.pattern.height * baseStitchSize"
-            >
-            </canvas>
+            <CompletedStitchesLayerComponent
+                :project="project.project"
+                :baseStitchSize="baseStitchSize"
+            />
             <JumpedStitchLayerComponent
                 :project="project.project"
                 :baseStitchSize="baseStitchSize"
@@ -68,7 +66,6 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
-import dayjs from 'dayjs';
 
 import JumpedStitchLayerComponent from '@/views/stitcher/project/layers/JumpedStitchLayer.component.vue';
 import SelectedStitchesLayerComponent from '@/views/stitcher/project/layers/SelectedStitchesLayer.component.vue';
@@ -82,7 +79,6 @@ import { useHammer } from '@/views/stitcher/project/use/Hammer.use';
 import { useMouse } from '@/views/stitcher/project/use/Mouse.use';
 import { useSharedStitch } from '@/views/stitcher/project/use/SharedStitch';
 import { useStitch } from '@/views/stitcher/project/use/Stitch.use';
-import { useInput } from '@/use/input/input.use';
 import { useTransformation } from '@/views/stitcher/project/use/Transformation.use';
 import { useEvents } from '@/use/events/Events.use';
 import { useCanvasElement } from '@/views/stitcher/project/use/CanvasElement.use';
@@ -90,7 +86,7 @@ import { factory } from '@/components/context-menu/ContextMenuFactory';
 
 import { type IGetProject } from '@/models/GetProject.model';
 import { type IStitch, type IPatternThread } from '@/models/Pattern.model';
-import { type IPosition } from '@/api/types/CompleteStitches.type';
+import CompletedStitchesLayerComponent from './layers/CompletedStitchesLayer.component.vue';
 
 const props = defineProps<{
     project: IGetProject;
@@ -116,10 +112,8 @@ for (const stitch of currentProject.stitches.value) {
 }
 
 const patternCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
-const completedStitchesCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 
 const { graphics: patternGraphics } = useCanvasElement(patternCanvas);
-const { graphics: completedStitchesGraphics } = useCanvasElement(completedStitchesCanvas);
 
 const hoveredStitch = sharedStitch.hoveredStitch;
 
@@ -167,11 +161,6 @@ onMounted(() => {
 
         patternGraphics.value.fillStyle = isDark(thread.colour) ? '#ddd' :  '#111';
         patternGraphics.value.fillText(stitch.threadIndex.toString(), stitch.x * baseStitchSize + (baseStitchSize / 2), (stitch.y + 1) * baseStitchSize - (baseStitchSize / 2) + 10);
-
-        completedStitchesGraphics.value.fillStyle = '#0f0';
-
-        if (stitch.stitchedAt !== null)
-            completedStitchesGraphics.value.fillRect(stitch.x * baseStitchSize, stitch.y * baseStitchSize, baseStitchSize, baseStitchSize);
     }
 
     patternGraphics.value.strokeStyle = '#666';
@@ -212,7 +201,7 @@ onMounted(() => {
 
     hammer.on('double-tap', () => {
         handleHoveredStitch();
-        onDoubleClick();
+        events.publish('PatternDoubleClick', {});
     });
 
     hammer.on('pan', (e) => {
@@ -260,170 +249,6 @@ const onClick = function (): void {
     selectStart.value = null;
     selectEnd.value = null;
 };
-
-const onDoubleClick = async function (): Promise<void> {
-    if (hoveredStitch.value === null)
-        return;
-
-    const stitch = hoveredStitch.value;
-
-    if (stitch.stitchedAt === null) {
-        completedStitchesGraphics.value.fillRect(
-            mouseStitchPosition.value.x * baseStitchSize,
-            mouseStitchPosition.value.y * baseStitchSize,
-            baseStitchSize,
-            baseStitchSize);
-
-        stitch.stitchedAt = dayjs();
-
-        await api.projects.completeStitches(props.project.project.pattern.reference, {
-            stitchesByThread: {
-                [stitch.threadIndex]: [
-                    {
-                        x: mouseStitchPosition.value.x,
-                        y: mouseStitchPosition.value.y,
-                    },
-                ],
-            },
-        });
-
-        const thread = props.project.threads.find(x => x.thread.index === stitch.threadIndex);
-        if (thread === undefined)
-            return;
-
-        thread.completedStitches.push([stitch.x, stitch.y, dayjs()]);
-
-        const stitchIndex = thread.stitches.findIndex(x => x[0] === stitch.x && x[1] === stitch.y);
-        thread.stitches.splice(stitchIndex, 1);
-    }
-    else {
-        completedStitchesGraphics.value.clearRect(
-            mouseStitchPosition.value.x * baseStitchSize,
-            mouseStitchPosition.value.y * baseStitchSize,
-            baseStitchSize,
-            baseStitchSize);
-
-        stitch.stitchedAt = null;
-
-        await api.projects.unCompleteStitches(props.project.project.pattern.reference, {
-            stitchesByThread: {
-                [stitch.threadIndex]: [
-                    {
-                        x: mouseStitchPosition.value.x,
-                        y: mouseStitchPosition.value.y,
-                    },
-                ],
-            },
-        });
-
-        const thread = props.project.threads.find(x => x.thread.index === stitch.threadIndex);
-        if (thread === undefined)
-            return;
-
-        thread.stitches.push([stitch.x, stitch.y]);
-
-        const completedStitchIndex = thread.completedStitches.findIndex(x => x[0] === stitch.x && x[1] === stitch.y);
-        thread.completedStitches.splice(completedStitchIndex, 1);
-    }
-};
-
-useInput('keypress', async (event) => {
-    if (event.key !== ' ')
-        return;
-
-    if (stitchSelectStart.value === null || stitchSelectEnd.value === null)
-        return;
-
-    const stitches: Array<IStitch> = [];
-
-    const width = stitchSelectEnd.value.x - stitchSelectStart.value.x + 1;
-    const height = stitchSelectEnd.value.y - stitchSelectStart.value.y + 1;
-
-    for (let x = 0; x < width; ++x) {
-        for (let y = 0; y < height; ++y) {
-            const position = stitchSelectStart.value.translate(x, y);
-
-            const stitch = pattern.get(`${position.x}:${position.y}`);
-            if (!stitch)
-                continue;
-
-            if (event.shiftKey && stitch.stitchedAt === null)
-                continue;
-            if (!event.shiftKey && stitch.stitchedAt !== null)
-                continue;
-
-            stitches.push(stitch);
-        }
-    }
-
-    if (stitches.length > 100)
-        return;
-
-    const positions: Record<number, Array<IPosition>> = {};
-
-    for (const stitch of stitches) {
-        if (positions[stitch.threadIndex] === undefined)
-            positions[stitch.threadIndex] = [];
-
-        positions[stitch.threadIndex].push({
-            x: stitch.x,
-            y: stitch.y,
-        });
-    }
-
-    if (event.shiftKey) {
-        for (const stitch of stitches) {
-            completedStitchesGraphics.value.clearRect(
-                stitch.x * baseStitchSize,
-                stitch.y * baseStitchSize,
-                baseStitchSize,
-                baseStitchSize);
-
-            stitch.stitchedAt = null;
-        }
-
-        await api.projects.unCompleteStitches(props.project.project.pattern.reference, {
-            stitchesByThread: positions,
-        });
-
-        for (const stitch of stitches) {
-            const thread = props.project.threads.find(x => x.thread.index === stitch.threadIndex);
-            if (thread === undefined)
-                continue;
-
-            thread.stitches.push([stitch.x, stitch.y]);
-
-            const completedStitchIndex = thread.completedStitches.findIndex(x => x[0] === stitch.x && x[1] === stitch.y);
-            thread.completedStitches.splice(completedStitchIndex, 1);
-        }
-    }
-    else {
-        for (const stitch of stitches) {
-            completedStitchesGraphics.value.fillRect(
-                stitch.x * baseStitchSize,
-                stitch.y * baseStitchSize,
-                baseStitchSize,
-                baseStitchSize);
-
-            stitch.stitchedAt = dayjs();
-        }
-
-        await api.projects.completeStitches(props.project.project.pattern.reference, {
-            stitchesByThread: positions,
-        });
-
-        for (const stitch of stitches) {
-            const thread = props.project.threads.find(x => x.thread.index === stitch.threadIndex);
-            if (thread === undefined)
-                return;
-
-            thread.completedStitches.push([stitch.x, stitch.y, dayjs()]);
-
-            const stitchIndex = thread.stitches.findIndex(x => x[0] === stitch.x && x[1] === stitch.y);
-            thread.stitches.splice(stitchIndex, 1);
-        }
-    }
-});
 
 const onMouseDown = function (event: MouseEvent): void {
     mousePosition.value = Position.at(event.x, event.y).translate(-(component.value.offsetLeft ?? 0), -(component.value.offsetTop ?? 0));

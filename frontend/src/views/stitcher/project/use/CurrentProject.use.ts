@@ -5,6 +5,8 @@ import { type IStitch, type IPatternThread } from '@/models/Pattern.model';
 
 const project = ref<IGetProject | null>(null);
 
+const stitchPositionLookup = ref<Map<string, IStitch>>(new Map<string, IStitch>());
+
 const palette = computed<Map<number, IPatternThread>>(() => {
     if (project.value === null)
         return new Map<number, IPatternThread>();
@@ -42,11 +44,38 @@ const stitches = computed<Array<IStitch>>(() => {
 
 export const useCurrentProject = function () {
     return {
+        project,
+        stitchPositionLookup,
+
         palette,
         stitches,
 
         setProject(newProject: IGetProject): void {
             project.value = newProject;
+
+            const _stitchPositionLookup = new Map<string, IStitch>();
+            for (const thread of project.value.threads) {
+
+                for (const stitch of thread.completedStitches) {
+                    _stitchPositionLookup.set(`${stitch[0]}:${stitch[1]}`, {
+                        x: stitch[0],
+                        y: stitch[1],
+                        threadIndex: thread.thread.index,
+                        stitchedAt: stitch[2],
+                    });
+                }
+
+                for (const stitch of thread.stitches) {
+                    _stitchPositionLookup.set(`${stitch[0]}:${stitch[1]}`, {
+                        x: stitch[0],
+                        y: stitch[1],
+                        threadIndex: thread.thread.index,
+                        stitchedAt: null,
+                    });
+                }
+            }
+
+            stitchPositionLookup.value = _stitchPositionLookup;
         },
     };
 };

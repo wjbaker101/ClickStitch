@@ -7,6 +7,7 @@ export interface IEventsMap {
     readonly 'EndJumpToStitches': IEndJumpToStitchesEvent;
     readonly 'OpenContextMenu': IOpenContextMenuEvent;
     readonly 'CloseContextMenu': ICloseContextMenuEvent;
+    readonly 'PatternDoubleClick': IPatternDoubleClickEvent;
 }
 
 export type EventNames = keyof IEventsMap;
@@ -30,4 +31,7 @@ export interface IOpenContextMenuEvent {
 }
 
 export interface ICloseContextMenuEvent {
+}
+
+export interface IPatternDoubleClickEvent {
 }
