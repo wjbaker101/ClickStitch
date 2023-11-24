@@ -8,12 +8,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue';
+import { ref } from 'vue';
 
 import { useCanvasElement } from '@/views/stitcher/project/use/CanvasElement.use';
 import { useTransformation } from '@/views/stitcher/project/use/Transformation.use';
 import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
-import { useEvents } from '@/use/events/Events.use';
+import { useEvent } from '@/use/events/Events.use';
 
 import { Position } from '@/class/Position.class';
 import type { IJumpToStitchEvent } from '@/use/events/types/EventsMap.type';
@@ -22,7 +22,6 @@ const props = defineProps<{
     baseStitchSize: number;
 }>();
 
-const events = useEvents();
 const { width, height, offset, scale } = useTransformation();
 const { project } = useCurrentProject();
 
@@ -66,15 +65,8 @@ const onEndJumpToStitches = function (): void {
         props.baseStitchSize + borderWidth + 1);
 };
 
-onMounted(() => {
-    events.subscribe('JumpToStitch', onJumpToStitch);
-    events.subscribe('EndJumpToStitches', onEndJumpToStitches);
-});
-
-onUnmounted(() => {
-    events.unsubscribe('JumpToStitch', onJumpToStitch);
-    events.unsubscribe('EndJumpToStitches', onEndJumpToStitches);
-});
+useEvent('JumpToStitch', onJumpToStitch);
+useEvent('EndJumpToStitches', onEndJumpToStitches);
 </script>
 
 <style lang="scss">

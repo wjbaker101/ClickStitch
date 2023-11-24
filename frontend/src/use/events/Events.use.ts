@@ -1,3 +1,5 @@
+import { onMounted, onUnmounted } from 'vue';
+
 import type { EventNames, IEventsMap } from './types/EventsMap.type';
 
 type EventFunction<TEvent extends IEventsMap[EventNames]> = (eventArgs: TEvent) => void;
@@ -27,4 +29,17 @@ export const useEvents = function () {
         },
 
     };
+};
+
+export const useEvent = function <TEvent extends IEventsMap[EventNames]>(key: EventNames, func: EventFunction<TEvent>) {
+
+    onMounted(() => {
+        useEvents().subscribe(key, func);
+    });
+
+    onUnmounted(() => {
+        useEvents().unsubscribe(key, func);
+    });
+
+    return {};
 };
