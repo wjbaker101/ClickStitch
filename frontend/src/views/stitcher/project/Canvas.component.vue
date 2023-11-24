@@ -84,7 +84,7 @@ import { useCanvasElement } from '@/views/stitcher/project/use/CanvasElement.use
 import { factory } from '@/components/context-menu/ContextMenuFactory';
 
 import { type IGetProject } from '@/models/GetProject.model';
-import { type IStitch, type IPatternThread } from '@/models/Pattern.model';
+import { type IPatternThread } from '@/models/Pattern.model';
 
 const props = defineProps<{
     project: IGetProject;
@@ -103,7 +103,6 @@ const pinchDiff = ref<number>(1);
 const { baseStitchSize, scaledStitchSize, mouseStitchPosition, isMouseOverPattern, stitchSelectStart, stitchSelectEnd, viewportToStitchPosition } = useStitch();
 
 const patternCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
-
 const { graphics } = useCanvasElement(patternCanvas);
 
 const hoveredStitch = sharedStitch.hoveredStitch;
