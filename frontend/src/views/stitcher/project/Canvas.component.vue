@@ -104,7 +104,7 @@ const { baseStitchSize, scaledStitchSize, mouseStitchPosition, isMouseOverPatter
 
 const patternCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 
-const { graphics: patternGraphics } = useCanvasElement(patternCanvas);
+const { graphics } = useCanvasElement(patternCanvas);
 
 const hoveredStitch = sharedStitch.hoveredStitch;
 
@@ -133,13 +133,13 @@ onMounted(() => {
         offset.value = Position.at(width.value / 2 - canvasWidth.value / 2, height.value / 2 - canvasHeight.value / 2);
     }
 
-    patternGraphics.value.fillStyle = '#eef';
-    patternGraphics.value.textAlign = 'center';
-    patternGraphics.value.font = 'normal 28px sans-serif';
+    graphics.value.fillStyle = '#eef';
+    graphics.value.textAlign = 'center';
+    graphics.value.font = 'normal 28px sans-serif';
 
     for (let x = 0; x < props.project.project.pattern.width; ++x) {
         for (let y = 0; y < props.project.project.pattern.height; ++y) {
-            patternGraphics.value.fillRect(x * baseStitchSize, y * baseStitchSize, baseStitchSize, baseStitchSize);
+            graphics.value.fillRect(x * baseStitchSize, y * baseStitchSize, baseStitchSize, baseStitchSize);
         }
     }
 
@@ -147,46 +147,46 @@ onMounted(() => {
         const stitch = currentProject.stitches.value[index];
         const thread = currentProject.palette.value.get(stitch.threadIndex) as IPatternThread;
 
-        patternGraphics.value.fillStyle = thread.colour;
-        patternGraphics.value.fillRect(stitch.x * baseStitchSize, stitch.y * baseStitchSize, baseStitchSize, baseStitchSize);
+        graphics.value.fillStyle = thread.colour;
+        graphics.value.fillRect(stitch.x * baseStitchSize, stitch.y * baseStitchSize, baseStitchSize, baseStitchSize);
 
-        patternGraphics.value.fillStyle = isDark(thread.colour) ? '#ddd' :  '#111';
-        patternGraphics.value.fillText(stitch.threadIndex.toString(), stitch.x * baseStitchSize + (baseStitchSize / 2), (stitch.y + 1) * baseStitchSize - (baseStitchSize / 2) + 10);
+        graphics.value.fillStyle = isDark(thread.colour) ? '#ddd' :  '#111';
+        graphics.value.fillText(stitch.threadIndex.toString(), stitch.x * baseStitchSize + (baseStitchSize / 2), (stitch.y + 1) * baseStitchSize - (baseStitchSize / 2) + 10);
     }
 
-    patternGraphics.value.strokeStyle = '#666';
-    patternGraphics.value.lineWidth = 2;
+    graphics.value.strokeStyle = '#666';
+    graphics.value.lineWidth = 2;
 
     for (let x = 1; x < props.project.project.pattern.width; ++x) {
-        patternGraphics.value.beginPath();
-        patternGraphics.value.moveTo(x * baseStitchSize, 0);
-        patternGraphics.value.lineTo(x * baseStitchSize, props.project.project.pattern.height * baseStitchSize);
-        patternGraphics.value.closePath();
-        patternGraphics.value.stroke();
+        graphics.value.beginPath();
+        graphics.value.moveTo(x * baseStitchSize, 0);
+        graphics.value.lineTo(x * baseStitchSize, props.project.project.pattern.height * baseStitchSize);
+        graphics.value.closePath();
+        graphics.value.stroke();
     }
 
     for (let y = 1; y < props.project.project.pattern.height; ++y) {
-        patternGraphics.value.beginPath();
-        patternGraphics.value.moveTo(0, y * baseStitchSize);
-        patternGraphics.value.lineTo(props.project.project.pattern.width * baseStitchSize, y * baseStitchSize);
-        patternGraphics.value.closePath();
-        patternGraphics.value.stroke();
+        graphics.value.beginPath();
+        graphics.value.moveTo(0, y * baseStitchSize);
+        graphics.value.lineTo(props.project.project.pattern.width * baseStitchSize, y * baseStitchSize);
+        graphics.value.closePath();
+        graphics.value.stroke();
     }
 
-    patternGraphics.value.lineWidth = 6;
-    patternGraphics.value.strokeStyle = '#f00';
+    graphics.value.lineWidth = 6;
+    graphics.value.strokeStyle = '#f00';
 
-    patternGraphics.value.beginPath();
-    patternGraphics.value.moveTo(0, props.project.project.pattern.width / 2 * baseStitchSize);
-    patternGraphics.value.lineTo(props.project.project.pattern.width * baseStitchSize, props.project.project.pattern.width / 2 * baseStitchSize);
-    patternGraphics.value.closePath();
-    patternGraphics.value.stroke();
+    graphics.value.beginPath();
+    graphics.value.moveTo(0, props.project.project.pattern.width / 2 * baseStitchSize);
+    graphics.value.lineTo(props.project.project.pattern.width * baseStitchSize, props.project.project.pattern.width / 2 * baseStitchSize);
+    graphics.value.closePath();
+    graphics.value.stroke();
 
-    patternGraphics.value.beginPath();
-    patternGraphics.value.moveTo(props.project.project.pattern.height / 2 * baseStitchSize, 0);
-    patternGraphics.value.lineTo(props.project.project.pattern.height / 2 * baseStitchSize, props.project.project.pattern.height * baseStitchSize);
-    patternGraphics.value.closePath();
-    patternGraphics.value.stroke();
+    graphics.value.beginPath();
+    graphics.value.moveTo(props.project.project.pattern.height / 2 * baseStitchSize, 0);
+    graphics.value.lineTo(props.project.project.pattern.height / 2 * baseStitchSize, props.project.project.pattern.height * baseStitchSize);
+    graphics.value.closePath();
+    graphics.value.stroke();
 
     const hammer = useHammer(component);
 
