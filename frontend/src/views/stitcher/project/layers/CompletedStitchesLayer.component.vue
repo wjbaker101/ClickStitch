@@ -103,12 +103,12 @@ const onPatternDoubleClick = async function () {
 };
 
 onMounted(() => {
+    graphics.value.fillStyle = '#0f0';
+
     const completedStitches = project.value.threads.flatMap(x => x.completedStitches);
 
     for (let index = 0; index < completedStitches.length; ++index) {
         const stitch = completedStitches[index];
-
-        graphics.value.fillStyle = '#0f0';
 
         graphics.value.fillRect(stitch[0] * props.baseStitchSize, stitch[1] * props.baseStitchSize, props.baseStitchSize, props.baseStitchSize);
     }
