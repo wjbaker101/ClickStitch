@@ -1,6 +1,13 @@
 <template>
     <div class="project-threads-modal-component">
-        <h2>Threads</h2>
+        <!-- <h2>Actions:</h2>
+        <p>
+            <ButtonComponent @click="onGoToPausePosition">
+                <IconComponent icon="compass" gap="right" />
+                <span>Go to Pause Position</span>
+            </ButtonComponent>
+        </p> -->
+        <h2>Threads:</h2>
         <div>
             <ThreadDetailsComponent v-for="thread in threads" :thread="thread" />
         </div>
@@ -10,13 +17,21 @@
 <script setup lang="ts">
 import ThreadDetailsComponent from '../components/ThreadDetails.component.vue';
 
+import { useModal } from '@wjb/vue/use/modal.use';
+
 import type { IGetProject } from '@/models/GetProject.model';
 
 const props = defineProps<{
     project: IGetProject;
 }>();
 
+const modal = useModal();
+
 const threads = props.project.threads;
+
+const onGoToPausePosition = function () {
+    modal.hide();
+};
 </script>
 
 <style lang="scss">
