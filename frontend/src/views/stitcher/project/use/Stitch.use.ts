@@ -2,14 +2,15 @@ import { computed } from 'vue';
 
 import { useMouse } from '@/views/stitcher/project/use/Mouse.use';
 import { useTransformation } from '@/views/stitcher/project/use/Transformation.use';
+import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
 
 import { Position } from '@/class/Position.class';
-import { type IPattern } from '@/models/Pattern.model';
 
 const { mousePosition, selectStart, selectEnd } = useMouse();
 const { offset, scale } = useTransformation();
+const { project } = useCurrentProject();
 
-export const useStitch = function ({ pattern }: { pattern: IPattern; }) {
+export const useStitch = function () {
 
     const baseStitchSize = 60;
     const scaledStitchSize = computed<number>(() => baseStitchSize * scale.value);
@@ -24,10 +25,13 @@ export const useStitch = function ({ pattern }: { pattern: IPattern; }) {
     const mouseStitchPosition = computed<Position>(() => viewportToStitchPosition(mousePosition.value));
 
     const isMouseOverPattern = computed<boolean>(() => {
+        if (project.value === null)
+            return false;
+
         return mouseStitchPosition.value.x >= 0 &&
             mouseStitchPosition.value.y >= 0 &&
-            mouseStitchPosition.value.x < pattern.width &&
-            mouseStitchPosition.value.y < pattern.height;
+            mouseStitchPosition.value.x < project.value.project.pattern.width &&
+            mouseStitchPosition.value.y < project.value.project.pattern.height;
     });
 
     const endX = computed(() => selectEnd.value?.x ?? mouseStitchPosition.value.x);
@@ -43,7 +47,7 @@ export const useStitch = function ({ pattern }: { pattern: IPattern; }) {
     });
 
     const stitchSelectEnd = computed<Position | null>(() => {
-        if (selectStart.value === null)
+        if (project.value === null || selectStart.value === null)
             return null;
 
         const x = Math.max(selectStart.value.x, endX.value);
@@ -52,7 +56,7 @@ export const useStitch = function ({ pattern }: { pattern: IPattern; }) {
         return Position
             .at(x, y)
             .min(0, 0)
-            .max(pattern.width - 1, pattern.height - 1);
+            .max(project.value.project.pattern.width - 1, project.value.project.pattern.height - 1);
     });
 
     return {

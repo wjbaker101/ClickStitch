@@ -32,7 +32,7 @@ const props = defineProps<{
 const { project, stitchPositionLookup } = useCurrentProject();
 const events = useEvents();
 const sharedStitch = useSharedStitch();
-const { baseStitchSize, mouseStitchPosition, stitchSelectStart, stitchSelectEnd } = useStitch({ pattern: props.project.pattern, });
+const { baseStitchSize, mouseStitchPosition, stitchSelectStart, stitchSelectEnd } = useStitch();
 
 const canvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const { graphics: completedStitchesGraphics } = useCanvasElement(canvas);

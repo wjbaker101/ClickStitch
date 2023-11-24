@@ -67,6 +67,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 
+import CompletedStitchesLayerComponent from '@/views/stitcher/project/layers/CompletedStitchesLayer.component.vue';
 import JumpedStitchLayerComponent from '@/views/stitcher/project/layers/JumpedStitchLayer.component.vue';
 import SelectedStitchesLayerComponent from '@/views/stitcher/project/layers/SelectedStitchesLayer.component.vue';
 import PausePositionLayerComponent from '@/views/stitcher/project/layers/PausePositionLayer.component.vue';
@@ -86,7 +87,6 @@ import { factory } from '@/components/context-menu/ContextMenuFactory';
 
 import { type IGetProject } from '@/models/GetProject.model';
 import { type IStitch, type IPatternThread } from '@/models/Pattern.model';
-import CompletedStitchesLayerComponent from './layers/CompletedStitchesLayer.component.vue';
 
 const props = defineProps<{
     project: IGetProject;
@@ -102,9 +102,7 @@ const { width, height, offset, scale, zoom } = useTransformation();
 const pinchStart = ref<number>(1);
 const pinchDiff = ref<number>(1);
 
-const { baseStitchSize, scaledStitchSize, mouseStitchPosition, isMouseOverPattern, stitchSelectStart, stitchSelectEnd, viewportToStitchPosition } = useStitch({
-    pattern: props.project.project.pattern,
-});
+const { baseStitchSize, scaledStitchSize, mouseStitchPosition, isMouseOverPattern, stitchSelectStart, stitchSelectEnd, viewportToStitchPosition } = useStitch();
 
 const pattern = new Map<string, IStitch>();
 for (const stitch of currentProject.stitches.value) {
