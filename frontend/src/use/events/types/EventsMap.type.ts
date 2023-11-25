@@ -8,6 +8,7 @@ export interface IEventsMap {
     readonly 'OpenContextMenu': IOpenContextMenuEvent;
     readonly 'CloseContextMenu': ICloseContextMenuEvent;
     readonly 'PatternDoubleClick': IPatternDoubleClickEvent;
+    readonly 'GoToPausePosition': IGoToPausePositionEvent;
 }
 
 export type EventNames = keyof IEventsMap;
@@ -34,4 +35,7 @@ export interface ICloseContextMenuEvent {
 }
 
 export interface IPatternDoubleClickEvent {
+}
+
+export interface IGoToPausePositionEvent {
 }
