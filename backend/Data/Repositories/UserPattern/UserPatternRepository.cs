@@ -25,6 +25,7 @@ public sealed class UserPatternRepository : Repository<UserPatternRecord>, IUser
             .ThenFetch(x => x.UserCreator)
             .ThenFetch(x => x.Creator)
             .Where(x => x.User == user)
+            .OrderByDescending(x => x.CreatedAt)
             .ToListAsync(cancellationToken);
 
         await transaction.CommitAsync(cancellationToken);
