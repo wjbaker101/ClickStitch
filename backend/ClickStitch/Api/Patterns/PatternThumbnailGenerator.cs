@@ -1,4 +1,6 @@
 ﻿using ClickStitch.Api.Patterns.Parsing.Types;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace ClickStitch.Api.Patterns;
 
