@@ -16,6 +16,7 @@ public interface IProjectsService
     Task<Result<CompleteStitchesResponse>> CompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request, CancellationToken cancellationToken);
     Task<Result<CompleteStitchesResponse>> UnCompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request, CancellationToken cancellationToken);
     Task<Result<PauseStitchingResponse>> PauseStitching(RequestUser requestUser, Guid patternReference, PauseStitchingRequest request, CancellationToken cancellationToken);
+    Task<Result<UnPauseStitchingResponse>> UnPauseStitching(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken);
     Task<Result<GetAnalyticsResponse>> GetAnalytics(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken);
 }
 
@@ -152,6 +153,26 @@ public sealed class ProjectsService : IProjectsService
         await _userPatternRepository.UpdateAsync(project, cancellationToken);
 
         return new PauseStitchingResponse();
+    }
+    
+    public async Task<Result<UnPauseStitchingResponse>> UnPauseStitching(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken)
+    {
+        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
+
+        var patternResult = await _patternRepository.GetByReferenceAsync(patternReference, cancellationToken);
+        if (!patternResult.TrySuccess(out var pattern))
+            return Result<UnPauseStitchingResponse>.FromFailure(patternResult);
+
+        var projectResult = await _userPatternRepository.GetByUserAndPatternAsync(user, pattern, cancellationToken);
+        if (!projectResult.TrySuccess(out var project))
+            return Result<UnPauseStitchingResponse>.FromFailure(projectResult);
+
+        project.PausePositionX = null;
+        project.PausePositionY = null;
+
+        await _userPatternRepository.UpdateAsync(project, cancellationToken);
+
+        return new UnPauseStitchingResponse();
     }
 
     public async Task<Result<GetAnalyticsResponse>> GetAnalytics(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken)
