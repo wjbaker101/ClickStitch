@@ -4,7 +4,7 @@
             <strong>About</strong>
         </template>
         <div class="content-width">
-            <section class="flex gap align-items-center">
+            <section class="collapse flex gap align-items-center">
                 <CardComponent border="top" padded>
                     <h3>What is ClickStitch?</h3>
                     <p>ClickStitch is <em>your</em> companion to track and manage your cross-stitching progress!</p>
@@ -25,7 +25,7 @@
                     <img src="@/assets/clickstitch-on-devices.png">
                 </div>
             </section>
-            <section class="flex gap video-row">
+            <section class="flex gap">
                 <CardComponent border="top" padded>
                     <h3>How do I track progress?</h3>
                     <p>Make sure you add the pattern onto your account.</p>
@@ -68,7 +68,7 @@
         vertical-align: middle;
     }
 
-    .video-row {
+    .collapse {
         @media screen and (max-width: 1024px) {
             display: block;
 
