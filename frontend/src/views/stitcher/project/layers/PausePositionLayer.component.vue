@@ -24,12 +24,13 @@ defineProps<{
 }>();
 
 const { pausePosition } = useCurrentProject();
-const { width, height, offset } = useTransformation();
+const { width, height, offset, scale } = useTransformation();
 const { scaledStitchSize } = useStitch();
 
 useEvent('GoToPausePosition', () => {
     if (pausePosition.value === null)
         return;
+    scale.value = 0.5;
 
     offset.value = Position.at(width.value / 2 - pausePosition.value.x * scaledStitchSize.value, height.value / 2 - pausePosition.value.y * scaledStitchSize.value);
 });
