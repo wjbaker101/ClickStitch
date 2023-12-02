@@ -303,7 +303,6 @@ const onOpenContextMenu = function (event: MouseEvent): void {
         schema: {
             header: 'Actions:',
             items: [
-                factory.item('Toggle Completed', () => {}),
                 factory.item(isPausePosition ? 'Clear Pause Position' : 'Pause Here', async () => {
                     if (isPausePosition) {
                         await api.projects.unpause(props.project.project.pattern.reference);
