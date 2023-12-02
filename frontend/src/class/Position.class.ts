@@ -36,4 +36,11 @@ export class Position {
     public floor(): Position {
         return Position.at(Math.floor(this.x), Math.floor(this.y));
     }
+
+    public equals(pos: Position | null): boolean {
+        if (pos === null)
+            return false;
+
+        return this.x === pos.x && this.y === pos.y;
+    }
 }

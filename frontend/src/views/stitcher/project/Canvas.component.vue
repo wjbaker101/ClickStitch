@@ -295,6 +295,7 @@ const onOpenContextMenu = function (event: MouseEvent): void {
     const y = event.pageY;
 
     const stitchPostiion = viewportToStitchPosition(Position.at(x, y));
+    const isPausePosition = stitchPostiion.equals(currentProject.pausePosition.value);
 
     events.publish('OpenContextMenu', {
         x,
@@ -303,7 +304,14 @@ const onOpenContextMenu = function (event: MouseEvent): void {
             header: 'Actions:',
             items: [
                 factory.item('Toggle Completed', () => {}),
-                factory.item('Pause Here', async () => {
+                factory.item(isPausePosition ? 'Clear Pause Position' : 'Pause Here', async () => {
+                    if (isPausePosition) {
+                        await api.projects.unpause(props.project.project.pattern.reference);
+                        currentProject.pausePosition.value = null;
+
+                        return;
+                    }
+
                     await api.projects.pause(props.project.project.pattern.reference, {
                         x: stitchPostiion.x,
                         y: stitchPostiion.y,
