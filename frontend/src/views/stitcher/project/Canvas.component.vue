@@ -294,8 +294,8 @@ const onOpenContextMenu = function (event: MouseEvent): void {
     const x = event.pageX;
     const y = event.pageY;
 
-    const stitchPostiion = viewportToStitchPosition(Position.at(x, y));
-    const isPausePosition = stitchPostiion.equals(currentProject.pausePosition.value);
+    const stitchPosition = viewportToStitchPosition(Position.at(x, y));
+    const isPausePosition = stitchPosition.equals(currentProject.pausePosition.value);
 
     events.publish('OpenContextMenu', {
         x,
@@ -313,11 +313,11 @@ const onOpenContextMenu = function (event: MouseEvent): void {
                     }
 
                     await api.projects.pause(props.project.project.pattern.reference, {
-                        x: stitchPostiion.x,
-                        y: stitchPostiion.y,
+                        x: stitchPosition.x,
+                        y: stitchPosition.y,
                     });
 
-                    currentProject.pausePosition.value = Position.at(stitchPostiion.x, stitchPostiion.y);
+                    currentProject.pausePosition.value = Position.at(stitchPosition.x, stitchPosition.y);
                 }),
             ],
         },
