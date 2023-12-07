@@ -13,6 +13,7 @@ import SettingsView from '@/views/_shared/settings/Settings.view.vue';
 import SignupView from '@/views/_shared/signup/Signup.view.vue';
 import NotFoundView from '@/views/_shared/not-found/NotFound.view.vue';
 import SupportedPatternFormats from '@/views/_shared/supported-pattern-formats/SupportedPatternFormats.view.vue';
+import MarketingView from '@/views/_shared/marketing/Marketing.view.vue';
 
 import { requireAuth } from '../router-helper';
 import { useAuth } from '@/use/auth/Auth.use';
@@ -123,6 +124,13 @@ export const stitcherRoutes: Array<RouteRecordRaw> = [
         component: SupportedPatternFormats,
         meta: {
             title: 'Supported Pattern Formats',
+        },
+    },
+    {
+        path: '/marketing',
+        component: MarketingView,
+        meta: {
+            title: 'Marketing',
         },
     },
     {
