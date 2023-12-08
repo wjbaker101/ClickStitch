@@ -25,6 +25,23 @@
                     <img src="@/assets/clickstitch-on-devices.png">
                 </div>
             </section>
+            <section class="numbered text-centered">
+                <CardComponent border="top" padded>
+                    <CardComponent class="number flex align-items-center"></CardComponent>
+                    <h2>Track Progress</h2>
+                    <p><em>Highlight completed stitches</em> and view analytics of your progression.</p>
+                </CardComponent>
+                <CardComponent border="top" padded>
+                    <CardComponent class="number flex align-items-center"></CardComponent>
+                    <h2>Manage Inventory</h2>
+                    <p><em>Record your floss</em>, make sure you never run out before starting a new project.</p>
+                </CardComponent>
+                <CardComponent border="top" padded>
+                    <CardComponent class="number flex align-items-center"></CardComponent>
+                    <h2>Multi-Device</h2>
+                    <p>Patterns are stored in a secure database, so continue <em>stitching whereever you go</em>.</p>
+                </CardComponent>
+            </section>
             <section class="flex gap">
                 <CardComponent border="top" padded>
                     <h3>How do I track progress?</h3>
@@ -75,6 +92,40 @@
             & > :first-child {
                 margin-bottom: 1rem;
             }
+        }
+    }
+
+    .numbered {
+        margin: 6rem 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        justify-items: stretch;
+        gap: 3rem;
+        counter-reset: index;
+
+        & > * {
+            position: relative;
+        }
+    }
+
+    .number {
+        width: 4rem;
+        position: absolute;
+        padding: 1rem;
+        top: 0;
+        left: 50%;
+        translate: -50% -50%;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 2rem;
+        color: var(--wjb-secondary);
+        border: 2px solid var(--wjb-primary);
+
+        &::before {
+            counter-increment: index;
+            content: counter(index);
         }
     }
 }
