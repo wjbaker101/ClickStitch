@@ -110,4 +110,14 @@ table {
 a {
     text-decoration: none;
 }
+
+kbd {
+    --colour: color-mix(in srgb, var(--wjb-primary) 10%, transparent);
+
+    padding: 0.125rem;
+    background-color: var(--colour);
+    border: 1px solid var(--colour);
+    border-radius: var(--wjb-border-radius);
+    line-height: 1.725em;
+}
 </style>

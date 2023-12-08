@@ -45,9 +45,30 @@
             <section class="flex gap">
                 <CardComponent border="top" padded>
                     <h3>How do I track progress?</h3>
-                    <p>Make sure you add the pattern onto your account.</p>
-                    <p>Visit the project editor page (via the dashboard), double click/ tap on individual squares to mark them as complete.</p>
-                    <p>If you wish to complete multiple stitches in one go, hold and drag the middle mouse button then press the space bar.</p>
+                    <p>Upload the pattern via your <RouterLink to="/dashboard">Dashboard</RouterLink>.</p>
+
+                    <h4>📱 On Phones/Tablets:</h4>
+                    <ul>
+                        <li><kbd>Drag</kbd> to move around the pattern</li>
+                        <li><kbd>Pinch</kbd> to zoom in or out</li>
+                        <li><kbd>Double tap</kbd> to toggle (complete or uncomplete) an individual stitch</li>
+                        <li><kbd>Long press</kbd> on a stitch to show additional actions</li>
+                    </ul>
+
+                    <h4>💻 On Laptops/PCs:</h4>
+                    <ul>
+                        <li>Hold <kbd>left mouse button</kbd> and drag to move around the pattern</li>
+                        <li><kbd>Scroll-wheel</kbd> to zoom in or out</li>
+                        <li>Double click to toggle (complete or uncomplete) an individual stitch</li>
+                        <li>
+                            Hold middle-click and drag to select multiple stitches...
+                            <ul>
+                                <li>Press <kbd>space</kbd> to <strong>complete</strong> all selected stitches</li>
+                                <li>Hold <kbd>shift</kbd> and press <kbd>space</kbd> to <strong>uncomplete</strong> all selected stitches</li>
+                            </ul>
+                        </li>
+                        <li><kbd>Right-click</kbd> on a stitch to show additional actions</li>
+                    </ul>
                 </CardComponent>
             </section>
             <section>
