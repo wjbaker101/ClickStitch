@@ -79,6 +79,11 @@
                     </em>
                     <p>Any bugs or suggestions, please feel free to contact me! Links can be found in the footer ⭣.</p>
                     <p>Thanks for your time, happy stitching! ❤️</p>
+                    <div class="text-centered">
+                        <RouterLink to="/dashboard">
+                            <ButtonComponent>Start Stitching!</ButtonComponent>
+                        </RouterLink>
+                    </div>
                 </CardComponent>
             </section>
         </div>
