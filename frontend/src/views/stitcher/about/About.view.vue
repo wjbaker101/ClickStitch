@@ -52,14 +52,12 @@
             </section>
             <section>
                 <CardComponent border="top" padded>
-                    <h3>Please Note:</h3>
-                    <em>
-                        <p>Pictures of patterns on this website or the Etsy store may not be exact representations of the finished product. For example, due to different aida counts/ lighting/ hoop sizes.</p>
-                        <p>However, a lot of care has been taken to make the digital patterns as realistic as possible, so I hope they turn out fantastic!</p>
-                    </em>
                     <h3>Lastly...</h3>
-                    <p>Any bugs or suggestions, please feel free to contact me!</p>
-                    <p>Thanks for your time, happy stitching!</p>
+                    <em>
+                        <p>Images and renders of patterns may not 100% depict colours of threads used.</p>
+                    </em>
+                    <p>Any bugs or suggestions, please feel free to contact me! Links can be found in the footer ⭣.</p>
+                    <p>Thanks for your time, happy stitching! ❤️</p>
                 </CardComponent>
             </section>
         </div>
