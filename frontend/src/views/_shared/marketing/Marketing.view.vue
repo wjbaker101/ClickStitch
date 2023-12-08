@@ -1,19 +1,26 @@
 <template>
     <div class="test-view">
         <div class="container flex align-items-center">
-            <div class="flex-auto">
-                <img width="250" height="250" src="@/assets/logo-large.png">
-                <h1><code>v1.0 Launch</code></h1>
-                <p>
-                    <a href="#">https://clickstitch.app</a>
-                </p>
+            <div class="any-width">
+                <img width="400" height="400" class="full-image" src="@/assets/clickstitch-phone-layered.png">
+                <div style="padding: 2rem 6rem 0 6rem;" class="flex gap align-items-center text-left">
+                    <div class="flex-auto">
+                        <img width="100" height="100" src="@/assets/logo-large.png">
+                    </div>
+                    <div>
+                        <h1 style="margin: 0; margin-bottom: 1rem;"><code>v1.0 Launch</code></h1>
+                        <p style="margin: 0;">
+                            <a href="#">https://clickstitch.app</a>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="container flex align-items-center">
             <img width="50" height="50" class="logo" src="@/assets/logo-large.png">
             <div class="any-width">
-                <img width="400" height="400" class="full-image" src="@/assets/clickstitch-phone-layered.png">
-                <p style="padding: 0 3rem;">ClickStitch is your companion to track and manage your cross-stitching progress! Whether you're a beginner or an advanced stitcher, ClickStitch makes life easier.</p>
+                <img width="500" height="500" class="full-image" src="@/assets/clickstitch-phone-layered.png" style="opacity: 0.3; position: absolute; top: 50%; left: 50%; translate: -50% -50%;">
+                <p class="background" style="margin: 0 -5rem;">ClickStitch is <em>your</em> companion to track and manage your cross-stitching progress! Whether you're a beginner or an advanced stitcher, ClickStitch makes life easier.</p>
             </div>
         </div>
         <div class="container flex align-items-center">
@@ -95,8 +102,8 @@
 
         .logo {
             position: absolute;
-            top: 2rem;
-            left: 2rem;
+            top: 3rem;
+            left: 3rem;
         }
 
         .number {
@@ -126,6 +133,21 @@
 
         a {
             color: var(--wjb-primary);
+        }
+
+        p.background {
+            padding: 2rem 1rem;
+            background-color: color-mix(in srgb, var(--wjb-primary) 60%, transparent);
+            border: 1px solid var(--wjb-primary-dark);
+            color: var(--wjb-text-colour-opposite);
+            font-weight: bold;
+            border-radius: var(--wjb-border-radius);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
+            backdrop-filter: blur(5px);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            scale: 0.5;
+            font-size: 2rem;
+            line-height: 3.2rem;
         }
     }
 }
