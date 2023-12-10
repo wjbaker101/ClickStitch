@@ -1,29 +1,14 @@
 <template>
     <ViewComponent class="login-view" hide-nav>
-        <div class="left-side flex flex-vertical">
-            <header class="flex flex-auto gap">
-                <div></div>
-                <div class="flex-auto">
-                    <RouterLink to="/about">
-                        <IconComponent icon="info" gap="right" />
-                        <span>About ClickStitch</span>
-                    </RouterLink>
+        <div class="content-width">
+            <h1 class="flex gap-small align-items-center">
+                <div class="logo-container flex-auto">
+                    <img width="" src="@/assets/logo.png">
                 </div>
-                <div class="flex-auto">
-                    <RouterLink to="/patterns">
-                        <IconComponent icon="download" gap="right" />
-                        <span>View Patterns</span>
-                    </RouterLink>
-                </div>
-            </header>
-            <div class="centered flex-auto">
-                <h1 class="flex gap-small align-items-center">
-                    <div class="logo-container flex-auto">
-                        <img width="" src="@/assets/logo.png">
-                    </div>
-                    <span>ClickStitch</span>
-                </h1>
-                <h2>Log In</h2>
+                <span>ClickStitch</span>
+            </h1>
+            <CardComponent class="login-card" padded border="top">
+                <h2><IconComponent icon="user" size="large" gap="right" />Log In</h2>
                 <p>
                     <label>
                         <strong>Email</strong>
@@ -43,22 +28,7 @@
                 <p>
                     Don't have an account? <RouterLink to="/signup"><ButtonComponent class="mini">Sign Up</ButtonComponent></RouterLink>
                 </p>
-            </div>
-        </div>
-        <div class="right-side flex textured-background">
-            <div class="right-side-content centered flex-auto">
-                <h2>Check out these Patterns!</h2>
-                <p class="description">
-                    <IconComponent icon="arrow-left" gap="right" />
-                    <span>Log in to be able to add them to your account</span>
-                </p>
-                <div class="example-patterns">
-                    <img class="example-pattern" src="@/assets/examples/howling-wolf.jpg">
-                    <img class="example-pattern" src="@/assets/examples/hot-air-balloon.png">
-                    <img class="example-pattern" src="@/assets/examples/dragon-silhouette.png">
-                    <img class="example-pattern" src="@/assets/examples/templar-knight.png">
-                </div>
-            </div>
+            </CardComponent>
         </div>
     </ViewComponent>
 </template>
@@ -140,16 +110,9 @@ const onLogin = async function () {
 @use '@/style/variables' as *;
 
 .login-view {
-    height: 100%;
 
-    $angle: 4rem;
-
-    h1 {
-        margin: 0 0 3rem 0;
-    }
-
-    h2 {
-        margin: 0;
+    .content-width {
+        max-width: 720px;
     }
 
     .logo-container {
@@ -166,91 +129,19 @@ const onLogin = async function () {
         }
     }
 
-    .left-side {
-        inset: 0 50% 0 0;
-        position: absolute;
+    .login-card {
         background-color: var(--wjb-primary);
         background: linear-gradient(
-            -45deg,
+            -25deg,
             var(--wjb-primary-dark),
             var(--wjb-primary),
         );
-        margin-right: -$angle;
         color: var(--wjb-light);
-        clip-path: polygon(0 0, 100% 0, calc(100% - ($angle * 2)) 100%, 0% 100%);
-        z-index: 1;
-
-        @media screen and (max-width: 720px) {
-            margin-right: 0;
-            position: static;
-            padding: 2rem 0;
-            clip-path: none;
-        }
-
-        header {
-            padding: 1rem;
-            margin-right: 1rem;
-
-            a {
-                color: inherit;
-                text-decoration: none;
-
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-        }
+        border-color: var(--wjb-tertiary);
     }
 
-    .right-side {
-        inset: 0 0 0 50%;
-        position: absolute;
-
-        .description {
-            margin: 0.5rem 0 2rem 0;
-        }
-
-        @media screen and (max-width: 720px) {
-            position: static;
-            padding: 2rem 0;
-            background-color: transparent;
-        }
-    }
-
-    .right-side-content {
-        padding-left: $angle;
-    }
-
-    .centered {
-        margin: auto;
-    }
-
-    .example-patterns {
-        width: calc(300px + 1rem);
-        display: grid;
-        gap: 1rem;
-        grid-template: 1fr 1fr / 1fr 1fr;
-    }
-
-    .example-pattern {
-        border-radius: var(--wjb-border-radius);
-
-        @include shadow-small();
-    }
-
-    .footer-component {
-        position: relative;
-        color: #ddd;
-        z-index: 1;
-
-        a {
-            color: var(--wjb-light);
-            box-shadow: 0 1px 0px var(--wjb-light);
-
-            &:hover {
-                box-shadow: none;
-            }
-        }
+    input {
+        width: 100%;
     }
 }
 </style>
