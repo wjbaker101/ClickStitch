@@ -1,7 +1,7 @@
 <template>
     <ViewComponent class="patterns-view">
         <template #nav>
-            <strong>Patterns</strong>
+            <strong>Creator Patterns</strong>
         </template>
         <div class="content-width">
             <UserMessageComponent ref="userMessageComponent" />
@@ -15,8 +15,10 @@
             <template v-else>
                 <section>
                     <CardComponent border="top" padded>
-                        <p>Once patterns are added to your account, you can start tracking your progress!</p>
-                        <p><strong>Make sure to purchase the digital patterns from the <LinkComponent :href="etsyStoreUrl" external>Etsy Store</LinkComponent> first.</strong></p>
+                        <h2>What are Creator Patterns?</h2>
+                        <p>All patterns here have been made by Creators! You are free to add them to your dashboard where you'll be able to track your progress like normal.</p>
+                        <p>A link to their product page will also be available, where you'll be able to purchase the necessary resources for the pattern.</p>
+                        <p>These are great for when you are just looking for a new project to start!</p>
                     </CardComponent>
                 </section>
                 <section>
@@ -36,7 +38,6 @@ import UserMessageComponent from '@/components/UserMessage.component.vue';
 import ZeroStateComponent from '@/components/ZeroState.component.vue';
 import PatternComponent from '@/views/stitcher/patterns/components/Pattern.component.vue';
 
-import { etsyStoreUrl } from '@/data/data';
 import { api } from '@/api/api';
 
 import { type IPattern } from '@/models/Pattern.model';
