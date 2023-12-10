@@ -7,7 +7,7 @@
                 </div>
                 <span>ClickStitch</span>
             </h1>
-            <CardComponent class="login-card" padded border="top">
+            <ContentCardComponent>
                 <h2><IconComponent icon="user" size="large" gap="right" />Log In</h2>
                 <p>
                     <label>
@@ -28,7 +28,7 @@
                 <p>
                     Don't have an account? <RouterLink to="/signup"><ButtonComponent class="mini">Sign Up</ButtonComponent></RouterLink>
                 </p>
-            </CardComponent>
+            </ContentCardComponent>
         </div>
     </ViewComponent>
 </template>
@@ -37,6 +37,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+import ContentCardComponent from '@/views/_shared/login/components/ContentCard.component.vue';
 import UserMessageComponent from '@/components/UserMessage.component.vue';
 
 import { api } from '@/api/api';
@@ -127,17 +128,6 @@ const onLogin = async function () {
         img {
             max-width: 100%;
         }
-    }
-
-    .login-card {
-        background-color: var(--wjb-primary);
-        background: linear-gradient(
-            -25deg,
-            var(--wjb-primary-dark),
-            var(--wjb-primary),
-        );
-        color: var(--wjb-light);
-        border-color: var(--wjb-tertiary);
     }
 
     input {

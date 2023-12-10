@@ -10,7 +10,7 @@
             <small>
                 <RouterLink to="/login"><IconComponent icon="arrow-left" gap="right" />Return to login</RouterLink>
             </small>
-            <CardComponent class="signup-card" padded border="top">
+            <ContentCardComponent>
                 <h2><IconComponent icon="user" size="large" gap="right" />Sign up</h2>
                 <p>
                     <label>
@@ -39,7 +39,7 @@
                 </p>
                 <UserMessageComponent ref="userMessageComponent" />
                 <ButtonComponent class="tertiary" @click="onSignup" :loading="isLoading">Sign Up</ButtonComponent>
-            </CardComponent>
+            </ContentCardComponent>
         </div>
     </ViewComponent>
 </template>
@@ -48,6 +48,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+import ContentCardComponent from '@/views/_shared/login/components/ContentCard.component.vue';
 import UserMessageComponent from '@/components/UserMessage.component.vue';
 
 import { api } from '@/api/api';
@@ -140,17 +141,6 @@ const onSignup = async function () {
         img {
             max-width: 100%;
         }
-    }
-
-    .signup-card {
-        background-color: var(--wjb-primary);
-        background: linear-gradient(
-            -25deg,
-            var(--wjb-primary-dark),
-            var(--wjb-primary),
-        );
-        color: var(--wjb-light);
-        border-color: var(--wjb-tertiary);
     }
 
     .passwords-container {
