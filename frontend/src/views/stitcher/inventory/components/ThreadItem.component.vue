@@ -53,7 +53,7 @@ watchDebounced(count, async () => {
     .icon-container {
         padding: 0.5rem;
         border-radius: 50%;
-        background-color: var(--wjb-white);
+        background-color: var(--wjb-background-colour);
 
         .icon-skein {
             width: 2rem;
