@@ -10,17 +10,39 @@
                 <LoadingComponent itemName="projects" />
             </div>
             <ZeroStateComponent v-else-if="projects?.length === 0" icon="info">
-                <p>No projects yet!</p>
-                <p>Visit the patterns page to get your first one and start stitching!</p>
-                <RouterLink to="/patterns">
-                    <ButtonComponent>Patterns Page</ButtonComponent>
-                </RouterLink>
+                <h2>No projects yet!</h2>
+                <div class="new-project-options">
+                    <CardComponent padded border="top">
+                        <CardComponent class="number flex align-items-center"></CardComponent>
+                        <div class="flex-auto">
+                            <p>Upload your first pattern now!</p>
+                            <RouterLink to="/patterns/new">
+                                <ButtonComponent>
+                                    <IconComponent icon="plus" gap="right" />
+                                    <span>New Pattern</span>
+                                </ButtonComponent>
+                            </RouterLink>
+                        </div>
+                    </CardComponent>
+                    <CardComponent padded border="top">
+                        <CardComponent class="number flex align-items-center"></CardComponent>
+                        <div class="flex-auto">
+                            <p>Looking for inspiration?</p>
+                            <RouterLink to="/patterns">
+                                <ButtonComponent>
+                                    <IconComponent icon="download" gap="right" />
+                                    View Creator Patterns
+                                </ButtonComponent>
+                            </RouterLink>
+                        </div>
+                    </CardComponent>
+                </div>
             </ZeroStateComponent>
             <div v-else class="projects">
                 <ProjectComponent :key="project.pattern.reference" v-for="project in projects" :project="project" />
             </div>
         </div>
-        <div class="floating-action-button">
+        <div v-if="!isLoading && projects !== null && projects.length > 0" class="floating-action-button">
             <RouterLink to="/patterns/new">
                 <ButtonComponent>
                     <IconComponent icon="plus" gap="right" />
@@ -65,6 +87,41 @@ onMounted(async () => {
 
 <style lang="scss">
 .dashboard-view {
+
+    .new-project-options {
+        max-width: 720px;
+        margin: 4rem auto 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        justify-items: stretch;
+        gap: 3rem;
+        counter-reset: index;
+
+        & > * {
+            position: relative;
+        }
+    }
+
+    .number {
+        width: 4rem;
+        position: absolute;
+        padding: 1rem;
+        top: 0;
+        left: 50%;
+        translate: -50% -50%;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 2rem;
+        color: var(--wjb-secondary);
+        border: 2px solid var(--wjb-primary);
+
+        &::before {
+            counter-increment: index;
+            content: counter(index);
+        }
+    }
 
     .projects {
         display: grid;
