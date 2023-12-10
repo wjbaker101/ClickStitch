@@ -1,12 +1,6 @@
 <template>
     <ViewComponent class="signup-view" hide-nav>
         <div class="content-width">
-            <h1 class="flex gap-small align-items-center">
-                <div class="logo-container flex-auto">
-                    <img width="" src="@/assets/logo.png">
-                </div>
-                <span>ClickStitch</span>
-            </h1>
             <small>
                 <RouterLink to="/login"><IconComponent icon="arrow-left" gap="right" />Return to login</RouterLink>
             </small>

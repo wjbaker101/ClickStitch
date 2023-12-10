@@ -1,12 +1,6 @@
 <template>
     <ViewComponent class="login-view" hide-nav>
         <div class="content-width">
-            <h1 class="flex gap-small align-items-center">
-                <div class="logo-container flex-auto">
-                    <img width="" src="@/assets/logo.png">
-                </div>
-                <span>ClickStitch</span>
-            </h1>
             <ContentCardComponent>
                 <h2><IconComponent icon="user" size="large" gap="right" />Log In</h2>
                 <p>
