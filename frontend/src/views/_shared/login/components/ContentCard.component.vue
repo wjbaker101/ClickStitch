@@ -1,6 +1,6 @@
 <template>
     <CardComponent class="content-card-component" padded>
-        <img class="logo" width="90" height="90" src="@/assets/logo-text.png">
+        <img class="logo" width="90" height="90" src="@/assets/logo-text.jpg">
         <slot></slot>
     </CardComponent>
 </template>
