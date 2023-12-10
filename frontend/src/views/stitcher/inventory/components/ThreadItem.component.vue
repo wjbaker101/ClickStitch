@@ -8,7 +8,7 @@
                 <strong>{{ thread.thread.brand }} {{ thread.thread.code }}</strong>
             </div>
             <div class="flex-auto">
-                <input class="counter" type="number" min="0" max="9999" v-model="count">
+                <input class="counter" type="number" min="0" max="9999" step="1" v-model="count">
             </div>
         </div>
     </ListItemComponent>
