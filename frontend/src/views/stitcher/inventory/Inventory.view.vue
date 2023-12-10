@@ -6,22 +6,25 @@
         <div class="content-width">
             <section>
                 <CardComponent border="top" padded>
-                    <h2>Manage Your Threads</h2>
-                    <section>
-                        <FormComponent>
-                            <FormSectionComponent class="flex align-items-center">
-                                <FormInputComponent label="Search">
-                                    <input type="search" placeholder="DMC 814" v-model="searchTerm">
-                                </FormInputComponent>
-                            </FormSectionComponent>
-                        </FormComponent>
-                    </section>
-                    <section>
-                        <p v-if="displayThreads.length === 0" class="text-centered">
-                            Enter a thread code above and select how many you have.
-                        </p>
-                        <ThreadItemComponent :key="thread.thread.reference" v-for="thread in displayThreads" :thread="thread" />
-                    </section>
+                    <h2>Manage your Threads</h2>
+                    <LoadingComponent v-if="isLoading" itemName="threads" />
+                    <template v-else>
+                        <section>
+                            <FormComponent>
+                                <FormSectionComponent class="flex align-items-center">
+                                    <FormInputComponent label="Search">
+                                        <input type="search" placeholder="DMC 814" v-model="searchTerm">
+                                    </FormInputComponent>
+                                </FormSectionComponent>
+                            </FormComponent>
+                        </section>
+                        <section>
+                                <p v-if="displayThreads.length === 0" class="text-centered">
+                                    Enter a thread code above and select how many you have.
+                                </p>
+                                <ThreadItemComponent :key="thread.thread.reference" v-for="thread in displayThreads" :thread="thread" />
+                        </section>
+                    </template>
                 </CardComponent>
             </section>
         </div>
@@ -32,6 +35,7 @@
 import { computed, onMounted, ref } from 'vue';
 import { watchDebounced } from '@vueuse/core';
 
+import LoadingComponent from '@wjb/vue/component/LoadingComponent.vue';
 import ThreadItemComponent from '@/views/stitcher/inventory/components/ThreadItem.component.vue';
 
 import { api } from '@/api/api';
@@ -41,6 +45,7 @@ import type { IInventoryThread } from '@/models/Inventory.model';
 const searchTerm = ref<string>('');
 const searchTermSanitised = computed<string>(() => searchTerm.value.trim().toLowerCase());
 
+const isLoading = ref<boolean>(false);
 const threads = ref<Array<IInventoryThread>>([]);
 const displayThreads = ref<Array<IInventoryThread>>([]);
 
@@ -63,7 +68,10 @@ watchDebounced(searchTerm, () => {
 });
 
 onMounted(async () => {
+    isLoading.value = true;
     const result = await api.inventory.getThreads();
+    isLoading.value = false;
+
     if (result instanceof Error)
         return;
 
