@@ -1,5 +1,5 @@
 ﻿using Core.Services;
-using Core.Types;
+using DotNetLibs.Core.Types;
 
 namespace Core.Tests.Services.SlugServiceTests;
 

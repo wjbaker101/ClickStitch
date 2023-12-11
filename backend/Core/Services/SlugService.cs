@@ -1,4 +1,4 @@
-﻿using Core.Types;
+﻿using DotNetLibs.Core.Types;
 using System.Text.RegularExpressions;
 
 namespace Core.Services;

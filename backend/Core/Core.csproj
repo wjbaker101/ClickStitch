@@ -6,4 +6,8 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <PackageReference Include="DotNetLibs.Core" Version="231211.2113.0" />
+	</ItemGroup>
+
 </Project>

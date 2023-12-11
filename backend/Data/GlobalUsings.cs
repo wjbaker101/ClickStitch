@@ -1,3 +1,3 @@
-﻿global using Core.Types;
-global using Data.Records;
+﻿global using Data.Records;
+global using DotNetLibs.Core.Types;
 global using NHibernate.Linq;

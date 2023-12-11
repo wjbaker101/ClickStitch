@@ -1,5 +1,7 @@
 ﻿// ReSharper disable SpecifyStringComparison
 
+using Core.Types;
+
 namespace Data.Repositories.User;
 
 public interface IUserRepository : IRepository<UserRecord>

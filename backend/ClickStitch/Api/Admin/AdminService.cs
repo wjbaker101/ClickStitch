@@ -1,5 +1,4 @@
 ﻿using ClickStitch.Api.Admin.Types;
-using Core.Extensions;
 using Data.Records;
 using Data.Repositories.Admin;
 using Data.Repositories.Admin.Types;
@@ -7,6 +6,7 @@ using Data.Repositories.Permission;
 using Data.Repositories.Thread;
 using Data.Repositories.User;
 using Data.Repositories.UserPermission;
+using DotNetLibs.Core.Extensions;
 
 namespace ClickStitch.Api.Admin;
 
