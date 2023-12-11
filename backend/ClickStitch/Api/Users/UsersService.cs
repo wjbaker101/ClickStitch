@@ -4,6 +4,7 @@ using Core.Services;
 using Data.Records;
 using Data.Repositories.User;
 using DotNetLibs.Core.Extensions;
+using DotNetLibs.Core.Services;
 using System.Text.RegularExpressions;
 
 namespace ClickStitch.Api.Users;
@@ -21,7 +22,7 @@ public sealed partial class UsersService : IUsersService
     private readonly IUserRepository _userRepository;
     private readonly IPasswordService _passwordService;
     private readonly IGuid _guid;
-    private readonly IDateTime _dateTime;
+    private readonly IDateTimeProvider _dateTime;
 
     [GeneratedRegex(".+@.+\\..+")]
     private static partial Regex EmailRegex();
@@ -30,7 +31,7 @@ public sealed partial class UsersService : IUsersService
         IUserRepository userRepository,
         IPasswordService passwordService,
         IGuid guid,
-        IDateTime dateTime)
+        IDateTimeProvider dateTime)
     {
         _userRepository = userRepository;
         _passwordService = passwordService;

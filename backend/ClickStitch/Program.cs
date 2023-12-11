@@ -24,6 +24,8 @@ using Data.Repositories.UserPattern;
 using Data.Repositories.UserPatternThreadStitch;
 using Data.Repositories.UserPermission;
 using Data.Repositories.UserThread;
+using DotNetLibs.Core.Services;
+using GuidProvider = Core.Services.GuidProvider;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -31,7 +33,7 @@ var services = builder.Services;
 SetupSettings();
 services.AddSingleton(builder.Configuration.Get<AppSecrets>()!);
 
-services.AddSingleton<IDateTime, DateTimeProvider>();
+services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 services.AddSingleton<IGuid, GuidProvider>();
 
 services.AddSingleton<IDatabase, Database>();

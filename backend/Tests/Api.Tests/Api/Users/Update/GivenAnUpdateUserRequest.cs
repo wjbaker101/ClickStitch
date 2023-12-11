@@ -3,6 +3,7 @@ using ClickStitch.Api.Users;
 using ClickStitch.Api.Users.Types;
 using Data.Records;
 using Data.Repositories.User;
+using DotNetLibs.Core.Services.Fakes;
 using Moq;
 using TestHelpers.Settings;
 
@@ -41,7 +42,7 @@ public sealed class GivenAnUpdateUserRequest
             _userRepository.Object,
             new PasswordService(new TestAppSecrets()),
             FakeGuid.Default(),
-            FakeDateTime.Default());
+            new FakeDateTimeProvider());
         
         _result = await subject.UpdateUser(new RequestUser
         {

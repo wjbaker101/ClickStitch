@@ -1,6 +1,7 @@
 ﻿using ClickStitch.Api.Auth;
 using ClickStitch.Api.Auth.Types;
 using ClickStitch.Models;
+using DotNetLibs.Core.Services.Fakes;
 using TestHelpers.Settings;
 
 namespace Api.Tests.Api.Auth;
@@ -16,7 +17,10 @@ public sealed class GivenALogInRequest
     {
         var dateTime = new DateTime(3052, 11, 29, 14, 58, 13);
 
-        var loginTokenService = new LoginTokenService(FakeDateTime.With(dateTime), new TestAppSecrets());
+        var loginTokenService = new LoginTokenService(new FakeDateTimeProvider
+        {
+            FakeUtcNow = dateTime
+        }, new TestAppSecrets());
 
         var subject = new AuthService(FakeUserRepository.Default(), new PasswordService(new TestAppSecrets()), loginTokenService, FakeUserPermissionRepository.Default());
 

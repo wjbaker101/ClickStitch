@@ -3,6 +3,7 @@ using ClickStitch.Api.Users;
 using ClickStitch.Api.Users.Types;
 using Data.Records;
 using Data.Repositories.User;
+using DotNetLibs.Core.Services.Fakes;
 using Moq;
 using TestHelpers.Settings;
 
@@ -38,7 +39,7 @@ public sealed class GivenACreateUserRequestWithAnExistingEmail
             _userRepository.Object,
             new PasswordService(new TestAppSecrets()),
             FakeGuid.With(Guid.Parse("55993eb0-9824-4dbf-a674-1f5a09205287")),
-            FakeDateTime.Default());
+            new FakeDateTimeProvider());
 
         _result = await subject.CreateUser(new CreateUserRequest
         {

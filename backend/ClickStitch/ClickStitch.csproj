@@ -13,7 +13,7 @@
 	<ItemGroup>
 		<PackageReference Include="CloudinaryDotNet" Version="1.23.0" />
 		<PackageReference Include="DotNetLibs.Api" Version="231211.2113.0" />
-		<PackageReference Include="DotNetLibs.Core" Version="231211.2113.0" />
+		<PackageReference Include="DotNetLibs.Core" Version="231211.2241.0" />
 		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="8.0.0" />
 		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.0" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.27.0" />

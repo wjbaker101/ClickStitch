@@ -1,5 +1,5 @@
-﻿using Core.Services;
-using Core.Settings;
+﻿using Core.Settings;
+using DotNetLibs.Core.Services;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -17,10 +17,10 @@ public sealed class LoginTokenService : ILoginTokenService
 {
     private const string CLAIM_USER_REFERENCE = "userReference";
 
-    private readonly IDateTime _dateTime;
+    private readonly IDateTimeProvider _dateTime;
     private readonly string _secretKey;
 
-    public LoginTokenService(IDateTime dateTime, AppSecrets secrets)
+    public LoginTokenService(IDateTimeProvider dateTime, AppSecrets secrets)
     {
         _dateTime = dateTime;
         _secretKey = secrets.Auth.LoginToken.SecretKey;

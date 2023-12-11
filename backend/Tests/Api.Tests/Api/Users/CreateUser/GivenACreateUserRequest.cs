@@ -3,6 +3,7 @@ using ClickStitch.Api.Users;
 using ClickStitch.Api.Users.Types;
 using Data.Records;
 using Data.Repositories.User;
+using DotNetLibs.Core.Services.Fakes;
 using Moq;
 using TestHelpers.Settings;
 
@@ -31,7 +32,7 @@ public sealed class GivenACreateUserRequest
             _userRepository.Object,
             new PasswordService(new TestAppSecrets()),
             FakeGuid.With(Guid.Parse("55993eb0-9824-4dbf-a674-1f5a09205287")),
-            FakeDateTime.Default());
+            new FakeDateTimeProvider());
 
         _result = await subject.CreateUser(new CreateUserRequest
         {
@@ -57,7 +58,7 @@ public sealed class GivenACreateUserRequest
         Assert.Multiple(() =>
         {
             Assert.That(user.Reference, Is.EqualTo(Guid.Parse("55993eb0-9824-4dbf-a674-1f5a09205287")), nameof(user.Reference));
-            Assert.That(user.CreatedAt, Is.EqualTo(new DateTime(2020, 01, 02, 23, 24, 25)), nameof(user.CreatedAt));
+            Assert.That(user.CreatedAt, Is.EqualTo(new DateTime(2012, 04, 11, 04, 16, 58)), nameof(user.CreatedAt));
             Assert.That(user.Email, Is.EqualTo("test@email.com"), nameof(user.Email));
             Assert.That(user.Password, Is.EqualTo("/y4uCdYgHfFU4jGJNBrTk1waTQS8g8gR0UnOdiRo5OY="), nameof(user.Password));
             Assert.That(user.PasswordSalt, Is.EqualTo("55993eb0-9824-4dbf-a674-1f5a09205287"), nameof(user.PasswordSalt));
@@ -74,7 +75,7 @@ public sealed class GivenACreateUserRequest
         Assert.Multiple(() =>
         {
             Assert.That(user.Reference, Is.EqualTo(Guid.Parse("55993eb0-9824-4dbf-a674-1f5a09205287")), nameof(user.Reference));
-            Assert.That(user.CreatedAt, Is.EqualTo(new DateTime(2020, 01, 02, 23, 24, 25)), nameof(user.CreatedAt));
+            Assert.That(user.CreatedAt, Is.EqualTo(new DateTime(2012, 04, 11, 04, 16, 58)), nameof(user.CreatedAt));
             Assert.That(user.Email, Is.EqualTo("test@email.com"), nameof(user.Email));
         });
     }
