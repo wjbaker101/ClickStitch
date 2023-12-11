@@ -10,27 +10,27 @@
         "create-pwa-assets": "pwa-assets-generator --preset minimal public/logo_orig.png"
     },
     "dependencies": {
-        "@vueuse/core": "^10.5.0",
-        "axios": "^1.5.1",
-        "chart.js": "^4.4.0",
+        "@vueuse/core": "^10.7.0",
+        "axios": "^1.6.2",
+        "chart.js": "^4.4.1",
         "dayjs": "^1.11.10",
         "hammerjs": "^2.0.8",
-        "vue": "^3.2.47",
+        "vue": "^3.3.11",
         "vue-chartjs": "^5.2.0",
         "vue-router": "^4.2.5"
     },
     "devDependencies": {
-        "@types/hammerjs": "^2.0.42",
-        "@types/node": "^20.8.4",
-        "@vite-pwa/assets-generator": "^0.0.10",
-        "@vitejs/plugin-vue": "^4.4.0",
+        "@types/hammerjs": "^2.0.45",
+        "@types/node": "^20.10.4",
+        "@vite-pwa/assets-generator": "^0.1.0",
+        "@vitejs/plugin-vue": "^4.5.2",
         "@wjb/styling": "^1.0.82",
-        "@wjb/vue": "^1.0.88",
-        "sass": "^1.69.2",
-        "typescript": "~5.2.2",
-        "vite": "^4.4.11",
-        "vite-plugin-mkcert": "^1.16.0",
-        "vite-plugin-pwa": "^0.16.5"
+        "@wjb/vue": "^1.0.89",
+        "sass": "^1.69.5",
+        "typescript": "~5.3.3",
+        "vite": "^5.0.7",
+        "vite-plugin-mkcert": "^1.17.1",
+        "vite-plugin-pwa": "^0.17.4"
     },
     "browserslist": [
         "> 1%",
