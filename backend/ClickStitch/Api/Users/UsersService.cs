@@ -1,9 +1,9 @@
 ﻿using ClickStitch.Api.Auth;
 using ClickStitch.Api.Users.Types;
-using Core.Extensions;
 using Core.Services;
 using Data.Records;
 using Data.Repositories.User;
+using DotNetLibs.Core.Extensions;
 using System.Text.RegularExpressions;
 
 namespace ClickStitch.Api.Users;

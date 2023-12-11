@@ -1,11 +1,11 @@
 ﻿using ClickStitch.Api.Projects.Types;
-using Core.Extensions;
 using Data.Records;
 using Data.Repositories.Pattern;
 using Data.Repositories.User;
 using Data.Repositories.UserPattern;
 using Data.Repositories.UserPatternThreadStitch;
 using Data.Repositories.UserPatternThreadStitch.Types;
+using DotNetLibs.Core.Extensions;
 
 namespace ClickStitch.Api.Projects;
 

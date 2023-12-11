@@ -1,11 +1,11 @@
 ﻿using ClickStitch.Api.Creators.Types;
 using ClickStitch.Api.Users.Types;
-using Core.Extensions;
 using Data.Records;
 using Data.Repositories.Creator;
 using Data.Repositories.Creator.Types;
 using Data.Repositories.User;
 using Data.Repositories.UserCreator;
+using DotNetLibs.Core.Extensions;
 
 namespace ClickStitch.Api.Creators;
 

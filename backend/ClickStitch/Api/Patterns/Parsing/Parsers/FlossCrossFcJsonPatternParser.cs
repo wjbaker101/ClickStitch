@@ -1,5 +1,5 @@
 ﻿using ClickStitch.Api.Patterns.Parsing.Types;
-using Core.Extensions;
+using DotNetLibs.Core.Extensions;
 using Utf8Json;
 
 namespace ClickStitch.Api.Patterns.Parsing.Parsers;
