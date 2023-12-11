@@ -1,6 +1,5 @@
 ﻿using ClickStitch.Api.Auth;
 using ClickStitch.Api.Users.Types;
-using Core.Services;
 using Data.Records;
 using Data.Repositories.User;
 using DotNetLibs.Core.Extensions;
@@ -21,7 +20,7 @@ public sealed partial class UsersService : IUsersService
 {
     private readonly IUserRepository _userRepository;
     private readonly IPasswordService _passwordService;
-    private readonly IGuid _guid;
+    private readonly IGuidProvider _guid;
     private readonly IDateTimeProvider _dateTime;
 
     [GeneratedRegex(".+@.+\\..+")]
@@ -30,7 +29,7 @@ public sealed partial class UsersService : IUsersService
     public UsersService(
         IUserRepository userRepository,
         IPasswordService passwordService,
-        IGuid guid,
+        IGuidProvider guid,
         IDateTimeProvider dateTime)
     {
         _userRepository = userRepository;

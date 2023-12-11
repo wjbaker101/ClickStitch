@@ -9,7 +9,6 @@ using ClickStitch.Api.Projects;
 using ClickStitch.Api.Users;
 using ClickStitch.Clients.Cloudinary;
 using ClickStitch.Filters;
-using Core.Services;
 using Core.Settings;
 using Data;
 using Data.Repositories.Admin;
@@ -25,7 +24,6 @@ using Data.Repositories.UserPatternThreadStitch;
 using Data.Repositories.UserPermission;
 using Data.Repositories.UserThread;
 using DotNetLibs.Core.Services;
-using GuidProvider = Core.Services.GuidProvider;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -34,7 +32,7 @@ SetupSettings();
 services.AddSingleton(builder.Configuration.Get<AppSecrets>()!);
 
 services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-services.AddSingleton<IGuid, GuidProvider>();
+services.AddSingleton<IGuidProvider, GuidProvider>();
 
 services.AddSingleton<IDatabase, Database>();
 services.AddSingleton<IAdminRepository, AdminRepository>();

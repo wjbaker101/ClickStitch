@@ -38,7 +38,10 @@ public sealed class GivenACreateUserRequestWithAnExistingEmail
         var subject = new UsersService(
             _userRepository.Object,
             new PasswordService(new TestAppSecrets()),
-            FakeGuid.With(Guid.Parse("55993eb0-9824-4dbf-a674-1f5a09205287")),
+            new FakeGuidProvider
+            {
+                FakeGuid = Guid.Parse("55993eb0-9824-4dbf-a674-1f5a09205287")
+            },
             new FakeDateTimeProvider());
 
         _result = await subject.CreateUser(new CreateUserRequest
