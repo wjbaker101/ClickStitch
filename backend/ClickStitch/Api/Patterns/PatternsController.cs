@@ -1,7 +1,7 @@
 ﻿using ClickStitch.Api.Auth.Attributes;
 using ClickStitch.Api.Patterns.Types;
 using ClickStitch.Helper;
-using ClickStitch.Types;
+using DotNetLibs.Api.Types;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 

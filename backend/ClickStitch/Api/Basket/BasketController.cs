@@ -1,6 +1,6 @@
 ﻿using ClickStitch.Api.Auth.Attributes;
 using ClickStitch.Helper;
-using ClickStitch.Types;
+using DotNetLibs.Api.Types;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClickStitch.Api.Basket;

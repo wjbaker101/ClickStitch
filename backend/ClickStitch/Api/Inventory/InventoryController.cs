@@ -1,7 +1,7 @@
 ﻿using ClickStitch.Api.Auth.Attributes;
 using ClickStitch.Api.Inventory.Types;
 using ClickStitch.Helper;
-using ClickStitch.Types;
+using DotNetLibs.Api.Types;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClickStitch.Api.Inventory;

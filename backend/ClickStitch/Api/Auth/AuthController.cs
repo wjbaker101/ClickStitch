@@ -1,5 +1,5 @@
 ﻿using ClickStitch.Api.Auth.Types;
-using ClickStitch.Types;
+using DotNetLibs.Api.Types;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClickStitch.Api.Auth;
