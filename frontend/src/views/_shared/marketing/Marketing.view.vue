@@ -28,7 +28,7 @@
             <CardComponent class="flex-auto" border="top" padded>
                 <CardComponent class="number flex align-items-center"></CardComponent>
                 <h2>Track Progress</h2>
-                <p><em>Highlight completed stitches</em> and view analytics of your progression.</p>
+                <p><em>Highlight completed stitches</em> and view analytics of your progression!</p>
             </CardComponent>
         </div>
         <div class="container flex align-items-center">
@@ -36,7 +36,7 @@
             <CardComponent class="flex-auto" border="top" padded>
                 <CardComponent class="number flex align-items-center"></CardComponent>
                 <h2>Manage Inventory</h2>
-                <p><em>Record your floss</em>, make sure you never run out before starting a new project.</p>
+                <p><em>Record your floss</em>, make sure you never run out before starting a new project!</p>
             </CardComponent>
         </div>
         <div class="container flex align-items-center">
@@ -44,7 +44,7 @@
             <CardComponent class="flex-auto" border="top" padded>
                 <CardComponent class="number flex align-items-center"></CardComponent>
                 <h2>Multi-Device</h2>
-                <p>Patterns are stored in a secure database, so continue <em>stitching whereever you go</em>.</p>
+                <p>Patterns are securely stored online, so continue <em>stitching everywhere you go!</em></p>
             </CardComponent>
         </div>
         <div class="container flex align-items-center">
