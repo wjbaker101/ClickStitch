@@ -21,7 +21,4 @@ export const pwaOptions: Partial<VitePWAOptions> = {
             },
         ],
     },
-    devOptions: {
-        enabled: true,
-    },
 };
