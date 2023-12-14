@@ -7,15 +7,15 @@
             <section>
                 <CardComponent border="top" padded>
                     <h2>Users</h2>
-                    <LoadingComponent v-if="getUsers === null || permissions === null" />
-                    <div v-else>
+                    <PaginatedContentComponent loadingItemName="users" :logic="loadUsers" :pageSize="10">
                         <UserItemComponent
+                            v-if="getUsers !== null && permissions !== null"
                             :key="userDetails.user.reference"
                             v-for="userDetails in getUsers.users"
                             :userDetails="userDetails"
                             :permissions="permissions"
                         />
-                    </div>
+                    </PaginatedContentComponent>
                 </CardComponent>
             </section>
         </div>
@@ -23,31 +23,36 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 
+import PaginatedContentComponent from '@/components/paginated-content/PaginatedContent.component.vue';
 import UserItemComponent from './components/UserItem.component.vue';
 
 import { api } from '@/api/api';
+import { paginationMapper } from '@/api/mappers/Pagination.mapper';
 
-import { type IGetUsers } from '@/models/GetUsers.model';
-import { type IPermission } from '@/models/Permission.model';
+import type { IGetUsers } from '@/models/GetUsers.model';
+import type { IPermission } from '@/models/Permission.model';
+import type { IPagination } from '@/models/Pagination.model';
 
 const getUsers = ref<IGetUsers | null>(null);
 const permissions = ref<Array<IPermission> | null>(null);
 
-onMounted(async () => {
-    const usersResult = await api.admin.getUsers(1, 50);
+const loadUsers = async function (pageNumber: number, pageSize: number): Promise<IPagination | Error> {
+    const usersResult = await api.admin.getUsers(pageNumber, pageSize);
     if (usersResult instanceof Error)
-        return;
+        return usersResult;
 
     getUsers.value = usersResult;
 
     const permissionsResult = await api.admin.getPermissions();
     if (permissionsResult instanceof Error)
-        return;
+        return permissionsResult;
 
     permissions.value = permissionsResult;
-});
+
+    return paginationMapper.map(getUsers.value.pagination);
+};
 </script>
 
 <style lang="scss">

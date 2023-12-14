@@ -24,11 +24,12 @@ import { type IPaginationEvent } from '@/components/paginated-content/Pagination
 const props = defineProps<{
     loadingItemName?: string;
     logic: (pageNumber: number, pageSize: number) => Promise<IPagination | Error>;
+    pageSize?: number;
 }>();
 
 const isLoading = ref<boolean>(false);
 const pageNumber = ref<number>(1);
-const pageSize = ref<number>(5);
+const pageSize = ref<number>(props.pageSize ?? 5);
 
 const logicResult = ref<IPagination | null>(null);
 const failure = ref<Error | null>(null);
