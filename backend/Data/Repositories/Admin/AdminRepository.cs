@@ -40,6 +40,7 @@ public sealed class AdminRepository : Repository<IDatabaseRecord>, IAdminReposit
         var totalCount = query.ToFutureValue(x => x.Count());
 
         var usersQuery = query
+            .OrderByDescending(x => x.CreatedAt)
             .Skip((parameters.PageNumber - 1) * parameters.PageSize)
             .Take(parameters.PageSize);
 
@@ -48,7 +49,6 @@ public sealed class AdminRepository : Repository<IDatabaseRecord>, IAdminReposit
             .ToFuture();
 
         var users = (await usersQuery
-            .OrderByDescending(x => x.CreatedAt)
             .ToFuture()
             .GetEnumerableAsync(cancellationToken))
             .ToList();
