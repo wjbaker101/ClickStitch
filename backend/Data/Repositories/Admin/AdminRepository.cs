@@ -48,6 +48,7 @@ public sealed class AdminRepository : Repository<IDatabaseRecord>, IAdminReposit
             .ToFuture();
 
         var users = (await usersQuery
+            .OrderByDescending(x => x.CreatedAt)
             .ToFuture()
             .GetEnumerableAsync(cancellationToken))
             .ToList();
