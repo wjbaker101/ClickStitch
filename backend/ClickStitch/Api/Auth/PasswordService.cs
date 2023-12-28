@@ -14,6 +14,8 @@ public interface IPasswordService
 
 public sealed partial class PasswordService : IPasswordService
 {
+    private const string VALID_SYMBOLS = "!@#$%^&*";
+
     [GeneratedRegex("[0-9]+")]
     private static partial Regex HasNumberRegex();
 
@@ -23,7 +25,7 @@ public sealed partial class PasswordService : IPasswordService
     [GeneratedRegex("[a-z]+")]
     private static partial Regex HasLowerCaseRegex();
 
-    [GeneratedRegex("[!@#$%^&*()_+=\\[{\\]};:<>|./?,-]")]
+    [GeneratedRegex($"[{VALID_SYMBOLS}]")]
     private static partial Regex HasSymbolRegex();
 
     private readonly string _pepper;
@@ -49,9 +51,7 @@ public sealed partial class PasswordService : IPasswordService
 
     public Result IsValid(string password)
     {
-        const string symbols = "!@#$%^&*()_+=\\[{\\]};:<>|./?,-";
-
-        const string requirements = $"Requirements: Password must be between 8 and 60 characters; contain at least 1 number, uppercase character, lowercase character; and a symbol ( {symbols} ).";
+        const string requirements = $"Requirements: Password must be between 8 and 60 characters; contain at least 1 number, uppercase character, lowercase character; and a symbol ( {VALID_SYMBOLS} ).";
 
         if (password.Length is < 8 or > 60)
             return Result.Failure($"Password length does not meet requirements. {requirements}");
