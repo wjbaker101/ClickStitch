@@ -18,7 +18,8 @@ public static partial class SlugService
     {
         var mutated = text;
 
-        mutated = AlphanumericRegex().Replace(mutated.ToLower().Trim(), "");
+        mutated = mutated.ToLower().Trim();
+        mutated = AlphanumericRegex().Replace(mutated, "");
         mutated = TrimSpacesRegex().Replace(mutated, " ");
         mutated = TrimDashesRegex().Replace(mutated, " ");
         mutated = mutated.Replace(" ", "-");
