@@ -1,14 +1,17 @@
 <template>
     <div class="action-bar-component flex gap align-items-center text-centered">
-        <div class="hovered-stitch">
-            <code v-if="hoveredStitch !== null">[{{ hoveredStitch.x }},{{ hoveredStitch.y }}]</code> - <small>{{ thread?.description }}</small>
+        <div>
+            <div>{{ percentage.toFixed(2) }}%</div>
         </div>
-        <div class="main-items">
-            <span class="action-button" @click="onZoomClick(1)"><IconComponent icon="zoom-out" gap="right" /><span>Zoom Out</span></span>
-            <span class="action-button" @click="onZoomClick(-1)"><IconComponent icon="zoom-in" gap="right" /><span>Zoom In</span></span>
+        <div class="centre-container">
+            <div class="centre-button flex align-items-center" @click="onShowModal">
+                <IconComponent icon="info" />
+            </div>
         </div>
         <div>
-            <span class="action-button" @click="onShowModal"><IconComponent icon="arrow-up" gap="right" /><span>More Details</span></span>
+            <div class="hovered-stitch">
+                <code v-if="hoveredStitch !== null">[{{ hoveredStitch.x }},{{ hoveredStitch.y }}]</code> - <small>{{ thread?.description }}</small>
+            </div>
         </div>
     </div>
 </template>
@@ -20,7 +23,6 @@ import ProjectThreadsModalComponent from '@/views/stitcher/project/modals/Projec
 
 import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
 import { useSharedStitch } from '@/views/stitcher/project/use/SharedStitch';
-import { useTransformation } from '@/views/stitcher/project/use/Transformation.use';
 import { useModal } from '@wjb/vue/use/modal.use';
 
 import type { IPatternThread } from '@/models/Pattern.model';
@@ -32,10 +34,20 @@ const props = defineProps<{
 
 const sharedStitch = useSharedStitch();
 const currentProject = useCurrentProject();
-const { width, height, zoom } = useTransformation();
 const modal = useModal();
 
 const hoveredStitch = sharedStitch.hoveredStitch;
+
+const percentage = computed<number>(() => {
+    if (props.project === null)
+        return 0;
+
+    const complete = props.project.threads.reduce((total, x) => total + x.completedStitches.length, 0);
+    const incomplete = props.project.threads.reduce((total, x) => total + x.stitches.length, 0);
+
+    return complete / incomplete * 100;
+});
+
 
 const thread = computed<IPatternThread | null>(() => {
     if (hoveredStitch.value === null)
@@ -43,10 +55,6 @@ const thread = computed<IPatternThread | null>(() => {
 
     return currentProject.palette.value.get(hoveredStitch.value.threadIndex) as IPatternThread;
 });
-
-const onZoomClick = function (amount: number): void {
-    zoom(amount, width.value / 2, height.value / 2);
-};
 
 const onShowModal = function (): void {
     modal.show({
@@ -66,8 +74,7 @@ const onShowModal = function (): void {
     inset: 0;
     top: auto;
     position: absolute;
-    padding: 0.5rem;
-    line-height: 1em;
+    padding: 0.25rem;
     background-color: var(--wjb-primary);
     background: linear-gradient(
         -5deg,
@@ -90,8 +97,35 @@ const onShowModal = function (): void {
         }
     }
 
+    .centre-container {
+        flex: 0 0 4rem;
+    }
+
+    .centre-button {
+        width: 4rem;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        translate: -50% -50%;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        margin: auto;
+        background: linear-gradient(
+            -5deg,
+            color-mix(in srgb, var(--wjb-primary-dark) 90%, transparent),
+            color-mix(in srgb, var(--wjb-primary) 90%, transparent),
+        );
+        border: 1px solid var(--wjb-primary-dark);
+        backdrop-filter: blur(2px);
+        color: var(--wjb-light);
+        text-shadow: 1px 1px rgba(0, 0, 0, 0.6);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 12px 24px -12px rgba(0, 0, 0, 0.5);
+        cursor: pointer;
+    }
+
     .action-button {
-        padding: 0.25rem;
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
         border-radius: var(--wjb-border-radius);
         cursor: pointer;
         user-select: none;
