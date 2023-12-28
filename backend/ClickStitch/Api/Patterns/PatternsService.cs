@@ -1,7 +1,7 @@
 ﻿using ClickStitch.Api.Patterns.Parsing;
 using ClickStitch.Api.Patterns.Parsing.Types;
 using ClickStitch.Api.Patterns.Types;
-using Core.Services;
+using ClickStitch.Services;
 using Data.Records;
 using Data.Repositories.Creator;
 using Data.Repositories.Pattern;

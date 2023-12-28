@@ -1,7 +1,6 @@
-﻿using DotNetLibs.Core.Types;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
-namespace Core.Services;
+namespace ClickStitch.Services;
 
 public static partial class SlugService
 {

@@ -1,4 +1,4 @@
-﻿using Core.Services;
+﻿using ClickStitch.Services;
 using DotNetLibs.Core.Types;
 
 namespace Core.Tests.Services.SlugServiceTests;
