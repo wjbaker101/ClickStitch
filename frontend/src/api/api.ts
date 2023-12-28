@@ -22,16 +22,13 @@ import type { IGetAnalytics } from '@/models/GetAnalytics.model';
 import type { IProject } from '@/models/Project.model';
 import type { IGetProject } from '@/models/GetProject.model';
 import type { IPattern } from '@/models/Pattern.model';
-import type { IBasket } from '@/models/Basket.model';
 import type { IGetSelf } from '@/models/GetSelf.model';
 import type { ICreator } from '@/models/Creator.model';
 import type { IThread } from '@/models/Thread.model';
 
 import type { ILogInRequest, ILogInResponse } from '@/api/types/LogIn.type';
 import type { ICreateUserRequest, ICreateUserResponse } from '@/api/types/CreateUser.type';
-import type { IGetBasketResponse } from '@/api/types/GetBasket.type';
 import type { IAddToBasketResponse } from '@/api/types/AddToBasket.type';
-import type { IRemoveFromBasketResponse } from '@/api/types/RemoveFromBasket.type';
 import type { ISearchPatternsResponse } from '@/api/types/SearchPatterns.type';
 import type { IGetProjectsResponse } from '@/api/types/GetProjects.type';
 import type { IGetProjectResponse } from '@/api/types/GetProject.type';
@@ -240,70 +237,11 @@ export const api = {
 
     basket: {
 
-        async get(): Promise<IBasket | Error> {
-            if (auth.details.value === null)
-                return new Error('You must be logged in for this action.');
-
-            try {
-                const response = await client.get<IApiResultResponse<IGetBasketResponse>>('/basket', {
-                    headers: {
-                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                    },
-                });
-
-                const basket = response.data.result.basket;
-
-                return {
-                    items: basket.items.map(x =>({
-                        pattern: patternMapper.map(x.pattern),
-                        addedAt: dayjs(x.addedAt),
-                    })),
-                    totalPrice: basket.totalPrice,
-                };
-            }
-            catch (error) {
-                return ApiErrorMapper.map(error);
-            }
-        },
-
-        async addItem(patternReference: string): Promise<void | Error> {
-            if (auth.details.value === null)
-                return new Error('You must be logged in for this action.');
-
-            await client.post<IApiResultResponse<IAddToBasketResponse>>(`/basket/item/${patternReference}`, {}, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
-        },
-
-        async removeItem(patternReference: string): Promise<void> {
-            if (auth.details.value === null)
-                return;
-
-            await client.delete<IApiResultResponse<IRemoveFromBasketResponse>>(`/basket/item/${patternReference}`, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
-        },
-
         async quickAdd(patternReference: string): Promise<void | Error> {
             if (auth.details.value === null)
                 return new Error('You must be logged in for this action.');
 
             await client.post<IApiResultResponse<IAddToBasketResponse>>(`/basket/item/${patternReference}/quick`, {}, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
-        },
-
-        async complete() {
-            if (auth.details.value === null)
-                return new Error('You must be logged in for this action.');
-
-            await client.post<IApiResultResponse<IAddToBasketResponse>>('/basket/complete', {}, {
                 headers: {
                     'Authorization': `Bearer ${auth.details.value.loginToken}`,
                 },
