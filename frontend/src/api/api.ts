@@ -472,6 +472,17 @@ export const api = {
             }
         },
 
+        async add(patternReference: string): Promise<void | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
+            await client.post<IApiResultResponse<IAddToBasketResponse>>(`/projects/${patternReference}`, {}, {
+                headers: {
+                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                },
+            });
+        },
+
         async get(patternReference: string): Promise<IGetProject | Error> {
             if (auth.details.value === null)
                 return new Error('You must be logged in for this action.');

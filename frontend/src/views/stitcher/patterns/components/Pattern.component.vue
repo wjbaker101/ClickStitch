@@ -17,7 +17,7 @@
                     </ButtonComponent>
                 </a>
                 <div v-if="authDetails !== null" class="flex">
-                    <ButtonComponent title="Add to Your Dashboard" @click.stop="onAddToBasket(pattern)">
+                    <ButtonComponent title="Add to Your Dashboard" @click.stop="onAddProject(pattern)">
                         <IconComponent icon="plus" gap="right" />
                         <span>Add to Dashboard</span>
                     </ButtonComponent>
@@ -60,8 +60,8 @@ const onClick = function (): void {
     });
 };
 
-const onAddToBasket = async function (pattern: IPattern): Promise<void> {
-    await api.basket.quickAdd(pattern.reference);
+const onAddProject = async function (pattern: IPattern): Promise<void> {
+    await api.projects.add(pattern.reference);
 
     popup.trigger({
         message: `${props.pattern.title} has been added to your dashboard!`,
@@ -82,12 +82,6 @@ const onAddToBasket = async function (pattern: IPattern): Promise<void> {
 
     .description {
         margin-top: 1rem;
-    }
-
-    .add-to-basket-button {
-        &[disabled] {
-            opacity: 0.5;
-        }
     }
 
     .created-by {
