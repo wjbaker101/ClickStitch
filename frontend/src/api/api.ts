@@ -28,7 +28,6 @@ import type { IThread } from '@/models/Thread.model';
 
 import type { ILogInRequest, ILogInResponse } from '@/api/types/LogIn.type';
 import type { ICreateUserRequest, ICreateUserResponse } from '@/api/types/CreateUser.type';
-import type { IAddToBasketResponse } from '@/api/types/AddToBasket.type';
 import type { ISearchPatternsResponse } from '@/api/types/SearchPatterns.type';
 import type { IGetProjectsResponse } from '@/api/types/GetProjects.type';
 import type { IGetProjectResponse } from '@/api/types/GetProject.type';
@@ -231,21 +230,6 @@ export const api = {
             catch (error) {
                 return ApiErrorMapper.map(error);
             }
-        },
-
-    },
-
-    basket: {
-
-        async quickAdd(patternReference: string): Promise<void | Error> {
-            if (auth.details.value === null)
-                return new Error('You must be logged in for this action.');
-
-            await client.post<IApiResultResponse<IAddToBasketResponse>>(`/basket/item/${patternReference}/quick`, {}, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
         },
 
     },
@@ -476,7 +460,7 @@ export const api = {
             if (auth.details.value === null)
                 return new Error('You must be logged in for this action.');
 
-            await client.post<IApiResultResponse<IAddToBasketResponse>>(`/projects/${patternReference}`, {}, {
+            await client.post<IApiResultResponse<void>>(`/projects/${patternReference}`, {}, {
                 headers: {
                     'Authorization': `Bearer ${auth.details.value.loginToken}`,
                 },
