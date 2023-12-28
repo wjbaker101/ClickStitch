@@ -1,6 +1,5 @@
 using ClickStitch.Api.Admin;
 using ClickStitch.Api.Auth;
-using ClickStitch.Api.Basket;
 using ClickStitch.Api.Creators;
 using ClickStitch.Api.Inventory;
 using ClickStitch.Api.Patterns;
@@ -51,8 +50,6 @@ services.AddSingleton<IUserThreadRepository, UserThreadRepository>();
 services.AddSingleton<ICloudinaryClient, CloudinaryClient>();
 
 services.AddSingleton<IAdminService, AdminService>();
-
-services.AddSingleton<IBasketService, BasketService>();
 
 services.AddSingleton<ICreatorsService, CreatorsService>();
 
