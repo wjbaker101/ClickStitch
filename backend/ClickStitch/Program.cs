@@ -12,7 +12,6 @@ using ClickStitch.Filters;
 using Core.Settings;
 using Data;
 using Data.Repositories.Admin;
-using Data.Repositories.Basket;
 using Data.Repositories.Creator;
 using Data.Repositories.Pattern;
 using Data.Repositories.Permission;
@@ -36,7 +35,6 @@ services.AddSingleton<IGuidProvider, GuidProvider>();
 
 services.AddSingleton<IDatabase, Database>();
 services.AddSingleton<IAdminRepository, AdminRepository>();
-services.AddSingleton<IBasketRepository, BasketRepository>();
 services.AddSingleton<ICreatorRepository, CreatorRepository>();
 services.AddSingleton<IPatternRepository, PatternRepository>();
 services.AddSingleton<IPatternThreadRepository, PatternThreadRepository>();
