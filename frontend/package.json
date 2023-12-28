@@ -23,7 +23,7 @@
         "@types/node": "^20.10.4",
         "@vitejs/plugin-vue": "^4.5.2",
         "@wjb/styling": "^1.0.82",
-        "@wjb/vue": "^1.0.89",
+        "@wjb/vue": "^1.0.90",
         "sass": "^1.69.5",
         "typescript": "~5.3.3",
         "vite": "^5.0.7",
