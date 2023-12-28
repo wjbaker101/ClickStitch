@@ -28,6 +28,18 @@ public sealed class ProjectsController : ApiController
         return ToApiResponse(result);
     }
 
+    [HttpPost]
+    [Route("{patternReference:guid}")]
+    [Authenticate]
+    public async Task<IActionResult> AddProject([FromRoute] Guid patternReference, CancellationToken cancellationToken)
+    {
+        var user = RequestHelper.GetRequiredUser(Request);
+
+        var result = await _projectsService.AddProject(user, patternReference, cancellationToken);
+
+        return ToApiResponse(result);
+    }
+
     [HttpGet]
     [Route("{patternReference:guid}")]
     [Authenticate]

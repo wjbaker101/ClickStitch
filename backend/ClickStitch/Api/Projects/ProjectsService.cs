@@ -12,6 +12,7 @@ namespace ClickStitch.Api.Projects;
 public interface IProjectsService
 {
     Task<Result<GetProjectsResponse>> GetProjects(RequestUser requestUser, CancellationToken cancellationToken);
+    Task<Result<AddProjectResponse>> AddProject(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken);
     Task<Result<GetProjectResponse>> GetProject(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken);
     Task<Result<CompleteStitchesResponse>> CompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request, CancellationToken cancellationToken);
     Task<Result<CompleteStitchesResponse>> UnCompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request, CancellationToken cancellationToken);
@@ -51,6 +52,26 @@ public sealed class ProjectsService : IProjectsService
         {
             Projects = projects.ConvertAll(ProjectMapper.Map)
         };
+    }
+
+    public async Task<Result<AddProjectResponse>> AddProject(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken)
+    {
+        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
+
+        var patternResult = await _patternRepository.GetByReferenceAsync(patternReference, cancellationToken);
+        if (!patternResult.TrySuccess(out var pattern))
+            return Result<AddProjectResponse>.FromFailure(patternResult);
+
+        await _userPatternRepository.SaveAsync(new UserPatternRecord
+        {
+            User = user,
+            Pattern = pattern,
+            CreatedAt = DateTime.UtcNow,
+            PausePositionX = null,
+            PausePositionY = null
+        }, cancellationToken);
+
+        return new AddProjectResponse();
     }
 
     public async Task<Result<GetProjectResponse>> GetProject(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken)
