@@ -4,7 +4,7 @@
             <div class="logo-container flex-auto">
                 <img src="@/assets/logo.png">
             </div>
-            <strong>ClickStitch</strong>
+            <strong class="logo-text">ClickStitch</strong>
         </div>
         <div class="custom align-items-center">
             <slot></slot>
