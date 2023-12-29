@@ -97,6 +97,10 @@ onUnmounted(() => {
     .percentage-completed {
         padding-left: 0.25rem;
         color: #ddd;
+
+        @media screen and (max-width: 720px) {
+            display: none;
+        }
     }
 
     .canvas-wrapper {
