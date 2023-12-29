@@ -116,7 +116,7 @@ const links = linkFactory.get(subdomain);
     @media screen and (max-width: 720px) {
         --inset: 0.25rem;
 
-        padding: 0.75rem;
+        padding: 1rem;
         grid-template-columns: auto 1fr auto;
 
         .logo-container {
