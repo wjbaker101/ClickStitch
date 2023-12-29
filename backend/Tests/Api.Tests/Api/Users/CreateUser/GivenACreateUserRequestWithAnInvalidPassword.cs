@@ -56,6 +56,6 @@ public sealed class GivenACreateUserRequestWithAnInvalidPassword
     [Test]
     public void ThenTheCorrectErrorIsReturned()
     {
-        Assert.That(_result.FailureMessage, Is.EqualTo($"{_expectedError}. Requirements: Password must be between 8 and 60 characters; contain at least 1 number, uppercase character, lowercase character; and a symbol ( !@#$%^&*()_+=\\[{{\\]}};:<>|./?,- )."));
+        Assert.That(_result.FailureMessage, Is.EqualTo($"{_expectedError}. Requirements: Password must be between 8 and 60 characters; contain at least 1 number, uppercase character, lowercase character; and a symbol ( !@#$%^&* )."));
     }
 }
