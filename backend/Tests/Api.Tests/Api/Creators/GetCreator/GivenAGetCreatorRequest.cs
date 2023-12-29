@@ -49,6 +49,16 @@ public sealed class GivenAGetCreatorRequest
                 User = x.Users[0],
                 TitleSlug = "test-title-slug",
                 IsPublic = true,
+                Creator = new CreatorRecord
+                {
+                    Id = 0,
+                    Reference = default,
+                    CreatedAt = default,
+                    Name = null,
+                    StoreUrl = null,
+                    Users = null,
+                    Patterns = null
+                },
                 Threads = new HashSet<PatternThreadRecord>()
             });
         });

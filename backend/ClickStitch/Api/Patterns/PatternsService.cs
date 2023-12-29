@@ -128,6 +128,18 @@ public sealed class PatternsService : IPatternsService
         if (bannerUrlResult.IsFailure)
             return Result.FromFailure(bannerUrlResult);
 
+        var isCreator = requestUser.Permissions.Any(x => x == RequestPermissionType.Creator);
+
+        CreatorRecord? creator = null;
+        if (isCreator)
+        {
+            var creatorResult = await _creatorRepository.GetByUser(user, cancellationToken);
+            if (creatorResult.IsFailure)
+                return Result.FromFailure(creatorResult);
+
+            creator = creatorResult.Content;
+        }
+
         var pattern = await _patternRepository.SaveAsync(new PatternRecord
         {
             Reference = Guid.NewGuid(),
@@ -142,9 +154,10 @@ public sealed class PatternsService : IPatternsService
             AidaCount = request.AidaCount,
             BannerImageUrl = bannerUrlResult.Content,
             ExternalShopUrl = request.ExternalShopUrl,
-            User = user,
             TitleSlug = titleSlug,
-            IsPublic = requestUser.Permissions.Any(x => x == RequestPermissionType.Creator),
+            IsPublic = isCreator,
+            User = user,
+            Creator = creator,
             Threads = new HashSet<PatternThreadRecord>()
         }, cancellationToken);
 
@@ -167,8 +180,7 @@ public sealed class PatternsService : IPatternsService
             LookupHash = $"{x.X},{x.Y}"
         }), cancellationToken);
 
-        var isStitcher = requestUser.Permissions.All(x => x != RequestPermissionType.Creator);
-        if (isStitcher)
+        if (!isCreator)
         {
             await _userPatternRepository.SaveAsync(new UserPatternRecord
             {
