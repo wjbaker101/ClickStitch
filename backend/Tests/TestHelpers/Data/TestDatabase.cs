@@ -35,6 +35,23 @@ public sealed class TestApiSession : IApiSession
         return new TestQueryable<TRecord>(_records.OfType<TRecord>().AsQueryable());
     }
 
+    public Task<TRecord> Save<TRecord>(TRecord record, CancellationToken cancellationToken) where TRecord : IDatabaseRecord
+    {
+        _records.Add(record);
+        return Task.FromResult(record);
+    }
+
+    public Task<TRecord> Update<TRecord>(TRecord record, CancellationToken cancellationToken) where TRecord : IDatabaseRecord
+    {
+        return Task.FromResult(record);
+    }
+
+    public Task Delete<TRecord>(TRecord record, CancellationToken cancellationToken) where TRecord : IDatabaseRecord
+    {
+        _records.Remove(record);
+        return Task.FromResult(record);
+    }
+
     public void Dispose()
     {
     }

@@ -21,81 +21,81 @@ public abstract class Repository<TRecord> : IRepository<TRecord> where TRecord :
 
     public async Task<TRecord> SaveAsync(TRecord record, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
-        await session.SaveAsync(record, cancellationToken);
+        await session.Save(record, cancellationToken);
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         return record;
     }
 
     public async Task<List<TRecord>> SaveManyAsync(IEnumerable<TRecord> records, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var recordsAsList = records.ToList();
 
         foreach (var record in recordsAsList)
-            await session.SaveAsync(record, cancellationToken);
+            await session.Save(record, cancellationToken);
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         return recordsAsList;
     }
 
     public async Task<TRecord> UpdateAsync(TRecord record, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
-        await session.UpdateAsync(record, cancellationToken);
+        await session.Update(record, cancellationToken);
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         return record;
     }
 
     public async Task<List<TRecord>> UpdateManyAsync(IEnumerable<TRecord> records, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var recordsAsList = records.ToList();
 
         foreach (var record in recordsAsList)
-            await session.UpdateAsync(record, cancellationToken);
+            await session.Update(record, cancellationToken);
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         return recordsAsList;
     }
 
     public async Task<TRecord> DeleteAsync(TRecord record, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
-        await session.DeleteAsync(record, cancellationToken);
+        await session.Delete(record, cancellationToken);
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         return record;
     }
 
     public async Task<List<TRecord>> DeleteManyAsync(IEnumerable<TRecord> records, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var recordsAsList = records.ToList();
 
         foreach (var record in recordsAsList)
-            await session.DeleteAsync(record, cancellationToken);
+            await session.Delete(record, cancellationToken);
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         return recordsAsList;
     }
