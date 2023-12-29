@@ -39,7 +39,7 @@ public sealed class GivenACreateUserRequest
 
         _result = await subject.CreateUser(new CreateUserRequest
         {
-            Email = "test@email.com",
+            Email = "test@email.com ",
             Password = "TestPassword1!"
         }, CancellationToken.None);
     }

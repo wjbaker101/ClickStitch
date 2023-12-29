@@ -53,14 +53,16 @@ public sealed partial class UsersService : IUsersService
 
     public async Task<Result<CreateUserResponse>> CreateUser(CreateUserRequest request, CancellationToken cancellationToken)
     {
-        if (!EmailRegex().IsMatch(request.Email))
+        var email = request.Email.Trim();
+
+        if (!EmailRegex().IsMatch(email))
             return Result<CreateUserResponse>.Failure("Email is invalid, please try again.");
 
         var isValidResult = _passwordService.IsValid(request.Password);
         if (isValidResult.IsFailure)
             return Result<CreateUserResponse>.FromFailure(isValidResult);
 
-        var byEmailResult = await _userRepository.GetByEmailAsync(request.Email, cancellationToken);
+        var byEmailResult = await _userRepository.GetByEmailAsync(email, cancellationToken);
         if (byEmailResult.IsSuccess)
             return Result<CreateUserResponse>.Failure("Cannot use that email, an existing user already has it. Please try again with a different email.");
 
@@ -71,7 +73,7 @@ public sealed partial class UsersService : IUsersService
         {
             Reference = _guid.NewGuid(),
             CreatedAt = _dateTime.UtcNow(),
-            Email = request.Email,
+            Email = email,
             Password = password,
             PasswordSalt = passwordSalt,
             LastLoginAt = null,
