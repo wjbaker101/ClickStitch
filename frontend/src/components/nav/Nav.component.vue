@@ -42,7 +42,7 @@ const links = linkFactory.get(subdomain);
 @use '@/style/variables' as *;
 
 .nav-component {
-    $inset: 0.5rem;
+    --inset: 0.5rem;
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -50,7 +50,7 @@ const links = linkFactory.get(subdomain);
     gap: 1rem;
     position: fixed;
     justify-content: center;
-    inset: $inset $inset auto $inset;
+    inset: var(--inset) var(--inset) auto var(--inset);
     padding: 2rem 1rem;
     line-height: 1em;
     background-color: var(--wjb-primary);
@@ -82,8 +82,10 @@ const links = linkFactory.get(subdomain);
     }
 
     .logo-container {
-        width: 40px;
-        height: 40px;
+        --width: 2.5rem;
+
+        width: var(--width);
+        aspect-ratio: 1;
         margin: -1rem -0.5rem -1rem 0;
         padding: 0.25rem;
         background-color: var(--wjb-light);
@@ -112,8 +114,14 @@ const links = linkFactory.get(subdomain);
     }
 
     @media screen and (max-width: 720px) {
-        padding: 1rem;
+        --inset: 0.25rem;
+
+        padding: 0.75rem;
         grid-template-columns: auto 1fr auto;
+
+        .logo-container {
+            --width: 2rem;
+        }
 
         .logo-text {
             display: none;
@@ -127,7 +135,7 @@ const links = linkFactory.get(subdomain);
             display: block;
             position: fixed;
             padding: 1rem;
-            inset: 4rem 0 auto 0;
+            inset: 3.5rem 0 auto 0;
             background-color: var(--wjb-primary);
             background: linear-gradient(
                 -5deg,
