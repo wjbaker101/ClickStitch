@@ -78,7 +78,7 @@ useEvent('StartJumpToStitches', onStart);
 .jump-to-stitches-component {
     position: absolute;
     left: 50%;
-    bottom: 2.5rem;
+    bottom: 4.5rem;
     translate: -50% 0;
     padding: 0.5rem;
     line-height: 1em;
