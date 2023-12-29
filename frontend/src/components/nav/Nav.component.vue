@@ -135,7 +135,7 @@ const links = linkFactory.get(subdomain);
             display: block;
             position: fixed;
             padding: 1rem;
-            inset: 3.5rem 0 auto 0;
+            inset: 3.75rem 0 auto 0;
             background-color: var(--wjb-primary);
             background: linear-gradient(
                 -5deg,
