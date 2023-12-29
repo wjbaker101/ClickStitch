@@ -18,14 +18,22 @@ public static class PatternMapper
         BannerImageUrl = pattern.BannerImageUrl,
         ExternalShopUrl = pattern.ExternalShopUrl,
         TitleSlug = pattern.TitleSlug,
-        Creator = pattern.User.UserCreator == null ? null : new CreatorModel
-        {
-            Reference = pattern.User.UserCreator.Creator.Reference,
-            CreatedAt = pattern.User.UserCreator.Creator.CreatedAt,
-            Name = pattern.User.UserCreator.Creator.Name,
-            StoreUrl = pattern.User.UserCreator.Creator.StoreUrl
-        }
+        Creator = MapCreator(pattern.Creator)
     };
+
+    private static CreatorModel? MapCreator(CreatorRecord? creator)
+    {
+        if (creator == null)
+            return null;
+
+        return new CreatorModel
+        {
+            Reference = creator.Reference,
+            CreatedAt = creator.CreatedAt,
+            Name = creator.Name,
+            StoreUrl = creator.StoreUrl
+        };
+    }
 
     public static PatternThreadModel MapThread(PatternThreadRecord thread) => new()
     {
