@@ -1,4 +1,4 @@
-﻿namespace Data.Records.Types;
+﻿namespace Data.Types;
 
 public interface IDatabaseRecord
 {

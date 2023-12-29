@@ -1,4 +1,6 @@
-﻿namespace Data.Repositories.Pattern;
+﻿using Data.Types;
+
+namespace Data.Repositories.Pattern;
 
 public interface IPatternThreadRepository : IRepository<PatternThreadRecord>
 {

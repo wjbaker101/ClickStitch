@@ -1,4 +1,6 @@
-﻿namespace Data.Records;
+﻿using Data.Types;
+
+namespace Data.Records;
 
 public class UserThreadRecord : IDatabaseRecord
 {

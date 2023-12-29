@@ -1,4 +1,6 @@
-﻿namespace Data.Repositories.UserCreator;
+﻿using Data.Types;
+
+namespace Data.Repositories.UserCreator;
 
 public interface IUserCreatorRepository : IRepository<UserCreatorRecord>
 {

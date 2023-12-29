@@ -1,4 +1,6 @@
-﻿namespace Data.Repositories.UserThread;
+﻿using Data.Types;
+
+namespace Data.Repositories.UserThread;
 
 public interface IUserThreadRepository : IRepository<UserThreadRecord>
 {

@@ -1,4 +1,5 @@
 ﻿using Data.Repositories.Pattern.Types;
+using Data.Types;
 
 namespace Data.Repositories.Pattern;
 

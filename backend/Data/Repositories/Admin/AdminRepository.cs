@@ -1,5 +1,5 @@
-﻿using Data.Records.Types;
-using Data.Repositories.Admin.Types;
+﻿using Data.Repositories.Admin.Types;
+using Data.Types;
 
 namespace Data.Repositories.Admin;
 

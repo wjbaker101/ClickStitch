@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClickStitch", "ClickStitch\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{CC04F4F1-8021-425F-8C72-CCE47D9A20A3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Records", "Data.Records\Data.Records.csproj", "{BCBBC3B1-4915-4714-844C-E4AB65908D61}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{CCE714E2-DB0F-4B40-B8B8-839C632DCD4B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{06DE5996-2410-4CD3-8BEE-4DA6ABBB235F}"
@@ -17,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.Tests", "Tests\Api.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestHelpers", "Tests\TestHelpers\TestHelpers.csproj", "{D43B3426-14DF-4266-AD60-08B930215571}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Tests", "Tests\Core.Tests\Core.Tests.csproj", "{FA53EBA2-F3A9-4B65-8991-FA3805C85738}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Tests", "Tests\Core.Tests\Core.Tests.csproj", "{FA53EBA2-F3A9-4B65-8991-FA3805C85738}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +31,6 @@ Global
 		{CC04F4F1-8021-425F-8C72-CCE47D9A20A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC04F4F1-8021-425F-8C72-CCE47D9A20A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC04F4F1-8021-425F-8C72-CCE47D9A20A3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BCBBC3B1-4915-4714-844C-E4AB65908D61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BCBBC3B1-4915-4714-844C-E4AB65908D61}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BCBBC3B1-4915-4714-844C-E4AB65908D61}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BCBBC3B1-4915-4714-844C-E4AB65908D61}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CCE714E2-DB0F-4B40-B8B8-839C632DCD4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CCE714E2-DB0F-4B40-B8B8-839C632DCD4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCE714E2-DB0F-4B40-B8B8-839C632DCD4B}.Release|Any CPU.ActiveCfg = Release|Any CPU

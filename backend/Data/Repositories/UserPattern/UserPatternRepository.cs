@@ -1,4 +1,6 @@
-﻿namespace Data.Repositories.UserPattern;
+﻿using Data.Types;
+
+namespace Data.Repositories.UserPattern;
 
 public interface IUserPatternRepository : IRepository<UserPatternRecord>
 {

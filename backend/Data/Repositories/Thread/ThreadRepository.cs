@@ -1,4 +1,6 @@
-﻿namespace Data.Repositories.Thread;
+﻿using Data.Types;
+
+namespace Data.Repositories.Thread;
 
 public interface IThreadRepository : IRepository<ThreadRecord>
 {

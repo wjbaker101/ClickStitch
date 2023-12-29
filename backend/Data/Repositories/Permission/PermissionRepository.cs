@@ -1,4 +1,6 @@
-﻿namespace Data.Repositories.Permission;
+﻿using Data.Types;
+
+namespace Data.Repositories.Permission;
 
 public interface IPermissionRepository : IRepository<PermissionRecord>
 {

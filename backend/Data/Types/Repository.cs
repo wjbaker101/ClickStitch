@@ -1,6 +1,4 @@
-﻿using Data.Records.Types;
-
-namespace Data;
+﻿namespace Data.Types;
 
 public interface IRepository<TRecord> where TRecord : IDatabaseRecord
 {

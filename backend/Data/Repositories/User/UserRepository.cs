@@ -1,6 +1,7 @@
 ﻿// ReSharper disable SpecifyStringComparison
 
 using Core.Types;
+using Data.Types;
 
 namespace Data.Repositories.User;
 
