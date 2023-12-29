@@ -24,9 +24,7 @@ public sealed class PatternRepository : Repository<PatternRecord>, IPatternRepos
 
         var patterns = await session
             .Query<PatternRecord>()
-            .Fetch(x => x.User)
-            .ThenFetch(x => x.UserCreator)
-            .ThenFetch(x => x.Creator)
+            .Fetch(x => x.Creator)
             .Where(x => !parameters.PatternsToExclude.Contains(x) && x.IsPublic)
             .ToListAsync(cancellationToken);
 

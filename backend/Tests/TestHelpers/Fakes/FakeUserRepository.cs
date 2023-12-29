@@ -17,8 +17,7 @@ public sealed class FakeUserRepository : FakeRepository<UserRecord>, IUserReposi
         Password = "URxPFqmHJ+hAq+GuoLHTQVbP+SfE8fpEdz4fpnGEzhE=",
         PasswordSalt = "356ee6d2-7ace-4229-b467-bcded8797379",
         LastLoginAt = new DateTime(2021, 05, 14, 08, 08, 31),
-        Permissions = new List<PermissionRecord>(),
-        UserCreator = null
+        Permissions = new List<PermissionRecord>()
     })
     {
         _fakeResult = FakeValue;

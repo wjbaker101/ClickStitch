@@ -24,12 +24,7 @@ public sealed class GivenAGetCreatorRequest
                 Password = "",
                 PasswordSalt = "",
                 LastLoginAt = new DateTime(2023, 05, 29, 15, 43, 36),
-                Permissions = new List<PermissionRecord>(),
-                UserCreator = new UserCreatorRecord
-                {
-                    User = null!,
-                    Creator = x
-                }
+                Permissions = new List<PermissionRecord>()
             });
 
             x.Patterns.Add(new PatternRecord

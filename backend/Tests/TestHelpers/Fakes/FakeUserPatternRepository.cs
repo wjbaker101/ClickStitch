@@ -36,20 +36,7 @@ public sealed class FakeUserPatternRepository : FakeRepository<UserPatternRecord
                 Password = null,
                 PasswordSalt = null,
                 LastLoginAt = null,
-                Permissions = null,
-                UserCreator = new UserCreatorRecord
-                {
-                    User = null!,
-                    Creator = new CreatorRecord
-                    {
-                        Reference = Guid.Parse("0a30e82e-b2f3-47be-bba1-f6a4370f66ba"),
-                        CreatedAt = new DateTime(2021, 11, 02, 16, 55, 09),
-                        Name = "TestCreatorName",
-                        StoreUrl = "TestStoreUrl",
-                        Users = new List<UserRecord>(),
-                        Patterns = new List<PatternRecord>()
-                    }
-                }
+                Permissions = null
             },
             Creator = new CreatorRecord
             {

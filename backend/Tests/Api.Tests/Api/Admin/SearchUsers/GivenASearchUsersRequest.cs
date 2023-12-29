@@ -41,8 +41,7 @@ public sealed class GivenASearchUsersRequest
                                 Type = PermissionType.Creator,
                                 Name = "TestPermissionName"
                             }
-                        },
-                        UserCreator = null
+                        }
                     }
                 },
                 TotalCount = 4023

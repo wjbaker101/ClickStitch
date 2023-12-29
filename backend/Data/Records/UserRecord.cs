@@ -12,7 +12,6 @@ public class UserRecord : IDatabaseRecord
     public virtual required string PasswordSalt { get; set; }
     public virtual required DateTime? LastLoginAt { get; set; }
     public virtual required IList<PermissionRecord> Permissions { get; init; }
-    public virtual required UserCreatorRecord? UserCreator { get; init; }
 }
 
 public sealed class UserRecordMap : ClassMap<UserRecord>
@@ -33,6 +32,5 @@ public sealed class UserRecordMap : ClassMap<UserRecord>
             .Table("user_permission")
             .ParentKeyColumn("user_id")
             .ChildKeyColumn("permission_id");
-        HasOne(x => x.UserCreator).PropertyRef(nameof(UserCreatorRecord.User));
     }
 }

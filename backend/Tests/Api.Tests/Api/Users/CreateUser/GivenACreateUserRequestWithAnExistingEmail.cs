@@ -31,8 +31,7 @@ public sealed class GivenACreateUserRequestWithAnExistingEmail
                 Password = null!,
                 PasswordSalt = null!,
                 LastLoginAt = null,
-                Permissions = new List<PermissionRecord>(),
-                UserCreator = null
+                Permissions = new List<PermissionRecord>()
             });
 
         var subject = new UsersService(

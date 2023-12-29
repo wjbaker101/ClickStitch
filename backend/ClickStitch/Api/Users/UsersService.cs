@@ -75,8 +75,7 @@ public sealed partial class UsersService : IUsersService
             Password = password,
             PasswordSalt = passwordSalt,
             LastLoginAt = null,
-            Permissions = new List<PermissionRecord>(),
-            UserCreator = null
+            Permissions = new List<PermissionRecord>()
         }, cancellationToken);
 
         return new CreateUserResponse
