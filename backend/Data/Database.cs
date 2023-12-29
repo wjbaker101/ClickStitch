@@ -1,5 +1,6 @@
 ﻿using Core.Settings;
 using Data.Interceptors;
+using Data.Types;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
@@ -9,6 +10,7 @@ namespace Data;
 public interface IDatabase
 {
     ISessionFactory SessionFactory { get; }
+    IApiSession OpenSession();
 }
 
 public sealed class Database : IDatabase
@@ -31,5 +33,10 @@ public sealed class Database : IDatabase
             .ExposeConfiguration(x => x.SetInterceptor(new OutputSqlInterceptor()))
             #endif
             .BuildSessionFactory();
+    }
+
+    public IApiSession OpenSession()
+    {
+        return new ApiSession(SessionFactory.OpenSession());
     }
 }

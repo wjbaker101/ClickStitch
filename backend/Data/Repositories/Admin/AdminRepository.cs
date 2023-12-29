@@ -17,14 +17,14 @@ public sealed class AdminRepository : Repository<IDatabaseRecord>, IAdminReposit
 
     public async Task<List<PermissionRecord>> GetPermissions(CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var permissions = await session
             .Query<PermissionRecord>()
             .ToListAsync(cancellationToken);
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         return permissions;
     }
