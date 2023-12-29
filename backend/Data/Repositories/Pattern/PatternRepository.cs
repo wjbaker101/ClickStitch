@@ -27,7 +27,7 @@ public sealed class PatternRepository : Repository<PatternRecord>, IPatternRepos
             .Fetch(x => x.User)
             .ThenFetch(x => x.UserCreator)
             .ThenFetch(x => x.Creator)
-            .Where(x => !parameters.PatternsToExclude.Contains(x))
+            .Where(x => !parameters.PatternsToExclude.Contains(x) && x.IsPublic)
             .ToListAsync(cancellationToken);
 
         await transaction.CommitAsync(cancellationToken);
