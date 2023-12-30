@@ -46,8 +46,8 @@ public sealed class UserRepository : Repository<UserRecord>, IUserRepository
 
     public async Task<Result<UserRecord>> GetByReferenceAsync(Guid userReference, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var user = await session
             .Query<UserRecord>()
@@ -56,7 +56,7 @@ public sealed class UserRepository : Repository<UserRecord>, IUserRepository
         if (user == null)
             return Result<UserRecord>.Failure($"Unable to find user with reference: '{userReference}'.");
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         return user;
     }
