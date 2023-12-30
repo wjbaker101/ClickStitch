@@ -12,9 +12,10 @@ namespace Api.Tests.Api.Users.Update;
 
 [TestFixture]
 [Parallelizable]
-public sealed class GivenAnUpdateUserRequest
+public sealed class GivenAnUpdateUserRequestForADifferentUser
 {
     private readonly Guid _userReference = Guid.Parse("85e41403-d6e1-4c50-bf48-50f65713ea53");
+    private readonly Guid _differentUserReference = Guid.Parse("e2fb8199-8507-48bc-bdaf-fb97c927e9df");
 
     private TestDatabase _database = null!;
 
@@ -42,7 +43,7 @@ public sealed class GivenAnUpdateUserRequest
 
         var requestUser = new TestRequestUser
         {
-            Reference = _userReference
+            Reference = _differentUserReference
         };
 
         var subject = new UsersService(
@@ -57,34 +58,12 @@ public sealed class GivenAnUpdateUserRequest
     [Test]
     public void ThenTheResultIsASuccess()
     {
-        Assert.That(_result.IsSuccess, Is.True);
+        Assert.That(_result.IsSuccess, Is.False);
     }
 
     [Test]
-    public void ThenTheCorrectUserIsUpdated()
+    public void ThenTheCorrectErrorIsReturned()
     {
-        var user = _database.Actions.Updated.OfType<UserRecord>().Single();
-
-        Assert.Multiple(() =>
-        {
-            Assert.That(user.Reference, Is.EqualTo(_userReference), nameof(user.Reference));
-            Assert.That(user.CreatedAt, Is.EqualTo(new DateTime(2023, 06, 02, 11, 56, 01)), nameof(user.CreatedAt));
-            Assert.That(user.Email, Is.EqualTo("test@email.com"), nameof(user.Email));
-            Assert.That(user.Password, Is.EqualTo("TestPassword"), nameof(user.Password));
-            Assert.That(user.PasswordSalt, Is.EqualTo("TestPasswordSalt"), nameof(user.PasswordSalt));
-        });
-    }
-
-    [Test]
-    public void ThenTheCorrectUserIsReturned()
-    {
-        var user = _result.Content.User;
-        
-        Assert.Multiple(() =>
-        {
-            Assert.That(user.Reference, Is.EqualTo(_userReference), nameof(user.Reference));
-            Assert.That(user.CreatedAt, Is.EqualTo(new DateTime(2023, 06, 02, 11, 56, 01)), nameof(user.CreatedAt));
-            Assert.That(user.Email, Is.EqualTo("test@email.com"), nameof(user.Email));
-        });
+        Assert.That(_result.FailureMessage, Is.EqualTo("Cannot update a different user."));
     }
 }

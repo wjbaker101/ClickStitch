@@ -92,6 +92,9 @@ public sealed partial class UsersService : IUsersService
         if (!userResult.TrySuccess(out var user))
             return Result<UpdateUserResponse>.FromFailure(userResult);
 
+        if (requestUser.Reference != user.Reference)
+            return Result<UpdateUserResponse>.Failure("Cannot update a different user.");
+
         await _userRepository.UpdateAsync(user, cancellationToken);
 
         return new UpdateUserResponse
