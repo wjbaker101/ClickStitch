@@ -2,7 +2,8 @@
 using ClickStitch.Api.Users.Types;
 using Data.Records;
 using Data.Repositories.User;
-using Moq;
+using Data.Types;
+using TestHelpers.Data;
 
 namespace Api.Tests.Api.Users.GetSelf;
 
@@ -10,33 +11,37 @@ namespace Api.Tests.Api.Users.GetSelf;
 [Parallelizable]
 public sealed class GivenAGetSelfRequest
 {
+    private readonly Guid _userReference = Guid.Parse("7c63a2ed-d06d-4b5a-a882-0374b14b6c3a");
+
     private Result<GetSelfResponse> _result = null!;
 
     [OneTimeSetUp]
     public async Task Setup()
     {
-        var userRepository = new Mock<IUserRepository>();
-        userRepository
-            .Setup(mock => mock.GetWithPermissionsByReferenceAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new UserRecord
-            {
-                Reference = Guid.Parse("7dafaed7-0c16-41ef-a247-8bf8990d128d"),
-                CreatedAt = new DateTime(2023, 05, 01, 16, 39, 14),
-                Email = "test@email.com",
-                Password = "TestPassword",
-                PasswordSalt = "",
-                LastLoginAt = null,
-                Permissions = new List<PermissionRecord>()
-            });
-
-        var subject = new UsersService(userRepository.Object, null!, null!, null!);
-
-        _result = await subject.GetSelf(new RequestUser
+        var database = new TestDatabase
         {
-            Id = 9371,
-            Reference = Guid.Parse("38eba7b8-e53c-4619-a391-7c3d6beff3de"),
-            Permissions = new List<RequestPermissionType>()
-        }, CancellationToken.None);
+            Records = new List<IDatabaseRecord>
+            {
+                new UserRecord
+                {
+                    Reference = _userReference,
+                    CreatedAt = new DateTime(2023, 05, 01, 16, 39, 14),
+                    Email = "test@email.com",
+                    Password = "TestPassword",
+                    PasswordSalt = "",
+                    LastLoginAt = null,
+                    Permissions = new List<PermissionRecord>()
+                }            }
+        };
+
+        var requestUser = new TestRequestUser
+        {
+            Reference = _userReference
+        };
+
+        var subject = new UsersService(new UserRepository(database), null!, null!, null!);
+
+        _result = await subject.GetSelf(requestUser, CancellationToken.None);
     }
 
     [Test]
@@ -52,7 +57,7 @@ public sealed class GivenAGetSelfRequest
 
         Assert.Multiple(() =>
         {
-            Assert.That(user.Reference, Is.EqualTo(Guid.Parse("7dafaed7-0c16-41ef-a247-8bf8990d128d")), nameof(user.Reference));
+            Assert.That(user.Reference, Is.EqualTo(_userReference), nameof(user.Reference));
             Assert.That(user.CreatedAt, Is.EqualTo(new DateTime(2023, 05, 01, 16, 39, 14)), nameof(user.CreatedAt));
             Assert.That(user.Email, Is.EqualTo("test@email.com"), nameof(user.Email));
         });

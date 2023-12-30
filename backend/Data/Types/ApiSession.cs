@@ -5,7 +5,7 @@ namespace Data.Types;
 public interface IApiSession : IDisposable
 {
     Task<IApiTransaction> BeginTransaction(CancellationToken cancellationToken);
-    IQueryable<TRecord> Query<TRecord>() where TRecord : IDatabaseRecord;
+    IApiQueryable<TRecord> Query<TRecord>() where TRecord : IDatabaseRecord;
     Task<TRecord> Save<TRecord>(TRecord record, CancellationToken cancellationToken) where TRecord : IDatabaseRecord;
     Task<TRecord> Update<TRecord>(TRecord record, CancellationToken cancellationToken) where TRecord : IDatabaseRecord;
     Task Delete<TRecord>(TRecord record, CancellationToken cancellationToken) where TRecord : IDatabaseRecord;
@@ -31,9 +31,9 @@ public sealed class ApiSession : IApiSession
         return new ApiTransaction(_session.BeginTransaction());
     }
 
-    public IQueryable<TRecord> Query<TRecord>() where TRecord : IDatabaseRecord
+    public IApiQueryable<TRecord> Query<TRecord>() where TRecord : IDatabaseRecord
     {
-        return _session.Query<TRecord>();
+        return new ApiQueryable<TRecord>(_session.Query<TRecord>());
     }
 
     public async Task<TRecord> Save<TRecord>(TRecord record, CancellationToken cancellationToken) where TRecord : IDatabaseRecord

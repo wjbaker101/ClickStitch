@@ -22,7 +22,7 @@ public sealed class AdminRepository : Repository<IDatabaseRecord>, IAdminReposit
 
         var permissions = await session
             .Query<PermissionRecord>()
-            .ToListAsync(cancellationToken);
+            .ToList(cancellationToken);
 
         await transaction.Commit(cancellationToken);
 

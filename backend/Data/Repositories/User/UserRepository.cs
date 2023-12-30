@@ -28,18 +28,18 @@ public sealed class UserRepository : Repository<UserRecord>, IUserRepository
 
     public async Task<Result<UserRecord>> GetWithPermissionsByReferenceAsync(Guid userReference, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var user = await session
             .Query<UserRecord>()
             .FetchMany(x => x.Permissions)
-            .SingleOrDefaultAsync(x => x.Reference == userReference, cancellationToken);
+            .SingleOrDefault(x => x.Reference == userReference, cancellationToken);
 
         if (user == null)
             return Result<UserRecord>.Failure($"Unable to find user with reference: '{userReference}'.");
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         return user;
     }
@@ -51,7 +51,7 @@ public sealed class UserRepository : Repository<UserRecord>, IUserRepository
 
         var user = await session
             .Query<UserRecord>()
-            .SingleOrDefaultAsync(x => x.Reference == userReference, cancellationToken);
+            .SingleOrDefault(x => x.Reference == userReference, cancellationToken);
 
         if (user == null)
             return Result<UserRecord>.Failure($"Unable to find user with reference: '{userReference}'.");
@@ -68,7 +68,7 @@ public sealed class UserRepository : Repository<UserRecord>, IUserRepository
 
         var user = await session
             .Query<UserRecord>()
-            .SingleOrDefaultAsync(x => x.Email.ToLower() == email.ToLower(), cancellationToken);
+            .SingleOrDefault(x => x.Email.ToLower() == email.ToLower(), cancellationToken);
 
         if (user == null)
             return Result<UserRecord>.Failure($"Unable to find user with email: '{email}'.");

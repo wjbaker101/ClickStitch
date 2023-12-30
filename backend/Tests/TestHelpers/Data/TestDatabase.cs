@@ -33,9 +33,9 @@ public sealed class TestApiSession : IApiSession
         return Task.FromResult<IApiTransaction>(new TestApiTransaction());
     }
 
-    public IQueryable<TRecord> Query<TRecord>() where TRecord : IDatabaseRecord
+    public IApiQueryable<TRecord> Query<TRecord>() where TRecord : IDatabaseRecord
     {
-        return new TestQueryable<TRecord>(_records.OfType<TRecord>().AsQueryable());
+        return new TestApiQueryable<TRecord>(_records.OfType<TRecord>().AsQueryable());
     }
 
     public Task<TRecord> Save<TRecord>(TRecord record, CancellationToken cancellationToken) where TRecord : IDatabaseRecord

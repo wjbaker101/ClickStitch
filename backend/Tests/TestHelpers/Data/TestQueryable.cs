@@ -1,10 +1,51 @@
-﻿using NHibernate;
+﻿using Data.Types;
+using NHibernate;
 using NHibernate.Linq;
 using NHibernate.Type;
 using System.Collections;
 using System.Linq.Expressions;
 
 namespace TestHelpers.Data;
+
+public sealed class TestApiQueryable<TRecord> : IApiQueryable<TRecord> where TRecord : IDatabaseRecord
+{
+    private readonly TestQueryable<TRecord> _queryable;
+
+    public TestApiQueryable(IQueryable<TRecord> queryable)
+    {
+        _queryable = new TestQueryable<TRecord>(queryable);
+    }
+
+    public IApiQueryable<TRecord> FetchMany<TRelated>(Expression<Func<TRecord, IEnumerable<TRelated>>> relatedObjectSelector)
+    {
+        return this;
+    }
+
+    public async Task<TRecord> Single(CancellationToken cancellationToken)
+    {
+        return await _queryable.SingleAsync(cancellationToken);
+    }
+
+    public async Task<TRecord> Single(Expression<Func<TRecord, bool>> predicate, CancellationToken cancellationToken)
+    {
+        return await _queryable.SingleAsync(predicate, cancellationToken);
+    }
+
+    public async Task<TRecord?> SingleOrDefault(CancellationToken cancellationToken)
+    {
+        return await _queryable.SingleOrDefaultAsync(cancellationToken);
+    }
+
+    public async Task<TRecord?> SingleOrDefault(Expression<Func<TRecord, bool>> predicate, CancellationToken cancellationToken)
+    {
+        return await _queryable.SingleOrDefaultAsync(predicate, cancellationToken);
+    }
+
+    public async Task<List<TRecord>> ToList(CancellationToken cancellationToken)
+    {
+        return await _queryable.ToListAsync(cancellationToken);
+    }
+}
 
 public sealed class TestQueryable<TRecord> : IOrderedQueryable<TRecord>
 {
