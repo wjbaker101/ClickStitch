@@ -4,7 +4,7 @@ using ClickStitch.Api.Users.Types;
 using Data.Records;
 using Data.Repositories.User;
 using DotNetLibs.Core.Services.Fakes;
-using Moq;
+using TestHelpers.Data;
 using TestHelpers.Settings;
 
 namespace Api.Tests.Api.Users.CreateUser;
@@ -13,23 +13,17 @@ namespace Api.Tests.Api.Users.CreateUser;
 [Parallelizable]
 public sealed class GivenACreateUserRequest
 {
-    private Mock<IUserRepository> _userRepository = null!;
+    private TestDatabase _database = null!;
 
     private Result<CreateUserResponse> _result = null!;
 
     [OneTimeSetUp]
     public async Task Setup()
     {
-        _userRepository = new Mock<IUserRepository>();
-        _userRepository
-            .Setup(mock => mock.SaveAsync(It.IsAny<UserRecord>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync((UserRecord user, CancellationToken cancellationToken) => user);
-        _userRepository
-            .Setup(mock => mock.GetByEmailAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(Result<UserRecord>.Failure("TestFailure"));
+        _database = new TestDatabase();
 
         var subject = new UsersService(
-            _userRepository.Object,
+            new UserRepository(_database),
             new PasswordService(new TestAppSecrets()),
             new FakeGuidProvider
             {
@@ -53,11 +47,8 @@ public sealed class GivenACreateUserRequest
     [Test]
     public void ThenTheCorrectUserIsSaved()
     {
-        _userRepository.Verify(mock => mock.SaveAsync(It.Is<UserRecord>(request => AssertUserRecord(request)), It.IsAny<CancellationToken>()), Times.Once);
-    }
+        var user = _database.Actions.Saved.OfType<UserRecord>().Single();
 
-    private static bool AssertUserRecord(UserRecord user)
-    {
         Assert.Multiple(() =>
         {
             Assert.That(user.Reference, Is.EqualTo(Guid.Parse("55993eb0-9824-4dbf-a674-1f5a09205287")), nameof(user.Reference));
@@ -66,8 +57,6 @@ public sealed class GivenACreateUserRequest
             Assert.That(user.Password, Is.EqualTo("/y4uCdYgHfFU4jGJNBrTk1waTQS8g8gR0UnOdiRo5OY="), nameof(user.Password));
             Assert.That(user.PasswordSalt, Is.EqualTo("55993eb0-9824-4dbf-a674-1f5a09205287"), nameof(user.PasswordSalt));
         });
-
-        return true;
     }
 
     [Test]

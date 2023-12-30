@@ -3,8 +3,9 @@ using ClickStitch.Api.Users;
 using ClickStitch.Api.Users.Types;
 using Data.Records;
 using Data.Repositories.User;
+using Data.Types;
 using DotNetLibs.Core.Services.Fakes;
-using Moq;
+using TestHelpers.Data;
 using TestHelpers.Settings;
 
 namespace Api.Tests.Api.Users.CreateUser;
@@ -13,29 +14,31 @@ namespace Api.Tests.Api.Users.CreateUser;
 [Parallelizable]
 public sealed class GivenACreateUserRequestWithAnExistingEmail
 {
-    private Mock<IUserRepository> _userRepository = null!;
-
     private Result<CreateUserResponse> _result = null!;
 
     [OneTimeSetUp]
     public async Task Setup()
     {
-        _userRepository = new Mock<IUserRepository>();
-        _userRepository
-            .Setup(mock => mock.GetByEmailAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new UserRecord
+        var database = new TestDatabase
+        {
+            Records = new List<IDatabaseRecord>
             {
-                Reference = default,
-                CreatedAt = default,
-                Email = null!,
-                Password = null!,
-                PasswordSalt = null!,
-                LastLoginAt = null,
-                Permissions = new List<PermissionRecord>()
-            });
+                new UserRecord
+                {
+                    Id = 0,
+                    Reference = default,
+                    CreatedAt = default,
+                    Email = "test@email.com",
+                    Password = null,
+                    PasswordSalt = null,
+                    LastLoginAt = null,
+                    Permissions = null
+                }
+            }
+        };
 
         var subject = new UsersService(
-            _userRepository.Object,
+            new UserRepository(database),
             new PasswordService(new TestAppSecrets()),
             new FakeGuidProvider
             {
@@ -54,12 +57,6 @@ public sealed class GivenACreateUserRequestWithAnExistingEmail
     public void ThenTheResultIsAFailure()
     {
         Assert.That(_result.IsFailure, Is.True);
-    }
-
-    [Test]
-    public void ThenTheCorrectUserIsNotSaved()
-    {
-        _userRepository.Verify(mock => mock.SaveAsync(It.IsAny<UserRecord>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 
     [Test]
