@@ -109,6 +109,9 @@ public sealed partial class UsersService : IUsersService
         if (!userResult.TrySuccess(out var user))
             return Result<DeleteUserResponse>.FromFailure(userResult);
 
+        if (requestUser.Reference != user.Reference)
+            return Result<DeleteUserResponse>.Failure("Cannot delete a different user.");
+
         await _userRepository.DeleteAsync(user, cancellationToken);
 
         return new DeleteUserResponse();
