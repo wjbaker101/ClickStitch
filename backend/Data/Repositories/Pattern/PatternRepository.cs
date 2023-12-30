@@ -35,18 +35,18 @@ public sealed class PatternRepository : Repository<PatternRecord>, IPatternRepos
 
     public async Task<Result<PatternRecord>> GetByReferenceAsync(Guid patternReference, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var pattern = await session
             .Query<PatternRecord>()
             .Fetch(x => x.User)
-            .SingleOrDefaultAsync(x => x.Reference == patternReference, cancellationToken);
+            .SingleOrDefault(x => x.Reference == patternReference, cancellationToken);
 
         if (pattern == null)
             return Result<PatternRecord>.Failure($"Unable to find pattern with reference: '{patternReference}'.");
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         return pattern;
     }

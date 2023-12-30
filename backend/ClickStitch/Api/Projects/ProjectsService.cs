@@ -6,6 +6,7 @@ using Data.Repositories.UserPattern;
 using Data.Repositories.UserPatternThreadStitch;
 using Data.Repositories.UserPatternThreadStitch.Types;
 using DotNetLibs.Core.Extensions;
+using DotNetLibs.Core.Services;
 
 namespace ClickStitch.Api.Projects;
 
@@ -29,17 +30,20 @@ public sealed class ProjectsService : IProjectsService
     private readonly IUserPatternRepository _userPatternRepository;
     private readonly IPatternRepository _patternRepository;
     private readonly IUserPatternThreadStitchRepository _userPatternThreadStitchRepository;
+    private readonly IDateTimeProvider _dateTime;
 
     public ProjectsService(
         IUserRepository userRepository,
         IUserPatternRepository userPatternRepository,
         IPatternRepository patternRepository,
-        IUserPatternThreadStitchRepository userPatternThreadStitchRepository)
+        IUserPatternThreadStitchRepository userPatternThreadStitchRepository,
+        IDateTimeProvider dateTime)
     {
         _userRepository = userRepository;
         _userPatternRepository = userPatternRepository;
         _patternRepository = patternRepository;
         _userPatternThreadStitchRepository = userPatternThreadStitchRepository;
+        _dateTime = dateTime;
     }
 
     public async Task<Result<GetProjectsResponse>> GetProjects(RequestUser requestUser, CancellationToken cancellationToken)
@@ -66,7 +70,7 @@ public sealed class ProjectsService : IProjectsService
         {
             User = user,
             Pattern = pattern,
-            CreatedAt = DateTime.UtcNow,
+            CreatedAt = _dateTime.UtcNow(),
             PausePositionX = null,
             PausePositionY = null
         }, cancellationToken);

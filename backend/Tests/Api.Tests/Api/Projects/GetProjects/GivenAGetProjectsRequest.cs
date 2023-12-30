@@ -85,7 +85,7 @@ public sealed class GivenAGetProjectsRequest
             }
         };
 
-        var subject = new ProjectsService(new UserRepository(database), new UserPatternRepository(database), null!, null!);
+        var subject = new ProjectsService(new UserRepository(database), new UserPatternRepository(database), null!, null!, null!);
 
         _result = await subject.GetProjects(new TestRequestUser(), CancellationToken.None);
     }
