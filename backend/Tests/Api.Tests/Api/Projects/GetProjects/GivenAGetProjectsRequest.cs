@@ -6,7 +6,7 @@ using Data.Repositories.UserPattern;
 using Data.Types;
 using TestHelpers.Data;
 
-namespace Api.Tests.Api.Projects;
+namespace Api.Tests.Api.Projects.GetProjects;
 
 [TestFixture]
 [Parallelizable]
