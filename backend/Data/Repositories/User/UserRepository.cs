@@ -21,9 +21,9 @@ public sealed class UserRepository : Repository<UserRecord>, IUserRepository
 
     public async Task<UserRecord> GetByRequestUser(RequestUser requestUser, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
+        using var session = Database.OpenSession();
 
-        return await session.LoadAsync<UserRecord>(requestUser.Id, cancellationToken);
+        return await session.Load<UserRecord>(requestUser.Id, cancellationToken);
     }
 
     public async Task<Result<UserRecord>> GetWithPermissionsByReferenceAsync(Guid userReference, CancellationToken cancellationToken)

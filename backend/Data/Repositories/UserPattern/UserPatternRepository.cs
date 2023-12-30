@@ -17,8 +17,8 @@ public sealed class UserPatternRepository : Repository<UserPatternRecord>, IUser
 
     public async Task<List<UserPatternRecord>> GetByUserAsync(UserRecord user, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var userPatterns = await session
             .Query<UserPatternRecord>()
@@ -26,9 +26,9 @@ public sealed class UserPatternRepository : Repository<UserPatternRecord>, IUser
             .ThenFetch(x => x.Creator)
             .Where(x => x.User == user)
             .OrderByDescending(x => x.CreatedAt)
-            .ToListAsync(cancellationToken);
+            .ToList(cancellationToken);
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         return userPatterns;
     }

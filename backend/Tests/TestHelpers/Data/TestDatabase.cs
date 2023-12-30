@@ -33,6 +33,11 @@ public sealed class TestApiSession : IApiSession
         return Task.FromResult<IApiTransaction>(new TestApiTransaction());
     }
 
+    public Task<TRecord> Load<TRecord>(long id, CancellationToken cancellationToken) where TRecord : IDatabaseRecord
+    {
+        return Task.FromResult(_records.OfType<TRecord>().First());
+    }
+
     public IApiQueryable<TRecord> Query<TRecord>() where TRecord : IDatabaseRecord
     {
         return new TestApiQueryable<TRecord>(_records.OfType<TRecord>().AsQueryable());

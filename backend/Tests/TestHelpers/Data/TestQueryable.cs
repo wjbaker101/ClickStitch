@@ -7,18 +7,33 @@ using System.Linq.Expressions;
 
 namespace TestHelpers.Data;
 
-public sealed class TestApiQueryable<TRecord> : IApiQueryable<TRecord> where TRecord : IDatabaseRecord
+public class TestApiQueryable<TRecord> : IApiQueryable<TRecord> where TRecord : IDatabaseRecord
 {
-    private readonly TestQueryable<TRecord> _queryable;
+    private readonly IQueryable<TRecord> _queryable;
 
     public TestApiQueryable(IQueryable<TRecord> queryable)
     {
         _queryable = new TestQueryable<TRecord>(queryable);
     }
 
-    public IApiQueryable<TRecord> FetchMany<TRelated>(Expression<Func<TRecord, IEnumerable<TRelated>>> relatedObjectSelector)
+    public IApiQueryable<TRecord> Where(Expression<Func<TRecord, bool>> predicate)
     {
-        return this;
+        return new TestApiQueryable<TRecord>(_queryable.Where(predicate));
+    }
+
+    public IApiQueryable<TRecord> OrderByDescending<TKey>(Expression<Func<TRecord, TKey>> keySelector)
+    {
+        return new TestApiQueryable<TRecord>(_queryable.OrderByDescending(keySelector));
+    }
+
+    public IApiFetchQueryable<TRecord, TRelated> Fetch<TRelated>(Expression<Func<TRecord, TRelated>> relatedObjectSelector) where TRelated : IDatabaseRecord
+    {
+        return new TestApiFetchQueryable<TRecord, TRelated>(_queryable);
+    }
+
+    public IApiFetchQueryable<TRecord, TRelated> FetchMany<TRelated>(Expression<Func<TRecord, IEnumerable<TRelated>>> relatedObjectSelector) where TRelated : IDatabaseRecord
+    {
+        return new TestApiFetchQueryable<TRecord, TRelated>(_queryable);
     }
 
     public async Task<TRecord> Single(CancellationToken cancellationToken)
@@ -44,6 +59,21 @@ public sealed class TestApiQueryable<TRecord> : IApiQueryable<TRecord> where TRe
     public async Task<List<TRecord>> ToList(CancellationToken cancellationToken)
     {
         return await _queryable.ToListAsync(cancellationToken);
+    }
+}
+
+public sealed class TestApiFetchQueryable<TRecord, TFetch> : TestApiQueryable<TRecord>, IApiFetchQueryable<TRecord, TFetch> where TRecord : IDatabaseRecord where TFetch : IDatabaseRecord
+{
+    private readonly IQueryable<TRecord> _queryable;
+
+    public TestApiFetchQueryable(IQueryable<TRecord> queryable) : base(queryable)
+    {
+        _queryable = queryable;
+    }
+
+    public IApiFetchQueryable<TRecord, TRelated> ThenFetch<TRelated>(Expression<Func<TFetch, TRelated>> relatedObjectSelector) where TRelated : IDatabaseRecord
+    {
+        return new TestApiFetchQueryable<TRecord, TRelated>(_queryable);
     }
 }
 

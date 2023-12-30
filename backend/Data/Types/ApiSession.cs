@@ -5,6 +5,7 @@ namespace Data.Types;
 public interface IApiSession : IDisposable
 {
     Task<IApiTransaction> BeginTransaction(CancellationToken cancellationToken);
+    Task<TRecord> Load<TRecord>(long id, CancellationToken cancellationToken) where TRecord : IDatabaseRecord;
     IApiQueryable<TRecord> Query<TRecord>() where TRecord : IDatabaseRecord;
     Task<TRecord> Save<TRecord>(TRecord record, CancellationToken cancellationToken) where TRecord : IDatabaseRecord;
     Task<TRecord> Update<TRecord>(TRecord record, CancellationToken cancellationToken) where TRecord : IDatabaseRecord;
@@ -29,6 +30,11 @@ public sealed class ApiSession : IApiSession
             .ConfigureAwait(false);
 
         return new ApiTransaction(_session.BeginTransaction());
+    }
+
+    public async Task<TRecord> Load<TRecord>(long id, CancellationToken cancellationToken) where TRecord : IDatabaseRecord
+    {
+        return await _session.LoadAsync<TRecord>(id, cancellationToken);
     }
 
     public IApiQueryable<TRecord> Query<TRecord>() where TRecord : IDatabaseRecord
