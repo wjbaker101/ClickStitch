@@ -3,8 +3,9 @@ using ClickStitch.Api.Users;
 using ClickStitch.Api.Users.Types;
 using Data.Records;
 using Data.Repositories.User;
+using Data.Types;
 using DotNetLibs.Core.Services.Fakes;
-using Moq;
+using TestHelpers.Data;
 using TestHelpers.Settings;
 
 namespace Api.Tests.Api.Users.Delete;
@@ -13,43 +14,44 @@ namespace Api.Tests.Api.Users.Delete;
 [Parallelizable]
 public sealed class GivenADeleteUserRequest
 {
-    private UserRecord _user = null!;
+    private readonly Guid _userReference = Guid.Parse("85e41403-d6e1-4c50-bf48-50f65713ea53");
 
-    private Mock<IUserRepository> _userRepository = null!;
+    private TestDatabase _database = null!;
 
     private Result<DeleteUserResponse> _result = null!;
 
     [OneTimeSetUp]
     public async Task Setup()
     {
-        _user = new UserRecord
+        _database = new TestDatabase
         {
-            Reference = Guid.Parse("85e41403-d6e1-4c50-bf48-50f65713ea53"),
-            CreatedAt = new DateTime(2023, 06, 02, 11, 56, 01),
-            Email = "test@email.com",
-            Password = "TestPassword",
-            PasswordSalt = "TestPasswordSalt",
-            LastLoginAt = null,
-            Permissions = new List<PermissionRecord>()
+            Records = new List<IDatabaseRecord>
+            {
+                new UserRecord
+                {
+                    Reference = _userReference,
+                    CreatedAt = default,
+                    Email = default!,
+                    Password = default!,
+                    PasswordSalt = default!,
+                    LastLoginAt = default,
+                    Permissions = default!
+                }
+            }
         };
 
-        _userRepository = new Mock<IUserRepository>();
-        _userRepository
-            .Setup(mock => mock.GetByReferenceAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(_user);
+        var requestUser = new TestRequestUser
+        {
+            Reference = _userReference
+        };
 
         var subject = new UsersService(
-            _userRepository.Object,
+            new UserRepository(_database),
             new PasswordService(new TestAppSecrets()),
             new FakeGuidProvider(),
             new FakeDateTimeProvider());
         
-        _result = await subject.DeleteUser(new RequestUser
-        {
-            Id = 1913,
-            Reference = Guid.NewGuid(),
-            Permissions = new List<RequestPermissionType>()
-        }, Guid.Parse("5f69355e-7498-4620-bd6f-cf3968fb37a4"), CancellationToken.None);
+        _result = await subject.DeleteUser(requestUser, _userReference, CancellationToken.None);
     }
 
     [Test]
@@ -61,6 +63,8 @@ public sealed class GivenADeleteUserRequest
     [Test]
     public void ThenTheCorrectUserIsDeleted()
     {
-        _userRepository.Verify(mock => mock.DeleteAsync(_user, It.IsAny<CancellationToken>()), Times.Once);
+        var user = _database.Actions.Delete.OfType<UserRecord>().Single();
+
+        Assert.That(user.Reference, Is.EqualTo(_userReference));
     }
 }
