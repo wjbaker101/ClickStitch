@@ -35,19 +35,19 @@ public sealed class UserPatternRepository : Repository<UserPatternRecord>, IUser
 
     public async Task<Result<UserPatternRecord>> GetByUserAndPatternAsync(UserRecord user, PatternRecord pattern, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var userPattern = await session
             .Query<UserPatternRecord>()
             .Fetch(x => x.Pattern)
             .ThenFetch(x => x.Creator)
-            .SingleOrDefaultAsync(x => x.User == user && x.Pattern == pattern, cancellationToken);
+            .SingleOrDefault(x => x.User == user && x.Pattern == pattern, cancellationToken);
 
         if (userPattern == null)
             return Result<UserPatternRecord>.Failure("Unable to find pattern for user.");
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         return userPattern;
     }

@@ -53,15 +53,15 @@ public sealed class PatternRepository : Repository<PatternRecord>, IPatternRepos
 
     public async Task<Result<PatternRecord>> GetWithThreadsByReferenceAsync(Guid patternReference, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var pattern = await session
             .Query<PatternRecord>()
-            .Fetch(x => x.Threads)
-            .SingleOrDefaultAsync(x => x.Reference == patternReference, cancellationToken);
+            .FetchMany(x => x.Threads)
+            .SingleOrDefault(x => x.Reference == patternReference, cancellationToken);
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         if (pattern == null)
             return Result<PatternRecord>.Failure($"Unable to find pattern with reference: '{patternReference}'.");
@@ -71,17 +71,17 @@ public sealed class PatternRepository : Repository<PatternRecord>, IPatternRepos
 
     public async Task<Dictionary<int, List<PatternThreadStitchRecord>>> GetStitchesByThreads(List<PatternThreadRecord> threads, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var stitches = (await session
             .Query<PatternThreadStitchRecord>()
             .Where(x => threads.Contains(x.Thread))
-            .ToListAsync(cancellationToken))
+            .ToList(cancellationToken))
             .GroupBy(x => x.Thread.Index)
             .ToDictionary(x => x.Key, x => x.ToList());
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         return stitches;
     }

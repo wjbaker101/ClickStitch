@@ -18,25 +18,25 @@ public sealed class UserPatternThreadStitchRepository : Repository<UserPatternTh
 
     public async Task<Dictionary<int, Dictionary<long, UserPatternThreadStitchRecord>>> GetByUser(UserRecord user, Guid patternReference, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var threads = await session
             .Query<PatternThreadRecord>()
             .Fetch(x => x.Pattern)
             .Where(x => x.Pattern.Reference == patternReference)
-            .ToListAsync(cancellationToken);
+            .ToList(cancellationToken);
 
         var userStitches = (await session
             .Query<UserPatternThreadStitchRecord>()
             .Fetch(x => x.Stitch)
             .ThenFetch(x => x.Thread)
             .Where(x => x.User == user && threads.Contains(x.Stitch.Thread))
-            .ToListAsync(cancellationToken))
+            .ToList(cancellationToken))
             .GroupBy(x => x.Stitch.Thread.Index)
             .ToDictionary(x => x.Key, x => x.ToDictionary(y => y.Stitch.Id));
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         return userStitches;
     }
