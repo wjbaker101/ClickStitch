@@ -6,7 +6,7 @@ using Data.Repositories.UserPatternThreadStitch;
 using Data.Types;
 using TestHelpers.Data;
 
-namespace Api.Tests.Api.Projects.GetProject;
+namespace Api.Tests.Api.Projects.CompleteStitches;
 
 [TestFixture]
 [Parallelizable]
