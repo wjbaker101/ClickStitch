@@ -43,8 +43,8 @@ public sealed class UserPatternThreadStitchRepository : Repository<UserPatternTh
 
     public async Task Complete(UserRecord user, Guid patternReference, StitchPosition positions, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var threadIndexes = positions.StitchesByThread.Select(x => x.Key).ToHashSet();
 
@@ -52,7 +52,7 @@ public sealed class UserPatternThreadStitchRepository : Repository<UserPatternTh
             .Query<PatternThreadRecord>()
             .Fetch(x => x.Pattern)
             .Where(x => x.Pattern.Reference == patternReference && threadIndexes.Contains(x.Index))
-            .ToListAsync(cancellationToken);
+            .ToList(cancellationToken);
 
         foreach (var thread in threads)
         {
@@ -61,11 +61,11 @@ public sealed class UserPatternThreadStitchRepository : Repository<UserPatternTh
             var stitches = await session
                 .Query<PatternThreadStitchRecord>()
                 .Where(stitch => stitch.Thread == thread && stitchPositions.Contains(stitch.LookupHash))
-                .ToListAsync(cancellationToken);
+                .ToList(cancellationToken);
 
             foreach (var stitch in stitches)
             {
-                await session.SaveAsync(new UserPatternThreadStitchRecord
+                await session.Save(new UserPatternThreadStitchRecord
                 {
                     User = user,
                     Stitch = stitch,
@@ -74,7 +74,7 @@ public sealed class UserPatternThreadStitchRepository : Repository<UserPatternTh
             }
         }
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
     }
 
     public async Task UnComplete(UserRecord user, Guid patternReference, StitchPosition positions, CancellationToken cancellationToken)
