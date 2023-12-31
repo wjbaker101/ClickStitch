@@ -63,7 +63,7 @@ public sealed class GivenADeleteUserRequest
     [Test]
     public void ThenTheCorrectUserIsDeleted()
     {
-        var user = _database.Actions.Delete.OfType<UserRecord>().Single();
+        var user = _database.Actions.Deleted.OfType<UserRecord>().Single();
 
         Assert.That(user.Reference, Is.EqualTo(_userReference));
     }
