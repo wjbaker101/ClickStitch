@@ -67,17 +67,17 @@ public sealed class CreatorRepository : Repository<CreatorRecord>, ICreatorRepos
 
     public async Task<Result<CreatorRecord>> GetByUser(UserRecord user, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var creator = await session
             .Query<UserCreatorRecord>()
             .Fetch(x => x.Creator)
             .Where(x => x.User == user)
             .Select(x => x.Creator)
-            .SingleOrDefaultAsync(cancellationToken);
+            .SingleOrDefault(cancellationToken);
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         if (creator == null)
             return Result<CreatorRecord>.Failure("Unable to find creator for user.");
