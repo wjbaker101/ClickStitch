@@ -19,16 +19,16 @@ public sealed class PatternRepository : Repository<PatternRecord>, IPatternRepos
 
     public async Task<List<PatternRecord>> SearchAsync(SearchPatternsParameters parameters, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var patterns = await session
             .Query<PatternRecord>()
             .Fetch(x => x.Creator)
             .Where(x => !parameters.PatternsToExclude.Contains(x) && x.IsPublic)
-            .ToListAsync(cancellationToken);
+            .ToList(cancellationToken);
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         return patterns;
     }
