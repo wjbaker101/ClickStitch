@@ -39,22 +39,28 @@ public sealed class AdminRepository : Repository<IDatabaseRecord>, IAdminReposit
 
         var totalCount = query.ToFutureValue(x => x.Count());
 
-        var usersQuery = query
-            .FetchMany(x => x.Permissions)
+        var users = (await query
             .OrderByDescending(x => x.CreatedAt)
             .Skip((parameters.PageNumber - 1) * parameters.PageSize)
-            .Take(parameters.PageSize);
-
-        var users = (await usersQuery
+            .Take(parameters.PageSize)
             .ToFuture()
             .GetEnumerableAsync(cancellationToken))
             .ToList();
+
+        var permissionsLookup = (await session
+            .Query<UserPermissionRecord>()
+            .Fetch(x => x.Permission)
+            .Where(x => users.Contains(x.User))
+            .ToListAsync(cancellationToken))
+            .GroupBy(x => x.User.Id)
+            .ToDictionary(x => x.Key, x => x.Select(y => y.Permission).ToList());
 
         await transaction.CommitAsync(cancellationToken);
 
         return new SearchUsersDto
         {
             Users = users,
+            PermissionsLookup = permissionsLookup,
             TotalCount = await totalCount.GetValueAsync(cancellationToken)
         };
     }

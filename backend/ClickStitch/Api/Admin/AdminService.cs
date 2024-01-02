@@ -6,7 +6,6 @@ using Data.Repositories.Permission;
 using Data.Repositories.Thread;
 using Data.Repositories.User;
 using Data.Repositories.UserPermission;
-using DotNetLibs.Core.Extensions;
 
 namespace ClickStitch.Api.Admin;
 
@@ -66,10 +65,18 @@ public sealed class AdminService : IAdminService
             Users = getUsers.Users.ConvertAll(x => new SearchUsersResponse.UserDetails
             {
                 User = UserMapper.Map(x),
-                Permissions = x.Permissions.MapAll(PermissionMapper.Map)
+                Permissions = MapPermissions(x.Id, getUsers.PermissionsLookup)
             }),
             Pagination = PaginationModel.Create(pageNumber, pageSize, getUsers.TotalCount)
         };
+    }
+
+    private static List<PermissionModel> MapPermissions(long userId, Dictionary<long, List<PermissionRecord>> permissionsLookup)
+    {
+        if (!permissionsLookup.TryGetValue(userId, out var permissions))
+            return new List<PermissionModel>();
+
+        return permissions.ConvertAll(PermissionMapper.Map);
     }
 
     public async Task<Result<AssignPermissionToUserResponse>> AssignPermissionToUser(Guid userReference, AssignPermissionToUserRequest request, CancellationToken cancellationToken)

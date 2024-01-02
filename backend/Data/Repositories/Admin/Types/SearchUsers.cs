@@ -9,5 +9,6 @@ public sealed class SearchUsersParameters
 public sealed class SearchUsersDto
 {
     public required List<UserRecord> Users { get; init; }
+    public required Dictionary<long, List<PermissionRecord>> PermissionsLookup { get; init; }
     public required int TotalCount { get; init; }
 }
