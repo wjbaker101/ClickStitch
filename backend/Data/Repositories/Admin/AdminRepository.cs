@@ -40,13 +40,10 @@ public sealed class AdminRepository : Repository<IDatabaseRecord>, IAdminReposit
         var totalCount = query.ToFutureValue(x => x.Count());
 
         var usersQuery = query
+            .FetchMany(x => x.Permissions)
             .OrderByDescending(x => x.CreatedAt)
             .Skip((parameters.PageNumber - 1) * parameters.PageSize)
             .Take(parameters.PageSize);
-
-        usersQuery
-            .FetchMany(x => x.Permissions)
-            .ToFuture();
 
         var users = (await usersQuery
             .ToFuture()
