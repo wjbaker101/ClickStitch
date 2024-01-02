@@ -65,6 +65,16 @@ public class TestApiQueryable<TRecord> : IApiQueryable<TRecord> where TRecord : 
     {
         return await _queryable.ToListAsync(cancellationToken);
     }
+
+    public Task<bool> Any(CancellationToken cancellationToken)
+    {
+        return _queryable.AnyAsync(cancellationToken);
+    }
+
+    public Task<bool> Any(Expression<Func<TRecord, bool>> predicate, CancellationToken cancellationToken)
+    {
+        return _queryable.AnyAsync(predicate, cancellationToken);
+    }
 }
 
 public sealed class TestApiFetchQueryable<TRecord, TFetch> : TestApiQueryable<TRecord>, IApiFetchQueryable<TRecord, TFetch> where TRecord : IDatabaseRecord where TFetch : IDatabaseRecord

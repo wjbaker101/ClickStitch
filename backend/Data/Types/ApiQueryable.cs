@@ -14,6 +14,8 @@ public interface IApiQueryable<TRecord> where TRecord : IDatabaseRecord
     Task<TRecord?> SingleOrDefault(CancellationToken cancellationToken);
     Task<TRecord?> SingleOrDefault(Expression<Func<TRecord, bool>> predicate, CancellationToken cancellationToken);
     Task<List<TRecord>> ToList(CancellationToken cancellationToken);
+    Task<bool> Any(CancellationToken cancellationToken);
+    Task<bool> Any(Expression<Func<TRecord, bool>> predicate, CancellationToken cancellationToken);
 }
 
 public class ApiQueryable<TRecord> : IApiQueryable<TRecord> where TRecord : IDatabaseRecord
@@ -73,6 +75,16 @@ public class ApiQueryable<TRecord> : IApiQueryable<TRecord> where TRecord : IDat
     public async Task<List<TRecord>> ToList(CancellationToken cancellationToken)
     {
         return await _queryable.ToListAsync(cancellationToken);
+    }
+
+    public async Task<bool> Any(CancellationToken cancellationToken)
+    {
+        return await _queryable.AnyAsync(cancellationToken);
+    }
+
+    public async Task<bool> Any(Expression<Func<TRecord, bool>> predicate, CancellationToken cancellationToken)
+    {
+        return await _queryable.AnyAsync(predicate, cancellationToken);
     }
 }
 
