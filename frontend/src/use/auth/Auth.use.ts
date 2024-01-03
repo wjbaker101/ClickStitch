@@ -32,6 +32,8 @@ export const useAuth = function () {
         clear() {
             auth.value = null;
             cache.delete(cacheKey);
+
+            window.location.reload();
         },
 
     };

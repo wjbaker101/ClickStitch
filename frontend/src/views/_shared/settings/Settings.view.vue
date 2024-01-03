@@ -50,7 +50,6 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
 
 import { useAuth } from '@/use/auth/Auth.use';
 import { api } from '@/api/api';
@@ -59,7 +58,6 @@ import { type Subdomain } from '@/setup/router/router-helper';
 import { type IGetSelf } from '@/models/GetSelf.model';
 
 const auth = useAuth();
-const router = useRouter();
 
 const authDetails = auth.details;
 const self = ref<IGetSelf | null>(null);
@@ -77,7 +75,6 @@ const urlToSubdomain = function (subdomain: Subdomain): string {
 
 const onLogOut = function (): void {
     auth.clear();
-    router.push({ path: '/login' });
 };
 
 onMounted(async () => {

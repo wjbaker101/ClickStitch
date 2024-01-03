@@ -1,6 +1,10 @@
 import { AxiosError } from 'axios';
 
+import { useAuth } from '@/use/auth/Auth.use';
+
 import { type IApiErrorResponse } from '@/api/types/ApiResponse.type';
+
+const auth = useAuth();
 
 export const ApiErrorMapper = {
 
@@ -8,6 +12,11 @@ export const ApiErrorMapper = {
         const axiosError = input as AxiosError;
 
         if (axiosError.response) {
+            if (axiosError.response.status === 401) {
+                auth.clear();
+                return new Error('Unable to authenticate user, redirecting back to the login page.');
+            }
+
             const response = axiosError.response.data as IApiErrorResponse;
 
             return new Error(response.failureMessage);
