@@ -12,6 +12,8 @@ namespace Api.Tests.Api.Admin.SearchUsers;
 [Parallelizable]
 public sealed class GivenASearchUsersRequest
 {
+    private const int USER_ID = 5559;
+
     private Mock<IAdminRepository> _adminRepository = null!;
 
     private Result<SearchUsersResponse> _result = null!;
@@ -28,19 +30,24 @@ public sealed class GivenASearchUsersRequest
                 {
                     new()
                     {
+                        Id = USER_ID,
                         Reference = Guid.Parse("016fc7d5-03c8-4639-a31d-08ba1fd17ed8"),
                         CreatedAt = new DateTime(2023, 06, 02, 23, 15, 10),
                         Email = "test@email.com",
                         Password = "",
                         PasswordSalt = "",
                         LastLoginAt = new DateTime(2023, 06, 02, 23, 15, 20),
-                        Permissions = new List<PermissionRecord>
+                        Permissions = null!
+                    }
+                },
+                PermissionsLookup = new Dictionary<long, List<PermissionRecord>>
+                {
+                    [USER_ID] = new List<PermissionRecord>
+                    {
+                        new()
                         {
-                            new()
-                            {
-                                Type = PermissionType.Creator,
-                                Name = "TestPermissionName"
-                            }
+                            Type = PermissionType.Creator,
+                            Name = "TestPermissionName"
                         }
                     }
                 },
