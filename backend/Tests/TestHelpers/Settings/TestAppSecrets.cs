@@ -31,7 +31,7 @@ public sealed class TestAppSecrets
 
         public sealed class TestLoginTokenSettings
         {
-            public string SecretKey { get; set; } = "TestSecret_e38a3038-44b5-4955-a4df-4c41b3f13518";
+            public string SecretKey { get; set; } = "TestSecret_e38a3038-44b5-4955-a4df-4c41b3f13518_e556cc10-0771-4324-aff5-f94d9ed6a93a";
         }
 
         public sealed class TestPasswordSettings
