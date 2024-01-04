@@ -22,15 +22,25 @@ using Data.Repositories.UserPatternThreadStitch;
 using Data.Repositories.UserPermission;
 using Data.Repositories.UserThread;
 using DotNetLibs.Core.Services;
+using Inkwell.Client;
+using Inkwell.Client.Types;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
 SetupSettings();
-services.AddSingleton(builder.Configuration.Get<AppSecrets>()!);
+var appSecrets = builder.Configuration.Get<AppSecrets>()!;
+
+services.AddSingleton(appSecrets);
 
 services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 services.AddSingleton<IGuidProvider, GuidProvider>();
+
+services.AddSingleton<IInkwellClient>(new InkwellClient(new InkwellClientOptions
+{
+    BaseUrl = appSecrets.Inkwell.BaseUrl,
+    AppName = "ClickStitch"
+}));
 
 services.AddSingleton<ExceptionHandlingMiddleware>();
 

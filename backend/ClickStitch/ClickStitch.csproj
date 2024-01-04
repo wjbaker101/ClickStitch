@@ -14,6 +14,7 @@
 		<PackageReference Include="CloudinaryDotNet" Version="1.24.0" />
 		<PackageReference Include="DotNetLibs.Api" Version="231213.2222.0" />
 		<PackageReference Include="DotNetLibs.Core" Version="231213.2222.0" />
+		<PackageReference Include="Inkwell.Client" Version="231226.1552.0" />
 		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="8.0.0" />
 		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.2" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3" />

@@ -5,6 +5,7 @@ public sealed class AppSecrets
     public required DatabaseSettings Database { get; init; }
     public required CloudinarySettings Cloudinary { get; init; }
     public required AuthSettings Auth { get; init; }
+    public required InkwellSettings Inkwell { get; init; }
 
     public sealed class DatabaseSettings
     {
@@ -36,5 +37,10 @@ public sealed class AppSecrets
         {
             public required string Pepper { get; init; }
         }
+    }
+
+    public sealed class InkwellSettings
+    {
+        public required string BaseUrl { get; init; }
     }
 }
