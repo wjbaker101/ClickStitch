@@ -7,7 +7,7 @@ using ClickStitch.Api.Patterns.Parsing;
 using ClickStitch.Api.Projects;
 using ClickStitch.Api.Users;
 using ClickStitch.Clients.Cloudinary;
-using ClickStitch.Filters;
+using ClickStitch.Middleware.ExceptionHandling;
 using Core.Settings;
 using Data;
 using Data.Repositories.Admin;
@@ -31,6 +31,8 @@ services.AddSingleton(builder.Configuration.Get<AppSecrets>()!);
 
 services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 services.AddSingleton<IGuidProvider, GuidProvider>();
+
+services.AddSingleton<ExceptionHandlingMiddleware>();
 
 services.AddSingleton<IDatabase, Database>();
 services.AddSingleton<IAdminRepository, AdminRepository>();
@@ -67,10 +69,7 @@ services.AddSingleton<IProjectsService, ProjectsService>();
 
 services.AddSingleton<IUsersService, UsersService>();
 
-services.AddControllers(options =>
-{
-    options.Filters.Add<HttpResponseExceptionFilter>();
-});
+services.AddControllers();
 
 services.AddSpaStaticFiles(spa =>
 {
@@ -78,6 +77,8 @@ services.AddSpaStaticFiles(spa =>
 });
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 //app.UseHttpsRedirection();
 app.UseAuthorization();
