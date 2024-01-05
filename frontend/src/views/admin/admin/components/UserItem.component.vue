@@ -2,13 +2,23 @@
     <ListItemComponent
         class="user-item-component"
         :class="{
+            'is-creator': userDetails.permissions.find(x => x.type === 'Creator') !== undefined,
             'is-admin': userDetails.permissions.find(x => x.type === 'Admin') !== undefined,
         }"
         hover
     >
-        <strong>{{ userDetails.user.email }}</strong>
-        <br>
-        <span>{{ userDetails.user.createdAt.format('DD/MM/YYYY HH:mm:ss') }} ({{ userDetails.user.createdAt.fromNow() }})</span>
+        <p>
+            <IconComponent icon="user" gap="right" />
+            <strong>{{ userDetails.user.email }}</strong>
+        </p>
+        <p>
+            <strong>Created At: </strong>
+            <span>{{ userDetails.user.createdAt.format('DD/MM/YYYY HH:mm:ss') }} ({{ userDetails.user.createdAt.fromNow() }})</span>
+        </p>
+        <p>
+            <strong>Last Logged In: </strong>
+            <span>{{ userDetails.user.lastLoginAt.format('DD/MM/YYYY HH:mm:ss') }} ({{ userDetails.user.lastLoginAt.fromNow() }})</span>
+        </p>
         <template #expanded>
             <section>
                 <h3>Permissions:</h3>
@@ -66,6 +76,10 @@ const onPermissionChange = async function (permission: IPermission, event: Event
 <style lang="scss">
 .user-item-component {
     border-left: 3px solid transparent;
+
+    &.is-creator {
+        border-left: 3px solid #2c3;
+    }
 
     &.is-admin {
         border-left: 3px solid #22c;
