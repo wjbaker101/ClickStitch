@@ -1,20 +1,5 @@
 import { type NavigationGuardNext, type RouteLocationNormalized, type RouteRecordRaw } from 'vue-router';
 
-import AboutView from '@/views/stitcher/about/About.view.vue';
-import DashboardView from '@/views/stitcher/dashboard/Dashboard.view.vue';
-import NewPatternView from '@/views/stitcher/new-pattern/NewPattern.view.vue';
-import LoginView from '@/views/_shared/login/Login.view.vue';
-import PatternsView from '@/views/stitcher/patterns/Patterns.view.vue';
-import ProjectView from '@/views/stitcher/project/Project.view.vue';
-import ToolsView from '@/views/stitcher/tools/Tools.view.vue';
-import ProjectAnalyticsView from '@/views/stitcher/project-analytics/ProjectAnalytics.view.vue';
-import InventoryView from '@/views/stitcher/inventory/Inventory.view.vue';
-import SettingsView from '@/views/_shared/settings/Settings.view.vue';
-import SignupView from '@/views/_shared/signup/Signup.view.vue';
-import NotFoundView from '@/views/_shared/not-found/NotFound.view.vue';
-import SupportedPatternFormats from '@/views/_shared/supported-pattern-formats/SupportedPatternFormats.view.vue';
-import MarketingView from '@/views/_shared/marketing/Marketing.view.vue';
-
 import { requireAuth } from '../router-helper';
 import { useAuth } from '@/use/auth/Auth.use';
 
@@ -32,14 +17,14 @@ const requireNoAuth = (to: RouteLocationNormalized, from: RouteLocationNormalize
 export const stitcherRoutes: Array<RouteRecordRaw> = [
     {
         path: '',
-        component: AboutView,
+        component: () => import('@/views/stitcher/about/About.view.vue'),
         meta: {
             title: 'About',
         },
     },
     {
         path: '/login',
-        component: LoginView,
+        component: () => import('@/views/_shared/login/Login.view.vue'),
         beforeEnter: [ requireNoAuth ],
         meta: {
             title: 'Login',
@@ -47,14 +32,14 @@ export const stitcherRoutes: Array<RouteRecordRaw> = [
     },
     {
         path: '/signup',
-        component: SignupView,
+        component: () => import('@/views/_shared/signup/Signup.view.vue'),
         meta: {
             title: 'Signup',
         },
     },
     {
         path: '/dashboard',
-        component: DashboardView,
+        component: () => import('@/views/stitcher/dashboard/Dashboard.view.vue'),
         beforeEnter: [ requireAuth ],
         meta: {
             title: 'Dashboard',
@@ -62,28 +47,28 @@ export const stitcherRoutes: Array<RouteRecordRaw> = [
     },
     {
         path: '/patterns',
-        component: PatternsView,
+        component: () => import('@/views/stitcher/patterns/Patterns.view.vue'),
         meta: {
             title: 'Patterns',
         },
     },
     {
         path: '/patterns/new',
-        component: NewPatternView,
+        component: () => import('@/views/stitcher/new-pattern/NewPattern.view.vue'),
         meta: {
             title: 'New Pattern',
         },
     },
     {
         path: '/inventory',
-        component: InventoryView,
+        component: () => import('@/views/stitcher/inventory/Inventory.view.vue'),
         meta: {
             title: 'Inventory',
         },
     },
     {
         path: '/settings',
-        component: SettingsView,
+        component: () => import('@/views/_shared/settings/Settings.view.vue'),
         beforeEnter: [ requireAuth ],
         meta: {
             title: 'Settings',
@@ -91,7 +76,7 @@ export const stitcherRoutes: Array<RouteRecordRaw> = [
     },
     {
         path: '/projects/:patternReference',
-        component: ProjectView,
+        component: () => import('@/views/stitcher/project/Project.view.vue'),
         beforeEnter: [ requireAuth ],
         meta: {
             title: 'Project',
@@ -99,7 +84,7 @@ export const stitcherRoutes: Array<RouteRecordRaw> = [
     },
     {
         path: '/projects/:patternReference/analytics',
-        component: ProjectAnalyticsView,
+        component: () => import('@/views/stitcher/project-analytics/ProjectAnalytics.view.vue'),
         beforeEnter: [ requireAuth ],
         meta: {
             title: 'Project Analytics',
@@ -107,35 +92,35 @@ export const stitcherRoutes: Array<RouteRecordRaw> = [
     },
     {
         path: '/about',
-        component: AboutView,
+        component: () => import('@/views/stitcher/about/About.view.vue'),
         meta: {
             title: 'About',
         },
     },
     {
         path: '/tools',
-        component: ToolsView,
+        component: () => import('@/views/stitcher/tools/Tools.view.vue'),
         meta: {
             title: 'Tools',
         },
     },
     {
         path: '/supported-pattern-formats',
-        component: SupportedPatternFormats,
+        component: () => import('@/views/_shared/supported-pattern-formats/SupportedPatternFormats.view.vue'),
         meta: {
             title: 'Supported Pattern Formats',
         },
     },
     {
         path: '/marketing',
-        component: MarketingView,
+        component: () => import('@/views/_shared/marketing/Marketing.view.vue'),
         meta: {
             title: 'Marketing',
         },
     },
     {
         path: '/:pathMatch(.*)*',
-        component: NotFoundView,
+        component: () => import('@/views/_shared/not-found/NotFound.view.vue'),
         meta: {
             title: 'Page Not Found',
         },

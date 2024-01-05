@@ -1,11 +1,5 @@
 import { type RouteRecordRaw } from 'vue-router';
 
-import AdminView from '@/views/admin/admin/Admin.view.vue';
-import ThreadsView from '@/views/admin/threads/Threads.view.vue';
-import LoginView from '@/views/_shared/login/Login.view.vue';
-import SettingsView from '@/views/_shared/settings/Settings.view.vue';
-import NotFoundView from '@/views/_shared/not-found/NotFound.view.vue';
-
 import { requireAuth } from '../router-helper';
 import { useAuth } from '@/use/auth/Auth.use';
 
@@ -14,7 +8,7 @@ const auth = useAuth();
 export const adminRoutes: Array<RouteRecordRaw> = [
     {
         path: '',
-        component: LoginView,
+        component: () => import('@/views/_shared/login/Login.view.vue'),
         beforeEnter: (to, from, next) => {
             if (auth.details.value === null) {
                 next('/login');
@@ -26,28 +20,28 @@ export const adminRoutes: Array<RouteRecordRaw> = [
     },
     {
         path: '/login',
-        component: LoginView,
+        component: () => import('@/views/_shared/login/Login.view.vue'),
         meta: {
             title: 'Login',
         },
     },
     {
         path: '/users',
-        component: AdminView,
+        component: () => import('@/views/admin/admin/Admin.view.vue'),
         meta: {
             title: 'Users',
         },
     },
     {
         path: '/threads',
-        component: ThreadsView,
+        component: () => import('@/views/admin/admin/Admin.view.vue'),
         meta: {
             title: 'Threads',
         },
     },
     {
         path: '/settings',
-        component: SettingsView,
+        component: () => import('@/views/_shared/settings/Settings.view.vue'),
         beforeEnter: [ requireAuth ],
         meta: {
             title: 'Settings',
@@ -55,7 +49,7 @@ export const adminRoutes: Array<RouteRecordRaw> = [
     },
     {
         path: '/:pathMatch(.*)*',
-        component: NotFoundView,
+        component: () => import('@/views/_shared/not-found/NotFound.view.vue'),
         meta: {
             title: 'Page Not Found',
         },
