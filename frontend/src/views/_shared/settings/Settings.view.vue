@@ -11,7 +11,7 @@
                     <LoadingComponent v-if="isLoading" itemName="user details" />
                     <template v-else-if="self !== null">
                         <p><strong>Created at:</strong> {{ self.user.createdAt }} ({{ self.user.createdAt.fromNow() }})</p>
-                        <p><strong>Last logged in:</strong> {{ self.user.lastLoginAt }} ({{ self.user.lastLoginAt.fromNow() }})</p>
+                        <p><strong>Last logged in:</strong> {{ self.user.lastLoginAt }} ({{ self.user.lastLoginAt?.fromNow() }})</p>
                     </template>
                     <p class="text-centered">
                         <ButtonComponent @click="onLogOut">Log Out</ButtonComponent>

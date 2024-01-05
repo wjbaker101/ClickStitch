@@ -17,7 +17,8 @@
         </p>
         <p>
             <strong>Last Logged In: </strong>
-            <span>{{ userDetails.user.lastLoginAt.format('DD/MM/YYYY HH:mm:ss') }} ({{ userDetails.user.lastLoginAt.fromNow() }})</span>
+            <span v-if="userDetails.user.lastLoginAt !== null">{{ userDetails.user.lastLoginAt.format('DD/MM/YYYY HH:mm:ss') }} ({{ userDetails.user.lastLoginAt.fromNow() }})</span>
+            <span v-else>Never :(</span>
         </p>
         <template #expanded>
             <section>
