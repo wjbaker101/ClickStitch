@@ -7,6 +7,7 @@ public sealed class TestAppSecrets
     public TestDatabaseSettings Database { get; } = new();
     public TestCloudinarySettings Cloudinary { get; } = new();
     public TestAuthSettings Auth { get; } = new();
+    public TestInkwellSettings Inkwell { get; } = new();
 
     public sealed class TestDatabaseSettings
     {
@@ -40,6 +41,11 @@ public sealed class TestAppSecrets
         }
     }
 
+    public sealed class TestInkwellSettings
+    {
+        public string BaseUrl { get; set; } = "TestInkwellUrl";
+    }
+
     public static implicit operator AppSecrets(TestAppSecrets secrets) => new()
     {
         Database = new AppSecrets.DatabaseSettings
@@ -66,6 +72,10 @@ public sealed class TestAppSecrets
             {
                 Pepper = secrets.Auth.Password.Pepper
             }
+        },
+        Inkwell = new AppSecrets.InkwellSettings
+        {
+            BaseUrl = secrets.Inkwell.BaseUrl
         }
     };
 }
