@@ -7,6 +7,7 @@ using ClickStitch.Api.Patterns.Parsing;
 using ClickStitch.Api.Projects;
 using ClickStitch.Api.Users;
 using ClickStitch.Clients.Cloudinary;
+using ClickStitch.Middleware.Authentication;
 using ClickStitch.Middleware.ExceptionHandling;
 using Core.Settings;
 using Data;
@@ -42,6 +43,7 @@ services.AddSingleton<IInkwellClient>(new InkwellClient(new InkwellClientOptions
     AppName = "ClickStitch"
 }));
 
+services.AddSingleton<AuthenticationMiddleware>();
 services.AddSingleton<ExceptionHandlingMiddleware>();
 
 services.AddSingleton<IDatabase, Database>();
@@ -88,6 +90,7 @@ services.AddSpaStaticFiles(spa =>
 
 var app = builder.Build();
 
+app.UseMiddleware<AuthenticationMiddleware>();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 //app.UseHttpsRedirection();

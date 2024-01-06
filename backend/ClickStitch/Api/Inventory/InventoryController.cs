@@ -1,6 +1,6 @@
-﻿using ClickStitch.Api.Auth.Attributes;
-using ClickStitch.Api.Inventory.Types;
+﻿using ClickStitch.Api.Inventory.Types;
 using ClickStitch.Helper;
+using ClickStitch.Middleware.Authentication;
 using DotNetLibs.Api.Types;
 using Microsoft.AspNetCore.Mvc;
 
