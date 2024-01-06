@@ -23,7 +23,10 @@ public sealed class AuthenticationMiddleware : IMiddleware
         var cancellationToken = context.RequestAborted;
 
         if (!context.Request.Headers.TryGetValue("Authorization", out var authHeader))
+        {
+            await next(context);
             return;
+        }
 
         if (!authHeader.ToString().StartsWith("Bearer "))
         {
