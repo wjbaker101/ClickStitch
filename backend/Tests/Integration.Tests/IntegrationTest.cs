@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Headers;
 using TestHelpers.Data;
 using TestHelpers.Settings;
@@ -96,7 +97,7 @@ public abstract class IntegrationTest
         Client = application.CreateClient();
     }
 
-    private string CreateLoginToken(Guid userReference)
+    private static string CreateLoginToken(Guid userReference)
     {
         return new LoginTokenService(new DateTimeProvider(), new TestAppSecrets()).Create(new UserModel
         {
@@ -122,7 +123,18 @@ public abstract class IntegrationTest
         Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", CreateLoginToken(CreatorUserReference));
     }
 
-    protected static async Task<T?> ExpectBody<T>(HttpContent content)
+    protected async Task<T> DoRequest<T>(HttpMethod method, [StringSyntax(StringSyntaxAttribute.Uri)] string url)
+    {
+        var response = await Client.SendAsync(new HttpRequestMessage
+        {
+            Method = method,
+            RequestUri = new Uri(url, UriKind.Relative)
+        });
+
+        return await ExpectBody<T>(response.Content);
+    }
+
+    private static async Task<T> ExpectBody<T>(HttpContent content)
     {
         var body = await content.ReadAsStringAsync(CancellationToken.None);
 
@@ -133,7 +145,7 @@ public abstract class IntegrationTest
             if (result == null)
             {
                 Assert.Fail("Unable to parse response body. Actual body: " + body);
-                return default;
+                return default!;
             }
 
             return result.Result;
@@ -141,7 +153,7 @@ public abstract class IntegrationTest
         catch
         {
             Assert.Fail("Unable to parse response body. Actual body: " + body);
-            return default;
+            return default!;
         }
     }
 }

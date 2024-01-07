@@ -7,25 +7,19 @@ namespace Integration.Tests.Authentication;
 [Parallelizable]
 public sealed class GivenAnAuthenticatedRequest : IntegrationTest
 {
-    private GetPatternsResponse? _result;
+    private GetPatternsResponse _result = null!;
 
     [OneTimeSetUp]
     public async Task Setup()
     {
         AsStitcher();
 
-        var response = await Client.SendAsync(new HttpRequestMessage
-        {
-            Method = HttpMethod.Get,
-            RequestUri = new Uri("api/patterns", UriKind.Relative)
-        });
-
-        _result = await ExpectBody<GetPatternsResponse>(response.Content);
+        _result = await DoRequest<GetPatternsResponse>(HttpMethod.Get, "api/patterns");
     }
 
     [Test]
     public void ThenTheCorrectPatternIsReturned()
     {
-        Assert.That(_result?.Patterns[0].Reference, Is.EqualTo(Guid.Parse("2544630d-9502-4cd1-a777-86260451d138")));
+        Assert.That(_result.Patterns[0].Reference, Is.EqualTo(Guid.Parse("2544630d-9502-4cd1-a777-86260451d138")));
     }
 }
