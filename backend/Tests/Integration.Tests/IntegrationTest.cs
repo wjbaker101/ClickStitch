@@ -1,5 +1,6 @@
 ﻿using ClickStitch.Api.Admin;
 using ClickStitch.Api.Auth;
+using ClickStitch.Api.Creators;
 using ClickStitch.Api.Patterns;
 using ClickStitch.Models;
 using ClickStitch.Types;
@@ -96,6 +97,7 @@ public abstract class IntegrationTest
 
                     services.AddSingleton<IPatternsService>(new FakePatternsService());
                     services.AddSingleton<IAdminService>(new FakeAdminService());
+                    services.AddSingleton<ICreatorsService>(new FakeCreatorsService());
                 });
             });
 
