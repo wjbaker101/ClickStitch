@@ -1,6 +1,6 @@
 ﻿using ClickStitch.Api.Admin.Types;
-using ClickStitch.Api.Auth.Attributes;
 using ClickStitch.Middleware.Authentication;
+using ClickStitch.Middleware.Authorisation;
 using DotNetLibs.Api.Types;
 using Microsoft.AspNetCore.Mvc;
 

@@ -20,12 +20,12 @@ public sealed class GivenAGetCreatorPatternsRequestNotAsACreator : IntegrationTe
     [Test]
     public void ThenTheCorrectStatusCodeIsReturned()
     {
-        Assert.That(_result.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
+        Assert.That(_result.StatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
     }
 
     [Test]
     public void ThenTheCorrectErrorIsReturned()
     {
-        Assert.That(_result.Response, Is.EqualTo("Unable to access endpoint, you are not logged in as a creator."));
+        Assert.That(_result.Response, Is.EqualTo("Unable to access endpoint, you are not logged in to a user with the correct permissions."));
     }
 }
