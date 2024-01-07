@@ -118,3 +118,5 @@ void SetupSettings()
 }
 
 string GetFile(string file, bool isDev) => isDev ? $"{file}.Development.json" : $"{file}.json";
+
+public partial class Program; // For integration tests
