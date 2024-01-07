@@ -1,4 +1,5 @@
-﻿using ClickStitch.Api.Auth;
+﻿using ClickStitch.Api.Admin;
+using ClickStitch.Api.Auth;
 using ClickStitch.Api.Patterns;
 using ClickStitch.Models;
 using ClickStitch.Types;
@@ -13,9 +14,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using System.Diagnostics.CodeAnalysis;
+using System.Net;
 using System.Net.Http.Headers;
 using TestHelpers.Data;
 using TestHelpers.Settings;
+using ApiErrorResponse = DotNetLibs.Api.Types.ApiErrorResponse;
 
 namespace Integration.Tests;
 
@@ -90,7 +93,9 @@ public abstract class IntegrationTest
                 {
                     services.AddSingleton<AppSecrets>(new TestAppSecrets());
                     services.AddSingleton<IUserRepository>(new UserRepository(database));
+
                     services.AddSingleton<IPatternsService>(new FakePatternsService());
+                    services.AddSingleton<IAdminService>(new FakeAdminService());
                 });
             });
 
@@ -149,6 +154,40 @@ public abstract class IntegrationTest
             }
 
             return result.Result;
+        }
+        catch
+        {
+            Assert.Fail("Unable to parse response body. Actual body: " + body);
+            return default!;
+        }
+    }
+
+    protected async Task<(string Response, HttpStatusCode StatusCode)> DoFailureRequest(HttpMethod method, [StringSyntax(StringSyntaxAttribute.Uri)] string url)
+    {
+        var response = await Client.SendAsync(new HttpRequestMessage
+        {
+            Method = method,
+            RequestUri = new Uri(url, UriKind.Relative)
+        });
+
+        return (await ExpectFailureBody(response.Content), response.StatusCode);
+    }
+
+    private static async Task<string> ExpectFailureBody(HttpContent content)
+    {
+        var body = await content.ReadAsStringAsync(CancellationToken.None);
+
+        try
+        {
+            var result = JsonConvert.DeserializeObject<ApiErrorResponse>(body);
+
+            if (result == null)
+            {
+                Assert.Fail("Unable to parse response body. Actual body: " + body);
+                return default!;
+            }
+
+            return result.ErrorMessage;
         }
         catch
         {
