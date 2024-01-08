@@ -2,7 +2,7 @@
 
 namespace Data.Records;
 
-public class UserRecord : IDatabaseRecord
+public class UserRecord : IDatabaseRecordWithId
 {
     public virtual long Id { get; init; }
     public virtual required Guid Reference { get; init; }

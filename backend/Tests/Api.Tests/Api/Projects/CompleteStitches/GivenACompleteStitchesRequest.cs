@@ -27,7 +27,8 @@ public sealed class GivenACompleteStitchesRequest
     {
         _user = new UserRecord
         {
-            Reference = Guid.Parse("b75e4944-5f79-4e70-a97b-0f9e92c5d172"),
+            Id = TestRequestUser.USER_ID,
+            Reference = default,
             CreatedAt = default,
             Email = null!,
             Password = null!,
@@ -155,14 +156,9 @@ public sealed class GivenACompleteStitchesRequest
             }
         };
 
-        var requestUser = new TestRequestUser
-        {
-            Reference = Guid.Parse("b75e4944-5f79-4e70-a97b-0f9e92c5d172")
-        };
-
         var subject = new ProjectsService(new UserRepository(_database), null!, null!, new UserPatternThreadStitchRepository(_database), null!);
 
-        _result = await subject.CompleteStitches(requestUser, Guid.Parse("d5925542-128c-40b4-86a1-b8dcddc848f7"), request, CancellationToken.None);
+        _result = await subject.CompleteStitches(new TestRequestUser(), Guid.Parse("d5925542-128c-40b4-86a1-b8dcddc848f7"), request, CancellationToken.None);
     }
 
     [Test]

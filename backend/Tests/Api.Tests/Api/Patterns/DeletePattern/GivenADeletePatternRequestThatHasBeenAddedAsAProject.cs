@@ -20,7 +20,7 @@ public sealed class GivenADeletePatternRequestThatHasBeenAddedAsAProject
     {
         var user = new UserRecord
         {
-            Id = 2055,
+            Id = TestRequestUser.USER_ID,
             Reference = default,
             CreatedAt = default,
             Email = null,

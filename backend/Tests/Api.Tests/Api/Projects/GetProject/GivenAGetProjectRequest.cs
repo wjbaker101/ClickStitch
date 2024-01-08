@@ -21,7 +21,7 @@ public sealed class GivenAGetProjectRequest
     {
         var user = new UserRecord
         {
-            Id = 0,
+            Id = TestRequestUser.USER_ID,
             Reference = default,
             CreatedAt = default,
             Email = null,

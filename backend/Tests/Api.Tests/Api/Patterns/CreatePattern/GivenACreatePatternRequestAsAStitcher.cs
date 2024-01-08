@@ -15,8 +15,6 @@ namespace Api.Tests.Api.Patterns.CreatePattern;
 [Parallelizable]
 public sealed class GivenACreatePatternRequestAsAStitcher
 {
-    private readonly Guid _userReference = Guid.Parse("ccdce3c2-2bcc-48c3-8fd3-52fa5a3f5ce8");
-
     private UserRecord _user = null!;
 
     private TestDatabase _database = null!;
@@ -29,7 +27,8 @@ public sealed class GivenACreatePatternRequestAsAStitcher
     {
         _user = new UserRecord
         {
-            Reference = _userReference,
+            Id = TestRequestUser.USER_ID,
+            Reference = default,
             CreatedAt = default,
             Email = null,
             Password = null,
@@ -109,7 +108,6 @@ public sealed class GivenACreatePatternRequestAsAStitcher
 
         var requestUser = new TestRequestUser
         {
-            Reference = _userReference,
             Permissions = new List<RequestPermissionType>()
         };
 

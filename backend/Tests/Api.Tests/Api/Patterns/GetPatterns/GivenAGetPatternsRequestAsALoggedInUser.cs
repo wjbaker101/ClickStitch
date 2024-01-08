@@ -13,8 +13,6 @@ namespace Api.Tests.Api.Patterns.GetPatterns;
 [Parallelizable]
 public sealed class GivenAGetPatternsRequestAsALoggedInUser
 {
-    private readonly Guid _userReference = Guid.Parse("f8070524-9fda-44d8-94fc-29d279315b45");
-
     private Result<GetPatternsResponse> _result = null!;
 
     [OneTimeSetUp]
@@ -22,7 +20,8 @@ public sealed class GivenAGetPatternsRequestAsALoggedInUser
     {
         var user = new UserRecord
         {
-            Reference = _userReference,
+            Id = TestRequestUser.USER_ID,
+            Reference = default,
             CreatedAt = default,
             Email = null,
             Password = null,
@@ -113,14 +112,9 @@ public sealed class GivenAGetPatternsRequestAsALoggedInUser
             }
         };
 
-        var requestUser = new TestRequestUser
-        {
-            Reference = _userReference
-        };
-
         var subject = new PatternsService(new PatternRepository(database), null!, null!, new UserRepository(database), new UserPatternRepository(database), null!, null!, null!);
 
-        _result = await subject.GetPatterns(requestUser, CancellationToken.None);
+        _result = await subject.GetPatterns(new TestRequestUser(), CancellationToken.None);
     }
 
     [Test]

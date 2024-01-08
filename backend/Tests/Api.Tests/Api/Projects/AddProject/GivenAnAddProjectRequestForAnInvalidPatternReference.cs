@@ -25,8 +25,8 @@ public sealed class GivenAnAddProjectRequestForAnInvalidPatternReference
     {
         _user = new UserRecord
         {
-            Id = 0,
-            Reference = Guid.Parse("0127fb8b-cf8e-4273-8646-8061db759328"),
+            Id = TestRequestUser.USER_ID,
+            Reference = default,
             CreatedAt = default,
             Email = null!,
             Password = null!,

@@ -12,8 +12,6 @@ namespace Api.Tests.Api.Projects.GetProjects;
 [Parallelizable]
 public sealed class GivenAGetProjectsRequest
 {
-    private readonly Guid _userReference = Guid.Parse("28d44e5e-31cf-4827-8d27-bed40409eb9b");
-
     private Result<GetProjectsResponse> _result = null!;
 
     [OneTimeSetUp]
@@ -21,8 +19,8 @@ public sealed class GivenAGetProjectsRequest
     {
         var user = new UserRecord
         {
-            Id = 0,
-            Reference = _userReference,
+            Id = TestRequestUser.USER_ID,
+            Reference = default,
             CreatedAt = default,
             Email = null!,
             Password = null!,

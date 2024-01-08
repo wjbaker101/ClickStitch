@@ -14,8 +14,6 @@ namespace Api.Tests.Api.Patterns.CreatePattern;
 [Parallelizable]
 public sealed class GivenACreatePatternRequestAsACreator
 {
-    private readonly Guid _userReference = Guid.Parse("ccdce3c2-2bcc-48c3-8fd3-52fa5a3f5ce8");
-
     private UserRecord _user = null!;
     private CreatorRecord _creator = null!;
 
@@ -29,7 +27,8 @@ public sealed class GivenACreatePatternRequestAsACreator
     {
         _user = new UserRecord
         {
-            Reference = _userReference,
+            Id = TestRequestUser.USER_ID,
+            Reference = default,
             CreatedAt = default,
             Email = null,
             Password = null,
@@ -98,7 +97,6 @@ public sealed class GivenACreatePatternRequestAsACreator
 
         var requestUser = new TestRequestUser
         {
-            Reference = _userReference,
             Permissions = new List<RequestPermissionType>
             {
                 RequestPermissionType.Creator

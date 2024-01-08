@@ -12,7 +12,6 @@ namespace Api.Tests.Api.Patterns.UpdatePattern;
 [Parallelizable]
 public sealed class GivenAnUpdatePatternRequestWithADifferentUser
 {
-    private readonly Guid _userReference = Guid.Parse("98b794fc-debb-43b1-94f4-8d7cbc803cc3");
     private readonly Guid _patternReference = Guid.Parse("97d9d9df-d3e3-42a5-b03d-3a6fdd35df22");
 
     private TestDatabase _database = null!;
@@ -24,8 +23,8 @@ public sealed class GivenAnUpdatePatternRequestWithADifferentUser
     {
         var user = new UserRecord
         {
-            Id = 5023,
-            Reference = _userReference,
+            Id = TestRequestUser.USER_ID,
+            Reference = default,
             CreatedAt = default,
             Email = null,
             Password = null,
@@ -72,11 +71,6 @@ public sealed class GivenAnUpdatePatternRequestWithADifferentUser
             }
         };
 
-        var requestUser = new TestRequestUser
-        {
-            Reference = _userReference
-        };
-
         var request = new UpdatePatternRequest
         {
             Title = "NewTestTitle",
@@ -85,7 +79,7 @@ public sealed class GivenAnUpdatePatternRequestWithADifferentUser
 
         var subject = new PatternsService(new PatternRepository(_database), null!, null!, new UserRepository(_database), null!, null!, null!, null!);
 
-        _result = await subject.UpdatePattern(requestUser, _patternReference, request, CancellationToken.None);
+        _result = await subject.UpdatePattern(new TestRequestUser(), _patternReference, request, CancellationToken.None);
     }
 
     [Test]
