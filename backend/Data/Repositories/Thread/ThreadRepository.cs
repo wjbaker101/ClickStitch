@@ -36,14 +36,14 @@ public sealed class ThreadRepository : Repository<ThreadRecord>, IThreadReposito
 
     public async Task<Result<ThreadRecord>> GetByReference(Guid threadReference, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var thread = await session
             .Query<ThreadRecord>()
-            .SingleOrDefaultAsync(x => x.Reference == threadReference, cancellationToken);
+            .SingleOrDefault(x => x.Reference == threadReference, cancellationToken);
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         if (thread == null)
             return Result<ThreadRecord>.Failure($"Unable to find thread with reference: '{threadReference}'.");

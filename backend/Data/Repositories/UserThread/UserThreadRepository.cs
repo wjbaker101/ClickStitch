@@ -37,14 +37,14 @@ public sealed class UserThreadRepository : Repository<UserThreadRecord>, IUserTh
 
     public async Task<Result<UserThreadRecord>> GetByUserAndThread(UserRecord user, ThreadRecord thread, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var userThread = await session
             .Query<UserThreadRecord>()
-            .SingleOrDefaultAsync(x => x.User == user && x.Thread == thread, cancellationToken);
+            .SingleOrDefault(x => x.User == user && x.Thread == thread, cancellationToken);
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         if (userThread == null)
             return Result<UserThreadRecord>.Failure("Unable to find user's thread.");

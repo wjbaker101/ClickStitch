@@ -99,6 +99,13 @@ public sealed class InventoryService : IInventoryService
         var userThreadResult = await _userThreadRepository.GetByUserAndThread(user, threadResult.Content, cancellationToken);
         if (userThreadResult.TrySuccess(out var userThread))
         {
+            if (request.Count == 0)
+            {
+                await _userThreadRepository.DeleteAsync(userThread, cancellationToken);
+
+                return new UpdateThreadResponse();
+            }
+
             userThread.Count = request.Count;
 
             await _userThreadRepository.UpdateAsync(userThread, cancellationToken);
