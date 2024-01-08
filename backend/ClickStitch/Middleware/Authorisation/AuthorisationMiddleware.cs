@@ -1,4 +1,4 @@
-﻿using ClickStitch.Helper;
+﻿using ClickStitch.Middleware.Authentication;
 using DotNetLibs.Api.Types;
 using System.Net;
 

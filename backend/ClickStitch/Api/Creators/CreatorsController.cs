@@ -1,5 +1,4 @@
 ﻿using ClickStitch.Api.Creators.Types;
-using ClickStitch.Helper;
 using ClickStitch.Middleware.Authentication;
 using ClickStitch.Middleware.Authorisation;
 using DotNetLibs.Api.Types;

@@ -1,5 +1,4 @@
 ﻿using ClickStitch.Api.Auth;
-using ClickStitch.Helper;
 using Data.Repositories.User;
 using DotNetLibs.Api.Types;
 using System.Net;
