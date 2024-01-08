@@ -77,7 +77,6 @@ const onAddProject = async function (pattern: IPattern): Promise<void> {
 
 .pattern-component {
     padding: 1rem;
-    background-color: var(--wjb-background-colour-dark);
     cursor: pointer;
 
     .description {
