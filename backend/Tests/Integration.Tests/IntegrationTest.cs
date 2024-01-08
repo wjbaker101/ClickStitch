@@ -3,11 +3,11 @@ using ClickStitch.Api.Auth;
 using ClickStitch.Api.Creators;
 using ClickStitch.Api.Patterns;
 using ClickStitch.Models;
-using ClickStitch.Types;
 using Core.Settings;
 using Data.Records;
 using Data.Repositories.User;
 using Data.Types;
+using DotNetLibs.Api.Types;
 using DotNetLibs.Core.Services;
 using Integration.Tests.Fakes;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -19,7 +19,6 @@ using System.Net;
 using System.Net.Http.Headers;
 using TestHelpers.Data;
 using TestHelpers.Settings;
-using ApiErrorResponse = DotNetLibs.Api.Types.ApiErrorResponse;
 
 namespace Integration.Tests;
 
