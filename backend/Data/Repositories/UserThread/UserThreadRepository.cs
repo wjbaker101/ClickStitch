@@ -1,10 +1,11 @@
-﻿using Data.Types;
+﻿using Data.Repositories.UserThread.Types;
+using Data.Types;
 
 namespace Data.Repositories.UserThread;
 
 public interface IUserThreadRepository : IRepository<UserThreadRecord>
 {
-    Task<List<UserThreadRecord>> GetByUser(UserRecord user, CancellationToken cancellationToken);
+    Task<List<UserThreadRecord>> Search(UserRecord user, SearchUserThreadsParameters parameters, CancellationToken cancellationToken);
     Task<Result<UserThreadRecord>> GetByUserAndThread(UserRecord user, ThreadRecord thread, CancellationToken cancellationToken);
 }
 
@@ -14,15 +15,20 @@ public sealed class UserThreadRepository : Repository<UserThreadRecord>, IUserTh
     {
     }
 
-    public async Task<List<UserThreadRecord>> GetByUser(UserRecord user, CancellationToken cancellationToken)
+    public async Task<List<UserThreadRecord>> Search(UserRecord user, SearchUserThreadsParameters parameters, CancellationToken cancellationToken)
     {
         using var session = Database.SessionFactory.OpenSession();
         using var transaction = session.BeginTransaction();
 
-        var threads = await session
+        var query = session
             .Query<UserThreadRecord>()
-            .Where(x => x.User == user)
-            .ToListAsync(cancellationToken);
+            .Fetch(x => x.Thread)
+            .Where(x => x.User == user);
+
+        if (parameters.SearchTerm?.Length > 0)
+            query = query.Where(x => x.Thread.Code.Contains(parameters.SearchTerm));
+        
+        var threads = await query.ToListAsync(cancellationToken);
 
         await transaction.CommitAsync(cancellationToken);
 

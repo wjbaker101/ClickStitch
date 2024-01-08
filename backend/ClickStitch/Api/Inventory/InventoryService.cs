@@ -3,11 +3,14 @@ using Data.Records;
 using Data.Repositories.Thread;
 using Data.Repositories.User;
 using Data.Repositories.UserThread;
+using Data.Repositories.UserThread.Types;
+using DotNetLibs.Core.Extensions;
 
 namespace ClickStitch.Api.Inventory;
 
 public interface IInventoryService
 {
+    Task<Result<SearchThreadsResponse>> SearchThreads(RequestUser requestUser, SearchThreadsParameters parameters, CancellationToken cancellationToken);
     Task<Result<GetThreadsResponse>> GetThreads(RequestUser requestUser, CancellationToken cancellationToken);
     Task<Result<UpdateThreadResponse>> UpdateThread(RequestUser requestUser, Guid threadReference, UpdateThreadRequest request, CancellationToken cancellationToken);
 }
@@ -25,13 +28,44 @@ public sealed class InventoryService : IInventoryService
         _userThreadRepository = userThreadRepository;
     }
 
+    public async Task<Result<SearchThreadsResponse>> SearchThreads(RequestUser requestUser, SearchThreadsParameters parameters, CancellationToken cancellationToken)
+    {
+        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
+
+        var userThreads = await _userThreadRepository.Search(user, new SearchUserThreadsParameters
+        {
+            SearchTerm = parameters.SearchTerm
+        }, cancellationToken);
+
+        var threads = new List<ThreadRecord>();
+        if (parameters.SearchTerm?.Length > 2)
+        {
+            threads = await _threadRepository.Search(new Data.Repositories.Thread.Types.SearchThreadsParameters
+            {
+                SearchTerm = parameters.SearchTerm
+            }, cancellationToken);
+        }
+
+        var userThreadLookup = userThreads.Select(x => x.Thread.Id).ToHashSet();
+
+        return new SearchThreadsResponse
+        {
+            InventoryThreads = userThreads.ConvertAll(x => new SearchThreadsResponse.InventoryThread
+            {
+                Thread = ThreadMapper.Map(x.Thread),
+                Count = x.Count
+            }),
+            AvailableThreads = threads.Where(x => !userThreadLookup.Contains(x.Id)).MapAll(ThreadMapper.Map)
+        };
+    }
+
     public async Task<Result<GetThreadsResponse>> GetThreads(RequestUser requestUser, CancellationToken cancellationToken)
     {
         var threads = await _threadRepository.GetAll(cancellationToken);
 
         var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
 
-        var userThreads = await _userThreadRepository.GetByUser(user, cancellationToken);
+        var userThreads = await _userThreadRepository.Search(user, new SearchUserThreadsParameters { SearchTerm = "" }, cancellationToken);
         var userThreadLookup = userThreads.ToDictionary(x => x.Thread.Id);
 
         var inventory = threads
