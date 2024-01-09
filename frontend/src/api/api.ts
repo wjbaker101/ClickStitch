@@ -53,6 +53,7 @@ import type { IGetInventoryThreadsResponse } from './types/GetInventoryThreads.t
 import type { IUpdateInventoryThreadRequest, IUpdateInventoryThreadResponse } from './types/UpdateInventoryThread.type';
 import type { IPausePatternRequest, IPausePatternResponse } from './types/PausePattern.type';
 import type { IUnpausePatternResponse } from './types/UnpausePattern.type';
+import type { ISearchInventoryThreadsResponse } from './types/SearchInventoryThreads.type';
 
 const auth = useAuth();
 
@@ -635,6 +636,24 @@ export const api = {
     },
 
     inventory: {
+
+        async searchThreads(seachTerm: string): Promise<ISearchInventoryThreadsResponse | Error> {
+            if (auth.details.value === null)
+                return new Error('You must be logged in for this action.');
+
+            try {
+                const response = await client.get<IApiResultResponse<ISearchInventoryThreadsResponse>>(`/inventory/threads/search?search_term=${encodeURIComponent(seachTerm)}`, {
+                    headers: {
+                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                    },
+                });
+
+                return response.data.result;
+            }
+            catch (error) {
+                return ApiErrorMapper.map(error);
+            }
+        },
 
         async getThreads(): Promise<Array<IInventoryThread> | Error> {
             if (auth.details.value === null)

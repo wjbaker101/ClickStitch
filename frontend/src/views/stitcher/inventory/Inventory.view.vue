@@ -19,10 +19,14 @@
                             </FormComponent>
                         </section>
                         <section>
-                                <p v-if="displayThreads.length === 0" class="text-centered">
-                                    Enter a thread code above and select how many you have.
-                                </p>
-                                <ThreadItemComponent :key="thread.thread.reference" v-for="thread in displayThreads" :thread="thread" />
+                            <p v-if="inventoryThreads.length === 0" class="text-centered">
+                                Enter a thread code above and select how many you have.
+                            </p>
+                            <ThreadItemComponent :key="thread.thread.reference" v-for="thread in inventoryThreads" :thread="thread" @update="onThreadUpdate" />
+                            <p v-if="availableThreads.length > 0" class="text-centered">
+                                Looking for something else?
+                            </p>
+                            <ThreadItemComponent :key="thread.thread.reference" v-for="thread in availableThreads" :thread="thread" @update="onThreadUpdate" />
                         </section>
                     </template>
                 </CardComponent>
@@ -32,51 +36,55 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { watchDebounced } from '@vueuse/core';
 
 import LoadingComponent from '@wjb/vue/component/LoadingComponent.vue';
 import ThreadItemComponent from '@/views/stitcher/inventory/components/ThreadItem.component.vue';
 
 import { api } from '@/api/api';
+import { threadMapper } from '@/api/mappers/Thread.mapper';
 
 import type { IInventoryThread } from '@/models/Inventory.model';
 
 const searchTerm = ref<string>('');
-const searchTermSanitised = computed<string>(() => searchTerm.value.trim().toLowerCase());
 
 const isLoading = ref<boolean>(false);
-const threads = ref<Array<IInventoryThread>>([]);
-const displayThreads = ref<Array<IInventoryThread>>([]);
+const inventoryThreads = ref<Array<IInventoryThread>>([]);
+const availableThreads = ref<Array<IInventoryThread>>([]);
 
-watchDebounced(searchTerm, () => {
-    displayThreads.value = threads.value
-        .filter(x => x.thread.code.toLowerCase().indexOf(searchTermSanitised.value) > -1);
+const loadThreads = async function () {
+    const result = await api.inventory.searchThreads(searchTerm.value);
 
-    displayThreads.value.sort((a, b) => {
-        if (b.thread.code.startsWith(searchTermSanitised.value))
-            return 1;
-        if (a.thread.code.startsWith(searchTermSanitised.value))
-            return -1;
+    if (result instanceof Error)
+        return;
 
-        return 0;
-    });
+    inventoryThreads.value = result.inventoryThreads.map(x => ({
+        thread: threadMapper.map(x.thread),
+        count: x.count,
+    }));
 
-    displayThreads.value.sort((a, b) => a.thread.code.localeCompare(b.thread.code));
-}, {
+    availableThreads.value = result.availableThreads.map(x => ({
+        thread: threadMapper.map(x),
+        count: 0,
+    }));
+};
+
+const onThreadUpdate = async function () {
+    await loadThreads();
+};
+
+watchDebounced(searchTerm, async () => {
+    await loadThreads();
+},
+{
     debounce: 300,
 });
 
 onMounted(async () => {
     isLoading.value = true;
-    const result = await api.inventory.getThreads();
+    await loadThreads();
     isLoading.value = false;
-
-    if (result instanceof Error)
-        return;
-
-    threads.value = result;
-    displayThreads.value = threads.value;
 });
 </script>
 
