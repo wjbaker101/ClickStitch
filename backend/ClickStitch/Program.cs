@@ -20,25 +20,16 @@ services.AddSingleton<IInkwellClient>(new InkwellClient(new InkwellClientOptions
 services.AddMiddleware();
 services.AddDependencies();
 services.AddControllers();
-
-services.AddSpaStaticFiles(spa =>
-{
-    spa.RootPath = "wwwroot";
-});
+services.AddFrontend();
 
 var app = builder.Build();
 
 app.UseMiddleware();
 app.UseAuthorization();
 app.MapControllers();
-
 app.UseDefaultFiles();
 app.UseStaticFiles();
-
-app.UseSpa(spa =>
-{
-    spa.Options.SourcePath = "wwwroot";
-});
+app.UseFrontend();
 
 app.Run();
 
