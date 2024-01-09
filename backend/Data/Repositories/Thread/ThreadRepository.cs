@@ -18,8 +18,8 @@ public sealed class ThreadRepository : Repository<ThreadRecord>, IThreadReposito
 
     public async Task<List<ThreadRecord>> Search(SearchThreadsParameters parameters, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var query = session
             .Query<ThreadRecord>();
@@ -27,9 +27,9 @@ public sealed class ThreadRepository : Repository<ThreadRecord>, IThreadReposito
         if (parameters.SearchTerm?.Length > 0)
             query = query.Where(x => x.Code.Contains(parameters.SearchTerm));
 
-        var threads = await query.ToListAsync(cancellationToken);
+        var threads = await query.ToList(cancellationToken);
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         return threads;
     }

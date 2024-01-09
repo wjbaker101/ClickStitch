@@ -17,8 +17,8 @@ public sealed class UserThreadRepository : Repository<UserThreadRecord>, IUserTh
 
     public async Task<List<UserThreadRecord>> Search(UserRecord user, SearchUserThreadsParameters parameters, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var query = session
             .Query<UserThreadRecord>()
@@ -28,9 +28,9 @@ public sealed class UserThreadRepository : Repository<UserThreadRecord>, IUserTh
         if (parameters.SearchTerm?.Length > 0)
             query = query.Where(x => x.Thread.Code.Contains(parameters.SearchTerm));
         
-        var threads = await query.ToListAsync(cancellationToken);
+        var threads = await query.ToList(cancellationToken);
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         return threads;
     }
