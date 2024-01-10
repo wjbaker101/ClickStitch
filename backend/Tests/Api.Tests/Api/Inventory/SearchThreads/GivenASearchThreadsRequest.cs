@@ -29,12 +29,24 @@ public sealed class GivenASearchThreadsRequest
             Permissions = null
         };
 
-        var userThread = new UserThreadRecord
+        var userThread1 = new UserThreadRecord
         {
             User = user,
             Thread = new ThreadRecord
             {
                 Reference = Guid.Parse("dab98b21-a3c1-47a6-919b-646b8d7a1086"),
+                Brand = null,
+                Code = "TestCode_aead1b4c-ba9c-4296-b4be-27e490063db7"
+            },
+            Count = 6851
+        };
+
+        var userThread2 = new UserThreadRecord
+        {
+            User = user,
+            Thread = new ThreadRecord
+            {
+                Reference = Guid.Parse("c9f52699-e1ba-433d-b1bb-ff45c811604e"),
                 Brand = null,
                 Code = "TestCode_aead1b4c-ba9c-4296-b4be-27e490063db7"
             },
@@ -53,7 +65,8 @@ public sealed class GivenASearchThreadsRequest
             Records = new List<IDatabaseRecord>
             {
                 user,
-                userThread,
+                userThread1,
+                userThread2,
                 thread
             }
         };
@@ -75,12 +88,21 @@ public sealed class GivenASearchThreadsRequest
     }
 
     [Test]
-    public void ThenTheCorrectInventoryThreadIsReturned()
+    public void ThenTheCorrectInventoryThread1IsReturned()
     {
         var inventoryThread = _result.Content.InventoryThreads[0];
 
-        Assert.That(inventoryThread.Thread.Reference, Is.EqualTo(Guid.Parse("dab98b21-a3c1-47a6-919b-646b8d7a1086")));
+        Assert.That(inventoryThread.Thread.Reference, Is.EqualTo(Guid.Parse("c9f52699-e1ba-433d-b1bb-ff45c811604e")));
         Assert.That(inventoryThread.Count, Is.EqualTo(7224));
+    }
+
+    [Test]
+    public void ThenTheCorrectInventoryThread2IsReturned()
+    {
+        var inventoryThread = _result.Content.InventoryThreads[1];
+
+        Assert.That(inventoryThread.Thread.Reference, Is.EqualTo(Guid.Parse("dab98b21-a3c1-47a6-919b-646b8d7a1086")));
+        Assert.That(inventoryThread.Count, Is.EqualTo(6851));
     }
 
     [Test]
