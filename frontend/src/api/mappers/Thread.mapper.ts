@@ -8,6 +8,7 @@ export const threadMapper = {
             reference: thread.reference,
             brand: thread.brand,
             code: thread.code,
+            colour: thread.colour,
         };
     },
 
