@@ -125,6 +125,7 @@ public sealed class AdminService : IAdminService
             Reference = Guid.NewGuid(),
             Brand = request.Brand,
             Code = request.Code,
+            Colour = request.Colour
         }, cancellationToken);
 
         return new CreateThreadResponse

@@ -8,6 +8,7 @@ public class ThreadRecord : IDatabaseRecord
     public virtual required Guid Reference { get; init; }
     public virtual required string Brand { get; set; }
     public virtual required string Code { get; set; }
+    public virtual required string Colour { get; set; }
 }
 
 public sealed class ThreadRecordMap : ClassMap<ThreadRecord>
@@ -20,5 +21,6 @@ public sealed class ThreadRecordMap : ClassMap<ThreadRecord>
         Map(x => x.Reference, "reference");
         Map(x => x.Brand, "brand");
         Map(x => x.Code, "code");
+        Map(x => x.Colour, "colour");
     }
 }
