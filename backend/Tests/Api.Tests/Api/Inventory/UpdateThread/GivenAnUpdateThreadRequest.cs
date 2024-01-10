@@ -41,7 +41,8 @@ public sealed class GivenAnUpdateThreadRequest
         {
             Reference = _threadReference,
             Brand = null!,
-            Code = null!
+            Code = null!,
+            Colour = null
         };
 
         _database = new TestDatabase

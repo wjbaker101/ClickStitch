@@ -35,7 +35,8 @@ public sealed class GivenASearchThreadsRequestWithASearchTerm
             Id = 6319,
             Reference = Guid.Parse("1a3eda3e-2533-4c47-8ca5-94fbe471fa48"),
             Brand = null,
-            Code = "TestCode1"
+            Code = "TestCode1",
+            Colour = null
         };
 
         var thread2 = new ThreadRecord
@@ -43,7 +44,8 @@ public sealed class GivenASearchThreadsRequestWithASearchTerm
             Id = 4531,
             Reference = Guid.Parse("4d03c4c2-4858-4ad0-91a4-91a67c54376b"),
             Brand = null,
-            Code = "TestCode2"
+            Code = "TestCode2",
+            Colour = null
         };
 
         var userThread = new UserThreadRecord

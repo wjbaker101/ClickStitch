@@ -41,7 +41,8 @@ public sealed class GivenAnUpdateThreadRequestForAnExistingUserThread
         {
             Reference = _threadReference,
             Brand = null!,
-            Code = null!
+            Code = null!,
+            Colour = null
         };
 
         var userThread = new UserThreadRecord
