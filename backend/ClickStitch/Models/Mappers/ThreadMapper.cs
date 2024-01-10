@@ -8,6 +8,7 @@ public static class ThreadMapper
     {
         Reference = thread.Reference,
         Brand = thread.Brand,
-        Code = thread.Code
+        Code = thread.Code,
+        Colour = thread.Colour
     };
 }
