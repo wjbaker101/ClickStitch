@@ -1,7 +1,7 @@
 <template>
     <ListItemComponent class="thread-item-component">
         <div class="flex gap align-items-center">
-            <div class="icon-container flex-auto">
+            <div class="icon-container flex-auto" :style="{ '--colour': thread.thread.colour }" :class="{ 'is-dark': isDark(thread.thread.colour) }">
                 <IconComponent icon="skein" size="large" />
             </div>
             <div>
@@ -21,6 +21,7 @@ import { watchDebounced } from '@vueuse/core';
 import ListItemComponent from '@/components/ListItem.component.vue';
 
 import { api } from '@/api/api';
+import { isDark } from '@/helper/helper';
 
 import type { IInventoryThread } from '@/models/Inventory.model';
 
@@ -57,7 +58,12 @@ watchDebounced(count, async () => {
     .icon-container {
         padding: 0.5rem;
         border-radius: 50%;
-        background-color: var(--wjb-background-colour);
+        background-color: var(--colour);
+        color: var(--wjb-dark);
+
+        &.is-dark {
+            color: var(--wjb-light);
+        }
 
         .icon-skein {
             width: 2rem;
