@@ -24,10 +24,10 @@ public sealed class ThreadRepository : Repository<ThreadRecord>, IThreadReposito
         var query = session
             .Query<ThreadRecord>();
 
-        if (parameters.SearchTerm?.Length > 0)
+        if (!string.IsNullOrWhiteSpace(parameters.SearchTerm))
             query = query.Where(x => x.Code.Contains(parameters.SearchTerm));
 
-        if (parameters.Brand != null)
+        if (!string.IsNullOrWhiteSpace(parameters.Brand))
             query = query.Where(x => x.Brand == parameters.Brand);
 
         var threads = await query

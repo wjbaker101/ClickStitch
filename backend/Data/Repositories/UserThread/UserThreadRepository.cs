@@ -25,10 +25,10 @@ public sealed class UserThreadRepository : Repository<UserThreadRecord>, IUserTh
             .Fetch(x => x.Thread)
             .Where(x => x.User == user);
 
-        if (parameters.SearchTerm?.Length > 0)
+        if (!string.IsNullOrWhiteSpace(parameters.SearchTerm))
             query = query.Where(x => x.Thread.Code.Contains(parameters.SearchTerm));
 
-        if (parameters.Brand != null)
+        if (!string.IsNullOrWhiteSpace(parameters.Brand))
             query = query.Where(x => x.Thread.Brand == parameters.Brand);
 
         var threads = await query

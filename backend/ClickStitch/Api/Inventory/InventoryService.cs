@@ -39,7 +39,7 @@ public sealed class InventoryService : IInventoryService
         }, cancellationToken);
 
         var threads = new List<ThreadRecord>();
-        if (parameters.SearchTerm?.Length > 0)
+        if (!string.IsNullOrWhiteSpace(parameters.SearchTerm))
         {
             threads = await _threadRepository.Search(new Data.Repositories.Thread.Types.SearchThreadsParameters
             {
