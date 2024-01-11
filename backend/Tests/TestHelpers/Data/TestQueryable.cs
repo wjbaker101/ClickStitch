@@ -26,6 +26,11 @@ public class TestApiQueryable<TRecord> : IApiQueryable<TRecord> where TRecord : 
         return new TestApiQueryable<TOutput>(_queryable.Select(selector));
     }
 
+    public IApiQueryable<TRecord> OrderBy<TKey>(Expression<Func<TRecord, TKey>> keySelector)
+    {
+        return new TestApiQueryable<TRecord>(_queryable.OrderBy(keySelector));
+    }
+
     public IApiQueryable<TRecord> OrderByDescending<TKey>(Expression<Func<TRecord, TKey>> keySelector)
     {
         return new TestApiQueryable<TRecord>(_queryable.OrderByDescending(keySelector));

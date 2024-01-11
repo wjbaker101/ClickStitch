@@ -27,7 +27,9 @@ public sealed class ThreadRepository : Repository<ThreadRecord>, IThreadReposito
         if (parameters.SearchTerm?.Length > 0)
             query = query.Where(x => x.Code.Contains(parameters.SearchTerm));
 
-        var threads = await query.ToList(cancellationToken);
+        var threads = await query
+            .OrderBy(x => x.Code)
+            .ToList(cancellationToken);
 
         await transaction.Commit(cancellationToken);
 
