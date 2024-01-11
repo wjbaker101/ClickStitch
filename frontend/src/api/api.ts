@@ -637,12 +637,20 @@ export const api = {
 
     inventory: {
 
-        async searchThreads(seachTerm: string): Promise<ISearchInventoryThreadsResponse | Error> {
+        async searchThreads(searchTerm: string, brand: string | null): Promise<ISearchInventoryThreadsResponse | Error> {
             if (auth.details.value === null)
                 return new Error('You must be logged in for this action.');
 
+            const url = new URL('/api/inventory/threads/search', window.location.origin);
+
+            if (searchTerm.length > 0)
+                url.searchParams.set('search_term', searchTerm);
+
+            if (brand !== null)
+                url.searchParams.set('brand', brand);
+
             try {
-                const response = await client.get<IApiResultResponse<ISearchInventoryThreadsResponse>>(`/inventory/threads/search?search_term=${encodeURIComponent(seachTerm)}`, {
+                const response = await client.get<IApiResultResponse<ISearchInventoryThreadsResponse>>(url.toString(), {
                     headers: {
                         'Authorization': `Bearer ${auth.details.value.loginToken}`,
                     },

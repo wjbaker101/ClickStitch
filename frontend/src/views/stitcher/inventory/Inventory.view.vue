@@ -12,9 +12,20 @@
                         <section>
                             <FormComponent>
                                 <FormSectionComponent class="flex align-items-center">
-                                    <FormInputComponent label="Search">
-                                        <input type="search" placeholder="DMC 814" v-model="searchTerm">
-                                    </FormInputComponent>
+                                    <div>
+                                        <FormInputComponent label="Search">
+                                            <input type="search" placeholder="DMC 814" v-model="searchTerm">
+                                        </FormInputComponent>
+                                    </div>
+                                    <div class="flex-auto">
+                                        <FormInputComponent label="Brand">
+                                            <select v-model="searchBrand">
+                                                <option :value="null">All</option>
+                                                <option value="Anchor">Anchor</option>
+                                                <option value="DMC">DMC</option>
+                                            </select>
+                                        </FormInputComponent>
+                                    </div>
                                 </FormSectionComponent>
                             </FormComponent>
                         </section>
@@ -48,13 +59,14 @@ import { threadMapper } from '@/api/mappers/Thread.mapper';
 import type { IInventoryThread } from '@/models/Inventory.model';
 
 const searchTerm = ref<string>('');
+const searchBrand = ref<string | null>(null);
 
 const isLoading = ref<boolean>(false);
 const inventoryThreads = ref<Array<IInventoryThread>>([]);
 const availableThreads = ref<Array<IInventoryThread>>([]);
 
 const loadThreads = async function () {
-    const result = await api.inventory.searchThreads(searchTerm.value);
+    const result = await api.inventory.searchThreads(searchTerm.value, searchBrand.value);
 
     if (result instanceof Error)
         return;
@@ -77,9 +89,12 @@ const onThreadUpdate = async function () {
 watchDebounced(searchTerm, async () => {
     await loadThreads();
 },
-{
-    debounce: 300,
-});
+{ debounce: 300 });
+
+watchDebounced(searchBrand, async () => {
+    await loadThreads();
+},
+{ debounce: 300 });
 
 onMounted(async () => {
     isLoading.value = true;
