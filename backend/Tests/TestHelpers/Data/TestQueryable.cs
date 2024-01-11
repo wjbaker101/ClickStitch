@@ -90,6 +90,16 @@ public class TestApiQueryable<TRecord> : IApiQueryable<TRecord> where TRecord : 
     {
         return _queryable.AnyAsync(predicate, cancellationToken);
     }
+
+    public IFutureEnumerable<TRecord> ToFuture()
+    {
+        return _queryable.ToFuture();
+    }
+
+    public IFutureValue<TResult> ToFutureValue<TResult>(Expression<Func<IQueryable<TRecord>, TResult>> selector)
+    {
+        return _queryable.ToFutureValue(selector);
+    }
 }
 
 public sealed class TestApiFetchQueryable<TRecord, TFetch> : TestApiQueryable<TRecord>, IApiFetchQueryable<TRecord, TFetch> where TRecord : IDatabaseRecord where TFetch : IDatabaseRecord
@@ -163,9 +173,65 @@ public sealed class TestNhQueryProvider<TRecord> : INhQueryProvider
 
     public Task<int> ExecuteDmlAsync<T>(QueryMode queryMode, Expression expression, CancellationToken cancellationToken) => throw new NotImplementedException();
 
-    public IFutureEnumerable<TResult> ExecuteFuture<TResult>(Expression expression) => throw new NotImplementedException();
+    public IFutureEnumerable<TResult> ExecuteFuture<TResult>(Expression expression)
+    {
+        return new TestFutureEnumerable<TResult>(CreateQuery<TResult>(expression).AsEnumerable());
+    }
 
-    public IFutureValue<TResult> ExecuteFutureValue<TResult>(Expression expression) => throw new NotImplementedException();
+    public IFutureValue<TResult> ExecuteFutureValue<TResult>(Expression expression)
+    {
+        return new TestFutureValue<TResult>(Execute<TResult>(expression));
+    }
 
     public void SetResultTransformerAndAdditionalCriteria(IQuery query, NhLinqExpression nhExpression, IDictionary<string, Tuple<object, IType>> parameters) => throw new NotImplementedException();
+}
+
+public sealed class TestFutureValue<TResult> : IFutureValue<TResult>
+{
+    public TResult Value { get; }
+
+    public TestFutureValue(TResult value)
+    {
+        Value = value;
+    }
+
+    public Task<TResult> GetValueAsync(CancellationToken cancellationToken = new())
+    {
+        return Task.FromResult(Value);
+    }
+}
+
+public sealed class TestFutureEnumerable<TResult> : IFutureEnumerable<TResult>
+{
+    private readonly IEnumerable<TResult> _enumerable;
+
+    public TestFutureEnumerable(IEnumerable<TResult> enumerable)
+    {
+        _enumerable = enumerable;
+    }
+
+    public Task<IEnumerable<TResult>> GetEnumerableAsync(CancellationToken cancellationToken = new())
+    {
+        return Task.FromResult(_enumerable);
+    }
+
+    public IEnumerable<TResult> GetEnumerable()
+    {
+        return _enumerable;
+    }
+
+    IEnumerator<TResult> IFutureEnumerable<TResult>.GetEnumerator()
+    {
+        return _enumerable.GetEnumerator();
+    }
+
+    IEnumerator<TResult> IEnumerable<TResult>.GetEnumerator()
+    {
+        return _enumerable.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return _enumerable.GetEnumerator();
+    }
 }

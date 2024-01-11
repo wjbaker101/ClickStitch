@@ -3,8 +3,8 @@ using ClickStitch.Api.Admin.Types;
 using ClickStitch.Models;
 using Data.Records;
 using Data.Repositories.Admin;
-using Data.Repositories.Admin.Types;
-using Moq;
+using Data.Types;
+using TestHelpers.Data;
 
 namespace Api.Tests.Api.Admin.SearchUsers;
 
@@ -14,59 +14,44 @@ public sealed class GivenASearchUsersRequest
 {
     private const int USER_ID = 5559;
 
-    private Mock<IAdminRepository> _adminRepository = null!;
-
     private Result<SearchUsersResponse> _result = null!;
 
     [OneTimeSetUp]
     public async Task Setup()
     {
-        _adminRepository = new Mock<IAdminRepository>();
-        _adminRepository
-            .Setup(mock => mock.SearchUsers(It.IsAny<SearchUsersParameters>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new SearchUsersDto
+        var user = new UserRecord
+        {
+            Id = USER_ID,
+            Reference = Guid.Parse("016fc7d5-03c8-4639-a31d-08ba1fd17ed8"),
+            CreatedAt = new DateTime(2023, 06, 02, 23, 15, 10),
+            Email = "test@email.com",
+            Password = "",
+            PasswordSalt = "",
+            LastLoginAt = new DateTime(2023, 06, 02, 23, 15, 20),
+            Permissions = null!
+        };
+
+        var database = new TestDatabase
+        {
+            Records = new List<IDatabaseRecord>
             {
-                Users = new List<UserRecord>
+                user,
+                new UserPermissionRecord
                 {
-                    new()
+                    User = user,
+                    Permission = new PermissionRecord
                     {
-                        Id = USER_ID,
-                        Reference = Guid.Parse("016fc7d5-03c8-4639-a31d-08ba1fd17ed8"),
-                        CreatedAt = new DateTime(2023, 06, 02, 23, 15, 10),
-                        Email = "test@email.com",
-                        Password = "",
-                        PasswordSalt = "",
-                        LastLoginAt = new DateTime(2023, 06, 02, 23, 15, 20),
-                        Permissions = null!
-                    }
-                },
-                PermissionsLookup = new Dictionary<long, List<PermissionRecord>>
-                {
-                    [USER_ID] = new List<PermissionRecord>
-                    {
-                        new()
-                        {
-                            Type = PermissionType.Creator,
-                            Name = "TestPermissionName"
-                        }
-                    }
-                },
-                TotalCount = 4023
-            });
+                        Type = PermissionType.Creator,
+                        Name = "TestPermissionName"
+                    },
+                    CreatedAt = default
+                }
+            }
+        };
 
-        var subject = new AdminService(_adminRepository.Object, FakeUserRepository.Default(), null!, FakeUserPermissionRepository.Default(), null!);
+        var subject = new AdminService(new AdminRepository(database), null!, null!, null!, null!);
 
-        _result = await subject.SearchUsers(2979, 8556, CancellationToken.None);
-    }
-
-    [Test]
-    public void ThenTheUsersAreRetrieved()
-    {
-        _adminRepository.Verify(mock => mock.SearchUsers(
-            It.Is<SearchUsersParameters>(request =>
-                request.PageNumber == 2979 &&
-                request.PageSize == 8556),
-            It.IsAny<CancellationToken>()), Times.Once);
+        _result = await subject.SearchUsers(1, 50, CancellationToken.None);
     }
 
     [Test]

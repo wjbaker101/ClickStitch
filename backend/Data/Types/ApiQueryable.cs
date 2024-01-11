@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using NHibernate;
+using System.Linq.Expressions;
 
 namespace Data.Types;
 
@@ -19,6 +20,8 @@ public interface IApiQueryable<TRecord> where TRecord : IDatabaseRecord
     Task<List<TRecord>> ToList(CancellationToken cancellationToken);
     Task<bool> Any(CancellationToken cancellationToken);
     Task<bool> Any(Expression<Func<TRecord, bool>> predicate, CancellationToken cancellationToken);
+    IFutureEnumerable<TRecord> ToFuture();
+    IFutureValue<TResult> ToFutureValue<TResult>(Expression<Func<IQueryable<TRecord>, TResult>> selector);
 }
 
 public class ApiQueryable<TRecord> : IApiQueryable<TRecord> where TRecord : IDatabaseRecord
@@ -103,6 +106,16 @@ public class ApiQueryable<TRecord> : IApiQueryable<TRecord> where TRecord : IDat
     public async Task<bool> Any(Expression<Func<TRecord, bool>> predicate, CancellationToken cancellationToken)
     {
         return await _queryable.AnyAsync(predicate, cancellationToken);
+    }
+
+    public IFutureEnumerable<TRecord> ToFuture()
+    {
+        return _queryable.ToFuture();
+    }
+
+    public IFutureValue<TResult> ToFutureValue<TResult>(Expression<Func<IQueryable<TRecord>, TResult>> selector)
+    {
+        return _queryable.ToFutureValue(selector);
     }
 }
 

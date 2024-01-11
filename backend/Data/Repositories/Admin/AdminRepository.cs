@@ -31,8 +31,8 @@ public sealed class AdminRepository : Repository<IDatabaseRecord>, IAdminReposit
 
     public async Task<SearchUsersDto> SearchUsers(SearchUsersParameters parameters, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var query = session
             .Query<UserRecord>();
@@ -51,11 +51,11 @@ public sealed class AdminRepository : Repository<IDatabaseRecord>, IAdminReposit
             .Query<UserPermissionRecord>()
             .Fetch(x => x.Permission)
             .Where(x => users.Contains(x.User))
-            .ToListAsync(cancellationToken))
+            .ToList(cancellationToken))
             .GroupBy(x => x.User.Id)
             .ToDictionary(x => x.Key, x => x.Select(y => y.Permission).ToList());
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         return new SearchUsersDto
         {
