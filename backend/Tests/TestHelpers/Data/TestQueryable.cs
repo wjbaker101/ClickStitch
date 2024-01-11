@@ -46,6 +46,16 @@ public class TestApiQueryable<TRecord> : IApiQueryable<TRecord> where TRecord : 
         return new TestApiFetchQueryable<TRecord, TRelated>(_queryable);
     }
 
+    public IApiQueryable<TRecord> Skip(int count)
+    {
+        return new TestApiQueryable<TRecord>(_queryable.Skip(count));
+    }
+
+    public IApiQueryable<TRecord> Take(int count)
+    {
+        return new TestApiQueryable<TRecord>(_queryable.Take(count));
+    }
+
     public async Task<TRecord> Single(CancellationToken cancellationToken)
     {
         return await _queryable.SingleAsync(cancellationToken);
