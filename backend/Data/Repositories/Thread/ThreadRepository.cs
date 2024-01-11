@@ -27,6 +27,9 @@ public sealed class ThreadRepository : Repository<ThreadRecord>, IThreadReposito
         if (parameters.SearchTerm?.Length > 0)
             query = query.Where(x => x.Code.Contains(parameters.SearchTerm));
 
+        if (parameters.Brand != null)
+            query = query.Where(x => x.Brand == parameters.Brand);
+
         var threads = await query
             .OrderBy(x => x.Code)
             .ToList(cancellationToken);

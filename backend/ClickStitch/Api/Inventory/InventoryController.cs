@@ -18,13 +18,17 @@ public sealed class InventoryController : ApiController
     [HttpGet]
     [Route("threads/search")]
     [Authenticate]
-    public async Task<IActionResult> SearchThreads([FromQuery(Name = "search_term")] string? searchTerm, CancellationToken cancellationToken)
+    public async Task<IActionResult> SearchThreads(
+        [FromQuery(Name = "search_term")] string? searchTerm,
+        [FromQuery(Name = "brand")] string? brand,
+        CancellationToken cancellationToken)
     {
         var requestUser = RequestHelper.GetRequiredUser(Request);
 
         var parameters = new SearchThreadsParameters
         {
-            SearchTerm = searchTerm
+            SearchTerm = searchTerm,
+            Brand = brand
         };
 
         var result = await _inventoryService.SearchThreads(requestUser, parameters, cancellationToken);

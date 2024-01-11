@@ -34,7 +34,8 @@ public sealed class InventoryService : IInventoryService
 
         var userThreads = await _userThreadRepository.Search(user, new SearchUserThreadsParameters
         {
-            SearchTerm = parameters.SearchTerm
+            SearchTerm = parameters.SearchTerm,
+            Brand = parameters.Brand
         }, cancellationToken);
 
         var threads = new List<ThreadRecord>();
@@ -42,7 +43,8 @@ public sealed class InventoryService : IInventoryService
         {
             threads = await _threadRepository.Search(new Data.Repositories.Thread.Types.SearchThreadsParameters
             {
-                SearchTerm = parameters.SearchTerm
+                SearchTerm = parameters.SearchTerm,
+                Brand = parameters.Brand
             }, cancellationToken);
         }
 
@@ -65,7 +67,7 @@ public sealed class InventoryService : IInventoryService
 
         var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
 
-        var userThreads = await _userThreadRepository.Search(user, new SearchUserThreadsParameters { SearchTerm = "" }, cancellationToken);
+        var userThreads = await _userThreadRepository.Search(user, new SearchUserThreadsParameters { SearchTerm = "", Brand = null }, cancellationToken);
         var userThreadLookup = userThreads.ToDictionary(x => x.Thread.Id);
 
         var inventory = threads

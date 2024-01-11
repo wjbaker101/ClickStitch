@@ -1,4 +1,5 @@
-﻿using ClickStitch.Api.Inventory;
+﻿using Api.Tests.Api.Inventory.SearchThreads._Helper;
+using ClickStitch.Api.Inventory;
 using ClickStitch.Api.Inventory.Types;
 using Data.Records;
 using Data.Repositories.User;
@@ -29,54 +30,18 @@ public sealed class GivenASearchThreadsRequest
             Permissions = null
         };
 
-        var userThread1 = new UserThreadRecord
-        {
-            User = user,
-            Thread = new ThreadRecord
-            {
-                Reference = Guid.Parse("dab98b21-a3c1-47a6-919b-646b8d7a1086"),
-                Brand = null,
-                Code = "TestCode_aead1b4c-ba9c-4296-b4be-27e490063db7",
-                Colour = null
-            },
-            Count = 6851
-        };
-
-        var userThread2 = new UserThreadRecord
-        {
-            User = user,
-            Thread = new ThreadRecord
-            {
-                Reference = Guid.Parse("c9f52699-e1ba-433d-b1bb-ff45c811604e"),
-                Brand = null,
-                Code = "TestCode_aead1b4c-ba9c-4296-b4be-27e490063db7",
-                Colour = null
-            },
-            Count = 7224
-        };
-
-        var thread = new ThreadRecord
-        {
-            Reference = Guid.Parse("025d6f51-0bb3-4d07-8ccb-df809c5d4320"),
-            Brand = null,
-            Code = "TestCode_1d826529-f0f0-4949-94dd-4738ee0b17ba",
-            Colour = null
-        };
-
         var database = new TestDatabase
         {
-            Records = new List<IDatabaseRecord>
+            Records = SearchThreadsHelper.SetupThreads(user, new List<IDatabaseRecord>
             {
-                user,
-                userThread1,
-                userThread2,
-                thread
-            }
+                user
+            })
         };
 
         var parameters = new SearchThreadsParameters
         {
-            SearchTerm = null
+            SearchTerm = null,
+            Brand = null
         };
 
         var subject = new InventoryService(null!, new UserRepository(database), new UserThreadRepository(database));
@@ -91,26 +56,39 @@ public sealed class GivenASearchThreadsRequest
     }
 
     [Test]
-    public void ThenTheCorrectInventoryThread1IsReturned()
+    public void ThenTheCorrectNumberOfInventoryThreadsAreReturned()
     {
-        var inventoryThread = _result.Content.InventoryThreads[0];
-
-        Assert.That(inventoryThread.Thread.Reference, Is.EqualTo(Guid.Parse("c9f52699-e1ba-433d-b1bb-ff45c811604e")));
-        Assert.That(inventoryThread.Count, Is.EqualTo(7224));
+        Assert.That(_result.Content.InventoryThreads.Count, Is.EqualTo(2));
     }
 
     [Test]
-    public void ThenTheCorrectInventoryThread2IsReturned()
+    public void ThenTheCorrectNumberOfAvailableThreadsAreReturned()
     {
-        var inventoryThread = _result.Content.InventoryThreads[1];
-
-        Assert.That(inventoryThread.Thread.Reference, Is.EqualTo(Guid.Parse("dab98b21-a3c1-47a6-919b-646b8d7a1086")));
-        Assert.That(inventoryThread.Count, Is.EqualTo(6851));
+        Assert.That(_result.Content.AvailableThreads.Count, Is.EqualTo(0));
     }
 
     [Test]
-    public void ThenNoAvailableThreadsAreReturned()
+    public void ThenTheCorrectInventoryThreadsAreReturned()
     {
-        Assert.That(_result.Content.AvailableThreads, Is.Empty);
+        Assert.Multiple(() =>
+        {
+            var inventoryThread1 = _result.Content.InventoryThreads[0];
+
+            Assert.That(inventoryThread1.Thread.Reference, Is.EqualTo(Guid.Parse("4d03c4c2-4858-4ad0-91a4-91a67c54376b")));
+            Assert.That(inventoryThread1.Count, Is.EqualTo(7224));
+
+            var inventoryThread2 = _result.Content.InventoryThreads[1];
+
+            Assert.That(inventoryThread2.Thread.Reference, Is.EqualTo(Guid.Parse("1a3eda3e-2533-4c47-8ca5-94fbe471fa48")));
+            Assert.That(inventoryThread2.Count, Is.EqualTo(623));
+        });
+    }
+
+    [Test]
+    public void ThenTheCorrectAvailableThreadsAreReturned()
+    {
+        Assert.Multiple(() =>
+        {
+        });
     }
 }

@@ -27,7 +27,10 @@ public sealed class UserThreadRepository : Repository<UserThreadRecord>, IUserTh
 
         if (parameters.SearchTerm?.Length > 0)
             query = query.Where(x => x.Thread.Code.Contains(parameters.SearchTerm));
-        
+
+        if (parameters.Brand != null)
+            query = query.Where(x => x.Thread.Brand == parameters.Brand);
+
         var threads = await query
             .OrderByDescending(x => x.Count)
             .ToList(cancellationToken);
