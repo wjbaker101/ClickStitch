@@ -12,11 +12,12 @@
                         <section>
                             <FormComponent>
                                 <FormSectionComponent class="flex align-items-center">
-                                    <div>
+                                    <div class="flex-auto">
                                         <FormInputComponent label="Search">
                                             <input type="search" placeholder="DMC 814" v-model="searchTerm">
                                         </FormInputComponent>
                                     </div>
+                                    <div></div>
                                     <div class="flex-auto">
                                         <FormInputComponent label="Brand">
                                             <select v-model="searchBrand">
