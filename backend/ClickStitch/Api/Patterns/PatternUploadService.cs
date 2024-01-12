@@ -6,7 +6,7 @@ namespace ClickStitch.Api.Patterns;
 
 public interface IPatternUploadService
 {
-    Task<Result<string>> UploadImage(string patternSlug, PatternImageType imageType, Stream contents, CancellationToken cancellationToken);
+    Task<Result<string>> UploadImage(string folderName, PatternImageType imageType, Stream contents, CancellationToken cancellationToken);
 }
 
 public sealed class PatternUploadService : IPatternUploadService
@@ -18,11 +18,11 @@ public sealed class PatternUploadService : IPatternUploadService
         _cloudinary = cloudinary;
     }
 
-    public async Task<Result<string>> UploadImage(string patternSlug, PatternImageType imageType, Stream contents, CancellationToken cancellationToken)
+    public async Task<Result<string>> UploadImage(string folderName, PatternImageType imageType, Stream contents, CancellationToken cancellationToken)
     {
         var imageResult = await _cloudinary.UploadImageAsync(new UploadImageRequest
         {
-            FileName = $"patterns/{patternSlug}/{MapImageType(imageType)}",
+            FileName = $"patterns/{folderName}/{MapImageType(imageType)}",
             FileContents = contents
         }, cancellationToken);
 

@@ -123,8 +123,9 @@ public sealed class PatternsService : IPatternsService
             return Result.FromFailure(parseResult);
 
         var bannerImageStream = bannerImage != null ? bannerImage.OpenReadStream() : PatternThumbnailGenerator.Create(parsed.Pattern.Width, parsed.Pattern.Height, parsed.Threads, parsed.Stitches);
+        var patternReference = Guid.NewGuid();
 
-        var bannerUrlResult = await _patternUploadService.UploadImage(titleSlug, PatternImageType.Banner, bannerImageStream, cancellationToken);
+        var bannerUrlResult = await _patternUploadService.UploadImage(patternReference.ToString(), PatternImageType.Banner, bannerImageStream, cancellationToken);
         if (bannerUrlResult.IsFailure)
             return Result.FromFailure(bannerUrlResult);
 
@@ -142,7 +143,7 @@ public sealed class PatternsService : IPatternsService
 
         var pattern = await _patternRepository.SaveAsync(new PatternRecord
         {
-            Reference = Guid.NewGuid(),
+            Reference = patternReference,
             CreatedAt = DateTime.UtcNow,
             Title = request.Title,
             Width = parsed.Pattern.Width,
