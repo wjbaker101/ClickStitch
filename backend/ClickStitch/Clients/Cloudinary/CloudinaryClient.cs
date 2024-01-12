@@ -12,13 +12,14 @@ public interface ICloudinaryClient
 
 public sealed class CloudinaryClient : ICloudinaryClient
 {
+    private readonly AppSettings _settings;
     private readonly CloudinaryDotNet.Cloudinary _client;
 
-    public CloudinaryClient(AppSecrets secrets)
+    public CloudinaryClient(AppSecrets secrets, AppSettings settings)
     {
-        var cloudinary = secrets.Cloudinary;
+        _settings = settings;
 
-        _client = new CloudinaryDotNet.Cloudinary(new Account(cloudinary.CloudName, cloudinary.ApiKey, cloudinary.ApiSecret));
+        _client = new CloudinaryDotNet.Cloudinary(new Account(secrets.Cloudinary.CloudName, secrets.Cloudinary.ApiKey, secrets.Cloudinary.ApiSecret));
     }
 
     public async Task<Result<UploadImageResponse>> UploadImageAsync(UploadImageRequest request, CancellationToken cancellationToken)
@@ -26,7 +27,7 @@ public sealed class CloudinaryClient : ICloudinaryClient
         var response = await _client.UploadAsync(new ImageUploadParams
         {
             File = new FileDescription(request.FileName, request.FileContents),
-            PublicId = request.FileName
+            PublicId = $"{_settings.Environment}/{request.FileName}"
         }, cancellationToken);
 
         return new UploadImageResponse

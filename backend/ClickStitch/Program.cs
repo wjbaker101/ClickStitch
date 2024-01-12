@@ -11,6 +11,8 @@ builder.AddSettings();
 var appSecrets = builder.Configuration.Get<AppSecrets>()!;
 services.AddSingleton(appSecrets);
 
+services.AddSingleton(builder.Configuration.Get<AppSettings>()!);
+
 services.AddSingleton<IInkwellClient>(new InkwellClient(new InkwellClientOptions
 {
     BaseUrl = appSecrets.Inkwell.BaseUrl,
