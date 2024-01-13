@@ -8,6 +8,7 @@ public interface IThreadRepository : IRepository<ThreadRecord>
     Task<List<ThreadRecord>> Search(SearchThreadsParameters parameters, CancellationToken cancellationToken);
     Task<Result<ThreadRecord>> GetByReference(Guid threadReference, CancellationToken cancellationToken);
     Task<List<ThreadRecord>> GetAll(CancellationToken cancellationToken);
+    Task<List<ThreadRecord>> GetByCodes(List<string> codes, CancellationToken cancellationToken);
 }
 
 public sealed class ThreadRepository : Repository<ThreadRecord>, IThreadRepository
@@ -63,6 +64,21 @@ public sealed class ThreadRepository : Repository<ThreadRecord>, IThreadReposito
 
         var threads = await session
             .Query<ThreadRecord>()
+            .ToListAsync(cancellationToken);
+
+        await transaction.CommitAsync(cancellationToken);
+
+        return threads;
+    }
+
+    public async Task<List<ThreadRecord>> GetByCodes(List<string> codes, CancellationToken cancellationToken)
+    {
+        using var session = Database.SessionFactory.OpenSession();
+        using var transaction = session.BeginTransaction();
+
+        var threads = await session
+            .Query<ThreadRecord>()
+            .Where(x => codes.Contains(x.Code))
             .ToListAsync(cancellationToken);
 
         await transaction.CommitAsync(cancellationToken);

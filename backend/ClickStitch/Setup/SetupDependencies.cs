@@ -4,6 +4,7 @@ using ClickStitch.Api.Creators;
 using ClickStitch.Api.Inventory;
 using ClickStitch.Api.Patterns;
 using ClickStitch.Api.Patterns.Parsing;
+using ClickStitch.Api.Patterns.Services;
 using ClickStitch.Api.Projects;
 using ClickStitch.Api.Users;
 using ClickStitch.Clients.Cloudinary;
@@ -60,6 +61,7 @@ public static class SetupDependencies
         services.AddSingleton<IPatternsService, PatternsService>();
         services.AddSingleton<IPatternUploadService, PatternUploadService>();
         services.AddSingleton<IPatternParserService, PatternParserService>();
+        services.AddSingleton<IGetPatternInventoryService, GetPatternInventoryService>();
 
         services.AddSingleton<IProjectsService, ProjectsService>();
 

@@ -1,4 +1,5 @@
-﻿using ClickStitch.Api.Patterns.Types;
+﻿using ClickStitch.Api.Patterns.Services;
+using ClickStitch.Api.Patterns.Types;
 using ClickStitch.Middleware.Authentication;
 using ClickStitch.Middleware.Authorisation;
 using DotNetLibs.Api.Types;
@@ -11,10 +12,12 @@ namespace ClickStitch.Api.Patterns;
 public sealed class PatternsController : ApiController
 {
     private readonly IPatternsService _patternsService;
+    private readonly IGetPatternInventoryService _getPatternInventoryService;
 
-    public PatternsController(IPatternsService patternsService)
+    public PatternsController(IPatternsService patternsService, IGetPatternInventoryService getPatternInventoryService)
     {
         _patternsService = patternsService;
+        _getPatternInventoryService = getPatternInventoryService;
     }
 
     [HttpGet]
@@ -82,6 +85,18 @@ public sealed class PatternsController : ApiController
         var user = RequestHelper.GetRequiredUser(Request);
 
         var result = await _patternsService.DeletePattern(user, patternReference, cancellationToken);
+
+        return ToApiResponse(result);
+    }
+
+    [HttpGet]
+    [Route("{patternReference:guid}/inventory")]
+    [Authenticate]
+    public async Task<IActionResult> GetPatternInventory([FromRoute] Guid patternReference, CancellationToken cancellationToken)
+    {
+        var user = RequestHelper.GetRequiredUser(Request);
+
+        var result = await _getPatternInventoryService.GetPatternInventory(user, patternReference, cancellationToken);
 
         return ToApiResponse(result);
     }
