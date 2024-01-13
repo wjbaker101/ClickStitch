@@ -1,7 +1,4 @@
-import { client } from '@/api/client';
-
-import { useAuth } from '@/use/auth/Auth.use';
-import { ApiErrorMapper } from '@/api/ApiErrorMapper';
+import { apiClient } from '@/api/client';
 
 import { paginationMapper } from '@/api/mappers/Pagination.mapper';
 import { userMapper } from '@/api/mappers/User.mapper';
@@ -12,8 +9,6 @@ import type { IPermission } from '@/models/Permission.model';
 import type { IGetUsers } from '@/models/GetUsers.model';
 import type { IThread } from '@/models/Thread.model';
 
-import type { IApiResultResponse } from '@/api/api-models/ApiResponse.type';
-
 import type { IGetUsersResponse } from '@/api/parts/admin/types/GetUsers.type';
 import type { IGetPermissionsResponse } from '@/api/parts/admin/types/GetPermissions.type';
 import type { IAssignPermissionToUserRequest, IAssignPermissionToUserResponse } from '@/api/parts/admin/types/AssignPermissionToUser.type';
@@ -22,154 +17,119 @@ import type { ICreateThreadRequest, ICreateThreadResponse } from '@/api/parts/ad
 import type { IUpdateThreadRequest, IUpdateThreadResponse } from '@/api/parts/admin/types/UpdateThread.type';
 import type { IDeleteThreadResponse } from '@/api/parts/admin/types/DeleteThread.type';
 
-const auth = useAuth();
-
 export const adminApi = {
 
     async getUsers(pageNumber: number, pageSize: number): Promise<IGetUsers | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
+        const queryParams = new Map<string, string>();
+        queryParams.set('page_number', String(pageNumber));
+        queryParams.set('page_size', String(pageSize));
 
-        const url = `/admin/users?page_number=${pageNumber}&page_size=${pageSize}`;
+        const response = await apiClient.get<IGetUsersResponse>({
+            url: '/admin/users',
+            queryParams,
+            auth: {
+                use: true,
+                required: true,
+            },
+        });
 
-        try {
-            const response = await client.get<IApiResultResponse<IGetUsersResponse>>(url, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
+        if (response instanceof Error)
+            return response;
 
-            const result = response.data.result;
-
-            return {
-                users: result.users.map(x => ({
-                    user: userMapper.map(x.user),
-                    permissions: x.permissions.map(permissionMapper.map),
-                })),
-                pagination: paginationMapper.map(result.pagination),
-            };
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        return {
+            users: response.users.map(x => ({
+                user: userMapper.map(x.user),
+                permissions: x.permissions.map(permissionMapper.map),
+            })),
+            pagination: paginationMapper.map(response.pagination),
+        };
     },
 
     async getPermissions(): Promise<Array<IPermission> | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
+        const response = await apiClient.get<IGetPermissionsResponse>({
+            url: '/admin/permissions',
+            auth: {
+                use: true,
+                required: true,
+            },
+        });
 
-        try {
-            const response = await client.get<IApiResultResponse<IGetPermissionsResponse>>('/admin/permissions', {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
+        if (response instanceof Error)
+            return response;
 
-            const result = response.data.result;
-
-            return result.permissions.map(permissionMapper.map);
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        return response.permissions.map(permissionMapper.map);
     },
 
     async assignPermissionToUser(userReference: string, request: IAssignPermissionToUserRequest): Promise<void | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
+        const response = await apiClient.post<IAssignPermissionToUserResponse>({
+            url: `/admin/users/${userReference}/permissions`,
+            body: request,
+            auth: {
+                use: true,
+                required: true,
+            },
+        });
 
-        const url = `/admin/users/${userReference}/permissions`;
-
-        try {
-            const response = await client.post<IApiResultResponse<IAssignPermissionToUserResponse>>(url, request, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
-
-            const result = response.data.result;
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        if (response instanceof Error)
+            return response;
     },
 
     async removePermissionFromUser(userReference: string, permissionType: number): Promise<void | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
+        const response = await apiClient.delete<IRemovePermissionFromUserResponse>({
+            url: `/admin/users/${userReference}/permissions/${permissionType}`,
+            auth: {
+                use: true,
+                required: true,
+            },
+        });
 
-        const url = `/admin/users/${userReference}/permissions/${permissionType}`;
-
-        try {
-            const response = await client.delete<IApiResultResponse<IRemovePermissionFromUserResponse>>(url, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
-
-            const result = response.data.result;
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        if (response instanceof Error)
+            return response;
     },
 
     async createThread(request: ICreateThreadRequest): Promise<IThread | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
+        const response = await apiClient.post<ICreateThreadResponse>({
+            url: '/admin/threads',
+            body: request,
+            auth: {
+                use: true,
+                required: true,
+            },
+        });
 
-        try {
-            const response = await client.post<IApiResultResponse<ICreateThreadResponse>>('/admin/threads', request, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
+        if (response instanceof Error)
+            return response;
 
-            const thread = response.data.result.thread;
-
-            return threadMapper.map(thread);
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        return threadMapper.map(response.thread);
     },
 
     async updateThread(threadReference: string, request: IUpdateThreadRequest): Promise<IThread | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
+        const response = await apiClient.put<IUpdateThreadResponse>({
+            url: `/admin/threads/${threadReference}`,
+            body: request,
+            auth: {
+                use: true,
+                required: true,
+            },
+        });
 
-        try {
-            const response = await client.put<IApiResultResponse<IUpdateThreadResponse>>(`/admin/threads/${threadReference}`, request, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
+        if (response instanceof Error)
+            return response;
 
-            const thread = response.data.result.thread;
-
-            return threadMapper.map(thread);
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        return threadMapper.map(response.thread);
     },
 
     async deleteThread(threadReference: string): Promise<void | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
+        const response = await apiClient.delete<IDeleteThreadResponse>({
+            url: `/admin/threads/${threadReference}`,
+            auth: {
+                use: true,
+                required: true,
+            },
+        });
 
-        try {
-            const response = await client.post<IApiResultResponse<IDeleteThreadResponse>>(`/admin/threads/${threadReference}`, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
-
-            const result = response.data.result;
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        if (response instanceof Error)
+            return response;
     },
 
 };
