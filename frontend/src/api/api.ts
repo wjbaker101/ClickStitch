@@ -12,23 +12,17 @@ import { threadMapper } from '@/api/mappers/Thread.mapper';
 
 import type { IApiResultResponse } from '@/api/api-models/ApiResponse.type';
 
-import type { IDeletePattern } from '@/models/DeletePattern.model';
 import type { IGetAnalytics } from '@/models/GetAnalytics.model';
 import type { IProject } from '@/models/Project.model';
 import type { IGetProject } from '@/models/GetProject.model';
-import type { IPattern } from '@/models/Pattern.model';
 import type { IGetSelf } from '@/models/GetSelf.model';
 
 import type { ICreateUserRequest, ICreateUserResponse } from '@/api/types/CreateUser.type';
-import type { ISearchPatternsResponse } from '@/api/types/SearchPatterns.type';
 import type { IGetProjectsResponse } from '@/api/types/GetProjects.type';
 import type { IGetProjectResponse } from '@/api/types/GetProject.type';
 import type { ICompleteStitchesRequest } from '@/api/types/CompleteStitches.type';
 import type { IGetAnalyticsResponse } from '@/api/types/GetAnalytics.type';
 import type { IGetSelfResponse } from '@/api/types/GetSelf.type';
-import type { IUpdatePatternRequest, IUpdatePatternResponse } from '@/api/types/UpdatePattern.type';
-import type { ICreatePatternRequest, ICreatePatternResponse } from '@/api/types/CreatePattern.type';
-import type { IDeletePatternResponse } from '@/api/types/DeletePattern.type';
 import type { IInventoryThread } from '@/models/Inventory.model';
 import type { IGetInventoryThreadsResponse } from './types/GetInventoryThreads.type';
 import type { IUpdateInventoryThreadRequest, IUpdateInventoryThreadResponse } from './types/UpdateInventoryThread.type';
@@ -39,6 +33,7 @@ import type { ISearchInventoryThreadsResponse } from './types/SearchInventoryThr
 import { adminApi } from '@/api/parts/admin/admin.api';
 import { authApi } from '@/api/parts/auth/auth.api';
 import { creatorsApi } from '@/api/parts/creators/creators.api';
+import { patternsApi } from '@/api/parts/patterns/patterns.api';
 
 const auth = useAuth();
 
@@ -54,114 +49,7 @@ export const api = {
 
     creators: creatorsApi,
 
-    patterns: {
-
-        async search(): Promise<Array<IPattern> | Error> {
-            try {
-                const response = await client.get<IApiResultResponse<ISearchPatternsResponse>>('/patterns', {
-                    headers: (auth.details.value === null) ? {} : {
-                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                    },
-                });
-
-                const patterns = response.data.result.patterns;
-
-                return patterns.map(patternMapper.map);
-            }
-            catch (error) {
-                return ApiErrorMapper.map(error);
-            }
-        },
-
-        async update(patternReference: string, request: IUpdatePatternRequest): Promise<IPattern | Error> {
-            if (auth.details.value === null)
-                return new Error('You must be logged in for this action.');
-
-            try {
-                const response = await client.put<IApiResultResponse<IUpdatePatternResponse>>(`/patterns/${patternReference}`, request, {
-                    headers: {
-                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                    },
-                });
-
-                const result = response.data.result;
-
-                return patternMapper.map(result.pattern);
-            }
-            catch (error) {
-                return ApiErrorMapper.map(error);
-            }
-        },
-
-        async create(bannerImage: File, patternData: string, request: ICreatePatternRequest): Promise<void | Error> {
-            if (auth.details.value === null)
-                return new Error('You must be logged in for this action.');
-
-            try {
-                const formData = new FormData();
-                formData.append('banner_image', bannerImage);
-                formData.append('request_body', JSON.stringify(request));
-                formData.append('pattern_data', patternData);
-
-                const response = await client.post<IApiResultResponse<ICreatePatternResponse>>('/patterns', formData, {
-                    headers: {
-                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                    },
-                });
-
-                const result = response.data.result;
-            }
-            catch (error) {
-                return ApiErrorMapper.map(error);
-            }
-        },
-
-        async verify(patternData: string): Promise<boolean | Error> {
-            if (auth.details.value === null)
-                return new Error('You must be logged in for this action.');
-
-            try {
-                const formData = new FormData();
-                formData.append('pattern_data', patternData);
-
-                const response = await client.post<IApiResultResponse<{}>>('/patterns/verify', formData, {
-                    headers: {
-                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                    },
-                });
-
-                const result = response.data.result;
-
-                return true;
-            }
-            catch (error) {
-                return false;
-            }
-        },
-
-        async delete(patternReference: string): Promise<IDeletePattern | Error> {
-            if (auth.details.value === null)
-                return new Error('You must be logged in for this action.');
-
-            try {
-                const response = await client.delete<IApiResultResponse<IDeletePatternResponse>>(`/patterns/${patternReference}`, {
-                    headers: {
-                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                    },
-                });
-
-                const result = response.data.result;
-
-                return {
-                    message: result.message,
-                };
-            }
-            catch (error) {
-                return ApiErrorMapper.map(error);
-            }
-        },
-
-    },
+    patterns: patternsApi,
 
     projects: {
 
