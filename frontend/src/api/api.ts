@@ -1,7 +1,7 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
 
-import { type IAuth, useAuth } from '@/use/auth/Auth.use';
+import { useAuth } from '@/use/auth/Auth.use';
 import { ApiErrorMapper } from '@/api/ApiErrorMapper';
 
 import { paginationMapper } from '@/api/mappers/Pagination.mapper';
@@ -23,7 +23,6 @@ import type { IPattern } from '@/models/Pattern.model';
 import type { IGetSelf } from '@/models/GetSelf.model';
 import type { ICreator } from '@/models/Creator.model';
 
-import type { ILogInRequest, ILogInResponse } from '@/api/types/LogIn.type';
 import type { ICreateUserRequest, ICreateUserResponse } from '@/api/types/CreateUser.type';
 import type { ISearchPatternsResponse } from '@/api/types/SearchPatterns.type';
 import type { IGetProjectsResponse } from '@/api/types/GetProjects.type';
@@ -46,6 +45,7 @@ import type { IUnpausePatternResponse } from './types/UnpausePattern.type';
 import type { ISearchInventoryThreadsResponse } from './types/SearchInventoryThreads.type';
 
 import { adminApi } from '@/api/parts/admin/admin.api';
+import { authApi } from '@/api/parts/auth/auth.api';
 
 const auth = useAuth();
 
@@ -57,27 +57,7 @@ export const api = {
 
     admin: adminApi,
 
-    auth: {
-
-        async logIn(request: ILogInRequest): Promise<IAuth | Error> {
-            try {
-                const response = await client.post<IApiResultResponse<ILogInResponse>>('/auth/log_in', request);
-
-                const result = response.data.result;
-
-                return {
-                    loginToken: result.loginToken,
-                    email: result.email,
-                    permissions: result.permissions.map(permissionMapper.map),
-                    loggedInAt: dayjs(response.data.responseAt),
-                };
-            }
-            catch (error) {
-                return ApiErrorMapper.map(error);
-            }
-        },
-
-    },
+    auth: authApi,
 
     creators: {
 
