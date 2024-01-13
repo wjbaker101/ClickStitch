@@ -8,6 +8,7 @@ using Data.Repositories.Pattern;
 using Data.Repositories.Pattern.Types;
 using Data.Repositories.User;
 using Data.Repositories.UserPattern;
+using DotNetLibs.Core.Services;
 
 namespace ClickStitch.Api.Patterns;
 
@@ -30,6 +31,7 @@ public sealed class PatternsService : IPatternsService
     private readonly ICreatorRepository _creatorRepository;
     private readonly IPatternThreadStitchRepository _patternThreadStitchRepository;
     private readonly IPatternParserService _patternParserService;
+    private readonly IGuidProvider _guid;
 
     public PatternsService(
         IPatternRepository patternRepository,
@@ -39,7 +41,8 @@ public sealed class PatternsService : IPatternsService
         IUserPatternRepository userPatternRepository,
         ICreatorRepository creatorRepository,
         IPatternThreadStitchRepository patternThreadStitchRepository,
-        IPatternParserService patternParserService)
+        IPatternParserService patternParserService,
+        IGuidProvider guid)
     {
         _patternRepository = patternRepository;
         _patternThreadRepository = patternThreadRepository;
@@ -49,6 +52,7 @@ public sealed class PatternsService : IPatternsService
         _creatorRepository = creatorRepository;
         _patternThreadStitchRepository = patternThreadStitchRepository;
         _patternParserService = patternParserService;
+        _guid = guid;
     }
 
     public async Task<Result<GetPatternsResponse>> GetPatterns(RequestUser? requestUser, CancellationToken cancellationToken)
@@ -123,7 +127,7 @@ public sealed class PatternsService : IPatternsService
             return Result.FromFailure(parseResult);
 
         var bannerImageStream = bannerImage != null ? bannerImage.OpenReadStream() : PatternThumbnailGenerator.Create(parsed.Pattern.Width, parsed.Pattern.Height, parsed.Threads, parsed.Stitches);
-        var patternReference = Guid.NewGuid();
+        var patternReference = _guid.NewGuid();
 
         var bannerUrlResult = await _patternUploadService.UploadImage(patternReference.ToString(), PatternImageType.Banner, bannerImageStream, cancellationToken);
         if (bannerUrlResult.IsFailure)

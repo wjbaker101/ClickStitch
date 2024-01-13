@@ -7,6 +7,7 @@ using Data.Repositories.Pattern;
 using Data.Repositories.User;
 using Data.Repositories.UserPattern;
 using Data.Types;
+using DotNetLibs.Core.Services.Fakes;
 using TestHelpers.Data;
 
 namespace Api.Tests.Api.Patterns.CreatePattern;
@@ -106,6 +107,11 @@ public sealed class GivenACreatePatternRequestAsAStitcher
             }
         };
 
+        var guidProvider = new FakeGuidProvider
+        {
+            FakeGuid = Guid.Parse("f55f0dde-4841-4444-b86d-5d7490b8f636")
+        };
+
         var requestUser = new TestRequestUser
         {
             Permissions = new List<RequestPermissionType>()
@@ -127,7 +133,8 @@ public sealed class GivenACreatePatternRequestAsAStitcher
             new UserPatternRepository(_database),
             new CreatorRepository(_database),
             new PatternThreadStitchRepository(_database),
-            patternParserService);
+            patternParserService,
+            guidProvider);
 
         _result = await subject.CreatePattern(requestUser, request, "", null!, null, CancellationToken.None);
     }
@@ -148,7 +155,7 @@ public sealed class GivenACreatePatternRequestAsAStitcher
             0, 0, 73, 69, 78, 68, 174, 66, 96, 130
         };
 
-        Assert.That(_cloudinary.ActualRequest.FileName, Is.EqualTo("patterns/test-title/banner"));
+        Assert.That(_cloudinary.ActualRequest.FileName, Is.EqualTo("patterns/f55f0dde-4841-4444-b86d-5d7490b8f636/banner"));
         Assert.That(_cloudinary.ActualRequest.FileContents.ToBytes(), Is.EqualTo(bannerImage));
     }
 

@@ -118,6 +118,7 @@ public sealed class GivenADeletePatternRequestThatHasNotBeenAddedAsAProject
             new UserPatternRepository(_database),
             null!,
             new PatternThreadStitchRepository(_database),
+            null!,
             null!);
 
         _result = await subject.DeletePattern(new TestRequestUser(), Guid.Parse("6f6f9364-d204-4bdb-813f-a950938163b8"), CancellationToken.None);

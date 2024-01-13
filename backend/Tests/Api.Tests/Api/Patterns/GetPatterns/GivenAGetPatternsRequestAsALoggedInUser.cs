@@ -112,7 +112,7 @@ public sealed class GivenAGetPatternsRequestAsALoggedInUser
             }
         };
 
-        var subject = new PatternsService(new PatternRepository(database), null!, null!, new UserRepository(database), new UserPatternRepository(database), null!, null!, null!);
+        var subject = new PatternsService(new PatternRepository(database), null!, null!, new UserRepository(database), new UserPatternRepository(database), null!, null!, null!, null!);
 
         _result = await subject.GetPatterns(new TestRequestUser(), CancellationToken.None);
     }

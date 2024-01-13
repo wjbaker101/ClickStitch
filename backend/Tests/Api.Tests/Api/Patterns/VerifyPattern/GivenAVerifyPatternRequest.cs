@@ -14,7 +14,7 @@ public sealed class GivenAVerifyPatternRequest
     {
         var patternParserService = new FakePatternParserService();
 
-        var subject = new PatternsService(null!, null!, null!, null!, null!, null!, null!, patternParserService);
+        var subject = new PatternsService(null!, null!, null!, null!, null!, null!, null!, patternParserService, null!);
 
         _result = await subject.VerifyPattern(null!, CancellationToken.None);
     }

@@ -18,7 +18,7 @@ public sealed class GivenAVerifyPatternRequestForAnInvalidPattern
             Response = Result<ParsePatternResponse>.Failure("TestError")
         };
 
-        var subject = new PatternsService(null!, null!, null!, null!, null!, null!, null!, patternParserService);
+        var subject = new PatternsService(null!, null!, null!, null!, null!, null!, null!, patternParserService, null!);
 
         _result = await subject.VerifyPattern(null!, CancellationToken.None);
     }

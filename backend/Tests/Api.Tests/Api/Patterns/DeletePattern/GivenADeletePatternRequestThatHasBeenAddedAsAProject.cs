@@ -69,7 +69,7 @@ public sealed class GivenADeletePatternRequestThatHasBeenAddedAsAProject
             }
         };
 
-        var subject = new PatternsService(new PatternRepository(database), null!, null!, new UserRepository(database), new UserPatternRepository(database), null!, null!, null!);
+        var subject = new PatternsService(new PatternRepository(database), null!, null!, new UserRepository(database), new UserPatternRepository(database), null!, null!, null!, null!);
 
         _result = await subject.DeletePattern(new TestRequestUser(), Guid.Parse("6f6f9364-d204-4bdb-813f-a950938163b8"), CancellationToken.None);
     }

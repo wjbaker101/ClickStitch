@@ -77,7 +77,7 @@ public sealed class GivenAnUpdatePatternRequestWithADifferentUser
             ExternalShopUrl = "NewTestExternalShopUrl"
         };
 
-        var subject = new PatternsService(new PatternRepository(_database), null!, null!, new UserRepository(_database), null!, null!, null!, null!);
+        var subject = new PatternsService(new PatternRepository(_database), null!, null!, new UserRepository(_database), null!, null!, null!, null!, null!);
 
         _result = await subject.UpdatePattern(new TestRequestUser(), _patternReference, request, CancellationToken.None);
     }
