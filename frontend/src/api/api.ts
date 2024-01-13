@@ -4,24 +4,20 @@ import dayjs from 'dayjs';
 import { useAuth } from '@/use/auth/Auth.use';
 import { ApiErrorMapper } from '@/api/ApiErrorMapper';
 
-import { paginationMapper } from '@/api/mappers/Pagination.mapper';
 import { userMapper } from '@/api/mappers/User.mapper';
 import { permissionMapper } from '@/api/mappers/Permission.mapper';
 import { patternMapper } from '@/api/mappers/Pattern.mapper';
 import { projectMapper } from '@/api/mappers/Project.mapper';
-import { creatorMapper } from '@/api/mappers/Creator.mapper';
 import { threadMapper } from '@/api/mappers/Thread.mapper';
 
 import type { IApiResultResponse } from '@/api/api-models/ApiResponse.type';
 
-import type { IGetCreatorPatterns } from '@/models/GetCreatorPatterns.model';
 import type { IDeletePattern } from '@/models/DeletePattern.model';
 import type { IGetAnalytics } from '@/models/GetAnalytics.model';
 import type { IProject } from '@/models/Project.model';
 import type { IGetProject } from '@/models/GetProject.model';
 import type { IPattern } from '@/models/Pattern.model';
 import type { IGetSelf } from '@/models/GetSelf.model';
-import type { ICreator } from '@/models/Creator.model';
 
 import type { ICreateUserRequest, ICreateUserResponse } from '@/api/types/CreateUser.type';
 import type { ISearchPatternsResponse } from '@/api/types/SearchPatterns.type';
@@ -30,10 +26,6 @@ import type { IGetProjectResponse } from '@/api/types/GetProject.type';
 import type { ICompleteStitchesRequest } from '@/api/types/CompleteStitches.type';
 import type { IGetAnalyticsResponse } from '@/api/types/GetAnalytics.type';
 import type { IGetSelfResponse } from '@/api/types/GetSelf.type';
-import type { IGetSelfCreator } from '@/api/types/GetSelfCreator.type';
-import type { IUpdateCreatorRequest, IUpdateCreatorResponse } from '@/api/types/UpdateCreator.type';
-import type { ICreateCreatorRequest, ICreateCreatorResponse } from '@/api/types/CreateCreator.type';
-import type { IGetCreatorPatternsResponse } from '@/api/types/GteCreatorPatterns.type';
 import type { IUpdatePatternRequest, IUpdatePatternResponse } from '@/api/types/UpdatePattern.type';
 import type { ICreatePatternRequest, ICreatePatternResponse } from '@/api/types/CreatePattern.type';
 import type { IDeletePatternResponse } from '@/api/types/DeletePattern.type';
@@ -46,6 +38,7 @@ import type { ISearchInventoryThreadsResponse } from './types/SearchInventoryThr
 
 import { adminApi } from '@/api/parts/admin/admin.api';
 import { authApi } from '@/api/parts/auth/auth.api';
+import { creatorsApi } from '@/api/parts/creators/creators.api';
 
 const auth = useAuth();
 
@@ -59,96 +52,7 @@ export const api = {
 
     auth: authApi,
 
-    creators: {
-
-        async createCreator(request: ICreateCreatorRequest): Promise<ICreator | Error> {
-            if (auth.details.value === null)
-                return new Error('You must be logged in for this action.');
-
-            try {
-                const response = await client.post<IApiResultResponse<ICreateCreatorResponse>>('/creators', request, {
-                    headers: {
-                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                    },
-                });
-
-                const result = response.data.result;
-
-                return creatorMapper.map(result.creator);
-            }
-            catch (error) {
-                return ApiErrorMapper.map(error);
-            }
-        },
-
-        async updateCreator(creatorReference: string, request: IUpdateCreatorRequest): Promise<ICreator | Error> {
-            if (auth.details.value === null)
-                return new Error('You must be logged in for this action.');
-
-            try {
-                const response = await client.put<IApiResultResponse<IUpdateCreatorResponse>>(`/creators/${creatorReference}`, request, {
-                    headers: {
-                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                    },
-                });
-
-                const result = response.data.result;
-
-                return creatorMapper.map(result.creator);
-            }
-            catch (error) {
-                return ApiErrorMapper.map(error);
-            }
-        },
-
-        async getSelf(): Promise<ICreator | null | Error> {
-            if (auth.details.value === null)
-                return new Error('You must be logged in for this action.');
-
-            try {
-                const response = await client.get<IApiResultResponse<IGetSelfCreator>>('/creators/self', {
-                    headers: {
-                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                    },
-                });
-
-                const result = response.data.result;
-
-                if (result.creator === null)
-                    return null;
-
-                return creatorMapper.map(result.creator);
-            }
-            catch (error) {
-                return ApiErrorMapper.map(error);
-            }
-        },
-
-        async getPatterns(creatorReference: string, pageSize: number, pageNumber: number): Promise<IGetCreatorPatterns | Error> {
-            if (auth.details.value === null)
-                return new Error('You must be logged in for this action.');
-
-            const url = `/creators/${creatorReference}/patterns?page_size=${pageSize}&page_number=${pageNumber}`;
-
-            try {
-                const response = await client.get<IApiResultResponse<IGetCreatorPatternsResponse>>(url, {
-                    headers: {
-                        'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                    },
-                });
-
-                const result = response.data.result;
-
-                return {
-                    patterns: result.patterns.map(patternMapper.map),
-                    pagination: paginationMapper.map(result.pagination),
-                };
-            }
-            catch (error) {
-                return ApiErrorMapper.map(error);
-            }
-        },
-    },
+    creators: creatorsApi,
 
     patterns: {
 
