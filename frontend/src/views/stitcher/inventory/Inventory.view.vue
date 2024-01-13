@@ -6,7 +6,7 @@
         <div class="content-width">
             <section>
                 <CardComponent border="top" padded>
-                    <h2>Manage your Threads</h2>
+                    <h2>Manage your Skeins</h2>
                     <LoadingComponent v-if="isLoading" itemName="threads" />
                     <template v-else>
                         <section>
