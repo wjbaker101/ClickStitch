@@ -12,7 +12,7 @@ import { projectMapper } from '@/api/mappers/Project.mapper';
 import { creatorMapper } from '@/api/mappers/Creator.mapper';
 import { threadMapper } from '@/api/mappers/Thread.mapper';
 
-import type { IApiResultResponse } from '@/api/types/ApiResponse.type';
+import type { IApiResultResponse } from '@/api/api-models/ApiResponse.type';
 
 import type { IGetCreatorPatterns } from '@/models/GetCreatorPatterns.model';
 import type { IDeletePattern } from '@/models/DeletePattern.model';

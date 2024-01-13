@@ -1,5 +1,5 @@
-import { type IApiPagination } from './ApiPagination.type';
-import { type IApiPattern } from './ApiPattern.type';
+import { type IApiPagination } from '@/api/api-models/ApiPagination.type';
+import { type IApiPattern } from '@/api/api-models/ApiPattern.type';
 
 export interface IGetCreatorPatternsResponse {
     readonly patterns: Array<IApiPattern>;

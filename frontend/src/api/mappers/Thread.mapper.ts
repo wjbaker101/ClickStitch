@@ -1,5 +1,5 @@
 import type { IThread } from '@/models/Thread.model';
-import type { IApiThread } from '../types/ApiThread.type';
+import type { IApiThread } from '@/api/api-models/ApiThread.type';
 
 export const threadMapper = {
 

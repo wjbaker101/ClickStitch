@@ -1,5 +1,5 @@
 import { type IPagination } from '@/models/Pagination.model';
-import { type IApiPagination } from '../types/ApiPagination.type';
+import { type IApiPagination } from '@/api/api-models/ApiPagination.type';
 
 export const paginationMapper = {
 

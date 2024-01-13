@@ -1,5 +1,5 @@
-import { type IApiPermission } from './ApiPermission.type';
-import { type IApiUser } from './ApiUser.type';
+import { type IApiPermission } from '@/api/api-models/ApiPermission.type';
+import { type IApiUser } from '@/api/api-models/ApiUser.type';
 
 export interface IGetSelfResponse {
     readonly user: IApiUser;

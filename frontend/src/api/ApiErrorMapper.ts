@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 
 import { useAuth } from '@/use/auth/Auth.use';
 
-import { type IApiErrorResponse } from '@/api/types/ApiResponse.type';
+import { type IApiErrorResponse } from '@/api/api-models/ApiResponse.type';
 
 const auth = useAuth();
 

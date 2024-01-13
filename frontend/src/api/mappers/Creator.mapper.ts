@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
 import { type ICreator } from '@/models/Creator.model';
-import { type IApiCreator } from '../types/ApiCreator.type';
+import { type IApiCreator } from '@/api/api-models/ApiCreator.type';
 
 export const creatorMapper = {
 

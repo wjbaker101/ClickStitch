@@ -1,4 +1,4 @@
-import { type IApiCreator } from './ApiCreator.type';
+import { type IApiCreator } from '@/api/api-models/ApiCreator.type';
 
 export interface IApiPattern {
     readonly reference: string;

@@ -1,4 +1,4 @@
-import { type IApiPermission } from './ApiPermission.type';
+import { type IApiPermission } from '@/api/api-models/ApiPermission.type';
 
 export interface ILogInRequest {
     readonly email: string;
