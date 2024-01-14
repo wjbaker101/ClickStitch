@@ -97,7 +97,6 @@ public sealed class ProjectsService : IProjectsService
         return new GetProjectResponse
         {
             Project = ProjectMapper.Map(project),
-            AidaCount = pattern.AidaCount,
             Threads = pattern.Threads.MapAll(thread => new GetProjectResponse.ThreadDetails
             {
                 Thread = PatternMapper.MapThread(thread),

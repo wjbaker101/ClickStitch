@@ -30,6 +30,7 @@ public sealed class FakePatternsService : IPatternsService
                 BannerImageUrl = "TestBannerImageUrl",
                 ExternalShopUrl = "TestExternalShopUrl",
                 TitleSlug = "test-title-slug",
+                AidaCount = 1335,
                 Creator = null
             };
         }
@@ -49,6 +50,7 @@ public sealed class FakePatternsService : IPatternsService
                 BannerImageUrl = "TestBannerImageUrl",
                 ExternalShopUrl = "TestExternalShopUrl",
                 TitleSlug = "test-title-slug",
+                AidaCount = 1335,
                 Creator = null
             };
         }
@@ -77,6 +79,7 @@ public sealed class FakePatternsService : IPatternsService
                 BannerImageUrl = "TestBannerImageUrl",
                 ExternalShopUrl = "TestExternalShopUrl",
                 TitleSlug = "test-title-slug",
+                AidaCount = 1335,
                 Creator = null
             }
         });

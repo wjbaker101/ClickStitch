@@ -18,6 +18,7 @@ public static class PatternMapper
         BannerImageUrl = pattern.BannerImageUrl,
         ExternalShopUrl = pattern.ExternalShopUrl,
         TitleSlug = pattern.TitleSlug,
+        AidaCount = pattern.AidaCount,
         Creator = MapCreator(pattern.Creator)
     };
 

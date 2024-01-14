@@ -14,6 +14,7 @@ public sealed class PatternModel
     public required string BannerImageUrl { get; init; }
     public required string? ExternalShopUrl { get; init; }
     public required string TitleSlug { get; init; }
+    public required int AidaCount { get; init; }
     public required CreatorModel? Creator { get; init; }
 }
 

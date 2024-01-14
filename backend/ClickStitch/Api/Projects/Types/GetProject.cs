@@ -3,7 +3,6 @@
 public sealed class GetProjectResponse
 {
     public required ProjectModel Project { get; init; }
-    public required int AidaCount { get; init; }
     public required List<ThreadDetails> Threads { get; init; }
 
     public sealed class ThreadDetails
