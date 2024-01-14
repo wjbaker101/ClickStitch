@@ -17,13 +17,13 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 
-import ThreadDetailsComponent from '../components/ThreadDetails.component.vue';
+import ThreadDetailsComponent from '@/views/stitcher/project/components/ThreadDetails.component.vue';
 
+import { api } from '@/api/api';
 import { useEvents } from '@/use/events/Events.use';
 import { useModal } from '@wjb/vue/use/modal.use';
 
 import type { IGetProject } from '@/models/GetProject.model';
-import { api } from '@/api/api';
 
 const props = defineProps<{
     project: IGetProject;
