@@ -29,11 +29,11 @@
             <div class="compare-inventory-container">
                 <template v-if="inventoryThread !== null">
                     <IconComponent icon="tick-circle" gap="right" />
-                    <span>Enough in inventory ({{ inventoryThread.count }} skeins / ~1203 stitches)</span>
+                    <span>Found in inventory ({{ inventoryThread.count }} skeins)</span>
                 </template>
                 <template v-else>
                     <IconComponent icon="cross-circle" gap="right" />
-                    <span>Not enough in Inventory (Recommended 321 skeins)</span>
+                    <span>Not found in inventory</span>
                 </template>
             </div>
         </template>
