@@ -15,12 +15,15 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
+
 import ThreadDetailsComponent from '../components/ThreadDetails.component.vue';
 
 import { useEvents } from '@/use/events/Events.use';
 import { useModal } from '@wjb/vue/use/modal.use';
 
 import type { IGetProject } from '@/models/GetProject.model';
+import { api } from '@/api/api';
 
 const props = defineProps<{
     project: IGetProject;
@@ -35,6 +38,14 @@ const onGoToPausePosition = function () {
     events.publish('GoToPausePosition', {});
     modal.hide();
 };
+
+onMounted(async () => {
+    const inventory = await api.patterns.getInventory(props.project.project.pattern.reference);
+    if (inventory instanceof Error)
+        return;
+
+    console.log(inventory);
+});
 </script>
 
 <style lang="scss">

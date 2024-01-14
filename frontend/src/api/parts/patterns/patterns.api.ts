@@ -1,19 +1,22 @@
-import { client } from '@/api/client';
+import { apiClient, client } from '@/api/client';
 
 import { useAuth } from '@/use/auth/Auth.use';
 import { ApiErrorMapper } from '@/api/ApiErrorMapper';
 
 import { patternMapper } from '@/api/mappers/Pattern.mapper';
+import { threadMapper } from '@/api/mappers/Thread.mapper';
 
 import type { IApiResultResponse } from '@/api/api-models/ApiResponse.type';
 
 import type { IDeletePattern } from '@/models/DeletePattern.model';
 import type { IPattern } from '@/models/Pattern.model';
+import type { IGetPatternInventory } from '@/models/GetPatternInventory.model';
 
 import type { ISearchPatternsResponse } from '@/api/parts/patterns/types/SearchPatterns.type';
 import type { IUpdatePatternRequest, IUpdatePatternResponse } from '@/api/parts/patterns/types/UpdatePattern.type';
 import type { ICreatePatternRequest, ICreatePatternResponse } from '@/api/parts/patterns/types/CreatePattern.type';
 import type { IDeletePatternResponse } from '@/api/parts/patterns/types/DeletePattern.type';
+import type { IGetInventoryResponse } from '@/api/parts/patterns/types/GetInventory.type';
 
 const auth = useAuth();
 
@@ -122,6 +125,26 @@ export const patternsApi = {
         catch (error) {
             return ApiErrorMapper.map(error);
         }
+    },
+
+    async getInventory(patternReference: string): Promise<IGetPatternInventory | Error> {
+        const response = await apiClient.get<IGetInventoryResponse>({
+            url: `/patterns/${patternReference}/inventory`,
+            auth: {
+                use: true,
+                required: true,
+            },
+        });
+
+        if (response instanceof Error)
+            return response;
+
+        return {
+            threads: response.threads.map(x => ({
+                thread: threadMapper.map(x.thread),
+                count: x.count,
+            })),
+        };
     },
 
 };
