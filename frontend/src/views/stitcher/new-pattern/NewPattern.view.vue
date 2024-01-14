@@ -17,6 +17,12 @@
                             <FormInputComponent label="Title">
                                 <input type="text" placeholder="My Amazing Pattern" v-model="title">
                             </FormInputComponent>
+                            <FormInputComponent label="Aida Count">
+                                <select v-model="aidaCount">
+                                    <option :value="null" disabled>Select option...</option>
+                                    <option v-for="count in 35" :value="count + 5">{{ count + 5 }}</option>
+                                </select>
+                            </FormInputComponent>
                             <div class="flex gap">
                                 <FileUploadComponent class="flex-2" heading="Pattern Schematic" @choose="onPatternChoose">
                                     <template #subtext>
@@ -75,6 +81,7 @@ const isValid = ref<boolean | null>(null);
 const isCreationLoading = ref<boolean>(false);
 
 const title = ref<string>('');
+const aidaCount = ref<number | null>(null);
 const patternData = ref<string | null>(null);
 
 const onPatternChoose = function (file: File): void {
@@ -105,6 +112,13 @@ const onCreate = async function (): Promise<void> {
         });
         return;
     }
+    if (aidaCount.value === null) {
+        popup.trigger({
+            message: 'Please enter a valid aida count.',
+            style: 'error',
+        });
+        return;
+    }
     if (patternData.value === null) {
         popup.trigger({
             message: 'Please upload a valid pattern schematic.',
@@ -118,7 +132,7 @@ const onCreate = async function (): Promise<void> {
     await api.patterns.create(new File([], ''), patternData.value, {
         title: title.value,
         externalShopUrl: null,
-        aidaCount: 16,
+        aidaCount: aidaCount.value,
         price: 1,
     });
 
