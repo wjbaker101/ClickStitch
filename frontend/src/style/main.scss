@@ -12,6 +12,7 @@
     --wjb-dark: #222226;
 
     --wjb-background-colour: var(--wjb-light);
+    --wjb-background-colour-dark: color-mix(in srgb, var(--wjb-background-colour) 90%, #000);
 
     --wjb-text-colour: var(--wjb-dark);
     --wjb-text-colour-opposite: var(--wjb-light);
@@ -27,6 +28,7 @@
 
     @media (prefers-color-scheme: dark) {
         --wjb-background-colour: var(--wjb-dark);
+        --wjb-background-colour-dark: color-mix(in srgb, var(--wjb-background-colour) 80%, #000);
 
         --wjb-text-colour: var(--wjb-light);
         --wjb-text-colour-opposite: var(--wjb-dark);
