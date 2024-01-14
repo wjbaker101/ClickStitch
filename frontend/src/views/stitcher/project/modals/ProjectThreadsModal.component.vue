@@ -9,13 +9,13 @@
         </p>
         <h2>Threads:</h2>
         <div>
-            <ThreadDetailsComponent v-for="thread in threads" :thread="thread" />
+            <ThreadDetailsComponent v-for="thread in threads" :thread="thread" :inventory="inventory" />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import ThreadDetailsComponent from '@/views/stitcher/project/components/ThreadDetails.component.vue';
 
@@ -24,6 +24,7 @@ import { useEvents } from '@/use/events/Events.use';
 import { useModal } from '@wjb/vue/use/modal.use';
 
 import type { IGetProject } from '@/models/GetProject.model';
+import type { IGetPatternInventory } from '@/models/GetPatternInventory.model';
 
 const props = defineProps<{
     project: IGetProject;
@@ -34,17 +35,19 @@ const modal = useModal();
 
 const threads = props.project.threads;
 
+const inventory = ref<IGetPatternInventory | null>(null);
+
 const onGoToPausePosition = function () {
     events.publish('GoToPausePosition', {});
     modal.hide();
 };
 
 onMounted(async () => {
-    const inventory = await api.patterns.getInventory(props.project.project.pattern.reference);
-    if (inventory instanceof Error)
+    const inventoryResult = await api.patterns.getInventory(props.project.project.pattern.reference);
+    if (inventoryResult instanceof Error)
         return;
 
-    console.log(inventory);
+    inventory.value = inventoryResult;
 });
 </script>
 
