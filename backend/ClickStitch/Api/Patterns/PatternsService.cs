@@ -177,7 +177,7 @@ public sealed class PatternsService : IPatternsService
 
         var threadLookup = threads.ToDictionary(x => x.Index);
 
-        var stitches = await _patternThreadStitchRepository.SaveManyAsync(parsed.Stitches.ConvertAll(x => new PatternThreadStitchRecord
+        await _patternThreadStitchRepository.SaveAll(parsed.Stitches.ConvertAll(x => new PatternThreadStitchRecord
         {
             Thread = threadLookup[x.ThreadIndex],
             X = x.X,
