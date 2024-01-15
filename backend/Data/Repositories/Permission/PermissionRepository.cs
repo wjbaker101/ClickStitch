@@ -15,14 +15,14 @@ public sealed class PermissionRepository : Repository<PermissionRecord>, IPermis
 
     public async Task<Result<PermissionRecord>> GetByType(PermissionType permissionType, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var permission = await session
             .Query<PermissionRecord>()
-            .SingleOrDefaultAsync(x => x.Type == permissionType, cancellationToken);
+            .SingleOrDefault(x => x.Type == permissionType, cancellationToken);
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         if (permission == null)
             return Result<PermissionRecord>.Failure($"Unable to find permission with type: '{permissionType}'.");
