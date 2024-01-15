@@ -79,8 +79,8 @@ public sealed class UserPatternThreadStitchRepository : Repository<UserPatternTh
 
     public async Task UnComplete(UserRecord user, Guid patternReference, StitchPosition positions, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var threadIndexes = positions.StitchesByThread.Select(x => x.Key).ToHashSet();
 
@@ -88,7 +88,7 @@ public sealed class UserPatternThreadStitchRepository : Repository<UserPatternTh
             .Query<PatternThreadRecord>()
             .Fetch(x => x.Pattern)
             .Where(x => x.Pattern.Reference == patternReference && threadIndexes.Contains(x.Index))
-            .ToListAsync(cancellationToken);
+            .ToList(cancellationToken);
 
         var stitches = new List<UserPatternThreadStitchRecord>();
         foreach (var thread in threads)
@@ -99,12 +99,12 @@ public sealed class UserPatternThreadStitchRepository : Repository<UserPatternTh
                 .Query<UserPatternThreadStitchRecord>()
                 .Fetch(x => x.Stitch)
                 .Where(userStitch => userStitch.User == user && userStitch.Stitch.Thread == thread && stitchPositions.Contains(userStitch.Stitch.LookupHash))
-                .ToListAsync(cancellationToken));
+                .ToList(cancellationToken));
         }
 
         foreach (var stitch in stitches)
-            await session.DeleteAsync(stitch, cancellationToken);
+            await session.Delete(stitch, cancellationToken);
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
     }
 }
