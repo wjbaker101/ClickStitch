@@ -10,7 +10,7 @@ namespace Data;
 public interface IDatabase
 {
     ISessionFactory SessionFactory { get; }
-    IApiSession OpenSession();
+    IApiSession OpenSession(bool shouldOutputSql = true);
 }
 
 public sealed class Database : IDatabase
@@ -29,14 +29,18 @@ public sealed class Database : IDatabase
                 .Username(database.Username)
                 .Password(database.Password)))
             .Mappings(m => m.FluentMappings.AddFromAssemblyOf<_Records>())
-            #if DEBUG
-            .ExposeConfiguration(x => x.SetInterceptor(new OutputSqlInterceptor()))
-            #endif
             .BuildSessionFactory();
     }
 
-    public IApiSession OpenSession()
+    public IApiSession OpenSession(bool shouldOutputSql = true)
     {
-        return new ApiSession(SessionFactory.OpenSession());
+        var sessionBuilder = SessionFactory.WithOptions();
+
+        #if DEBUG
+        if (shouldOutputSql)
+            sessionBuilder = sessionBuilder.Interceptor(new OutputSqlInterceptor());
+        #endif
+
+        return new ApiSession(sessionBuilder.OpenSession());
     }
 }

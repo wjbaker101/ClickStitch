@@ -11,7 +11,7 @@ public sealed class TestDatabase : IDatabase
 
     public ISessionFactory SessionFactory { get; }
 
-    public IApiSession OpenSession()
+    public IApiSession OpenSession(bool shouldOutputSql = true)
     {
         return new TestApiSession(Records, Actions);
     }
