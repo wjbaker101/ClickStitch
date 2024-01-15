@@ -11,6 +11,7 @@ public interface IDatabase
 {
     ISessionFactory SessionFactory { get; }
     IApiSession OpenSession(bool shouldOutputSql = true);
+    IApiStatelessSession OpenStatelessSession();
 }
 
 public sealed class Database : IDatabase
@@ -42,5 +43,10 @@ public sealed class Database : IDatabase
         #endif
 
         return new ApiSession(sessionBuilder.OpenSession());
+    }
+
+    public IApiStatelessSession OpenStatelessSession()
+    {
+        return new ApiStatelessSession(SessionFactory.OpenStatelessSession());
     }
 }

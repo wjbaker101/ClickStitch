@@ -15,6 +15,11 @@ public sealed class TestDatabase : IDatabase
     {
         return new TestApiSession(Records, Actions);
     }
+
+    public IApiStatelessSession OpenStatelessSession()
+    {
+        return new TestApiStatelessSession(Records, Actions);
+    }
 }
 
 public sealed class TestApiSession : IApiSession
