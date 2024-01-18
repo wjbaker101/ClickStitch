@@ -26,12 +26,22 @@
                     </ButtonComponent>
                 </div>
             </div>
+            <div class="compare-inventory-container">
+                <template v-if="inventoryThread !== null">
+                    <IconComponent icon="tick-circle" gap="right" />
+                    <span>Found in inventory ({{ inventoryThread.count }} skeins)</span>
+                </template>
+                <template v-else>
+                    <IconComponent icon="cross-circle" gap="right" />
+                    <span>Not found in inventory</span>
+                </template>
+            </div>
         </template>
     </ListItemComponent>
 </template>
 
 <script setup lang="ts">
-import type { StyleValue } from 'vue';
+import { computed, type StyleValue } from 'vue';
 
 import ListItemComponent from '@/components/ListItem.component.vue';
 
@@ -41,9 +51,11 @@ import { useModal } from '@wjb/vue/use/modal.use';
 
 import type { IThreadDetails } from '@/models/GetProject.model';
 import type { IPatternThread } from '@/models/Pattern.model';
+import type { IGetPatternInventory } from '@/models/GetPatternInventory.model';
 
 const props = defineProps<{
     thread: IThreadDetails;
+    inventory: IGetPatternInventory | null;
 }>();
 
 const events = useEvents();
@@ -66,6 +78,12 @@ const onJumpToStitch = function (): void {
     });
     modal.hide();
 };
+
+const getCodeByThreadName = (name: string): string => {
+    return name.split(' ').filter(x => x.length > 0)[1].trim();
+};
+
+const inventoryThread = computed(() => props.inventory?.threads.find(x => x.thread.code === getCodeByThreadName(props.thread.thread.name)) || null);
 </script>
 
 <style lang="scss">
@@ -86,8 +104,9 @@ const onJumpToStitch = function (): void {
         vertical-align: middle;
     }
 
-    .thread-actions {
-        padding: 1rem;
+    .thread-actions,
+    .compare-inventory-container {
+        margin: 1rem;
     }
 }
 </style>

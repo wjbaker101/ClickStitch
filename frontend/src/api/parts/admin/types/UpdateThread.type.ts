@@ -1,4 +1,4 @@
-import type { IApiThread } from './ApiThread.type';
+import type { IApiThread } from '@/api/api-models/ApiThread.type';
 
 export interface IUpdateThreadRequest {
     readonly code: string;

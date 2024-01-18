@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import { patternMapper } from '@/api/mappers/Pattern.mapper';
 
 import { type IProject } from '@/models/Project.model';
-import { type IApiProject } from '@/api/types/ApiProject.type';
+import { type IApiProject } from '@/api/api-models/ApiProject.type';
 
 export const projectMapper = {
 
