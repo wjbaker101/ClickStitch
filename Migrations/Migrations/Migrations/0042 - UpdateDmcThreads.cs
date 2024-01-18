@@ -13,7 +13,7 @@ public sealed class UpdateDmcThreads_0042 : Migration
         Insert
             .IntoTable(Names.Tables.THREAD)
             .InSchema(Names.Schemas.CLICK_STITCH)
-            .Row(ThreadRecord.Create(Guid.NewGuid(), "DMC", "09", "#4b3635"));
+            .Row(ThreadRecord.Create2(Guid.NewGuid(), "DMC", "09", "#4b3635"));
     }
 
     public override void Down()
