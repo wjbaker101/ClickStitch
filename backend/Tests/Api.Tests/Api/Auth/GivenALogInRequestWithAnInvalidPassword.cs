@@ -13,7 +13,7 @@ public sealed class GivenALogInRequestWithAnInvalidPassword
     [OneTimeSetUp]
     public async Task Setup()
     {
-        var subject = new AuthService(FakeUserRepository.Default(), new PasswordService(new TestAppSecrets()), null!, null!);
+        var subject = new AuthService(FakeUserRepository.Default(), new PasswordService(new TestAppSecrets()), null!, null!, null!);
 
         _result = await subject.LogIn(new LogInRequest
         {

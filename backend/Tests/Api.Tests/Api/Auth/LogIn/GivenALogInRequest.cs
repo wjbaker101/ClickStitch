@@ -68,7 +68,7 @@ public sealed class GivenALogInRequest
             Password = CORRECT_PASSWORD
         };
 
-        var subject = new AuthService(new UserRepository(_database), passwordService, new LoginTokenService(dateTimeProvider, new TestAppSecrets()), new UserPermissionRepository(_database));
+        var subject = new AuthService(new UserRepository(_database), passwordService, new LoginTokenService(dateTimeProvider, new TestAppSecrets()), new UserPermissionRepository(_database), dateTimeProvider);
 
         _result = await subject.LogIn(request, CancellationToken.None);
     }
@@ -94,5 +94,13 @@ public sealed class GivenALogInRequest
 
         Assert.That(permission.Type, Is.EqualTo(ApiPermissionType.Creator));
         Assert.That(permission.Name, Is.EqualTo("Creator"));
+    }
+
+    [Test]
+    public void ThenTheUserIsUpdatedCorrectly()
+    {
+        var user = _database.Actions.Updated.OfType<UserRecord>().Single();
+
+        Assert.That(user.LastLoginAt, Is.EqualTo(new DateTime(3030, 04, 01)));
     }
 }

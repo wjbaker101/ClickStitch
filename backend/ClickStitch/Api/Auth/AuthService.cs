@@ -1,6 +1,7 @@
 ﻿using ClickStitch.Api.Auth.Types;
 using Data.Repositories.User;
 using Data.Repositories.UserPermission;
+using DotNetLibs.Core.Services;
 
 namespace ClickStitch.Api.Auth;
 
@@ -15,13 +16,20 @@ public sealed class AuthService : IAuthService
     private readonly IPasswordService _passwordService;
     private readonly ILoginTokenService _loginTokenService;
     private readonly IUserPermissionRepository _userPermissionRepository;
+    private readonly IDateTimeProvider _dateTime;
 
-    public AuthService(IUserRepository userRepository, IPasswordService passwordService, ILoginTokenService loginTokenService, IUserPermissionRepository userPermissionRepository)
+    public AuthService(
+        IUserRepository userRepository,
+        IPasswordService passwordService,
+        ILoginTokenService loginTokenService,
+        IUserPermissionRepository userPermissionRepository,
+        IDateTimeProvider dateTime)
     {
         _userRepository = userRepository;
         _passwordService = passwordService;
         _loginTokenService = loginTokenService;
         _userPermissionRepository = userPermissionRepository;
+        _dateTime = dateTime;
     }
 
     public async Task<Result<LogInResponse>> LogIn(LogInRequest request, CancellationToken cancellationToken)
@@ -38,7 +46,7 @@ public sealed class AuthService : IAuthService
 
         var permissions = await _userPermissionRepository.GetByUser(user, cancellationToken);
 
-        user.LastLoginAt = DateTime.UtcNow;
+        user.LastLoginAt = _dateTime.UtcNow();
 
         await _userRepository.UpdateAsync(user, cancellationToken);
 

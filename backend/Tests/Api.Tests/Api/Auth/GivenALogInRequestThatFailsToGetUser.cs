@@ -14,7 +14,7 @@ public sealed class GivenALogInRequestThatFailsToGetUser
     {
         var userRepository = FakeUserRepository.WithResult(Result.Failure("TestFailureMessage"));
 
-        var subject = new AuthService(userRepository, null!, null!, null!);
+        var subject = new AuthService(userRepository, null!, null!, null!, null!);
 
         _result = await subject.LogIn(new LogInRequest
         {
