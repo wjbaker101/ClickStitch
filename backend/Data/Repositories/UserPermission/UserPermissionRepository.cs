@@ -16,17 +16,17 @@ public sealed class UserPermissionRepository : Repository<UserPermissionRecord>,
 
     public async Task<List<PermissionRecord>> GetByUser(UserRecord user, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var permissions = await session
             .Query<UserPermissionRecord>()
             .Fetch(x => x.Permission)
             .Where(x => x.User == user)
             .Select(x => x.Permission)
-            .ToListAsync(cancellationToken);
+            .ToList(cancellationToken);
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         return permissions;
     }
