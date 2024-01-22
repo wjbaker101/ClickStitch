@@ -9,7 +9,7 @@
                     <strong>{{ thread.thread.name }}</strong> - <small>{{ thread.thread.description }}</small>
                 </span>
             </div>
-            <div class="flex-auto" v-if="inventoryThread !== null && inventoryThread.count === 0" title="Not found in inventory">
+            <div class="warning-text flex-auto" v-if="inventoryThread !== null && inventoryThread.count === 0" title="Not found in inventory">
                 <IconComponent icon="warning" gap="left" />
             </div>
             <div></div>
@@ -99,6 +99,10 @@ const inventoryThread = computed(() => props.inventory?.threads.get(props.thread
         vertical-align: middle;
         border-radius: var(--wjb-border-radius);
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1), 0 3px 8px -6px rgba(0, 0, 0, 0.1);
+    }
+
+    .warning-text {
+        color: var(--wjb-warning);
     }
 
     .thread-text {
