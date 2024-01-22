@@ -9,7 +9,7 @@
                     <strong>{{ thread.thread.name }}</strong> - <small>{{ thread.thread.description }}</small>
                 </span>
             </div>
-            <div class="warning-text flex-auto" v-if="inventoryThread !== null && inventoryThread.count === 0" title="Not found in inventory">
+            <div class="warning-text flex-auto" v-if="inventoryThread !== null && requireSkeinsDifference > 0" title="Not found in inventory">
                 <IconComponent icon="warning" gap="left" />
             </div>
             <div></div>
@@ -32,13 +32,17 @@
             </div>
             <div class="compare-inventory-container">
                 <template v-if="inventoryThread === null"></template>
-                <template v-else-if="inventoryThread.count > 0">
+                <template v-else-if="inventoryThread.count === 0">
                     <IconComponent icon="tick-circle" gap="right" />
-                    <span>Found in inventory ({{ inventoryThread.count }} skeins)</span>
+                    <span>Not found in inventory (<strong>{{ requiredSkeins }}</strong> skein{{ requiredSkeins > 1 ? 's' : '' }} recommended)</span>
+                </template>
+                <template v-else-if="requireSkeinsDifference > 0">
+                    <IconComponent icon="warning" gap="right" />
+                    <span>Not enough in inventory (<strong>{{ requiredSkeins }}</strong> skein{{ requiredSkeins > 1 ? 's' : '' }} recommended, found {{ inventoryThread.count }})</span>
                 </template>
                 <template v-else>
-                    <IconComponent icon="warning" gap="right" />
-                    <span>Not found in inventory (<strong>{{ requiredSkeins }}</strong> skein{{ requiredSkeins > 1 ? 's' : '' }} recommended)</span>
+                    <IconComponent icon="tick-circle" gap="right" />
+                    <span>Found in inventory</span>
                 </template>
             </div>
         </template>
@@ -89,6 +93,13 @@ const onJumpToStitch = function (): void {
 const inventoryThread = computed(() => props.inventory?.threads.get(props.thread.thread.index) || null);
 
 const requiredSkeins = computed(() => calculateRequiredSkeins(props.thread.stitches.length, props.pattern.aidaCount));
+
+const requireSkeinsDifference = computed(() => {
+    if (inventoryThread.value === null)
+        return 0;
+
+    return requiredSkeins.value - inventoryThread.value.count;
+});
 </script>
 
 <style lang="scss">
