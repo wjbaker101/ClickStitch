@@ -15,6 +15,7 @@ export interface IPattern {
     readonly bannerImageUrl: string | null;
     externalShopUrl: string | null;
     readonly titleSlug: string;
+    readonly aidaCount: number;
     readonly creator: ICreator | null;
 }
 

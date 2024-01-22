@@ -20,6 +20,7 @@ export const patternMapper = {
             bannerImageUrl: pattern.bannerImageUrl,
             externalShopUrl: pattern.externalShopUrl,
             titleSlug: pattern.titleSlug,
+            aidaCount: pattern.aidaCount,
             creator: pattern.creator === null ? null : creatorMapper.map(pattern.creator),
         };
     },

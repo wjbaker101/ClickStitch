@@ -13,6 +13,7 @@ export interface IApiPattern {
     readonly bannerImageUrl: string | null;
     readonly externalShopUrl: string | null;
     readonly titleSlug: string;
+    readonly aidaCount: number;
     readonly creator: IApiCreator | null;
 }
 
