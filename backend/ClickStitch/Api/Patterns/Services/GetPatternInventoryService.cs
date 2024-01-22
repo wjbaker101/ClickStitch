@@ -41,17 +41,28 @@ public sealed class GetPatternInventoryService : IGetPatternInventoryService
 
         var threads = await _threadRepository.GetByCodes(pattern.Threads.MapAll(x => GetCodeByThreadName(x.Name)), cancellationToken);
 
-        var threadLookup = threads.ToDictionary(x => x.Id, x => x);
+        var userThreads = await _userThreadRepository.GetByUserAndThreads(user, threads.ConvertAll(x => x.Id).ToHashSet(), cancellationToken);
 
-        var userThreads = await _userThreadRepository.GetByUserAndThreads(user, threadLookup.Keys.ToHashSet(), cancellationToken);
+        var inventory = new Dictionary<int, GetPatternInventoryResponse.InventoryThread?>();
+        foreach (var requiredThread in pattern.Threads)
+        {
+            var foundThread = threads.FirstOrDefault(x => x.Code == GetCodeByThreadName(requiredThread.Name));
+            if (foundThread == null)
+            {
+                inventory[requiredThread.Index] = null;
+                continue;
+            }
+
+            inventory[requiredThread.Index] = new GetPatternInventoryResponse.InventoryThread
+            {
+                Thread = ThreadMapper.Map(foundThread),
+                Count = userThreads.TryGetValue(foundThread.Id, out var userThread) ? userThread.Count : 0
+            };
+        }
 
         return new GetPatternInventoryResponse
         {
-            Threads = userThreads.ConvertAll(x => new GetPatternInventoryResponse.InventoryThread
-            {
-                Thread = ThreadMapper.Map(threadLookup[x.Thread.Id]),
-                Count = x.Count
-            })
+            Threads = inventory
         };
     }
 

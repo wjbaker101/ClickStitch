@@ -2,7 +2,7 @@
 
 public sealed class GetPatternInventoryResponse
 {
-    public required List<InventoryThread> Threads { get; init; }
+    public required Dictionary<int, InventoryThread?> Threads { get; init; }
 
     public sealed class InventoryThread
     {

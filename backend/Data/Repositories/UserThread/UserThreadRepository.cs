@@ -7,7 +7,7 @@ public interface IUserThreadRepository : IRepository<UserThreadRecord>
 {
     Task<List<UserThreadRecord>> Search(UserRecord user, SearchUserThreadsParameters parameters, CancellationToken cancellationToken);
     Task<Result<UserThreadRecord>> GetByUserAndThread(UserRecord user, ThreadRecord thread, CancellationToken cancellationToken);
-    Task<List<UserThreadRecord>> GetByUserAndThreads(UserRecord user, HashSet<long> threadIds, CancellationToken cancellationToken);
+    Task<Dictionary<long, UserThreadRecord>> GetByUserAndThreads(UserRecord user, HashSet<long> threadIds, CancellationToken cancellationToken);
 }
 
 public sealed class UserThreadRepository : Repository<UserThreadRecord>, IUserThreadRepository
@@ -58,15 +58,16 @@ public sealed class UserThreadRepository : Repository<UserThreadRecord>, IUserTh
         return userThread;
     }
 
-    public async Task<List<UserThreadRecord>> GetByUserAndThreads(UserRecord user, HashSet<long> threadIds, CancellationToken cancellationToken)
+    public async Task<Dictionary<long, UserThreadRecord>> GetByUserAndThreads(UserRecord user, HashSet<long> threadIds, CancellationToken cancellationToken)
     {
         using var session = Database.OpenSession();
         using var transaction = await session.BeginTransaction(cancellationToken);
 
-        var userThreads = await session
+        var userThreads = (await session
             .Query<UserThreadRecord>()
             .Where(x => x.User == user && threadIds.Contains(x.Thread.Id))
-            .ToList(cancellationToken);
+            .ToList(cancellationToken))
+            .ToDictionary(x => x.Thread.Id, x => x);
 
         await transaction.Commit(cancellationToken);
 
