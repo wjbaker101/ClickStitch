@@ -10,7 +10,7 @@ import type { IApiResultResponse } from '@/api/api-models/ApiResponse.type';
 
 import type { IDeletePattern } from '@/models/DeletePattern.model';
 import type { IPattern } from '@/models/Pattern.model';
-import type { IGetPatternInventory } from '@/models/GetPatternInventory.model';
+import type { IGetPatternInventory, IPatternInventoryThread } from '@/models/GetPatternInventory.model';
 
 import type { ISearchPatternsResponse } from '@/api/parts/patterns/types/SearchPatterns.type';
 import type { IUpdatePatternRequest, IUpdatePatternResponse } from '@/api/parts/patterns/types/UpdatePattern.type';
@@ -139,11 +139,18 @@ export const patternsApi = {
         if (response instanceof Error)
             return response;
 
+        const map = new Map<number, IPatternInventoryThread>();
+
+        for (const threadIndex in response.threads) {
+            const thread = response.threads[Number(threadIndex)]
+            map.set(Number(threadIndex), {
+                thread: threadMapper.map(thread.thread),
+                count: thread.count,
+            })
+        }
+
         return {
-            threads: response.threads.map(x => ({
-                thread: threadMapper.map(x.thread),
-                count: x.count,
-            })),
+            threads: map,
         };
     },
 

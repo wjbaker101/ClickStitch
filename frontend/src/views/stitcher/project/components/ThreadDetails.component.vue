@@ -79,11 +79,7 @@ const onJumpToStitch = function (): void {
     modal.hide();
 };
 
-const getCodeByThreadName = (name: string): string => {
-    return name.split(' ').filter(x => x.length > 0)[1].trim();
-};
-
-const inventoryThread = computed(() => props.inventory?.threads.find(x => x.thread.code === getCodeByThreadName(props.thread.thread.name)) || null);
+const inventoryThread = computed(() => props.inventory?.threads.get(props.thread.thread.index) || null);
 </script>
 
 <style lang="scss">
