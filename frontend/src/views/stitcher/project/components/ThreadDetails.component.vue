@@ -27,7 +27,8 @@
                 </div>
             </div>
             <div class="compare-inventory-container">
-                <template v-if="inventoryThread !== null">
+                <template v-if="inventoryThread === null"></template>
+                <template v-else-if="inventoryThread.count > 0">
                     <IconComponent icon="tick-circle" gap="right" />
                     <span>Found in inventory ({{ inventoryThread.count }} skeins)</span>
                 </template>
