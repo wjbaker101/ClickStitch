@@ -1,7 +1,7 @@
 <template>
     <ListItemComponent class="thread-details-component">
         <div class="flex align-items-center">
-            <div>
+            <div class="flex-auto">
                 <div class="thread-colour text-centered" :style="threadStyle(thread.thread)">
                     {{ thread.thread.index }}
                 </div>
@@ -9,6 +9,10 @@
                     <strong>{{ thread.thread.name }}</strong> - <small>{{ thread.thread.description }}</small>
                 </span>
             </div>
+            <div class="flex-auto" v-if="inventoryThread !== null && inventoryThread.count === 0" title="Not found in inventory">
+                <IconComponent icon="warning" gap="left" />
+            </div>
+            <div></div>
             <div class="flex-auto">
                 {{ thread.completedStitches.length }} <small>/ {{ thread.stitches.length }}</small>
             </div>
@@ -33,7 +37,7 @@
                     <span>Found in inventory ({{ inventoryThread.count }} skeins)</span>
                 </template>
                 <template v-else>
-                    <IconComponent icon="cross-circle" gap="right" />
+                    <IconComponent icon="warning" gap="right" />
                     <span>Not found in inventory</span>
                 </template>
             </div>
