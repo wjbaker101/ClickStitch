@@ -139,14 +139,20 @@ export const patternsApi = {
         if (response instanceof Error)
             return response;
 
-        const map = new Map<number, IPatternInventoryThread>();
+        const map = new Map<number, IPatternInventoryThread | null>();
 
         for (const threadIndex in response.threads) {
             const thread = response.threads[Number(threadIndex)]
+
+            if (thread === null) {
+                map.set(Number(threadIndex), null);
+                continue;
+            }
+
             map.set(Number(threadIndex), {
                 thread: threadMapper.map(thread.thread),
                 count: thread.count,
-            })
+            });
         }
 
         return {
