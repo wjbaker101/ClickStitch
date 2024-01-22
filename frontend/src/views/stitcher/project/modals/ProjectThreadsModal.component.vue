@@ -9,7 +9,7 @@
         </p>
         <h2>Threads:</h2>
         <div>
-            <ThreadDetailsComponent v-for="thread in threads" :thread="thread" :inventory="inventory" />
+            <ThreadDetailsComponent v-for="thread in threads" :thread="thread" :inventory="inventory" :pattern="project.project.pattern" />
         </div>
     </div>
 </template>

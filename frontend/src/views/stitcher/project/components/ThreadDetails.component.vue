@@ -38,7 +38,7 @@
                 </template>
                 <template v-else>
                     <IconComponent icon="warning" gap="right" />
-                    <span>Not found in inventory</span>
+                    <span>Not found in inventory (<strong>{{ requiredSkeins }}</strong> skein{{ requiredSkeins > 1 ? 's' : '' }} recommended)</span>
                 </template>
             </div>
         </template>
@@ -51,16 +51,18 @@ import { computed, type StyleValue } from 'vue';
 import ListItemComponent from '@/components/ListItem.component.vue';
 
 import { isDark } from '@/helper/helper';
+import { calculateRequiredSkeins } from '@/helper/stitch.helper';
 import { useEvents } from '@/use/events/Events.use';
 import { useModal } from '@wjb/vue/use/modal.use';
 
 import type { IThreadDetails } from '@/models/GetProject.model';
-import type { IPatternThread } from '@/models/Pattern.model';
+import type { IPattern, IPatternThread } from '@/models/Pattern.model';
 import type { IGetPatternInventory } from '@/models/GetPatternInventory.model';
 
 const props = defineProps<{
     thread: IThreadDetails;
     inventory: IGetPatternInventory | null;
+    pattern: IPattern;
 }>();
 
 const events = useEvents();
@@ -85,6 +87,8 @@ const onJumpToStitch = function (): void {
 };
 
 const inventoryThread = computed(() => props.inventory?.threads.get(props.thread.thread.index) || null);
+
+const requiredSkeins = computed(() => calculateRequiredSkeins(props.thread.stitches.length, props.pattern.aidaCount));
 </script>
 
 <style lang="scss">
