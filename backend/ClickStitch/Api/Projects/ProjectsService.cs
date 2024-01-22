@@ -97,12 +97,14 @@ public sealed class ProjectsService : IProjectsService
         return new GetProjectResponse
         {
             Project = ProjectMapper.Map(project),
-            Threads = pattern.Threads.MapAll(thread => new GetProjectResponse.ThreadDetails
-            {
-                Thread = PatternMapper.MapThread(thread),
-                Stitches = MapStitches(stitches[thread.Index], userStitches, thread.Index),
-                CompletedStitches = MapCompletedStitches(userStitches, thread.Index)
-            })
+            Threads = pattern.Threads
+                .OrderBy(x => x.Index)
+                .MapAll(thread => new GetProjectResponse.ThreadDetails
+                {
+                    Thread = PatternMapper.MapThread(thread),
+                    Stitches = MapStitches(stitches[thread.Index], userStitches, thread.Index),
+                    CompletedStitches = MapCompletedStitches(userStitches, thread.Index)
+                })
         };
     }
 
