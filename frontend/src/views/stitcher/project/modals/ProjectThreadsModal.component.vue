@@ -1,16 +1,17 @@
 <template>
-    <div class="project-threads-modal-component">
-        <h2>Actions:</h2>
-        <p>
-            <ButtonComponent @click="onGoToPausePosition">
-                <IconComponent icon="compass" gap="right" />
-                <span>Go to Pause Position</span>
-            </ButtonComponent>
-        </p>
-        <h2>Threads:</h2>
+    <div class="project-threads-modal-component flex flex-vertical gap">
         <div>
-            <ThreadDetailsComponent v-for="thread in threads" :thread="thread" :inventory="inventory" :pattern="project.project.pattern" />
+            <h2>Actions:</h2>
+                <ButtonComponent @click="onGoToPausePosition">
+                    <IconComponent icon="compass" gap="right" />
+                    <span>Go to Pause Position</span>
+                </ButtonComponent>
+            <h2>Threads:</h2>
+            <div>
+                <ThreadDetailsComponent v-for="thread in threads" :thread="thread" :inventory="inventory" :pattern="project.project.pattern" />
+            </div>
         </div>
+        <div class="flex-auto"><em>* Recommendations based on the pattern's aida count of {{ project.project.pattern.aidaCount }}</em></div>
     </div>
 </template>
 
@@ -53,6 +54,7 @@ onMounted(async () => {
 
 <style lang="scss">
 .project-threads-modal-component {
+    height: 100%;
 
     .list-item-component {
         padding: 0;

@@ -34,11 +34,11 @@
                 <template v-if="inventoryThread === null"></template>
                 <template v-else-if="inventoryThread.count === 0">
                     <IconComponent icon="tick-circle" gap="right" />
-                    <span>Not found in inventory (<strong>{{ requiredSkeins }}</strong> skein{{ requiredSkeins > 1 ? 's' : '' }} recommended)</span>
+                    <span>Not found in inventory (<strong>{{ requiredSkeins }}</strong> skein{{ requiredSkeins > 1 ? 's' : '' }} recommended*)</span>
                 </template>
                 <template v-else-if="requireSkeinsDifference > 0">
                     <IconComponent icon="warning" gap="right" />
-                    <span>Not enough in inventory (<strong>{{ requiredSkeins }}</strong> skein{{ requiredSkeins > 1 ? 's' : '' }} recommended, found {{ inventoryThread.count }})</span>
+                    <span>Not enough in inventory (<strong>{{ requiredSkeins }}</strong> skein{{ requiredSkeins > 1 ? 's' : '' }} recommended*, found {{ inventoryThread.count }})</span>
                 </template>
                 <template v-else>
                     <IconComponent icon="tick-circle" gap="right" />
