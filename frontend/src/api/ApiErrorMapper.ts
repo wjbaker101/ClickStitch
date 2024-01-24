@@ -19,7 +19,7 @@ export const ApiErrorMapper = {
 
             const response = axiosError.response.data as IApiErrorResponse;
 
-            return new Error(response.failureMessage);
+            return new Error(response.errorMessage);
         }
         if (axiosError.request) {
             return new Error('Something went wrong during request. Please refresh and try again.');

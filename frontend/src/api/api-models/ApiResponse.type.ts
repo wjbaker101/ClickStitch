@@ -7,5 +7,5 @@ export interface IApiResultResponse<T> extends IApiResponse {
 }
 
 export interface IApiErrorResponse extends IApiResponse {
-    readonly failureMessage: string;
+    readonly errorMessage: string;
 }
