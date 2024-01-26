@@ -87,12 +87,12 @@ public sealed class CreatorRepository : Repository<CreatorRecord>, ICreatorRepos
 
     public async Task<Result<GetCreatorPatternsDto>> GetCreatorPatterns(Guid creatorReference, GetCreatorPatternsParameters parameters, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var creator = await session
             .Query<CreatorRecord>()
-            .SingleOrDefaultAsync(x => x.Reference == creatorReference, cancellationToken);
+            .SingleOrDefault(x => x.Reference == creatorReference, cancellationToken);
 
         if (creator == null)
             return Result<GetCreatorPatternsDto>.Failure($"Unable to find creator with reference: '{creatorReference}'.");
@@ -112,7 +112,7 @@ public sealed class CreatorRepository : Repository<CreatorRecord>, ICreatorRepos
             .GetEnumerableAsync(cancellationToken))
             .ToList();
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         return new GetCreatorPatternsDto
         {
