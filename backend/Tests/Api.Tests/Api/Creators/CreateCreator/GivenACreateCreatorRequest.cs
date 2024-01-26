@@ -1,7 +1,11 @@
 ﻿using ClickStitch.Api.Creators;
 using ClickStitch.Api.Creators.Types;
+using Data.Records;
+using Data.Repositories.Creator;
+using Data.Repositories.User;
 using Data.Repositories.UserCreator;
-using Moq;
+using Data.Types;
+using TestHelpers.Data;
 
 namespace Api.Tests.Api.Creators.CreateCreator;
 
@@ -9,20 +13,42 @@ namespace Api.Tests.Api.Creators.CreateCreator;
 [Parallelizable]
 public sealed class GivenACreateCreatorRequest
 {
+    private readonly Guid _userReference = Guid.Parse("59f06f0c-a301-467f-abea-55e12a9035ae");
+
+    private TestDatabase _database = null!;
+
     private Result<CreateCreatorResponse> _result = null!;
 
     [OneTimeSetUp]
     public async Task Setup()
     {
-        var userCreatorRepository = new Mock<IUserCreatorRepository>();
+        _database = new TestDatabase
+        {
+            Records = new List<IDatabaseRecord>
+            {
+                new UserRecord
+                {
+                    Id = TestRequestUser.USER_ID,
+                    Reference = _userReference,
+                    CreatedAt = default,
+                    Email = null!,
+                    Password = null!,
+                    PasswordSalt = null!,
+                    LastLoginAt = null,
+                    Permissions = null!
+                }
+            }
+        };
 
-        var subject = new CreatorsService(FakeCreatorRepository.Default(), FakeUserRepository.Default(), userCreatorRepository.Object);
-
-        _result = await subject.CreateCreator(new TestRequestUser(), new CreateCreatorRequest
+        var request = new CreateCreatorRequest
         {
             Name = "TestName",
             StoreUrl = "TestStoreUrl"
-        }, CancellationToken.None);
+        };
+
+        var subject = new CreatorsService(new CreatorRepository(_database), new UserRepository(_database), new UserCreatorRepository(_database));
+
+        _result = await subject.CreateCreator(new TestRequestUser(), request, CancellationToken.None);
     }
 
     [Test]
@@ -32,16 +58,21 @@ public sealed class GivenACreateCreatorRequest
     }
 
     [Test]
-    public void ThenTheCorrectCreatorIsReturned()
+    public void ThenTheCreatorIsSavedCorrectly()
     {
-        var creator = _result.Content.Creator;
+        var creator = _database.Actions.Saved.OfType<CreatorRecord>().Single();
 
-        Assert.Multiple(() =>
-        {
-            Assert.That(creator.Reference, Is.Not.EqualTo(default(Guid)), nameof(creator.Reference));
-            Assert.That(creator.CreatedAt, Is.Not.EqualTo(default(DateTime)), nameof(creator.CreatedAt));
-            Assert.That(creator.Name, Is.EqualTo("TestName"), nameof(creator.Name));
-            Assert.That(creator.StoreUrl, Is.EqualTo("TestStoreUrl"), nameof(creator.StoreUrl));
-        });
+        Assert.That(creator.Name, Is.EqualTo("TestName"));
+        Assert.That(creator.StoreUrl, Is.EqualTo("TestStoreUrl"));
+    }
+
+    [Test]
+    public void ThenTheUserIsAssignedToTheCreator()
+    {
+        var creator = _database.Actions.Saved.OfType<CreatorRecord>().Single();
+        var userCreator = _database.Actions.Saved.OfType<UserCreatorRecord>().Single();
+
+        Assert.That(userCreator.User.Reference, Is.EqualTo(_userReference));
+        Assert.That(userCreator.Creator, Is.EqualTo(creator));
     }
 }

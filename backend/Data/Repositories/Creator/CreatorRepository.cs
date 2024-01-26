@@ -49,15 +49,15 @@ public sealed class CreatorRepository : Repository<CreatorRecord>, ICreatorRepos
 
     public async Task<Result<CreatorRecord>> GetWithUsersByReference(Guid creatorReference, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction =  await session.BeginTransaction(cancellationToken);
 
         var creator = await session
             .Query<CreatorRecord>()
             .FetchMany(x => x.Users)
-            .SingleOrDefaultAsync(x => x.Reference == creatorReference, cancellationToken);
+            .SingleOrDefault(x => x.Reference == creatorReference, cancellationToken);
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         if (creator == null)
             return Result<CreatorRecord>.Failure($"Unable to find creator with reference: '{creatorReference}'.");
