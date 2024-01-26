@@ -5,7 +5,6 @@ using Data.Repositories.Creator;
 using Data.Repositories.Creator.Types;
 using Data.Repositories.User;
 using Data.Repositories.UserCreator;
-using DotNetLibs.Core.Extensions;
 
 namespace ClickStitch.Api.Creators;
 
@@ -13,7 +12,6 @@ public interface ICreatorsService
 {
     Task<Result<CreateCreatorResponse>> CreateCreator(RequestUser requestUser, CreateCreatorRequest request, CancellationToken cancellationToken);
     Task<Result<UpdateCreatorResponse>> UpdateCreator(RequestUser requestUser, Guid creatorReference, UpdateCreatorRequest request, CancellationToken cancellationToken);
-    Task<Result<GetCreatorResponse>> GetCreator(RequestUser requestUser, Guid creatorReference, CancellationToken cancellationToken);
     Task<Result<GetCreatorByUserResponse>> GetCreatorBySelf(RequestUser requestUser, CancellationToken cancellationToken);
     Task<Result<GetCreatorPatternsResponse>> GetCreatorPatterns(RequestUser user, Guid creatorReference, int pageSize, int pageNumber, CancellationToken cancellationToken);
 }
@@ -79,20 +77,6 @@ public sealed class CreatorsService : ICreatorsService
         return new UpdateCreatorResponse
         {
             Creator = CreatorMapper.Map(creator)
-        };
-    }
-
-    public async Task<Result<GetCreatorResponse>> GetCreator(RequestUser requestUser, Guid creatorReference, CancellationToken cancellationToken)
-    {
-        var creatorResult = await _creatorRepository.GetFullByReference(creatorReference, cancellationToken);
-        if (creatorResult.IsFailure)
-            return Result<GetCreatorResponse>.FromFailure(creatorResult);
-
-        return new GetCreatorResponse
-        {
-            Creator = CreatorMapper.Map(creatorResult.Content),
-            Users = creatorResult.Content.Users.MapAll(UserMapper.Map),
-            Patterns = creatorResult.Content.Patterns.MapAll(PatternMapper.Map)
         };
     }
 
