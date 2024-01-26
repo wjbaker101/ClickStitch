@@ -14,7 +14,7 @@ public interface ICreatorsService
     Task<Result<CreateCreatorResponse>> CreateCreator(RequestUser requestUser, CreateCreatorRequest request, CancellationToken cancellationToken);
     Task<Result<UpdateCreatorResponse>> UpdateCreator(RequestUser requestUser, Guid creatorReference, UpdateCreatorRequest request, CancellationToken cancellationToken);
     Task<Result<GetCreatorResponse>> GetCreator(RequestUser requestUser, Guid creatorReference, CancellationToken cancellationToken);
-    Task<Result<GetCreatorByUserResponse>> GetCreatorByUser(RequestUser requestUser, CancellationToken cancellationToken);
+    Task<Result<GetCreatorByUserResponse>> GetCreatorBySelf(RequestUser requestUser, CancellationToken cancellationToken);
     Task<Result<GetCreatorPatternsResponse>> GetCreatorPatterns(RequestUser user, Guid creatorReference, int pageSize, int pageNumber, CancellationToken cancellationToken);
 }
 
@@ -96,7 +96,7 @@ public sealed class CreatorsService : ICreatorsService
         };
     }
 
-    public async Task<Result<GetCreatorByUserResponse>> GetCreatorByUser(RequestUser requestUser, CancellationToken cancellationToken)
+    public async Task<Result<GetCreatorByUserResponse>> GetCreatorBySelf(RequestUser requestUser, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
 

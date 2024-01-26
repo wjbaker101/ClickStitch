@@ -58,11 +58,11 @@ public sealed class CreatorsController : ApiController
     [Route("self")]
     [Authenticate]
     [RequireCreator]
-    public async Task<IActionResult> GetByUser(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetCreatorBySelf(CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetRequiredUser(Request);
 
-        var result = await _creatorsService.GetCreatorByUser(user, cancellationToken);
+        var result = await _creatorsService.GetCreatorBySelf(user, cancellationToken);
 
         return ToApiResponse(result);
     }

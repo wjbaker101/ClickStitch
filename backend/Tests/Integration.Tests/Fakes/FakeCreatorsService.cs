@@ -24,7 +24,7 @@ public sealed class FakeCreatorsService : ICreatorsService
         throw new NotImplementedException();
     }
 
-    public Task<Result<GetCreatorByUserResponse>> GetCreatorByUser(RequestUser requestUser, CancellationToken cancellationToken)
+    public Task<Result<GetCreatorByUserResponse>> GetCreatorBySelf(RequestUser requestUser, CancellationToken cancellationToken)
     {
         return Task.FromResult<Result<GetCreatorByUserResponse>>(new GetCreatorByUserResponse
         {
