@@ -28,6 +28,6 @@ public sealed class PatternParserService : IPatternParserService
         if (isXml)
             return new FlossCrossOxsPatternParser();
 
-        return new DefaultPatternParser();
+        return new FlossCrossFcJsonPatternParser();
     }
 }
