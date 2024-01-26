@@ -1,0 +1,103 @@
+﻿{
+    "sv": 1,
+    "v": 74,
+    "modelId": "adb918ae-31ee-4a8f-b50c-53a25c698450",
+    "model": {
+        "images": [
+            {
+                "name": "Imported from OXS",
+                "width": 150,
+                "height": 150,
+                "defaults": {
+                    "crossStrands": 2,
+                    "bsStrands": 1
+                },
+                "cloth": {
+                    "isFixed": false,
+                    "color": [
+                        241,
+                        234,
+                        237
+                    ],
+                    "texture": "aida_grey",
+                    "type": "aida"
+                },
+                "flossIndexes": [
+                    {
+                        "id": "B5200",
+                        "name": "Snow White",
+                        "rgb": [
+                            252,
+                            253,
+                            253
+                        ],
+                        "xc": "fafaff",
+                        "hex": 16580093,
+                        "sys": "DMC",
+                        "state": {},
+                        "active": true,
+                        "symbol": "sm28",
+                        "order": 18,
+                        "crossStrands": "2",
+                        "bsStrands": "1"
+                    },
+                    {
+                        "id": "01",
+                        "name": "Tin - White",
+                        "rgb": [
+                            203,
+                            203,
+                            204
+                        ],
+                        "xc": "c5c5c5",
+                        "hex": 13355980,
+                        "sys": "DMC",
+                        "state": {},
+                        "active": true,
+                        "symbol": "sm140",
+                        "order": 17,
+                        "crossStrands": "2",
+                        "bsStrands": "1"
+                    }
+                ],
+                "crossIndexes": [
+                    {
+                        "tp": "cr",
+                        "fi": 0
+                    },
+                    {
+                        "tp": "cr",
+                        "fi": 1
+                    }
+                ],
+                "sources": [],
+                "layers": [
+                    {
+                        "width": 150,
+                        "height": 150,
+                        "position": {
+                            "top": 0,
+                            "left": 0
+                        },
+                        "cross": [
+                            0,
+                            1,
+                            1
+                        ],
+                        "backstitch": []
+                    }
+                ]
+            }
+        ],
+        "id": "adb918ae-31ee-4a8f-b50c-53a25c698450",
+        "renderFilter": {
+            "gamma": 0.7
+        }
+    },
+    "info": {
+        "title": "knight-flag-v3_png",
+        "description": "Chart imported from image"
+    },
+    "ts": 1683458909925,
+    "srcs": []
+}

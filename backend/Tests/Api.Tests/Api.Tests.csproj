@@ -21,4 +21,10 @@
 		<ProjectReference Include="..\TestHelpers\TestHelpers.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="Api\Patterns\Parsing\_Helper\test.fcjson">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 </Project>
