@@ -33,14 +33,14 @@ public sealed class UserPermissionRepository : Repository<UserPermissionRecord>,
 
     public async Task<Result<UserPermissionRecord>> GetByUserAndPermission(UserRecord user, PermissionRecord permission, CancellationToken cancellationToken)
     {
-        using var session = Database.SessionFactory.OpenSession();
-        using var transaction = session.BeginTransaction();
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
 
         var userPermission = await session
             .Query<UserPermissionRecord>()
-            .SingleOrDefaultAsync(x => x.User == user && x.Permission == permission, cancellationToken);
+            .SingleOrDefault(x => x.User == user && x.Permission == permission, cancellationToken);
 
-        await transaction.CommitAsync(cancellationToken);
+        await transaction.Commit(cancellationToken);
 
         if (userPermission is null)
             return Result<UserPermissionRecord>.Failure($"Cannot find user permission for user: '{user.Reference}' and permission: '{permission.Type}'.");
