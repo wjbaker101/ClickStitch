@@ -11,7 +11,6 @@ namespace ClickStitch.Api.Inventory;
 public interface IInventoryService
 {
     Task<Result<SearchThreadsResponse>> SearchThreads(RequestUser requestUser, SearchThreadsParameters parameters, CancellationToken cancellationToken);
-    Task<Result<GetThreadsResponse>> GetThreads(RequestUser requestUser, CancellationToken cancellationToken);
     Task<Result<UpdateThreadResponse>> UpdateThread(RequestUser requestUser, Guid threadReference, UpdateThreadRequest request, CancellationToken cancellationToken);
 }
 
@@ -58,35 +57,6 @@ public sealed class InventoryService : IInventoryService
                 Count = x.Count
             }),
             AvailableThreads = threads.Where(x => !userThreadLookup.Contains(x.Id)).MapAll(ThreadMapper.Map)
-        };
-    }
-
-    public async Task<Result<GetThreadsResponse>> GetThreads(RequestUser requestUser, CancellationToken cancellationToken)
-    {
-        var threads = await _threadRepository.GetAll(cancellationToken);
-
-        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
-
-        var userThreads = await _userThreadRepository.Search(user, new SearchUserThreadsParameters { SearchTerm = "", Brand = null }, cancellationToken);
-        var userThreadLookup = userThreads.ToDictionary(x => x.Thread.Id);
-
-        var inventory = threads
-            .Select(x =>
-            {
-                var hasUserThread = userThreadLookup.ContainsKey(x.Id);
-
-                return new GetThreadsResponse.InventoryThread
-                {
-                    Thread = ThreadMapper.Map(x),
-                    Count = hasUserThread ? userThreadLookup[x.Id].Count : 0
-                };
-            })
-            .OrderByDescending(x => x.Count)
-            .ThenBy(x => x.Thread.Code);
-
-        return new GetThreadsResponse
-        {
-            Threads = inventory.ToList()
         };
     }
 

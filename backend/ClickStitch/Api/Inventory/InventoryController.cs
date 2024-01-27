@@ -36,18 +36,6 @@ public sealed class InventoryController : ApiController
         return ToApiResponse(result);
     }
 
-    [HttpGet]
-    [Route("threads")]
-    [Authenticate]
-    public async Task<IActionResult> GetThreads(CancellationToken cancellationToken)
-    {
-        var requestUser = RequestHelper.GetRequiredUser(Request);
-
-        var result = await _inventoryService.GetThreads(requestUser, cancellationToken);
-
-        return ToApiResponse(result);
-    }
-
     [HttpPut]
     [Route("threads/{threadReference:guid}")]
     [Authenticate]
