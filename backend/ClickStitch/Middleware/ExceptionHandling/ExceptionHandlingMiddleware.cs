@@ -33,7 +33,7 @@ public sealed class ExceptionHandlingMiddleware : IMiddleware
                     JsonData = null
                 }, CancellationToken.None);
             }
-            catch (Exception e)
+            catch
             {
                 // ignored
             }
