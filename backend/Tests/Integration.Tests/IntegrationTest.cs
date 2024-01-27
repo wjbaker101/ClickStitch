@@ -42,9 +42,9 @@ public abstract class IntegrationTest
                     Id = 0599,
                     Reference = StitcherUserReference,
                     CreatedAt = default,
-                    Email = null,
-                    Password = null,
-                    PasswordSalt = null,
+                    Email = null!,
+                    Password = null!,
+                    PasswordSalt = null!,
                     LastLoginAt = null,
                     Permissions = new List<PermissionRecord>()
                 },
@@ -53,9 +53,9 @@ public abstract class IntegrationTest
                     Id = 5857,
                     Reference = AdminUserReference,
                     CreatedAt = default,
-                    Email = null,
-                    Password = null,
-                    PasswordSalt = null,
+                    Email = null!,
+                    Password = null!,
+                    PasswordSalt = null!,
                     LastLoginAt = null,
                     Permissions = new List<PermissionRecord>
                     {
@@ -71,9 +71,9 @@ public abstract class IntegrationTest
                     Id = 8268,
                     Reference = CreatorUserReference,
                     CreatedAt = default,
-                    Email = null,
-                    Password = null,
-                    PasswordSalt = null,
+                    Email = null!,
+                    Password = null!,
+                    PasswordSalt = null!,
                     LastLoginAt = null,
                     Permissions = new List<PermissionRecord>
                     {

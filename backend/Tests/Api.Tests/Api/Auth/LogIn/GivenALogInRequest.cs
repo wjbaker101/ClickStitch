@@ -36,7 +36,7 @@ public sealed class GivenALogInRequest
             Password = hashedPassword,
             PasswordSalt = PASSWORD_SALT,
             LastLoginAt = null,
-            Permissions = null
+            Permissions = null!
         };
 
         _database = new TestDatabase

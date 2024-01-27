@@ -32,7 +32,7 @@ public sealed class GivenAnUpdateThreadRequestForAnExistingUserThreadWithACountO
             CreatedAt = default,
             Email = null!,
             Password = null!,
-            PasswordSalt = null,
+            PasswordSalt = null!,
             LastLoginAt = null,
             Permissions = null!
         };
@@ -42,7 +42,7 @@ public sealed class GivenAnUpdateThreadRequestForAnExistingUserThreadWithACountO
             Reference = _threadReference,
             Brand = null!,
             Code = null!,
-            Colour = null
+            Colour = null!
         };
 
         var userThread = new UserThreadRecord

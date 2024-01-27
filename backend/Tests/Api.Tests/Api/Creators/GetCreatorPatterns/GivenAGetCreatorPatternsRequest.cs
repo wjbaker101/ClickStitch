@@ -74,10 +74,10 @@ public sealed class GivenAGetCreatorPatternsRequest
                     {
                         Reference = default,
                         CreatedAt = default,
-                        Name = null,
-                        StoreUrl = null,
-                        Users = null,
-                        Patterns = null
+                        Name = null!,
+                        StoreUrl = null!,
+                        Users = null!,
+                        Patterns = null!
                     },
                     Threads = null!
                 },

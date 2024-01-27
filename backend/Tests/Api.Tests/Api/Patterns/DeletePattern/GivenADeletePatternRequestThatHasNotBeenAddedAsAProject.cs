@@ -31,31 +31,31 @@ public sealed class GivenADeletePatternRequestThatHasNotBeenAddedAsAProject
             Id = TestRequestUser.USER_ID,
             Reference = default,
             CreatedAt = default,
-            Email = null,
-            Password = null,
-            PasswordSalt = null,
+            Email = null!,
+            Password = null!,
+            PasswordSalt = null!,
             LastLoginAt = null,
-            Permissions = null
+            Permissions = null!
         };
 
         _thread1 = new PatternThreadRecord
         {
             Id = 0,
-            Pattern = null,
-            Name = null,
-            Description = null,
+            Pattern = null!,
+            Name = null!,
+            Description = null!,
             Index = 0,
-            Colour = null
+            Colour = null!
         };
 
         _thread2 = new PatternThreadRecord
         {
             Id = 0,
-            Pattern = null,
-            Name = null,
-            Description = null,
+            Pattern = null!,
+            Name = null!,
+            Description = null!,
             Index = 0,
-            Colour = null
+            Colour = null!
         };
 
         _stitch1 = new PatternThreadStitchRecord
@@ -63,7 +63,7 @@ public sealed class GivenADeletePatternRequestThatHasNotBeenAddedAsAProject
             Thread = _thread1,
             X = 0,
             Y = 0,
-            LookupHash = null
+            LookupHash = null!
         };
 
         _stitch2 = new PatternThreadStitchRecord
@@ -71,24 +71,24 @@ public sealed class GivenADeletePatternRequestThatHasNotBeenAddedAsAProject
             Thread = _thread2,
             X = 0,
             Y = 0,
-            LookupHash = null
+            LookupHash = null!
         };
 
         _pattern = new PatternRecord
         {
             Reference = Guid.Parse("6f6f9364-d204-4bdb-813f-a950938163b8"),
             CreatedAt = default,
-            Title = null,
+            Title = null!,
             Width = 0,
             Height = 0,
             Price = 0,
-            ThumbnailUrl = null,
+            ThumbnailUrl = null!,
             ThreadCount = 0,
             StitchCount = 0,
             AidaCount = 0,
-            BannerImageUrl = null,
-            ExternalShopUrl = null,
-            TitleSlug = null,
+            BannerImageUrl = null!,
+            ExternalShopUrl = null!,
+            TitleSlug = null!,
             IsPublic = false,
             User = user,
             Creator = null,

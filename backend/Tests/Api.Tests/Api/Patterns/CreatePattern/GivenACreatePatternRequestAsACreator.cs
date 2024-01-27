@@ -31,21 +31,21 @@ public sealed class GivenACreatePatternRequestAsACreator
             Id = TestRequestUser.USER_ID,
             Reference = default,
             CreatedAt = default,
-            Email = null,
-            Password = null,
-            PasswordSalt = null,
+            Email = null!,
+            Password = null!,
+            PasswordSalt = null!,
             LastLoginAt = null,
-            Permissions = null
+            Permissions = null!
         };
 
         _creator = new CreatorRecord
         {
             Reference = default,
             CreatedAt = default,
-            Name = null,
-            StoreUrl = null,
-            Users = null,
-            Patterns = null
+            Name = null!,
+            StoreUrl = null!,
+            Users = null!,
+            Patterns = null!
         };
 
         _database = new TestDatabase

@@ -24,11 +24,11 @@ public sealed class GivenASearchThreadsRequestWithASearchTerm
             Id = TestRequestUser.USER_ID,
             Reference = default,
             CreatedAt = default,
-            Email = null,
-            Password = null,
-            PasswordSalt = null,
+            Email = null!,
+            Password = null!,
+            PasswordSalt = null!,
             LastLoginAt = null,
-            Permissions = null
+            Permissions = null!
         };
 
         var database = new TestDatabase

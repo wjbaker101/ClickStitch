@@ -59,10 +59,10 @@ public sealed class GivenAGetProjectsRequest
                             Id = 0,
                             Reference = default,
                             CreatedAt = default,
-                            Name = null,
-                            StoreUrl = null,
-                            Users = null,
-                            Patterns = null
+                            Name = null!,
+                            StoreUrl = null!,
+                            Users = null!,
+                            Patterns = null!
                         },
                         Threads = new HashSet<PatternThreadRecord>
                         {

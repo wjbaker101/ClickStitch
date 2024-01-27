@@ -29,10 +29,10 @@ public sealed class GivenACreateUserRequestWithAnExistingEmail
                     Reference = default,
                     CreatedAt = default,
                     Email = "test@email.com",
-                    Password = null,
-                    PasswordSalt = null,
+                    Password = null!,
+                    PasswordSalt = null!,
                     LastLoginAt = null,
-                    Permissions = null
+                    Permissions = null!
                 }
             }
         };

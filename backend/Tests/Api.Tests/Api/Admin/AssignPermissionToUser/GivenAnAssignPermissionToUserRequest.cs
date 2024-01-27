@@ -16,12 +16,12 @@ public sealed class GivenAnAssignPermissionToUserRequest
 {
     private readonly Guid _userReference = Guid.Parse("49c3a7d6-be5c-4314-9496-d44a7ad30df1");
 
-    private UserRecord _user;
-    private PermissionRecord _permission;
+    private UserRecord _user = null!;
+    private PermissionRecord _permission = null!;
 
-    private TestDatabase _database;
+    private TestDatabase _database = null!;
 
-    private Result<AssignPermissionToUserResponse> _result;
+    private Result<AssignPermissionToUserResponse> _result = null!;
 
     [OneTimeSetUp]
     public async Task Setup()
@@ -30,11 +30,11 @@ public sealed class GivenAnAssignPermissionToUserRequest
         {
             Reference = _userReference,
             CreatedAt = default,
-            Email = null,
-            Password = null,
-            PasswordSalt = null,
+            Email = null!,
+            Password = null!,
+            PasswordSalt = null!,
             LastLoginAt = null,
-            Permissions = null
+            Permissions = null!
         };
 
         _permission = new PermissionRecord

@@ -32,7 +32,7 @@ public sealed class GivenAnUpdateThreadRequest
             CreatedAt = default,
             Email = null!,
             Password = null!,
-            PasswordSalt = null,
+            PasswordSalt = null!,
             LastLoginAt = null,
             Permissions = null!
         };
@@ -42,7 +42,7 @@ public sealed class GivenAnUpdateThreadRequest
             Reference = _threadReference,
             Brand = null!,
             Code = null!,
-            Colour = null
+            Colour = null!
         };
 
         _database = new TestDatabase

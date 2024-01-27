@@ -8,9 +8,9 @@ public sealed class FakePatternParserService : IPatternParserService
 {
     public Result<ParsePatternResponse> Response { get; set; } = new ParsePatternResponse
     {
-        Pattern = null,
-        Threads = null,
-        Stitches = null
+        Pattern = null!,
+        Threads = null!,
+        Stitches = null!
     };
 
     public ParsePatternParameters? ActualParameters { get; private set; }

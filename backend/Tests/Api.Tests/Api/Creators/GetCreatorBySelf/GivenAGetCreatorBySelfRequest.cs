@@ -33,10 +33,10 @@ public sealed class GivenAGetCreatorBySelfRequest
         {
             Reference = Guid.Parse("61c8e475-ced7-44dc-b016-ebc261a08653"),
             CreatedAt = default,
-            Name = null,
-            StoreUrl = null,
-            Users = null,
-            Patterns = null
+            Name = null!,
+            StoreUrl = null!,
+            Users = null!,
+            Patterns = null!
         };
 
         var database = new TestDatabase

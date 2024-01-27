@@ -23,74 +23,74 @@ public sealed class GivenAGetPatternsRequestAsALoggedInUser
             Id = TestRequestUser.USER_ID,
             Reference = default,
             CreatedAt = default,
-            Email = null,
-            Password = null,
-            PasswordSalt = null,
+            Email = null!,
+            Password = null!,
+            PasswordSalt = null!,
             LastLoginAt = null,
-            Permissions = null
+            Permissions = null!
         };
 
         var pattern = new PatternRecord
         {
             Reference = Guid.Parse("f9d5aca2-cc22-47d1-bea3-265d0c204157"),
             CreatedAt = default,
-            Title = null,
+            Title = null!,
             Width = 0,
             Height = 0,
             Price = 0,
-            ThumbnailUrl = null,
+            ThumbnailUrl = null!,
             ThreadCount = 0,
             StitchCount = 0,
             AidaCount = 0,
-            BannerImageUrl = null,
-            ExternalShopUrl = null,
-            TitleSlug = null,
+            BannerImageUrl = null!,
+            ExternalShopUrl = null!,
+            TitleSlug = null!,
             IsPublic = true,
-            User = null,
+            User = null!,
             Creator = null,
-            Threads = null
+            Threads = null!
         };
 
         var existingPattern = new PatternRecord
         {
             Reference = Guid.Parse("af16dc03-956f-43c5-8aae-6cada5a2e407"),
             CreatedAt = default,
-            Title = null,
+            Title = null!,
             Width = 0,
             Height = 0,
             Price = 0,
-            ThumbnailUrl = null,
+            ThumbnailUrl = null!,
             ThreadCount = 0,
             StitchCount = 0,
             AidaCount = 0,
-            BannerImageUrl = null,
-            ExternalShopUrl = null,
-            TitleSlug = null,
+            BannerImageUrl = null!,
+            ExternalShopUrl = null!,
+            TitleSlug = null!,
             IsPublic = true,
-            User = null,
+            User = null!,
             Creator = null,
-            Threads = null
+            Threads = null!
         };
 
         var privatePattern = new PatternRecord
         {
             Reference = Guid.Parse("27c58681-d0ca-4520-b2f1-59d952e9364c"),
             CreatedAt = default,
-            Title = null,
+            Title = null!,
             Width = 0,
             Height = 0,
             Price = 0,
-            ThumbnailUrl = null,
+            ThumbnailUrl = null!,
             ThreadCount = 0,
             StitchCount = 0,
             AidaCount = 0,
-            BannerImageUrl = null,
-            ExternalShopUrl = null,
-            TitleSlug = null,
+            BannerImageUrl = null!,
+            ExternalShopUrl = null!,
+            TitleSlug = null!,
             IsPublic = false,
-            User = null,
+            User = null!,
             Creator = null,
-            Threads = null
+            Threads = null!
         };
 
         var database = new TestDatabase

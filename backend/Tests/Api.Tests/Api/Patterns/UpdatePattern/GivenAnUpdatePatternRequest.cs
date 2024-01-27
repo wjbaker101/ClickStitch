@@ -26,11 +26,11 @@ public sealed class GivenAnUpdatePatternRequest
             Id = TestRequestUser.USER_ID,
             Reference = default,
             CreatedAt = default,
-            Email = null,
-            Password = null,
-            PasswordSalt = null,
+            Email = null!,
+            Password = null!,
+            PasswordSalt = null!,
             LastLoginAt = null,
-            Permissions = null
+            Permissions = null!
         };
 
         _database = new TestDatabase
@@ -46,17 +46,17 @@ public sealed class GivenAnUpdatePatternRequest
                     Width = 0,
                     Height = 0,
                     Price = 0,
-                    ThumbnailUrl = null,
+                    ThumbnailUrl = null!,
                     ThreadCount = 0,
                     StitchCount = 0,
                     AidaCount = 0,
-                    BannerImageUrl = null,
+                    BannerImageUrl = null!,
                     ExternalShopUrl = "NewTestExternalShopUrl",
-                    TitleSlug = null,
+                    TitleSlug = null!,
                     IsPublic = false,
                     User = user,
                     Creator = null,
-                    Threads = null
+                    Threads = null!
                 }
             }
         };

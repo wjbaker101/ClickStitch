@@ -43,26 +43,26 @@ public sealed class GivenACompleteStitchesRequest
             {
                 Reference = Guid.Parse("d5925542-128c-40b4-86a1-b8dcddc848f7"),
                 CreatedAt = default,
-                Title = null,
+                Title = null!,
                 Width = 0,
                 Height = 0,
                 Price = 0,
-                ThumbnailUrl = null,
+                ThumbnailUrl = null!,
                 ThreadCount = 0,
                 StitchCount = 0,
                 AidaCount = 0,
-                BannerImageUrl = null,
-                ExternalShopUrl = null,
-                TitleSlug = null,
+                BannerImageUrl = null!,
+                ExternalShopUrl = null!,
+                TitleSlug = null!,
                 IsPublic = false,
-                User = null,
+                User = null!,
                 Creator = null,
-                Threads = null
+                Threads = null!
             },
-            Name = null,
-            Description = null,
+            Name = null!,
+            Description = null!,
             Index = 1,
-            Colour = null
+            Colour = null!
         };
 
         var thread2 = new PatternThreadRecord
@@ -71,26 +71,26 @@ public sealed class GivenACompleteStitchesRequest
             {
                 Reference = Guid.Parse("d5925542-128c-40b4-86a1-b8dcddc848f7"),
                 CreatedAt = default,
-                Title = null,
+                Title = null!,
                 Width = 0,
                 Height = 0,
                 Price = 0,
-                ThumbnailUrl = null,
+                ThumbnailUrl = null!,
                 ThreadCount = 0,
                 StitchCount = 0,
                 AidaCount = 0,
-                BannerImageUrl = null,
-                ExternalShopUrl = null,
-                TitleSlug = null,
+                BannerImageUrl = null!,
+                ExternalShopUrl = null!,
+                TitleSlug = null!,
                 IsPublic = false,
-                User = null,
+                User = null!,
                 Creator = null,
-                Threads = null
+                Threads = null!
             },
-            Name = null,
-            Description = null,
+            Name = null!,
+            Description = null!,
             Index = 2,
-            Colour = null
+            Colour = null!
         };
 
         _stitch1 = new PatternThreadStitchRecord

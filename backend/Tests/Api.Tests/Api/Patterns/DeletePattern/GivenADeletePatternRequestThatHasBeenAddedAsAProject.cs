@@ -23,32 +23,32 @@ public sealed class GivenADeletePatternRequestThatHasBeenAddedAsAProject
             Id = TestRequestUser.USER_ID,
             Reference = default,
             CreatedAt = default,
-            Email = null,
-            Password = null,
-            PasswordSalt = null,
+            Email = null!,
+            Password = null!,
+            PasswordSalt = null!,
             LastLoginAt = null,
-            Permissions = null
+            Permissions = null!
         };
 
         var pattern = new PatternRecord
         {
             Reference = Guid.Parse("6f6f9364-d204-4bdb-813f-a950938163b8"),
             CreatedAt = default,
-            Title = null,
+            Title = null!,
             Width = 0,
             Height = 0,
             Price = 0,
-            ThumbnailUrl = null,
+            ThumbnailUrl = null!,
             ThreadCount = 0,
             StitchCount = 0,
             AidaCount = 0,
-            BannerImageUrl = null,
-            ExternalShopUrl = null,
-            TitleSlug = null,
+            BannerImageUrl = null!,
+            ExternalShopUrl = null!,
+            TitleSlug = null!,
             IsPublic = false,
             User = user,
             Creator = null,
-            Threads = null
+            Threads = null!
         };
 
         var database = new TestDatabase
@@ -60,7 +60,7 @@ public sealed class GivenADeletePatternRequestThatHasBeenAddedAsAProject
                 new UserPatternRecord
                 {
                     Id = 0,
-                    User = null,
+                    User = null!,
                     Pattern = pattern,
                     CreatedAt = default,
                     PausePositionX = null,

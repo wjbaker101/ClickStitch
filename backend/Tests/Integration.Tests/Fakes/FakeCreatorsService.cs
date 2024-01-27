@@ -32,8 +32,8 @@ public sealed class FakeCreatorsService : ICreatorsService
             {
                 Reference = Guid.Parse("8e13a53d-67b8-4329-ae3c-dfa64fe69dbf"),
                 CreatedAt = default,
-                Name = null,
-                StoreUrl = null
+                Name = null!,
+                StoreUrl = null!
             }
         });
     }

@@ -24,11 +24,11 @@ public sealed class GivenAGetProjectRequest
             Id = TestRequestUser.USER_ID,
             Reference = default,
             CreatedAt = default,
-            Email = null,
-            Password = null,
-            PasswordSalt = null,
+            Email = null!,
+            Password = null!,
+            PasswordSalt = null!,
             LastLoginAt = null,
-            Permissions = null
+            Permissions = null!
         };
 
         var pattern = new PatternRecord
@@ -36,19 +36,19 @@ public sealed class GivenAGetProjectRequest
             Id = 0,
             Reference = Guid.Parse("37a2c8a9-a30e-4e77-8abd-e2df81b62792"),
             CreatedAt = default,
-            Title = null,
+            Title = null!,
             Width = 0,
             Height = 0,
             Price = 0,
-            ThumbnailUrl = null,
+            ThumbnailUrl = null!,
             ThreadCount = 0,
             StitchCount = 0,
             AidaCount = 0,
-            BannerImageUrl = null,
-            ExternalShopUrl = null,
-            TitleSlug = null,
+            BannerImageUrl = null!,
+            ExternalShopUrl = null!,
+            TitleSlug = null!,
             IsPublic = false,
-            User = null,
+            User = null!,
             Creator = null,
             Threads = new HashSet<PatternThreadRecord>()
         };
@@ -57,10 +57,10 @@ public sealed class GivenAGetProjectRequest
         {
             Id = 0,
             Pattern = pattern,
-            Name = null,
-            Description = null,
+            Name = null!,
+            Description = null!,
             Index = 0,
-            Colour = null
+            Colour = null!
         };
         pattern.Threads.Add(thread);
 
@@ -70,7 +70,7 @@ public sealed class GivenAGetProjectRequest
             Thread = thread,
             X = 0,
             Y = 0,
-            LookupHash = null
+            LookupHash = null!
         };
 
         var userStitch = new UserPatternThreadStitchRecord
