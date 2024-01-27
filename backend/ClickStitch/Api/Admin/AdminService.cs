@@ -15,9 +15,6 @@ public interface IAdminService
     Task<Result<SearchUsersResponse>> SearchUsers(int pageNumber, int pageSize, CancellationToken cancellationToken);
     Task<Result<AssignPermissionToUserResponse>> AssignPermissionToUser(Guid userReference, AssignPermissionToUserRequest request, CancellationToken cancellationToken);
     Task<Result<RemovePermissionFromUserResponse>> RemovePermissionFromUser(Guid userReference, ApiPermissionType permissionType, CancellationToken cancellationToken);
-    Task<Result<CreateThreadResponse>> CreateThread(CreateThreadRequest request, CancellationToken cancellationToken);
-    Task<Result<UpdateThreadResponse>> UpdateThread(Guid threadReference, UpdateThreadRequest request, CancellationToken cancellationToken);
-    Task<Result<DeleteThreadResponse>> DeleteThread(Guid threadReference, CancellationToken cancellationToken);
 }
 
 public sealed class AdminService : IAdminService
@@ -116,49 +113,5 @@ public sealed class AdminService : IAdminService
         await _userPermissionRepository.DeleteAsync(userPermissionResult.Content, cancellationToken);
 
         return new RemovePermissionFromUserResponse();
-    }
-
-    public async Task<Result<CreateThreadResponse>> CreateThread(CreateThreadRequest request, CancellationToken cancellationToken)
-    {
-        var thread = await _threadRepository.SaveAsync(new ThreadRecord
-        {
-            Reference = Guid.NewGuid(),
-            Brand = request.Brand,
-            Code = request.Code,
-            Colour = request.Colour
-        }, cancellationToken);
-
-        return new CreateThreadResponse
-        {
-            Thread = ThreadMapper.Map(thread)
-        };
-    }
-
-    public async Task<Result<UpdateThreadResponse>> UpdateThread(Guid threadReference, UpdateThreadRequest request, CancellationToken cancellationToken)
-    {
-        var threadResult = await _threadRepository.GetByReference(threadReference, cancellationToken);
-        if (!threadResult.TrySuccess(out var thread))
-            return Result<UpdateThreadResponse>.FromFailure(threadResult);
-
-        thread.Brand = request.Brand;
-        thread.Code = request.Code;
-
-        await _threadRepository.UpdateAsync(thread, cancellationToken);
-
-        return new UpdateThreadResponse
-        {
-            Thread = ThreadMapper.Map(thread)
-        };
-    }
-
-    public async Task<Result<DeleteThreadResponse>> DeleteThread(Guid threadReference, CancellationToken cancellationToken)
-    {
-        var threadResult = await _threadRepository.GetByReference(threadReference, cancellationToken);
-        if (threadResult.IsFailure)
-            return Result<DeleteThreadResponse>.FromFailure(threadResult);
-
-        await _threadRepository.DeleteAsync(threadResult.Content, cancellationToken);
-
-        return new DeleteThreadResponse();
     }
 }

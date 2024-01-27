@@ -59,37 +59,4 @@ public sealed class AdminController : ApiController
 
         return ToApiResponse(result);
     }
-
-    [HttpPost]
-    [Route("threads")]
-    [Authenticate]
-    [RequireAdmin]
-    public async Task<IActionResult> CreateThread([FromBody] CreateThreadRequest request, CancellationToken cancellationToken)
-    {
-        var result = await _adminService.CreateThread(request, cancellationToken);
-
-        return ToApiResponse(result);
-    }
-
-    [HttpPut]
-    [Route("threads/{threadReference:guid}")]
-    [Authenticate]
-    [RequireAdmin]
-    public async Task<IActionResult> UpdateThread([FromRoute] Guid threadReference, [FromBody] UpdateThreadRequest request, CancellationToken cancellationToken)
-    {
-        var result = await _adminService.UpdateThread(threadReference, request, cancellationToken);
-
-        return ToApiResponse(result);
-    }
-
-    [HttpDelete]
-    [Route("threads/{threadReference:guid}")]
-    [Authenticate]
-    [RequireAdmin]
-    public async Task<IActionResult> DeleteThread([FromRoute] Guid threadReference, CancellationToken cancellationToken)
-    {
-        var result = await _adminService.DeleteThread(threadReference, cancellationToken);
-
-        return ToApiResponse(result);
-    }
 }
