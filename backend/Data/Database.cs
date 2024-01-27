@@ -9,20 +9,19 @@ namespace Data;
 
 public interface IDatabase
 {
-    ISessionFactory SessionFactory { get; }
-    IApiSession OpenSession(bool shouldOutputSql = true);
+    IApiSession OpenSession();
     IApiStatelessSession OpenStatelessSession();
 }
 
 public sealed class Database : IDatabase
 {
-    public ISessionFactory SessionFactory { get; }
+    private readonly ISessionFactory _sessionFactory;
 
     public Database(AppSecrets secrets)
     {
         var database = secrets.Database;
 
-        SessionFactory = Fluently.Configure()
+        _sessionFactory = Fluently.Configure()
             .Database(PostgreSQLConfiguration.Standard.ConnectionString(c => c
                 .Host(database.Host)
                 .Port(database.Port)
@@ -33,13 +32,12 @@ public sealed class Database : IDatabase
             .BuildSessionFactory();
     }
 
-    public IApiSession OpenSession(bool shouldOutputSql = true)
+    public IApiSession OpenSession()
     {
-        var sessionBuilder = SessionFactory.WithOptions();
+        var sessionBuilder = _sessionFactory.WithOptions();
 
         #if DEBUG
-        if (shouldOutputSql)
-            sessionBuilder = sessionBuilder.Interceptor(new OutputSqlInterceptor());
+        sessionBuilder = sessionBuilder.Interceptor(new OutputSqlInterceptor());
         #endif
 
         return new ApiSession(sessionBuilder.OpenSession());
@@ -47,6 +45,6 @@ public sealed class Database : IDatabase
 
     public IApiStatelessSession OpenStatelessSession()
     {
-        return new ApiStatelessSession(SessionFactory.OpenStatelessSession());
+        return new ApiStatelessSession(_sessionFactory.OpenStatelessSession());
     }
 }
