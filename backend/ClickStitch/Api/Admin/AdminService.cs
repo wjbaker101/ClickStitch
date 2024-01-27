@@ -3,7 +3,6 @@ using Data.Records;
 using Data.Repositories.Admin;
 using Data.Repositories.Admin.Types;
 using Data.Repositories.Permission;
-using Data.Repositories.Thread;
 using Data.Repositories.User;
 using Data.Repositories.UserPermission;
 
@@ -23,20 +22,17 @@ public sealed class AdminService : IAdminService
     private readonly IUserRepository _userRepository;
     private readonly IPermissionRepository _permissionRepository;
     private readonly IUserPermissionRepository _userPermissionRepository;
-    private readonly IThreadRepository _threadRepository;
 
     public AdminService(
         IAdminRepository adminRepository,
         IUserRepository userRepository,
         IPermissionRepository permissionRepository,
-        IUserPermissionRepository userPermissionRepository,
-        IThreadRepository threadRepository)
+        IUserPermissionRepository userPermissionRepository)
     {
         _adminRepository = adminRepository;
         _userRepository = userRepository;
         _permissionRepository = permissionRepository;
         _userPermissionRepository = userPermissionRepository;
-        _threadRepository = threadRepository;
     }
 
     public async Task<Result<GetPermissionsResponse>> GetPermissions(CancellationToken cancellationToken)

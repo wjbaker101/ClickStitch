@@ -30,7 +30,7 @@ public sealed class GivenAGetPermissionsRequest
             }
         };
 
-        var subject = new AdminService(new AdminRepository(database), null!, null!, null!, null!);
+        var subject = new AdminService(new AdminRepository(database), null!, null!, null!);
 
         _result = await subject.GetPermissions(CancellationToken.None);
     }

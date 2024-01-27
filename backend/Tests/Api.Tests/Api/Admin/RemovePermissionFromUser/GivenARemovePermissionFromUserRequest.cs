@@ -59,7 +59,7 @@ public sealed class GivenARemovePermissionFromUserRequest
             }
         };
 
-        var subject = new AdminService(null!, new UserRepository(_database), null!, new UserPermissionRepository(_database), null!);
+        var subject = new AdminService(null!, new UserRepository(_database), null!, new UserPermissionRepository(_database));
 
         _result = await subject.RemovePermissionFromUser(_userReference, ApiPermissionType.Admin, CancellationToken.None);
     }

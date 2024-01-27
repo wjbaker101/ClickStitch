@@ -49,7 +49,7 @@ public sealed class GivenASearchUsersRequest
             }
         };
 
-        var subject = new AdminService(new AdminRepository(database), null!, null!, null!, null!);
+        var subject = new AdminService(new AdminRepository(database), null!, null!, null!);
 
         _result = await subject.SearchUsers(1, 50, CancellationToken.None);
     }

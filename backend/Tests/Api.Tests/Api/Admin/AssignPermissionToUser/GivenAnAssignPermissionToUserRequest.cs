@@ -57,7 +57,7 @@ public sealed class GivenAnAssignPermissionToUserRequest
             PermissionType = ApiPermissionType.Creator
         };
 
-        var subject = new AdminService(null!, new UserRepository(_database), new PermissionRepository(_database), new UserPermissionRepository(_database), null!);
+        var subject = new AdminService(null!, new UserRepository(_database), new PermissionRepository(_database), new UserPermissionRepository(_database));
 
         _result = await subject.AssignPermissionToUser(_userReference, request, CancellationToken.None);
     }
