@@ -6,7 +6,6 @@ const auth = useAuth();
 export type Subdomain = 'creator' | 'admin';
 
 export const subdomain = (() => {
-    return 'admin';
     const split = window.location.host.split('.');
     if (split.length < 3)
         return null;
