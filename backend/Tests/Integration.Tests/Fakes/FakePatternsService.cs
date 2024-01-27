@@ -96,9 +96,9 @@ public sealed class FakePatternsService : IPatternsService
         return Task.FromResult<Result>(Result.Success());
     }
 
-    public Task<Result<VerifyPatternResponse>> VerifyPattern(string patternData, CancellationToken cancellationToken)
+    public Result<VerifyPatternResponse> VerifyPattern(string patternData, CancellationToken cancellationToken)
     {
-        return Task.FromResult<Result<VerifyPatternResponse>>(new VerifyPatternResponse());
+        return new VerifyPatternResponse();
     }
 
     public Task<Result<DeletePatternResponse>> DeletePattern(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken)

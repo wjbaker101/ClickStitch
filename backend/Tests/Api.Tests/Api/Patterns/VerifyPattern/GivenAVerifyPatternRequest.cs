@@ -10,13 +10,13 @@ public sealed class GivenAVerifyPatternRequest
     private Result<VerifyPatternResponse> _result = null!;
 
     [OneTimeSetUp]
-    public async Task Setup()
+    public void Setup()
     {
         var patternParserService = new FakePatternParserService();
 
         var subject = new PatternsService(null!, null!, null!, null!, null!, null!, null!, patternParserService, null!);
 
-        _result = await subject.VerifyPattern(null!, CancellationToken.None);
+        _result = subject.VerifyPattern(null!, CancellationToken.None);
     }
 
     [Test]

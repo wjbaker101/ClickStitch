@@ -67,11 +67,11 @@ public sealed class PatternsController : ApiController
     [HttpPost]
     [Route("verify")]
     [Authenticate]
-    public async Task<IActionResult> VerifyPattern([FromForm(Name = "pattern_data")] string patternDataAsString, CancellationToken cancellationToken)
+    public IActionResult VerifyPattern([FromForm(Name = "pattern_data")] string patternDataAsString, CancellationToken cancellationToken)
     {
         var requestUser = RequestHelper.GetRequiredUser(Request);
 
-        var result = await _patternsService.VerifyPattern(patternDataAsString, cancellationToken);
+        var result = _patternsService.VerifyPattern(patternDataAsString, cancellationToken);
         
         return ToApiResponse(result);
     }
