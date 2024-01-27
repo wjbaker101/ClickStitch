@@ -33,13 +33,6 @@ export const adminRoutes: Array<RouteRecordRaw> = [
         },
     },
     {
-        path: '/threads',
-        component: () => import('@/views/admin/admin/Admin.view.vue'),
-        meta: {
-            title: 'Threads',
-        },
-    },
-    {
         path: '/settings',
         component: () => import('@/views/_shared/settings/Settings.view.vue'),
         beforeEnter: [ requireAuth ],

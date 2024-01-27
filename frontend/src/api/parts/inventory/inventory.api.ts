@@ -3,13 +3,8 @@ import { client } from '@/api/client';
 import { useAuth } from '@/use/auth/Auth.use';
 import { ApiErrorMapper } from '@/api/ApiErrorMapper';
 
-import { threadMapper } from '@/api/mappers/Thread.mapper';
-
-import type { IInventoryThread } from '@/models/Inventory.model';
-
 import type { IApiResultResponse } from '@/api/api-models/ApiResponse.type';
 
-import type { IGetInventoryThreadsResponse } from '@/api/parts/inventory/types/GetInventoryThreads.type';
 import type { IUpdateInventoryThreadRequest, IUpdateInventoryThreadResponse } from '@/api/parts/inventory/types/UpdateInventoryThread.type';
 import type { ISearchInventoryThreadsResponse } from '@/api/parts/inventory/types/SearchInventoryThreads.type';
 
@@ -37,29 +32,6 @@ export const inventoryApi = {
             });
 
             return response.data.result;
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
-    },
-
-    async getThreads(): Promise<Array<IInventoryThread> | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
-
-        try {
-            const response = await client.get<IApiResultResponse<IGetInventoryThreadsResponse>>(`/inventory/threads`, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
-
-            const threads = response.data.result.threads;
-
-            return threads.map(x => ({
-                thread: threadMapper.map(x.thread),
-                count: x.count,
-            }));
         }
         catch (error) {
             return ApiErrorMapper.map(error);
