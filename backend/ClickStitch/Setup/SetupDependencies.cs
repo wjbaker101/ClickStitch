@@ -62,6 +62,7 @@ public static class SetupDependencies
         services.AddSingleton<IPatternUploadService, PatternUploadService>();
         services.AddSingleton<IPatternParserService, PatternParserService>();
         services.AddSingleton<IGetPatternInventoryService, GetPatternInventoryService>();
+        services.AddSingleton<IGetPatternService, GetPatternService>();
 
         services.AddSingleton<IProjectsService, ProjectsService>();
 

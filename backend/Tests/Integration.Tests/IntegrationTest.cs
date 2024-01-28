@@ -97,6 +97,7 @@ public abstract class IntegrationTest
 
                     services.AddSingleton<IPatternsService>(new FakePatternsService());
                     services.AddSingleton<IGetPatternInventoryService>(new FakeGetPatternInventoryService());
+                    services.AddSingleton<IGetPatternService>(new FakeGetPatternService());
                     services.AddSingleton<IAdminService>(new FakeAdminService());
                     services.AddSingleton<ICreatorsService>(new FakeCreatorsService());
                 });

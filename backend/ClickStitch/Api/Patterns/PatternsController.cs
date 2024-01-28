@@ -13,11 +13,25 @@ public sealed class PatternsController : ApiController
 {
     private readonly IPatternsService _patternsService;
     private readonly IGetPatternInventoryService _getPatternInventoryService;
+    private readonly IGetPatternService _getPatternService;
 
-    public PatternsController(IPatternsService patternsService, IGetPatternInventoryService getPatternInventoryService)
+    public PatternsController(IPatternsService patternsService, IGetPatternInventoryService getPatternInventoryService, IGetPatternService getPatternService)
     {
         _patternsService = patternsService;
         _getPatternInventoryService = getPatternInventoryService;
+        _getPatternService = getPatternService;
+    }
+
+    [HttpGet]
+    [Route("{patternReference:guid}")]
+    [Authenticate]
+    public async Task<IActionResult> GetPattern([FromRoute] Guid patternReference, CancellationToken cancellationToken)
+    {
+        var user = RequestHelper.GetRequiredUser(Request);
+
+        var result = await _getPatternService.GetPattern(user, patternReference, cancellationToken);
+
+        return ToApiResponse(result);
     }
 
     [HttpGet]
