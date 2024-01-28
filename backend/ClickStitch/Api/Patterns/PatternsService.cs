@@ -95,8 +95,10 @@ public sealed class PatternsService : IPatternsService
             return Result<UpdatePatternResponse>.Failure("Unable to update pattern as you are not a creator of it.");
 
         pattern.Title = request.Title;
-        pattern.ExternalShopUrl = request.ExternalShopUrl;
         pattern.AidaCount = request.AidaCount;
+
+        if (user.Permissions.Any(x => x.Type == PermissionType.Creator) && request.ExternalShopUrl != null)
+            pattern.ExternalShopUrl = request.ExternalShopUrl;
 
         await _patternRepository.UpdateAsync(pattern, cancellationToken);
 

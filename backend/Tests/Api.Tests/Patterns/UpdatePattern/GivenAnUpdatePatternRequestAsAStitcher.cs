@@ -10,7 +10,7 @@ namespace Api.Tests.Patterns.UpdatePattern;
 
 [TestFixture]
 [Parallelizable]
-public sealed class GivenAnUpdatePatternRequest
+public sealed class GivenAnUpdatePatternRequestAsAStitcher
 {
     private readonly Guid _patternReference = Guid.Parse("97d9d9df-d3e3-42a5-b03d-3a6fdd35df22");
 
@@ -30,7 +30,7 @@ public sealed class GivenAnUpdatePatternRequest
             Password = null!,
             PasswordSalt = null!,
             LastLoginAt = null,
-            Permissions = null!
+            Permissions = new List<PermissionRecord>()
         };
 
         _database = new TestDatabase
@@ -42,7 +42,7 @@ public sealed class GivenAnUpdatePatternRequest
                 {
                     Reference = _patternReference,
                     CreatedAt = default,
-                    Title = "NewTestTitle",
+                    Title = "TestTitle",
                     Width = 0,
                     Height = 0,
                     Price = 0,
@@ -51,7 +51,7 @@ public sealed class GivenAnUpdatePatternRequest
                     StitchCount = 0,
                     AidaCount = 0,
                     BannerImageUrl = null!,
-                    ExternalShopUrl = "NewTestExternalShopUrl",
+                    ExternalShopUrl = null!,
                     TitleSlug = null!,
                     IsPublic = false,
                     User = user,
@@ -81,7 +81,7 @@ public sealed class GivenAnUpdatePatternRequest
         Assert.Multiple(() =>
         {
             Assert.That(pattern.Title, Is.EqualTo("NewTestTitle"), nameof(pattern.Title));
-            Assert.That(pattern.ExternalShopUrl, Is.EqualTo("NewTestExternalShopUrl"), nameof(pattern.ExternalShopUrl));
+            Assert.That(pattern.ExternalShopUrl, Is.Null, nameof(pattern.ExternalShopUrl));
             Assert.That(pattern.AidaCount, Is.EqualTo(7942), nameof(pattern.AidaCount));
         });
     }
@@ -95,7 +95,7 @@ public sealed class GivenAnUpdatePatternRequest
         {
             Assert.That(pattern.Reference, Is.EqualTo(_patternReference), nameof(pattern.Reference));
             Assert.That(pattern.Title, Is.EqualTo("NewTestTitle"), nameof(pattern.Title));
-            Assert.That(pattern.ExternalShopUrl, Is.EqualTo("NewTestExternalShopUrl"), nameof(pattern.ExternalShopUrl));
+            Assert.That(pattern.ExternalShopUrl, Is.Null, nameof(pattern.ExternalShopUrl));
             Assert.That(pattern.AidaCount, Is.EqualTo(7942), nameof(pattern.AidaCount));
         });
     }

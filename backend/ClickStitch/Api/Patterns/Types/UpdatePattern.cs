@@ -3,7 +3,7 @@
 public sealed class UpdatePatternRequest
 {
     public required string Title { get; init; }
-    public required string ExternalShopUrl { get; init; }
+    public string? ExternalShopUrl { get; init; }
     public required int AidaCount { get; init; }
 }
 
