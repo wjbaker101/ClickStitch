@@ -96,9 +96,7 @@ public sealed class PatternsService : IPatternsService
 
         pattern.Title = request.Title;
         pattern.ExternalShopUrl = request.ExternalShopUrl;
-
-        if (request.AidaCount.HasValue)
-            pattern.AidaCount = request.AidaCount.Value;
+        pattern.AidaCount = request.AidaCount;
 
         await _patternRepository.UpdateAsync(pattern, cancellationToken);
 

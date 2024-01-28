@@ -74,7 +74,8 @@ public sealed class GivenAnUpdatePatternRequestWithADifferentUser
         var request = new UpdatePatternRequest
         {
             Title = "NewTestTitle",
-            ExternalShopUrl = "NewTestExternalShopUrl"
+            ExternalShopUrl = "NewTestExternalShopUrl",
+            AidaCount = 7942
         };
 
         var subject = new PatternsService(new PatternRepository(_database), null!, null!, new UserRepository(_database), null!, null!, null!, null!, null!);
