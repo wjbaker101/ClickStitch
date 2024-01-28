@@ -2,10 +2,20 @@
     <div class="project-threads-modal-component flex flex-vertical gap">
         <div>
             <h2>Actions:</h2>
-                <ButtonComponent @click="onGoToPausePosition">
-                    <IconComponent icon="compass" gap="right" />
-                    <span>Go to Pause Position</span>
-                </ButtonComponent>
+            <div class="flex gap-small">
+                <div class="flex-auto">
+                    <ButtonComponent @click="onGoToPausePosition">
+                        <IconComponent icon="compass" gap="right" />
+                        <span>Go to Pause Position</span>
+                    </ButtonComponent>
+                </div>
+                <RouterLink class="flex-auto" :to="`/projects/${project.project.pattern.reference}/edit`" @click="onEditDetails">
+                    <ButtonComponent>
+                        <IconComponent icon="pencil" gap="right" />
+                        <span>Edit Details</span>
+                    </ButtonComponent>
+                </RouterLink>
+            </div>
             <h2>Threads:</h2>
             <div>
                 <ThreadDetailsComponent v-for="thread in threads" :thread="thread" :inventory="inventory" :pattern="project.project.pattern" />
@@ -40,6 +50,10 @@ const inventory = ref<IGetPatternInventory | null>(null);
 
 const onGoToPausePosition = function () {
     events.publish('GoToPausePosition', {});
+    modal.hide();
+};
+
+const onEditDetails = function () {
     modal.hide();
 };
 
