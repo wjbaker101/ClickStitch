@@ -12,11 +12,10 @@ public sealed class TestRequestUser
 
     public static implicit operator RequestUser(TestRequestUser user)
     {
-        return new RequestUser
+        return new RequestUser(user.Permissions)
         {
             Id = user.Id,
-            Reference = user.Reference,
-            Permissions = user.Permissions
+            Reference = user.Reference
         };
     }
 }

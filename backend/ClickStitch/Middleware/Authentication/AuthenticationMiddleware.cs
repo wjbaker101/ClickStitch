@@ -53,11 +53,12 @@ public sealed class AuthenticationMiddleware : IMiddleware
             return;
         }
 
-        context.Items[RequestHelper.REQUEST_USER_ITEM_KEY] = new RequestUser
+        var permissions = user.Permissions.Select(x => (RequestPermissionType)x.Type).ToList();
+
+        context.Items[RequestHelper.REQUEST_USER_ITEM_KEY] = new RequestUser(permissions)
         {
             Id = user.Id,
-            Reference = user.Reference,
-            Permissions = user.Permissions.Select(x => (RequestPermissionType)x.Type).ToList()
+            Reference = user.Reference
         };
 
         await next(context);
