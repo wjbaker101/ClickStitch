@@ -83,6 +83,14 @@ export const stitcherRoutes: Array<RouteRecordRaw> = [
         },
     },
     {
+        path: '/projects/:patternReference/edit',
+        component: () => import('@/views/stitcher/project-editor/ProjectEditor.view.vue'),
+        beforeEnter: [ requireAuth ],
+        meta: {
+            title: 'Edit Project',
+        },
+    },
+    {
         path: '/projects/:patternReference/analytics',
         component: () => import('@/views/stitcher/project-analytics/ProjectAnalytics.view.vue'),
         beforeEnter: [ requireAuth ],

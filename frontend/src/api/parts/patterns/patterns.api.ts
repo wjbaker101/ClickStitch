@@ -17,10 +17,28 @@ import type { IUpdatePatternRequest, IUpdatePatternResponse } from '@/api/parts/
 import type { ICreatePatternRequest, ICreatePatternResponse } from '@/api/parts/patterns/types/CreatePattern.type';
 import type { IDeletePatternResponse } from '@/api/parts/patterns/types/DeletePattern.type';
 import type { IGetInventoryResponse } from '@/api/parts/patterns/types/GetInventory.type';
+import type { IGetPatternResponse } from '@/api/parts/patterns/types/GetPattern.type';
 
 const auth = useAuth();
 
 export const patternsApi = {
+
+    async get(patternReference: string): Promise<IPattern | Error> {
+        try {
+            const response = await client.get<IApiResultResponse<IGetPatternResponse>>(`/patterns/${patternReference}`, {
+                headers: (auth.details.value === null) ? {} : {
+                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
+                },
+            });
+
+            const pattern = response.data.result.pattern;
+
+            return patternMapper.map(pattern);
+        }
+        catch (error) {
+            return ApiErrorMapper.map(error);
+        }
+    },
 
     async search(): Promise<Array<IPattern> | Error> {
         try {
