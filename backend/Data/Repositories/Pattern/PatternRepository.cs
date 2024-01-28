@@ -41,6 +41,7 @@ public sealed class PatternRepository : Repository<PatternRecord>, IPatternRepos
         var pattern = await session
             .Query<PatternRecord>()
             .Fetch(x => x.User)
+            .Fetch(x => x.Creator)
             .SingleOrDefault(x => x.Reference == patternReference, cancellationToken);
 
         if (pattern == null)

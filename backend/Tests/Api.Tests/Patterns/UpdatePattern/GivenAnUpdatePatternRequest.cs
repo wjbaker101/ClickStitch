@@ -64,7 +64,8 @@ public sealed class GivenAnUpdatePatternRequest
         var request = new UpdatePatternRequest
         {
             Title = "NewTestTitle",
-            ExternalShopUrl = "NewTestExternalShopUrl"
+            ExternalShopUrl = "NewTestExternalShopUrl",
+            AidaCount = 7942
         };
 
         var subject = new PatternsService(new PatternRepository(_database), null!, null!, new UserRepository(_database), null!, null!, null!, null!, null!);
@@ -81,6 +82,7 @@ public sealed class GivenAnUpdatePatternRequest
         {
             Assert.That(pattern.Title, Is.EqualTo("NewTestTitle"), nameof(pattern.Title));
             Assert.That(pattern.ExternalShopUrl, Is.EqualTo("NewTestExternalShopUrl"), nameof(pattern.ExternalShopUrl));
+            Assert.That(pattern.AidaCount, Is.EqualTo(7942), nameof(pattern.AidaCount));
         });
     }
 
@@ -94,6 +96,7 @@ public sealed class GivenAnUpdatePatternRequest
             Assert.That(pattern.Reference, Is.EqualTo(_patternReference), nameof(pattern.Reference));
             Assert.That(pattern.Title, Is.EqualTo("NewTestTitle"), nameof(pattern.Title));
             Assert.That(pattern.ExternalShopUrl, Is.EqualTo("NewTestExternalShopUrl"), nameof(pattern.ExternalShopUrl));
+            Assert.That(pattern.AidaCount, Is.EqualTo(7942), nameof(pattern.AidaCount));
         });
     }
 }
