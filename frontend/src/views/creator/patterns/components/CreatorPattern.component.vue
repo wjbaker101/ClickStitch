@@ -19,6 +19,12 @@
                     <FormInputComponent label="Shop URL">
                         <input type="text" placeholder="https://etsy.com/shop/beautifulpatternsco/amazing_pattern" v-model="form.externalShopUrl">
                     </FormInputComponent>
+                    <FormInputComponent label="Aida Count">
+                        <select v-model="form.aidaCount">
+                            <option :value="null" disabled>Select option...</option>
+                            <option v-for="count in 35" :value="count + 5">{{ count + 5 }}</option>
+                        </select>
+                    </FormInputComponent>
                 </FormSectionComponent>
                 <FormSectionComponent>
                     <ButtonComponent @click="onUpdate" :loading="isLoading">
@@ -67,6 +73,7 @@ const props = defineProps<{
 interface IForm {
     title: string;
     externalShopUrl: string;
+    aidaCount: number;
 }
 
 const popup = usePopup();
@@ -74,6 +81,7 @@ const popup = usePopup();
 const form = ref<IForm>({
     title: props.pattern.title,
     externalShopUrl: props.pattern.externalShopUrl ?? '',
+    aidaCount: props.pattern.aidaCount,
 });
 
 const isLoading = ref<boolean>(false);
@@ -85,6 +93,7 @@ const onUpdate = async function (): Promise<void> {
     const result = await api.patterns.update(props.pattern.reference, {
         title: form.value.title,
         externalShopUrl: form.value.externalShopUrl,
+        aidaCount: form.value.aidaCount,
     });
 
     isLoading.value = false;
@@ -99,6 +108,7 @@ const onUpdate = async function (): Promise<void> {
 
     props.pattern.title = result.title;
     props.pattern.externalShopUrl = result.externalShopUrl;
+    props.pattern.aidaCount = result.aidaCount;
 
     popup.trigger({
         message: 'Pattern updated!',
