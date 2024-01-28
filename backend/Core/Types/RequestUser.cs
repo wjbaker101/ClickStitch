@@ -18,6 +18,14 @@ public sealed class RequestUserPermissions : List<RequestPermissionType>
     public RequestUserPermissions(List<RequestPermissionType> permissions) : base(permissions)
     {
     }
+
+    public bool Has(RequestPermissionType permission)
+    {
+        return this.Any(x => x == permission);
+    }
+
+    public bool IsAdmin() => Has(RequestPermissionType.Admin);
+    public bool IsCreator() => Has(RequestPermissionType.Creator);
 }
 
 public enum RequestPermissionType

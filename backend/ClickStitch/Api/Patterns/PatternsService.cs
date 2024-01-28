@@ -97,7 +97,7 @@ public sealed class PatternsService : IPatternsService
         pattern.Title = request.Title;
         pattern.AidaCount = request.AidaCount;
 
-        if (requestUser.Permissions.Any(x => x == RequestPermissionType.Creator) && request.ExternalShopUrl != null)
+        if (requestUser.Permissions.IsCreator() && request.ExternalShopUrl != null)
             pattern.ExternalShopUrl = request.ExternalShopUrl;
 
         await _patternRepository.UpdateAsync(pattern, cancellationToken);
@@ -136,7 +136,7 @@ public sealed class PatternsService : IPatternsService
         if (bannerUrlResult.IsFailure)
             return Result.FromFailure(bannerUrlResult);
 
-        var isCreator = requestUser.Permissions.Any(x => x == RequestPermissionType.Creator);
+        var isCreator = requestUser.Permissions.IsCreator();
 
         CreatorRecord? creator = null;
         if (isCreator)

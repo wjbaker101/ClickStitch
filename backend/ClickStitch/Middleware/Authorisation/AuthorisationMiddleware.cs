@@ -18,7 +18,7 @@ public sealed class AuthorisationMiddleware : IMiddleware
 
         if (context.GetEndpoint()?.Metadata.GetMetadata<RequireAdminAttribute>() != null)
         {
-            if (user == null || user.Permissions.All(x => x != RequestPermissionType.Admin))
+            if (user == null || !user.Permissions.IsAdmin())
             {
                 await Forbidden(context);
                 return;
@@ -27,7 +27,7 @@ public sealed class AuthorisationMiddleware : IMiddleware
 
         if (context.GetEndpoint()?.Metadata.GetMetadata<RequireCreatorAttribute>() != null)
         {
-            if (user == null || user.Permissions.All(x => x != RequestPermissionType.Creator))
+            if (user == null || !user.Permissions.IsCreator())
             {
                 await Forbidden(context);
                 return;
