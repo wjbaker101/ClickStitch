@@ -97,7 +97,7 @@ public sealed class PatternsService : IPatternsService
         pattern.Title = request.Title;
         pattern.AidaCount = request.AidaCount;
 
-        if (user.Permissions.Any(x => x.Type == PermissionType.Creator) && request.ExternalShopUrl != null)
+        if (requestUser.Permissions.Any(x => x == RequestPermissionType.Creator) && request.ExternalShopUrl != null)
             pattern.ExternalShopUrl = request.ExternalShopUrl;
 
         await _patternRepository.UpdateAsync(pattern, cancellationToken);

@@ -30,7 +30,7 @@ public sealed class GivenAnUpdatePatternRequestAsAStitcher
             Password = null!,
             PasswordSalt = null!,
             LastLoginAt = null,
-            Permissions = new List<PermissionRecord>()
+            Permissions = null!
         };
 
         _database = new TestDatabase

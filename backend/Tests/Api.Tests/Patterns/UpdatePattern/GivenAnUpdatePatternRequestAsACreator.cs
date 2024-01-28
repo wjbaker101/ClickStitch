@@ -30,14 +30,7 @@ public sealed class GivenAnUpdatePatternRequestAsACreator
             Password = null!,
             PasswordSalt = null!,
             LastLoginAt = null,
-            Permissions = new List<PermissionRecord>
-            {
-                new()
-                {
-                    Type = PermissionType.Creator,
-                    Name = "Creator"
-                }
-            }
+            Permissions = null!
         };
 
         _database = new TestDatabase
@@ -68,6 +61,14 @@ public sealed class GivenAnUpdatePatternRequestAsACreator
             }
         };
 
+        var requestUser = new TestRequestUser
+        {
+            Permissions = new List<RequestPermissionType>
+            {
+                RequestPermissionType.Creator
+            }
+        };
+
         var request = new UpdatePatternRequest
         {
             Title = "NewTestTitle",
@@ -77,7 +78,7 @@ public sealed class GivenAnUpdatePatternRequestAsACreator
 
         var subject = new PatternsService(new PatternRepository(_database), null!, null!, new UserRepository(_database), null!, null!, null!, null!, null!);
 
-        _result = await subject.UpdatePattern(new TestRequestUser(), _patternReference, request, CancellationToken.None);
+        _result = await subject.UpdatePattern(requestUser, _patternReference, request, CancellationToken.None);
     }
 
     [Test]
