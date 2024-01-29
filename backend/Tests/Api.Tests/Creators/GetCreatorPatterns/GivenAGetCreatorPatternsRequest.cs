@@ -49,7 +49,16 @@ public sealed class GivenAGetCreatorPatternsRequest
                     ExternalShopUrl = null!,
                     TitleSlug = null!,
                     IsPublic = false,
-                    User = null!,
+                    User = new UserRecord
+                    {
+                        Reference = default,
+                        CreatedAt = default,
+                        Email = null,
+                        Password = null,
+                        PasswordSalt = null,
+                        LastLoginAt = null,
+                        Permissions = null
+                    },
                     Creator = creator,
                     Threads = null!
                 },
@@ -69,7 +78,16 @@ public sealed class GivenAGetCreatorPatternsRequest
                     ExternalShopUrl = null!,
                     TitleSlug = null!,
                     IsPublic = false,
-                    User = null!,
+                    User = new UserRecord
+                    {
+                        Reference = default,
+                        CreatedAt = default,
+                        Email = null,
+                        Password = null,
+                        PasswordSalt = null,
+                        LastLoginAt = null,
+                        Permissions = null
+                    },
                     Creator = new CreatorRecord
                     {
                         Reference = default,
@@ -97,7 +115,16 @@ public sealed class GivenAGetCreatorPatternsRequest
                     ExternalShopUrl = null!,
                     TitleSlug = null!,
                     IsPublic = false,
-                    User = null!,
+                    User = new UserRecord
+                    {
+                        Reference = default,
+                        CreatedAt = default,
+                        Email = null,
+                        Password = null,
+                        PasswordSalt = null,
+                        LastLoginAt = null,
+                        Permissions = null
+                    },
                     Creator = creator,
                     Threads = null!
                 }

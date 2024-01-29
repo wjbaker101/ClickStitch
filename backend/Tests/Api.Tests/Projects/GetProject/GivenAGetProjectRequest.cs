@@ -48,7 +48,16 @@ public sealed class GivenAGetProjectRequest
             ExternalShopUrl = null!,
             TitleSlug = null!,
             IsPublic = false,
-            User = null!,
+            User = new UserRecord
+            {
+                Reference = default,
+                CreatedAt = default,
+                Email = null!,
+                Password = null!,
+                PasswordSalt = null!,
+                LastLoginAt = null,
+                Permissions = null!
+            },
             Creator = null,
             Threads = new HashSet<PatternThreadRecord>()
         };

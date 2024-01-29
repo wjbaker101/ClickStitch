@@ -19,7 +19,8 @@ public static class PatternMapper
         ExternalShopUrl = pattern.ExternalShopUrl,
         TitleSlug = pattern.TitleSlug,
         AidaCount = pattern.AidaCount,
-        Creator = MapCreator(pattern.Creator)
+        Creator = MapCreator(pattern.Creator),
+        User = UserMapper.Map(pattern.User)
     };
 
     private static CreatorModel? MapCreator(CreatorRecord? creator)

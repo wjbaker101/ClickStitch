@@ -31,7 +31,14 @@ public sealed class FakePatternsService : IPatternsService
                 ExternalShopUrl = "TestExternalShopUrl",
                 TitleSlug = "test-title-slug",
                 AidaCount = 1335,
-                Creator = null
+                Creator = null,
+                User = new UserModel
+                {
+                    Reference = default,
+                    CreatedAt = default,
+                    Email = null!,
+                    LastLoginAt = null
+                }
             };
         }
         else
@@ -51,7 +58,14 @@ public sealed class FakePatternsService : IPatternsService
                 ExternalShopUrl = "TestExternalShopUrl",
                 TitleSlug = "test-title-slug",
                 AidaCount = 1335,
-                Creator = null
+                Creator = null,
+                User = new UserModel
+                {
+                    Reference = default,
+                    CreatedAt = default,
+                    Email = null!,
+                    LastLoginAt = null
+                }
             };
         }
 
@@ -80,7 +94,14 @@ public sealed class FakePatternsService : IPatternsService
                 ExternalShopUrl = "TestExternalShopUrl",
                 TitleSlug = "test-title-slug",
                 AidaCount = 1335,
-                Creator = null
+                Creator = null,
+                User = new UserModel
+                {
+                    Reference = default,
+                    CreatedAt = default,
+                    Email = null!,
+                    LastLoginAt = null
+                }
             }
         });
     }

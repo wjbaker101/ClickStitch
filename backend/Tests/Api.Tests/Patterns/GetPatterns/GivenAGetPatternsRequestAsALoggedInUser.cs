@@ -46,7 +46,7 @@ public sealed class GivenAGetPatternsRequestAsALoggedInUser
             ExternalShopUrl = null!,
             TitleSlug = null!,
             IsPublic = true,
-            User = null!,
+            User = user,
             Creator = null,
             Threads = null!
         };
@@ -67,7 +67,7 @@ public sealed class GivenAGetPatternsRequestAsALoggedInUser
             ExternalShopUrl = null!,
             TitleSlug = null!,
             IsPublic = true,
-            User = null!,
+            User = user,
             Creator = null,
             Threads = null!
         };
@@ -88,7 +88,7 @@ public sealed class GivenAGetPatternsRequestAsALoggedInUser
             ExternalShopUrl = null!,
             TitleSlug = null!,
             IsPublic = false,
-            User = null!,
+            User = user,
             Creator = null,
             Threads = null!
         };

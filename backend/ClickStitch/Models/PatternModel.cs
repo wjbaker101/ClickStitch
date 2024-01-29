@@ -16,6 +16,7 @@ public sealed class PatternModel
     public required string TitleSlug { get; init; }
     public required int AidaCount { get; init; }
     public required CreatorModel? Creator { get; init; }
+    public required UserModel User { get; init; }
 }
 
 public sealed class StitchModel
