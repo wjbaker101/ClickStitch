@@ -9,7 +9,7 @@
                         <span>Go to Pause Position</span>
                     </ButtonComponent>
                 </div>
-                <RouterLink class="flex-auto" :to="`/projects/${project.project.pattern.reference}/edit`" @click="onEditDetails">
+                <RouterLink v-if="project.project.pattern.user.reference === authDetails?.reference" class="flex-auto" :to="`/projects/${project.project.pattern.reference}/edit`" @click="onEditDetails">
                     <ButtonComponent>
                         <IconComponent icon="pencil" gap="right" />
                         <span>Edit Details</span>
@@ -31,6 +31,7 @@ import { onMounted, ref } from 'vue';
 import ThreadDetailsComponent from '@/views/stitcher/project/components/ThreadDetails.component.vue';
 
 import { api } from '@/api/api';
+import { useAuth } from '@/use/auth/Auth.use';
 import { useEvents } from '@/use/events/Events.use';
 import { useModal } from '@wjb/vue/use/modal.use';
 
@@ -41,8 +42,11 @@ const props = defineProps<{
     project: IGetProject;
 }>();
 
+const auth = useAuth();
 const events = useEvents();
 const modal = useModal();
+
+const authDetails = auth.details;
 
 const threads = props.project.threads;
 
