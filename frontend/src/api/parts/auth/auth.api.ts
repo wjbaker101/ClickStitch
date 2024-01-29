@@ -20,6 +20,7 @@ export const authApi = {
             const result = response.data.result;
 
             return {
+                reference: result.reference,
                 loginToken: result.loginToken,
                 email: result.email,
                 permissions: result.permissions.map(permissionMapper.map),

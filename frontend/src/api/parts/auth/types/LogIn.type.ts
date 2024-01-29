@@ -6,6 +6,7 @@ export interface ILogInRequest {
 }
 
 export interface ILogInResponse {
+    readonly reference: string;
     readonly loginToken: string;
     readonly email: string;
     readonly permissions: Array<IApiPermission>;
