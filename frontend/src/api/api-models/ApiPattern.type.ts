@@ -1,4 +1,5 @@
 import { type IApiCreator } from '@/api/api-models/ApiCreator.type';
+import type { IApiUser } from '@/api/api-models/ApiUser.type';
 
 export interface IApiPattern {
     readonly reference: string;
@@ -14,6 +15,7 @@ export interface IApiPattern {
     readonly externalShopUrl: string | null;
     readonly titleSlug: string;
     readonly aidaCount: number;
+    readonly user: IApiUser;
     readonly creator: IApiCreator | null;
 }
 

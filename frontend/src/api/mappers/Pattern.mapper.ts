@@ -1,8 +1,10 @@
 import dayjs from 'dayjs';
 
-import { type IPattern, type IStitch, type IPatternThread } from '@/models/Pattern.model';
-import { type IApiPattern, type IApiStitch, type IApiPatternThread } from '@/api/api-models/ApiPattern.type';
-import { creatorMapper } from './Creator.mapper';
+import { creatorMapper } from '@/api/mappers/Creator.mapper';
+import { userMapper } from '@/api/mappers/User.mapper';
+
+import type { IPattern, IStitch, IPatternThread } from '@/models/Pattern.model';
+import type { IApiPattern, IApiStitch, IApiPatternThread } from '@/api/api-models/ApiPattern.type';
 
 export const patternMapper = {
 
@@ -21,6 +23,7 @@ export const patternMapper = {
             externalShopUrl: pattern.externalShopUrl,
             titleSlug: pattern.titleSlug,
             aidaCount: pattern.aidaCount,
+            user: userMapper.map(pattern.user),
             creator: pattern.creator === null ? null : creatorMapper.map(pattern.creator),
         };
     },

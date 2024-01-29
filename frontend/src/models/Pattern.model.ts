@@ -1,6 +1,7 @@
 import { Dayjs } from 'dayjs';
 
-import { type ICreator } from './Creator.model';
+import type { ICreator } from '@/models/Creator.model';
+import type { IUser } from '@/models/User.model';
 
 export interface IPattern {
     readonly reference: string;
@@ -16,6 +17,7 @@ export interface IPattern {
     externalShopUrl: string | null;
     readonly titleSlug: string;
     aidaCount: number;
+    readonly user: IUser;
     readonly creator: ICreator | null;
 }
 
