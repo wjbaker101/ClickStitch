@@ -30,7 +30,7 @@ public sealed class GivenALogInRequest
 
         var user = new UserRecord
         {
-            Reference = default,
+            Reference = Guid.Parse("d901d213-c81b-4bfc-8aca-f8825ed00b13"),
             CreatedAt = default,
             Email = "test@email.com",
             Password = hashedPassword,
@@ -88,6 +88,7 @@ public sealed class GivenALogInRequest
     [Test]
     public void ThenTheCorrectUserDetailsAreReturned()
     {
+        Assert.That(_result.Content.Reference, Is.EqualTo(Guid.Parse("d901d213-c81b-4bfc-8aca-f8825ed00b13")));
         Assert.That(_result.Content.Email, Is.EqualTo("test@email.com"));
 
         var permission = _result.Content.Permissions[0];

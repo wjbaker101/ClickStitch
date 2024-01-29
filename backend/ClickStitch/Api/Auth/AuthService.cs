@@ -52,6 +52,7 @@ public sealed class AuthService : IAuthService
 
         return new LogInResponse
         {
+            Reference = user.Reference,
             LoginToken = loginToken,
             Email = user.Email,
             Permissions = permissions.ConvertAll(PermissionMapper.Map)
