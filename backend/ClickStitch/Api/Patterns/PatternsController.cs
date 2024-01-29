@@ -49,7 +49,6 @@ public sealed class PatternsController : ApiController
     [HttpPut]
     [Route("{patternReference:guid}")]
     [Authenticate]
-    [RequireCreator]
     public async Task<IActionResult> UpdatePattern([FromRoute] Guid patternReference, [FromBody] UpdatePatternRequest request, CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetRequiredUser(Request);
