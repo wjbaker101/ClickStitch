@@ -26,12 +26,16 @@
 
     --footer-height: 162px;
 
+    --stitched-background-image: url(@/assets/bg-light.png);
+
     @media (prefers-color-scheme: dark) {
         --wjb-background-colour: var(--wjb-dark);
         --wjb-background-colour-dark: color-mix(in srgb, var(--wjb-background-colour) 80%, #000);
 
         --wjb-text-colour: var(--wjb-light);
         --wjb-text-colour-opposite: var(--wjb-dark);
+
+        --stitched-background-image: url(@/assets/bg-dark.png);
     }
 }
 

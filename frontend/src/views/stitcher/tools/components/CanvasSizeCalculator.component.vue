@@ -82,6 +82,7 @@ const style = computed<Record<string, string>>(() => {
         border: 1px solid var(--wjb-secondary);
         border-radius: var(--wjb-border-radius);
         background-color: var(--wjb-background-colour-light);
+        background-image: var(--stitched-background-image);
     }
 }
 </style>
