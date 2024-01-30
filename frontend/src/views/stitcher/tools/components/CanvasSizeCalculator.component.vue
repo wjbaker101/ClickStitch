@@ -33,7 +33,9 @@
         </FormComponent>
         <div>
             <div>
-                <div class="example" :style="style"></div>
+                <div class="example" :style="style">
+                    <small>Preview</small>
+                </div>
             </div>
         </div>
     </div>
@@ -73,6 +75,9 @@ const style = computed<Record<string, string>>(() => {
 <style lang="scss">
 .canvas-size-calculator-component {
     .example {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         margin: auto;
         border: 1px solid var(--wjb-secondary);
         border-radius: var(--wjb-border-radius);
