@@ -30,6 +30,7 @@
                     {{ (resultHeight * cmToInch).toFixed(1) }}cm / {{ resultHeight.toFixed(1) }}in
                 </p>
             </FormSectionComponent>
+            <div class="text-centered">Make sure to add a few cm/inches as padding</div>
         </FormComponent>
         <div>
             <div>
@@ -39,7 +40,6 @@
             </div>
         </div>
     </div>
-    <p class="text-centered">Make sure to add a few cm/inches as extra</p>
 </template>
 
 <script setup lang="ts">
