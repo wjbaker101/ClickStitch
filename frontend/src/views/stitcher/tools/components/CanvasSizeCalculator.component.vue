@@ -1,6 +1,6 @@
 <template>
     <h2>Canvas Size Calculator</h2>
-    <div class="canvas-size-calculator-component flex align-items-center gap">
+    <div class="canvas-size-calculator-component">
         <FormComponent>
             <FormSectionComponent>
                 <FormInputComponent label="Width (Stitches)">
@@ -14,8 +14,9 @@
                 </FormInputComponent>
             </FormSectionComponent>
         </FormComponent>
-        <div class="flex-auto">
-            <IconComponent icon="arrow-right" />
+        <div class="flex-auto text-centered">
+            <IconComponent class="arrow-right" icon="arrow-right" />
+            <IconComponent class="arrow-down" icon="arrow-down" />
         </div>
         <FormComponent>
             <FormSectionComponent>
@@ -32,11 +33,9 @@
             </FormSectionComponent>
             <div class="text-centered">Make sure to add a few cm/inches as padding</div>
         </FormComponent>
-        <div>
-            <div>
-                <div class="example" :style="style">
-                    <small>Preview</small>
-                </div>
+        <div class="preview-container">
+            <div class="preview" :style="style">
+                <small>Preview</small>
             </div>
         </div>
     </div>
@@ -74,7 +73,24 @@ const style = computed<Record<string, string>>(() => {
 
 <style lang="scss">
 .canvas-size-calculator-component {
-    .example {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr auto 1fr 1fr;
+    align-items: center;
+
+    .arrow-down {
+        display: none;
+    }
+
+    .preview-container {
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+    }
+
+    .preview {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -83,6 +99,27 @@ const style = computed<Record<string, string>>(() => {
         border-radius: var(--wjb-border-radius);
         background-color: var(--wjb-background-colour-light);
         background-image: var(--stitched-background-image);
+    }
+
+    @media screen and (max-width: 800px) {
+        grid-template-columns: 1fr auto 1fr;
+        grid-template-rows: auto auto;
+
+        .preview-container {
+            grid-column: 1 / 4;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        display: block;
+
+        .arrow-down {
+            display: unset;
+        }
+
+        .arrow-right {
+            display: none;
+        }
     }
 }
 </style>
