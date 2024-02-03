@@ -21,7 +21,7 @@ import { useStitch } from '../use/Stitch.use';
 import { useInput } from '@/use/input/input.use';
 
 import type { IStitch } from '@/models/Pattern.model';
-import type { IPosition } from '@/api/types/CompleteStitches.type';
+import type { IPosition } from '@/api/parts/projects/types/CompleteStitches.type';
 
 const props = defineProps<{
     baseStitchSize: number;
