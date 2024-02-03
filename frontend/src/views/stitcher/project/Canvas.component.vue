@@ -371,8 +371,6 @@ const onOpenContextMenu = function (event: MouseEvent): void {
         image-rendering: -webkit-optimize-contrast;
         image-rendering: optimize-contrast;
         -ms-interpolation-mode: nearest-neighbor;
-
-        @include shadow-large();
     }
 
     .debug {
