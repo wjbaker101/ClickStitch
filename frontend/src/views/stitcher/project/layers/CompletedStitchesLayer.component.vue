@@ -1,5 +1,6 @@
 <template>
     <canvas
+        class="completed-stitches-layer-component"
         ref="canvas"
         :width="project.project.pattern.width * baseStitchSize"
         :height="project.project.pattern.height * baseStitchSize"

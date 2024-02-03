@@ -20,6 +20,7 @@
             }"
         >
             <canvas
+                class="pattern-canvas"
                 ref="patternCanvas"
                 :width="project.project.pattern.width * baseStitchSize"
                 :height="project.project.pattern.height * baseStitchSize"
