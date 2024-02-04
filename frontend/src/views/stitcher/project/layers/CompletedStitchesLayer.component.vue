@@ -19,6 +19,7 @@ import { useEvent, useEvents } from '@/use/events/Events.use';
 import { useSharedStitch } from '../use/SharedStitch';
 import { useStitch } from '../use/Stitch.use';
 import { useInput } from '@/use/input/input.use';
+import { useHighlightedThread } from '../use/HighlightedThread.use';
 
 import type { IStitch } from '@/models/Pattern.model';
 import type { IPosition } from '@/api/parts/projects/types/CompleteStitches.type';
@@ -28,14 +29,15 @@ const props = defineProps<{
 }>();
 
 const { project, stitchPositionLookup } = useCurrentProject();
-const events = useEvents();
 const sharedStitch = useSharedStitch();
 const { baseStitchSize, mouseStitchPosition, stitchSelectStart, stitchSelectEnd } = useStitch();
+const highlightedThread = useHighlightedThread();
 
 const canvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const { graphics } = useCanvasElement(canvas);
 
 const hoveredStitch = sharedStitch.hoveredStitch;
+const highlightedThreadIndex = highlightedThread.threadIndex;
 
 const onPatternDoubleClick = async function () {
     if (hoveredStitch.value === null)
@@ -103,16 +105,23 @@ const onPatternDoubleClick = async function () {
     }
 };
 
-onMounted(() => {
+const render = function () {
+    graphics.value.reset();
     graphics.value.fillStyle = '#0f0';
 
-    const completedStitches = project.value.threads.flatMap(x => x.completedStitches);
+    const completedStitches = project.value.threads
+        .filter(x => highlightedThreadIndex.value === null || x.thread.index === highlightedThreadIndex.value)
+        .flatMap(x => x.completedStitches);
 
     for (let index = 0; index < completedStitches.length; ++index) {
         const stitch = completedStitches[index];
 
         graphics.value.fillRect(stitch[0] * props.baseStitchSize, stitch[1] * props.baseStitchSize, props.baseStitchSize, props.baseStitchSize);
     }
+};
+
+onMounted(() => {
+    render();
 });
 
 useInput('keypress', async (event) => {
@@ -214,6 +223,7 @@ useInput('keypress', async (event) => {
 });
 
 useEvent('PatternDoubleClick', onPatternDoubleClick);
+useEvent('HighlightThread', () => render());
 </script>
 
 <style lang="scss">

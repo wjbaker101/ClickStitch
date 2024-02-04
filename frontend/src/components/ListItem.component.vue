@@ -26,13 +26,14 @@
 <script setup lang="ts">
 import { ref, useSlots } from 'vue';
 
-defineProps<{
+const props = defineProps<{
     hover?: boolean;
+    isInitiallyOpen?: boolean;
 }>();
 
 const slots = useSlots();
 
-const isExpanded = ref<boolean>(false);
+const isExpanded = ref<boolean>(props.isInitiallyOpen === true);
 
 const onToggleOpen = function (): void {
     isExpanded.value = !isExpanded.value;

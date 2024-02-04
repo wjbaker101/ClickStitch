@@ -21,11 +21,15 @@
         >
             <canvas
                 class="pattern-canvas"
+                :class="{ 'is-highlighting': highlightedThreadIndex !== null }"
                 ref="patternCanvas"
                 :width="project.project.pattern.width * baseStitchSize"
                 :height="project.project.pattern.height * baseStitchSize"
             >
             </canvas>
+            <HighlightedThreadLayerComponent
+                :baseStitchSize="baseStitchSize"
+            />
             <CompletedStitchesLayerComponent
                 :baseStitchSize="baseStitchSize"
             />
@@ -64,6 +68,7 @@
 import { computed, onMounted, ref } from 'vue';
 
 import CompletedStitchesLayerComponent from '@/views/stitcher/project/layers/CompletedStitchesLayer.component.vue';
+import HighlightedThreadLayerComponent from '@/views/stitcher/project/layers/HighlightedThreadLayer.component.vue';
 import JumpedStitchLayerComponent from '@/views/stitcher/project/layers/JumpedStitchLayer.component.vue';
 import SelectedStitchesLayerComponent from '@/views/stitcher/project/layers/SelectedStitchesLayer.component.vue';
 import PausePositionLayerComponent from '@/views/stitcher/project/layers/PausePositionLayer.component.vue';
@@ -78,6 +83,7 @@ import { useSharedStitch } from '@/views/stitcher/project/use/SharedStitch';
 import { useStitch } from '@/views/stitcher/project/use/Stitch.use';
 import { useTransformation } from '@/views/stitcher/project/use/Transformation.use';
 import { useEvents } from '@/use/events/Events.use';
+import { useHighlightedThread } from '@/views/stitcher/project/use/HighlightedThread.use';
 import { useCanvasElement } from '@/views/stitcher/project/use/CanvasElement.use';
 import { factory } from '@/components/context-menu/ContextMenuFactory';
 
@@ -93,6 +99,7 @@ const component = ref<HTMLDivElement>({} as HTMLDivElement);
 const currentProject = useCurrentProject();
 const events = useEvents();
 const sharedStitch = useSharedStitch();
+const highlightedThread = useHighlightedThread();
 const { mousePosition, prevMousePosition, isDragMoving, isDragSelecting, selectStart, selectEnd } = useMouse();
 const { width, height, offset, scale, zoom } = useTransformation();
 const pinchStart = ref<number>(1);
@@ -104,6 +111,7 @@ const patternCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const { graphics } = useCanvasElement(patternCanvas);
 
 const hoveredStitch = sharedStitch.hoveredStitch;
+const highlightedThreadIndex = highlightedThread.threadIndex;
 
 const canvasWidth = computed<number>(() => props.project.project.pattern.width * scaledStitchSize.value);
 const canvasHeight = computed<number>(() => props.project.project.pattern.height * scaledStitchSize.value);
@@ -387,6 +395,12 @@ const onOpenContextMenu = function (event: MouseEvent): void {
         color: #fff;
         pointer-events: none;
         transform: translateY(-50%);
+    }
+
+    .pattern-canvas {
+        &.is-highlighting {
+            opacity: 0.2;
+        }
     }
 }
 </style>

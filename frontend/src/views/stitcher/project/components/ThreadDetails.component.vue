@@ -1,5 +1,5 @@
 <template>
-    <ListItemComponent class="thread-details-component">
+    <ListItemComponent class="thread-details-component" :isInitiallyOpen="isInitiallyOpen">
         <div class="flex align-items-center">
             <div class="flex-auto">
                 <div class="thread-colour text-centered" :style="threadStyle(thread.thread)">
@@ -24,10 +24,16 @@
                 </div>
                 <div></div>
                 <div class="flex-auto">
-                    <ButtonComponent class="mini" title="Jump to Stitches" @click="onJumpToStitch">
-                        <IconComponent icon="compass" gap="right" />
-                        <span>Jump to Stitches</span>
-                    </ButtonComponent>
+                    <section>
+                        <ButtonComponent class="mini" title="Jump to Stitches" @click="onJumpToStitch">
+                            <IconComponent icon="compass" gap="right" />
+                            <span>Jump to Stitches</span>
+                        </ButtonComponent>
+                    </section>
+                    <section>
+                        <input type="checkbox" v-model="shouldHighlightThread">
+                        <span>Highlight</span>
+                    </section>
                 </div>
             </div>
             <div class="compare-inventory-container">
@@ -58,6 +64,7 @@ import { isDark } from '@/helper/helper';
 import { calculateRequiredSkeins } from '@/helper/stitch.helper';
 import { useEvents } from '@/use/events/Events.use';
 import { useModal } from '@wjb/vue/use/modal.use';
+import { useHighlightedThread } from '../use/HighlightedThread.use';
 
 import type { IThreadDetails } from '@/models/GetProject.model';
 import type { IPattern, IPatternThread } from '@/models/Pattern.model';
@@ -71,6 +78,21 @@ const props = defineProps<{
 
 const events = useEvents();
 const modal = useModal();
+const highlightedThread = useHighlightedThread();
+
+const highlightedThreadIndex = highlightedThread.threadIndex;
+const isInitiallyOpen = highlightedThread.threadIndex.value === props.thread.thread.index;
+const shouldHighlightThread = computed<boolean>({
+    get: () => {
+        return highlightedThreadIndex.value === props.thread.thread.index;
+    },
+    set: (isTrue) => {
+        if (isTrue)
+            highlightedThreadIndex.value = props.thread.thread.index;
+        else
+            highlightedThreadIndex.value = null;
+    },
+});
 
 const threadStyle = function (thread: IPatternThread): StyleValue {
     return {
