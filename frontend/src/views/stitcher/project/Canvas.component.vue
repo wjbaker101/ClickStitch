@@ -124,6 +124,7 @@ const resizeObserver = new ResizeObserver(entries => {
 });
 
 onMounted(() => {
+    highlightedThreadIndex.value = null;
     resizeObserver.observe(component.value);
 
     width.value = component.value.offsetWidth;
