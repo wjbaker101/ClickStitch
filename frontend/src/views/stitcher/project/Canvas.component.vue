@@ -399,6 +399,8 @@ const onOpenContextMenu = function (event: MouseEvent): void {
     }
 
     .pattern-canvas {
+        transition: transform 0.1s, opacity 0.2s;
+
         &.is-highlighting {
             opacity: 0.2;
         }
