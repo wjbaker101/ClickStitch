@@ -1,13 +1,6 @@
-import axios from 'axios';
-
 import { useAuth } from '@/use/auth/Auth.use';
 
 import type { IApiErrorResponse, IApiResultResponse } from '@/api/api-models/ApiResponse.type';
-
-export const client = axios.create({
-    baseURL: '/api',
-});
-
 
 interface IRequestOptions {
     readonly method: 'get' | 'post' | 'put' | 'delete';
