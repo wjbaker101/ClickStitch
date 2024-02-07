@@ -1,14 +1,9 @@
 import dayjs from 'dayjs';
 
-import { client } from '@/api/client';
-
-import { useAuth } from '@/use/auth/Auth.use';
-import { ApiErrorMapper } from '@/api/ApiErrorMapper';
+import { apiClient } from '@/api/client';
 
 import { patternMapper } from '@/api/mappers/Pattern.mapper';
 import { projectMapper } from '@/api/mappers/Project.mapper';
-
-import type { IApiResultResponse } from '@/api/api-models/ApiResponse.type';
 
 import type { IGetAnalytics } from '@/models/GetAnalytics.model';
 import type { IProject } from '@/models/Project.model';
@@ -21,166 +16,142 @@ import type { IGetAnalyticsResponse } from '@/api/parts/projects/types/GetAnalyt
 import type { IPausePatternRequest, IPausePatternResponse } from '@/api/parts/projects/types/PausePattern.type';
 import type { IUnpausePatternResponse } from '@/api/parts/projects/types/UnpausePattern.type';
 
-const auth = useAuth();
-
 export const projectsApi = {
 
     async getAll(): Promise<Array<IProject> | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
+        const response = await apiClient.get<IGetProjectsResponse>({
+            url: '/projects',
+            auth: {
+                required: true,
+                use: true,
+            },
+        });
 
-        try {
-            const response = await client.get<IApiResultResponse<IGetProjectsResponse>>('/projects', {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
+        if (response instanceof Error)
+            return response;
 
-            const projects = response.data.result.projects;
+        const projects = response.projects;
 
-            return projects.map(projectMapper.map);
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        return projects.map(projectMapper.map);
     },
 
     async add(patternReference: string): Promise<void | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
-
-        await client.post<IApiResultResponse<void>>(`/projects/${patternReference}`, {}, {
-            headers: {
-                'Authorization': `Bearer ${auth.details.value.loginToken}`,
+        const response = await apiClient.post<void>({
+            url: `/projects/${patternReference}`,
+            auth: {
+                required: true,
+                use: true,
             },
         });
+
+        if (response instanceof Error)
+            return response;
     },
 
     async get(patternReference: string): Promise<IGetProject | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
+        const response = await apiClient.get<IGetProjectResponse>({
+            url: `/projects/${patternReference}`,
+            auth: {
+                required: true,
+                use: true,
+            },
+        });
 
-        try {
-            const response = await client.get<IApiResultResponse<IGetProjectResponse>>(`/projects/${patternReference}`, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
+        if (response instanceof Error)
+            return response;
 
-            const result = response.data.result;
-
-            return {
-                project: projectMapper.map(result.project),
-                aidaCount: result.aidaCount,
-                threads: result.threads.map(thread => ({
-                    thread: patternMapper.mapThread(thread.thread),
-                    stitches: thread.stitches,
-                    completedStitches: thread.completedStitches.map(x => [x[0], x[1], dayjs(x[2])]),
-                })),
-            };
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        return {
+            project: projectMapper.map(response.project),
+            aidaCount: response.aidaCount,
+            threads: response.threads.map(thread => ({
+                thread: patternMapper.mapThread(thread.thread),
+                stitches: thread.stitches,
+                completedStitches: thread.completedStitches.map(x => [x[0], x[1], dayjs(x[2])]),
+            })),
+        };
     },
 
     async completeStitches(patternReference: string, request: ICompleteStitchesRequest): Promise<void | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
+        const response = await apiClient.post<IGetProjectResponse>({
+            url: `/projects/${patternReference}/stitches/complete`,
+            body: request,
+            auth: {
+                required: true,
+                use: true,
+            },
+        });
 
-        try {
-            const response = await client.post<IApiResultResponse<IGetProjectResponse>>(`/projects/${patternReference}/stitches/complete`, request, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        if (response instanceof Error)
+            return response;
     },
 
     async unCompleteStitches(patternReference: string, request: ICompleteStitchesRequest): Promise<void | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
+        const response = await apiClient.post<IGetProjectResponse>({
+            url: `/projects/${patternReference}/stitches/uncomplete`,
+            body: request,
+            auth: {
+                required: true,
+                use: true,
+            },
+        });
 
-        try {
-            const response = await client.post<IApiResultResponse<IGetProjectResponse>>(`/projects/${patternReference}/stitches/uncomplete`, request, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-
-            });
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        if (response instanceof Error)
+            return response;
     },
 
     async pause(patternReference: string, request: IPausePatternRequest): Promise<void | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
+        const response = await apiClient.post<IPausePatternResponse>({
+            url: `/projects/${patternReference}/stitches/pause`,
+            body: request,
+            auth: {
+                required: true,
+                use: true,
+            },
+        });
 
-        try {
-            const response = await client.post<IApiResultResponse<IPausePatternResponse>>(`/projects/${patternReference}/stitches/pause`, request, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-
-            });
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        if (response instanceof Error)
+            return response;
     },
 
     async unpause(patternReference: string): Promise<void | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
+        const response = await apiClient.post<IUnpausePatternResponse>({
+            url: `/projects/${patternReference}/stitches/unpause`,
+            body: {},
+            auth: {
+                required: true,
+                use: true,
+            },
+        });
 
-        try {
-            const response = await client.post<IApiResultResponse<IUnpausePatternResponse>>(`/projects/${patternReference}/stitches/unpause`, {}, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        if (response instanceof Error)
+            return response;
     },
 
     async getAnalytics(patternReference: string): Promise<IGetAnalytics | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
+        const response = await apiClient.get<IGetAnalyticsResponse>({
+            url: `/projects/${patternReference}/analytics`,
+            auth: {
+                required: true,
+                use: true,
+            },
+        });
 
-        try {
-            const response = await client.get<IApiResultResponse<IGetAnalyticsResponse>>(`/projects/${patternReference}/analytics`, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
+        if (response instanceof Error)
+            return response;
 
-            });
-
-            const result = response.data.result;
-
-            return {
-                title: result.title,
-                thumbnailUrl: result.thumbnailUrl,
-                bannerImageUrl: result.bannerImageUrl,
-                purchasedAt: dayjs(result.purchasedAt),
-                totalStitches: result.totalStitches,
-                remainingStitches: result.remainingStitches,
-                completedStitches: result.completedStitches,
-                data: {
-                    headings: result.data.headings,
-                    values: result.data.values,
-                },
-            };
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        return {
+            title: response.title,
+            thumbnailUrl: response.thumbnailUrl,
+            bannerImageUrl: response.bannerImageUrl,
+            purchasedAt: dayjs(response.purchasedAt),
+            totalStitches: response.totalStitches,
+            remainingStitches: response.remainingStitches,
+            completedStitches: response.completedStitches,
+            data: {
+                headings: response.data.headings,
+                values: response.data.values,
+            },
+        };
     },
 
 };
