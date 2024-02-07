@@ -1,4 +1,4 @@
-import { client } from '@/api/client';
+import { apiClient, client } from '@/api/client';
 
 import { useAuth } from '@/use/auth/Auth.use';
 import { ApiErrorMapper } from '@/api/ApiErrorMapper';
@@ -22,90 +22,70 @@ const auth = useAuth();
 export const creatorsApi = {
 
     async createCreator(request: ICreateCreatorRequest): Promise<ICreator | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
+        const response = await apiClient.post<ICreateCreatorResponse>({
+            url: '/creators',
+            body: request,
+            auth: {
+                required: true,
+                use: true,
+            },
+        });
 
-        try {
-            const response = await client.post<IApiResultResponse<ICreateCreatorResponse>>('/creators', request, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
+        if (response instanceof Error)
+            return response;
 
-            const result = response.data.result;
-
-            return creatorMapper.map(result.creator);
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        return creatorMapper.map(response.creator);
     },
 
     async updateCreator(creatorReference: string, request: IUpdateCreatorRequest): Promise<ICreator | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
+        const response = await apiClient.put<ICreateCreatorResponse>({
+            url: `/creators/${creatorReference}`,
+            body: request,
+            auth: {
+                required: true,
+                use: true,
+            },
+        });
 
-        try {
-            const response = await client.put<IApiResultResponse<IUpdateCreatorResponse>>(`/creators/${creatorReference}`, request, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
+        if (response instanceof Error)
+            return response;
 
-            const result = response.data.result;
-
-            return creatorMapper.map(result.creator);
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        return creatorMapper.map(response.creator);
     },
 
     async getSelf(): Promise<ICreator | null | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
+        const response = await apiClient.get<IGetSelfCreator>({
+            url: '/creators/self',
+            auth: {
+                required: true,
+                use: true,
+            },
+        });
 
-        try {
-            const response = await client.get<IApiResultResponse<IGetSelfCreator>>('/creators/self', {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
+        if (response instanceof Error)
+            return response;
 
-            const result = response.data.result;
+        if (response.creator === null)
+            return null;
 
-            if (result.creator === null)
-                return null;
-
-            return creatorMapper.map(result.creator);
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        return creatorMapper.map(response.creator);
     },
 
     async getPatterns(creatorReference: string, pageSize: number, pageNumber: number): Promise<IGetCreatorPatterns | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
+        const response = await apiClient.get<IGetCreatorPatternsResponse>({
+            url: `/creators/${creatorReference}/patterns?page_size=${pageSize}&page_number=${pageNumber}`,
+            auth: {
+                required: true,
+                use: true,
+            },
+        });
 
-        const url = `/creators/${creatorReference}/patterns?page_size=${pageSize}&page_number=${pageNumber}`;
+        if (response instanceof Error)
+            return response;
 
-        try {
-            const response = await client.get<IApiResultResponse<IGetCreatorPatternsResponse>>(url, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
-
-            const result = response.data.result;
-
-            return {
-                patterns: result.patterns.map(patternMapper.map),
-                pagination: paginationMapper.map(result.pagination),
-            };
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        return {
+            patterns: response.patterns.map(patternMapper.map),
+            pagination: paginationMapper.map(response.pagination),
+        };
     },
 };
