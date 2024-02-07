@@ -54,7 +54,7 @@ const doRequest = async <TResult>(options: IRequestOptions): Promise<TResult | E
 
         if (!response.ok) {
             const errorResponse = await response.json() as IApiErrorResponse;
-            return new Error(errorResponse.failureMessage);
+            return new Error(errorResponse.errorMessage);
         }
 
         const result = await response.json() as IApiResultResponse<TResult>;
