@@ -40,12 +40,11 @@ const doRequest = async <TResult>(options: IRequestOptions): Promise<TResult | E
         }
 
         const headers: HeadersInit = {};
-
-        if (options.auth.use && auth.details.value !== null) {
-            headers['Authorization'] = `Bearer ${auth.details.value.loginToken}`;
+        if (options.body)
             headers['Content-Type'] = 'application/json';
-        }
-
+        if (options.auth.use && auth.details.value !== null)
+            headers['Authorization'] = `Bearer ${auth.details.value.loginToken}`;
+            
         const response = await fetch(builtUrl, {
             method: options.method,
             body: JSON.stringify(options.body),
