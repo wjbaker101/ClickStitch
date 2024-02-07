@@ -1,12 +1,7 @@
-import { apiClient, client } from '@/api/client';
-
-import { useAuth } from '@/use/auth/Auth.use';
-import { ApiErrorMapper } from '@/api/ApiErrorMapper';
+import { apiClient } from '@/api/client';
 
 import { patternMapper } from '@/api/mappers/Pattern.mapper';
 import { threadMapper } from '@/api/mappers/Thread.mapper';
-
-import type { IApiResultResponse } from '@/api/api-models/ApiResponse.type';
 
 import type { IDeletePattern } from '@/models/DeletePattern.model';
 import type { IPattern } from '@/models/Pattern.model';
@@ -18,8 +13,6 @@ import type { ICreatePatternRequest, ICreatePatternResponse } from '@/api/parts/
 import type { IDeletePatternResponse } from '@/api/parts/patterns/types/DeletePattern.type';
 import type { IGetInventoryResponse } from '@/api/parts/patterns/types/GetInventory.type';
 import type { IGetPatternResponse } from '@/api/parts/patterns/types/GetPattern.type';
-
-const auth = useAuth();
 
 export const patternsApi = {
 
@@ -72,49 +65,41 @@ export const patternsApi = {
     },
 
     async create(bannerImage: File, patternData: string, request: ICreatePatternRequest): Promise<void | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
+        const formData = new FormData();
+        formData.append('banner_image', bannerImage);
+        formData.append('request_body', JSON.stringify(request));
+        formData.append('pattern_data', patternData);
 
-        try {
-            const formData = new FormData();
-            formData.append('banner_image', bannerImage);
-            formData.append('request_body', JSON.stringify(request));
-            formData.append('pattern_data', patternData);
+        const response = await apiClient.post<ICreatePatternResponse>({
+            url: '/patterns',
+            body: formData,
+            auth: {
+                required: true,
+                use: true,
+            },
+        });
 
-            const response = await client.post<IApiResultResponse<ICreatePatternResponse>>('/patterns', formData, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
-
-            const result = response.data.result;
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        if (response instanceof Error)
+            return response;
     },
 
-    async verify(patternData: string): Promise<boolean | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
+    async verify(patternData: string): Promise<boolean> {
+        const formData = new FormData();
+        formData.append('pattern_data', patternData);
 
-        try {
-            const formData = new FormData();
-            formData.append('pattern_data', patternData);
+        const response = await apiClient.post<void>({
+            url: '/patterns/verify',
+            body: formData,
+            auth: {
+                required: true,
+                use: true,
+            },
+        });
 
-            const response = await client.post<IApiResultResponse<{}>>('/patterns/verify', formData, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
-
-            const result = response.data.result;
-
-            return true;
-        }
-        catch (error) {
+        if (response instanceof Error)
             return false;
-        }
+
+        return true;
     },
 
     async delete(patternReference: string): Promise<IDeletePattern | Error> {

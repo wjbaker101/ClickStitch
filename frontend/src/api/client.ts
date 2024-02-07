@@ -12,7 +12,7 @@ export const client = axios.create({
 interface IRequestOptions {
     readonly method: 'get' | 'post' | 'put' | 'delete';
     readonly url: string;
-    readonly body?: any;
+    readonly body?: object | FormData;
     readonly queryParams?: Map<string, string>;
     readonly auth: {
         readonly use: boolean;
@@ -39,15 +39,17 @@ const doRequest = async <TResult>(options: IRequestOptions): Promise<TResult | E
             }
         }
 
+        const isFormData = options.body instanceof FormData;
+
         const headers: HeadersInit = {};
-        if (options.body)
+        if (options.body && !isFormData)
             headers['Content-Type'] = 'application/json';
         if (options.auth.use && auth.details.value !== null)
             headers['Authorization'] = `Bearer ${auth.details.value.loginToken}`;
             
         const response = await fetch(builtUrl, {
             method: options.method,
-            body: JSON.stringify(options.body),
+            body: isFormData ? options.body : JSON.stringify(options.body),
             headers,
         });
 
