@@ -53,7 +53,12 @@ const doRequest = async <TResult>(options: IRequestOptions): Promise<TResult | E
         });
 
         if (!response.ok) {
-            const errorResponse = await response.json() as IApiErrorResponse;
+            const responseAsJson = await response.json();
+
+            if (!responseAsJson.errorMessage)
+                return new Error('Unable to retrieve data from server, please try again later.');
+
+            const errorResponse = responseAsJson as IApiErrorResponse;
             return new Error(errorResponse.errorMessage);
         }
 
@@ -62,7 +67,6 @@ const doRequest = async <TResult>(options: IRequestOptions): Promise<TResult | E
         return result.result;
     }
     catch (error) {
-        console.log(error);
         return new Error('Unable to retrieve data from server, please try again later.');
     }
 };
