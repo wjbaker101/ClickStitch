@@ -1,7 +1,5 @@
 import { apiClient } from '@/api/client';
 
-import { useAuth } from '@/use/auth/Auth.use';
-
 import { paginationMapper } from '@/api/mappers/Pagination.mapper';
 import { patternMapper } from '@/api/mappers/Pattern.mapper';
 import { creatorMapper } from '@/api/mappers/Creator.mapper';
@@ -13,8 +11,6 @@ import type { ICreateCreatorRequest, ICreateCreatorResponse } from '@/api/parts/
 import type { IUpdateCreatorRequest, IUpdateCreatorResponse } from '@/api/parts/creators/types/UpdateCreator.type';
 import type { IGetSelfCreator } from '@/api/parts/creators/types/GetSelfCreator.type';
 import type { IGetCreatorPatternsResponse } from '@/api/parts/creators/types/GetCreatorPatterns.type';
-
-const auth = useAuth();
 
 export const creatorsApi = {
 
