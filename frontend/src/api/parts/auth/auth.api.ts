@@ -1,35 +1,35 @@
 import dayjs from 'dayjs';
 
-import { client } from '@/api/client';
+import { apiClient } from '@/api/client';
 
 import { type IAuth } from '@/use/auth/Auth.use';
-import { ApiErrorMapper } from '@/api/ApiErrorMapper';
 
 import { permissionMapper } from '@/api/mappers/Permission.mapper';
-
-import type { IApiResultResponse } from '@/api/api-models/ApiResponse.type';
 
 import type { ILogInRequest, ILogInResponse } from '@/api/parts/auth/types/LogIn.type';
 
 export const authApi = {
 
     async logIn(request: ILogInRequest): Promise<IAuth | Error> {
-        try {
-            const response = await client.post<IApiResultResponse<ILogInResponse>>('/auth/log_in', request);
+        const response = await apiClient.post<ILogInResponse>({
+            url: '/auth/log_in',
+            body: request,
+            auth: {
+                required: false,
+                use: false,
+            },
+        });
 
-            const result = response.data.result;
+        if (response instanceof Error)
+            return response;
 
-            return {
-                reference: result.reference,
-                loginToken: result.loginToken,
-                email: result.email,
-                permissions: result.permissions.map(permissionMapper.map),
-                loggedInAt: dayjs(response.data.responseAt),
-            };
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        return {
+            reference: response.reference,
+            loginToken: response.loginToken,
+            email: response.email,
+            permissions: response.permissions.map(permissionMapper.map),
+            loggedInAt: dayjs(),
+        };
     },
 
 };
