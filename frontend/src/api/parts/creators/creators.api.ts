@@ -1,13 +1,10 @@
-import { apiClient, client } from '@/api/client';
+import { apiClient } from '@/api/client';
 
 import { useAuth } from '@/use/auth/Auth.use';
-import { ApiErrorMapper } from '@/api/ApiErrorMapper';
 
 import { paginationMapper } from '@/api/mappers/Pagination.mapper';
 import { patternMapper } from '@/api/mappers/Pattern.mapper';
 import { creatorMapper } from '@/api/mappers/Creator.mapper';
-
-import type { IApiResultResponse } from '@/api/api-models/ApiResponse.type';
 
 import type { IGetCreatorPatterns } from '@/models/GetCreatorPatterns.model';
 import type { ICreator } from '@/models/Creator.model';
@@ -38,7 +35,7 @@ export const creatorsApi = {
     },
 
     async updateCreator(creatorReference: string, request: IUpdateCreatorRequest): Promise<ICreator | Error> {
-        const response = await apiClient.put<ICreateCreatorResponse>({
+        const response = await apiClient.put<IUpdateCreatorResponse>({
             url: `/creators/${creatorReference}`,
             body: request,
             auth: {
