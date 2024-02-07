@@ -24,57 +24,51 @@ const auth = useAuth();
 export const patternsApi = {
 
     async get(patternReference: string): Promise<IPattern | Error> {
-        try {
-            const response = await client.get<IApiResultResponse<IGetPatternResponse>>(`/patterns/${patternReference}`, {
-                headers: (auth.details.value === null) ? {} : {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
+        const response = await apiClient.get<IGetPatternResponse>({
+            url: `/patterns/${patternReference}`,
+            auth: {
+                required: false,
+                use: true,
+            },
+        });
 
-            const pattern = response.data.result.pattern;
+        if (response instanceof Error)
+            return response;
 
-            return patternMapper.map(pattern);
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        return patternMapper.map(response.pattern);
     },
 
     async search(): Promise<Array<IPattern> | Error> {
-        try {
-            const response = await client.get<IApiResultResponse<ISearchPatternsResponse>>('/patterns', {
-                headers: (auth.details.value === null) ? {} : {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
+        const response = await apiClient.get<ISearchPatternsResponse>({
+            url: '/patterns',
+            auth: {
+                required: false,
+                use: true,
+            },
+        });
 
-            const patterns = response.data.result.patterns;
+        if (response instanceof Error)
+            return response;
 
-            return patterns.map(patternMapper.map);
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        const patterns = response.patterns;
+
+        return patterns.map(patternMapper.map);
     },
 
     async update(patternReference: string, request: IUpdatePatternRequest): Promise<IPattern | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
+        const response = await apiClient.put<IUpdatePatternResponse>({
+            url: `/patterns/${patternReference}`,
+            body: request,
+            auth: {
+                required: true,
+                use: true,
+            },
+        });
 
-        try {
-            const response = await client.put<IApiResultResponse<IUpdatePatternResponse>>(`/patterns/${patternReference}`, request, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
-
-            const result = response.data.result;
-
-            return patternMapper.map(result.pattern);
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        if (response instanceof Error)
+            return response;
+        
+        return patternMapper.map(response.pattern);
     },
 
     async create(bannerImage: File, patternData: string, request: ICreatePatternRequest): Promise<void | Error> {
@@ -124,25 +118,20 @@ export const patternsApi = {
     },
 
     async delete(patternReference: string): Promise<IDeletePattern | Error> {
-        if (auth.details.value === null)
-            return new Error('You must be logged in for this action.');
+        const response = await apiClient.delete<IDeletePatternResponse>({
+            url: `/patterns/${patternReference}`,
+            auth: {
+                required: true,
+                use: true,
+            },
+        });
 
-        try {
-            const response = await client.delete<IApiResultResponse<IDeletePatternResponse>>(`/patterns/${patternReference}`, {
-                headers: {
-                    'Authorization': `Bearer ${auth.details.value.loginToken}`,
-                },
-            });
+        if (response instanceof Error)
+            return response;
 
-            const result = response.data.result;
-
-            return {
-                message: result.message,
-            };
-        }
-        catch (error) {
-            return ApiErrorMapper.map(error);
-        }
+        return {
+            message: response.message,
+        };
     },
 
     async getInventory(patternReference: string): Promise<IGetPatternInventory | Error> {
