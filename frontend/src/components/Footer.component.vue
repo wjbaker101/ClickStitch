@@ -1,6 +1,6 @@
 <template>
     <footer class="footer-component">
-        <p>
+        <section>
             <div class="flex gap-small">
                 <div class="flex-auto">Links:</div>
                 <div class="flex-auto"><RouterLink class="link-component" to="/dashboard">Dashboard</RouterLink></div>
@@ -14,12 +14,12 @@
                 <div class="flex-auto"><LinkComponent :href="instagramUrl" external>Instagram</LinkComponent></div>
                 <div class="flex-auto"><LinkComponent :href="twitterUrl" external>Twitter</LinkComponent></div>
             </div>
-        </p>
-        <div>
+        </section>
+        <section>
             Copyright &copy; ClickStitch 2023 &ndash; {{ new Date().getFullYear() }},
             <br>
             All rights reserved.
-        </div>
+        </section>
         <div>
             Icons by <LinkComponent href="https://akveo.github.io/eva-icons/#/" external>Eva icons</LinkComponent>, fonts by <LinkComponent href="https://fonts.google.com/" external>Google Fonts</LinkComponent>.
         </div>
