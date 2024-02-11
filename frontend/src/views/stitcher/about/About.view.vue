@@ -12,8 +12,8 @@
                     <p>Start tracking your progress in 3 simple steps:</p>
                     <ol>
                         <li>Upload your pattern</li>
-                        <li>"Complete" stitches as you're stitch</li>
-                        <li>Once finished, check your analytics!</li>
+                        <li>Mark stitches as complete</li>
+                        <li>Check your analytics!</li>
                     </ol>
                     <div class="text-centered">
                         <RouterLink to="/dashboard">
