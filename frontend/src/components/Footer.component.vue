@@ -16,7 +16,7 @@
             </div>
         </p>
         <div>
-            Copyright &copy; ClickStitch 2023<!-- &ndash;{{ new Date().getFullYear() }} -->,
+            Copyright &copy; ClickStitch 2023 &ndash; {{ new Date().getFullYear() }},
             <br>
             All rights reserved.
         </div>
@@ -27,7 +27,9 @@
 </template>
 
 <script setup lang="ts">
-import { instagramUrl, twitterUrl, lemmyUrl } from '@/data/data';
+const instagramUrl = 'https://www.instagram.com/ClickStitchStudio/';
+const twitterUrl = 'https://twitter.com/ClickStitchApp';
+const lemmyUrl = 'https://sh.itjust.works/u/ClickStitch?page=1&sort=New&view=Posts';
 </script>
 
 <style lang="scss">
