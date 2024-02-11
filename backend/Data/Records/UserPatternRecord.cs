@@ -7,7 +7,7 @@ public class UserPatternRecord : IDatabaseRecord
     public virtual long Id { get; init; }
     public virtual required UserRecord User { get; init; }
     public virtual required PatternRecord Pattern { get; init; }
-    public virtual required Guid? Reference { get; init; }
+    public virtual required Guid Reference { get; init; }
     public virtual required DateTime CreatedAt { get; init; }
     public virtual required int? PausePositionX { get; set; }
     public virtual required int? PausePositionY { get; set; }
