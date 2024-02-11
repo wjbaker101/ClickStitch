@@ -85,10 +85,15 @@ public sealed class GivenAnAddProjectRequest
             }
         };
 
+        var guidProvider = new FakeGuidProvider
+        {
+            FakeGuid = Guid.Parse("3c9bd2ca-aefe-4db6-b69c-0448ea3ef827")
+        };
+
         var subject = new ProjectsService(new UserRepository(_database), new UserPatternRepository(_database), new PatternRepository(_database), null!, new FakeDateTimeProvider
         {
             FakeUtcNow = new DateTime(2020, 04, 13, 23, 59, 02)
-        });
+        }, guidProvider);
 
         _result = await subject.AddProject(new TestRequestUser(), Guid.Parse("d662b9c2-19a8-45b5-8587-7b07059a513a"), CancellationToken.None);
     }
@@ -108,6 +113,7 @@ public sealed class GivenAnAddProjectRequest
         {
             Assert.That(project.User, Is.EqualTo(_user));
             Assert.That(project.Pattern, Is.EqualTo(_pattern));
+            Assert.That(project.Reference, Is.EqualTo(Guid.Parse("3c9bd2ca-aefe-4db6-b69c-0448ea3ef827")));
             Assert.That(project.CreatedAt, Is.EqualTo(new DateTime(2020, 04, 13, 23, 59, 02)));
             Assert.That(project.PausePositionX, Is.Null);
             Assert.That(project.PausePositionY, Is.Null);

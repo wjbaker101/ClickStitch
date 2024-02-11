@@ -31,19 +31,22 @@ public sealed class ProjectsService : IProjectsService
     private readonly IPatternRepository _patternRepository;
     private readonly IUserPatternThreadStitchRepository _userPatternThreadStitchRepository;
     private readonly IDateTimeProvider _dateTime;
+    private readonly IGuidProvider _guid;
 
     public ProjectsService(
         IUserRepository userRepository,
         IUserPatternRepository userPatternRepository,
         IPatternRepository patternRepository,
         IUserPatternThreadStitchRepository userPatternThreadStitchRepository,
-        IDateTimeProvider dateTime)
+        IDateTimeProvider dateTime,
+        IGuidProvider guid)
     {
         _userRepository = userRepository;
         _userPatternRepository = userPatternRepository;
         _patternRepository = patternRepository;
         _userPatternThreadStitchRepository = userPatternThreadStitchRepository;
         _dateTime = dateTime;
+        _guid = guid;
     }
 
     public async Task<Result<GetProjectsResponse>> GetProjects(RequestUser requestUser, CancellationToken cancellationToken)
@@ -70,6 +73,7 @@ public sealed class ProjectsService : IProjectsService
         {
             User = user,
             Pattern = pattern,
+            Reference = _guid.NewGuid(),
             CreatedAt = _dateTime.UtcNow(),
             PausePositionX = null,
             PausePositionY = null

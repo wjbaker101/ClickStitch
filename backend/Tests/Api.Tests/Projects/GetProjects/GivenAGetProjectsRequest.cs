@@ -76,6 +76,7 @@ public sealed class GivenAGetProjectsRequest
                             }
                         }
                     },
+                    Reference = default,
                     CreatedAt = new DateTime(2023, 12, 07, 11, 19, 00),
                     PausePositionX = null,
                     PausePositionY = null
@@ -83,7 +84,7 @@ public sealed class GivenAGetProjectsRequest
             }
         };
 
-        var subject = new ProjectsService(new UserRepository(database), new UserPatternRepository(database), null!, null!, null!);
+        var subject = new ProjectsService(new UserRepository(database), new UserPatternRepository(database), null!, null!, null!, null!);
 
         _result = await subject.GetProjects(new TestRequestUser(), CancellationToken.None);
     }

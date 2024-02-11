@@ -194,6 +194,7 @@ public sealed class PatternsService : IPatternsService
             {
                 User = user,
                 Pattern = pattern,
+                Reference = _guid.NewGuid(),
                 CreatedAt = DateTime.UtcNow,
                 PausePositionX = null,
                 PausePositionY = null

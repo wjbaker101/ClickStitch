@@ -76,6 +76,7 @@ public sealed class GivenAGetAnalyticsRequest
                 {
                     User = user,
                     Pattern = pattern,
+                    Reference = default,
                     CreatedAt = default,
                     PausePositionX = null,
                     PausePositionY = null
@@ -95,7 +96,7 @@ public sealed class GivenAGetAnalyticsRequest
             }
         };
 
-        var subject = new ProjectsService(new UserRepository(_database), new UserPatternRepository(_database), new PatternRepository(_database), new UserPatternThreadStitchRepository(_database), null!);
+        var subject = new ProjectsService(new UserRepository(_database), new UserPatternRepository(_database), new PatternRepository(_database), new UserPatternThreadStitchRepository(_database), null!, null!);
 
         _result = await subject.GetAnalytics(new TestRequestUser(), _patternReference, CancellationToken.None);
     }

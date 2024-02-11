@@ -105,6 +105,7 @@ public sealed class GivenAGetPatternsRequestAsALoggedInUser
                 {
                     User = user,
                     Pattern = existingPattern,
+                    Reference = default,
                     CreatedAt = default,
                     PausePositionX = null,
                     PausePositionY = null

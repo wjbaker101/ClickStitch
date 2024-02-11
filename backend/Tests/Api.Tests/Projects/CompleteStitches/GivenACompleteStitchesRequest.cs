@@ -156,7 +156,7 @@ public sealed class GivenACompleteStitchesRequest
             }
         };
 
-        var subject = new ProjectsService(new UserRepository(_database), null!, null!, new UserPatternThreadStitchRepository(_database), null!);
+        var subject = new ProjectsService(new UserRepository(_database), null!, null!, new UserPatternThreadStitchRepository(_database), null!, null!);
 
         _result = await subject.CompleteStitches(new TestRequestUser(), Guid.Parse("d5925542-128c-40b4-86a1-b8dcddc848f7"), request, CancellationToken.None);
     }

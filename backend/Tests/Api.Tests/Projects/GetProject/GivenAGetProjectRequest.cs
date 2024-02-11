@@ -95,6 +95,7 @@ public sealed class GivenAGetProjectRequest
             Id = 0,
             User = user,
             Pattern = pattern,
+            Reference = default,
             CreatedAt = default,
             PausePositionX = null,
             PausePositionY = null
@@ -113,7 +114,7 @@ public sealed class GivenAGetProjectRequest
             }
         };
 
-        var subject = new ProjectsService(new UserRepository(database), new UserPatternRepository(database), new PatternRepository(database), new UserPatternThreadStitchRepository(database), null!);
+        var subject = new ProjectsService(new UserRepository(database), new UserPatternRepository(database), new PatternRepository(database), new UserPatternThreadStitchRepository(database), null!, null!);
 
         _result = await subject.GetProject(new TestRequestUser(), Guid.Parse("37a2c8a9-a30e-4e77-8abd-e2df81b62792"), CancellationToken.None);
     }

@@ -62,6 +62,7 @@ public sealed class GivenADeletePatternRequestThatHasBeenAddedAsAProject
                     Id = 0,
                     User = null!,
                     Pattern = pattern,
+                    Reference = default,
                     CreatedAt = default,
                     PausePositionX = null,
                     PausePositionY = null

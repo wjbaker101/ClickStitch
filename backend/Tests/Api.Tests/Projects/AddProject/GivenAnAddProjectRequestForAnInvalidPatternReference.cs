@@ -74,7 +74,7 @@ public sealed class GivenAnAddProjectRequestForAnInvalidPatternReference
             }
         };
 
-        var subject = new ProjectsService(new UserRepository(_database), new UserPatternRepository(_database), new PatternRepository(_database), null!, null!);
+        var subject = new ProjectsService(new UserRepository(_database), new UserPatternRepository(_database), new PatternRepository(_database), null!, null!, null!);
 
         _result = await subject.AddProject(new TestRequestUser(), Guid.Parse("e27c961c-ca2d-4aff-abfe-f61935735c9d"), CancellationToken.None);
     }

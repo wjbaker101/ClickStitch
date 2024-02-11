@@ -27,7 +27,7 @@ public sealed class GivenAnUnCompleteStitchesRequestWithTooManyStitches
             }
         };
 
-        var subject = new ProjectsService(null!, null!, null!, null!, null!);
+        var subject = new ProjectsService(null!, null!, null!, null!, null!, null!);
 
         _result = await subject.UnCompleteStitches(new TestRequestUser(), Guid.Parse("d5925542-128c-40b4-86a1-b8dcddc848f7"), request, CancellationToken.None);
     }

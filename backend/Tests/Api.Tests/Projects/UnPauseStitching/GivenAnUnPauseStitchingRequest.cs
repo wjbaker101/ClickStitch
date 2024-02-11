@@ -65,6 +65,7 @@ public sealed class GivenAnUnPauseStitchingRequest
                 {
                     User = user,
                     Pattern = pattern,
+                    Reference = default,
                     CreatedAt = default,
                     PausePositionX = null,
                     PausePositionY = null
@@ -72,7 +73,7 @@ public sealed class GivenAnUnPauseStitchingRequest
             }
         };
 
-        var subject = new ProjectsService(new UserRepository(_database), new UserPatternRepository(_database), new PatternRepository(_database), null!, null!);
+        var subject = new ProjectsService(new UserRepository(_database), new UserPatternRepository(_database), new PatternRepository(_database), null!, null!, null!);
 
         _result = await subject.UnPauseStitching(new TestRequestUser(), _patternReference, CancellationToken.None);
     }
