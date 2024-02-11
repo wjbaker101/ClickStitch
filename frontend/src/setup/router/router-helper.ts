@@ -3,18 +3,18 @@ import { useAuth } from '@/use/auth/Auth.use';
 
 const auth = useAuth();
 
-export type Subdomain = 'creator' | 'admin';
+const getSubdomain = function (hostName: string): Subdomain | null {
+    const split = hostName.split('.');
 
-export const subdomain = (() => {
-    const split = window.location.host.split('.');
-    if (split.length < 3)
+    if (split[0] === 'localhost' || split[0] === 'clickstitch')
         return null;
 
-    split.pop();
-    split.pop();
+    return split[0] as Subdomain;
+};
 
-    return split.join('.') as Subdomain;
-})();
+export type Subdomain = 'creator' | 'admin';
+
+export const subdomain = getSubdomain(window.location.hostname);
 
 export const requireAuth: NavigationGuardWithThis<void> = function (to, from, next): void {
     if (auth.details.value === null) {
