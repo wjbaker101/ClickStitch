@@ -79,7 +79,7 @@ import { onMounted, ref } from 'vue';
 import UserMessageComponent from '@/components/UserMessage.component.vue';
 
 import { api } from '@/api/api';
-import { calculateFabricSize, calculateSkeins, type IFabricSize } from '@/helper/stitch.helper';
+import { calculateFabricSize, type IFabricSize } from '@/helper/stitch.helper';
 import { formatNumber } from '@/helper/helper';
 import { useModal } from '@wjb/vue/use/modal.use';
 

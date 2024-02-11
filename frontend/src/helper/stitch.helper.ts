@@ -1,22 +1,3 @@
-type AidaCount = number;
-type NumberOfThreads = number;
-type NumberOfStitches = number;
-
-const skeinTable: Record<AidaCount, Record<NumberOfThreads, NumberOfStitches>> = {
-    14: {
-        2: 1785,
-    },
-    16: {
-        2: 2040,
-    },
-};
-
-export const calculateSkeins = function (aidaCount: number, stitchCount: number, threadCount: number = 2): number {
-    const stitchesPerSkein = skeinTable[aidaCount][threadCount] as number;
-
-    return Math.ceil(stitchCount / stitchesPerSkein);
-};
-
 export interface IFabricSize {
     in: ISize;
     cm: ISize;
