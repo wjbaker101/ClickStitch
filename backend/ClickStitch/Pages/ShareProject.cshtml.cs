@@ -41,9 +41,9 @@ public sealed class ShareProjectModel : PageModel
         var maxStitches = pattern.StitchCount;
         var completedStitchCount = completedStitches.Values.SelectMany(x => x.Values).Count();
 
-        var baseDomain = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
+        var baseDomain = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.Value}";
 
         PercentageCompleted = (float)completedStitchCount / maxStitches * 100;
         ImageUrl = $"{baseDomain}/share/projects/{project.Reference}";
     }
-}
+}   
