@@ -42,6 +42,6 @@ public sealed class ShareProjectModel : PageModel
         var completedStitchCount = completedStitches.Values.SelectMany(x => x.Values).Count();
 
         PercentageCompleted = (float)completedStitchCount / maxStitches * 100;
-        ImageUrl = $"https://clickstitch.app/share/projects/{project.Reference}";
+        ImageUrl = pattern.BannerImageUrl;
     }
 }   
