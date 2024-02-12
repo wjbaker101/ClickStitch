@@ -23,12 +23,14 @@ services.AddMiddleware();
 services.AddDependencies();
 services.AddControllers();
 services.AddFrontend();
+services.AddRazorPages();
 
 var app = builder.Build();
 
 app.UseMiddleware();
 app.UseAuthorization();
 app.MapControllers();
+app.MapRazorPages();
 app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseFrontend();
