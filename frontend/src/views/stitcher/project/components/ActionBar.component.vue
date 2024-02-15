@@ -39,15 +39,11 @@ const modal = useModal();
 const hoveredStitch = sharedStitch.hoveredStitch;
 
 const percentage = computed<number>(() => {
-    if (props.project === null)
-        return 0;
-
     const complete = props.project.threads.reduce((total, x) => total + x.completedStitches.length, 0);
     const incomplete = props.project.threads.reduce((total, x) => total + x.stitches.length, 0);
 
-    return complete / incomplete * 100;
+    return complete / (complete + incomplete) * 100;
 });
-
 
 const thread = computed<IPatternThread | null>(() => {
     if (hoveredStitch.value === null)
