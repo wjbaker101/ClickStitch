@@ -14,7 +14,7 @@
             </div>
             <div></div>
             <div class="flex-auto">
-                {{ thread.completedStitches.length }} <small>/ {{ thread.stitches.length }}</small>
+                {{ thread.completedStitches.length }} <small>/ {{ thread.stitches.length + thread.completedStitches.length }}</small>
             </div>
         </div>
         <template #expanded>
