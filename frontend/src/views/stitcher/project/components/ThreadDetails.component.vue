@@ -14,7 +14,7 @@
             </div>
             <div></div>
             <div class="flex-auto">
-                {{ thread.completedStitches.length }} <small>/ {{ thread.stitches.length + thread.completedStitches.length }}</small>
+                {{ thread.completedStitches.length }} <small>/ {{ totalStitches }}</small>
             </div>
         </div>
         <template #expanded>
@@ -94,6 +94,8 @@ const shouldHighlightThread = computed<boolean>({
     },
 });
 
+const totalStitches = computed<number>(() => props.thread.stitches.length + props.thread.completedStitches.length);
+
 const threadStyle = function (thread: IPatternThread): StyleValue {
     return {
         backgroundColor: thread.colour,
@@ -102,7 +104,7 @@ const threadStyle = function (thread: IPatternThread): StyleValue {
 };
 
 const getPercentage = function (thread: IThreadDetails): string {
-    return (thread.completedStitches.length / thread.stitches.length * 100).toFixed(1);
+    return (thread.completedStitches.length / totalStitches.value * 100).toFixed(1);
 };
 
 const onJumpToStitch = function (): void {
