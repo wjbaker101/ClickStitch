@@ -4,6 +4,7 @@ import { creatorsApi } from '@/api/parts/creators/creators.api';
 import { inventoryApi } from '@/api/parts/inventory/inventory.api';
 import { patternsApi } from '@/api/parts/patterns/patterns.api';
 import { projectsApi } from '@/api/parts/projects/projects.api';
+import { threadsApi } from '@/api/parts/threads/threads.api';
 import { usersApi } from '@/api/parts/users/users.api';
 
 export const api = {
@@ -14,6 +15,7 @@ export const api = {
     inventory: inventoryApi,
     patterns: patternsApi,
     projects: projectsApi,
+    threads: threadsApi,
     users: usersApi,
 
 };
