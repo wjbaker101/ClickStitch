@@ -13,7 +13,7 @@ export const threadsApi = {
 
     async getByColour(request: IGetThreadsByColourRequest): Promise<Array<IThread> | Error> {
         const response = await apiClient.post<IGetThreadsByColourResponse>({
-            url: '/users/self',
+            url: '/threads/by-colour',
             body: request,
             auth: {
                 required: true,
