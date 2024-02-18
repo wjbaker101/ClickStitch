@@ -7,6 +7,7 @@ using ClickStitch.Api.Patterns.Parsing;
 using ClickStitch.Api.Patterns.Services;
 using ClickStitch.Api.Projects;
 using ClickStitch.Api.Share;
+using ClickStitch.Api.Threads.Services;
 using ClickStitch.Api.Users;
 using ClickStitch.Clients.Cloudinary;
 using Data;
@@ -68,6 +69,8 @@ public static class SetupDependencies
         services.AddSingleton<IProjectsService, ProjectsService>();
 
         services.AddSingleton<IShareService, ShareService>();
+
+        services.AddSingleton<IGetThreadsByColourService, GetThreadsByColourService>();
 
         services.AddSingleton<IUsersService, UsersService>();
     }
