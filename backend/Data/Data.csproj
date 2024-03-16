@@ -10,7 +10,7 @@
 		<PackageReference Include="DotNetLibs.Core" Version="231213.2222.0" />
 		<PackageReference Include="FluentNHibernate" Version="3.3.0" />
 		<PackageReference Include="NHibernate" Version="5.5.0" />
-		<PackageReference Include="Npgsql" Version="8.0.1" />
+		<PackageReference Include="Npgsql" Version="8.0.2" />
 	</ItemGroup>
 
 	<ItemGroup>
