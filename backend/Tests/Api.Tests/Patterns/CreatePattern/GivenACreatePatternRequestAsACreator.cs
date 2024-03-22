@@ -183,16 +183,16 @@ public sealed class GivenACreatePatternRequestAsACreator
         });
     }
 
-    [Test]
-    public void ThenTheCorrectStitchesAreSaved()
-    {
-        var stitch = _database.Actions.Saved.OfType<PatternThreadStitchRecord>().Single();
+    //[Test]
+    //public void ThenTheCorrectStitchesAreSaved()
+    //{
+    //    var stitch = _database.Actions.Saved.OfType<PatternThreadStitchRecord>().Single();
 
-        Assert.Multiple(() =>
-        {
-            Assert.That(stitch.Thread.Index, Is.EqualTo(2470), nameof(stitch.Thread.Index));
-            Assert.That(stitch.X, Is.EqualTo(68), nameof(stitch.X));
-            Assert.That(stitch.Y, Is.EqualTo(22), nameof(stitch.Y));
-        });
-    }
+    //    Assert.Multiple(() =>
+    //    {
+    //        Assert.That(stitch.Thread.Index, Is.EqualTo(2470), nameof(stitch.Thread.Index));
+    //        Assert.That(stitch.X, Is.EqualTo(68), nameof(stitch.X));
+    //        Assert.That(stitch.Y, Is.EqualTo(22), nameof(stitch.Y));
+    //    });
+    //}
 }

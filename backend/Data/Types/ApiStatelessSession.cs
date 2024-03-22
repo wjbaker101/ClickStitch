@@ -9,6 +9,7 @@ public interface IApiStatelessSession : IDisposable
     Task<TRecord> Insert<TRecord>(TRecord record, CancellationToken cancellationToken) where TRecord : IDatabaseRecord;
     Task<TRecord> Update<TRecord>(TRecord record, CancellationToken cancellationToken) where TRecord : IDatabaseRecord;
     Task Delete<TRecord>(TRecord record, CancellationToken cancellationToken) where TRecord : IDatabaseRecord;
+    ISQLQuery CreateSqlQuery(string sql);
 }
 
 public sealed class ApiStatelessSession : IApiStatelessSession
@@ -51,6 +52,11 @@ public sealed class ApiStatelessSession : IApiStatelessSession
     public async Task Delete<TRecord>(TRecord record, CancellationToken cancellationToken) where TRecord : IDatabaseRecord
     {
         await _session.DeleteAsync(record, cancellationToken);
+    }
+
+    public ISQLQuery CreateSqlQuery(string sql)
+    {
+        return _session.CreateSQLQuery(sql);
     }
 
     public void Dispose()

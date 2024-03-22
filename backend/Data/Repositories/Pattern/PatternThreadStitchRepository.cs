@@ -15,11 +15,15 @@ public sealed class PatternThreadStitchRepository : Repository<PatternThreadStit
 
     public async Task SaveAll(List<PatternThreadStitchRecord> stitches, CancellationToken cancellationToken)
     {
+        var inserts = string.Join(',', stitches.ConvertAll(x => $"({x.Thread.Id},{x.X},{x.Y},'{x.LookupHash}')"));
+        var sql = $"insert into clickstitch.pattern_thread_stitch (pattern_thread_id,x,y,lookup_hash) values {inserts};";
+
         using var session = Database.OpenStatelessSession();
         using var transaction = await session.BeginTransaction(cancellationToken);
 
-        foreach (var stitch in stitches)
-            await session.Insert(stitch, cancellationToken);
+        await session
+            .CreateSqlQuery(sql)
+            .ExecuteUpdateAsync(cancellationToken);
 
         await transaction.Commit(cancellationToken);
     }

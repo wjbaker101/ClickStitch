@@ -1,4 +1,5 @@
 ﻿using Data.Types;
+using NHibernate;
 
 namespace TestHelpers.Data;
 
@@ -43,6 +44,11 @@ public sealed class TestApiStatelessSession : IApiStatelessSession
         _actions.OnDelete(record);
 
         return Task.FromResult(record);
+    }
+
+    public ISQLQuery CreateSqlQuery(string sql)
+    {
+        return new TestSqlQuery(sql);
     }
 
     public void Dispose()

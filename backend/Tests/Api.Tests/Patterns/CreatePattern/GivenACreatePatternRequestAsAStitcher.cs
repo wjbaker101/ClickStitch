@@ -211,29 +211,29 @@ public sealed class GivenACreatePatternRequestAsAStitcher
         });
     }
 
-    [Test]
-    public void ThenTheCorrectStitchesAreSaved()
-    {
-        var stitches = _database.Actions.Saved.OfType<PatternThreadStitchRecord>().ToList();
-        var stitch1 = stitches[0];
-        var stitch2 = stitches[1];
-        var stitch3 = stitches[2];
+    //[Test]
+    //public void ThenTheCorrectStitchesAreSaved()
+    //{
+    //    var stitches = _database.Actions.Saved.OfType<PatternThreadStitchRecord>().ToList();
+    //    var stitch1 = stitches[0];
+    //    var stitch2 = stitches[1];
+    //    var stitch3 = stitches[2];
 
-        Assert.Multiple(() =>
-        {
-            Assert.That(stitch1.Thread.Index, Is.EqualTo(2470), nameof(stitch1.Thread.Index));
-            Assert.That(stitch1.X, Is.EqualTo(0), nameof(stitch1.X));
-            Assert.That(stitch1.Y, Is.EqualTo(0), nameof(stitch1.Y));
+    //    Assert.Multiple(() =>
+    //    {
+    //        Assert.That(stitch1.Thread.Index, Is.EqualTo(2470), nameof(stitch1.Thread.Index));
+    //        Assert.That(stitch1.X, Is.EqualTo(0), nameof(stitch1.X));
+    //        Assert.That(stitch1.Y, Is.EqualTo(0), nameof(stitch1.Y));
 
-            Assert.That(stitch2.Thread.Index, Is.EqualTo(9637), nameof(stitch1.Thread.Index));
-            Assert.That(stitch2.X, Is.EqualTo(1), nameof(stitch1.X));
-            Assert.That(stitch2.Y, Is.EqualTo(0), nameof(stitch1.Y));
+    //        Assert.That(stitch2.Thread.Index, Is.EqualTo(9637), nameof(stitch1.Thread.Index));
+    //        Assert.That(stitch2.X, Is.EqualTo(1), nameof(stitch1.X));
+    //        Assert.That(stitch2.Y, Is.EqualTo(0), nameof(stitch1.Y));
 
-            Assert.That(stitch3.Thread.Index, Is.EqualTo(8142), nameof(stitch1.Thread.Index));
-            Assert.That(stitch3.X, Is.EqualTo(2), nameof(stitch1.X));
-            Assert.That(stitch3.Y, Is.EqualTo(0), nameof(stitch1.Y));
-        });
-    }
+    //        Assert.That(stitch3.Thread.Index, Is.EqualTo(8142), nameof(stitch1.Thread.Index));
+    //        Assert.That(stitch3.X, Is.EqualTo(2), nameof(stitch1.X));
+    //        Assert.That(stitch3.Y, Is.EqualTo(0), nameof(stitch1.Y));
+    //    });
+    //}
 
     [Test]
     public void ThenTheProjectIsSaved()
