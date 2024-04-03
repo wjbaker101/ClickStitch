@@ -1,9 +1,7 @@
 ﻿using ClickStitch.Middleware.Authentication;
 using DotNetLibs.Api.Types;
 using Inkwell.Client;
-using Inkwell.Client.Models;
 using Inkwell.Client.Types;
-using Newtonsoft.Json;
 using System.Net;
 
 namespace ClickStitch.Middleware.ExceptionHandling;
@@ -25,23 +23,16 @@ public sealed class ExceptionHandlingMiddleware : IMiddleware
         }
         catch (Exception exception)
         {
-            try
+            await _inkwell.Log(new CreateLogRequest
             {
-                await _inkwell.Log(new CreateLogRequest
+                LogLevel = InkwellLogLevel.Error,
+                Message = exception.Message,
+                StackTrace = exception.ToString(),
+                JsonData = new
                 {
-                    LogLevel = InkwellLogLevel.Error,
-                    Message = exception.Message,
-                    StackTrace = exception.ToString(),
-                    JsonData = JsonConvert.SerializeObject(new
-                    {
-                        User = RequestHelper.GetOptionalUser(context.Request)
-                    })
-                }, CancellationToken.None);
-            }
-            catch
-            {
-                // ignored
-            }
+                    User = RequestHelper.GetOptionalUser(context.Request)
+                }
+            });
 
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             await context.Response.WriteAsJsonAsync(new ApiErrorResponse("Apologies, something went wrong. Please refresh and try again later."));
