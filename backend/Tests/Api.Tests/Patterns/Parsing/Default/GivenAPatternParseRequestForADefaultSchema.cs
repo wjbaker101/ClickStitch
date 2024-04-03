@@ -13,7 +13,7 @@ public sealed class GivenAPatternParseRequestForADefaultSchema
     [OneTimeSetUp]
     public void Setup()
     {
-        var subject = new PatternParserService();
+        var subject = new PatternParserService(new FakeInkwellClient());
 
         _result = subject.Parse(new ParsePatternParameters
         {
