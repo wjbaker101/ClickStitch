@@ -1,7 +1,9 @@
-﻿using DotNetLibs.Api.Types;
+﻿using ClickStitch.Middleware.Authentication;
+using DotNetLibs.Api.Types;
 using Inkwell.Client;
 using Inkwell.Client.Models;
 using Inkwell.Client.Types;
+using Newtonsoft.Json;
 using System.Net;
 
 namespace ClickStitch.Middleware.ExceptionHandling;
@@ -30,7 +32,10 @@ public sealed class ExceptionHandlingMiddleware : IMiddleware
                     LogLevel = InkwellLogLevel.Error,
                     Message = exception.Message,
                     StackTrace = exception.ToString(),
-                    JsonData = null
+                    JsonData = JsonConvert.SerializeObject(new
+                    {
+                        User = RequestHelper.GetOptionalUser(context.Request)
+                    })
                 }, CancellationToken.None);
             }
             catch
