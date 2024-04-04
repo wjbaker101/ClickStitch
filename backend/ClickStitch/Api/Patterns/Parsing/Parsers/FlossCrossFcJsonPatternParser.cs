@@ -22,6 +22,7 @@ public sealed class FlossCrossFcJsonPatternParser : IPatternParser
             public required int width { get; init; }
             public required int height { get; init; }
             public required List<FlossIndex> flossIndexes { get; init; }
+            public required List<CrossIndex> crossIndexes { get; init; }
             public required List<Layer> layers { get; init; }
         }
 
@@ -33,8 +34,13 @@ public sealed class FlossCrossFcJsonPatternParser : IPatternParser
             public required string sys { get; init; }
         }
 
-        public sealed class Layer
+        public sealed class CrossIndex
         {
+            public required int fi { get; init; }
+        }
+
+        public sealed class Layer
+        {   
             public required List<int> cross { get; init; }
         }
     }
@@ -49,6 +55,10 @@ public sealed class FlossCrossFcJsonPatternParser : IPatternParser
 
         var image = data.model.images[0];
         var layer = image.layers[0];
+
+        var threadIndexMapping = image.crossIndexes
+            .Select((value, index) => new { value, index })
+            .ToDictionary(x => x.value.fi, x => x.index);
 
         var stitches = new List<ParsePatternResponse.StitchDetails>();
         var posX = 0;
@@ -80,10 +90,10 @@ public sealed class FlossCrossFcJsonPatternParser : IPatternParser
             {
                 Width = image.width,
                 Height = image.height,
-                ThreadCount = image.flossIndexes.Count,
+                ThreadCount = threadIndexMapping.Count,
                 StitchCount = layer.cross.Count
             },
-            Threads = image.flossIndexes.MapAll((x, index) => new ParsePatternResponse.ThreadDetails
+            Threads = threadIndexMapping.Select(x => image.flossIndexes[x.Key]).MapAll((x, index) => new ParsePatternResponse.ThreadDetails
             {
                 Name = $"{x.sys} {x.id}",
                 Description = x.name,
