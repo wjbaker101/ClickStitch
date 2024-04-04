@@ -54,32 +54,24 @@ public sealed class FlossCrossFcJsonPatternParser : IPatternParser
         var posX = 0;
         var posY = 0;
 
-        void IncrementPosition()
+        foreach (var threadIndex in layer.cross)
         {
+            if (threadIndex != -1)
+            {
+                stitches.Add(new ParsePatternResponse.StitchDetails
+                {
+                    ThreadIndex = threadIndex,
+                    X = posX,
+                    Y = posY
+                });
+            }
+
             posX++;
             if (posX % image.width == 0)
             {
                 posY++;
                 posX = 0;
             }
-        }
-
-        foreach (var threadIndex in layer.cross)
-        {
-            if (threadIndex == -1)
-            {
-                IncrementPosition();
-                continue;
-            }
-
-            stitches.Add(new ParsePatternResponse.StitchDetails
-            {
-                ThreadIndex = threadIndex,
-                X = posX,
-                Y = posY
-            });
-
-            IncrementPosition();
         }
 
         return new ParsePatternResponse
