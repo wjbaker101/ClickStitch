@@ -1,4 +1,5 @@
-﻿using ClickStitch.Api.Projects.GetProjects;
+﻿using ClickStitch.Api.Projects.AddProject;
+using ClickStitch.Api.Projects.GetProjects;
 using ClickStitch.Api.Projects.Types;
 using ClickStitch.Middleware.Authentication;
 using DotNetLibs.Api.Types;
@@ -11,11 +12,25 @@ public sealed class ProjectsController : ApiController
 {
     private readonly IProjectsService _projectsService;
     private readonly IGetProjectsService _getProjectsService;
+    private readonly IAddProjectService _addProjectService;
 
-    public ProjectsController(IProjectsService projectsService, IGetProjectsService getProjectsService)
+    public ProjectsController(IProjectsService projectsService, IGetProjectsService getProjectsService, IAddProjectService addProjectService)
     {
         _projectsService = projectsService;
         _getProjectsService = getProjectsService;
+        _addProjectService = addProjectService;
+    }
+
+    [HttpPost]
+    [Route("{patternReference:guid}")]
+    [Authenticate]
+    public async Task<IActionResult> AddProject([FromRoute] Guid patternReference, CancellationToken cancellationToken)
+    {
+        var user = RequestHelper.GetRequiredUser(Request);
+
+        var result = await _addProjectService.AddProject(user, patternReference, cancellationToken);
+
+        return ToApiResponse(result);
     }
 
     [HttpGet]
@@ -26,18 +41,6 @@ public sealed class ProjectsController : ApiController
         var user = RequestHelper.GetRequiredUser(Request);
 
         var result = await _getProjectsService.GetProjects(user, cancellationToken);
-
-        return ToApiResponse(result);
-    }
-
-    [HttpPost]
-    [Route("{patternReference:guid}")]
-    [Authenticate]
-    public async Task<IActionResult> AddProject([FromRoute] Guid patternReference, CancellationToken cancellationToken)
-    {
-        var user = RequestHelper.GetRequiredUser(Request);
-
-        var result = await _projectsService.AddProject(user, patternReference, cancellationToken);
 
         return ToApiResponse(result);
     }

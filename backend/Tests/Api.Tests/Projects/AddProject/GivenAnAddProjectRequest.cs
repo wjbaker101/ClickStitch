@@ -1,4 +1,4 @@
-﻿using ClickStitch.Api.Projects;
+﻿using ClickStitch.Api.Projects.AddProject;
 using ClickStitch.Api.Projects.Types;
 using Data.Records;
 using Data.Repositories.Pattern;
@@ -90,7 +90,7 @@ public sealed class GivenAnAddProjectRequest
             FakeGuid = Guid.Parse("3c9bd2ca-aefe-4db6-b69c-0448ea3ef827")
         };
 
-        var subject = new ProjectsService(new UserRepository(_database), new UserPatternRepository(_database), new PatternRepository(_database), null!, new FakeDateTimeProvider
+        var subject = new AddProjectService(new UserRepository(_database), new UserPatternRepository(_database), new PatternRepository(_database), new FakeDateTimeProvider
         {
             FakeUtcNow = new DateTime(2020, 04, 13, 23, 59, 02)
         }, guidProvider);
