@@ -1,5 +1,5 @@
-﻿using ClickStitch.Api.Inventory;
-using ClickStitch.Api.Inventory.Types;
+﻿using ClickStitch.Api.Inventory.UpdateThread;
+using ClickStitch.Api.Inventory.UpdateThread.Types;
 using Data.Records;
 using Data.Repositories.Thread;
 using Data.Repositories.User;
@@ -67,7 +67,7 @@ public sealed class GivenAnUpdateThreadRequestForAnExistingUserThread
             Count = 719
         };
 
-        var subject = new InventoryService(new ThreadRepository(_database), new UserRepository(_database), new UserThreadRepository(_database));
+        var subject = new UpdateThreadService(new ThreadRepository(_database), new UserRepository(_database), new UserThreadRepository(_database));
 
         _result = await subject.UpdateThread(new TestRequestUser(), _threadReference, request, CancellationToken.None);
     }

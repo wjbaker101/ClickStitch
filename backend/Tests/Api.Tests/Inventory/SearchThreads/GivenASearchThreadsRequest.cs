@@ -1,6 +1,6 @@
 ﻿using Api.Tests.Inventory.SearchThreads._Helper;
-using ClickStitch.Api.Inventory;
-using ClickStitch.Api.Inventory.Types;
+using ClickStitch.Api.Inventory.SearchThreads;
+using ClickStitch.Api.Inventory.SearchThreads.Types;
 using Data.Records;
 using Data.Repositories.User;
 using Data.Repositories.UserThread;
@@ -44,7 +44,7 @@ public sealed class GivenASearchThreadsRequest
             Brand = null
         };
 
-        var subject = new InventoryService(null!, new UserRepository(database), new UserThreadRepository(database));
+        var subject = new SearchThreadsService(null!, new UserRepository(database), new UserThreadRepository(database));
 
         _result = await subject.SearchThreads(new TestRequestUser(), parameters, CancellationToken.None);
     }

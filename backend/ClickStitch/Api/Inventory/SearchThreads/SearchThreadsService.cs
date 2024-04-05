@@ -1,4 +1,4 @@
-﻿using ClickStitch.Api.Inventory.Types;
+﻿using ClickStitch.Api.Inventory.SearchThreads.Types;
 using Data.Records;
 using Data.Repositories.Thread;
 using Data.Repositories.User;
@@ -6,21 +6,20 @@ using Data.Repositories.UserThread;
 using Data.Repositories.UserThread.Types;
 using DotNetLibs.Core.Extensions;
 
-namespace ClickStitch.Api.Inventory;
+namespace ClickStitch.Api.Inventory.SearchThreads;
 
-public interface IInventoryService
+public interface ISearchThreadsService
 {
     Task<Result<SearchThreadsResponse>> SearchThreads(RequestUser requestUser, SearchThreadsParameters parameters, CancellationToken cancellationToken);
-    Task<Result<UpdateThreadResponse>> UpdateThread(RequestUser requestUser, Guid threadReference, UpdateThreadRequest request, CancellationToken cancellationToken);
 }
 
-public sealed class InventoryService : IInventoryService
+public sealed class SearchThreadsService : ISearchThreadsService
 {
     private readonly IThreadRepository _threadRepository;
     private readonly IUserRepository _userRepository;
     private readonly IUserThreadRepository _userThreadRepository;
 
-    public InventoryService(IThreadRepository threadRepository, IUserRepository userRepository, IUserThreadRepository userThreadRepository)
+    public SearchThreadsService(IThreadRepository threadRepository, IUserRepository userRepository, IUserThreadRepository userThreadRepository)
     {
         _threadRepository = threadRepository;
         _userRepository = userRepository;
@@ -58,40 +57,5 @@ public sealed class InventoryService : IInventoryService
             }),
             AvailableThreads = threads.Where(x => !userThreadLookup.Contains(x.Id)).MapAll(ThreadMapper.Map)
         };
-    }
-
-    public async Task<Result<UpdateThreadResponse>> UpdateThread(RequestUser requestUser, Guid threadReference, UpdateThreadRequest request, CancellationToken cancellationToken)
-    {
-        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
-
-        var threadResult = await _threadRepository.GetByReference(threadReference, cancellationToken);
-        if (threadResult.IsFailure)
-            return Result<UpdateThreadResponse>.FromFailure(threadResult);
-
-        var userThreadResult = await _userThreadRepository.GetByUserAndThread(user, threadResult.Content, cancellationToken);
-        if (userThreadResult.TrySuccess(out var userThread))
-        {
-            if (request.Count == 0)
-            {
-                await _userThreadRepository.DeleteAsync(userThread, cancellationToken);
-
-                return new UpdateThreadResponse();
-            }
-
-            userThread.Count = request.Count;
-
-            await _userThreadRepository.UpdateAsync(userThread, cancellationToken);
-        }
-        else
-        {
-            await _userThreadRepository.SaveAsync(new UserThreadRecord
-            {
-                User = user,
-                Thread = threadResult.Content,
-                Count = request.Count
-            }, cancellationToken);
-        }
-
-        return new UpdateThreadResponse();
     }
 }

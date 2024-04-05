@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Inventory.Types;
+﻿namespace ClickStitch.Api.Inventory.UpdateThread.Types;
 
 public sealed class UpdateThreadRequest
 {

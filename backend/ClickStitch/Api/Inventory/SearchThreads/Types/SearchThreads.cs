@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Inventory.Types;
+﻿namespace ClickStitch.Api.Inventory.SearchThreads.Types;
 
 public sealed class SearchThreadsParameters
 {
