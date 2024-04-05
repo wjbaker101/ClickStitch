@@ -7,7 +7,7 @@ using ClickStitch.Api.Patterns.Parsing;
 using ClickStitch.Api.Patterns.Services;
 using ClickStitch.Api.Projects;
 using ClickStitch.Api.Share;
-using ClickStitch.Api.Threads.Services;
+using ClickStitch.Api.Threads.GetThreadsByColour;
 using ClickStitch.Api.Users.CreateUser;
 using ClickStitch.Api.Users.DeleteUser;
 using ClickStitch.Api.Users.GetSelf;

@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Threads.Types;
+﻿namespace ClickStitch.Api.Threads.GetThreadsByColour.Types;
 
 public sealed class GetThreadsByColourRequest
 {

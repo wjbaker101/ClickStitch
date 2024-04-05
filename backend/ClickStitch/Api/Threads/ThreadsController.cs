@@ -1,5 +1,5 @@
-﻿using ClickStitch.Api.Threads.Services;
-using ClickStitch.Api.Threads.Types;
+﻿using ClickStitch.Api.Threads.GetThreadsByColour;
+using ClickStitch.Api.Threads.GetThreadsByColour.Types;
 using DotNetLibs.Api.Types;
 using Microsoft.AspNetCore.Mvc;
 

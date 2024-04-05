@@ -1,8 +1,8 @@
-﻿using ClickStitch.Api.Threads.Types;
+﻿using ClickStitch.Api.Threads.GetThreadsByColour.Types;
 using Data.Repositories.Thread;
 using Data.Repositories.Thread.Types;
 
-namespace ClickStitch.Api.Threads.Services;
+namespace ClickStitch.Api.Threads.GetThreadsByColour;
 
 public interface IGetThreadsByColourService
 {
@@ -32,7 +32,7 @@ public sealed class GetThreadsByColourService : IGetThreadsByColourService
 
             var r = (asInt & 0xff0000) >> 16;
             var g = (asInt & 0xff00) >> 8;
-            var b = (asInt & 0xff);
+            var b = asInt & 0xff;
 
             return new Rgb(r, g, b);
         });
