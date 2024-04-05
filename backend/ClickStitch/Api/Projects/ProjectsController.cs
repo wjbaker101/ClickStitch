@@ -5,6 +5,7 @@ using ClickStitch.Api.Projects.GetProjects;
 using ClickStitch.Api.Projects.PauseStitching;
 using ClickStitch.Api.Projects.Types;
 using ClickStitch.Api.Projects.UnCompleteStitches;
+using ClickStitch.Api.Projects.UnPauseStitching;
 using ClickStitch.Middleware.Authentication;
 using DotNetLibs.Api.Types;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,7 @@ public sealed class ProjectsController : ApiController
     private readonly IGetProjectsService _getProjectsService;
     private readonly IPauseStitchingService _pauseStitchingService;
     private readonly IUnCompleteStitchesService _unCompleteStitchesService;
+    private readonly IUnPauseStitchingService _unPauseStitchingService;
 
     public ProjectsController(
         IProjectsService projectsService,
@@ -29,12 +31,14 @@ public sealed class ProjectsController : ApiController
         IGetProjectService getProjectService,
         IGetProjectsService getProjectsService,
         IPauseStitchingService pauseStitchingService,
-        IUnCompleteStitchesService unCompleteStitchesService)
+        IUnCompleteStitchesService unCompleteStitchesService,
+        IUnPauseStitchingService unPauseStitchingService)
     {
         _projectsService = projectsService;
         _getProjectsService = getProjectsService;
         _pauseStitchingService = pauseStitchingService;
         _unCompleteStitchesService = unCompleteStitchesService;
+        _unPauseStitchingService = unPauseStitchingService;
         _addProjectService = addProjectService;
         _completeStitchesService = completeStitchesService;
         _getProjectService = getProjectService;
@@ -119,7 +123,7 @@ public sealed class ProjectsController : ApiController
     {
         var user = RequestHelper.GetRequiredUser(Request);
 
-        var result = await _projectsService.UnPauseStitching(user, patternReference, cancellationToken);
+        var result = await _unPauseStitchingService.UnPauseStitching(user, patternReference, cancellationToken);
 
         return ToApiResponse(result);
     }

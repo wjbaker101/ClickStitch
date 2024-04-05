@@ -1,5 +1,5 @@
-﻿using ClickStitch.Api.Projects;
-using ClickStitch.Api.Projects.Types;
+﻿using ClickStitch.Api.Projects.Types;
+using ClickStitch.Api.Projects.UnPauseStitching;
 using Data.Records;
 using Data.Repositories.Pattern;
 using Data.Repositories.User;
@@ -73,7 +73,7 @@ public sealed class GivenAnUnPauseStitchingRequest
             }
         };
 
-        var subject = new ProjectsService(new UserRepository(_database), new UserPatternRepository(_database), new PatternRepository(_database), null!, null!, null!);
+        var subject = new UnPauseStitchingService(new UserRepository(_database), new UserPatternRepository(_database), new PatternRepository(_database));
 
         _result = await subject.UnPauseStitching(new TestRequestUser(), _patternReference, CancellationToken.None);
     }

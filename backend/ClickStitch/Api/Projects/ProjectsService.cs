@@ -9,7 +9,6 @@ namespace ClickStitch.Api.Projects;
 
 public interface IProjectsService
 {
-    Task<Result<UnPauseStitchingResponse>> UnPauseStitching(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken);
     Task<Result<GetAnalyticsResponse>> GetAnalytics(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken);
 }
 
@@ -38,26 +37,6 @@ public sealed class ProjectsService : IProjectsService
         _userPatternThreadStitchRepository = userPatternThreadStitchRepository;
         _dateTime = dateTime;
         _guid = guid;
-    }
-    
-    public async Task<Result<UnPauseStitchingResponse>> UnPauseStitching(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken)
-    {
-        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
-
-        var patternResult = await _patternRepository.GetByReferenceAsync(patternReference, cancellationToken);
-        if (!patternResult.TrySuccess(out var pattern))
-            return Result<UnPauseStitchingResponse>.FromFailure(patternResult);
-
-        var projectResult = await _userPatternRepository.GetByUserAndPatternAsync(user, pattern, cancellationToken);
-        if (!projectResult.TrySuccess(out var project))
-            return Result<UnPauseStitchingResponse>.FromFailure(projectResult);
-
-        project.PausePositionX = null;
-        project.PausePositionY = null;
-
-        await _userPatternRepository.UpdateAsync(project, cancellationToken);
-
-        return new UnPauseStitchingResponse();
     }
 
     public async Task<Result<GetAnalyticsResponse>> GetAnalytics(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken)
