@@ -1,5 +1,4 @@
 ﻿using ClickStitch.Api.Creators.Types;
-using ClickStitch.Api.Users.Types;
 using Data.Records;
 using Data.Repositories.Creator;
 using Data.Repositories.Creator.Types;

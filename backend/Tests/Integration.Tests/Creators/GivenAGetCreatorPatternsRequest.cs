@@ -1,4 +1,4 @@
-﻿using ClickStitch.Api.Users.Types;
+﻿using ClickStitch.Api.Creators.Types;
 using NUnit.Framework;
 
 namespace Integration.Tests.Creators;

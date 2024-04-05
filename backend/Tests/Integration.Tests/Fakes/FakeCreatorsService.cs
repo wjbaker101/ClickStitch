@@ -1,6 +1,5 @@
 ﻿using ClickStitch.Api.Creators;
 using ClickStitch.Api.Creators.Types;
-using ClickStitch.Api.Users.Types;
 using ClickStitch.Models;
 using Core.Types;
 using DotNetLibs.Core.Types;

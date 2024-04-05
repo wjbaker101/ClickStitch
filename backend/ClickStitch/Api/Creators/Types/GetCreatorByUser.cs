@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Users.Types;
+﻿namespace ClickStitch.Api.Creators.Types;
 
 public sealed class GetCreatorByUserResponse
 {
