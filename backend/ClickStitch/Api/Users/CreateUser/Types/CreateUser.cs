@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Users.Types;
+﻿namespace ClickStitch.Api.Users.CreateUser.Types;
 
 public sealed class CreateUserRequest
 {

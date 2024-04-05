@@ -8,7 +8,10 @@ using ClickStitch.Api.Patterns.Services;
 using ClickStitch.Api.Projects;
 using ClickStitch.Api.Share;
 using ClickStitch.Api.Threads.Services;
-using ClickStitch.Api.Users;
+using ClickStitch.Api.Users.CreateUser;
+using ClickStitch.Api.Users.DeleteUser;
+using ClickStitch.Api.Users.GetSelf;
+using ClickStitch.Api.Users.UpdateUser;
 using ClickStitch.Clients.Cloudinary;
 using Data;
 using Data.Repositories.Admin;
@@ -72,6 +75,9 @@ public static class SetupDependencies
 
         services.AddSingleton<IGetThreadsByColourService, GetThreadsByColourService>();
 
-        services.AddSingleton<IUsersService, UsersService>();
+        services.AddSingleton<ICreateUserService, CreateUserService>();
+        services.AddSingleton<IDeleteUserService, DeleteUserService>();
+        services.AddSingleton<IGetSelfService, GetSelfService>();
+        services.AddSingleton<IUpdateUserService, UpdateUserService>();
     }
 }

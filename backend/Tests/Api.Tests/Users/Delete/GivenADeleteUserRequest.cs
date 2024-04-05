@@ -1,12 +1,9 @@
-﻿using ClickStitch.Api.Auth;
-using ClickStitch.Api.Users;
-using ClickStitch.Api.Users.Types;
+﻿using ClickStitch.Api.Users.DeleteUser;
+using ClickStitch.Api.Users.DeleteUser.Types;
 using Data.Records;
 using Data.Repositories.User;
 using Data.Types;
-using DotNetLibs.Core.Services.Fakes;
 using TestHelpers.Data;
-using TestHelpers.Settings;
 
 namespace Api.Tests.Users.Delete;
 
@@ -45,11 +42,7 @@ public sealed class GivenADeleteUserRequest
             Reference = _userReference
         };
 
-        var subject = new UsersService(
-            new UserRepository(_database),
-            new PasswordService(new TestAppSecrets()),
-            new FakeGuidProvider(),
-            new FakeDateTimeProvider());
+        var subject = new DeleteUserService(new UserRepository(_database));
 
         _result = await subject.DeleteUser(requestUser, _userReference, CancellationToken.None);
     }

@@ -1,5 +1,5 @@
-﻿using ClickStitch.Api.Users;
-using ClickStitch.Api.Users.Types;
+﻿using ClickStitch.Api.Users.GetSelf;
+using ClickStitch.Api.Users.GetSelf.Types;
 using Data.Records;
 using Data.Repositories.User;
 using Data.Types;
@@ -39,7 +39,7 @@ public sealed class GivenAGetSelfRequest
             Reference = _userReference
         };
 
-        var subject = new UsersService(new UserRepository(database), null!, null!, null!);
+        var subject = new GetSelfService(new UserRepository(database));
 
         _result = await subject.GetSelf(requestUser, CancellationToken.None);
     }

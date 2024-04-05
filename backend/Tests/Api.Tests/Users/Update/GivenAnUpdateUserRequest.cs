@@ -1,12 +1,9 @@
-﻿using ClickStitch.Api.Auth;
-using ClickStitch.Api.Users;
-using ClickStitch.Api.Users.Types;
+﻿using ClickStitch.Api.Users.UpdateUser;
+using ClickStitch.Api.Users.UpdateUser.Types;
 using Data.Records;
 using Data.Repositories.User;
 using Data.Types;
-using DotNetLibs.Core.Services.Fakes;
 using TestHelpers.Data;
-using TestHelpers.Settings;
 
 namespace Api.Tests.Users.Update;
 
@@ -45,11 +42,7 @@ public sealed class GivenAnUpdateUserRequest
             Reference = _userReference
         };
 
-        var subject = new UsersService(
-            new UserRepository(_database),
-            new PasswordService(new TestAppSecrets()),
-            new FakeGuidProvider(),
-            new FakeDateTimeProvider());
+        var subject = new UpdateUserService(new UserRepository(_database));
 
         _result = await subject.UpdateUser(requestUser, _userReference, new UpdateUserRequest(), CancellationToken.None);
     }

@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Users.Types;
+﻿namespace ClickStitch.Api.Users.GetSelf.Types;
 
 public sealed class GetSelfResponse
 {

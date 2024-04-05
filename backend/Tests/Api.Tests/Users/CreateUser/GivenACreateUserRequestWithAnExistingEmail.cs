@@ -1,6 +1,6 @@
 ﻿using ClickStitch.Api.Auth;
-using ClickStitch.Api.Users;
-using ClickStitch.Api.Users.Types;
+using ClickStitch.Api.Users.CreateUser;
+using ClickStitch.Api.Users.CreateUser.Types;
 using Data.Records;
 using Data.Repositories.User;
 using Data.Types;
@@ -37,7 +37,7 @@ public sealed class GivenACreateUserRequestWithAnExistingEmail
             }
         };
 
-        var subject = new UsersService(
+        var subject = new CreateUserService(
             new UserRepository(database),
             new PasswordService(new TestAppSecrets()),
             new FakeGuidProvider

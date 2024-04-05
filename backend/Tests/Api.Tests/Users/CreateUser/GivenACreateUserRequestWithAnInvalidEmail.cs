@@ -1,5 +1,5 @@
-﻿using ClickStitch.Api.Users;
-using ClickStitch.Api.Users.Types;
+﻿using ClickStitch.Api.Users.CreateUser;
+using ClickStitch.Api.Users.CreateUser.Types;
 
 namespace Api.Tests.Users.CreateUser;
 
@@ -24,7 +24,7 @@ public sealed class GivenACreateUserRequestWithAnInvalidEmail
     [OneTimeSetUp]
     public async Task Setup()
     {
-        var subject = new UsersService(null!, null!, null!, null!);
+        var subject = new CreateUserService(null!, null!, null!, null!);
 
         _result = await subject.CreateUser(new CreateUserRequest
         {
