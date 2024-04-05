@@ -1,4 +1,5 @@
-﻿using ClickStitch.Api.Projects.Types;
+﻿using ClickStitch.Api.Projects.GetProjects;
+using ClickStitch.Api.Projects.Types;
 using ClickStitch.Middleware.Authentication;
 using DotNetLibs.Api.Types;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +10,12 @@ namespace ClickStitch.Api.Projects;
 public sealed class ProjectsController : ApiController
 {
     private readonly IProjectsService _projectsService;
+    private readonly IGetProjectsService _getProjectsService;
 
-    public ProjectsController(IProjectsService projectsService)
+    public ProjectsController(IProjectsService projectsService, IGetProjectsService getProjectsService)
     {
         _projectsService = projectsService;
+        _getProjectsService = getProjectsService;
     }
 
     [HttpGet]
@@ -22,7 +25,7 @@ public sealed class ProjectsController : ApiController
     {
         var user = RequestHelper.GetRequiredUser(Request);
 
-        var result = await _projectsService.GetProjects(user, cancellationToken);
+        var result = await _getProjectsService.GetProjects(user, cancellationToken);
 
         return ToApiResponse(result);
     }

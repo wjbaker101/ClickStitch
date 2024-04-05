@@ -1,4 +1,4 @@
-﻿using ClickStitch.Api.Projects;
+﻿using ClickStitch.Api.Projects.GetProjects;
 using ClickStitch.Api.Projects.Types;
 using Data.Records;
 using Data.Repositories.User;
@@ -84,7 +84,7 @@ public sealed class GivenAGetProjectsRequest
             }
         };
 
-        var subject = new ProjectsService(new UserRepository(database), new UserPatternRepository(database), null!, null!, null!, null!);
+        var subject = new GetProjectsService(new UserRepository(database), new UserPatternRepository(database));
 
         _result = await subject.GetProjects(new TestRequestUser(), CancellationToken.None);
     }

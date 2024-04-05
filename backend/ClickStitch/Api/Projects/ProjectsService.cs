@@ -12,7 +12,6 @@ namespace ClickStitch.Api.Projects;
 
 public interface IProjectsService
 {
-    Task<Result<GetProjectsResponse>> GetProjects(RequestUser requestUser, CancellationToken cancellationToken);
     Task<Result<AddProjectResponse>> AddProject(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken);
     Task<Result<GetProjectResponse>> GetProject(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken);
     Task<Result<CompleteStitchesResponse>> CompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request, CancellationToken cancellationToken);
@@ -47,18 +46,6 @@ public sealed class ProjectsService : IProjectsService
         _userPatternThreadStitchRepository = userPatternThreadStitchRepository;
         _dateTime = dateTime;
         _guid = guid;
-    }
-
-    public async Task<Result<GetProjectsResponse>> GetProjects(RequestUser requestUser, CancellationToken cancellationToken)
-    {
-        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
-
-        var projects = await _userPatternRepository.GetByUserAsync(user, cancellationToken);
-
-        return new GetProjectsResponse
-        {
-            Projects = projects.ConvertAll(ProjectMapper.Map)
-        };
     }
 
     public async Task<Result<AddProjectResponse>> AddProject(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken)
