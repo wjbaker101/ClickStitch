@@ -1,5 +1,5 @@
-﻿using ClickStitch.Api.Projects;
-using ClickStitch.Api.Projects.Types;
+﻿using ClickStitch.Api.Projects.Types;
+using ClickStitch.Api.Projects.UnCompleteStitches;
 using Data.Records;
 using Data.Repositories.User;
 using Data.Repositories.UserPatternThreadStitch;
@@ -176,7 +176,7 @@ public sealed class GivenAnUnCompleteStitchesRequest
             }
         };
 
-        var subject = new ProjectsService(new UserRepository(_database), null!, null!, new UserPatternThreadStitchRepository(_database), null!, null!);
+        var subject = new UnCompleteStitchesService(new UserRepository(_database), new UserPatternThreadStitchRepository(_database));
 
         _result = await subject.UnCompleteStitches(new TestRequestUser(), Guid.Parse("d5925542-128c-40b4-86a1-b8dcddc848f7"), request, CancellationToken.None);
     }

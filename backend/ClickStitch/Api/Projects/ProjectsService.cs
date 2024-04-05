@@ -3,14 +3,12 @@ using Data.Repositories.Pattern;
 using Data.Repositories.User;
 using Data.Repositories.UserPattern;
 using Data.Repositories.UserPatternThreadStitch;
-using Data.Repositories.UserPatternThreadStitch.Types;
 using DotNetLibs.Core.Services;
 
 namespace ClickStitch.Api.Projects;
 
 public interface IProjectsService
 {
-    Task<Result<CompleteStitchesResponse>> UnCompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request, CancellationToken cancellationToken);
     Task<Result<PauseStitchingResponse>> PauseStitching(RequestUser requestUser, Guid patternReference, PauseStitchingRequest request, CancellationToken cancellationToken);
     Task<Result<UnPauseStitchingResponse>> UnPauseStitching(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken);
     Task<Result<GetAnalyticsResponse>> GetAnalytics(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken);
@@ -41,25 +39,6 @@ public sealed class ProjectsService : IProjectsService
         _userPatternThreadStitchRepository = userPatternThreadStitchRepository;
         _dateTime = dateTime;
         _guid = guid;
-    }
-
-    public async Task<Result<CompleteStitchesResponse>> UnCompleteStitches(RequestUser requestUser, Guid patternReference, CompleteStitchesRequest request, CancellationToken cancellationToken)
-    {
-        if (request.StitchesByThread.Sum(x => x.Value.Count) > MAX_STITCH_SELECTION)
-            return Result<CompleteStitchesResponse>.Failure($"The number of stitches to un-complete exceeds maximum ({MAX_STITCH_SELECTION}), please try again with a smaller selection.");
-
-        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
-
-        await _userPatternThreadStitchRepository.UnComplete(user, patternReference, new StitchPosition
-        {
-            StitchesByThread = request.StitchesByThread.ToDictionary(x => x.Key, x => x.Value.ConvertAll(pos => new StitchPosition.Position
-            {
-                X = pos.X,
-                Y = pos.Y
-            }))
-        }, cancellationToken);
-
-        return new CompleteStitchesResponse();
     }
     
     public async Task<Result<PauseStitchingResponse>> PauseStitching(RequestUser requestUser, Guid patternReference, PauseStitchingRequest request, CancellationToken cancellationToken)
