@@ -1,4 +1,4 @@
-﻿using ClickStitch.Api.Projects;
+﻿using ClickStitch.Api.Projects.GetAnalytics;
 using ClickStitch.Api.Projects.Types;
 using Data.Records;
 using Data.Repositories.Pattern;
@@ -96,7 +96,7 @@ public sealed class GivenAGetAnalyticsRequest
             }
         };
 
-        var subject = new ProjectsService(new UserRepository(_database), new UserPatternRepository(_database), new PatternRepository(_database), new UserPatternThreadStitchRepository(_database), null!, null!);
+        var subject = new GetAnalyticsService(new UserRepository(_database), new UserPatternRepository(_database), new PatternRepository(_database), new UserPatternThreadStitchRepository(_database));
 
         _result = await subject.GetAnalytics(new TestRequestUser(), _patternReference, CancellationToken.None);
     }

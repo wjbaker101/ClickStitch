@@ -3,40 +3,31 @@ using Data.Repositories.Pattern;
 using Data.Repositories.User;
 using Data.Repositories.UserPattern;
 using Data.Repositories.UserPatternThreadStitch;
-using DotNetLibs.Core.Services;
 
-namespace ClickStitch.Api.Projects;
+namespace ClickStitch.Api.Projects.GetAnalytics;
 
-public interface IProjectsService
+public interface IGetAnalyticsService
 {
     Task<Result<GetAnalyticsResponse>> GetAnalytics(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken);
 }
 
-public sealed class ProjectsService : IProjectsService
+public sealed class GetAnalyticsService : IGetAnalyticsService
 {
-    private const int MAX_STITCH_SELECTION = 100;
-
     private readonly IUserRepository _userRepository;
     private readonly IUserPatternRepository _userPatternRepository;
     private readonly IPatternRepository _patternRepository;
     private readonly IUserPatternThreadStitchRepository _userPatternThreadStitchRepository;
-    private readonly IDateTimeProvider _dateTime;
-    private readonly IGuidProvider _guid;
 
-    public ProjectsService(
+    public GetAnalyticsService(
         IUserRepository userRepository,
         IUserPatternRepository userPatternRepository,
         IPatternRepository patternRepository,
-        IUserPatternThreadStitchRepository userPatternThreadStitchRepository,
-        IDateTimeProvider dateTime,
-        IGuidProvider guid)
+        IUserPatternThreadStitchRepository userPatternThreadStitchRepository)
     {
         _userRepository = userRepository;
         _userPatternRepository = userPatternRepository;
         _patternRepository = patternRepository;
         _userPatternThreadStitchRepository = userPatternThreadStitchRepository;
-        _dateTime = dateTime;
-        _guid = guid;
     }
 
     public async Task<Result<GetAnalyticsResponse>> GetAnalytics(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken)
@@ -60,7 +51,7 @@ public sealed class ProjectsService : IProjectsService
 
         return new GetAnalyticsResponse
         {
-            Title = pattern.Title,  
+            Title = pattern.Title,
             ThumbnailUrl = pattern.ThumbnailUrl,
             BannerImageUrl = pattern.BannerImageUrl,
             PurchasedAt = project.CreatedAt,

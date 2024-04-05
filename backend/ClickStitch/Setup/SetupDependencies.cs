@@ -5,9 +5,9 @@ using ClickStitch.Api.Inventory;
 using ClickStitch.Api.Patterns;
 using ClickStitch.Api.Patterns.Parsing;
 using ClickStitch.Api.Patterns.Services;
-using ClickStitch.Api.Projects;
 using ClickStitch.Api.Projects.AddProject;
 using ClickStitch.Api.Projects.CompleteStitches;
+using ClickStitch.Api.Projects.GetAnalytics;
 using ClickStitch.Api.Projects.GetProject;
 using ClickStitch.Api.Projects.GetProjects;
 using ClickStitch.Api.Projects.PauseStitching;
@@ -76,9 +76,9 @@ public static class SetupDependencies
         services.AddSingleton<IGetPatternInventoryService, GetPatternInventoryService>();
         services.AddSingleton<IGetPatternService, GetPatternService>();
 
-        services.AddSingleton<IProjectsService, ProjectsService>();
         services.AddSingleton<IAddProjectService, AddProjectService>();
         services.AddSingleton<ICompleteStitchesService, CompleteStitchesService>();
+        services.AddSingleton<IGetAnalyticsService, GetAnalyticsService>();
         services.AddSingleton<IGetProjectService, GetProjectService>();
         services.AddSingleton<IGetProjectsService, GetProjectsService>();
         services.AddSingleton<IPauseStitchingService, PauseStitchingService>();
