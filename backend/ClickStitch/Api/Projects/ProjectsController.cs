@@ -1,10 +1,11 @@
 ﻿using ClickStitch.Api.Projects.AddProject;
 using ClickStitch.Api.Projects.CompleteStitches;
+using ClickStitch.Api.Projects.CompleteStitches.Types;
 using ClickStitch.Api.Projects.GetAnalytics;
 using ClickStitch.Api.Projects.GetProject;
 using ClickStitch.Api.Projects.GetProjects;
 using ClickStitch.Api.Projects.PauseStitching;
-using ClickStitch.Api.Projects.Types;
+using ClickStitch.Api.Projects.PauseStitching.Types;
 using ClickStitch.Api.Projects.UnCompleteStitches;
 using ClickStitch.Api.Projects.UnPauseStitching;
 using ClickStitch.Middleware.Authentication;

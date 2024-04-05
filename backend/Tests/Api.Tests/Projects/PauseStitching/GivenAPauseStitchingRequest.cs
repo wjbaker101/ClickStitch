@@ -1,5 +1,5 @@
 ﻿using ClickStitch.Api.Projects.PauseStitching;
-using ClickStitch.Api.Projects.Types;
+using ClickStitch.Api.Projects.PauseStitching.Types;
 using Data.Records;
 using Data.Repositories.Pattern;
 using Data.Repositories.User;

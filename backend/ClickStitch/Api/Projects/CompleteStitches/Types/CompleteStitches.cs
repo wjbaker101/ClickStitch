@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Projects.Types;
+﻿namespace ClickStitch.Api.Projects.CompleteStitches.Types;
 
 public sealed class CompleteStitchesRequest
 {

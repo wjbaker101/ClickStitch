@@ -1,4 +1,4 @@
-﻿using ClickStitch.Api.Projects.Types;
+﻿using ClickStitch.Api.Projects.GetProject.Types;
 using Data.Records;
 using Data.Repositories.Pattern;
 using Data.Repositories.User;

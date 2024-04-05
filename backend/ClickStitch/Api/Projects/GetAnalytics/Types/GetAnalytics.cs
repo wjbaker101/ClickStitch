@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Projects.Types;
+﻿namespace ClickStitch.Api.Projects.GetAnalytics.Types;
 
 public sealed class GetAnalyticsResponse
 {

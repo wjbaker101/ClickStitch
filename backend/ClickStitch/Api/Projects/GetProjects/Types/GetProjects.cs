@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Projects.Types;
+﻿namespace ClickStitch.Api.Projects.GetProjects.Types;
 
 public sealed class GetProjectsResponse
 {

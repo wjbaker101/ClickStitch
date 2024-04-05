@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Projects.Types;
+﻿namespace ClickStitch.Api.Projects.PauseStitching.Types;
 
 public sealed class PauseStitchingRequest
 {

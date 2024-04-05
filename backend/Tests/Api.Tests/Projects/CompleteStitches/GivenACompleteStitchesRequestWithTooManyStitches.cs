@@ -1,5 +1,5 @@
 ﻿using ClickStitch.Api.Projects.CompleteStitches;
-using ClickStitch.Api.Projects.Types;
+using ClickStitch.Api.Projects.CompleteStitches.Types;
 using DotNetLibs.Core.Extensions;
 
 namespace Api.Tests.Projects.CompleteStitches;

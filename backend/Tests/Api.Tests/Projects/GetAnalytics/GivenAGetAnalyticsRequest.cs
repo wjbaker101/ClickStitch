@@ -1,5 +1,5 @@
 ﻿using ClickStitch.Api.Projects.GetAnalytics;
-using ClickStitch.Api.Projects.Types;
+using ClickStitch.Api.Projects.GetAnalytics.Types;
 using Data.Records;
 using Data.Repositories.Pattern;
 using Data.Repositories.User;
