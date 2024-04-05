@@ -2,6 +2,7 @@
 using ClickStitch.Api.Projects.CompleteStitches;
 using ClickStitch.Api.Projects.GetProject;
 using ClickStitch.Api.Projects.GetProjects;
+using ClickStitch.Api.Projects.PauseStitching;
 using ClickStitch.Api.Projects.Types;
 using ClickStitch.Api.Projects.UnCompleteStitches;
 using ClickStitch.Middleware.Authentication;
@@ -18,6 +19,7 @@ public sealed class ProjectsController : ApiController
     private readonly ICompleteStitchesService _completeStitchesService;
     private readonly IGetProjectService _getProjectService;
     private readonly IGetProjectsService _getProjectsService;
+    private readonly IPauseStitchingService _pauseStitchingService;
     private readonly IUnCompleteStitchesService _unCompleteStitchesService;
 
     public ProjectsController(
@@ -26,10 +28,12 @@ public sealed class ProjectsController : ApiController
         ICompleteStitchesService completeStitchesService,
         IGetProjectService getProjectService,
         IGetProjectsService getProjectsService,
+        IPauseStitchingService pauseStitchingService,
         IUnCompleteStitchesService unCompleteStitchesService)
     {
         _projectsService = projectsService;
         _getProjectsService = getProjectsService;
+        _pauseStitchingService = pauseStitchingService;
         _unCompleteStitchesService = unCompleteStitchesService;
         _addProjectService = addProjectService;
         _completeStitchesService = completeStitchesService;
@@ -85,6 +89,18 @@ public sealed class ProjectsController : ApiController
     }
 
     [HttpPost]
+    [Route("{patternReference:guid}/stitches/pause")]
+    [Authenticate]
+    public async Task<IActionResult> PauseStitching([FromRoute] Guid patternReference, [FromBody] PauseStitchingRequest request, CancellationToken cancellationToken)
+    {
+        var user = RequestHelper.GetRequiredUser(Request);
+
+        var result = await _pauseStitchingService.PauseStitching(user, patternReference, request, cancellationToken);
+
+        return ToApiResponse(result);
+    }
+
+    [HttpPost]
     [Route("{patternReference:guid}/stitches/uncomplete")]
     [Authenticate]
     public async Task<IActionResult> UnCompleteStitches([FromRoute] Guid patternReference, [FromBody] CompleteStitchesRequest request, CancellationToken cancellationToken)
@@ -92,18 +108,6 @@ public sealed class ProjectsController : ApiController
         var user = RequestHelper.GetRequiredUser(Request);
 
         var result = await _unCompleteStitchesService.UnCompleteStitches(user, patternReference, request, cancellationToken);
-
-        return ToApiResponse(result);
-    }
-
-    [HttpPost]
-    [Route("{patternReference:guid}/stitches/pause")]
-    [Authenticate]
-    public async Task<IActionResult> PauseStitching([FromRoute] Guid patternReference, [FromBody] PauseStitchingRequest request, CancellationToken cancellationToken)
-    {
-        var user = RequestHelper.GetRequiredUser(Request);
-
-        var result = await _projectsService.PauseStitching(user, patternReference, request, cancellationToken);
 
         return ToApiResponse(result);
     }

@@ -1,4 +1,4 @@
-﻿using ClickStitch.Api.Projects;
+﻿using ClickStitch.Api.Projects.PauseStitching;
 using ClickStitch.Api.Projects.Types;
 using Data.Records;
 using Data.Repositories.Pattern;
@@ -79,7 +79,7 @@ public sealed class GivenAPauseStitchingRequest
             Y = 3948
         };
 
-        var subject = new ProjectsService(new UserRepository(_database), new UserPatternRepository(_database), new PatternRepository(_database), null!, null!, null!);
+        var subject = new PauseStitchingService(new UserRepository(_database), new UserPatternRepository(_database), new PatternRepository(_database));
 
         _result = await subject.PauseStitching(new TestRequestUser(), _patternReference, request, CancellationToken.None);
     }

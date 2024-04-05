@@ -9,7 +9,6 @@ namespace ClickStitch.Api.Projects;
 
 public interface IProjectsService
 {
-    Task<Result<PauseStitchingResponse>> PauseStitching(RequestUser requestUser, Guid patternReference, PauseStitchingRequest request, CancellationToken cancellationToken);
     Task<Result<UnPauseStitchingResponse>> UnPauseStitching(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken);
     Task<Result<GetAnalyticsResponse>> GetAnalytics(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken);
 }
@@ -39,26 +38,6 @@ public sealed class ProjectsService : IProjectsService
         _userPatternThreadStitchRepository = userPatternThreadStitchRepository;
         _dateTime = dateTime;
         _guid = guid;
-    }
-    
-    public async Task<Result<PauseStitchingResponse>> PauseStitching(RequestUser requestUser, Guid patternReference, PauseStitchingRequest request, CancellationToken cancellationToken)
-    {
-        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
-
-        var patternResult = await _patternRepository.GetByReferenceAsync(patternReference, cancellationToken);
-        if (!patternResult.TrySuccess(out var pattern))
-            return Result<PauseStitchingResponse>.FromFailure(patternResult);
-
-        var projectResult = await _userPatternRepository.GetByUserAndPatternAsync(user, pattern, cancellationToken);
-        if (!projectResult.TrySuccess(out var project))
-            return Result<PauseStitchingResponse>.FromFailure(projectResult);
-
-        project.PausePositionX = request.X;
-        project.PausePositionY = request.Y;
-
-        await _userPatternRepository.UpdateAsync(project, cancellationToken);
-
-        return new PauseStitchingResponse();
     }
     
     public async Task<Result<UnPauseStitchingResponse>> UnPauseStitching(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken)
