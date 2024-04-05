@@ -7,6 +7,7 @@ using ClickStitch.Api.Patterns.Parsing;
 using ClickStitch.Api.Patterns.Services;
 using ClickStitch.Api.Projects;
 using ClickStitch.Api.Projects.AddProject;
+using ClickStitch.Api.Projects.GetProject;
 using ClickStitch.Api.Projects.GetProjects;
 using ClickStitch.Api.Share;
 using ClickStitch.Api.Threads.GetThreadsByColour;
@@ -72,8 +73,9 @@ public static class SetupDependencies
         services.AddSingleton<IGetPatternService, GetPatternService>();
 
         services.AddSingleton<IProjectsService, ProjectsService>();
-        services.AddSingleton<IGetProjectsService, GetProjectsService>();
         services.AddSingleton<IAddProjectService, AddProjectService>();
+        services.AddSingleton<IGetProjectService, GetProjectService>();
+        services.AddSingleton<IGetProjectsService, GetProjectsService>();
 
         services.AddSingleton<IShareService, ShareService>();
 

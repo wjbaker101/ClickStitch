@@ -1,4 +1,4 @@
-﻿using ClickStitch.Api.Projects;
+﻿using ClickStitch.Api.Projects.GetProject;
 using ClickStitch.Api.Projects.Types;
 using Data.Records;
 using Data.Repositories.Pattern;
@@ -114,7 +114,7 @@ public sealed class GivenAGetProjectRequest
             }
         };
 
-        var subject = new ProjectsService(new UserRepository(database), new UserPatternRepository(database), new PatternRepository(database), new UserPatternThreadStitchRepository(database), null!, null!);
+        var subject = new GetProjectService(new UserRepository(database), new UserPatternRepository(database), new PatternRepository(database), new UserPatternThreadStitchRepository(database));
 
         _result = await subject.GetProject(new TestRequestUser(), Guid.Parse("37a2c8a9-a30e-4e77-8abd-e2df81b62792"), CancellationToken.None);
     }

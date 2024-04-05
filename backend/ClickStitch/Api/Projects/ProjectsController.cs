@@ -1,4 +1,5 @@
 ﻿using ClickStitch.Api.Projects.AddProject;
+using ClickStitch.Api.Projects.GetProject;
 using ClickStitch.Api.Projects.GetProjects;
 using ClickStitch.Api.Projects.Types;
 using ClickStitch.Middleware.Authentication;
@@ -11,14 +12,16 @@ namespace ClickStitch.Api.Projects;
 public sealed class ProjectsController : ApiController
 {
     private readonly IProjectsService _projectsService;
-    private readonly IGetProjectsService _getProjectsService;
     private readonly IAddProjectService _addProjectService;
+    private readonly IGetProjectService _getProjectService;
+    private readonly IGetProjectsService _getProjectsService;
 
-    public ProjectsController(IProjectsService projectsService, IGetProjectsService getProjectsService, IAddProjectService addProjectService)
+    public ProjectsController(IProjectsService projectsService, IAddProjectService addProjectService, IGetProjectService getProjectService, IGetProjectsService getProjectsService)
     {
         _projectsService = projectsService;
         _getProjectsService = getProjectsService;
         _addProjectService = addProjectService;
+        _getProjectService = getProjectService;
     }
 
     [HttpPost]
@@ -34,6 +37,18 @@ public sealed class ProjectsController : ApiController
     }
 
     [HttpGet]
+    [Route("{patternReference:guid}")]
+    [Authenticate]
+    public async Task<IActionResult> GetProject([FromRoute] Guid patternReference, CancellationToken cancellationToken)
+    {
+        var user = RequestHelper.GetRequiredUser(Request);
+
+        var result = await _getProjectService.GetProject(user, patternReference, cancellationToken);
+
+        return ToApiResponse(result);
+    }
+
+    [HttpGet]
     [Route("")]
     [Authenticate]
     public async Task<IActionResult> GetProjects(CancellationToken cancellationToken)
@@ -41,18 +56,6 @@ public sealed class ProjectsController : ApiController
         var user = RequestHelper.GetRequiredUser(Request);
 
         var result = await _getProjectsService.GetProjects(user, cancellationToken);
-
-        return ToApiResponse(result);
-    }
-
-    [HttpGet]
-    [Route("{patternReference:guid}")]
-    [Authenticate]
-    public async Task<IActionResult> GetProject([FromRoute] Guid patternReference, CancellationToken cancellationToken)
-    {
-        var user = RequestHelper.GetRequiredUser(Request);
-
-        var result = await _projectsService.GetProject(user, patternReference, cancellationToken);
 
         return ToApiResponse(result);
     }
