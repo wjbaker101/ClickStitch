@@ -52,17 +52,6 @@ public sealed class AdminController : ApiController
         return ToApiResponse(result);
     }
 
-    [HttpGet]
-    [Route("users")]
-    [Authenticate]
-    [RequireAdmin]
-    public async Task<IActionResult> SearchUsers([FromQuery(Name = "page_number")] int pageNumber, [FromQuery(Name = "page_size")] int pageSize, CancellationToken cancellationToken)
-    {
-        var result = await _searchUsersService.SearchUsers(pageNumber, pageSize, cancellationToken);
-
-        return ToApiResponse(result);
-    }
-
     [HttpDelete]
     [Route("users/{userReference:guid}/permissions/{permissionType:int}")]
     [Authenticate]
@@ -70,6 +59,17 @@ public sealed class AdminController : ApiController
     public async Task<IActionResult> RemovePermissionFromUser([FromRoute] Guid userReference, [FromRoute] int permissionType, CancellationToken cancellationToken)
     {
         var result = await _removePermissionFromUserService.RemovePermissionFromUser(userReference, (ApiPermissionType)permissionType, cancellationToken);
+
+        return ToApiResponse(result);
+    }
+
+    [HttpGet]
+    [Route("users")]
+    [Authenticate]
+    [RequireAdmin]
+    public async Task<IActionResult> SearchUsers([FromQuery(Name = "page_number")] int pageNumber, [FromQuery(Name = "page_size")] int pageSize, CancellationToken cancellationToken)
+    {
+        var result = await _searchUsersService.SearchUsers(pageNumber, pageSize, cancellationToken);
 
         return ToApiResponse(result);
     }
