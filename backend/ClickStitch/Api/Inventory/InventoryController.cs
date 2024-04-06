@@ -1,7 +1,7 @@
 ﻿using ClickStitch.Api.Inventory.SearchInventoryThreads;
 using ClickStitch.Api.Inventory.SearchInventoryThreads.Types;
-using ClickStitch.Api.Inventory.UpdateThread;
-using ClickStitch.Api.Inventory.UpdateThread.Types;
+using ClickStitch.Api.Inventory.UpdateInventoryThread;
+using ClickStitch.Api.Inventory.UpdateInventoryThread.Types;
 using ClickStitch.Middleware.Authentication;
 using DotNetLibs.Api.Types;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +12,12 @@ namespace ClickStitch.Api.Inventory;
 public sealed class InventoryController : ApiController
 {
     private readonly ISearchInventoryThreadsService _searchInventoryThreadsService;
-    private readonly IUpdateThreadService _updateThreadService;
+    private readonly IUpdateInventoryThreadService _updateInventoryThreadService;
 
-    public InventoryController(ISearchInventoryThreadsService searchInventoryThreadsService, IUpdateThreadService updateThreadService)
+    public InventoryController(ISearchInventoryThreadsService searchInventoryThreadsService, IUpdateInventoryThreadService updateInventoryThreadService)
     {
         _searchInventoryThreadsService = searchInventoryThreadsService;
-        _updateThreadService = updateThreadService;
+        _updateInventoryThreadService = updateInventoryThreadService;
     }
 
     [HttpGet]
@@ -44,11 +44,11 @@ public sealed class InventoryController : ApiController
     [HttpPut]
     [Route("threads/{threadReference:guid}")]
     [Authenticate]
-    public async Task<IActionResult> UpdateThread([FromRoute] Guid threadReference, [FromBody] UpdateThreadRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> UpdateInventoryThread([FromRoute] Guid threadReference, [FromBody] UpdateInventoryThreadRequest request, CancellationToken cancellationToken)
     {
         var requestUser = RequestHelper.GetRequiredUser(Request);
 
-        var result = await _updateThreadService.UpdateThread(requestUser, threadReference, request, cancellationToken);
+        var result = await _updateInventoryThreadService.UpdateInventoryThread(requestUser, threadReference, request, cancellationToken);
 
         return ToApiResponse(result);
     }

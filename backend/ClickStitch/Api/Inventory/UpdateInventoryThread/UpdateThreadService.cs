@@ -1,36 +1,36 @@
-﻿using ClickStitch.Api.Inventory.UpdateThread.Types;
+﻿using ClickStitch.Api.Inventory.UpdateInventoryThread.Types;
 using Data.Records;
 using Data.Repositories.Thread;
 using Data.Repositories.User;
 using Data.Repositories.UserThread;
 
-namespace ClickStitch.Api.Inventory.UpdateThread;
+namespace ClickStitch.Api.Inventory.UpdateInventoryThread;
 
-public interface IUpdateThreadService
+public interface IUpdateInventoryThreadService
 {
-    Task<Result<UpdateThreadResponse>> UpdateThread(RequestUser requestUser, Guid threadReference, UpdateThreadRequest request, CancellationToken cancellationToken);
+    Task<Result<UpdateInventoryThreadResponse>> UpdateInventoryThread(RequestUser requestUser, Guid threadReference, UpdateInventoryThreadRequest request, CancellationToken cancellationToken);
 }
 
-public sealed class UpdateThreadService : IUpdateThreadService
+public sealed class UpdateInventoryThreadService : IUpdateInventoryThreadService
 {
     private readonly IThreadRepository _threadRepository;
     private readonly IUserRepository _userRepository;
     private readonly IUserThreadRepository _userThreadRepository;
 
-    public UpdateThreadService(IThreadRepository threadRepository, IUserRepository userRepository, IUserThreadRepository userThreadRepository)
+    public UpdateInventoryThreadService(IThreadRepository threadRepository, IUserRepository userRepository, IUserThreadRepository userThreadRepository)
     {
         _threadRepository = threadRepository;
         _userRepository = userRepository;
         _userThreadRepository = userThreadRepository;
     }
 
-    public async Task<Result<UpdateThreadResponse>> UpdateThread(RequestUser requestUser, Guid threadReference, UpdateThreadRequest request, CancellationToken cancellationToken)
+    public async Task<Result<UpdateInventoryThreadResponse>> UpdateInventoryThread(RequestUser requestUser, Guid threadReference, UpdateInventoryThreadRequest request, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
 
         var threadResult = await _threadRepository.GetByReference(threadReference, cancellationToken);
         if (threadResult.IsFailure)
-            return Result<UpdateThreadResponse>.FromFailure(threadResult);
+            return Result<UpdateInventoryThreadResponse>.FromFailure(threadResult);
 
         var userThreadResult = await _userThreadRepository.GetByUserAndThread(user, threadResult.Content, cancellationToken);
         if (userThreadResult.TrySuccess(out var userThread))
@@ -39,7 +39,7 @@ public sealed class UpdateThreadService : IUpdateThreadService
             {
                 await _userThreadRepository.DeleteAsync(userThread, cancellationToken);
 
-                return new UpdateThreadResponse();
+                return new UpdateInventoryThreadResponse();
             }
 
             userThread.Count = request.Count;
@@ -56,6 +56,6 @@ public sealed class UpdateThreadService : IUpdateThreadService
             }, cancellationToken);
         }
 
-        return new UpdateThreadResponse();
+        return new UpdateInventoryThreadResponse();
     }
 }
