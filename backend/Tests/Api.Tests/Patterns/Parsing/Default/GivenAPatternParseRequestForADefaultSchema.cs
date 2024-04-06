@@ -1,6 +1,6 @@
 ﻿using Api.Tests.Patterns.Parsing._Helper;
-using ClickStitch.Api.Patterns.Parsing;
-using ClickStitch.Api.Patterns.Parsing.Types;
+using ClickStitch.Api.Patterns.VerifyPattern.Parsing;
+using ClickStitch.Api.Patterns.VerifyPattern.Parsing.Types;
 
 namespace Api.Tests.Patterns.Parsing.Default;
 

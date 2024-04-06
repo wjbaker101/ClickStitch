@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Patterns.Parsing;
+﻿namespace ClickStitch.Api.Patterns.VerifyPattern.Parsing;
 
 public static class ParsingHelper
 {

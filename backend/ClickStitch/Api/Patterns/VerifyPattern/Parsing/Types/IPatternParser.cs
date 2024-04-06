@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Patterns.Parsing.Types;
+﻿namespace ClickStitch.Api.Patterns.VerifyPattern.Parsing.Types;
 
 public interface IPatternParser
 {

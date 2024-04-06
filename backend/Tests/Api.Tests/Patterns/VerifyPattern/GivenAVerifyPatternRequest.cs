@@ -1,5 +1,5 @@
-﻿using ClickStitch.Api.Patterns;
-using ClickStitch.Api.Patterns.Types;
+﻿using ClickStitch.Api.Patterns.Types;
+using ClickStitch.Api.Patterns.VerifyPattern;
 
 namespace Api.Tests.Patterns.VerifyPattern;
 
@@ -14,7 +14,7 @@ public sealed class GivenAVerifyPatternRequest
     {
         var patternParserService = new FakePatternParserService();
 
-        var subject = new PatternsService(null!, null!, null!, null!, null!, null!, null!, patternParserService, null!);
+        var subject = new VerifyPatternService(patternParserService);
 
         _result = subject.VerifyPattern(null!, CancellationToken.None);
     }

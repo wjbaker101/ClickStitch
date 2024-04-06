@@ -1,6 +1,6 @@
-﻿using ClickStitch.Api.Patterns;
-using ClickStitch.Api.Patterns.Parsing.Types;
-using ClickStitch.Api.Patterns.Types;
+﻿using ClickStitch.Api.Patterns.Types;
+using ClickStitch.Api.Patterns.VerifyPattern;
+using ClickStitch.Api.Patterns.VerifyPattern.Parsing.Types;
 
 namespace Api.Tests.Patterns.VerifyPattern;
 
@@ -18,7 +18,7 @@ public sealed class GivenAVerifyPatternRequestForAnInvalidPattern
             Response = Result<ParsePatternResponse>.Failure("TestError")
         };
 
-        var subject = new PatternsService(null!, null!, null!, null!, null!, null!, null!, patternParserService, null!);
+        var subject = new VerifyPatternService(patternParserService);
 
         _result = subject.VerifyPattern(null!, CancellationToken.None);
     }

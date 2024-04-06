@@ -1,5 +1,5 @@
-﻿using ClickStitch.Api.Patterns.Parsing;
-using ClickStitch.Api.Patterns.Parsing.Types;
+﻿using ClickStitch.Api.Patterns.VerifyPattern.Parsing;
+using ClickStitch.Api.Patterns.VerifyPattern.Parsing.Types;
 using DotNetLibs.Core.Types;
 
 namespace TestHelpers.Fakes;

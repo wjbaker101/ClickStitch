@@ -1,6 +1,6 @@
-﻿using ClickStitch.Api.Patterns.Parsing;
-using ClickStitch.Api.Patterns.Parsing.Types;
-using ClickStitch.Api.Patterns.Types;
+﻿using ClickStitch.Api.Patterns.Types;
+using ClickStitch.Api.Patterns.VerifyPattern.Parsing;
+using ClickStitch.Api.Patterns.VerifyPattern.Parsing.Types;
 using ClickStitch.Services;
 using Data.Records;
 using Data.Repositories.Creator;
@@ -14,7 +14,6 @@ namespace ClickStitch.Api.Patterns;
 public interface IPatternsService
 {
     Task<Result> CreatePattern(RequestUser requestUser, CreatePatternRequest request, string patternData, IFormFile thumbnail, IFormFile? bannerImage, CancellationToken cancellationToken);
-    Result<VerifyPatternResponse> VerifyPattern(string patternData, CancellationToken cancellationToken);
 }
 
 public sealed class PatternsService : IPatternsService
@@ -145,17 +144,5 @@ public sealed class PatternsService : IPatternsService
         }
 
         return Result.Success();
-    }
-
-    public Result<VerifyPatternResponse> VerifyPattern(string patternData, CancellationToken cancellationToken)
-    {
-        var parseResult = _patternParserService.Parse(new ParsePatternParameters
-        {
-            RawContent = patternData
-        });
-        if (parseResult.IsFailure)
-            return Result<VerifyPatternResponse>.FromFailure(parseResult);
-
-        return new VerifyPatternResponse();
     }
 }

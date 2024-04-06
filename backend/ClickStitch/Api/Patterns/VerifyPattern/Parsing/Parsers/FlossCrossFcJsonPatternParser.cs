@@ -1,13 +1,14 @@
-﻿using ClickStitch.Api.Patterns.Parsing.Types;
+﻿using ClickStitch.Api.Patterns.VerifyPattern.Parsing;
+using ClickStitch.Api.Patterns.VerifyPattern.Parsing.Types;
 using DotNetLibs.Core.Extensions;
 using Utf8Json;
 
-namespace ClickStitch.Api.Patterns.Parsing.Parsers;
+namespace ClickStitch.Api.Patterns.VerifyPattern.Parsing.Parsers;
 
 public sealed class FlossCrossFcJsonPatternParser : IPatternParser
 {
     // ReSharper disable InconsistentNaming
-    #pragma warning disable IDE1006
+#pragma warning disable IDE1006
     public sealed class PatternFormat
     {
         public required Model model { get; init; }
@@ -40,11 +41,11 @@ public sealed class FlossCrossFcJsonPatternParser : IPatternParser
         }
 
         public sealed class Layer
-        {   
+        {
             public required List<int> cross { get; init; }
         }
     }
-    #pragma warning restore IDE1006
+#pragma warning restore IDE1006
     // ReSharper restore InconsistentNaming
 
     public Result<ParsePatternResponse> Parse(ParsePatternParameters parameters)

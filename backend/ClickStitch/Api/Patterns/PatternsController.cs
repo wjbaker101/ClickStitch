@@ -4,6 +4,7 @@ using ClickStitch.Api.Patterns.GetPatternInventory;
 using ClickStitch.Api.Patterns.SearchPatterns;
 using ClickStitch.Api.Patterns.Types;
 using ClickStitch.Api.Patterns.UpdatePattern;
+using ClickStitch.Api.Patterns.VerifyPattern;
 using ClickStitch.Middleware.Authentication;
 using ClickStitch.Middleware.Authorisation;
 using DotNetLibs.Api.Types;
@@ -21,6 +22,7 @@ public sealed class PatternsController : ApiController
     private readonly IGetPatternInventoryService _getPatternInventoryService;
     private readonly ISearchPatternsService _searchPatternsService;
     private readonly IUpdatePatternService _updatePatternService;
+    private readonly IVerifyPatternService _verifyPatternService;
 
     public PatternsController(
         IPatternsService patternsService,
@@ -28,7 +30,8 @@ public sealed class PatternsController : ApiController
         IGetPatternService getPatternService,
         IGetPatternInventoryService getPatternInventoryService,
         ISearchPatternsService searchPatternsService,
-        IUpdatePatternService updatePatternService)
+        IUpdatePatternService updatePatternService,
+        IVerifyPatternService verifyPatternService)
     {
         _patternsService = patternsService;
         _deletePatternService = deletePatternService;
@@ -36,6 +39,7 @@ public sealed class PatternsController : ApiController
         _getPatternInventoryService = getPatternInventoryService;
         _searchPatternsService = searchPatternsService;
         _updatePatternService = updatePatternService;
+        _verifyPatternService = verifyPatternService;
     }
 
     [HttpDelete]
@@ -51,6 +55,25 @@ public sealed class PatternsController : ApiController
         return ToApiResponse(result);
     }
 
+    [HttpPost]
+    [Route("")]
+    [Authenticate]
+    public async Task<IActionResult> CreatePattern(
+        [FromForm(Name = "thumbnail")] IFormFile thumbnail,
+        [FromForm(Name = "banner_image")] IFormFile? bannerImage,
+        [FromForm(Name = "request_body")] string requestAsString,
+        [FromForm(Name = "pattern_data")] string patternDataAsString,
+        CancellationToken cancellationToken)
+    {
+        var requestUser = RequestHelper.GetRequiredUser(Request);
+
+        var request = JsonConvert.DeserializeObject<CreatePatternRequest>(requestAsString)!;
+
+        var result = await _patternsService.CreatePattern(requestUser, request, patternDataAsString, thumbnail, bannerImage, cancellationToken);
+
+        return ToApiResponse(result);
+    }
+
     [HttpGet]
     [Route("{patternReference:guid}")]
     [Authenticate]
@@ -59,6 +82,18 @@ public sealed class PatternsController : ApiController
         var user = RequestHelper.GetRequiredUser(Request);
 
         var result = await _getPatternService.GetPattern(user, patternReference, cancellationToken);
+
+        return ToApiResponse(result);
+    }
+
+    [HttpGet]
+    [Route("{patternReference:guid}/inventory")]
+    [Authenticate]
+    public async Task<IActionResult> GetPatternInventory([FromRoute] Guid patternReference, CancellationToken cancellationToken)
+    {
+        var user = RequestHelper.GetRequiredUser(Request);
+
+        var result = await _getPatternInventoryService.GetPatternInventory(user, patternReference, cancellationToken);
 
         return ToApiResponse(result);
     }
@@ -88,45 +123,14 @@ public sealed class PatternsController : ApiController
     }
 
     [HttpPost]
-    [Route("")]
-    [Authenticate]
-    public async Task<IActionResult> CreatePattern(
-        [FromForm(Name = "thumbnail")] IFormFile thumbnail,
-        [FromForm(Name = "banner_image")] IFormFile? bannerImage,
-        [FromForm(Name = "request_body")] string requestAsString,
-        [FromForm(Name = "pattern_data")] string patternDataAsString,
-        CancellationToken cancellationToken)
-    {
-        var requestUser = RequestHelper.GetRequiredUser(Request);
-
-        var request = JsonConvert.DeserializeObject<CreatePatternRequest>(requestAsString)!;
-
-        var result = await _patternsService.CreatePattern(requestUser, request, patternDataAsString, thumbnail, bannerImage, cancellationToken);
-        
-        return ToApiResponse(result);
-    }
-
-    [HttpPost]
     [Route("verify")]
     [Authenticate]
     public IActionResult VerifyPattern([FromForm(Name = "pattern_data")] string patternDataAsString, CancellationToken cancellationToken)
     {
         var requestUser = RequestHelper.GetRequiredUser(Request);
 
-        var result = _patternsService.VerifyPattern(patternDataAsString, cancellationToken);
+        var result = _verifyPatternService.VerifyPattern(patternDataAsString, cancellationToken);
         
-        return ToApiResponse(result);
-    }
-
-    [HttpGet]
-    [Route("{patternReference:guid}/inventory")]
-    [Authenticate]
-    public async Task<IActionResult> GetPatternInventory([FromRoute] Guid patternReference, CancellationToken cancellationToken)
-    {
-        var user = RequestHelper.GetRequiredUser(Request);
-
-        var result = await _getPatternInventoryService.GetPatternInventory(user, patternReference, cancellationToken);
-
         return ToApiResponse(result);
     }
 }

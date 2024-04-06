@@ -1,13 +1,13 @@
-﻿using ClickStitch.Api.Patterns.Parsing.Types;
+﻿using ClickStitch.Api.Patterns.VerifyPattern.Parsing.Types;
 using DotNetLibs.Core.Extensions;
 using Utf8Json;
 
-namespace ClickStitch.Api.Patterns.Parsing.Parsers;
+namespace ClickStitch.Api.Patterns.VerifyPattern.Parsing.Parsers;
 
 public sealed class DefaultPatternParser : IPatternParser
 {
     // ReSharper disable InconsistentNaming
-    #pragma warning disable IDE1006
+#pragma warning disable IDE1006
     public sealed class PatternFormat
     {
         public required Palette palette { get; init; }
@@ -40,7 +40,7 @@ public sealed class DefaultPatternParser : IPatternParser
             public required int index { get; init; }
         }
     }
-    #pragma warning restore IDE1006
+#pragma warning restore IDE1006
     // ReSharper restore InconsistentNaming
 
     public Result<ParsePatternResponse> Parse(ParsePatternParameters parameters)
