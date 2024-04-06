@@ -77,6 +77,10 @@ public static class SetupDependencies
         services.AddSingleton<IRemovePermissionFromUserService, RemovePermissionFromUserService>();
         services.AddSingleton<ISearchUsersService, SearchUsersService>();
 
+        services.AddSingleton<ILogInService, LogInService>();
+        services.AddSingleton<ILoginTokenService, LoginTokenService>();
+        services.AddSingleton<IPasswordService, PasswordService>();
+
         services.AddSingleton<ICreateCreatorService, CreateCreatorService>();
         services.AddSingleton<IGetCreatorBySelfService, GetCreatorBySelfService>();
         services.AddSingleton<IGetCreatorPatternsService, GetCreatorPatternsService>();
@@ -84,10 +88,6 @@ public static class SetupDependencies
 
         services.AddSingleton<ISearchInventoryThreadsService, SearchInventoryThreadsService>();
         services.AddSingleton<IUpdateInventoryThreadService, UpdateInventoryThreadService>();
-
-        services.AddSingleton<ILogInService, LogInService>();
-        services.AddSingleton<ILoginTokenService, LoginTokenService>();
-        services.AddSingleton<IPasswordService, PasswordService>();
 
         services.AddSingleton<IDeletePatternService, DeletePatternService>();
         services.AddSingleton<ICreatePatternService, CreatePatternService>();
