@@ -10,6 +10,7 @@ using ClickStitch.Api.Creators.UpdateCreator;
 using ClickStitch.Api.Patterns;
 using ClickStitch.Api.Patterns.GetPattern;
 using ClickStitch.Api.Patterns.GetPatternInventory;
+using ClickStitch.Api.Patterns.SearchPatterns;
 using ClickStitch.Models;
 using Core.Settings;
 using Data.Records;
@@ -104,6 +105,7 @@ public abstract class IntegrationTest
 
                     services.AddSingleton<IPatternsService>(new FakePatternsService());
                     services.AddSingleton<IGetPatternInventoryService>(new FakeGetPatternInventoryService());
+                    services.AddSingleton<ISearchPatternsService>(new FakeSearchPatternsService());
                     services.AddSingleton<IGetPatternService>(new FakeGetPatternService());
 
                     services.AddSingleton<IAssignPermissionToUserService>(new FakeAssignPermissionToUserService());

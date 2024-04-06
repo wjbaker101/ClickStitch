@@ -7,14 +7,14 @@ namespace Integration.Tests.Authentication;
 [Parallelizable]
 public sealed class GivenAnAuthenticatedRequest : IntegrationTest
 {
-    private GetPatternsResponse _result = null!;
+    private SearchPatternsResponse _result = null!;
 
     [OneTimeSetUp]
     public async Task Setup()
     {
         AsStitcher();
 
-        _result = await DoRequest<GetPatternsResponse>(HttpMethod.Get, "api/patterns");
+        _result = await DoRequest<SearchPatternsResponse>(HttpMethod.Get, "api/patterns");
     }
 
     [Test]

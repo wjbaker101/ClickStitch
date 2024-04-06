@@ -1,4 +1,4 @@
-﻿using ClickStitch.Api.Patterns;
+﻿using ClickStitch.Api.Patterns.SearchPatterns;
 using ClickStitch.Api.Patterns.Types;
 using Data.Records;
 using Data.Repositories.Pattern;
@@ -11,7 +11,7 @@ namespace Api.Tests.Patterns.GetPatterns;
 [Parallelizable]
 public sealed class GivenAGetPatternsRequestAsAnAnonymousUser
 {
-    private Result<GetPatternsResponse> _result = null!;
+    private Result<SearchPatternsResponse> _result = null!;
 
     [OneTimeSetUp]
     public async Task Setup()
@@ -116,9 +116,9 @@ public sealed class GivenAGetPatternsRequestAsAnAnonymousUser
             }
         };
 
-        var subject = new PatternsService(new PatternRepository(database), null!, null!, null!, null!, null!, null!, null!, null!);
+        var subject = new SearchPatternsService(new PatternRepository(database), null!, null!);
 
-        _result = await subject.GetPatterns(null, CancellationToken.None);
+        _result = await subject.SearchPatterns(null, CancellationToken.None);
     }
 
     [Test]

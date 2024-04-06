@@ -5,7 +5,6 @@ using ClickStitch.Services;
 using Data.Records;
 using Data.Repositories.Creator;
 using Data.Repositories.Pattern;
-using Data.Repositories.Pattern.Types;
 using Data.Repositories.User;
 using Data.Repositories.UserPattern;
 using DotNetLibs.Core.Services;
@@ -14,7 +13,6 @@ namespace ClickStitch.Api.Patterns;
 
 public interface IPatternsService
 {
-    Task<Result<GetPatternsResponse>> GetPatterns(RequestUser? requestUser, CancellationToken cancellationToken);
     Task<Result<UpdatePatternResponse>> UpdatePattern(RequestUser requestUser, Guid patternReference, UpdatePatternRequest request, CancellationToken cancellationToken);
     Task<Result> CreatePattern(RequestUser requestUser, CreatePatternRequest request, string patternData, IFormFile thumbnail, IFormFile? bannerImage, CancellationToken cancellationToken);
     Result<VerifyPatternResponse> VerifyPattern(string patternData, CancellationToken cancellationToken);
@@ -53,30 +51,6 @@ public sealed class PatternsService : IPatternsService
         _patternThreadStitchRepository = patternThreadStitchRepository;
         _patternParserService = patternParserService;
         _guid = guid;
-    }
-
-    public async Task<Result<GetPatternsResponse>> GetPatterns(RequestUser? requestUser, CancellationToken cancellationToken)
-    {
-        var patternsToExclude = new List<PatternRecord>();
-
-        if (requestUser != null)
-        {
-            var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
-
-            var projects = await _userPatternRepository.GetByUserAsync(user, cancellationToken);
-
-            patternsToExclude.AddRange(projects.ConvertAll(x => x.Pattern));
-        }
-
-        var patterns = await _patternRepository.SearchAsync(new SearchPatternsParameters
-        {
-            PatternsToExclude = patternsToExclude
-        }, cancellationToken);
-
-        return new GetPatternsResponse
-        {
-            Patterns = patterns.ConvertAll(PatternMapper.Map)
-        };
     }
 
     public async Task<Result<UpdatePatternResponse>> UpdatePattern(

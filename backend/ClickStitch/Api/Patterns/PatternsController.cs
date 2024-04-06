@@ -1,5 +1,6 @@
 ﻿using ClickStitch.Api.Patterns.GetPattern;
 using ClickStitch.Api.Patterns.GetPatternInventory;
+using ClickStitch.Api.Patterns.SearchPatterns;
 using ClickStitch.Api.Patterns.Types;
 using ClickStitch.Middleware.Authentication;
 using ClickStitch.Middleware.Authorisation;
@@ -13,14 +14,20 @@ namespace ClickStitch.Api.Patterns;
 public sealed class PatternsController : ApiController
 {
     private readonly IPatternsService _patternsService;
-    private readonly IGetPatternInventoryService _getPatternInventoryService;
     private readonly IGetPatternService _getPatternService;
+    private readonly IGetPatternInventoryService _getPatternInventoryService;
+    private readonly ISearchPatternsService _searchPatternsService;
 
-    public PatternsController(IPatternsService patternsService, IGetPatternInventoryService getPatternInventoryService, IGetPatternService getPatternService)
+    public PatternsController(
+        IPatternsService patternsService,
+        IGetPatternService getPatternService,
+        IGetPatternInventoryService getPatternInventoryService,
+        ISearchPatternsService searchPatternsService)
     {
         _patternsService = patternsService;
-        _getPatternInventoryService = getPatternInventoryService;
         _getPatternService = getPatternService;
+        _getPatternInventoryService = getPatternInventoryService;
+        _searchPatternsService = searchPatternsService;
     }
 
     [HttpGet]
@@ -42,7 +49,7 @@ public sealed class PatternsController : ApiController
     {
         var user = RequestHelper.GetOptionalUser(Request);
 
-        var result = await _patternsService.GetPatterns(user, cancellationToken);
+        var result = await _searchPatternsService.SearchPatterns(user, cancellationToken);
         
         return ToApiResponse(result);
     }
