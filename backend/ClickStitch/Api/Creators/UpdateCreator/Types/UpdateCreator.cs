@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Creators.Types;
+﻿namespace ClickStitch.Api.Creators.UpdateCreator.Types;
 
 public sealed class UpdateCreatorRequest
 {

@@ -1,6 +1,7 @@
 ﻿using ClickStitch.Api.Creators.CreateCreator;
 using ClickStitch.Api.Creators.CreateCreator.Types;
-using ClickStitch.Api.Creators.Types;
+using ClickStitch.Api.Creators.UpdateCreator;
+using ClickStitch.Api.Creators.UpdateCreator.Types;
 using ClickStitch.Middleware.Authentication;
 using ClickStitch.Middleware.Authorisation;
 using DotNetLibs.Api.Types;
@@ -13,11 +14,16 @@ public sealed class CreatorsController : ApiController
 {
     private readonly ICreatorsService _creatorsService;
     private readonly ICreateCreatorService _createCreatorService;
+    private readonly IUpdateCreatorService _updateCreatorService;
 
-    public CreatorsController(ICreatorsService creatorsService, ICreateCreatorService createCreatorService)
+    public CreatorsController(
+        ICreatorsService creatorsService,
+        ICreateCreatorService createCreatorService,
+        IUpdateCreatorService updateCreatorService)
     {
         _creatorsService = creatorsService;
         _createCreatorService = createCreatorService;
+        _updateCreatorService = updateCreatorService;
     }
 
     [HttpPost]
@@ -41,7 +47,7 @@ public sealed class CreatorsController : ApiController
     {
         var requestUser = RequestHelper.GetRequiredUser(Request);
 
-        var result = await _creatorsService.UpdateCreator(requestUser, creatorReference, request, cancellationToken);
+        var result = await _updateCreatorService.UpdateCreator(requestUser, creatorReference, request, cancellationToken);
 
         return ToApiResponse(result);
     }

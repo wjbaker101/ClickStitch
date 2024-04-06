@@ -2,6 +2,7 @@
 using ClickStitch.Api.Auth;
 using ClickStitch.Api.Creators;
 using ClickStitch.Api.Creators.CreateCreator;
+using ClickStitch.Api.Creators.UpdateCreator;
 using ClickStitch.Api.Inventory.SearchInventoryThreads;
 using ClickStitch.Api.Inventory.UpdateInventoryThread;
 using ClickStitch.Api.Patterns;
@@ -65,6 +66,7 @@ public static class SetupDependencies
 
         services.AddSingleton<ICreatorsService, CreatorsService>();
         services.AddSingleton<ICreateCreatorService, CreateCreatorService>();
+        services.AddSingleton<IUpdateCreatorService, UpdateCreatorService>();
 
         services.AddSingleton<ISearchInventoryThreadsService, SearchInventoryThreadsService>();
         services.AddSingleton<IUpdateInventoryThreadService, UpdateInventoryThreadService>();

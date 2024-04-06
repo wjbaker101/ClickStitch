@@ -1,5 +1,5 @@
-﻿using ClickStitch.Api.Creators;
-using ClickStitch.Api.Creators.Types;
+﻿using ClickStitch.Api.Creators.UpdateCreator;
+using ClickStitch.Api.Creators.UpdateCreator.Types;
 using Data.Records;
 using Data.Repositories.Creator;
 using Data.Repositories.User;
@@ -68,7 +68,7 @@ public sealed class GivenAnUpdateCreatorRequestForAUserNotAssignedToTheCreator
             StoreUrl = "NewTestStoreUrl"
         };
 
-        var subject = new CreatorsService(new CreatorRepository(_database), new UserRepository(_database), null!);
+        var subject = new UpdateCreatorService(new CreatorRepository(_database), new UserRepository(_database));
 
         _result = await subject.UpdateCreator(new TestRequestUser(), _creatorReference, request, CancellationToken.None);
     }
