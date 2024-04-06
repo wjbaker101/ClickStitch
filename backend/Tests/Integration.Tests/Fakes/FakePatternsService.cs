@@ -1,6 +1,9 @@
 ﻿using ClickStitch.Api.Patterns;
+using ClickStitch.Api.Patterns.DeletePattern.Types;
 using ClickStitch.Api.Patterns.SearchPatterns.Types;
 using ClickStitch.Api.Patterns.Types;
+using ClickStitch.Api.Patterns.UpdatePattern.Types;
+using ClickStitch.Api.Patterns.VerifyPattern.Types;
 using ClickStitch.Models;
 using Core.Types;
 using DotNetLibs.Core.Types;

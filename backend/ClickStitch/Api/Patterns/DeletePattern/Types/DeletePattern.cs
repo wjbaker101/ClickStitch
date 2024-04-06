@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Patterns.Types;
+﻿namespace ClickStitch.Api.Patterns.DeletePattern.Types;
 
 public sealed class DeletePatternResponse
 {

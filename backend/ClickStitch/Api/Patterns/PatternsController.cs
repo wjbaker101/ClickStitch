@@ -4,6 +4,7 @@ using ClickStitch.Api.Patterns.GetPatternInventory;
 using ClickStitch.Api.Patterns.SearchPatterns;
 using ClickStitch.Api.Patterns.Types;
 using ClickStitch.Api.Patterns.UpdatePattern;
+using ClickStitch.Api.Patterns.UpdatePattern.Types;
 using ClickStitch.Api.Patterns.VerifyPattern;
 using ClickStitch.Middleware.Authentication;
 using ClickStitch.Middleware.Authorisation;

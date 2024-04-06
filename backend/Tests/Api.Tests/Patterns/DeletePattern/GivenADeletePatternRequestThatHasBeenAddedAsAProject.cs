@@ -1,5 +1,5 @@
 ﻿using ClickStitch.Api.Patterns.DeletePattern;
-using ClickStitch.Api.Patterns.Types;
+using ClickStitch.Api.Patterns.DeletePattern.Types;
 using Data.Records;
 using Data.Repositories.Pattern;
 using Data.Repositories.User;

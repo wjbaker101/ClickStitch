@@ -1,6 +1,6 @@
-﻿using ClickStitch.Api.Patterns.Types;
-using ClickStitch.Api.Patterns.VerifyPattern;
+﻿using ClickStitch.Api.Patterns.VerifyPattern;
 using ClickStitch.Api.Patterns.VerifyPattern.Parsing.Types;
+using ClickStitch.Api.Patterns.VerifyPattern.Types;
 
 namespace Api.Tests.Patterns.VerifyPattern;
 

@@ -1,5 +1,5 @@
-﻿using ClickStitch.Api.Patterns.Types;
-using ClickStitch.Api.Patterns.UpdatePattern;
+﻿using ClickStitch.Api.Patterns.UpdatePattern;
+using ClickStitch.Api.Patterns.UpdatePattern.Types;
 using Data.Records;
 using Data.Repositories.Pattern;
 using Data.Repositories.User;

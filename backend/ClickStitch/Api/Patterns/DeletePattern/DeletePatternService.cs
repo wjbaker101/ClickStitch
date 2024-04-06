@@ -1,4 +1,4 @@
-﻿using ClickStitch.Api.Patterns.Types;
+﻿using ClickStitch.Api.Patterns.DeletePattern.Types;
 using Data.Repositories.Pattern;
 using Data.Repositories.User;
 using Data.Repositories.UserPattern;

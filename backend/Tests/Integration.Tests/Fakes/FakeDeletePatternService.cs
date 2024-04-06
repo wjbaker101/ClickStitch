@@ -1,5 +1,5 @@
 ﻿using ClickStitch.Api.Patterns.DeletePattern;
-using ClickStitch.Api.Patterns.Types;
+using ClickStitch.Api.Patterns.DeletePattern.Types;
 using Core.Types;
 using DotNetLibs.Core.Types;
 
