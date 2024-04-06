@@ -1,5 +1,5 @@
-﻿using ClickStitch.Api.Users.GetSelf;
-using ClickStitch.Api.Users.GetSelf.Types;
+﻿using ClickStitch.Api.Users.GetUserBySelf;
+using ClickStitch.Api.Users.GetUserBySelf.Types;
 using Data.Records;
 using Data.Repositories.User;
 using Data.Types;
@@ -9,11 +9,11 @@ namespace Api.Tests.Users.GetSelf;
 
 [TestFixture]
 [Parallelizable]
-public sealed class GivenAGetSelfRequest
+public sealed class GivenAGetUserBySelfRequest
 {
     private readonly Guid _userReference = Guid.Parse("7c63a2ed-d06d-4b5a-a882-0374b14b6c3a");
 
-    private Result<GetSelfResponse> _result = null!;
+    private Result<GetUserBySelfResponse> _result = null!;
 
     [OneTimeSetUp]
     public async Task Setup()
@@ -39,9 +39,9 @@ public sealed class GivenAGetSelfRequest
             Reference = _userReference
         };
 
-        var subject = new GetSelfService(new UserRepository(database));
+        var subject = new GetUserByUserBySelfService(new UserRepository(database));
 
-        _result = await subject.GetSelf(requestUser, CancellationToken.None);
+        _result = await subject.GetUserBySelf(requestUser, CancellationToken.None);
     }
 
     [Test]

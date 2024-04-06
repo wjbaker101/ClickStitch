@@ -1,7 +1,7 @@
 ﻿using ClickStitch.Api.Users.CreateUser;
 using ClickStitch.Api.Users.CreateUser.Types;
 using ClickStitch.Api.Users.DeleteUser;
-using ClickStitch.Api.Users.GetSelf;
+using ClickStitch.Api.Users.GetUserBySelf;
 using ClickStitch.Api.Users.UpdateUser;
 using ClickStitch.Api.Users.UpdateUser.Types;
 using ClickStitch.Middleware.Authentication;
@@ -15,14 +15,14 @@ public sealed class UsersController : ApiController
 {
     private readonly ICreateUserService _createUserService;
     private readonly IDeleteUserService _deleteUserService;
-    private readonly IGetSelfService _getSelfService;
+    private readonly IGetUserBySelfService _getUserBySelfService;
     private readonly IUpdateUserService _updateUserService;
 
-    public UsersController(ICreateUserService createUserService, IDeleteUserService deleteUserService, IGetSelfService getSelfService, IUpdateUserService updateUserService)
+    public UsersController(ICreateUserService createUserService, IDeleteUserService deleteUserService, IGetUserBySelfService getUserBySelfService, IUpdateUserService updateUserService)
     {
         _createUserService = createUserService;
         _deleteUserService = deleteUserService;
-        _getSelfService = getSelfService;
+        _getUserBySelfService = getUserBySelfService;
         _updateUserService = updateUserService;
     }
 
@@ -50,11 +50,11 @@ public sealed class UsersController : ApiController
     [HttpGet]
     [Route("self")]
     [Authenticate]
-    public async Task<IActionResult> GetSelf(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetUserBySelf(CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetRequiredUser(Request);
 
-        var result = await _getSelfService.GetSelf(user, cancellationToken);
+        var result = await _getUserBySelfService.GetUserBySelf(user, cancellationToken);
 
         return ToApiResponse(result);
     }
