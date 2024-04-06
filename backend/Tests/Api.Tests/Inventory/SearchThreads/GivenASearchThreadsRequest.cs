@@ -1,6 +1,6 @@
 ﻿using Api.Tests.Inventory.SearchThreads._Helper;
-using ClickStitch.Api.Inventory.SearchThreads;
-using ClickStitch.Api.Inventory.SearchThreads.Types;
+using ClickStitch.Api.Inventory.SearchInventoryThreads;
+using ClickStitch.Api.Inventory.SearchInventoryThreads.Types;
 using Data.Records;
 using Data.Repositories.User;
 using Data.Repositories.UserThread;
@@ -13,7 +13,7 @@ namespace Api.Tests.Inventory.SearchThreads;
 [Parallelizable]
 public sealed class GivenASearchThreadsRequest
 {
-    private Result<SearchThreadsResponse> _result = null!;
+    private Result<SearchInventoryThreadsResponse> _result = null!;
 
     [OneTimeSetUp]
     public async Task Setup()
@@ -38,15 +38,15 @@ public sealed class GivenASearchThreadsRequest
             })
         };
 
-        var parameters = new SearchThreadsParameters
+        var parameters = new SearchInventoryThreadsParameters
         {
             SearchTerm = null,
             Brand = null
         };
 
-        var subject = new SearchThreadsService(null!, new UserRepository(database), new UserThreadRepository(database));
+        var subject = new SearchInventoryThreadsService(null!, new UserRepository(database), new UserThreadRepository(database));
 
-        _result = await subject.SearchThreads(new TestRequestUser(), parameters, CancellationToken.None);
+        _result = await subject.SearchInventoryThreads(new TestRequestUser(), parameters, CancellationToken.None);
     }
 
     [Test]

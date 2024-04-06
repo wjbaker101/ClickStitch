@@ -1,4 +1,4 @@
-﻿using ClickStitch.Api.Inventory.SearchThreads.Types;
+﻿using ClickStitch.Api.Inventory.SearchInventoryThreads.Types;
 using Data.Records;
 using Data.Repositories.Thread;
 using Data.Repositories.User;
@@ -6,27 +6,27 @@ using Data.Repositories.UserThread;
 using Data.Repositories.UserThread.Types;
 using DotNetLibs.Core.Extensions;
 
-namespace ClickStitch.Api.Inventory.SearchThreads;
+namespace ClickStitch.Api.Inventory.SearchInventoryThreads;
 
-public interface ISearchThreadsService
+public interface ISearchInventoryThreadsService
 {
-    Task<Result<SearchThreadsResponse>> SearchThreads(RequestUser requestUser, SearchThreadsParameters parameters, CancellationToken cancellationToken);
+    Task<Result<SearchInventoryThreadsResponse>> SearchInventoryThreads(RequestUser requestUser, SearchInventoryThreadsParameters parameters, CancellationToken cancellationToken);
 }
 
-public sealed class SearchThreadsService : ISearchThreadsService
+public sealed class SearchInventoryThreadsService : ISearchInventoryThreadsService
 {
     private readonly IThreadRepository _threadRepository;
     private readonly IUserRepository _userRepository;
     private readonly IUserThreadRepository _userThreadRepository;
 
-    public SearchThreadsService(IThreadRepository threadRepository, IUserRepository userRepository, IUserThreadRepository userThreadRepository)
+    public SearchInventoryThreadsService(IThreadRepository threadRepository, IUserRepository userRepository, IUserThreadRepository userThreadRepository)
     {
         _threadRepository = threadRepository;
         _userRepository = userRepository;
         _userThreadRepository = userThreadRepository;
     }
 
-    public async Task<Result<SearchThreadsResponse>> SearchThreads(RequestUser requestUser, SearchThreadsParameters parameters, CancellationToken cancellationToken)
+    public async Task<Result<SearchInventoryThreadsResponse>> SearchInventoryThreads(RequestUser requestUser, SearchInventoryThreadsParameters parameters, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
 
@@ -48,9 +48,9 @@ public sealed class SearchThreadsService : ISearchThreadsService
 
         var userThreadLookup = userThreads.Select(x => x.Thread.Id).ToHashSet();
 
-        return new SearchThreadsResponse
+        return new SearchInventoryThreadsResponse
         {
-            InventoryThreads = userThreads.ConvertAll(x => new SearchThreadsResponse.InventoryThread
+            InventoryThreads = userThreads.ConvertAll(x => new SearchInventoryThreadsResponse.InventoryThread
             {
                 Thread = ThreadMapper.Map(x.Thread),
                 Count = x.Count

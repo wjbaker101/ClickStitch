@@ -1,12 +1,12 @@
-﻿namespace ClickStitch.Api.Inventory.SearchThreads.Types;
+﻿namespace ClickStitch.Api.Inventory.SearchInventoryThreads.Types;
 
-public sealed class SearchThreadsParameters
+public sealed class SearchInventoryThreadsParameters
 {
     public required string? SearchTerm { get; init; }
     public required string? Brand { get; init; }
 }
 
-public sealed class SearchThreadsResponse
+public sealed class SearchInventoryThreadsResponse
 {
     public required List<InventoryThread> InventoryThreads { get; init; }
     public required List<ThreadModel> AvailableThreads { get; init; }
