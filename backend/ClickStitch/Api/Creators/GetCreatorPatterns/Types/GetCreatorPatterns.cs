@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Creators.Types;
+﻿namespace ClickStitch.Api.Creators.GetCreatorPatterns.Types;
 
 public sealed class GetCreatorPatternsResponse
 {

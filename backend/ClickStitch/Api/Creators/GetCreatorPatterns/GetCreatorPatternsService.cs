@@ -1,30 +1,21 @@
-﻿using ClickStitch.Api.Creators.Types;
+﻿using ClickStitch.Api.Creators.GetCreatorPatterns.Types;
 using Data.Repositories.Creator;
 using Data.Repositories.Creator.Types;
-using Data.Repositories.User;
-using Data.Repositories.UserCreator;
 
-namespace ClickStitch.Api.Creators;
+namespace ClickStitch.Api.Creators.GetCreatorPatterns;
 
-public interface ICreatorsService
+public interface IGetCreatorPatternsService
 {
     Task<Result<GetCreatorPatternsResponse>> GetCreatorPatterns(RequestUser user, Guid creatorReference, int pageSize, int pageNumber, CancellationToken cancellationToken);
 }
 
-public sealed class CreatorsService : ICreatorsService
+public sealed class GetCreatorPatternsService : IGetCreatorPatternsService
 {
     private readonly ICreatorRepository _creatorRepository;
-    private readonly IUserRepository _userRepository;
-    private readonly IUserCreatorRepository _userCreatorRepository;
 
-    public CreatorsService(
-        ICreatorRepository creatorRepository,
-        IUserRepository userRepository,
-        IUserCreatorRepository userCreatorRepository)
+    public GetCreatorPatternsService(ICreatorRepository creatorRepository)
     {
         _creatorRepository = creatorRepository;
-        _userRepository = userRepository;
-        _userCreatorRepository = userCreatorRepository;
     }
 
     public async Task<Result<GetCreatorPatternsResponse>> GetCreatorPatterns(RequestUser user, Guid creatorReference, int pageSize, int pageNumber, CancellationToken cancellationToken)

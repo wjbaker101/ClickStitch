@@ -1,5 +1,5 @@
-﻿using ClickStitch.Api.Creators;
-using ClickStitch.Api.Creators.Types;
+﻿using ClickStitch.Api.Creators.GetCreatorPatterns;
+using ClickStitch.Api.Creators.GetCreatorPatterns.Types;
 using Data.Records;
 using Data.Repositories.Creator;
 using Data.Types;
@@ -131,7 +131,7 @@ public sealed class GivenAGetCreatorPatternsRequest
             }
         };
 
-        var subject = new CreatorsService(new CreatorRepository(database), null!, null!);
+        var subject = new GetCreatorPatternsService(new CreatorRepository(database));
 
         _result = await subject.GetCreatorPatterns(new TestRequestUser(), _creatorReference, 10, 1, CancellationToken.None);
     }

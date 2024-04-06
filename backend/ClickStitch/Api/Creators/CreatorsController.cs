@@ -1,6 +1,7 @@
 ﻿using ClickStitch.Api.Creators.CreateCreator;
 using ClickStitch.Api.Creators.CreateCreator.Types;
 using ClickStitch.Api.Creators.GetCreatorBySelf;
+using ClickStitch.Api.Creators.GetCreatorPatterns;
 using ClickStitch.Api.Creators.UpdateCreator;
 using ClickStitch.Api.Creators.UpdateCreator.Types;
 using ClickStitch.Middleware.Authentication;
@@ -13,20 +14,20 @@ namespace ClickStitch.Api.Creators;
 [Route("api/creators")]
 public sealed class CreatorsController : ApiController
 {
-    private readonly ICreatorsService _creatorsService;
     private readonly ICreateCreatorService _createCreatorService;
     private readonly IGetCreatorBySelfService _getCreatorBySelfService;
+    private readonly IGetCreatorPatternsService _getCreatorPatternsService;
     private readonly IUpdateCreatorService _updateCreatorService;
 
     public CreatorsController(
-        ICreatorsService creatorsService,
         ICreateCreatorService createCreatorService,
         IGetCreatorBySelfService getCreatorBySelfService,
+        IGetCreatorPatternsService getCreatorPatternsService,
         IUpdateCreatorService updateCreatorService)
     {
-        _creatorsService = creatorsService;
         _createCreatorService = createCreatorService;
         _getCreatorBySelfService = getCreatorBySelfService;
+        _getCreatorPatternsService = getCreatorPatternsService;
         _updateCreatorService = updateCreatorService;
     }
 
@@ -56,19 +57,6 @@ public sealed class CreatorsController : ApiController
         return ToApiResponse(result);
     }
 
-    [HttpPut]
-    [Route("{creatorReference:guid}")]
-    [Authenticate]
-    [RequireCreator]
-    public async Task<IActionResult> UpdateCreator([FromRoute] Guid creatorReference, [FromBody] UpdateCreatorRequest request, CancellationToken cancellationToken)
-    {
-        var requestUser = RequestHelper.GetRequiredUser(Request);
-
-        var result = await _updateCreatorService.UpdateCreator(requestUser, creatorReference, request, cancellationToken);
-
-        return ToApiResponse(result);
-    }
-
     [HttpGet]
     [Route("{creatorReference:guid}/patterns")]
     [Authenticate]
@@ -80,7 +68,20 @@ public sealed class CreatorsController : ApiController
     {
         var requestUser = RequestHelper.GetRequiredUser(Request);
 
-        var result = await _creatorsService.GetCreatorPatterns(requestUser, creatorReference, pageSize, pageNumber, cancellationToken);
+        var result = await _getCreatorPatternsService.GetCreatorPatterns(requestUser, creatorReference, pageSize, pageNumber, cancellationToken);
+
+        return ToApiResponse(result);
+    }
+
+    [HttpPut]
+    [Route("{creatorReference:guid}")]
+    [Authenticate]
+    [RequireCreator]
+    public async Task<IActionResult> UpdateCreator([FromRoute] Guid creatorReference, [FromBody] UpdateCreatorRequest request, CancellationToken cancellationToken)
+    {
+        var requestUser = RequestHelper.GetRequiredUser(Request);
+
+        var result = await _updateCreatorService.UpdateCreator(requestUser, creatorReference, request, cancellationToken);
 
         return ToApiResponse(result);
     }
