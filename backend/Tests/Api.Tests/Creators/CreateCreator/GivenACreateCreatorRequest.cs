@@ -1,5 +1,5 @@
-﻿using ClickStitch.Api.Creators;
-using ClickStitch.Api.Creators.Types;
+﻿using ClickStitch.Api.Creators.CreateCreator;
+using ClickStitch.Api.Creators.CreateCreator.Types;
 using Data.Records;
 using Data.Repositories.Creator;
 using Data.Repositories.User;
@@ -46,7 +46,7 @@ public sealed class GivenACreateCreatorRequest
             StoreUrl = "TestStoreUrl"
         };
 
-        var subject = new CreatorsService(new CreatorRepository(_database), new UserRepository(_database), new UserCreatorRepository(_database));
+        var subject = new CreateCreatorService(new CreatorRepository(_database), new UserRepository(_database), new UserCreatorRepository(_database));
 
         _result = await subject.CreateCreator(new TestRequestUser(), request, CancellationToken.None);
     }

@@ -1,4 +1,6 @@
-﻿using ClickStitch.Api.Creators.Types;
+﻿using ClickStitch.Api.Creators.CreateCreator;
+using ClickStitch.Api.Creators.CreateCreator.Types;
+using ClickStitch.Api.Creators.Types;
 using ClickStitch.Middleware.Authentication;
 using ClickStitch.Middleware.Authorisation;
 using DotNetLibs.Api.Types;
@@ -10,10 +12,12 @@ namespace ClickStitch.Api.Creators;
 public sealed class CreatorsController : ApiController
 {
     private readonly ICreatorsService _creatorsService;
+    private readonly ICreateCreatorService _createCreatorService;
 
-    public CreatorsController(ICreatorsService creatorsService)
+    public CreatorsController(ICreatorsService creatorsService, ICreateCreatorService createCreatorService)
     {
         _creatorsService = creatorsService;
+        _createCreatorService = createCreatorService;
     }
 
     [HttpPost]
@@ -24,7 +28,7 @@ public sealed class CreatorsController : ApiController
     {
         var requestUser = RequestHelper.GetRequiredUser(Request);
 
-        var result = await _creatorsService.CreateCreator(requestUser, request, cancellationToken);
+        var result = await _createCreatorService.CreateCreator(requestUser, request, cancellationToken);
 
         return ToApiResponse(result);
     }

@@ -1,5 +1,4 @@
 ﻿using ClickStitch.Api.Creators.Types;
-using Data.Records;
 using Data.Repositories.Creator;
 using Data.Repositories.Creator.Types;
 using Data.Repositories.User;
@@ -9,7 +8,6 @@ namespace ClickStitch.Api.Creators;
 
 public interface ICreatorsService
 {
-    Task<Result<CreateCreatorResponse>> CreateCreator(RequestUser requestUser, CreateCreatorRequest request, CancellationToken cancellationToken);
     Task<Result<UpdateCreatorResponse>> UpdateCreator(RequestUser requestUser, Guid creatorReference, UpdateCreatorRequest request, CancellationToken cancellationToken);
     Task<Result<GetCreatorByUserResponse>> GetCreatorBySelf(RequestUser requestUser, CancellationToken cancellationToken);
     Task<Result<GetCreatorPatternsResponse>> GetCreatorPatterns(RequestUser user, Guid creatorReference, int pageSize, int pageNumber, CancellationToken cancellationToken);
@@ -29,32 +27,6 @@ public sealed class CreatorsService : ICreatorsService
         _creatorRepository = creatorRepository;
         _userRepository = userRepository;
         _userCreatorRepository = userCreatorRepository;
-    }
-
-    public async Task<Result<CreateCreatorResponse>> CreateCreator(RequestUser requestUser, CreateCreatorRequest request, CancellationToken cancellationToken)
-    {
-        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
-
-        var creator = await _creatorRepository.SaveAsync(new CreatorRecord
-        {
-            Reference = Guid.NewGuid(),
-            CreatedAt = DateTime.UtcNow,
-            Name = request.Name,
-            StoreUrl = request.StoreUrl,
-            Users = new List<UserRecord>(),
-            Patterns = new List<PatternRecord>()
-        }, cancellationToken);
-
-        await _userCreatorRepository.SaveAsync(new UserCreatorRecord
-        {
-            User = user,
-            Creator = creator
-        }, cancellationToken);
-
-        return new CreateCreatorResponse
-        {
-            Creator = CreatorMapper.Map(creator)
-        };
     }
 
     public async Task<Result<UpdateCreatorResponse>> UpdateCreator(RequestUser requestUser, Guid creatorReference, UpdateCreatorRequest request, CancellationToken cancellationToken)

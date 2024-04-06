@@ -8,11 +8,6 @@ namespace Integration.Tests.Fakes;
 
 public sealed class FakeCreatorsService : ICreatorsService
 {
-    public Task<Result<CreateCreatorResponse>> CreateCreator(RequestUser requestUser, CreateCreatorRequest request, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
     public Task<Result<UpdateCreatorResponse>> UpdateCreator(RequestUser requestUser, Guid creatorReference, UpdateCreatorRequest request, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
