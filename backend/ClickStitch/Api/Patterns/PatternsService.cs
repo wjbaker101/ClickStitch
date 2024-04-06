@@ -13,7 +13,6 @@ namespace ClickStitch.Api.Patterns;
 
 public interface IPatternsService
 {
-    Task<Result<UpdatePatternResponse>> UpdatePattern(RequestUser requestUser, Guid patternReference, UpdatePatternRequest request, CancellationToken cancellationToken);
     Task<Result> CreatePattern(RequestUser requestUser, CreatePatternRequest request, string patternData, IFormFile thumbnail, IFormFile? bannerImage, CancellationToken cancellationToken);
     Result<VerifyPatternResponse> VerifyPattern(string patternData, CancellationToken cancellationToken);
     Task<Result<DeletePatternResponse>> DeletePattern(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken);
@@ -51,35 +50,6 @@ public sealed class PatternsService : IPatternsService
         _patternThreadStitchRepository = patternThreadStitchRepository;
         _patternParserService = patternParserService;
         _guid = guid;
-    }
-
-    public async Task<Result<UpdatePatternResponse>> UpdatePattern(
-        RequestUser requestUser,
-        Guid patternReference,
-        UpdatePatternRequest request,
-        CancellationToken cancellationToken)
-    {
-        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
-
-        var patternResult = await _patternRepository.GetByReferenceAsync(patternReference, cancellationToken);
-        if (!patternResult.TrySuccess(out var pattern))
-            return Result<UpdatePatternResponse>.FromFailure(patternResult);
-
-        if (pattern.User.Id != user.Id)
-            return Result<UpdatePatternResponse>.Failure("Unable to update pattern as you are not a creator of it.");
-
-        pattern.Title = request.Title;
-        pattern.AidaCount = request.AidaCount;
-
-        if (requestUser.Permissions.IsCreator() && request.ExternalShopUrl != null)
-            pattern.ExternalShopUrl = request.ExternalShopUrl;
-
-        await _patternRepository.UpdateAsync(pattern, cancellationToken);
-
-        return new UpdatePatternResponse
-        {
-            Pattern = PatternMapper.Map(pattern)
-        };
     }
 
     public async Task<Result> CreatePattern(

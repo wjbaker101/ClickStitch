@@ -2,6 +2,7 @@
 using ClickStitch.Api.Patterns.GetPatternInventory;
 using ClickStitch.Api.Patterns.SearchPatterns;
 using ClickStitch.Api.Patterns.Types;
+using ClickStitch.Api.Patterns.UpdatePattern;
 using ClickStitch.Middleware.Authentication;
 using ClickStitch.Middleware.Authorisation;
 using DotNetLibs.Api.Types;
@@ -17,17 +18,20 @@ public sealed class PatternsController : ApiController
     private readonly IGetPatternService _getPatternService;
     private readonly IGetPatternInventoryService _getPatternInventoryService;
     private readonly ISearchPatternsService _searchPatternsService;
+    private readonly IUpdatePatternService _updatePatternService;
 
     public PatternsController(
         IPatternsService patternsService,
         IGetPatternService getPatternService,
         IGetPatternInventoryService getPatternInventoryService,
-        ISearchPatternsService searchPatternsService)
+        ISearchPatternsService searchPatternsService,
+        IUpdatePatternService updatePatternService)
     {
         _patternsService = patternsService;
         _getPatternService = getPatternService;
         _getPatternInventoryService = getPatternInventoryService;
         _searchPatternsService = searchPatternsService;
+        _updatePatternService = updatePatternService;
     }
 
     [HttpGet]
@@ -61,7 +65,7 @@ public sealed class PatternsController : ApiController
     {
         var user = RequestHelper.GetRequiredUser(Request);
 
-        var result = await _patternsService.UpdatePattern(user, patternReference, request, cancellationToken);
+        var result = await _updatePatternService.UpdatePattern(user, patternReference, request, cancellationToken);
         
         return ToApiResponse(result);
     }

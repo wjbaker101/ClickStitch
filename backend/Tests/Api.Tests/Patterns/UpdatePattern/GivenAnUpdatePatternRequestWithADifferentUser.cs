@@ -1,5 +1,5 @@
-﻿using ClickStitch.Api.Patterns;
-using ClickStitch.Api.Patterns.Types;
+﻿using ClickStitch.Api.Patterns.Types;
+using ClickStitch.Api.Patterns.UpdatePattern;
 using Data.Records;
 using Data.Repositories.Pattern;
 using Data.Repositories.User;
@@ -78,7 +78,7 @@ public sealed class GivenAnUpdatePatternRequestWithADifferentUser
             AidaCount = 7942
         };
 
-        var subject = new PatternsService(new PatternRepository(_database), null!, null!, new UserRepository(_database), null!, null!, null!, null!, null!);
+        var subject = new UpdatePatternService(new PatternRepository(_database), new UserRepository(_database));
 
         _result = await subject.UpdatePattern(new TestRequestUser(), _patternReference, request, CancellationToken.None);
     }
