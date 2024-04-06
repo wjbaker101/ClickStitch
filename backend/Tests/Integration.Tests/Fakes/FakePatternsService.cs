@@ -1,4 +1,5 @@
 ﻿using ClickStitch.Api.Patterns;
+using ClickStitch.Api.Patterns.SearchPatterns.Types;
 using ClickStitch.Api.Patterns.Types;
 using ClickStitch.Models;
 using Core.Types;

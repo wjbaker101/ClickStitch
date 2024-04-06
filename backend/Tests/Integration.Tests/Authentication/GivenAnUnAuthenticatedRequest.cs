@@ -1,4 +1,4 @@
-﻿using ClickStitch.Api.Patterns.Types;
+﻿using ClickStitch.Api.Patterns.SearchPatterns.Types;
 using NUnit.Framework;
 
 namespace Integration.Tests.Authentication;

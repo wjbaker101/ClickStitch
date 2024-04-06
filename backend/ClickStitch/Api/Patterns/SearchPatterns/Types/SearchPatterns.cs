@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Patterns.Types;
+﻿namespace ClickStitch.Api.Patterns.SearchPatterns.Types;
 
 public sealed class SearchPatternsResponse
 {
