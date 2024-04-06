@@ -6,6 +6,8 @@
 appsecrets.json
 appsecrets.Development.json
 
+ClickStitch/Api/Test
+
 # User-specific files
 *.rsuser
 *.suo
