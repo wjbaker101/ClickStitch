@@ -1,5 +1,5 @@
-﻿using ClickStitch.Api.Admin;
-using ClickStitch.Api.Admin.Types;
+﻿using ClickStitch.Api.Admin.SearchUsers;
+using ClickStitch.Api.Admin.SearchUsers.Types;
 using ClickStitch.Models;
 using Data.Records;
 using Data.Repositories.Admin;
@@ -49,7 +49,7 @@ public sealed class GivenASearchUsersRequest
             }
         };
 
-        var subject = new AdminService(new AdminRepository(database), null!, null!, null!);
+        var subject = new SearchUsersService(new AdminRepository(database));
 
         _result = await subject.SearchUsers(1, 50, CancellationToken.None);
     }

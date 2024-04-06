@@ -1,4 +1,7 @@
-﻿using ClickStitch.Api.Admin;
+﻿using ClickStitch.Api.Admin.AssignPermissionToUser;
+using ClickStitch.Api.Admin.GetPermissions;
+using ClickStitch.Api.Admin.RemovePermissionFromUser;
+using ClickStitch.Api.Admin.SearchUsers;
 using ClickStitch.Api.Auth;
 using ClickStitch.Api.Creators.CreateCreator;
 using ClickStitch.Api.Creators.GetCreatorBySelf;
@@ -101,7 +104,11 @@ public abstract class IntegrationTest
                     services.AddSingleton<IPatternsService>(new FakePatternsService());
                     services.AddSingleton<IGetPatternInventoryService>(new FakeGetPatternInventoryService());
                     services.AddSingleton<IGetPatternService>(new FakeGetPatternService());
-                    services.AddSingleton<IAdminService>(new FakeAdminService());
+
+                    services.AddSingleton<IAssignPermissionToUserService>(new FakeAssignPermissionToUserService());
+                    services.AddSingleton<IGetPermissionsService>(new FakeGetPermissionsService());
+                    services.AddSingleton<IRemovePermissionFromUserService>(new FakeRemovePermissionFromUserService());
+                    services.AddSingleton<ISearchUsersService>(new FakeSearchUsersService());
 
                     services.AddSingleton<ICreateCreatorService>(new FakeCreateCreatorService());
                     services.AddSingleton<IGetCreatorBySelfService>(new FakeGetCreatorBySelfService());

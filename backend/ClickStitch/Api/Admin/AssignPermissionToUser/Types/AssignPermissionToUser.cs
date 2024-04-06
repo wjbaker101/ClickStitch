@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Admin.Types;
+﻿namespace ClickStitch.Api.Admin.AssignPermissionToUser.Types;
 
 public sealed class AssignPermissionToUserRequest
 {

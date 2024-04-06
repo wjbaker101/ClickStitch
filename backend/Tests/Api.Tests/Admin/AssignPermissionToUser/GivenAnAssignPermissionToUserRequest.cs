@@ -1,5 +1,5 @@
-﻿using ClickStitch.Api.Admin;
-using ClickStitch.Api.Admin.Types;
+﻿using ClickStitch.Api.Admin.AssignPermissionToUser;
+using ClickStitch.Api.Admin.AssignPermissionToUser.Types;
 using ClickStitch.Models;
 using Data.Records;
 using Data.Repositories.Permission;
@@ -57,7 +57,7 @@ public sealed class GivenAnAssignPermissionToUserRequest
             PermissionType = ApiPermissionType.Creator
         };
 
-        var subject = new AdminService(null!, new UserRepository(_database), new PermissionRepository(_database), new UserPermissionRepository(_database));
+        var subject = new AssignPermissionToUserService(new UserRepository(_database), new PermissionRepository(_database), new UserPermissionRepository(_database));
 
         _result = await subject.AssignPermissionToUser(_userReference, request, CancellationToken.None);
     }

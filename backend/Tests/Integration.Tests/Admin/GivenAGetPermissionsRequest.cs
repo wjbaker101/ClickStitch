@@ -1,4 +1,4 @@
-﻿using ClickStitch.Api.Admin.Types;
+﻿using ClickStitch.Api.Admin.GetPermissions.Types;
 using ClickStitch.Models;
 using NUnit.Framework;
 

@@ -1,4 +1,7 @@
-﻿using ClickStitch.Api.Admin;
+﻿using ClickStitch.Api.Admin.AssignPermissionToUser;
+using ClickStitch.Api.Admin.GetPermissions;
+using ClickStitch.Api.Admin.RemovePermissionFromUser;
+using ClickStitch.Api.Admin.SearchUsers;
 using ClickStitch.Api.Auth;
 using ClickStitch.Api.Auth.LogIn;
 using ClickStitch.Api.Creators.CreateCreator;
@@ -64,7 +67,10 @@ public static class SetupDependencies
 
         services.AddSingleton<ICloudinaryClient, CloudinaryClient>();
 
-        services.AddSingleton<IAdminService, AdminService>();
+        services.AddSingleton<IAssignPermissionToUserService, AssignPermissionToUserService>();
+        services.AddSingleton<IGetPermissionsService, GetPermissionsService>();
+        services.AddSingleton<IRemovePermissionFromUserService, RemovePermissionFromUserService>();
+        services.AddSingleton<ISearchUsersService, SearchUsersService>();
 
         services.AddSingleton<ICreateCreatorService, CreateCreatorService>();
         services.AddSingleton<IGetCreatorBySelfService, GetCreatorBySelfService>();

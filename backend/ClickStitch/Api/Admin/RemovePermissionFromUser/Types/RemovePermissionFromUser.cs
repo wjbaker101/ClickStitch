@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Admin.Types;
+﻿namespace ClickStitch.Api.Admin.RemovePermissionFromUser.Types;
 
 public sealed class RemovePermissionFromUserRequest
 {

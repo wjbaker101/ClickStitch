@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Admin.Types;
+﻿namespace ClickStitch.Api.Admin.GetPermissions.Types;
 
 public sealed class GetPermissionsResponse
 {

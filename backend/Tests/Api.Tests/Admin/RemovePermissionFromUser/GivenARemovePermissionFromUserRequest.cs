@@ -1,5 +1,5 @@
-﻿using ClickStitch.Api.Admin;
-using ClickStitch.Api.Admin.Types;
+﻿using ClickStitch.Api.Admin.RemovePermissionFromUser;
+using ClickStitch.Api.Admin.RemovePermissionFromUser.Types;
 using ClickStitch.Models;
 using Data.Records;
 using Data.Repositories.User;
@@ -59,7 +59,7 @@ public sealed class GivenARemovePermissionFromUserRequest
             }
         };
 
-        var subject = new AdminService(null!, new UserRepository(_database), null!, new UserPermissionRepository(_database));
+        var subject = new RemovePermissionFromUserService(new UserRepository(_database), new UserPermissionRepository(_database));
 
         _result = await subject.RemovePermissionFromUser(_userReference, ApiPermissionType.Admin, CancellationToken.None);
     }

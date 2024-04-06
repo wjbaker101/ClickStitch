@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Admin.Types;
+﻿namespace ClickStitch.Api.Admin.SearchUsers.Types;
 
 public sealed class SearchUsersResponse
 {
