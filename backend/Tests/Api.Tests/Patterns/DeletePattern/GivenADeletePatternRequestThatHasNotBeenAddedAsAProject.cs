@@ -1,4 +1,4 @@
-﻿using ClickStitch.Api.Patterns;
+﻿using ClickStitch.Api.Patterns.DeletePattern;
 using ClickStitch.Api.Patterns.Types;
 using Data.Records;
 using Data.Repositories.Pattern;
@@ -110,16 +110,12 @@ public sealed class GivenADeletePatternRequestThatHasNotBeenAddedAsAProject
             }
         };
 
-        var subject = new PatternsService(
+        var subject = new DeletePatternService(
             new PatternRepository(_database),
             new PatternThreadRepository(_database),
-            null!,
             new UserRepository(_database),
             new UserPatternRepository(_database),
-            null!,
-            new PatternThreadStitchRepository(_database),
-            null!,
-            null!);
+            new PatternThreadStitchRepository(_database));
 
         _result = await subject.DeletePattern(new TestRequestUser(), Guid.Parse("6f6f9364-d204-4bdb-813f-a950938163b8"), CancellationToken.None);
     }

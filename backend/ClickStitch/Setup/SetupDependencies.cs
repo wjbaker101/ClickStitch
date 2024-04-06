@@ -11,6 +11,7 @@ using ClickStitch.Api.Creators.UpdateCreator;
 using ClickStitch.Api.Inventory.SearchInventoryThreads;
 using ClickStitch.Api.Inventory.UpdateInventoryThread;
 using ClickStitch.Api.Patterns;
+using ClickStitch.Api.Patterns.DeletePattern;
 using ClickStitch.Api.Patterns.GetPattern;
 using ClickStitch.Api.Patterns.GetPatternInventory;
 using ClickStitch.Api.Patterns.Parsing;
@@ -91,6 +92,7 @@ public static class SetupDependencies
         services.AddSingleton<IPatternUploadService, PatternUploadService>();
         services.AddSingleton<IPatternParserService, PatternParserService>();
 
+        services.AddSingleton<IDeletePatternService, DeletePatternService>();
         services.AddSingleton<IGetPatternService, GetPatternService>();
         services.AddSingleton<IGetPatternInventoryService, GetPatternInventoryService>();
         services.AddSingleton<ISearchPatternsService, SearchPatternsService>();

@@ -1,4 +1,5 @@
-﻿using ClickStitch.Api.Patterns.GetPattern;
+﻿using ClickStitch.Api.Patterns.DeletePattern;
+using ClickStitch.Api.Patterns.GetPattern;
 using ClickStitch.Api.Patterns.GetPatternInventory;
 using ClickStitch.Api.Patterns.SearchPatterns;
 using ClickStitch.Api.Patterns.Types;
@@ -15,6 +16,7 @@ namespace ClickStitch.Api.Patterns;
 public sealed class PatternsController : ApiController
 {
     private readonly IPatternsService _patternsService;
+    private readonly IDeletePatternService _deletePatternService;
     private readonly IGetPatternService _getPatternService;
     private readonly IGetPatternInventoryService _getPatternInventoryService;
     private readonly ISearchPatternsService _searchPatternsService;
@@ -22,16 +24,31 @@ public sealed class PatternsController : ApiController
 
     public PatternsController(
         IPatternsService patternsService,
+        IDeletePatternService deletePatternService,
         IGetPatternService getPatternService,
         IGetPatternInventoryService getPatternInventoryService,
         ISearchPatternsService searchPatternsService,
         IUpdatePatternService updatePatternService)
     {
         _patternsService = patternsService;
+        _deletePatternService = deletePatternService;
         _getPatternService = getPatternService;
         _getPatternInventoryService = getPatternInventoryService;
         _searchPatternsService = searchPatternsService;
         _updatePatternService = updatePatternService;
+    }
+
+    [HttpDelete]
+    [Route("{patternReference:guid}")]
+    [Authenticate]
+    [RequireCreator]
+    public async Task<IActionResult> DeletePattern([FromRoute] Guid patternReference, CancellationToken cancellationToken)
+    {
+        var user = RequestHelper.GetRequiredUser(Request);
+
+        var result = await _deletePatternService.DeletePattern(user, patternReference, cancellationToken);
+
+        return ToApiResponse(result);
     }
 
     [HttpGet]
@@ -98,19 +115,6 @@ public sealed class PatternsController : ApiController
 
         var result = _patternsService.VerifyPattern(patternDataAsString, cancellationToken);
         
-        return ToApiResponse(result);
-    }
-
-    [HttpDelete]
-    [Route("{patternReference:guid}")]
-    [Authenticate]
-    [RequireCreator]
-    public async Task<IActionResult> DeletePattern([FromRoute] Guid patternReference, CancellationToken cancellationToken)
-    {
-        var user = RequestHelper.GetRequiredUser(Request);
-
-        var result = await _patternsService.DeletePattern(user, patternReference, cancellationToken);
-
         return ToApiResponse(result);
     }
 
