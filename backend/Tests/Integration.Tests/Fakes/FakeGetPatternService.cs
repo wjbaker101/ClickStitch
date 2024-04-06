@@ -1,5 +1,5 @@
-﻿using ClickStitch.Api.Patterns.Services;
-using ClickStitch.Api.Patterns.Types;
+﻿using ClickStitch.Api.Patterns.GetPattern;
+using ClickStitch.Api.Patterns.GetPattern.Types;
 using Core.Types;
 using DotNetLibs.Core.Types;
 

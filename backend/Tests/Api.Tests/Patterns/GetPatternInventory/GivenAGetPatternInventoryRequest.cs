@@ -1,5 +1,5 @@
-﻿using ClickStitch.Api.Patterns.Services;
-using ClickStitch.Api.Patterns.Types;
+﻿using ClickStitch.Api.Patterns.GetPatternInventory;
+using ClickStitch.Api.Patterns.GetPatternInventory.Types;
 using Data.Records;
 using Data.Repositories.Pattern;
 using Data.Repositories.Thread;

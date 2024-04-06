@@ -1,4 +1,5 @@
-﻿using ClickStitch.Api.Patterns.Services;
+﻿using ClickStitch.Api.Patterns.GetPattern;
+using ClickStitch.Api.Patterns.GetPatternInventory;
 using ClickStitch.Api.Patterns.Types;
 using ClickStitch.Middleware.Authentication;
 using ClickStitch.Middleware.Authorisation;

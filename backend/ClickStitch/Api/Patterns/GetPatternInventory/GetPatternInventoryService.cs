@@ -1,11 +1,11 @@
-﻿using ClickStitch.Api.Patterns.Types;
+﻿using ClickStitch.Api.Patterns.GetPatternInventory.Types;
 using Data.Repositories.Pattern;
 using Data.Repositories.Thread;
 using Data.Repositories.User;
 using Data.Repositories.UserThread;
 using DotNetLibs.Core.Extensions;
 
-namespace ClickStitch.Api.Patterns.Services;
+namespace ClickStitch.Api.Patterns.GetPatternInventory;
 
 public interface IGetPatternInventoryService
 {

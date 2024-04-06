@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Patterns.Types;
+﻿namespace ClickStitch.Api.Patterns.GetPatternInventory.Types;
 
 public sealed class GetPatternInventoryResponse
 {

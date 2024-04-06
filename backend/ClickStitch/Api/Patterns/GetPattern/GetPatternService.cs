@@ -1,7 +1,7 @@
-﻿using ClickStitch.Api.Patterns.Types;
+﻿using ClickStitch.Api.Patterns.GetPattern.Types;
 using Data.Repositories.Pattern;
 
-namespace ClickStitch.Api.Patterns.Services;
+namespace ClickStitch.Api.Patterns.GetPattern;
 
 public interface IGetPatternService
 {
