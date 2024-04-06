@@ -2,6 +2,7 @@
 using ClickStitch.Api.Auth;
 using ClickStitch.Api.Creators;
 using ClickStitch.Api.Creators.CreateCreator;
+using ClickStitch.Api.Creators.GetCreatorBySelf;
 using ClickStitch.Api.Creators.UpdateCreator;
 using ClickStitch.Api.Patterns;
 using ClickStitch.Api.Patterns.Services;
@@ -104,6 +105,7 @@ public abstract class IntegrationTest
 
                     services.AddSingleton<ICreatorsService>(new FakeCreatorsService());
                     services.AddSingleton<ICreateCreatorService>(new FakeCreateCreatorService());
+                    services.AddSingleton<IGetCreatorBySelfService>(new FakeGetCreatorBySelfService());
                     services.AddSingleton<IUpdateCreatorService>(new FakeUpdateCreatorService());
                 });
             });

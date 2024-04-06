@@ -1,4 +1,5 @@
 ﻿using ClickStitch.Api.Creators;
+using ClickStitch.Api.Creators.GetCreatorBySelf.Types;
 using ClickStitch.Api.Creators.Types;
 using ClickStitch.Api.Creators.UpdateCreator.Types;
 using ClickStitch.Models;
@@ -19,9 +20,9 @@ public sealed class FakeCreatorsService : ICreatorsService
         throw new NotImplementedException();
     }
 
-    public Task<Result<GetCreatorByUserResponse>> GetCreatorBySelf(RequestUser requestUser, CancellationToken cancellationToken)
+    public Task<Result<GetCreatorBySelfResponse>> GetCreatorBySelf(RequestUser requestUser, CancellationToken cancellationToken)
     {
-        return Task.FromResult<Result<GetCreatorByUserResponse>>(new GetCreatorByUserResponse
+        return Task.FromResult<Result<GetCreatorBySelfResponse>>(new GetCreatorBySelfResponse
         {
             Creator = new CreatorModel
             {

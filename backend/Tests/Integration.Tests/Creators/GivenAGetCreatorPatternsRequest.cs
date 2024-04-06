@@ -1,4 +1,4 @@
-﻿using ClickStitch.Api.Creators.Types;
+﻿using ClickStitch.Api.Creators.GetCreatorBySelf.Types;
 using NUnit.Framework;
 
 namespace Integration.Tests.Creators;
@@ -7,14 +7,14 @@ namespace Integration.Tests.Creators;
 [Parallelizable]
 public sealed class GivenAGetCreatorPatternsRequest : IntegrationTest
 {
-    private GetCreatorByUserResponse _result = null!;
+    private GetCreatorBySelfResponse _result = null!;
 
     [OneTimeSetUp]
     public async Task Setup()
     {
         AsCreator();
 
-        _result = await DoRequest<GetCreatorByUserResponse>(HttpMethod.Get, "api/creators/self");
+        _result = await DoRequest<GetCreatorBySelfResponse>(HttpMethod.Get, "api/creators/self");
     }
 
     [Test]

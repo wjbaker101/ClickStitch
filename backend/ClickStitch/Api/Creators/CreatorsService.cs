@@ -8,7 +8,6 @@ namespace ClickStitch.Api.Creators;
 
 public interface ICreatorsService
 {
-    Task<Result<GetCreatorByUserResponse>> GetCreatorBySelf(RequestUser requestUser, CancellationToken cancellationToken);
     Task<Result<GetCreatorPatternsResponse>> GetCreatorPatterns(RequestUser user, Guid creatorReference, int pageSize, int pageNumber, CancellationToken cancellationToken);
 }
 
@@ -26,25 +25,6 @@ public sealed class CreatorsService : ICreatorsService
         _creatorRepository = creatorRepository;
         _userRepository = userRepository;
         _userCreatorRepository = userCreatorRepository;
-    }
-
-    public async Task<Result<GetCreatorByUserResponse>> GetCreatorBySelf(RequestUser requestUser, CancellationToken cancellationToken)
-    {
-        var user = await _userRepository.GetByRequestUser(requestUser, cancellationToken);
-
-        var creatorResult = await _creatorRepository.GetByUser(user, cancellationToken);
-        if (creatorResult.IsFailure)
-        {
-            return new GetCreatorByUserResponse
-            {
-                Creator = null
-            };
-        }
-
-        return new GetCreatorByUserResponse
-        {
-            Creator = CreatorMapper.Map(creatorResult.Content)
-        };
     }
 
     public async Task<Result<GetCreatorPatternsResponse>> GetCreatorPatterns(RequestUser user, Guid creatorReference, int pageSize, int pageNumber, CancellationToken cancellationToken)

@@ -1,5 +1,5 @@
-﻿using ClickStitch.Api.Creators;
-using ClickStitch.Api.Creators.Types;
+﻿using ClickStitch.Api.Creators.GetCreatorBySelf;
+using ClickStitch.Api.Creators.GetCreatorBySelf.Types;
 using Data.Records;
 using Data.Repositories.Creator;
 using Data.Repositories.User;
@@ -12,7 +12,7 @@ namespace Api.Tests.Creators.GetCreatorBySelf;
 [Parallelizable]
 public sealed class GivenAGetCreatorBySelfRequestForAUserNotAssignedToACreator
 {
-    private Result<GetCreatorByUserResponse> _result = null!;
+    private Result<GetCreatorBySelfResponse> _result = null!;
 
     [OneTimeSetUp]
     public async Task Setup()
@@ -35,7 +35,7 @@ public sealed class GivenAGetCreatorBySelfRequestForAUserNotAssignedToACreator
             }
         };
 
-        var subject = new CreatorsService(new CreatorRepository(database), new UserRepository(database), null!);
+        var subject = new GetCreatorBySelfService(new CreatorRepository(database), new UserRepository(database));
 
         _result = await subject.GetCreatorBySelf(new TestRequestUser(), CancellationToken.None);
     }
