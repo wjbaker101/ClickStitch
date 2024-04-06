@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Auth.Types;
+﻿namespace ClickStitch.Api.Auth.LogIn.Types;
 
 public sealed class LogInRequest
 {

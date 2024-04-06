@@ -1,35 +1,35 @@
-﻿using ClickStitch.Api.Auth.Types;
+﻿using ClickStitch.Api.Auth.LogIn.Types;
 using Data.Repositories.User;
 using Data.Repositories.UserPermission;
 using DotNetLibs.Core.Services;
 
-namespace ClickStitch.Api.Auth;
+namespace ClickStitch.Api.Auth.LogIn;
 
-public interface IAuthService
+public interface ILogInService
 {
     Task<Result<LogInResponse>> LogIn(LogInRequest request, CancellationToken cancellationToken);
 }
 
-public sealed class AuthService : IAuthService
+public sealed class LogInService : ILogInService
 {
     private readonly IUserRepository _userRepository;
     private readonly IPasswordService _passwordService;
     private readonly ILoginTokenService _loginTokenService;
     private readonly IUserPermissionRepository _userPermissionRepository;
-    private readonly IDateTimeProvider _dateTime;
+    private readonly IDateTimeProvider _dateTimeProvider;
 
-    public AuthService(
+    public LogInService(
         IUserRepository userRepository,
         IPasswordService passwordService,
         ILoginTokenService loginTokenService,
         IUserPermissionRepository userPermissionRepository,
-        IDateTimeProvider dateTime)
+        IDateTimeProvider dateTimeProvider)
     {
         _userRepository = userRepository;
         _passwordService = passwordService;
         _loginTokenService = loginTokenService;
         _userPermissionRepository = userPermissionRepository;
-        _dateTime = dateTime;
+        _dateTimeProvider = dateTimeProvider;
     }
 
     public async Task<Result<LogInResponse>> LogIn(LogInRequest request, CancellationToken cancellationToken)
@@ -46,7 +46,7 @@ public sealed class AuthService : IAuthService
 
         var permissions = await _userPermissionRepository.GetByUser(user, cancellationToken);
 
-        user.LastLoginAt = _dateTime.UtcNow();
+        user.LastLoginAt = _dateTimeProvider.UtcNow();
 
         await _userRepository.UpdateAsync(user, cancellationToken);
 

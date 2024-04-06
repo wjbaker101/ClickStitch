@@ -1,4 +1,5 @@
-﻿using ClickStitch.Api.Auth.Types;
+﻿using ClickStitch.Api.Auth.LogIn;
+using ClickStitch.Api.Auth.LogIn.Types;
 using DotNetLibs.Api.Types;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,18 +8,18 @@ namespace ClickStitch.Api.Auth;
 [Route("api/auth")]
 public sealed class AuthController : ApiController
 {
-    private readonly IAuthService _authService;
+    private readonly ILogInService _logInService;
 
-    public AuthController(IAuthService authService)
+    public AuthController(ILogInService logInService)
     {
-        _authService = authService;
+        _logInService = logInService;
     }
 
     [HttpPost]
     [Route("log_in")]
     public async Task<IActionResult> LogIn([FromBody] LogInRequest request, CancellationToken cancellationToken)
     {
-        var result = await _authService.LogIn(request, cancellationToken);
+        var result = await _logInService.LogIn(request, cancellationToken);
 
         return ToApiResponse(result);
     }

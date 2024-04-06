@@ -1,5 +1,6 @@
 ﻿using ClickStitch.Api.Auth;
-using ClickStitch.Api.Auth.Types;
+using ClickStitch.Api.Auth.LogIn;
+using ClickStitch.Api.Auth.LogIn.Types;
 using ClickStitch.Models;
 using Data.Records;
 using Data.Repositories.User;
@@ -68,7 +69,7 @@ public sealed class GivenALogInRequest
             Password = CORRECT_PASSWORD
         };
 
-        var subject = new AuthService(new UserRepository(_database), passwordService, new LoginTokenService(dateTimeProvider, new TestAppSecrets()), new UserPermissionRepository(_database), dateTimeProvider);
+        var subject = new LogInService(new UserRepository(_database), passwordService, new LoginTokenService(dateTimeProvider, new TestAppSecrets()), new UserPermissionRepository(_database), dateTimeProvider);
 
         _result = await subject.LogIn(request, CancellationToken.None);
     }
