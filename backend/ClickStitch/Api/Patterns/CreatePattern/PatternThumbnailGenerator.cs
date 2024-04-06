@@ -2,7 +2,7 @@
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
-namespace ClickStitch.Api.Patterns;
+namespace ClickStitch.Api.Patterns.CreatePattern;
 
 public static class PatternThumbnailGenerator
 {

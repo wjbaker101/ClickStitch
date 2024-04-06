@@ -7,7 +7,7 @@ using ClickStitch.Api.Creators.CreateCreator;
 using ClickStitch.Api.Creators.GetCreatorBySelf;
 using ClickStitch.Api.Creators.GetCreatorPatterns;
 using ClickStitch.Api.Creators.UpdateCreator;
-using ClickStitch.Api.Patterns;
+using ClickStitch.Api.Patterns.CreatePattern;
 using ClickStitch.Api.Patterns.DeletePattern;
 using ClickStitch.Api.Patterns.GetPattern;
 using ClickStitch.Api.Patterns.GetPatternInventory;
@@ -106,8 +106,8 @@ public abstract class IntegrationTest
                     services.AddSingleton<AppSecrets>(new TestAppSecrets());
                     services.AddSingleton<IUserRepository>(new UserRepository(database));
 
-                    services.AddSingleton<IPatternsService>(new FakePatternsService());
                     services.AddSingleton<IDeletePatternService>(new FakeDeletePatternService());
+                    services.AddSingleton<ICreatePatternService>(new FakeCreatePatternService());
                     services.AddSingleton<IGetPatternInventoryService>(new FakeGetPatternInventoryService());
                     services.AddSingleton<ISearchPatternsService>(new FakeSearchPatternsService());
                     services.AddSingleton<IGetPatternService>(new FakeGetPatternService());

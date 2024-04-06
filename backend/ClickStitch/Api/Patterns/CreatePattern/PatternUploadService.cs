@@ -1,8 +1,8 @@
-﻿using ClickStitch.Api.Patterns.Types;
+﻿using ClickStitch.Api.Patterns.CreatePattern.Types;
 using ClickStitch.Clients.Cloudinary;
 using ClickStitch.Clients.Cloudinary.Types;
 
-namespace ClickStitch.Api.Patterns;
+namespace ClickStitch.Api.Patterns.CreatePattern;
 
 public interface IPatternUploadService
 {

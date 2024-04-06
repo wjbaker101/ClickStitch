@@ -1,8 +1,9 @@
-﻿using ClickStitch.Api.Patterns.DeletePattern;
+﻿using ClickStitch.Api.Patterns.CreatePattern;
+using ClickStitch.Api.Patterns.CreatePattern.Types;
+using ClickStitch.Api.Patterns.DeletePattern;
 using ClickStitch.Api.Patterns.GetPattern;
 using ClickStitch.Api.Patterns.GetPatternInventory;
 using ClickStitch.Api.Patterns.SearchPatterns;
-using ClickStitch.Api.Patterns.Types;
 using ClickStitch.Api.Patterns.UpdatePattern;
 using ClickStitch.Api.Patterns.UpdatePattern.Types;
 using ClickStitch.Api.Patterns.VerifyPattern;
@@ -17,8 +18,8 @@ namespace ClickStitch.Api.Patterns;
 [Route("api/patterns")]
 public sealed class PatternsController : ApiController
 {
-    private readonly IPatternsService _patternsService;
     private readonly IDeletePatternService _deletePatternService;
+    private readonly ICreatePatternService _createPatternService;
     private readonly IGetPatternService _getPatternService;
     private readonly IGetPatternInventoryService _getPatternInventoryService;
     private readonly ISearchPatternsService _searchPatternsService;
@@ -26,16 +27,16 @@ public sealed class PatternsController : ApiController
     private readonly IVerifyPatternService _verifyPatternService;
 
     public PatternsController(
-        IPatternsService patternsService,
         IDeletePatternService deletePatternService,
+        ICreatePatternService createPatternService,
         IGetPatternService getPatternService,
         IGetPatternInventoryService getPatternInventoryService,
         ISearchPatternsService searchPatternsService,
         IUpdatePatternService updatePatternService,
         IVerifyPatternService verifyPatternService)
     {
-        _patternsService = patternsService;
         _deletePatternService = deletePatternService;
+        _createPatternService = createPatternService;
         _getPatternService = getPatternService;
         _getPatternInventoryService = getPatternInventoryService;
         _searchPatternsService = searchPatternsService;
@@ -70,7 +71,7 @@ public sealed class PatternsController : ApiController
 
         var request = JsonConvert.DeserializeObject<CreatePatternRequest>(requestAsString)!;
 
-        var result = await _patternsService.CreatePattern(requestUser, request, patternDataAsString, thumbnail, bannerImage, cancellationToken);
+        var result = await _createPatternService.CreatePattern(requestUser, request, patternDataAsString, thumbnail, bannerImage, cancellationToken);
 
         return ToApiResponse(result);
     }

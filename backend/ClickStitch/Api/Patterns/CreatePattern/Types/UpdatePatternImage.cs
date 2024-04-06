@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace ClickStitch.Api.Patterns.Types;
+namespace ClickStitch.Api.Patterns.CreatePattern.Types;
 
 public sealed class UpdatePatternImageRequest
 {

@@ -10,7 +10,7 @@ using ClickStitch.Api.Creators.GetCreatorPatterns;
 using ClickStitch.Api.Creators.UpdateCreator;
 using ClickStitch.Api.Inventory.SearchInventoryThreads;
 using ClickStitch.Api.Inventory.UpdateInventoryThread;
-using ClickStitch.Api.Patterns;
+using ClickStitch.Api.Patterns.CreatePattern;
 using ClickStitch.Api.Patterns.DeletePattern;
 using ClickStitch.Api.Patterns.GetPattern;
 using ClickStitch.Api.Patterns.GetPatternInventory;
@@ -89,16 +89,16 @@ public static class SetupDependencies
         services.AddSingleton<ILoginTokenService, LoginTokenService>();
         services.AddSingleton<IPasswordService, PasswordService>();
 
-        services.AddSingleton<IPatternsService, PatternsService>();
-        services.AddSingleton<IPatternUploadService, PatternUploadService>();
-        services.AddSingleton<IPatternParserService, PatternParserService>();
-
         services.AddSingleton<IDeletePatternService, DeletePatternService>();
+        services.AddSingleton<ICreatePatternService, CreatePatternService>();
         services.AddSingleton<IGetPatternService, GetPatternService>();
         services.AddSingleton<IGetPatternInventoryService, GetPatternInventoryService>();
         services.AddSingleton<ISearchPatternsService, SearchPatternsService>();
         services.AddSingleton<IUpdatePatternService, UpdatePatternService>();
         services.AddSingleton<IVerifyPatternService, VerifyPatternService>();
+
+        services.AddSingleton<IPatternUploadService, PatternUploadService>();
+        services.AddSingleton<IPatternParserService, PatternParserService>();
 
         services.AddSingleton<IAddProjectService, AddProjectService>();
         services.AddSingleton<ICompleteStitchesService, CompleteStitchesService>();

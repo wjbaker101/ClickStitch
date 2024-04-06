@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Patterns.Types;
+﻿namespace ClickStitch.Api.Patterns.CreatePattern.Types;
 
 public enum PatternImageType
 {

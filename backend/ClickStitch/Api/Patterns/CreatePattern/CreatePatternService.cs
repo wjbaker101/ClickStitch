@@ -1,4 +1,4 @@
-﻿using ClickStitch.Api.Patterns.Types;
+﻿using ClickStitch.Api.Patterns.CreatePattern.Types;
 using ClickStitch.Api.Patterns.VerifyPattern.Parsing;
 using ClickStitch.Api.Patterns.VerifyPattern.Parsing.Types;
 using ClickStitch.Services;
@@ -9,14 +9,14 @@ using Data.Repositories.User;
 using Data.Repositories.UserPattern;
 using DotNetLibs.Core.Services;
 
-namespace ClickStitch.Api.Patterns;
+namespace ClickStitch.Api.Patterns.CreatePattern;
 
-public interface IPatternsService
+public interface ICreatePatternService
 {
     Task<Result> CreatePattern(RequestUser requestUser, CreatePatternRequest request, string patternData, IFormFile thumbnail, IFormFile? bannerImage, CancellationToken cancellationToken);
 }
 
-public sealed class PatternsService : IPatternsService
+public sealed class CreatePatternService : ICreatePatternService
 {
     private readonly IPatternRepository _patternRepository;
     private readonly IPatternThreadRepository _patternThreadRepository;
@@ -26,9 +26,9 @@ public sealed class PatternsService : IPatternsService
     private readonly ICreatorRepository _creatorRepository;
     private readonly IPatternThreadStitchRepository _patternThreadStitchRepository;
     private readonly IPatternParserService _patternParserService;
-    private readonly IGuidProvider _guid;
+    private readonly IGuidProvider _guidProvider;
 
-    public PatternsService(
+    public CreatePatternService(
         IPatternRepository patternRepository,
         IPatternThreadRepository patternThreadRepository,
         IPatternUploadService patternUploadService,
@@ -37,7 +37,7 @@ public sealed class PatternsService : IPatternsService
         ICreatorRepository creatorRepository,
         IPatternThreadStitchRepository patternThreadStitchRepository,
         IPatternParserService patternParserService,
-        IGuidProvider guid)
+        IGuidProvider guidProvider)
     {
         _patternRepository = patternRepository;
         _patternThreadRepository = patternThreadRepository;
@@ -47,7 +47,7 @@ public sealed class PatternsService : IPatternsService
         _creatorRepository = creatorRepository;
         _patternThreadStitchRepository = patternThreadStitchRepository;
         _patternParserService = patternParserService;
-        _guid = guid;
+        _guidProvider = guidProvider;
     }
 
     public async Task<Result> CreatePattern(
@@ -72,7 +72,7 @@ public sealed class PatternsService : IPatternsService
             return Result.FromFailure(parseResult);
 
         var bannerImageStream = bannerImage != null ? bannerImage.OpenReadStream() : PatternThumbnailGenerator.Create(parsed.Pattern.Width, parsed.Pattern.Height, parsed.Threads, parsed.Stitches);
-        var patternReference = _guid.NewGuid();
+        var patternReference = _guidProvider.NewGuid();
 
         var bannerUrlResult = await _patternUploadService.UploadImage(patternReference.ToString(), PatternImageType.Banner, bannerImageStream, cancellationToken);
         if (bannerUrlResult.IsFailure)
@@ -136,7 +136,7 @@ public sealed class PatternsService : IPatternsService
             {
                 User = user,
                 Pattern = pattern,
-                Reference = _guid.NewGuid(),
+                Reference = _guidProvider.NewGuid(),
                 CreatedAt = DateTime.UtcNow,
                 PausePositionX = null,
                 PausePositionY = null

@@ -1,5 +1,5 @@
-﻿using ClickStitch.Api.Patterns;
-using ClickStitch.Api.Patterns.Types;
+﻿using ClickStitch.Api.Patterns.CreatePattern;
+using ClickStitch.Api.Patterns.CreatePattern.Types;
 using ClickStitch.Api.Patterns.VerifyPattern.Parsing.Types;
 using Data.Records;
 using Data.Repositories.Creator;
@@ -125,7 +125,7 @@ public sealed class GivenACreatePatternRequestAsAStitcher
             ExternalShopUrl = "TestExternalShopUrl"
         };
 
-        var subject = new PatternsService(
+        var subject = new CreatePatternService(
             new PatternRepository(_database),
             new PatternThreadRepository(_database),
             new PatternUploadService(_cloudinary),
