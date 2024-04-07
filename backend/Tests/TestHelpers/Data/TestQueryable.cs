@@ -10,50 +10,52 @@ namespace TestHelpers.Data;
 public class TestApiQueryable<TRecord> : IApiQueryable<TRecord> where TRecord : IDatabaseRecord
 {
     private readonly IQueryable<TRecord> _queryable;
+    private readonly DatabaseActionsListener _actions;
 
-    public TestApiQueryable(IQueryable<TRecord> queryable)
+    public TestApiQueryable(IQueryable<TRecord> queryable, DatabaseActionsListener actions)
     {
+        _actions = actions;
         _queryable = new TestQueryable<TRecord>(queryable);
     }
 
     public IApiQueryable<TRecord> Where(Expression<Func<TRecord, bool>> predicate)
     {
-        return new TestApiQueryable<TRecord>(_queryable.Where(predicate));
+        return new TestApiQueryable<TRecord>(_queryable.Where(predicate), _actions);
     }
 
     public IApiQueryable<TOutput> Select<TOutput>(Expression<Func<TRecord, TOutput>> selector) where TOutput : IDatabaseRecord
     {
-        return new TestApiQueryable<TOutput>(_queryable.Select(selector));
+        return new TestApiQueryable<TOutput>(_queryable.Select(selector), _actions);
     }
 
     public IApiQueryable<TRecord> OrderBy<TKey>(Expression<Func<TRecord, TKey>> keySelector)
     {
-        return new TestApiQueryable<TRecord>(_queryable.OrderBy(keySelector));
+        return new TestApiQueryable<TRecord>(_queryable.OrderBy(keySelector), _actions);
     }
 
     public IApiQueryable<TRecord> OrderByDescending<TKey>(Expression<Func<TRecord, TKey>> keySelector)
     {
-        return new TestApiQueryable<TRecord>(_queryable.OrderByDescending(keySelector));
+        return new TestApiQueryable<TRecord>(_queryable.OrderByDescending(keySelector), _actions);
     }
 
     public IApiFetchQueryable<TRecord, TRelated> Fetch<TRelated>(Expression<Func<TRecord, TRelated>> relatedObjectSelector) where TRelated : IDatabaseRecord?
     {
-        return new TestApiFetchQueryable<TRecord, TRelated>(_queryable);
+        return new TestApiFetchQueryable<TRecord, TRelated>(_queryable, _actions);
     }
 
     public IApiFetchQueryable<TRecord, TRelated> FetchMany<TRelated>(Expression<Func<TRecord, IEnumerable<TRelated>>> relatedObjectSelector) where TRelated : IDatabaseRecord
     {
-        return new TestApiFetchQueryable<TRecord, TRelated>(_queryable);
+        return new TestApiFetchQueryable<TRecord, TRelated>(_queryable, _actions);
     }
 
     public IApiQueryable<TRecord> Skip(int count)
     {
-        return new TestApiQueryable<TRecord>(_queryable.Skip(count));
+        return new TestApiQueryable<TRecord>(_queryable.Skip(count), _actions);
     }
 
     public IApiQueryable<TRecord> Take(int count)
     {
-        return new TestApiQueryable<TRecord>(_queryable.Take(count));
+        return new TestApiQueryable<TRecord>(_queryable.Take(count), _actions);
     }
 
     public async Task<TRecord> Single(CancellationToken cancellationToken)
@@ -91,6 +93,15 @@ public class TestApiQueryable<TRecord> : IApiQueryable<TRecord> where TRecord : 
         return _queryable.AnyAsync(predicate, cancellationToken);
     }
 
+    public async Task<int> Delete(CancellationToken cancellationToken)
+    {
+        var deleted = await ToList(cancellationToken);
+
+        _actions.Deleted.AddRange(deleted.Cast<IDatabaseRecord>());
+
+        return deleted.Capacity;
+    }
+
     public IFutureEnumerable<TRecord> ToFuture()
     {
         return _queryable.ToFuture();
@@ -105,15 +116,17 @@ public class TestApiQueryable<TRecord> : IApiQueryable<TRecord> where TRecord : 
 public sealed class TestApiFetchQueryable<TRecord, TFetch> : TestApiQueryable<TRecord>, IApiFetchQueryable<TRecord, TFetch> where TRecord : IDatabaseRecord where TFetch : IDatabaseRecord?
 {
     private readonly IQueryable<TRecord> _queryable;
+    private readonly DatabaseActionsListener _actions;
 
-    public TestApiFetchQueryable(IQueryable<TRecord> queryable) : base(queryable)
+    public TestApiFetchQueryable(IQueryable<TRecord> queryable, DatabaseActionsListener actions) : base(queryable, actions)
     {
         _queryable = queryable;
+        _actions = actions;
     }
 
     public IApiFetchQueryable<TRecord, TRelated> ThenFetch<TRelated>(Expression<Func<TFetch, TRelated>> relatedObjectSelector) where TRelated : IDatabaseRecord
     {
-        return new TestApiFetchQueryable<TRecord, TRelated>(_queryable);
+        return new TestApiFetchQueryable<TRecord, TRelated>(_queryable, _actions);
     }
 }
 

@@ -21,7 +21,7 @@ public sealed class TestApiStatelessSession : IApiStatelessSession
 
     public IApiQueryable<TRecord> Query<TRecord>() where TRecord : IDatabaseRecord
     {
-        return new TestApiQueryable<TRecord>(_records.OfType<TRecord>().AsQueryable());
+        return new TestApiQueryable<TRecord>(_records.OfType<TRecord>().AsQueryable(), _actions);
     }
 
     public Task<TRecord> Insert<TRecord>(TRecord record, CancellationToken cancellationToken) where TRecord : IDatabaseRecord

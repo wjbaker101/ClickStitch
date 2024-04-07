@@ -11,7 +11,7 @@ namespace Api.Tests.Patterns.DeletePattern;
 
 [TestFixture]
 [Parallelizable]
-public sealed class GivenADeletePatternRequestThatHasNotBeenAddedAsAProject
+public sealed class GivenADeletePatternRequestCreatedByAStitcherThatHasNotBeenAddedAsAProject
 {
     private PatternThreadStitchRecord _stitch1 = null!;
     private PatternThreadStitchRecord _stitch2 = null!;

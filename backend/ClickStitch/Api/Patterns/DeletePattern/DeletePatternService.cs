@@ -61,9 +61,7 @@ public sealed class DeletePatternService : IDeletePatternService
 
         var patternWithThreads = (await _patternRepository.GetWithThreadsByReferenceAsync(patternReference, cancellationToken)).Content;
 
-        var stitches = (await _patternRepository.GetStitchesByThreads(patternWithThreads.Threads.ToList(), cancellationToken)).SelectMany(x => x.Value).ToList();
-
-        await _patternThreadStitchRepository.DeleteManyAsync(stitches, cancellationToken);
+        await _patternThreadStitchRepository.DeleteByThreads(patternWithThreads.Threads, cancellationToken);
         await _patternThreadRepository.DeleteManyAsync(patternWithThreads.Threads, cancellationToken);
         await _patternRepository.DeleteAsync(patternWithThreads, cancellationToken);
 

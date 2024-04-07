@@ -11,7 +11,7 @@ namespace Api.Tests.Patterns.DeletePattern;
 
 [TestFixture]
 [Parallelizable]
-public sealed class GivenADeletePatternRequestThatHasBeenAddedAsAProject
+public sealed class GivenADeletePatternRequestCreatedByACreatorThatHasBeenAddedAsAProject
 {
     private Result<DeletePatternResponse> _result = null!;
 
@@ -47,7 +47,15 @@ public sealed class GivenADeletePatternRequestThatHasBeenAddedAsAProject
             TitleSlug = null!,
             IsPublic = false,
             User = user,
-            Creator = null,
+            Creator = new CreatorRecord
+            {
+                Reference = default,
+                CreatedAt = default,
+                Name = null,
+                StoreUrl = null,
+                Users = null,
+                Patterns = null
+            },
             Threads = null!
         };
 
