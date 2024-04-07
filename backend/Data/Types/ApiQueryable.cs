@@ -9,7 +9,7 @@ public interface IApiQueryable<TRecord> where TRecord : IDatabaseRecord
     IApiQueryable<TOutput> Select<TOutput>(Expression<Func<TRecord, TOutput>> selector) where TOutput : IDatabaseRecord;
     IApiQueryable<TRecord> OrderBy<TKey>(Expression<Func<TRecord, TKey>> keySelector);
     IApiQueryable<TRecord> OrderByDescending<TKey>(Expression<Func<TRecord, TKey>> keySelector);
-    IApiFetchQueryable<TRecord, TRelated> Fetch<TRelated>(Expression<Func<TRecord, TRelated>> relatedObjectSelector) where TRelated : IDatabaseRecord;
+    IApiFetchQueryable<TRecord, TRelated> Fetch<TRelated>(Expression<Func<TRecord, TRelated>> relatedObjectSelector) where TRelated : IDatabaseRecord?;
     IApiFetchQueryable<TRecord, TRelated> FetchMany<TRelated>(Expression<Func<TRecord, IEnumerable<TRelated>>> relatedObjectSelector) where TRelated : IDatabaseRecord;
     IApiQueryable<TRecord> Skip(int count);
     IApiQueryable<TRecord> Take(int count);
@@ -53,7 +53,7 @@ public class ApiQueryable<TRecord> : IApiQueryable<TRecord> where TRecord : IDat
         return new ApiQueryable<TRecord>(_queryable.OrderByDescending(keySelector));
     }
 
-    public IApiFetchQueryable<TRecord, TRelated> Fetch<TRelated>(Expression<Func<TRecord, TRelated>> relatedObjectSelector) where TRelated : IDatabaseRecord
+    public IApiFetchQueryable<TRecord, TRelated> Fetch<TRelated>(Expression<Func<TRecord, TRelated>> relatedObjectSelector) where TRelated : IDatabaseRecord?
     {
         return new ApiFetchQueryable<TRecord, TRelated>(_queryable.Fetch(relatedObjectSelector));
     }

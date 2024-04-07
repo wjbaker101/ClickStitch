@@ -36,7 +36,7 @@ public class TestApiQueryable<TRecord> : IApiQueryable<TRecord> where TRecord : 
         return new TestApiQueryable<TRecord>(_queryable.OrderByDescending(keySelector));
     }
 
-    public IApiFetchQueryable<TRecord, TRelated> Fetch<TRelated>(Expression<Func<TRecord, TRelated>> relatedObjectSelector) where TRelated : IDatabaseRecord
+    public IApiFetchQueryable<TRecord, TRelated> Fetch<TRelated>(Expression<Func<TRecord, TRelated>> relatedObjectSelector) where TRelated : IDatabaseRecord?
     {
         return new TestApiFetchQueryable<TRecord, TRelated>(_queryable);
     }
@@ -102,7 +102,7 @@ public class TestApiQueryable<TRecord> : IApiQueryable<TRecord> where TRecord : 
     }
 }
 
-public sealed class TestApiFetchQueryable<TRecord, TFetch> : TestApiQueryable<TRecord>, IApiFetchQueryable<TRecord, TFetch> where TRecord : IDatabaseRecord where TFetch : IDatabaseRecord
+public sealed class TestApiFetchQueryable<TRecord, TFetch> : TestApiQueryable<TRecord>, IApiFetchQueryable<TRecord, TFetch> where TRecord : IDatabaseRecord where TFetch : IDatabaseRecord?
 {
     private readonly IQueryable<TRecord> _queryable;
 
