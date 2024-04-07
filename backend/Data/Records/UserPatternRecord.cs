@@ -17,7 +17,7 @@ public sealed class UserPatternRecordMap : ClassMap<UserPatternRecord>
 {
     public UserPatternRecordMap()
     {
-        Schema(DatabaseValues.SCHEMA);
+        Schema("clickstitch");
         Table("user_pattern");
         Id(x => x.Id, "id").GeneratedBy.SequenceIdentity("user_pattern_id_seq");
         References(x => x.User, "user_id");

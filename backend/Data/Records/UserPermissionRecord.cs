@@ -14,7 +14,7 @@ public sealed class UserPermissionRecordMap : ClassMap<UserPermissionRecord>
 {
     public UserPermissionRecordMap()
     {
-        Schema(DatabaseValues.SCHEMA);
+        Schema("clickstitch");
         Table("user_permission");
         Id(x => x.Id, "id").GeneratedBy.SequenceIdentity("user_permission_id_seq");
         References(x => x.User, "user_id");

@@ -17,7 +17,7 @@ public sealed class CreatorRecordMap : ClassMap<CreatorRecord>
 {
     public CreatorRecordMap()
     {
-        Schema(DatabaseValues.SCHEMA);
+        Schema("clickstitch");
         Table("creator");
         Id(x => x.Id, "id").GeneratedBy.SequenceIdentity("creator_id_seq");
         Map(x => x.Reference, "reference");
@@ -26,7 +26,7 @@ public sealed class CreatorRecordMap : ClassMap<CreatorRecord>
         Map(x => x.StoreUrl, "store_url");
         HasManyToMany(x => x.Users)
             .Table("user_creator")
-            .Schema(DatabaseValues.SCHEMA)
+            .Schema("clickstitch")
             .ParentKeyColumn("creator_id")
             .ChildKeyColumn("user_id");
         HasMany(x => x.Patterns)

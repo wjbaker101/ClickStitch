@@ -20,7 +20,7 @@ public sealed class PermissionRecordMap : ClassMap<PermissionRecord>
 {
     public PermissionRecordMap()
     {
-        Schema(DatabaseValues.SCHEMA);
+        Schema("clickstitch");
         Table("permission");
         Id(x => x.Id, "id").GeneratedBy.SequenceIdentity("permission_id_seq");
         Map(x => x.Type, "type").CustomType<PermissionType>();

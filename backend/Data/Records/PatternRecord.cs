@@ -28,7 +28,7 @@ public sealed class PatternRecordMap : ClassMap<PatternRecord>
 {
     public PatternRecordMap()
     {
-        Schema(DatabaseValues.SCHEMA);
+        Schema("clickstitch");
         Table("pattern");
         Id(x => x.Id, "id").GeneratedBy.SequenceIdentity("pattern_id_seq");
         Map(x => x.Reference, "reference");

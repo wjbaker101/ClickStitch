@@ -18,7 +18,7 @@ public sealed class UserRecordMap : ClassMap<UserRecord>
 {
     public UserRecordMap()
     {
-        Schema(DatabaseValues.SCHEMA);
+        Schema("clickstitch");
         Table("user");
         Id(x => x.Id, "id").GeneratedBy.SequenceIdentity("user_id_seq");
         Map(x => x.Reference, "reference");
@@ -28,7 +28,7 @@ public sealed class UserRecordMap : ClassMap<UserRecord>
         Map(x => x.PasswordSalt, "password_salt");
         Map(x => x.LastLoginAt, "last_login_at");
         HasManyToMany(x => x.Permissions)
-            .Schema(DatabaseValues.SCHEMA)
+            .Schema("clickstitch")
             .Table("user_permission")
             .ParentKeyColumn("user_id")
             .ChildKeyColumn("permission_id");

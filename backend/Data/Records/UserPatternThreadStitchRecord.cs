@@ -14,7 +14,7 @@ public sealed class UserPatternThreadStitchRecordMap : ClassMap<UserPatternThrea
 {
     public UserPatternThreadStitchRecordMap()
     {
-        Schema(DatabaseValues.SCHEMA);
+        Schema("clickstitch");
         Table("user_pattern_thread_stitch");
         Id(x => x.Id, "id").GeneratedBy.SequenceIdentity("user_pattern_thread_stitch_id_seq");
         References(x => x.User, "user_id");

@@ -13,7 +13,7 @@ public sealed class UserCreatorRecordMap : ClassMap<UserCreatorRecord>
 {
     public UserCreatorRecordMap()
     {
-        Schema(DatabaseValues.SCHEMA);
+        Schema("clickstitch");
         Table("user_creator");
         Id(x => x.Id, "id").GeneratedBy.SequenceIdentity("user_creator_id_seq");
         References(x => x.User, "user_id");
