@@ -43,15 +43,20 @@ public sealed class DeletePatternService : IDeletePatternService
         if (pattern.User.Id != user.Id)
             return Result<DeletePatternResponse>.Failure("Unable to delete pattern as you are not a creator of it.");
 
-        var doesProjectExist = await _userPatternRepository.DoesProjectExistForPatternAsync(pattern, cancellationToken);
-        if (doesProjectExist)
+        if (pattern.Creator != null)
         {
-            // Mark as deleted in the record
-
-            return new DeletePatternResponse
+            var doesProjectExist = await _userPatternRepository.DoesProjectExistForPatternAsync(pattern, cancellationToken);
+            if (doesProjectExist)
             {
-                Message = "At least 1 user had this pattern, so it has been marked as deleted. It still exists, but won't show up for new users."
-            };
+                pattern.IsPublic = false;
+
+                await _patternRepository.UpdateAsync(pattern, cancellationToken);
+
+                return new DeletePatternResponse
+                {
+                    Message = "At least 1 user had this pattern, so it has been marked as deleted. It still exists, but won't show up for new users."
+                };
+            }
         }
 
         var patternWithThreads = (await _patternRepository.GetWithThreadsByReferenceAsync(patternReference, cancellationToken)).Content;

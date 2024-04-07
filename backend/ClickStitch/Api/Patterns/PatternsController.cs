@@ -8,7 +8,6 @@ using ClickStitch.Api.Patterns.UpdatePattern;
 using ClickStitch.Api.Patterns.UpdatePattern.Types;
 using ClickStitch.Api.Patterns.VerifyPattern;
 using ClickStitch.Middleware.Authentication;
-using ClickStitch.Middleware.Authorisation;
 using DotNetLibs.Api.Types;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -47,7 +46,6 @@ public sealed class PatternsController : ApiController
     [HttpDelete]
     [Route("{patternReference:guid}")]
     [Authenticate]
-    [RequireCreator]
     public async Task<IActionResult> DeletePattern([FromRoute] Guid patternReference, CancellationToken cancellationToken)
     {
         var user = RequestHelper.GetRequiredUser(Request);
