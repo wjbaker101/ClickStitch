@@ -69,7 +69,11 @@ public sealed class UserPatternThreadStitchRepository : Repository<UserPatternTh
                 {
                     User = user,
                     Stitch = stitch,
-                    StitchedAt = DateTime.UtcNow
+                    StitchedAt = DateTime.UtcNow,
+                    Thread = thread,
+                    X = stitch.X,
+                    Y = stitch.Y,
+                    CompletedAt = DateTime.UtcNow
                 }, cancellationToken);
             }
         }

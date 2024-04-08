@@ -92,7 +92,11 @@ public sealed class GivenAGetAnalyticsRequest
                         Y = 0,
                         LookupHash = null!
                     },
-                    StitchedAt = new DateTime(2013, 05, 19, 01, 15, 44)
+                    StitchedAt = new DateTime(2013, 05, 19, 01, 15, 44),
+                    Thread = null!,
+                    X = default,
+                    Y = default,
+                    CompletedAt = default
                 }
             }
         };

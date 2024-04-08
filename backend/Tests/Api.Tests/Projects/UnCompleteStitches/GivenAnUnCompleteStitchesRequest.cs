@@ -105,7 +105,11 @@ public sealed class GivenAnUnCompleteStitchesRequest
                 Y = 0,
                 LookupHash = "1,1"
             },
-            StitchedAt = DateTime.UtcNow
+            StitchedAt = DateTime.UtcNow,
+            Thread = null!,
+            X = default,
+            Y = default,
+            CompletedAt = default
         };
 
         _stitch2 = new UserPatternThreadStitchRecord
@@ -118,7 +122,11 @@ public sealed class GivenAnUnCompleteStitchesRequest
                 Y = 0,
                 LookupHash = "2,2"
             },
-            StitchedAt = DateTime.UtcNow
+            StitchedAt = DateTime.UtcNow,
+            Thread = null!,
+            X = default,
+            Y = default,
+            CompletedAt = default
         };
 
         _stitch3 = new UserPatternThreadStitchRecord
@@ -131,7 +139,11 @@ public sealed class GivenAnUnCompleteStitchesRequest
                 Y = 0,
                 LookupHash = "3,3"
             },
-            StitchedAt = DateTime.UtcNow
+            StitchedAt = DateTime.UtcNow,
+            Thread = null!,
+            X = default,
+            Y = default,
+            CompletedAt = default
         };
 
         _stitch4 = new UserPatternThreadStitchRecord
@@ -144,7 +156,11 @@ public sealed class GivenAnUnCompleteStitchesRequest
                 Y = 0,
                 LookupHash = "4,4"
             },
-            StitchedAt = DateTime.UtcNow
+            StitchedAt = DateTime.UtcNow,
+            Thread = null!,
+            X = default,
+            Y = default,
+            CompletedAt = default
         };
 
         _database = new TestDatabase

@@ -88,7 +88,11 @@ public sealed class GivenAGetProjectRequest
             Id = 0,
             User = user,
             Stitch = stitch,
-            StitchedAt = default
+            StitchedAt = default,
+            Thread = null!,
+            X = default,
+            Y = default,
+            CompletedAt = default
         };
 
         var project = new UserPatternRecord
