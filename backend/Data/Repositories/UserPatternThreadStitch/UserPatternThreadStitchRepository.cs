@@ -99,7 +99,7 @@ public sealed class UserPatternThreadStitchRepository : Repository<UserPatternTh
             var stitchPositions = positions.StitchesByThread[thread.Index];
 
             await session
-                .CreateSqlQuery($"delete from clickstitch.user_pattern_thread_stitch where user_id=:userId and pattern_thread_id=:patternThreadId and {string.Join(" or ", stitchPositions.ConvertAll(x => $"x={x.X} and y={x.Y}"))}")
+                .CreateSqlQuery($"delete from clickstitch.user_pattern_thread_stitch where user_id=:userId and pattern_thread_id=:patternThreadId and ({string.Join(" or ", stitchPositions.ConvertAll(x => $"x={x.X} and y={x.Y}"))});")
                 .SetParameter("userId", user.Id)
                 .SetParameter("patternThreadId", thread.Id)
                 .ExecuteUpdateAsync(cancellationToken);
