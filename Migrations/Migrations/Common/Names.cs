@@ -18,6 +18,7 @@ public static class Names
         public const string USER = "user";
         public const string USER_CREATOR = "user_creator";
         public const string USER_PATTERN = "user_pattern";
+        public const string USER_PATTERN_THREAD = "user_pattern_thread";
         public const string USER_PATTERN_THREAD_STITCH = "user_pattern_thread_stitch";
         public const string USER_PERMISSION = "user_permission";
         public const string USER_THREAD = "user_thread";
