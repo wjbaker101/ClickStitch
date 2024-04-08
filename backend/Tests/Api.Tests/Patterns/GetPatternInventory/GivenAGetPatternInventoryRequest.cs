@@ -82,7 +82,8 @@ public sealed class GivenAGetPatternInventoryRequest
                             Name = "Test TestName1",
                             Description = null!,
                             Index = 2432,
-                            Colour = null!
+                            Colour = null!,
+                            Stitches = []
                         },
                         new()
                         {
@@ -90,7 +91,8 @@ public sealed class GivenAGetPatternInventoryRequest
                             Name = "Test  TestName2",
                             Description = null!,
                             Index = 5886,
-                            Colour = null!
+                            Colour = null!,
+                            Stitches = []
                         },
                         new()
                         {
@@ -98,7 +100,8 @@ public sealed class GivenAGetPatternInventoryRequest
                             Name = "Test TestName3",
                             Description = null!,
                             Index = 4327,
-                            Colour = null!
+                            Colour = null!,
+                            Stitches = []
                         }
                     }
                 },

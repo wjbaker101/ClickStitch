@@ -180,19 +180,7 @@ public sealed class GivenACreatePatternRequestAsACreator
             Assert.That(thread.Description, Is.EqualTo("TestDescription"), nameof(thread.Description));
             Assert.That(thread.Index, Is.EqualTo(2470), nameof(thread.Index));
             Assert.That(thread.Colour, Is.EqualTo("TestColour"), nameof(thread.Colour));
+            Assert.That(thread.Stitches, Is.EqualTo(new int[][] { [68, 22] }), nameof(thread.Stitches));
         });
     }
-
-    //[Test]
-    //public void ThenTheCorrectStitchesAreSaved()
-    //{
-    //    var stitch = _database.Actions.Saved.OfType<PatternThreadStitchRecord>().Single();
-
-    //    Assert.Multiple(() =>
-    //    {
-    //        Assert.That(stitch.Thread.Index, Is.EqualTo(2470), nameof(stitch.Thread.Index));
-    //        Assert.That(stitch.X, Is.EqualTo(68), nameof(stitch.X));
-    //        Assert.That(stitch.Y, Is.EqualTo(22), nameof(stitch.Y));
-    //    });
-    //}
 }

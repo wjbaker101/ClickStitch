@@ -117,7 +117,8 @@ public sealed class CreatePatternService : ICreatePatternService
             Name = x.Name,
             Description = x.Description,
             Index = x.Index,
-            Colour = x.Colour
+            Colour = x.Colour,
+            Stitches = parsed.Stitches.Where(stitch => stitch.ThreadIndex == x.Index).Select(stitch => new [] { stitch.X, stitch.Y }).ToArray()
         }), cancellationToken);
 
         var threadLookup = threads.ToDictionary(x => x.Index);

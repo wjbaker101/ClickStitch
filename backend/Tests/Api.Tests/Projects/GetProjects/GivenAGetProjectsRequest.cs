@@ -72,7 +72,8 @@ public sealed class GivenAGetProjectsRequest
                                 Name = "TestName",
                                 Description = "TestDescription",
                                 Index = 9396,
-                                Colour = "TestColour"
+                                Colour = "TestColour",
+                                Stitches = []
                             }
                         }
                     },

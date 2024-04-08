@@ -62,7 +62,8 @@ public sealed class GivenAGetAnalyticsRequest
             Name = null!,
             Description = null!,
             Index = 0,
-            Colour = null!
+            Colour = null!,
+            Stitches = []
         };
 
         _database = new TestDatabase
