@@ -35,7 +35,7 @@ public sealed class UserPatternThreadStitchRepository : Repository<UserPatternTh
 
     public async Task Complete(UserRecord user, Guid patternReference, StitchPosition positions, CancellationToken cancellationToken)
     {
-        using var session = Database.OpenSession();
+        using var session = Database.OpenStatelessSession();
         using var transaction = await session.BeginTransaction(cancellationToken);
 
         var threadIndexes = positions.StitchesByThread.Select(x => x.Key).ToHashSet();
@@ -50,17 +50,11 @@ public sealed class UserPatternThreadStitchRepository : Repository<UserPatternTh
         {
             var stitches = positions.StitchesByThread[thread.Index];
 
-            foreach (var stitch in stitches)
-            {
-                await session.Save(new UserPatternThreadStitchRecord
-                {
-                    User = user,
-                    Thread = thread,
-                    X = stitch.X,
-                    Y = stitch.Y,
-                    CompletedAt = DateTime.UtcNow
-                }, cancellationToken);
-            }
+            var inserts = string.Join(',', stitches.ConvertAll(x => $"({user.Id},{thread.Id},{x.X},{x.Y},'{DateTime.UtcNow}')"));
+
+            await session
+                .CreateSqlQuery($"insert into clickstitch.user_pattern_thread_stitch (user_id,pattern_thread_id,x,y,completed_at) values {inserts};")
+                .ExecuteUpdateAsync(cancellationToken);
         }
 
         await transaction.Commit(cancellationToken);
