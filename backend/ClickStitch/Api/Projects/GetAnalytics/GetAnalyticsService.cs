@@ -42,11 +42,11 @@ public sealed class GetAnalyticsService : IGetAnalyticsService
         if (!projectResult.TrySuccess(out var project))
             return Result<GetAnalyticsResponse>.FromFailure(projectResult);
 
-        var completedStitchesByThreads = await _userPatternThreadStitchRepository.GetByUser(user, patternReference, cancellationToken);
-        var completedStitches = completedStitchesByThreads.Values.SelectMany(x => x.Values).ToList();
+        var completedStitchesPerThread = await _userPatternThreadStitchRepository.GetByUserForThreads(user, pattern.Threads, cancellationToken);
+        var completedStitches = completedStitchesPerThread.Values.SelectMany(x => x).ToList();
 
         var grouped = completedStitches
-            .GroupBy(x => x.StitchedAt.Date)
+            .GroupBy(x => x.CompletedAt.Date)
             .ToList();
 
         return new GetAnalyticsResponse
