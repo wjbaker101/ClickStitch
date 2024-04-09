@@ -42,14 +42,14 @@ public sealed class GivenAPatternParseRequestForADefaultSchema
         {
             var thread1 = _result.Content.Threads[0];
 
-            Assert.That(thread1.Index, Is.EqualTo(0));
+            Assert.That(thread1.Index, Is.EqualTo(1));
             Assert.That(thread1.Name, Is.EqualTo("DMC B5200"));
             Assert.That(thread1.Description, Is.EqualTo("Snow White"));
             Assert.That(thread1.Colour, Is.EqualTo("#FCFDFD"));
 
             var thread2 = _result.Content.Threads[1];
 
-            Assert.That(thread2.Index, Is.EqualTo(1));
+            Assert.That(thread2.Index, Is.EqualTo(2));
             Assert.That(thread2.Name, Is.EqualTo("DMC 01"));
             Assert.That(thread2.Description, Is.EqualTo("Tin - White"));
             Assert.That(thread2.Colour, Is.EqualTo("#CBCBCC"));
@@ -63,19 +63,19 @@ public sealed class GivenAPatternParseRequestForADefaultSchema
         {
             var stitch1 = _result.Content.Stitches[0];
 
-            Assert.That(stitch1.ThreadIndex, Is.EqualTo(0));
+            Assert.That(stitch1.ThreadIndex, Is.EqualTo(1));
             Assert.That(stitch1.X, Is.EqualTo(0));
             Assert.That(stitch1.Y, Is.EqualTo(0));
 
             var stitch2 = _result.Content.Stitches[1];
 
-            Assert.That(stitch2.ThreadIndex, Is.EqualTo(1));
+            Assert.That(stitch2.ThreadIndex, Is.EqualTo(2));
             Assert.That(stitch2.X, Is.EqualTo(1));
             Assert.That(stitch2.Y, Is.EqualTo(0));
 
             var stitch3 = _result.Content.Stitches[2];
 
-            Assert.That(stitch3.ThreadIndex, Is.EqualTo(1));
+            Assert.That(stitch3.ThreadIndex, Is.EqualTo(2));
             Assert.That(stitch3.X, Is.EqualTo(2));
             Assert.That(stitch3.Y, Is.EqualTo(0));
         });
