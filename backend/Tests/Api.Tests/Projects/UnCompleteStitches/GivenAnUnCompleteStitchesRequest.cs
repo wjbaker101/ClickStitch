@@ -98,13 +98,6 @@ public sealed class GivenAnUnCompleteStitchesRequest
         _stitch1 = new UserPatternThreadStitchRecord
         {
             User = _user,
-            Stitch = new PatternThreadStitchRecord
-            {
-                Thread = thread1,
-                X = 0,
-                Y = 0,
-                LookupHash = "1,1"
-            },
             StitchedAt = DateTime.UtcNow,
             Thread = null!,
             X = default,
@@ -115,13 +108,6 @@ public sealed class GivenAnUnCompleteStitchesRequest
         _stitch2 = new UserPatternThreadStitchRecord
         {
             User = _user,
-            Stitch = new PatternThreadStitchRecord
-            {
-                Thread = thread1,
-                X = 0,
-                Y = 0,
-                LookupHash = "2,2"
-            },
             StitchedAt = DateTime.UtcNow,
             Thread = null!,
             X = default,
@@ -132,13 +118,6 @@ public sealed class GivenAnUnCompleteStitchesRequest
         _stitch3 = new UserPatternThreadStitchRecord
         {
             User = _user,
-            Stitch = new PatternThreadStitchRecord
-            {
-                Thread = thread2,
-                X = 0,
-                Y = 0,
-                LookupHash = "3,3"
-            },
             StitchedAt = DateTime.UtcNow,
             Thread = null!,
             X = default,
@@ -149,13 +128,6 @@ public sealed class GivenAnUnCompleteStitchesRequest
         _stitch4 = new UserPatternThreadStitchRecord
         {
             User = _user,
-            Stitch = new PatternThreadStitchRecord
-            {
-                Thread = thread2,
-                X = 0,
-                Y = 0,
-                LookupHash = "4,4"
-            },
             StitchedAt = DateTime.UtcNow,
             Thread = null!,
             X = default,

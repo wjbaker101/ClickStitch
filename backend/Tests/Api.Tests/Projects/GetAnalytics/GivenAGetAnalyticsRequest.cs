@@ -87,13 +87,6 @@ public sealed class GivenAGetAnalyticsRequest
                 new UserPatternThreadStitchRecord
                 {
                     User = user,
-                    Stitch = new PatternThreadStitchRecord
-                    {
-                        Thread = thread,
-                        X = 0,
-                        Y = 0,
-                        LookupHash = null!
-                    },
                     StitchedAt = new DateTime(2013, 05, 19, 01, 15, 44),
                     Thread = thread,
                     X = 0,

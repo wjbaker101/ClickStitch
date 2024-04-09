@@ -98,32 +98,32 @@ public sealed class GivenACompleteStitchesRequest
         _stitch1 = new PatternThreadStitchRecord
         {
             Thread = thread1,
-            X = 0,
-            Y = 0,
+            X = 1,
+            Y = 1,
             LookupHash = "1,1"
         };
 
         _stitch2 = new PatternThreadStitchRecord
         {
             Thread = thread1,
-            X = 0,
-            Y = 0,
+            X = 2,
+            Y = 2,
             LookupHash = "2,2"
         };
 
         _stitch3 = new PatternThreadStitchRecord
         {
             Thread = thread2,
-            X = 0,
-            Y = 0,
+            X = 3,
+            Y = 3,
             LookupHash = "3,3"
         };
 
         _stitch4 = new PatternThreadStitchRecord
         {
             Thread = thread2,
-            X = 0,
-            Y = 0,
+            X = 4,
+            Y = 4,
             LookupHash = "4,4"
         };
 
@@ -177,16 +177,20 @@ public sealed class GivenACompleteStitchesRequest
         Assert.Multiple(() =>
         {
             Assert.That(records[0].User, Is.EqualTo(_user));
-            Assert.That(records[0].Stitch, Is.EqualTo(_stitch1));
+            Assert.That(records[0].X, Is.EqualTo(1));
+            Assert.That(records[0].Y, Is.EqualTo(1));
 
             Assert.That(records[1].User, Is.EqualTo(_user));
-            Assert.That(records[1].Stitch, Is.EqualTo(_stitch2));
+            Assert.That(records[1].X, Is.EqualTo(2));
+            Assert.That(records[1].Y, Is.EqualTo(2));
 
             Assert.That(records[2].User, Is.EqualTo(_user));
-            Assert.That(records[2].Stitch, Is.EqualTo(_stitch3));
+            Assert.That(records[2].X, Is.EqualTo(3));
+            Assert.That(records[2].Y, Is.EqualTo(3));
 
             Assert.That(records[3].User, Is.EqualTo(_user));
-            Assert.That(records[3].Stitch, Is.EqualTo(_stitch4));
+            Assert.That(records[3].X, Is.EqualTo(4));
+            Assert.That(records[3].Y, Is.EqualTo(4));
         });
     }
 }
