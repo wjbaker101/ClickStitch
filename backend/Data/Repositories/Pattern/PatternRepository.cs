@@ -8,7 +8,6 @@ public interface IPatternRepository : IRepository<PatternRecord>
     Task<List<PatternRecord>> SearchAsync(SearchPatternsParameters parameters, CancellationToken cancellationToken);
     Task<Result<PatternRecord>> GetByReferenceAsync(Guid patternReference, CancellationToken cancellationToken);
     Task<Result<PatternRecord>> GetWithThreadsByReferenceAsync(Guid patternReference, CancellationToken cancellationToken);
-    Task<Dictionary<int, List<PatternThreadStitchRecord>>> GetStitchesByThreads(List<PatternThreadRecord> threads, CancellationToken cancellationToken);
 }
 
 public sealed class PatternRepository : Repository<PatternRecord>, IPatternRepository
@@ -69,22 +68,5 @@ public sealed class PatternRepository : Repository<PatternRecord>, IPatternRepos
             return Result<PatternRecord>.Failure($"Unable to find pattern with reference: '{patternReference}'.");
 
         return pattern;
-    }
-
-    public async Task<Dictionary<int, List<PatternThreadStitchRecord>>> GetStitchesByThreads(List<PatternThreadRecord> threads, CancellationToken cancellationToken)
-    {
-        using var session = Database.OpenSession();
-        using var transaction = await session.BeginTransaction(cancellationToken);
-
-        var stitches = (await session
-            .Query<PatternThreadStitchRecord>()
-            .Where(x => threads.Contains(x.Thread))
-            .ToList(cancellationToken))
-            .GroupBy(x => x.Thread.Index)
-            .ToDictionary(x => x.Key, x => x.ToList());
-
-        await transaction.Commit(cancellationToken);
-
-        return stitches;
     }
 }
