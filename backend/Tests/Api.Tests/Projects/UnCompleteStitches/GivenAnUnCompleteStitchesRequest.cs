@@ -98,7 +98,6 @@ public sealed class GivenAnUnCompleteStitchesRequest
         _stitch1 = new UserPatternThreadStitchRecord
         {
             User = _user,
-            StitchedAt = DateTime.UtcNow,
             Thread = null!,
             X = default,
             Y = default,
@@ -108,7 +107,6 @@ public sealed class GivenAnUnCompleteStitchesRequest
         _stitch2 = new UserPatternThreadStitchRecord
         {
             User = _user,
-            StitchedAt = DateTime.UtcNow,
             Thread = null!,
             X = default,
             Y = default,
@@ -118,7 +116,6 @@ public sealed class GivenAnUnCompleteStitchesRequest
         _stitch3 = new UserPatternThreadStitchRecord
         {
             User = _user,
-            StitchedAt = DateTime.UtcNow,
             Thread = null!,
             X = default,
             Y = default,
@@ -128,7 +125,6 @@ public sealed class GivenAnUnCompleteStitchesRequest
         _stitch4 = new UserPatternThreadStitchRecord
         {
             User = _user,
-            StitchedAt = DateTime.UtcNow,
             Thread = null!,
             X = default,
             Y = default,

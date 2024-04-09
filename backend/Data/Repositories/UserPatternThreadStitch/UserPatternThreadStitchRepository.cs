@@ -60,7 +60,6 @@ public sealed class UserPatternThreadStitchRepository : Repository<UserPatternTh
                 await session.Save(new UserPatternThreadStitchRecord
                 {
                     User = user,
-                    StitchedAt = DateTime.UtcNow,
                     Thread = thread,
                     X = stitch.X,
                     Y = stitch.Y,

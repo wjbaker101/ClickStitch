@@ -87,7 +87,6 @@ public sealed class GivenAGetProjectRequest
         {
             Id = 0,
             User = user,
-            StitchedAt = default,
             Thread = null!,
             X = default,
             Y = default,
