@@ -127,8 +127,7 @@ public sealed class CreatePatternService : ICreatePatternService
         {
             Thread = threadLookup[x.ThreadIndex],
             X = x.X,
-            Y = x.Y,
-            LookupHash = $"{x.X},{x.Y}"
+            Y = x.Y
         }), cancellationToken);
 
         if (!isCreator)

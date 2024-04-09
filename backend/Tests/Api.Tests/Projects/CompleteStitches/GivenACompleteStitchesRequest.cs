@@ -99,32 +99,28 @@ public sealed class GivenACompleteStitchesRequest
         {
             Thread = thread1,
             X = 1,
-            Y = 1,
-            LookupHash = "1,1"
+            Y = 1
         };
 
         _stitch2 = new PatternThreadStitchRecord
         {
             Thread = thread1,
             X = 2,
-            Y = 2,
-            LookupHash = "2,2"
+            Y = 2
         };
 
         _stitch3 = new PatternThreadStitchRecord
         {
             Thread = thread2,
             X = 3,
-            Y = 3,
-            LookupHash = "3,3"
+            Y = 3
         };
 
         _stitch4 = new PatternThreadStitchRecord
         {
             Thread = thread2,
             X = 4,
-            Y = 4,
-            LookupHash = "4,4"
+            Y = 4
         };
 
         _database = new TestDatabase

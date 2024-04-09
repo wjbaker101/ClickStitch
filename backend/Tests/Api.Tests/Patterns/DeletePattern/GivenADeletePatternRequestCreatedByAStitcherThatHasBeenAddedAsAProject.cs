@@ -64,16 +64,14 @@ public sealed class GivenADeletePatternRequestCreatedByAStitcherThatHasBeenAdded
         {
             Thread = _thread1,
             X = 0,
-            Y = 0,
-            LookupHash = null!
+            Y = 0
         };
 
         _stitch2 = new PatternThreadStitchRecord
         {
             Thread = _thread2,
             X = 0,
-            Y = 0,
-            LookupHash = null!
+            Y = 0
         };
 
         _pattern = new PatternRecord

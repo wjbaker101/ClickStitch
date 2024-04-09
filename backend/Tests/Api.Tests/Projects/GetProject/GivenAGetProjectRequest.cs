@@ -79,8 +79,7 @@ public sealed class GivenAGetProjectRequest
             Id = 0,
             Thread = thread,
             X = 0,
-            Y = 0,
-            LookupHash = null!
+            Y = 0
         };
 
         var userStitch = new UserPatternThreadStitchRecord
