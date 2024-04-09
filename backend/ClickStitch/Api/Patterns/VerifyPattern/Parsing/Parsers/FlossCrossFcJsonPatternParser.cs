@@ -1,5 +1,4 @@
-﻿using ClickStitch.Api.Patterns.VerifyPattern.Parsing;
-using ClickStitch.Api.Patterns.VerifyPattern.Parsing.Types;
+﻿using ClickStitch.Api.Patterns.VerifyPattern.Parsing.Types;
 using DotNetLibs.Core.Extensions;
 using Utf8Json;
 
@@ -71,7 +70,7 @@ public sealed class FlossCrossFcJsonPatternParser : IPatternParser
             {
                 stitches.Add(new ParsePatternResponse.StitchDetails
                 {
-                    ThreadIndex = threadIndex,
+                    ThreadIndex = threadIndex + 1,
                     X = posX,
                     Y = posY
                 });
@@ -98,7 +97,7 @@ public sealed class FlossCrossFcJsonPatternParser : IPatternParser
             {
                 Name = $"{x.sys} {x.id}",
                 Description = x.name,
-                Index = index,
+                Index = index + 1,
                 Colour = ParsingHelper.RgbToHex(x.rgb[0], x.rgb[1], x.rgb[2])
             }),
             Stitches = stitches
