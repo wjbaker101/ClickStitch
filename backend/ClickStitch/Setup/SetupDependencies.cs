@@ -60,7 +60,6 @@ public static class SetupDependencies
         services.AddSingleton<ICreatorRepository, CreatorRepository>();
         services.AddSingleton<IPatternRepository, PatternRepository>();
         services.AddSingleton<IPatternThreadRepository, PatternThreadRepository>();
-        services.AddSingleton<IPatternThreadStitchRepository, PatternThreadStitchRepository>();
         services.AddSingleton<IUserRepository, UserRepository>();
         services.AddSingleton<IUserPatternRepository, UserPatternRepository>();
         services.AddSingleton<IPermissionRepository, PermissionRepository>();

@@ -74,14 +74,6 @@ public sealed class GivenAGetProjectRequest
         };
         pattern.Threads.Add(thread);
 
-        var stitch = new PatternThreadStitchRecord
-        {
-            Id = 0,
-            Thread = thread,
-            X = 0,
-            Y = 0
-        };
-
         var userStitch = new UserPatternThreadStitchRecord
         {
             Id = 0,
@@ -111,7 +103,6 @@ public sealed class GivenAGetProjectRequest
                 project,
                 pattern,
                 thread,
-                stitch,
                 userStitch
             }
         };

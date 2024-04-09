@@ -16,20 +16,17 @@ public sealed class DeletePatternService : IDeletePatternService
     private readonly IPatternThreadRepository _patternThreadRepository;
     private readonly IUserRepository _userRepository;
     private readonly IUserPatternRepository _userPatternRepository;
-    private readonly IPatternThreadStitchRepository _patternThreadStitchRepository;
 
     public DeletePatternService(
         IPatternRepository patternRepository,
         IPatternThreadRepository patternThreadRepository,
         IUserRepository userRepository,
-        IUserPatternRepository userPatternRepository,
-        IPatternThreadStitchRepository patternThreadStitchRepository)
+        IUserPatternRepository userPatternRepository)
     {
         _patternRepository = patternRepository;
         _patternThreadRepository = patternThreadRepository;
         _userRepository = userRepository;
         _userPatternRepository = userPatternRepository;
-        _patternThreadStitchRepository = patternThreadStitchRepository;
     }
 
     public async Task<Result<DeletePatternResponse>> DeletePattern(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken)
@@ -61,7 +58,6 @@ public sealed class DeletePatternService : IDeletePatternService
 
         var patternWithThreads = (await _patternRepository.GetWithThreadsByReferenceAsync(patternReference, cancellationToken)).Content;
 
-        await _patternThreadStitchRepository.DeleteByThreads(patternWithThreads.Threads, cancellationToken);
         await _patternThreadRepository.DeleteManyAsync(patternWithThreads.Threads, cancellationToken);
         await _patternRepository.DeleteAsync(patternWithThreads, cancellationToken);
 

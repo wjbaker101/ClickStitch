@@ -24,7 +24,6 @@ public sealed class CreatePatternService : ICreatePatternService
     private readonly IUserRepository _userRepository;
     private readonly IUserPatternRepository _userPatternRepository;
     private readonly ICreatorRepository _creatorRepository;
-    private readonly IPatternThreadStitchRepository _patternThreadStitchRepository;
     private readonly IPatternParserService _patternParserService;
     private readonly IGuidProvider _guidProvider;
 
@@ -35,7 +34,6 @@ public sealed class CreatePatternService : ICreatePatternService
         IUserRepository userRepository,
         IUserPatternRepository userPatternRepository,
         ICreatorRepository creatorRepository,
-        IPatternThreadStitchRepository patternThreadStitchRepository,
         IPatternParserService patternParserService,
         IGuidProvider guidProvider)
     {
@@ -45,7 +43,6 @@ public sealed class CreatePatternService : ICreatePatternService
         _userRepository = userRepository;
         _userPatternRepository = userPatternRepository;
         _creatorRepository = creatorRepository;
-        _patternThreadStitchRepository = patternThreadStitchRepository;
         _patternParserService = patternParserService;
         _guidProvider = guidProvider;
     }
@@ -119,15 +116,6 @@ public sealed class CreatePatternService : ICreatePatternService
             Index = x.Index,
             Colour = x.Colour,
             Stitches = parsed.Stitches.Where(stitch => stitch.ThreadIndex == x.Index).Select(stitch => new [] { stitch.X, stitch.Y }).ToArray()
-        }), cancellationToken);
-
-        var threadLookup = threads.ToDictionary(x => x.Index);
-
-        await _patternThreadStitchRepository.SaveAll(parsed.Stitches.ConvertAll(x => new PatternThreadStitchRecord
-        {
-            Thread = threadLookup[x.ThreadIndex],
-            X = x.X,
-            Y = x.Y
         }), cancellationToken);
 
         if (!isCreator)

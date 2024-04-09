@@ -124,7 +124,6 @@ public sealed class GivenACreatePatternRequestAsACreator
             new UserRepository(_database),
             null!,
             new CreatorRepository(_database),
-            new PatternThreadStitchRepository(_database),
             patternParserService,
             guidProvider);
 

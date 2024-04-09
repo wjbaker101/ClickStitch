@@ -13,8 +13,6 @@ namespace Api.Tests.Patterns.DeletePattern;
 [Parallelizable]
 public sealed class GivenADeletePatternRequestCreatedByAStitcherThatHasNotBeenAddedAsAProject
 {
-    private PatternThreadStitchRecord _stitch1 = null!;
-    private PatternThreadStitchRecord _stitch2 = null!;
     private PatternThreadRecord _thread1 = null!;
     private PatternThreadRecord _thread2 = null!;
     private PatternRecord _pattern = null!;
@@ -60,20 +58,6 @@ public sealed class GivenADeletePatternRequestCreatedByAStitcherThatHasNotBeenAd
             Stitches = []
         };
 
-        _stitch1 = new PatternThreadStitchRecord
-        {
-            Thread = _thread1,
-            X = 0,
-            Y = 0
-        };
-
-        _stitch2 = new PatternThreadStitchRecord
-        {
-            Thread = _thread2,
-            X = 0,
-            Y = 0
-        };
-
         _pattern = new PatternRecord
         {
             Reference = Guid.Parse("6f6f9364-d204-4bdb-813f-a950938163b8"),
@@ -104,9 +88,7 @@ public sealed class GivenADeletePatternRequestCreatedByAStitcherThatHasNotBeenAd
             Records = new List<IDatabaseRecord>
             {
                 user,
-                _pattern,
-                _stitch1,
-                _stitch2
+                _pattern
             }
         };
 
@@ -114,8 +96,7 @@ public sealed class GivenADeletePatternRequestCreatedByAStitcherThatHasNotBeenAd
             new PatternRepository(_database),
             new PatternThreadRepository(_database),
             new UserRepository(_database),
-            new UserPatternRepository(_database),
-            new PatternThreadStitchRepository(_database));
+            new UserPatternRepository(_database));
 
         _result = await subject.DeletePattern(new TestRequestUser(), Guid.Parse("6f6f9364-d204-4bdb-813f-a950938163b8"), CancellationToken.None);
     }
@@ -130,17 +111,6 @@ public sealed class GivenADeletePatternRequestCreatedByAStitcherThatHasNotBeenAd
     public void ThenTheCorrectMessageIsReturned()
     {
         Assert.That(_result.Content.Message, Is.EqualTo("No users had this pattern, so it has been permanently deleted."));
-    }
-
-    [Test]
-    public void ThenTheCorrectStitchesAreDeleted()
-    {
-        var stitches = _database.Actions.Deleted.OfType<PatternThreadStitchRecord>().ToList();
-        var stitch1 = stitches[0];
-        var stitch2 = stitches[1];
-
-        Assert.That(stitch1, Is.EqualTo(_stitch1));
-        Assert.That(stitch2, Is.EqualTo(_stitch2));
     }
 
     [Test]
