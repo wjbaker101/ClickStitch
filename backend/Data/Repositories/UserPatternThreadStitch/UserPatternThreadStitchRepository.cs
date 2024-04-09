@@ -5,7 +5,6 @@ namespace Data.Repositories.UserPatternThreadStitch;
 
 public interface IUserPatternThreadStitchRepository : IRepository<UserPatternThreadStitchRecord>
 {
-    Task<Dictionary<int, Dictionary<long, UserPatternThreadStitchRecord>>> GetByUser(UserRecord user, Guid patternReference, CancellationToken cancellationToken);
     Task<Dictionary<long, List<UserPatternThreadStitchRecord>>> GetByUserForThreads(UserRecord user, ISet<PatternThreadRecord> threads, CancellationToken cancellationToken);
     Task Complete(UserRecord user, Guid patternReference, StitchPosition positions, CancellationToken cancellationToken);
     Task UnComplete(UserRecord user, Guid patternReference, StitchPosition positions, CancellationToken cancellationToken);
@@ -15,31 +14,6 @@ public sealed class UserPatternThreadStitchRepository : Repository<UserPatternTh
 {
     public UserPatternThreadStitchRepository(IDatabase database) : base(database)
     {
-    }
-
-    public async Task<Dictionary<int, Dictionary<long, UserPatternThreadStitchRecord>>> GetByUser(UserRecord user, Guid patternReference, CancellationToken cancellationToken)
-    {
-        using var session = Database.OpenSession();
-        using var transaction = await session.BeginTransaction(cancellationToken);
-
-        var threads = await session
-            .Query<PatternThreadRecord>()
-            .Fetch(x => x.Pattern)
-            .Where(x => x.Pattern.Reference == patternReference)
-            .ToList(cancellationToken);
-
-        var userStitches = (await session
-            .Query<UserPatternThreadStitchRecord>()
-            .Fetch(x => x.Stitch)
-            .ThenFetch(x => x.Thread)
-            .Where(x => x.User == user && threads.Contains(x.Stitch.Thread))
-            .ToList(cancellationToken))
-            .GroupBy(x => x.Stitch.Thread.Index)
-            .ToDictionary(x => x.Key, x => x.ToDictionary(y => y.Stitch.Id));
-
-        await transaction.Commit(cancellationToken);
-
-        return userStitches;
     }
 
     public async Task<Dictionary<long, List<UserPatternThreadStitchRecord>>> GetByUserForThreads(UserRecord user, ISet<PatternThreadRecord> threads, CancellationToken cancellationToken)
