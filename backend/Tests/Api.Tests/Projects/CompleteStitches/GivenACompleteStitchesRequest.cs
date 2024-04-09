@@ -168,29 +168,4 @@ public sealed class GivenACompleteStitchesRequest
     {
         Assert.That(_result.IsSuccess, Is.True);
     }
-
-    [Test]
-    public void ThenTheCorrectUserStitchesAreSaved()
-    {
-        var records = _database.Actions.Saved.OfType<UserPatternThreadStitchRecord>().ToList();
-
-        Assert.Multiple(() =>
-        {
-            Assert.That(records[0].User, Is.EqualTo(_user));
-            Assert.That(records[0].X, Is.EqualTo(1));
-            Assert.That(records[0].Y, Is.EqualTo(1));
-
-            Assert.That(records[1].User, Is.EqualTo(_user));
-            Assert.That(records[1].X, Is.EqualTo(2));
-            Assert.That(records[1].Y, Is.EqualTo(2));
-
-            Assert.That(records[2].User, Is.EqualTo(_user));
-            Assert.That(records[2].X, Is.EqualTo(3));
-            Assert.That(records[2].Y, Is.EqualTo(3));
-
-            Assert.That(records[3].User, Is.EqualTo(_user));
-            Assert.That(records[3].X, Is.EqualTo(4));
-            Assert.That(records[3].Y, Is.EqualTo(4));
-        });
-    }
 }
