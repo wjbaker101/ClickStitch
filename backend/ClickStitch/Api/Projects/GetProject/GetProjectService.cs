@@ -1,5 +1,4 @@
 ﻿using ClickStitch.Api.Projects.GetProject.Types;
-using Data.Records;
 using Data.Repositories.Pattern;
 using Data.Repositories.User;
 using Data.Repositories.UserPattern;
@@ -44,36 +43,28 @@ public sealed class GetProjectService : IGetProjectService
         if (!projectResult.TrySuccess(out var project))
             return Result<GetProjectResponse>.FromFailure(projectResult);
 
-        var stitches = await _patternRepository.GetStitchesByThreads(pattern.Threads.ToList(), cancellationToken);
+        var userStitchesPerThread = await _userPatternThreadStitchRepository.GetByUserForThreads(user, pattern.Threads, cancellationToken);
 
-        var userStitches = await _userPatternThreadStitchRepository.GetByUser(user, patternReference, cancellationToken);
+        var threads = new List<GetProjectResponse.ThreadDetails>();
+        foreach (var thread in pattern.Threads.OrderBy(x => x.Index))
+        {
+            var stitches = thread.Stitches;
+            var userStitches = userStitchesPerThread.TryGetValue(thread.Id, out var existsUserStitches) ? existsUserStitches : [];
+
+            threads.Add(new GetProjectResponse.ThreadDetails
+            {
+                Thread = PatternMapper.MapThread(thread),
+                Stitches = stitches
+                    .Where(stitch => !userStitches.Any(userStitch => userStitch.X == stitch[0] && userStitch.Y == stitch[1]))
+                    .MapAll(x => new GetProjectResponse.StitchDetails(x[0], x[1])),
+                CompletedStitches = userStitches.ConvertAll(x => new GetProjectResponse.CompletedStitchDetails(x.X, x.Y, x.CompletedAt))
+            });
+        }
 
         return new GetProjectResponse
         {
             Project = ProjectMapper.Map(project),
-            Threads = pattern.Threads
-                .OrderBy(x => x.Index)
-                .MapAll(thread => new GetProjectResponse.ThreadDetails
-                {
-                    Thread = PatternMapper.MapThread(thread),
-                    Stitches = MapStitches(stitches[thread.Index], userStitches, thread.Index),
-                    CompletedStitches = MapCompletedStitches(userStitches, thread.Index)
-                })
+            Threads = threads
         };
-    }
-
-    private static List<GetProjectResponse.StitchDetails> MapStitches(List<PatternThreadStitchRecord> stitches, Dictionary<int, Dictionary<long, UserPatternThreadStitchRecord>> userStitches, int threadIndex)
-    {
-        return stitches
-            .Where(x => !(userStitches.TryGetValue(threadIndex, out var userStitch) && userStitch.ContainsKey(x.Id)))
-            .MapAll(stitch => new GetProjectResponse.StitchDetails(stitch.X, stitch.Y));
-    }
-
-    private static List<GetProjectResponse.CompletedStitchDetails> MapCompletedStitches(Dictionary<int, Dictionary<long, UserPatternThreadStitchRecord>> userStitches, int threadIndex)
-    {
-        if (!userStitches.TryGetValue(threadIndex, out var threadStitches))
-            return new List<GetProjectResponse.CompletedStitchDetails>();
-
-        return threadStitches.Values.MapAll(x => new GetProjectResponse.CompletedStitchDetails(x.Stitch.X, x.Stitch.Y, x.StitchedAt));
     }
 }
