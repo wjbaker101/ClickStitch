@@ -35,6 +35,16 @@ public sealed class GivenAGetAnalyticsRequest
             Permissions = null!
         };
 
+        var thread = new PatternThreadRecord
+        {
+            Pattern = null!,
+            Name = null!,
+            Description = null!,
+            Index = 0,
+            Colour = null!,
+            Stitches = []
+        };
+
         var pattern = new PatternRecord
         {
             Reference = _patternReference,
@@ -53,17 +63,10 @@ public sealed class GivenAGetAnalyticsRequest
             IsPublic = false,
             User = null!,
             Creator = null,
-            Threads = null!
-        };
-
-        var thread = new PatternThreadRecord
-        {
-            Pattern = pattern,
-            Name = null!,
-            Description = null!,
-            Index = 0,
-            Colour = null!,
-            Stitches = []
+            Threads = new HashSet<PatternThreadRecord>
+            {
+                thread
+            }
         };
 
         _database = new TestDatabase
@@ -72,7 +75,6 @@ public sealed class GivenAGetAnalyticsRequest
             {
                 user,
                 pattern,
-                thread,
                 new UserPatternRecord
                 {
                     User = user,
@@ -93,10 +95,10 @@ public sealed class GivenAGetAnalyticsRequest
                         LookupHash = null!
                     },
                     StitchedAt = new DateTime(2013, 05, 19, 01, 15, 44),
-                    Thread = null!,
-                    X = default,
-                    Y = default,
-                    CompletedAt = default
+                    Thread = thread,
+                    X = 0,
+                    Y = 0,
+                    CompletedAt = new DateTime(2013, 05, 19, 01, 15, 44)
                 }
             }
         };

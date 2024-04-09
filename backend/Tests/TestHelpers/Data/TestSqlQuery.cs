@@ -20,6 +20,18 @@ public sealed class TestSqlQuery : ISQLQuery
         _sql = sql;
     }
 
+    public Task<int> ExecuteUpdateAsync(CancellationToken cancellationToken = new CancellationToken())
+    {
+        return Task.FromResult(0);
+    }
+
+    public IQuery SetParameter<T>(string name, T val)
+    {
+        return this;
+    }
+
+    #region Not Implemented
+
     public Task<IEnumerable> EnumerableAsync(CancellationToken cancellationToken = new CancellationToken())
     {
         throw new NotImplementedException();
@@ -53,11 +65,6 @@ public sealed class TestSqlQuery : ISQLQuery
     public Task<T> UniqueResultAsync<T>(CancellationToken cancellationToken = new CancellationToken())
     {
         throw new NotImplementedException();
-    }
-
-    public Task<int> ExecuteUpdateAsync(CancellationToken cancellationToken = new CancellationToken())
-    {
-        return Task.FromResult(0);
     }
 
     public IEnumerable Enumerable()
@@ -166,11 +173,6 @@ public sealed class TestSqlQuery : ISQLQuery
     }
 
     public IQuery SetParameter<T>(int position, T val)
-    {
-        throw new NotImplementedException();
-    }
-
-    public IQuery SetParameter<T>(string name, T val)
     {
         throw new NotImplementedException();
     }
@@ -494,4 +496,6 @@ public sealed class TestSqlQuery : ISQLQuery
     {
         throw new NotImplementedException();
     }
+
+    #endregion
 }

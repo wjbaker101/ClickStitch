@@ -204,18 +204,4 @@ public sealed class GivenAnUnCompleteStitchesRequest
     {
         Assert.That(_result.IsSuccess, Is.True);
     }
-
-    [Test]
-    public void ThenTheCorrectUserStitchesAreDeleted()
-    {
-        var records = _database.Actions.Deleted.OfType<UserPatternThreadStitchRecord>().ToList();
-
-        Assert.Multiple(() =>
-        {
-            Assert.That(records[0], Is.EqualTo(_stitch1));
-            Assert.That(records[1], Is.EqualTo(_stitch2));
-            Assert.That(records[2], Is.EqualTo(_stitch3));
-            Assert.That(records[3], Is.EqualTo(_stitch4));
-        });
-    }
 }
