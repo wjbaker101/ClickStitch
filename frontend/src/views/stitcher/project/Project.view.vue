@@ -52,7 +52,7 @@ const percentage = computed<number>(() => {
     const complete = project.value.threads.reduce((total, x) => total + x.completedStitches.length, 0);
     const incomplete = project.value.threads.reduce((total, x) => total + x.stitches.length, 0);
 
-    return complete / incomplete * 100;
+    return complete / (complete + incomplete) * 100;
 });
 
 onMounted(async () => {
