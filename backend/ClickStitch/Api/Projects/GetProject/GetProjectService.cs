@@ -58,7 +58,9 @@ public sealed class GetProjectService : IGetProjectService
                 Stitches = stitches
                     .Where(stitch => !userStitchLookup.Contains((stitch[0], stitch[1])))
                     .MapAll(x => new GetProjectResponse.StitchDetails(x[0], x[1])),
-                CompletedStitches = userStitches.ConvertAll(x => new GetProjectResponse.CompletedStitchDetails(x.X, x.Y, x.CompletedAt))
+                CompletedStitches = userStitches.ConvertAll(x => new GetProjectResponse.CompletedStitchDetails(x.X, x.Y, x.CompletedAt)),
+                BackStitches = [],
+                CompletedBackStitches = []
             });
         }
 
