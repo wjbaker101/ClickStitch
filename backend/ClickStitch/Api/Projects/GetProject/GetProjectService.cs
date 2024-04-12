@@ -50,12 +50,13 @@ public sealed class GetProjectService : IGetProjectService
         {
             var stitches = thread.Stitches;
             var userStitches = userStitchesPerThread.TryGetValue(thread.Id, out var existsUserStitches) ? existsUserStitches : [];
+            var userStitchLookup = userStitches.Select(x => (x.X, x.Y)).ToHashSet();
 
             threads.Add(new GetProjectResponse.ThreadDetails
             {
                 Thread = PatternMapper.MapThread(thread),
                 Stitches = stitches
-                    .Where(stitch => !userStitches.Any(userStitch => userStitch.X == stitch[0] && userStitch.Y == stitch[1]))
+                    .Where(stitch => !userStitchLookup.Contains((stitch[0], stitch[1])))
                     .MapAll(x => new GetProjectResponse.StitchDetails(x[0], x[1])),
                 CompletedStitches = userStitches.ConvertAll(x => new GetProjectResponse.CompletedStitchDetails(x.X, x.Y, x.CompletedAt))
             });
