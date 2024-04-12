@@ -19,14 +19,6 @@ public sealed class PatternModel
     public required UserModel User { get; init; }
 }
 
-public sealed class StitchModel
-{
-    public required int ThreadIndex { get; init; }
-    public required int X { get; init; }
-    public required int Y { get; init; }
-    public required DateTime? StitchedAt { get; init; }
-}
-
 public sealed class PatternThreadModel
 {
     public required int Index { get; init; }
