@@ -63,7 +63,8 @@ public sealed class GivenAnUnCompleteStitchesRequest
             Description = null!,
             Index = 1,
             Colour = null!,
-            Stitches = []
+            Stitches = [],
+            BackStitches = []
         };
 
         var thread2 = new PatternThreadRecord
@@ -92,7 +93,8 @@ public sealed class GivenAnUnCompleteStitchesRequest
             Description = null!,
             Index = 2,
             Colour = null!,
-            Stitches = []
+            Stitches = [],
+            BackStitches = []
         };
 
         _stitch1 = new UserPatternThreadStitchRecord

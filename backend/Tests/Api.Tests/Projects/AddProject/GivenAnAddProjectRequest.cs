@@ -72,7 +72,8 @@ public sealed class GivenAnAddProjectRequest
                     Description = "TestDescription",
                     Index = 9396,
                     Colour = "TestColour",
-                    Stitches = []
+                    Stitches = [],
+                    BackStitches = []
                 }
             }
         };

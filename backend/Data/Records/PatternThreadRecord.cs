@@ -11,6 +11,7 @@ public class PatternThreadRecord : IDatabaseRecord
     public virtual required int Index { get; init; }
     public virtual required string Colour { get; init; }
     public virtual required int[][] Stitches { get; set; }
+    public virtual required int[][] BackStitches { get; set; }
 }
 
 public sealed class PatternThreadRecordMap : ClassMap<PatternThreadRecord>
@@ -26,5 +27,6 @@ public sealed class PatternThreadRecordMap : ClassMap<PatternThreadRecord>
         Map(x => x.Index, "index");
         Map(x => x.Colour, "colour");
         Map(x => x.Stitches, "stitches").CustomType<JsonBlob<int[][]>>();
+        Map(x => x.BackStitches, "back_stitches").CustomType<JsonBlob<int[][]>>();
     }
 }

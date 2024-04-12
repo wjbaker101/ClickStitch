@@ -42,7 +42,8 @@ public sealed class GivenAGetAnalyticsRequest
             Description = null!,
             Index = 0,
             Colour = null!,
-            Stitches = []
+            Stitches = [],
+            BackStitches = []
         };
 
         var pattern = new PatternRecord

@@ -44,7 +44,8 @@ public sealed class GivenADeletePatternRequestCreatedByAStitcherThatHasNotBeenAd
             Description = null!,
             Index = 0,
             Colour = null!,
-            Stitches = []
+            Stitches = [],
+            BackStitches = []
         };
 
         _thread2 = new PatternThreadRecord
@@ -55,7 +56,8 @@ public sealed class GivenADeletePatternRequestCreatedByAStitcherThatHasNotBeenAd
             Description = null!,
             Index = 0,
             Colour = null!,
-            Stitches = []
+            Stitches = [],
+            BackStitches = []
         };
 
         _pattern = new PatternRecord

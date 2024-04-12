@@ -70,7 +70,8 @@ public sealed class GivenAGetProjectRequest
             Description = null!,
             Index = 0,
             Colour = null!,
-            Stitches = []
+            Stitches = [],
+            BackStitches = []
         };
         pattern.Threads.Add(thread);
 

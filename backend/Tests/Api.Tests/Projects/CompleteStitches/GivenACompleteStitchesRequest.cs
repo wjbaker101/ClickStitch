@@ -59,7 +59,8 @@ public sealed class GivenACompleteStitchesRequest
             Description = null!,
             Index = 1,
             Colour = null!,
-            Stitches = []
+            Stitches = [],
+            BackStitches = []
         };
 
         var thread2 = new PatternThreadRecord
@@ -88,7 +89,8 @@ public sealed class GivenACompleteStitchesRequest
             Description = null!,
             Index = 2,
             Colour = null!,
-            Stitches = []
+            Stitches = [],
+            BackStitches = []
         };
 
         _database = new TestDatabase

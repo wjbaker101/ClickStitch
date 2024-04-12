@@ -115,7 +115,8 @@ public sealed class CreatePatternService : ICreatePatternService
             Description = x.Description,
             Index = x.Index,
             Colour = x.Colour,
-            Stitches = parsed.Stitches.Where(stitch => stitch.ThreadIndex == x.Index).Select(stitch => new [] { stitch.X, stitch.Y }).ToArray()
+            Stitches = parsed.Stitches.Where(stitch => stitch.ThreadIndex == x.Index).Select(stitch => new [] { stitch.X, stitch.Y }).ToArray(),
+            BackStitches = []
         }), cancellationToken);
 
         if (!isCreator)

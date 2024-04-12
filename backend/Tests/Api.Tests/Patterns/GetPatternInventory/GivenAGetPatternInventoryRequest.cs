@@ -83,7 +83,8 @@ public sealed class GivenAGetPatternInventoryRequest
                             Description = null!,
                             Index = 2432,
                             Colour = null!,
-                            Stitches = []
+                            Stitches = [],
+                            BackStitches = []
                         },
                         new()
                         {
@@ -92,7 +93,8 @@ public sealed class GivenAGetPatternInventoryRequest
                             Description = null!,
                             Index = 5886,
                             Colour = null!,
-                            Stitches = []
+                            Stitches = [],
+                            BackStitches = []
                         },
                         new()
                         {
@@ -101,7 +103,8 @@ public sealed class GivenAGetPatternInventoryRequest
                             Description = null!,
                             Index = 4327,
                             Colour = null!,
-                            Stitches = []
+                            Stitches = [],
+                            BackStitches = []
                         }
                     }
                 },
