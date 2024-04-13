@@ -69,10 +69,14 @@ public sealed class GivenAGetProjectRequest
             Pattern = pattern,
             Name = null!,
             Description = null!,
-            Index = 0,
+            Index = 57,
             Colour = null!,
-            Stitches = [],
-            BackStitches = []
+            Stitches = [
+                [ 1691, 553 ]
+            ],
+            BackStitches = [
+                [ 9198, 208, 7185, 922 ]
+            ]
         };
         pattern.Threads.Add(thread);
 
@@ -136,7 +140,35 @@ public sealed class GivenAGetProjectRequest
     [Test]
     public void ThenTheThreadsAreReturned()
     {
-        Assert.That(_result.Content.Threads, Is.Not.Null);
+        var thread = _result.Content.Threads[0];
+
+        Assert.That(thread.Thread.Index, Is.EqualTo(57));
+    }
+
+    [Test]
+    public void ThenTheStitchesAreReturned()
+    {
+        var stitch = _result.Content.Threads[0].Stitches[0];
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(stitch[0], Is.EqualTo(1691), "[0]");
+            Assert.That(stitch[1], Is.EqualTo(553), "[1]");
+        });
+    }
+
+    [Test]
+    public void ThenTheBackStitchesAreReturned()
+    {
+        var stitch = _result.Content.Threads[0].BackStitches[0];
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(stitch[0], Is.EqualTo(9198), "[0]");
+            Assert.That(stitch[1], Is.EqualTo(208), "[1]");
+            Assert.That(stitch[2], Is.EqualTo(7185), "[2]");
+            Assert.That(stitch[3], Is.EqualTo(922), "[3]");
+        });
     }
 
     [Test]
@@ -149,6 +181,21 @@ public sealed class GivenAGetProjectRequest
             Assert.That(stitch[0], Is.EqualTo(1605), "[0]");
             Assert.That(stitch[1], Is.EqualTo(5154), "[1]");
             Assert.That(stitch[2], Is.EqualTo(new DateTime(2011, 01, 10, 01, 33, 02)), "[2]");
+        });
+    }
+
+    [Test]
+    public void ThenTheCompletedBackStitchesAreReturned()
+    {
+        var stitch = _result.Content.Threads[0].CompletedBackStitches[0];
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(stitch[0], Is.EqualTo(4037), "[0]");
+            Assert.That(stitch[1], Is.EqualTo(3155), "[1]");
+            Assert.That(stitch[2], Is.EqualTo(392), "[2]");
+            Assert.That(stitch[3], Is.EqualTo(7021), "[3]");
+            Assert.That(stitch[4], Is.EqualTo(new DateTime(2004, 06, 01, 15, 53, 40)), "[4]");
         });
     }
 }

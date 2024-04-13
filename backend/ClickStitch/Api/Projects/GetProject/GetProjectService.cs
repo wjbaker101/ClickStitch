@@ -48,23 +48,28 @@ public sealed class GetProjectService : IGetProjectService
             return Result<GetProjectResponse>.FromFailure(projectResult);
 
         var userStitchesPerThread = await _userPatternThreadStitchRepository.GetByUserForThreads(user, pattern.Threads, cancellationToken);
+        var userBackStitchesPerThread = await _userPatternThreadBackStitchRepository.GetByUserForThreads(user, pattern.Threads, cancellationToken);
 
         var threads = new List<GetProjectResponse.ThreadDetails>();
         foreach (var thread in pattern.Threads.OrderBy(x => x.Index))
         {
-            var stitches = thread.Stitches;
             var userStitches = userStitchesPerThread.TryGetValue(thread.Id, out var existsUserStitches) ? existsUserStitches : [];
             var userStitchLookup = userStitches.Select(x => (x.X, x.Y)).ToHashSet();
+
+            var userBackStitches = userBackStitchesPerThread.TryGetValue(thread.Id, out var existsUserBackStitches) ? existsUserBackStitches : [];
+            var userBackStitchLookup = userBackStitches.Select(x => (x.StartX, x.StartY, x.EndX, x.EndY)).ToHashSet();
 
             threads.Add(new GetProjectResponse.ThreadDetails
             {
                 Thread = PatternMapper.MapThread(thread),
-                Stitches = stitches
+                Stitches = thread.Stitches
                     .Where(stitch => !userStitchLookup.Contains((stitch[0], stitch[1])))
                     .MapAll(x => new GetProjectResponse.StitchDetails(x[0], x[1])),
                 CompletedStitches = userStitches.ConvertAll(x => new GetProjectResponse.CompletedStitchDetails(x.X, x.Y, x.CompletedAt)),
-                BackStitches = [],
-                CompletedBackStitches = []
+                BackStitches = thread.BackStitches
+                    .Where(backStitch => !userBackStitchLookup.Contains((backStitch[0], backStitch[1], backStitch[2], backStitch[3])))
+                    .MapAll(x => new GetProjectResponse.BackStitchDetails(x[0], x[1], x[2], x[3])),
+                CompletedBackStitches = userBackStitches.ConvertAll(x => new GetProjectResponse.CompletedBackStitchDetails(x.StartX, x.StartY, x.EndX, x.EndY, x.CompletedAt))
             });
         }
 
