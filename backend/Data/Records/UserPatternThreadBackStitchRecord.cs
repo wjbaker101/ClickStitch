@@ -4,7 +4,7 @@ namespace Data.Records;
 
 public class UserPatternThreadBackStitchRecord : IDatabaseRecord
 {
-    public long Id { get; init; }
+    public virtual long Id { get; init; }
     public virtual required UserRecord User { get; init; }
     public virtual required PatternThreadRecord Thread { get; init; }
     public virtual required int StartX { get; init; }
