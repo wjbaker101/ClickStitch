@@ -4,6 +4,7 @@ using Data.Records;
 using Data.Repositories.Pattern;
 using Data.Repositories.User;
 using Data.Repositories.UserPattern;
+using Data.Repositories.UserPatternThreadBackStitch;
 using Data.Repositories.UserPatternThreadStitch;
 using Data.Types;
 using TestHelpers.Data;
@@ -79,10 +80,22 @@ public sealed class GivenAGetProjectRequest
         {
             Id = 0,
             User = user,
-            Thread = null!,
-            X = default,
-            Y = default,
-            CompletedAt = default
+            Thread = thread,
+            X = 1605,
+            Y = 5154,
+            CompletedAt = new DateTime(2011, 01, 10, 01, 33, 02)
+        };
+
+        var userBackStitch = new UserPatternThreadBackStitchRecord
+        {
+            Id = 0,
+            User = user,
+            Thread = thread,
+            StartX = 4037,
+            StartY = 3155,
+            EndX = 392,
+            EndY = 7021,
+            CompletedAt = new DateTime(2004, 06, 01, 15, 53, 40)
         };
 
         var project = new UserPatternRecord
@@ -104,11 +117,12 @@ public sealed class GivenAGetProjectRequest
                 project,
                 pattern,
                 thread,
-                userStitch
+                userStitch,
+                userBackStitch
             }
         };
 
-        var subject = new GetProjectService(new UserRepository(database), new UserPatternRepository(database), new PatternRepository(database), new UserPatternThreadStitchRepository(database));
+        var subject = new GetProjectService(new UserRepository(database), new UserPatternRepository(database), new PatternRepository(database), new UserPatternThreadStitchRepository(database), new UserPatternThreadBackStitchRepository(database));
 
         _result = await subject.GetProject(new TestRequestUser(), Guid.Parse("37a2c8a9-a30e-4e77-8abd-e2df81b62792"), CancellationToken.None);
     }
@@ -123,5 +137,18 @@ public sealed class GivenAGetProjectRequest
     public void ThenTheThreadsAreReturned()
     {
         Assert.That(_result.Content.Threads, Is.Not.Null);
+    }
+
+    [Test]
+    public void ThenTheCompletedStitchesAreReturned()
+    {
+        var stitch = _result.Content.Threads[0].CompletedStitches[0];
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(stitch[0], Is.EqualTo(1605), "[0]");
+            Assert.That(stitch[1], Is.EqualTo(5154), "[1]");
+            Assert.That(stitch[2], Is.EqualTo(new DateTime(2011, 01, 10, 01, 33, 02)), "[2]");
+        });
     }
 }

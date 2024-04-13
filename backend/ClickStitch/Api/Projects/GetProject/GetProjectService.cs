@@ -2,6 +2,7 @@
 using Data.Repositories.Pattern;
 using Data.Repositories.User;
 using Data.Repositories.UserPattern;
+using Data.Repositories.UserPatternThreadBackStitch;
 using Data.Repositories.UserPatternThreadStitch;
 using DotNetLibs.Core.Extensions;
 
@@ -18,17 +19,20 @@ public sealed class GetProjectService : IGetProjectService
     private readonly IUserPatternRepository _userPatternRepository;
     private readonly IPatternRepository _patternRepository;
     private readonly IUserPatternThreadStitchRepository _userPatternThreadStitchRepository;
+    private readonly IUserPatternThreadBackStitchRepository _userPatternThreadBackStitchRepository;
 
     public GetProjectService(
         IUserRepository userRepository,
         IUserPatternRepository userPatternRepository,
         IPatternRepository patternRepository,
-        IUserPatternThreadStitchRepository userPatternThreadStitchRepository)
+        IUserPatternThreadStitchRepository userPatternThreadStitchRepository,
+        IUserPatternThreadBackStitchRepository userPatternThreadBackStitchRepository)
     {
         _userRepository = userRepository;
         _userPatternRepository = userPatternRepository;
         _patternRepository = patternRepository;
         _userPatternThreadStitchRepository = userPatternThreadStitchRepository;
+        _userPatternThreadBackStitchRepository = userPatternThreadBackStitchRepository;
     }
 
     public async Task<Result<GetProjectResponse>> GetProject(RequestUser requestUser, Guid patternReference, CancellationToken cancellationToken)

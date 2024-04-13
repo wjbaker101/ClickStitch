@@ -41,6 +41,7 @@ using Data.Repositories.Thread;
 using Data.Repositories.User;
 using Data.Repositories.UserCreator;
 using Data.Repositories.UserPattern;
+using Data.Repositories.UserPatternThreadBackStitch;
 using Data.Repositories.UserPatternThreadStitch;
 using Data.Repositories.UserPermission;
 using Data.Repositories.UserThread;
@@ -66,6 +67,7 @@ public static class SetupDependencies
         services.AddSingleton<IThreadRepository, ThreadRepository>();
         services.AddSingleton<IUserCreatorRepository, UserCreatorRepository>();
         services.AddSingleton<IUserPermissionRepository, UserPermissionRepository>();
+        services.AddSingleton<IUserPatternThreadBackStitchRepository, UserPatternThreadBackStitchRepository>();
         services.AddSingleton<IUserPatternThreadStitchRepository, UserPatternThreadStitchRepository>();
         services.AddSingleton<IUserThreadRepository, UserThreadRepository>();
 
