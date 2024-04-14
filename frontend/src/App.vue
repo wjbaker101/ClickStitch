@@ -20,10 +20,6 @@ import ContextMenuComponent from './components/context-menu/ContextMenu.componen
 body {
     font-family: 'Mulish', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--wjb-text-colour);
-
-    &.no-scroll {
-        overflow: hidden;
-    }
 }
 
 .textured-background {

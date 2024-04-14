@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 import UserMessageComponent from '@/components/UserMessage.component.vue';
@@ -71,12 +71,6 @@ onMounted(async () => {
     project.value = result;
 
     setTitle(`${project.value.project.pattern.title}`);
-
-    document.body.classList.add('no-scroll');
-});
-
-onUnmounted(() => {
-    document.body.classList.remove  ('no-scroll');
 });
 </script>
 
