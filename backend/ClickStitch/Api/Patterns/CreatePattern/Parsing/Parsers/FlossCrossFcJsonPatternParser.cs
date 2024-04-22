@@ -42,6 +42,13 @@ public sealed class FlossCrossFcJsonPatternParser : IPatternParser
         public sealed class Layer
         {
             public required List<int> cross { get; init; }
+            public required List<BackStitch> backstitch { get; init; }
+        }
+
+        public sealed class BackStitch
+        {
+            public required int c { get; init; }
+            public required int[][] p { get; init; }
         }
     }
 #pragma warning restore IDE1006
@@ -101,7 +108,14 @@ public sealed class FlossCrossFcJsonPatternParser : IPatternParser
                 Colour = ParsingHelper.RgbToHex(x.rgb[0], x.rgb[1], x.rgb[2])
             }),
             Stitches = stitches,
-            BackStitches = []
+            BackStitches = layer.backstitch.ConvertAll(x => new ParsePatternResponse.BackStitchDetails
+            {
+                ThreadIndex = x.c + 1,
+                StartX = x.p[0][0],
+                StartY = x.p[0][1],
+                EndX = x.p[0][2],
+                EndY = x.p[0][3],
+            })
         };
     }
 }
