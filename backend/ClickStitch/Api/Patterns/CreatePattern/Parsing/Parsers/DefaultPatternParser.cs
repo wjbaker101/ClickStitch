@@ -74,7 +74,8 @@ public sealed class DefaultPatternParser : IPatternParser
                 ThreadIndex = x.index,
                 X = x.x,
                 Y = x.y
-            })
+            }),
+            BackStitches = []
         };
     }
 }

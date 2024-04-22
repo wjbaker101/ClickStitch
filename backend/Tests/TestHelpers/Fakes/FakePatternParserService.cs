@@ -10,7 +10,8 @@ public sealed class FakePatternParserService : IPatternParserService
     {
         Pattern = null!,
         Threads = null!,
-        Stitches = null!
+        Stitches = null!,
+        BackStitches = null!
     };
 
     public ParsePatternParameters? ActualParameters { get; private set; }

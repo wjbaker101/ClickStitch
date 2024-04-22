@@ -92,6 +92,17 @@ public sealed class GivenACreatePatternRequestAsACreator
                         X = 68,
                         Y = 22
                     }
+                },
+                BackStitches = new List<ParsePatternResponse.BackStitchDetails>
+                {
+                    new()
+                    {
+                        ThreadIndex = 2470,
+                        StartX = 882,
+                        StartY = 501,
+                        EndX = 79,
+                        EndY = 267
+                    }
                 }
             }
         };
@@ -180,6 +191,7 @@ public sealed class GivenACreatePatternRequestAsACreator
             Assert.That(thread.Index, Is.EqualTo(2470), nameof(thread.Index));
             Assert.That(thread.Colour, Is.EqualTo("TestColour"), nameof(thread.Colour));
             Assert.That(thread.Stitches, Is.EqualTo(new int[][] { [68, 22] }), nameof(thread.Stitches));
+            Assert.That(thread.BackStitches, Is.EqualTo(new int[][] { [882, 501, 79, 267] }), nameof(thread.Stitches));
         });
     }
 }

@@ -21,6 +21,10 @@ public sealed class FlossCrossOxsPatternParser : IPatternParser
         [XmlArrayItem("stitch")]
         public required List<Stitch> Stitches { get; init; }
 
+        [XmlArray("backstitches")]
+        [XmlArrayItem("backstitch")]
+        public required List<BackStitch> BackStitches { get; init; }
+
         public sealed class PropertiesDetails
         {
             [XmlAttribute("chartwidth")]
@@ -55,6 +59,24 @@ public sealed class FlossCrossOxsPatternParser : IPatternParser
 
             [XmlAttribute("palindex")]
             public required int ThreadIndex { get; init; }
+        }
+
+        public sealed class BackStitch
+        {
+            [XmlAttribute("x1")]
+            public required int X1 { get; init; }
+
+            [XmlAttribute("x2")]
+            public required int X2 { get; init; }
+
+            [XmlAttribute("y1")]
+            public required int Y1 { get; init; }
+
+            [XmlAttribute("y2")]
+            public required int Y2 { get; init; }
+
+            [XmlAttribute("palindex")]
+            public required int PalIndex { get; init; }
         }
     }
     // ReSharper restore StringLiteralTypo
@@ -97,6 +119,14 @@ public sealed class FlossCrossOxsPatternParser : IPatternParser
                 ThreadIndex = x.ThreadIndex,
                 X = x.X,
                 Y = x.Y
+            }),
+            BackStitches = data.BackStitches.ConvertAll(x => new ParsePatternResponse.BackStitchDetails
+            {
+                ThreadIndex = x.PalIndex,
+                StartX = x.X1,
+                StartY = x.Y1,
+                EndX = x.X2,
+                EndY = x.Y2
             })
         };
     }
