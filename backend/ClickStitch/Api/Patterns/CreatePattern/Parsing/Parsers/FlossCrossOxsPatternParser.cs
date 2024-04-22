@@ -1,8 +1,8 @@
-﻿using ClickStitch.Api.Patterns.VerifyPattern.Parsing.Types;
+﻿using ClickStitch.Api.Patterns.CreatePattern.Parsing.Types;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace ClickStitch.Api.Patterns.VerifyPattern.Parsing.Parsers;
+namespace ClickStitch.Api.Patterns.CreatePattern.Parsing.Parsers;
 
 public sealed class FlossCrossOxsPatternParser : IPatternParser
 {

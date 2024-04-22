@@ -1,8 +1,8 @@
-﻿using ClickStitch.Api.Patterns.VerifyPattern.Parsing.Types;
+﻿using ClickStitch.Api.Patterns.CreatePattern.Parsing.Types;
 using DotNetLibs.Core.Extensions;
 using Utf8Json;
 
-namespace ClickStitch.Api.Patterns.VerifyPattern.Parsing.Parsers;
+namespace ClickStitch.Api.Patterns.CreatePattern.Parsing.Parsers;
 
 public sealed class DefaultPatternParser : IPatternParser
 {

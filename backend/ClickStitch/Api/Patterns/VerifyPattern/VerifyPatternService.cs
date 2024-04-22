@@ -1,5 +1,5 @@
-﻿using ClickStitch.Api.Patterns.VerifyPattern.Parsing;
-using ClickStitch.Api.Patterns.VerifyPattern.Parsing.Types;
+﻿using ClickStitch.Api.Patterns.CreatePattern.Parsing;
+using ClickStitch.Api.Patterns.CreatePattern.Parsing.Types;
 using ClickStitch.Api.Patterns.VerifyPattern.Types;
 
 namespace ClickStitch.Api.Patterns.VerifyPattern;

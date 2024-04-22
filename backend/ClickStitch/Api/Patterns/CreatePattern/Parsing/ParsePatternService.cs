@@ -1,9 +1,9 @@
-﻿using ClickStitch.Api.Patterns.VerifyPattern.Parsing.Parsers;
-using ClickStitch.Api.Patterns.VerifyPattern.Parsing.Types;
+﻿using ClickStitch.Api.Patterns.CreatePattern.Parsing.Parsers;
+using ClickStitch.Api.Patterns.CreatePattern.Parsing.Types;
 using Inkwell.Client;
 using Inkwell.Client.Types;
 
-namespace ClickStitch.Api.Patterns.VerifyPattern.Parsing;
+namespace ClickStitch.Api.Patterns.CreatePattern.Parsing;
 
 public interface IPatternParserService
 {

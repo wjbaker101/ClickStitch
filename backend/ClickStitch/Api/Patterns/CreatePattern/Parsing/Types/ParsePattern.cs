@@ -1,4 +1,4 @@
-﻿namespace ClickStitch.Api.Patterns.VerifyPattern.Parsing.Types;
+﻿namespace ClickStitch.Api.Patterns.CreatePattern.Parsing.Types;
 
 public sealed class ParsePatternParameters
 {

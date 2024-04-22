@@ -1,6 +1,6 @@
 ﻿using ClickStitch.Api.Patterns.CreatePattern;
+using ClickStitch.Api.Patterns.CreatePattern.Parsing.Types;
 using ClickStitch.Api.Patterns.CreatePattern.Types;
-using ClickStitch.Api.Patterns.VerifyPattern.Parsing.Types;
 using Data.Records;
 using Data.Repositories.Creator;
 using Data.Repositories.Pattern;
