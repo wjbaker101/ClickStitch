@@ -13,4 +13,6 @@ export interface IThreadDetails {
     readonly thread: IPatternThread;
     readonly stitches: Array<[number, number]>;
     readonly completedStitches: Array<[number, number, Dayjs]>;
+    readonly backStitches: Array<[number, number, number, number]>;
+    readonly completedBackStitches: Array<[number, number, number, number, Dayjs]>;
 }

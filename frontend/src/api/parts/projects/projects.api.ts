@@ -67,6 +67,8 @@ export const projectsApi = {
                 thread: patternMapper.mapThread(thread.thread),
                 stitches: thread.stitches,
                 completedStitches: thread.completedStitches.map(x => [x[0], x[1], dayjs(x[2])]),
+                backStitches: thread.backStitches,
+                completedBackStitches: thread.completedBackStitches,
             })),
         };
     },
