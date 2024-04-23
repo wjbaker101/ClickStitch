@@ -33,6 +33,9 @@
             <CompletedStitchesLayerComponent
                 :baseStitchSize="baseStitchSize"
             />
+            <BackStitchesLayerComponent
+                :baseStitchSize="baseStitchSize"
+            />
             <JumpedStitchLayerComponent
                 :baseStitchSize="baseStitchSize"
             />
@@ -72,6 +75,7 @@ import HighlightedThreadLayerComponent from '@/views/stitcher/project/layers/Hig
 import JumpedStitchLayerComponent from '@/views/stitcher/project/layers/JumpedStitchLayer.component.vue';
 import SelectedStitchesLayerComponent from '@/views/stitcher/project/layers/SelectedStitchesLayer.component.vue';
 import PausePositionLayerComponent from '@/views/stitcher/project/layers/PausePositionLayer.component.vue';
+import BackStitchesLayerComponent from '@/views/stitcher/project/layers/BackStitchesLayer.component.vue';
 
 import { api } from '@/api/api';
 import { isDark } from '@/helper/helper';
