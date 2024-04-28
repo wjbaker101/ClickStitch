@@ -1,18 +1,31 @@
 <template>
-    <canvas
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
         class="back-stitches-layer-component"
-        ref="canvas"
         :width="project.project.pattern.width * baseStitchSize"
         :height="project.project.pattern.height * baseStitchSize"
     >
-    </canvas>
+        <line
+            :style="{
+                '--back-stitch-colour': backStitch.colour,
+                '--back-stitch-width': baseStitchSize / 2,
+            }"
+            class="back-stitch-line"
+            :class="{
+                'is-completed': backStitch.isCompleted,
+            }"
+            v-for="backStitch in backStitches"
+            :x1="backStitch.startX" :y1="backStitch.startY"
+            :x2="backStitch.endX" :y2="backStitch.endY"
+            @dblclick="toggleCompleted(backStitch)"
+        />
+    </svg>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 
 import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
-import { useCanvasElement } from '@/views/stitcher/project/use/CanvasElement.use';
 
 const props = defineProps<{
     baseStitchSize: number;
@@ -20,34 +33,53 @@ const props = defineProps<{
 
 const { project } = useCurrentProject();
 
-const canvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
-const { graphics } = useCanvasElement(canvas);
+interface IBackStitch {
+    readonly colour: string;
+    readonly startX: number;
+    readonly startY: number;
+    readonly endX: number;
+    readonly endY: number;
+    isCompleted: boolean;
+}
 
-const render = function () {
-    const threads = project.value.threads;
+const inCompleted = project.value.threads.flatMap<IBackStitch>(thread => thread.backStitches.map(x => ({
+    colour: thread.thread.colour,
+    startX: x[0] * props.baseStitchSize,
+    startY: x[1] * props.baseStitchSize,
+    endX: x[2] * props.baseStitchSize,
+    endY: x[3] * props.baseStitchSize,
+    isCompleted: false,
+})));
 
-    graphics.value.lineWidth = props.baseStitchSize / 2;
-    graphics.value.lineCap = 'round';
-    graphics.value.shadowBlur = 3;
+const completed = project.value.threads.flatMap<IBackStitch>(thread => thread.completedBackStitches.map(x => ({
+    colour: thread.thread.colour,
+    startX: x[0] * props.baseStitchSize,
+    startY: x[1] * props.baseStitchSize,
+    endX: x[2] * props.baseStitchSize,
+    endY: x[3] * props.baseStitchSize,
+    isCompleted: true,
+})));
 
-    for (const thread of threads) {
-        graphics.value.strokeStyle = thread.thread.colour;
-        graphics.value.shadowColor = thread.thread.colour;
+const backStitches = ref<Array<IBackStitch>>(inCompleted.concat(completed));
 
-        for (const backStitch of thread.backStitches) {
-            graphics.value.beginPath();
-            graphics.value.moveTo(backStitch[0] * props.baseStitchSize, backStitch[1] * props.baseStitchSize);
-            graphics.value.lineTo(backStitch[2] * props.baseStitchSize, backStitch[3] * props.baseStitchSize);
-            graphics.value.stroke();
-        }
-    }
-
+const toggleCompleted = function (backStitch: IBackStitch): void {
+    backStitch.isCompleted = !backStitch.isCompleted;
 };
-
-onMounted(() => {
-    render();
-});
 </script>
 
 <style lang="scss">
+.back-stitches-layer-component {
+    position: relative;
+    z-index: 1;
+
+    .back-stitch-line {
+        stroke: var(--back-stitch-colour);
+        stroke-width: var(--back-stitch-width);
+        stroke-linecap: round;
+
+        &.is-completed {
+            stroke: #0f0;
+        }
+    }
+}
 </style>
