@@ -19,6 +19,7 @@ using ClickStitch.Api.Patterns.SearchPatterns;
 using ClickStitch.Api.Patterns.UpdatePattern;
 using ClickStitch.Api.Patterns.VerifyPattern;
 using ClickStitch.Api.Projects.AddProject;
+using ClickStitch.Api.Projects.CompleteBackStitches;
 using ClickStitch.Api.Projects.CompleteStitches;
 using ClickStitch.Api.Projects.GetAnalytics;
 using ClickStitch.Api.Projects.GetProject;
@@ -79,7 +80,7 @@ public static class SetupDependencies
         services.AddSingleton<ISearchUsersService, SearchUsersService>();
 
         services.AddSingleton<ILogInService, LogInService>();
-        services.AddSingleton<ILoginTokenService, LoginTokenService>();
+        services.AddSingleton<ILoginTokenService, LoginTokenService>(); 
         services.AddSingleton<IPasswordService, PasswordService>();
 
         services.AddSingleton<ICreateCreatorService, CreateCreatorService>();
@@ -102,6 +103,7 @@ public static class SetupDependencies
         services.AddSingleton<IPatternParserService, PatternParserService>();
 
         services.AddSingleton<IAddProjectService, AddProjectService>();
+        services.AddSingleton<ICompleteBackStitchesService, CompleteBackStitchesService>();
         services.AddSingleton<ICompleteStitchesService, CompleteStitchesService>();
         services.AddSingleton<IGetAnalyticsService, GetAnalyticsService>();
         services.AddSingleton<IGetProjectService, GetProjectService>();

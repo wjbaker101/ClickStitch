@@ -1,4 +1,6 @@
 ﻿using ClickStitch.Api.Projects.AddProject;
+using ClickStitch.Api.Projects.CompleteBackStitches;
+using ClickStitch.Api.Projects.CompleteBackStitches.Types;
 using ClickStitch.Api.Projects.CompleteStitches;
 using ClickStitch.Api.Projects.CompleteStitches.Types;
 using ClickStitch.Api.Projects.GetAnalytics;
@@ -18,6 +20,7 @@ namespace ClickStitch.Api.Projects;
 public sealed class ProjectsController : ApiController
 {
     private readonly IAddProjectService _addProjectService;
+    private readonly ICompleteBackStitchesService _completeBackStitchesService;
     private readonly ICompleteStitchesService _completeStitchesService;
     private readonly IGetAnalyticsService _getAnalyticsService;
     private readonly IGetProjectService _getProjectService;
@@ -28,6 +31,7 @@ public sealed class ProjectsController : ApiController
 
     public ProjectsController(
         IAddProjectService addProjectService,
+        ICompleteBackStitchesService completeBackStitchesService,
         ICompleteStitchesService completeStitchesService,
         IGetAnalyticsService getAnalyticsService,
         IGetProjectService getProjectService,
@@ -41,6 +45,7 @@ public sealed class ProjectsController : ApiController
         _unCompleteStitchesService = unCompleteStitchesService;
         _unPauseStitchingService = unPauseStitchingService;
         _addProjectService = addProjectService;
+        _completeBackStitchesService = completeBackStitchesService;
         _completeStitchesService = completeStitchesService;
         _getAnalyticsService = getAnalyticsService;
         _getProjectService = getProjectService;
@@ -54,6 +59,18 @@ public sealed class ProjectsController : ApiController
         var user = RequestHelper.GetRequiredUser(Request);
 
         var result = await _addProjectService.AddProject(user, patternReference, cancellationToken);
+
+        return ToApiResponse(result);
+    }
+
+    [HttpPost]
+    [Route("{patternReference:guid}/back_stitches/complete")]
+    [Authenticate]
+    public async Task<IActionResult> CompleteBackStitches([FromRoute] Guid patternReference, [FromBody] CompleteBackStitchesRequest request, CancellationToken cancellationToken)
+    {
+        var user = RequestHelper.GetRequiredUser(Request);
+
+        var result = await _completeBackStitchesService.CompleteBackStitches(user, patternReference, request, cancellationToken);
 
         return ToApiResponse(result);
     }

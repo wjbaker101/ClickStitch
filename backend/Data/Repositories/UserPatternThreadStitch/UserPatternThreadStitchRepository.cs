@@ -57,7 +57,7 @@ public sealed class UserPatternThreadStitchRepository : Repository<UserPatternTh
                 .ExecuteUpdateAsync(cancellationToken);
         }
 
-        await transaction.Commit(cancellationToken);
+        await transaction.Commit(cancellationToken); 
     }
 
     public async Task UnComplete(UserRecord user, Guid patternReference, StitchPosition positions, CancellationToken cancellationToken)
