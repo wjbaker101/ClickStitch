@@ -86,7 +86,18 @@ const toggleCompleted = async function (backStitch: IBackStitch): Promise<void> 
         });
     }
     else {
-
+        await api.projects.unCompleteBackStitches(project.value.project.pattern.reference, {
+            backStitchesByThread: {
+                [backStitch.threadIndex]: [
+                    {
+                        startX: backStitch.startX,
+                        startY: backStitch.startY,
+                        endX: backStitch.endX,
+                        endY: backStitch.endY,
+                    },
+                ],
+            },
+        });
     }
 };
 </script>

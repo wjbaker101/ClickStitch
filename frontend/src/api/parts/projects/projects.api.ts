@@ -116,6 +116,20 @@ export const projectsApi = {
             return response;
     },
 
+    async unCompleteBackStitches(patternReference: string, request: ICompleteBackStitchesRequest): Promise<void | Error> {
+        const response = await apiClient.post<IGetProjectResponse>({
+            url: `/projects/${patternReference}/back_stitches/uncomplete`,
+            body: request,
+            auth: {
+                required: true,
+                use: true,
+            },
+        });
+
+        if (response instanceof Error)
+            return response;
+    },
+
     async pause(patternReference: string, request: IPausePatternRequest): Promise<void | Error> {
         const response = await apiClient.post<IPausePatternResponse>({
             url: `/projects/${patternReference}/stitches/pause`,
