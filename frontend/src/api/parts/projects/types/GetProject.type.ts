@@ -13,5 +13,5 @@ interface IThreadDetails {
     readonly stitches: Array<[number, number]>;
     readonly completedStitches: Array<[number, number, string]>;
     readonly backStitches: Array<[number, number, number, number]>;
-    readonly completedBackStitches: Array<[number, number, number, number, Dayjs]>;
+    readonly completedBackStitches: Array<[number, number, number, number, string]>;
 }

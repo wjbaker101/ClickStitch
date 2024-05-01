@@ -26,6 +26,7 @@
 import { ref } from 'vue';
 
 import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
+import { api } from '@/api/api';
 
 const props = defineProps<{
     baseStitchSize: number;
@@ -34,6 +35,7 @@ const props = defineProps<{
 const { project } = useCurrentProject();
 
 interface IBackStitch {
+    readonly threadIndex: number;
     readonly colour: string;
     readonly startX: number;
     readonly startY: number;
@@ -43,6 +45,7 @@ interface IBackStitch {
 }
 
 const inCompleted = project.value.threads.flatMap<IBackStitch>(thread => thread.backStitches.map(x => ({
+    threadIndex: thread.thread.index,
     colour: thread.thread.colour,
     startX: x[0] * props.baseStitchSize,
     startY: x[1] * props.baseStitchSize,
@@ -52,6 +55,7 @@ const inCompleted = project.value.threads.flatMap<IBackStitch>(thread => thread.
 })));
 
 const completed = project.value.threads.flatMap<IBackStitch>(thread => thread.completedBackStitches.map(x => ({
+    threadIndex: thread.thread.index,
     colour: thread.thread.colour,
     startX: x[0] * props.baseStitchSize,
     startY: x[1] * props.baseStitchSize,
@@ -60,10 +64,30 @@ const completed = project.value.threads.flatMap<IBackStitch>(thread => thread.co
     isCompleted: true,
 })));
 
+console.log(completed)
+
 const backStitches = ref<Array<IBackStitch>>(inCompleted.concat(completed));
 
-const toggleCompleted = function (backStitch: IBackStitch): void {
+const toggleCompleted = async function (backStitch: IBackStitch): Promise<void> {
     backStitch.isCompleted = !backStitch.isCompleted;
+
+    if (backStitch.isCompleted) {
+        await api.projects.completeBackStitches(project.value.project.pattern.reference, {
+            backStitchesByThread: {
+                [backStitch.threadIndex]: [
+                    {
+                        startX: backStitch.startX,
+                        startY: backStitch.startY,
+                        endX: backStitch.endX,
+                        endY: backStitch.endY,
+                    },
+                ],
+            },
+        });
+    }
+    else {
+
+    }
 };
 </script>
 

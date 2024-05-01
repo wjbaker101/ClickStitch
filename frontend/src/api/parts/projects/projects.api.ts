@@ -69,7 +69,7 @@ export const projectsApi = {
                 stitches: thread.stitches,
                 completedStitches: thread.completedStitches.map(x => [x[0], x[1], dayjs(x[2])]),
                 backStitches: thread.backStitches,
-                completedBackStitches: thread.completedBackStitches,
+                completedBackStitches: thread.completedBackStitches.map(x => [x[0], x[1], x[2], x[3], dayjs(x[4])]),
             })),
         };
     },
