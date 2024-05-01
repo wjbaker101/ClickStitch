@@ -15,8 +15,8 @@
                 'is-completed': backStitch.isCompleted,
             }"
             v-for="backStitch in backStitches"
-            :x1="backStitch.startX" :y1="backStitch.startY"
-            :x2="backStitch.endX" :y2="backStitch.endY"
+            :x1="backStitch.startX * baseStitchSize" :y1="backStitch.startY * baseStitchSize"
+            :x2="backStitch.endX * baseStitchSize" :y2="backStitch.endY * baseStitchSize"
             @dblclick="toggleCompleted(backStitch)"
         />
     </svg>
@@ -47,20 +47,20 @@ interface IBackStitch {
 const inCompleted = project.value.threads.flatMap<IBackStitch>(thread => thread.backStitches.map(x => ({
     threadIndex: thread.thread.index,
     colour: thread.thread.colour,
-    startX: x[0] * props.baseStitchSize,
-    startY: x[1] * props.baseStitchSize,
-    endX: x[2] * props.baseStitchSize,
-    endY: x[3] * props.baseStitchSize,
+    startX: x[0],
+    startY: x[1],
+    endX: x[2],
+    endY: x[3],
     isCompleted: false,
 })));
 
 const completed = project.value.threads.flatMap<IBackStitch>(thread => thread.completedBackStitches.map(x => ({
     threadIndex: thread.thread.index,
     colour: thread.thread.colour,
-    startX: x[0] * props.baseStitchSize,
-    startY: x[1] * props.baseStitchSize,
-    endX: x[2] * props.baseStitchSize,
-    endY: x[3] * props.baseStitchSize,
+    startX: x[0],
+    startY: x[1],
+    endX: x[2],
+    endY: x[3],
     isCompleted: true,
 })));
 
