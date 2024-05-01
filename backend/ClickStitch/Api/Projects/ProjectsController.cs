@@ -8,6 +8,7 @@ using ClickStitch.Api.Projects.GetProject;
 using ClickStitch.Api.Projects.GetProjects;
 using ClickStitch.Api.Projects.PauseStitching;
 using ClickStitch.Api.Projects.PauseStitching.Types;
+using ClickStitch.Api.Projects.UnCompleteBackStitches;
 using ClickStitch.Api.Projects.UnCompleteStitches;
 using ClickStitch.Api.Projects.UnPauseStitching;
 using ClickStitch.Middleware.Authentication;
@@ -26,6 +27,7 @@ public sealed class ProjectsController : ApiController
     private readonly IGetProjectService _getProjectService;
     private readonly IGetProjectsService _getProjectsService;
     private readonly IPauseStitchingService _pauseStitchingService;
+    private readonly IUnCompleteBackStitchesService _unCompleteBackStitchesService;
     private readonly IUnCompleteStitchesService _unCompleteStitchesService;
     private readonly IUnPauseStitchingService _unPauseStitchingService;
 
@@ -37,11 +39,13 @@ public sealed class ProjectsController : ApiController
         IGetProjectService getProjectService,
         IGetProjectsService getProjectsService,
         IPauseStitchingService pauseStitchingService,
+        IUnCompleteBackStitchesService unCompleteBackStitchesService,
         IUnCompleteStitchesService unCompleteStitchesService,
         IUnPauseStitchingService unPauseStitchingService)
     {
         _getProjectsService = getProjectsService;
         _pauseStitchingService = pauseStitchingService;
+        _unCompleteBackStitchesService = unCompleteBackStitchesService;
         _unCompleteStitchesService = unCompleteStitchesService;
         _unPauseStitchingService = unPauseStitchingService;
         _addProjectService = addProjectService;
@@ -131,6 +135,18 @@ public sealed class ProjectsController : ApiController
         var user = RequestHelper.GetRequiredUser(Request);
 
         var result = await _pauseStitchingService.PauseStitching(user, patternReference, request, cancellationToken);
+
+        return ToApiResponse(result);
+    }
+
+    [HttpPost]
+    [Route("{patternReference:guid}/back_stitches/uncomplete")]
+    [Authenticate]
+    public async Task<IActionResult> UnCompleteBackStitches([FromRoute] Guid patternReference, [FromBody] CompleteBackStitchesRequest request, CancellationToken cancellationToken)
+    {
+        var user = RequestHelper.GetRequiredUser(Request);
+
+        var result = await _unCompleteBackStitchesService.UnCompleteBackStitches(user, patternReference, request, cancellationToken);
 
         return ToApiResponse(result);
     }

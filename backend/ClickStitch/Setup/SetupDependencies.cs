@@ -25,6 +25,7 @@ using ClickStitch.Api.Projects.GetAnalytics;
 using ClickStitch.Api.Projects.GetProject;
 using ClickStitch.Api.Projects.GetProjects;
 using ClickStitch.Api.Projects.PauseStitching;
+using ClickStitch.Api.Projects.UnCompleteBackStitches;
 using ClickStitch.Api.Projects.UnCompleteStitches;
 using ClickStitch.Api.Projects.UnPauseStitching;
 using ClickStitch.Api.Threads.GetThreadsByColour;
@@ -109,6 +110,7 @@ public static class SetupDependencies
         services.AddSingleton<IGetProjectService, GetProjectService>();
         services.AddSingleton<IGetProjectsService, GetProjectsService>();
         services.AddSingleton<IPauseStitchingService, PauseStitchingService>();
+        services.AddSingleton<IUnCompleteBackStitchesService, UnCompleteBackStitchesService>();
         services.AddSingleton<IUnCompleteStitchesService, UnCompleteStitchesService>();
         services.AddSingleton<IUnPauseStitchingService, UnPauseStitchingService>();
 
