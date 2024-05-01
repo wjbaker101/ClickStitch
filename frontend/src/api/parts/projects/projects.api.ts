@@ -15,6 +15,7 @@ import type { ICompleteStitchesRequest } from '@/api/parts/projects/types/Comple
 import type { IGetAnalyticsResponse } from '@/api/parts/projects/types/GetAnalytics.type';
 import type { IPausePatternRequest, IPausePatternResponse } from '@/api/parts/projects/types/PausePattern.type';
 import type { IUnpausePatternResponse } from '@/api/parts/projects/types/UnpausePattern.type';
+import type { ICompleteBackStitchesRequest } from '@/api/parts/projects/types/CompleteBackStitches.type';
 
 export const projectsApi = {
 
@@ -76,6 +77,20 @@ export const projectsApi = {
     async completeStitches(patternReference: string, request: ICompleteStitchesRequest): Promise<void | Error> {
         const response = await apiClient.post<IGetProjectResponse>({
             url: `/projects/${patternReference}/stitches/complete`,
+            body: request,
+            auth: {
+                required: true,
+                use: true,
+            },
+        });
+
+        if (response instanceof Error)
+            return response;
+    },
+
+    async completeBackStitches(patternReference: string, request: ICompleteBackStitchesRequest): Promise<void | Error> {
+        const response = await apiClient.post<IGetProjectResponse>({
+            url: `/projects/${patternReference}/back_stitches/complete`,
             body: request,
             auth: {
                 required: true,
