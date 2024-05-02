@@ -30,6 +30,7 @@
                 :height="project.project.pattern.height * baseStitchSize"
             >
             </canvas>
+            <GridLayerComponent />
             <HighlightedThreadLayerComponent
                 :baseStitchSize="baseStitchSize"
             />
@@ -79,6 +80,7 @@ import JumpedStitchLayerComponent from '@/views/stitcher/project/layers/JumpedSt
 import SelectedStitchesLayerComponent from '@/views/stitcher/project/layers/SelectedStitchesLayer.component.vue';
 import PausePositionLayerComponent from '@/views/stitcher/project/layers/PausePositionLayer.component.vue';
 import BackStitchesLayerComponent from '@/views/stitcher/project/layers/BackStitchesLayer.component.vue';
+import GridLayerComponent from '@/views/stitcher/project/layers/GridLayer.component.vue';
 
 import { api } from '@/api/api';
 import { isDark } from '@/helper/helper';
@@ -163,40 +165,6 @@ onMounted(() => {
         graphics.value.fillStyle = isDark(thread.colour) ? '#ddd' :  '#111';
         graphics.value.fillText(stitch.threadIndex.toString(), stitch.x * baseStitchSize + (baseStitchSize / 2), (stitch.y + 1) * baseStitchSize - (baseStitchSize / 2) + 10);
     }
-
-    graphics.value.strokeStyle = '#666';
-    graphics.value.lineWidth = 2;
-
-    for (let x = 1; x < props.project.project.pattern.width; ++x) {
-        graphics.value.beginPath();
-        graphics.value.moveTo(x * baseStitchSize, 0);
-        graphics.value.lineTo(x * baseStitchSize, props.project.project.pattern.height * baseStitchSize);
-        graphics.value.closePath();
-        graphics.value.stroke();
-    }
-
-    for (let y = 1; y < props.project.project.pattern.height; ++y) {
-        graphics.value.beginPath();
-        graphics.value.moveTo(0, y * baseStitchSize);
-        graphics.value.lineTo(props.project.project.pattern.width * baseStitchSize, y * baseStitchSize);
-        graphics.value.closePath();
-        graphics.value.stroke();
-    }
-
-    graphics.value.lineWidth = 6;
-    graphics.value.strokeStyle = '#f00';
-
-    graphics.value.beginPath();
-    graphics.value.moveTo(0, props.project.project.pattern.width / 2 * baseStitchSize);
-    graphics.value.lineTo(props.project.project.pattern.width * baseStitchSize, props.project.project.pattern.width / 2 * baseStitchSize);
-    graphics.value.closePath();
-    graphics.value.stroke();
-
-    graphics.value.beginPath();
-    graphics.value.moveTo(props.project.project.pattern.height / 2 * baseStitchSize, 0);
-    graphics.value.lineTo(props.project.project.pattern.height / 2 * baseStitchSize, props.project.project.pattern.height * baseStitchSize);
-    graphics.value.closePath();
-    graphics.value.stroke();
 
     const hammer = useHammer(component);
 
