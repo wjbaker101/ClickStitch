@@ -23,7 +23,7 @@ const { graphics } = useCanvasElement(canvas);
 
 const render = function (): void {
     graphics.value.strokeStyle = '#666';
-    graphics.value.lineWidth = 2;
+    graphics.value.lineWidth = 2.5;
 
     for (let x = 1; x < project.value.project.pattern.width; ++x) {
         graphics.value.beginPath();
