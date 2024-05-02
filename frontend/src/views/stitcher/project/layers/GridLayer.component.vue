@@ -1,6 +1,9 @@
 <template>
     <canvas
         class="completed-stitches-layer-component"
+        :class="{
+            'is-hidden': !isVisible,
+        }"
         ref="canvas"
         :width="project.project.pattern.width * baseStitchSize"
         :height="project.project.pattern.height * baseStitchSize"
@@ -14,9 +17,13 @@ import { onMounted, ref } from 'vue';
 import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
 import { useStitch } from '@/views/stitcher/project/use/Stitch.use';
 import { useCanvasElement } from '@/views/stitcher/project/use/CanvasElement.use';
+import { useLayers } from '@/views/stitcher/project/use/Layers.use';
 
 const { project } = useCurrentProject();
 const { baseStitchSize } = useStitch();
+const layers = useLayers();
+
+const isVisible = layers.grid;
 
 const canvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const { graphics } = useCanvasElement(canvas);

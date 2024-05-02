@@ -24,6 +24,9 @@
                 <label>
                     <input type="checkbox" v-model="isBackStitchesVisible"> Back Stitches
                 </label>
+                <label>
+                    <input type="checkbox" v-model="isGridVisible"> Grid
+                </label>
             </div>
             <h2>Threads:</h2>
             <div>
@@ -59,6 +62,7 @@ const layers = useLayers();
 
 const isStitchesVisible = layers.stitches;
 const isBackStitchesVisible = layers.backStitches;
+const isGridVisible = layers.grid;
 
 const authDetails = auth.details;
 
