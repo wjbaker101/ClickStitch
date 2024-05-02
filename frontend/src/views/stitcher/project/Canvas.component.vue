@@ -20,6 +20,7 @@
             }"
         >
             <canvas
+                v-if="isVisible"
                 class="pattern-canvas"
                 :class="{ 'is-highlighting': highlightedThreadIndex !== null }"
                 ref="patternCanvas"
@@ -80,6 +81,7 @@ import BackStitchesLayerComponent from '@/views/stitcher/project/layers/BackStit
 import { api } from '@/api/api';
 import { isDark } from '@/helper/helper';
 import { Position } from '@/class/Position.class';
+import { useLayers } from '@/views/stitcher/project/use/Layers.use';
 import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
 import { useHammer } from '@/views/stitcher/project/use/Hammer.use';
 import { useMouse } from '@/views/stitcher/project/use/Mouse.use';
@@ -100,6 +102,7 @@ const props = defineProps<{
 
 const component = ref<HTMLDivElement>({} as HTMLDivElement);
 
+const layers = useLayers();
 const currentProject = useCurrentProject();
 const events = useEvents();
 const sharedStitch = useSharedStitch();
@@ -114,6 +117,7 @@ const { baseStitchSize, scaledStitchSize, mouseStitchPosition, isMouseOverPatter
 const patternCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const { graphics } = useCanvasElement(patternCanvas);
 
+const isVisible = layers.stitches;
 const hoveredStitch = sharedStitch.hoveredStitch;
 const highlightedThreadIndex = highlightedThread.threadIndex;
 

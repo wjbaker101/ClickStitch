@@ -1,5 +1,6 @@
 <template>
     <canvas
+        v-if="isVisible"
         class="completed-stitches-layer-component"
         ref="canvas"
         :width="project.project.pattern.width * baseStitchSize"
@@ -15,11 +16,12 @@ import dayjs from 'dayjs';
 import { api } from '@/api/api';
 import { useCanvasElement } from '../use/CanvasElement.use';
 import { useCurrentProject } from '../use/CurrentProject.use';
-import { useEvent, useEvents } from '@/use/events/Events.use';
+import { useEvent } from '@/use/events/Events.use';
 import { useSharedStitch } from '../use/SharedStitch';
 import { useStitch } from '../use/Stitch.use';
 import { useInput } from '@/use/input/input.use';
 import { useHighlightedThread } from '../use/HighlightedThread.use';
+import { useLayers } from '@/views/stitcher/project/use/Layers.use';
 
 import type { IStitch } from '@/models/Pattern.model';
 import type { IPosition } from '@/api/parts/projects/types/CompleteStitches.type';
@@ -32,10 +34,12 @@ const { project, stitchPositionLookup } = useCurrentProject();
 const sharedStitch = useSharedStitch();
 const { baseStitchSize, mouseStitchPosition, stitchSelectStart, stitchSelectEnd } = useStitch();
 const highlightedThread = useHighlightedThread();
+const layers = useLayers();
 
 const canvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const { graphics } = useCanvasElement(canvas);
 
+const isVisible = layers.stitches;
 const hoveredStitch = sharedStitch.hoveredStitch;
 const highlightedThreadIndex = highlightedThread.threadIndex;
 

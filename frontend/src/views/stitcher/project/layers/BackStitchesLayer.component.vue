@@ -1,5 +1,6 @@
 <template>
     <svg
+        v-if="isVisible"
         xmlns="http://www.w3.org/2000/svg"
         class="back-stitches-layer-component"
         :width="project.project.pattern.width * baseStitchSize"
@@ -26,6 +27,7 @@
 import { ref } from 'vue';
 
 import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
+import { useLayers } from '@/views/stitcher/project/use/Layers.use';
 import { api } from '@/api/api';
 
 const props = defineProps<{
@@ -33,6 +35,9 @@ const props = defineProps<{
 }>();
 
 const { project } = useCurrentProject();
+const layers = useLayers();
+
+const isVisible = layers.backStitches;
 
 interface IBackStitch {
     readonly threadIndex: number;
