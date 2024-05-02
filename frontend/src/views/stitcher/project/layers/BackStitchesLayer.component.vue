@@ -64,8 +64,6 @@ const completed = project.value.threads.flatMap<IBackStitch>(thread => thread.co
     isCompleted: true,
 })));
 
-console.log(completed)
-
 const backStitches = ref<Array<IBackStitch>>(inCompleted.concat(completed));
 
 const toggleCompleted = async function (backStitch: IBackStitch): Promise<void> {
