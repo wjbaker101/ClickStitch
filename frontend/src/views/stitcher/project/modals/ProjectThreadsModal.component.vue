@@ -16,6 +16,15 @@
                     </ButtonComponent>
                 </RouterLink>
             </div>
+            <h2>Layers:</h2>
+            <div>
+                <label>
+                    <input type="checkbox" v-model="isStitchesVisible"> Stitches
+                </label>
+                <label>
+                    <input type="checkbox" v-model="isBackStitchesVisible"> Back Stitches
+                </label>
+            </div>
             <h2>Threads:</h2>
             <div>
                 <ThreadDetailsComponent v-for="thread in threads" :thread="thread" :inventory="inventory" :pattern="project.project.pattern" />
@@ -34,6 +43,7 @@ import { api } from '@/api/api';
 import { useAuth } from '@/use/auth/Auth.use';
 import { useEvents } from '@/use/events/Events.use';
 import { useModal } from '@wjb/vue/use/modal.use';
+import { useLayers } from '@/views/stitcher/project/use/Layers.use';
 
 import type { IGetProject } from '@/models/GetProject.model';
 import type { IGetPatternInventory } from '@/models/GetPatternInventory.model';
@@ -45,6 +55,10 @@ const props = defineProps<{
 const auth = useAuth();
 const events = useEvents();
 const modal = useModal();
+const layers = useLayers();
+
+const isStitchesVisible = layers.stitches;
+const isBackStitchesVisible = layers.backStitches;
 
 const authDetails = auth.details;
 

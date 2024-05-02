@@ -1,7 +1,9 @@
 <template>
     <canvas
-        v-if="isVisible"
         class="completed-stitches-layer-component"
+        :class="{
+            'is-hidden': !isVisible,
+        }"
         ref="canvas"
         :width="project.project.pattern.width * baseStitchSize"
         :height="project.project.pattern.height * baseStitchSize"

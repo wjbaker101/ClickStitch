@@ -1,8 +1,10 @@
 <template>
     <svg
-        v-if="isVisible"
         xmlns="http://www.w3.org/2000/svg"
         class="back-stitches-layer-component"
+        :class="{
+            'is-hidden': !isVisible,
+        }"
         :width="project.project.pattern.width * baseStitchSize"
         :height="project.project.pattern.height * baseStitchSize"
     >

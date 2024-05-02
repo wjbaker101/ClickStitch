@@ -20,9 +20,11 @@
             }"
         >
             <canvas
-                v-if="isVisible"
                 class="pattern-canvas"
-                :class="{ 'is-highlighting': highlightedThreadIndex !== null }"
+                :class="{
+                    'is-highlighting': highlightedThreadIndex !== null,
+                    'is-hidden': !isVisible
+                }"
                 ref="patternCanvas"
                 :width="project.project.pattern.width * baseStitchSize"
                 :height="project.project.pattern.height * baseStitchSize"
@@ -372,13 +374,16 @@ const onOpenContextMenu = function (event: MouseEvent): void {
         position: relative;
         transition: transform 0.1s;
         transform-origin: top left;
-    }
 
-    canvas,
-    .layer {
-        position: absolute;
-        inset: 0;
-        transition: transform 0.1s;
+        & > * {
+            position: absolute;
+            inset: 0;
+            transition: transform 0.1s, opacity 0.1s;
+
+            &.is-hidden {
+                opacity: 0;
+            }
+        }
     }
 
     canvas {
