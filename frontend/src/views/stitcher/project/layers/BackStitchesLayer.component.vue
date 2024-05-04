@@ -9,6 +9,7 @@
         :height="project.project.pattern.height * baseStitchSize"
     >
         <line
+            ref="lines"
             :style="{
                 '--back-stitch-colour': backStitch.colour,
                 '--back-stitch-width': baseStitchSize / 2,
@@ -17,19 +18,20 @@
             :class="{
                 'is-completed': backStitch.isCompleted,
             }"
-            v-for="backStitch in backStitches"
+            v-for="(backStitch, index) in backStitches"
             :x1="backStitch.startX * baseStitchSize" :y1="backStitch.startY * baseStitchSize"
             :x2="backStitch.endX * baseStitchSize" :y2="backStitch.endY * baseStitchSize"
-            @dblclick="toggleCompleted(backStitch)"
+            :data-index="index"
         />
     </svg>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
 import { useLayers } from '@/views/stitcher/project/use/Layers.use';
+import { useHammer } from '@/views/stitcher/project/use/Hammer.use';
 import { api } from '@/api/api';
 
 const props = defineProps<{
@@ -38,6 +40,8 @@ const props = defineProps<{
 
 const { project } = useCurrentProject();
 const layers = useLayers();
+
+const lines = ref<Array<HTMLElement>>([]);
 
 const isVisible = layers.backStitches;
 
@@ -73,38 +77,46 @@ const completed = project.value.threads.flatMap<IBackStitch>(thread => thread.co
 
 const backStitches = ref<Array<IBackStitch>>(inCompleted.concat(completed));
 
-const toggleCompleted = async function (backStitch: IBackStitch): Promise<void> {
-    backStitch.isCompleted = !backStitch.isCompleted;
+onMounted(() => {
+    for (const line of lines.value) {
+        const hammer = useHammer(ref(line));
 
-    if (backStitch.isCompleted) {
-        await api.projects.completeBackStitches(project.value.project.pattern.reference, {
-            backStitchesByThread: {
-                [backStitch.threadIndex]: [
-                    {
-                        startX: backStitch.startX,
-                        startY: backStitch.startY,
-                        endX: backStitch.endX,
-                        endY: backStitch.endY,
+        hammer.on('double-tap', async e => {
+            const backStitch = backStitches.value[e.target.getAttribute('data-index')];
+
+            backStitch.isCompleted = !backStitch.isCompleted;
+
+            if (backStitch.isCompleted) {
+                await api.projects.completeBackStitches(project.value.project.pattern.reference, {
+                    backStitchesByThread: {
+                        [backStitch.threadIndex]: [
+                            {
+                                startX: backStitch.startX,
+                                startY: backStitch.startY,
+                                endX: backStitch.endX,
+                                endY: backStitch.endY,
+                            },
+                        ],
                     },
-                ],
-            },
+                });
+            }
+            else {
+                await api.projects.unCompleteBackStitches(project.value.project.pattern.reference, {
+                    backStitchesByThread: {
+                        [backStitch.threadIndex]: [
+                            {
+                                startX: backStitch.startX,
+                                startY: backStitch.startY,
+                                endX: backStitch.endX,
+                                endY: backStitch.endY,
+                            },
+                        ],
+                    },
+                });
+            }
         });
     }
-    else {
-        await api.projects.unCompleteBackStitches(project.value.project.pattern.reference, {
-            backStitchesByThread: {
-                [backStitch.threadIndex]: [
-                    {
-                        startX: backStitch.startX,
-                        startY: backStitch.startY,
-                        endX: backStitch.endX,
-                        endY: backStitch.endY,
-                    },
-                ],
-            },
-        });
-    }
-};
+});
 </script>
 
 <style lang="scss">
