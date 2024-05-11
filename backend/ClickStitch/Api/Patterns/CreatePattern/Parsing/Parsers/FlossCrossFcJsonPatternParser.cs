@@ -7,7 +7,7 @@ namespace ClickStitch.Api.Patterns.CreatePattern.Parsing.Parsers;
 public sealed class FlossCrossFcJsonPatternParser : IPatternParser
 {
     // ReSharper disable InconsistentNaming
-#pragma warning disable IDE1006
+    #pragma warning disable IDE1006
     public sealed class PatternFormat
     {
         public required Model model { get; init; }
@@ -51,7 +51,7 @@ public sealed class FlossCrossFcJsonPatternParser : IPatternParser
             public required int[][] p { get; init; }
         }
     }
-#pragma warning restore IDE1006
+    #pragma warning restore IDE1006
     // ReSharper restore InconsistentNaming
 
     public Result<ParsePatternResponse> Parse(ParsePatternParameters parameters)
@@ -63,9 +63,20 @@ public sealed class FlossCrossFcJsonPatternParser : IPatternParser
         var image = data.model.images[0];
         var layer = image.layers[0];
 
-        var threadIndexMapping = image.crossIndexes
+        var crossToFlossIndexMapping = image.crossIndexes
             .Select((value, index) => new { value, index })
-            .ToDictionary(x => x.value.fi, x => x.index);
+            .ToDictionary(x => x.index, x => x.value.fi);
+
+        var flossToThreadIndexMapping = crossToFlossIndexMapping
+            .Select(x => x.Value)
+            .Concat(layer.backstitch.Select(x => x.c))
+            .Distinct()
+            .Select((x, index) => new
+            {
+                value = x,
+                index = index + 1
+            })
+            .ToDictionary(x => x.value, x => x.index);
 
         var stitches = new List<ParsePatternResponse.StitchDetails>();
         var posX = 0;
@@ -77,7 +88,7 @@ public sealed class FlossCrossFcJsonPatternParser : IPatternParser
             {
                 stitches.Add(new ParsePatternResponse.StitchDetails
                 {
-                    ThreadIndex = threadIndex + 1,
+                    ThreadIndex = flossToThreadIndexMapping[crossToFlossIndexMapping[threadIndex]],
                     X = posX,
                     Y = posY
                 });
@@ -97,20 +108,14 @@ public sealed class FlossCrossFcJsonPatternParser : IPatternParser
             {
                 Width = image.width,
                 Height = image.height,
-                ThreadCount = threadIndexMapping.Count,
+                ThreadCount = crossToFlossIndexMapping.Count,
                 StitchCount = layer.cross.Count
             },
-            Threads = threadIndexMapping.Select(x => image.flossIndexes[x.Key]).MapAll((x, index) => new ParsePatternResponse.ThreadDetails
-            {
-                Name = $"{x.sys} {x.id}",
-                Description = x.name,
-                Index = index + 1,
-                Colour = ParsingHelper.RgbToHex(x.rgb[0], x.rgb[1], x.rgb[2])
-            }),
+            Threads = flossToThreadIndexMapping.MapAll(x => MapThread(image.flossIndexes[x.Key], x.Value)),
             Stitches = stitches,
             BackStitches = layer.backstitch.ConvertAll(x => new ParsePatternResponse.BackStitchDetails
             {
-                ThreadIndex = x.c + 1,
+                ThreadIndex = flossToThreadIndexMapping[x.c],
                 StartX = x.p[0][0],
                 StartY = x.p[0][1],
                 EndX = x.p[0][2],
@@ -118,4 +123,12 @@ public sealed class FlossCrossFcJsonPatternParser : IPatternParser
             })
         };
     }
+
+    private static ParsePatternResponse.ThreadDetails MapThread(PatternFormat.FlossIndex floss, int index) => new()
+    {
+        Name = $"{floss.sys} {floss.id}",
+        Description = floss.name,
+        Index = index,
+        Colour = ParsingHelper.RgbToHex(floss.rgb[0], floss.rgb[1], floss.rgb[2])
+    };
 }
