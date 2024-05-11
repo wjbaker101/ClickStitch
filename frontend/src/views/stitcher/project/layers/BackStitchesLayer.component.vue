@@ -13,6 +13,7 @@
             :style="{
                 '--back-stitch-colour': backStitch.colour,
                 '--back-stitch-width': baseStitchSize / 2,
+                '--border-colour': isDark(backStitch.colour) ? '#ccc' : '#222',
             }"
             class="back-stitch-line"
             :class="{
@@ -33,6 +34,7 @@ import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.u
 import { useLayers } from '@/views/stitcher/project/use/Layers.use';
 import { useHammer } from '@/views/stitcher/project/use/Hammer.use';
 import { api } from '@/api/api';
+import { isDark } from '@/helper/helper';
 
 const props = defineProps<{
     baseStitchSize: number;
@@ -128,6 +130,7 @@ onMounted(() => {
         stroke: var(--back-stitch-colour);
         stroke-width: var(--back-stitch-width);
         stroke-linecap: round;
+        filter: drop-shadow(0 0 3px var(--border-colour));
 
         &.is-completed {
             stroke: #0f0;
