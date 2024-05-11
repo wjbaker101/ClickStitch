@@ -168,8 +168,12 @@ onMounted(() => {
 
     const hammer = useHammer(component);
 
-    hammer.on('double-tap', () => {
+    hammer.on('double-tap', e => {
         handleHoveredStitch();
+
+        if (e.target.classList.contains('back-stitch-line'))
+            return;
+
         events.publish('PatternDoubleClick', {});
     });
 
