@@ -21,6 +21,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Update="Patterns\Parsing\_Helper\test.oxs">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	  <None Update="Patterns\Parsing\_Helper\test.fcjson">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>

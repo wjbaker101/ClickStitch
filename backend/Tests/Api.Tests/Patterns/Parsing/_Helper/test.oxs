@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<chart>
+	<format comments01=""/>
+	<properties oxsversion="1.0" chartheight="150" chartwidth="150" charttitle="title" stitchesperinch="14" stitchesperinch_y="14" palettecount="6" />
+	<palette>
+		<palette_item index="1" number="DMC  3340" name="Apricot - Medium" color="FF6647" printcolor="FF6647" blendcolor="nil" comments="" strands="2" symbol="1" dashpattern="" misc1="" bsstrands="1" bscolor="FF6647"/>
+		<palette_item index="2" number="DMC  3712" name="Salmon - Medium" color="CF575C" printcolor="CF575C" blendcolor="nil" comments="" strands="2" symbol="2" dashpattern="" misc1="" bsstrands="1" bscolor="CF575C"/>
+		<palette_item index="3" number="DMC  973" name="Canary - Bright" color="FFCF00" printcolor="FFCF00" blendcolor="nil" comments="" strands="2" symbol="3" dashpattern="" misc1="" bsstrands="1" bscolor="FFCF00"/>
+		<palette_item index="4" number="DMC  444" name="Lemon - Dark" color="F0B900" printcolor="F0B900" blendcolor="nil" comments="" strands="2" symbol="4" dashpattern="" misc1="" bsstrands="1" bscolor="F0B900"/>
+	</palette>
+	<fullstitches>
+		<stitch x="2" y="7" palindex="2" />
+		<stitch x="4" y="1" palindex="3" />
+		<stitch x="16" y="22" palindex="3" />
+	</fullstitches>
+	<partstitches>
+		<partstitch/>
+	</partstitches>
+	<backstitches>
+		<backstitch x1="59" x2="59" y1="121" y2="126" palindex="4" objecttype="backstitch" sequence="0" />
+	</backstitches>
+	<ornaments_inc_knots_and_beads>
+		<object/>
+	</ornaments_inc_knots_and_beads>
+	<commentboxes/>
+</chart>
