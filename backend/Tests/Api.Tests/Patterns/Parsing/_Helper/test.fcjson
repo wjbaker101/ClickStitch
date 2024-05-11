@@ -58,6 +58,22 @@
                         "order": 17,
                         "crossStrands": "2",
                         "bsStrands": "1"
+                    },
+                    {
+                        "rgb": [
+                            249,
+                            214,
+                            46
+                        ],
+                        "hex": 16373294,
+                        "state": {},
+                        "active": false,
+                        "symbol": "sm33",
+                        "order": 29,
+                        "id": "444",
+                        "name": "Lemon - Dark",
+                        "sys": "DMC",
+                        "xc": "f0b900"
                     }
                 ],
                 "crossIndexes": [
@@ -67,7 +83,7 @@
                     },
                     {
                         "tp": "cr",
-                        "fi": 1
+                        "fi": 2
                     }
                 ],
                 "sources": [],
@@ -80,11 +96,20 @@
                             "left": 0
                         },
                         "cross": [
+                            -1,
                             0,
                             1,
+                            -1,
                             1
                         ],
-                        "backstitch": []
+                        "backstitch": [
+                            {
+                                "c": 1,
+                                "p": [
+                                    [ 7, 3, 6, 5 ]
+                                ]
+                            }
+                        ]
                     }
                 ]
             }

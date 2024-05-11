@@ -102,25 +102,27 @@ public sealed class FlossCrossFcJsonPatternParser : IPatternParser
             }
         }
 
+        var backStitches = layer.backstitch.ConvertAll(x => new ParsePatternResponse.BackStitchDetails
+        {
+            ThreadIndex = flossToThreadIndexMapping[x.c],
+            StartX = x.p[0][0],
+            StartY = x.p[0][1],
+            EndX = x.p[0][2],
+            EndY = x.p[0][3]
+        });
+
         return new ParsePatternResponse
         {
             Pattern = new ParsePatternResponse.PatternDetails
             {
                 Width = image.width,
                 Height = image.height,
-                ThreadCount = crossToFlossIndexMapping.Count,
-                StitchCount = layer.cross.Count
+                ThreadCount = flossToThreadIndexMapping.Count,
+                StitchCount = stitches.Count + backStitches.Count
             },
             Threads = flossToThreadIndexMapping.MapAll(x => MapThread(image.flossIndexes[x.Key], x.Value)),
             Stitches = stitches,
-            BackStitches = layer.backstitch.ConvertAll(x => new ParsePatternResponse.BackStitchDetails
-            {
-                ThreadIndex = flossToThreadIndexMapping[x.c],
-                StartX = x.p[0][0],
-                StartY = x.p[0][1],
-                EndX = x.p[0][2],
-                EndY = x.p[0][3],
-            })
+            BackStitches = backStitches
         };
     }
 
