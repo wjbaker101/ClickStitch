@@ -26,6 +26,19 @@ const stitches = ref<Array<IStitch>>([]);
 
 const backStitches = ref<Array<IBackStitch>>([]);
 
+const percentageCompleted = computed<number>(() => {
+    const incomplete = stitches.value.filter(x => x.stitchedAt === null).length +
+                       backStitches.value.filter(x => !x.isCompleted).length;
+
+    const complete = stitches.value.filter(x => x.stitchedAt !== null).length +
+                     backStitches.value.filter(x => x.isCompleted).length;
+
+    if (complete === 0)
+        return 0;
+
+    return complete / incomplete * 100;
+});
+
 export const useCurrentProject = function () {
     return {
         project : project as Ref<IGetProject>,
@@ -35,6 +48,8 @@ export const useCurrentProject = function () {
         palette,
         stitches,
         backStitches,
+
+        percentageCompleted,
 
         setProject(newProject: IGetProject): void {
             project.value = newProject;
