@@ -22,28 +22,7 @@ const palette = computed<Map<number, IPatternThread>>(() => {
     return _palette;
 });
 
-const stitches = computed<Array<IStitch>>(() => {
-    if (project.value === null)
-        return [];
-
-    let _stitches: Array<IStitch> = [];
-
-    _stitches = _stitches.concat(project.value.threads.flatMap(thread => thread.stitches.map<IStitch>(stitch => ({
-        x: stitch[0],
-        y: stitch[1],
-        threadIndex: thread.thread.index,
-        stitchedAt: null,
-    }))));
-
-    _stitches = _stitches.concat(project.value.threads.flatMap(thread => thread.completedStitches.map<IStitch>(stitch => ({
-        x: stitch[0],
-        y: stitch[1],
-        threadIndex: thread.thread.index,
-        stitchedAt: stitch[2],
-    }))));
-
-    return _stitches;
-});
+const stitches = ref<Array<IStitch>>([]);
 
 const backStitches = ref<Array<IBackStitch>>([]);
 
@@ -88,6 +67,22 @@ export const useCurrentProject = function () {
                 pausePosition.value = Position.at(project.value.project.pausePositionX, project.value.project.pausePositionY);
             else
                 pausePosition.value = null;
+
+            const inCompletedStitches = project.value.threads.flatMap(thread => thread.stitches.map<IStitch>(stitch => ({
+                x: stitch[0],
+                y: stitch[1],
+                threadIndex: thread.thread.index,
+                stitchedAt: null,
+            })));
+
+            const completedStitches = project.value.threads.flatMap(thread => thread.completedStitches.map<IStitch>(stitch => ({
+                x: stitch[0],
+                y: stitch[1],
+                threadIndex: thread.thread.index,
+                stitchedAt: stitch[2],
+            })));
+
+            stitches.value = inCompletedStitches.concat(completedStitches);
 
             const inCompletedBackStitches = project.value?.threads.flatMap<IBackStitch>(thread => thread.backStitches.map(x => ({
                 threadIndex: thread.thread.index,
