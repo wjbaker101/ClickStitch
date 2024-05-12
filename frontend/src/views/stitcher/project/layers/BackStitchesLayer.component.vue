@@ -36,48 +36,16 @@ import { useHammer } from '@/views/stitcher/project/use/Hammer.use';
 import { api } from '@/api/api';
 import { isDark } from '@/helper/helper';
 
-const props = defineProps<{
+defineProps<{
     baseStitchSize: number;
 }>();
 
-const { project } = useCurrentProject();
+const { project, backStitches } = useCurrentProject();
 const layers = useLayers();
 
 const lines = ref<Array<HTMLElement>>([]);
 
 const isVisible = layers.backStitches;
-
-interface IBackStitch {
-    readonly threadIndex: number;
-    readonly colour: string;
-    readonly startX: number;
-    readonly startY: number;
-    readonly endX: number;
-    readonly endY: number;
-    isCompleted: boolean;
-}
-
-const inCompleted = project.value.threads.flatMap<IBackStitch>(thread => thread.backStitches.map(x => ({
-    threadIndex: thread.thread.index,
-    colour: thread.thread.colour,
-    startX: x[0],
-    startY: x[1],
-    endX: x[2],
-    endY: x[3],
-    isCompleted: false,
-})));
-
-const completed = project.value.threads.flatMap<IBackStitch>(thread => thread.completedBackStitches.map(x => ({
-    threadIndex: thread.thread.index,
-    colour: thread.thread.colour,
-    startX: x[0],
-    startY: x[1],
-    endX: x[2],
-    endY: x[3],
-    isCompleted: true,
-})));
-
-const backStitches = ref<Array<IBackStitch>>(inCompleted.concat(completed));
 
 onMounted(() => {
     for (const line of lines.value) {

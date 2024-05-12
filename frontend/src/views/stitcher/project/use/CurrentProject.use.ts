@@ -45,6 +45,8 @@ const stitches = computed<Array<IStitch>>(() => {
     return _stitches;
 });
 
+const backStitches = ref<Array<IBackStitch>>([]);
+
 export const useCurrentProject = function () {
     return {
         project : project as Ref<IGetProject>,
@@ -53,6 +55,7 @@ export const useCurrentProject = function () {
 
         palette,
         stitches,
+        backStitches,
 
         setProject(newProject: IGetProject): void {
             project.value = newProject;
@@ -85,6 +88,38 @@ export const useCurrentProject = function () {
                 pausePosition.value = Position.at(project.value.project.pausePositionX, project.value.project.pausePositionY);
             else
                 pausePosition.value = null;
+
+            const inCompletedBackStitches = project.value?.threads.flatMap<IBackStitch>(thread => thread.backStitches.map(x => ({
+                threadIndex: thread.thread.index,
+                colour: thread.thread.colour,
+                startX: x[0],
+                startY: x[1],
+                endX: x[2],
+                endY: x[3],
+                isCompleted: false,
+            })))
+
+            const completedBackStitches = project.value.threads.flatMap<IBackStitch>(thread => thread.completedBackStitches.map(x => ({
+                threadIndex: thread.thread.index,
+                colour: thread.thread.colour,
+                startX: x[0],
+                startY: x[1],
+                endX: x[2],
+                endY: x[3],
+                isCompleted: true,
+            })));
+
+            backStitches.value = inCompletedBackStitches.concat(completedBackStitches);
         },
     };
 };
+
+interface IBackStitch {
+    readonly threadIndex: number;
+    readonly colour: string;
+    readonly startX: number;
+    readonly startY: number;
+    readonly endX: number;
+    readonly endY: number;
+    isCompleted: boolean;
+}
