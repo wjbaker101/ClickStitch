@@ -1,21 +1,51 @@
 ﻿using ClickStitch.Api.Patterns.CreatePattern.Parsing.Types;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+using Color = SixLabors.ImageSharp.Color;
+using Pens = SixLabors.ImageSharp.Drawing.Processing.Pens;
 
 namespace ClickStitch.Api.Patterns.CreatePattern;
 
 public static class PatternThumbnailGenerator
 {
-    public static Stream Create(int width, int height, List<ParsePatternResponse.ThreadDetails> threads, List<ParsePatternResponse.StitchDetails> stitches)
+    private static readonly DrawingOptions DrawingOptions = new()
     {
-        var threadLookup = threads.ToDictionary(x => x.Index);
+        GraphicsOptions = new GraphicsOptions
+        {
+            Antialias = false
+        }
+    };
 
-        var image = new Image<Rgba32>(width, height);
+    public static Stream Create(
+        int width,
+        int height,
+        List<ParsePatternResponse.ThreadDetails> threads,
+        List<ParsePatternResponse.StitchDetails> stitches,
+        List<ParsePatternResponse.BackStitchDetails> backStitches)
+    {
+        var threadToColourMapping = threads.ToDictionary(x => x.Index, x => Rgba32.ParseHex(x.Colour));
+
+        using var image = new Image<Rgba32>(width, height);
 
         foreach (var stitch in stitches)
         {
-            image[stitch.X, stitch.Y] = Rgba32.ParseHex(threadLookup[stitch.ThreadIndex].Colour);
+            image[stitch.X, stitch.Y] = threadToColourMapping[stitch.ThreadIndex];
         }
+
+        image.Mutate(img =>
+        {
+            foreach (var backStitch in backStitches)
+            {
+                var colour = new Color(threadToColourMapping[backStitch.ThreadIndex]);
+
+                img.DrawLine(DrawingOptions, Pens.Solid(colour), [
+                    new(backStitch.StartX, backStitch.StartY),
+                    new(backStitch.EndX, backStitch.EndY),
+                ]);
+            }
+        });
 
         var stream = new MemoryStream();
         image.SaveAsPng(stream);

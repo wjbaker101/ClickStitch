@@ -68,7 +68,7 @@ public sealed class CreatePatternService : ICreatePatternService
         if (!parseResult.TrySuccess(out var parsed))
             return Result.FromFailure(parseResult);
 
-        var bannerImageStream = bannerImage != null ? bannerImage.OpenReadStream() : PatternThumbnailGenerator.Create(parsed.Pattern.Width, parsed.Pattern.Height, parsed.Threads, parsed.Stitches);
+        var bannerImageStream = bannerImage != null ? bannerImage.OpenReadStream() : PatternThumbnailGenerator.Create(parsed.Pattern.Width, parsed.Pattern.Height, parsed.Threads, parsed.Stitches, parsed.BackStitches);
         var patternReference = _guidProvider.NewGuid();
 
         var bannerUrlResult = await _patternUploadService.UploadImage(patternReference.ToString(), PatternImageType.Banner, bannerImageStream, cancellationToken);
