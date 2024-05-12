@@ -3,8 +3,6 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using Color = SixLabors.ImageSharp.Color;
-using Pens = SixLabors.ImageSharp.Drawing.Processing.Pens;
 
 namespace ClickStitch.Api.Patterns.CreatePattern;
 
