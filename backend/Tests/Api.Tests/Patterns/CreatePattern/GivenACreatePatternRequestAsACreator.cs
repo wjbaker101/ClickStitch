@@ -150,8 +150,8 @@ public sealed class GivenACreatePatternRequestAsACreator
     [Test]
     public void ThenTheBannerImageIsUploaded()
     {
-        Assert.That(_cloudinary.ActualRequest.FileName, Is.EqualTo("patterns/f55f0dde-4841-4444-b86d-5d7490b8f636/banner"));
-        Assert.That(_cloudinary.ActualRequest.FileContents.ToBytes(), Is.EqualTo(new byte[] { 1, 2, 3 }));
+        Assert.That(_cloudinary.ActualFileName, Is.EqualTo("patterns/f55f0dde-4841-4444-b86d-5d7490b8f636/banner"));
+        Assert.That(_cloudinary.ActualFileContents, Is.EqualTo(new byte[] { 1, 2, 3 }));
     }
 
     [Test]

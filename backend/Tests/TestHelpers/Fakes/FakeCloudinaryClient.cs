@@ -11,11 +11,13 @@ public sealed class FakeCloudinaryClient : ICloudinaryClient
         Url = "TestImageUrl"
     };
 
-    public UploadImageRequest ActualRequest { get; private set; } = null!;
+    public string ActualFileName { get; private set; }
+    public byte[] ActualFileContents { get; private set; }
 
     public Task<Result<UploadImageResponse>> UploadImageAsync(UploadImageRequest request, CancellationToken cancellationToken)
     {
-        ActualRequest = request;
+        ActualFileName = request.FileName;
+        ActualFileContents = request.FileContents.ToBytes();
 
         return Task.FromResult(Response);
     }
