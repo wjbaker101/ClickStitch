@@ -36,7 +36,7 @@ const percentageCompleted = computed<number>(() => {
     if (complete === 0)
         return 0;
 
-    return complete / incomplete * 100;
+    return complete / (incomplete + complete) * 100;
 });
 
 export const useCurrentProject = function () {
