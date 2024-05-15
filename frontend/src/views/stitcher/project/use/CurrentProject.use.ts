@@ -7,22 +7,11 @@ import { PositionMap } from '@/class/PositionMap.class';
 
 const project = ref<IGetProject | null>(null);
 
+const palette = ref(new Map<number, IPatternThread>());
 const stitches = ref<Array<IStitch>>([]);
 const backStitches = ref<Array<IBackStitch>>([]);
 const stitchPositionLookup = ref(new PositionMap<IStitch>());
 const pausePosition = ref<Position | null>(null);
-
-const palette = computed<Map<number, IPatternThread>>(() => {
-    if (project.value === null)
-        return new Map<number, IPatternThread>();
-
-    const _palette = new Map<number, IPatternThread>();
-    for (const thread of project.value.threads) {
-        _palette.set(thread.thread.index, thread.thread);
-    }
-
-    return _palette;
-});
 
 const percentageCompleted = computed<number>(() => {
     const incomplete = stitches.value.filter(x => x.stitchedAt === null).length +
@@ -40,17 +29,23 @@ const percentageCompleted = computed<number>(() => {
 export const useCurrentProject = function () {
     return {
         project : project as Ref<IGetProject>,
-        stitchPositionLookup,
-        pausePosition,
 
         palette,
         stitches,
         backStitches,
+        stitchPositionLookup,
+        pausePosition,
 
         percentageCompleted,
 
         setProject(newProject: IGetProject): void {
             project.value = newProject;
+
+            const _palette = new Map<number, IPatternThread>();
+            for (const thread of project.value.threads) {
+                _palette.set(thread.thread.index, thread.thread);
+            }
+            palette.value = _palette;
 
             const inCompletedStitches = project.value.threads.flatMap(thread => thread.stitches.map<IStitch>(stitch => ({
                 x: stitch[0],
