@@ -32,7 +32,7 @@ const props = defineProps<{
     baseStitchSize: number;
 }>();
 
-const { project, stitchPositionLookup } = useCurrentProject();
+const { project, stitches, stitchPositionLookup } = useCurrentProject();
 const sharedStitch = useSharedStitch();
 const { baseStitchSize, mouseStitchPosition, stitchSelectStart, stitchSelectEnd } = useStitch();
 const highlightedThread = useHighlightedThread();
@@ -75,10 +75,7 @@ const onPatternDoubleClick = async function () {
         if (thread === undefined)
             return;
 
-        thread.completedStitches.push([stitch.x, stitch.y, dayjs()]);
-
-        const stitchIndex = thread.stitches.findIndex(x => x[0] === stitch.x && x[1] === stitch.y);
-        thread.stitches.splice(stitchIndex, 1);
+        stitch.stitchedAt = dayjs();
     }
     else {
         graphics.value.clearRect(
@@ -104,10 +101,7 @@ const onPatternDoubleClick = async function () {
         if (thread === undefined)
             return;
 
-        thread.stitches.push([stitch.x, stitch.y]);
-
-        const completedStitchIndex = thread.completedStitches.findIndex(x => x[0] === stitch.x && x[1] === stitch.y);
-        thread.completedStitches.splice(completedStitchIndex, 1);
+        stitch.stitchedAt = null;
     }
 };
 
@@ -115,14 +109,14 @@ const render = function () {
     graphics.value.reset();
     graphics.value.fillStyle = '#0f0';
 
-    const completedStitches = project.value.threads
-        .filter(x => highlightedThreadIndex.value === null || x.thread.index === highlightedThreadIndex.value)
-        .flatMap(x => x.completedStitches);
+    const completedStitches = stitches.value
+        .filter(x => highlightedThreadIndex.value === null || x.threadIndex === highlightedThreadIndex.value)
+        .filter(x => x.stitchedAt !== null);
 
     for (let index = 0; index < completedStitches.length; ++index) {
         const stitch = completedStitches[index];
 
-        graphics.value.fillRect(stitch[0] * props.baseStitchSize, stitch[1] * props.baseStitchSize, props.baseStitchSize, props.baseStitchSize);
+        graphics.value.fillRect(stitch.x * props.baseStitchSize, stitch.y * props.baseStitchSize, props.baseStitchSize, props.baseStitchSize);
     }
 };
 
@@ -146,7 +140,7 @@ useInput('keypress', async (event) => {
         for (let y = 0; y < height; ++y) {
             const position = stitchSelectStart.value.translate(x, y);
 
-            const stitch = stitchPositionLookup.value.get(`${position.x}:${position.y}`);
+            const stitch = stitchPositionLookup.value.get(position.x, position.y);
             if (!stitch)
                 continue;
 
@@ -188,17 +182,6 @@ useInput('keypress', async (event) => {
         await api.projects.unCompleteStitches(project.value.project.pattern.reference, {
             stitchesByThread: positions,
         });
-
-        for (const stitch of stitches) {
-            const thread = project.value.threads.find(x => x.thread.index === stitch.threadIndex);
-            if (thread === undefined)
-                continue;
-
-            thread.stitches.push([stitch.x, stitch.y]);
-
-            const completedStitchIndex = thread.completedStitches.findIndex(x => x[0] === stitch.x && x[1] === stitch.y);
-            thread.completedStitches.splice(completedStitchIndex, 1);
-        }
     }
     else {
         for (const stitch of stitches) {
@@ -214,17 +197,6 @@ useInput('keypress', async (event) => {
         await api.projects.completeStitches(project.value.project.pattern.reference, {
             stitchesByThread: positions,
         });
-
-        for (const stitch of stitches) {
-            const thread = project.value.threads.find(x => x.thread.index === stitch.threadIndex);
-            if (thread === undefined)
-                return;
-
-            thread.completedStitches.push([stitch.x, stitch.y, dayjs()]);
-
-            const stitchIndex = thread.stitches.findIndex(x => x[0] === stitch.x && x[1] === stitch.y);
-            thread.stitches.splice(stitchIndex, 1);
-        }
     }
 });
 

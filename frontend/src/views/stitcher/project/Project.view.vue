@@ -2,7 +2,7 @@
     <ViewComponent class="pattern-view" hideFooter>
         <template #nav>
             <strong>{{ project?.project.pattern.title ?? '-' }}</strong>
-            <sub class="percentage-completed">({{ percentage?.toFixed(2) ?? '-' }}%)</sub>
+            <sub class="percentage-completed">({{ percentageCompleted.toFixed(2) }}%)</sub>
         </template>
         <div class="loading-container" v-if="isLoading">
             <LoadingComponent itemName="pattern" />
@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 import UserMessageComponent from '@/components/UserMessage.component.vue';
@@ -45,15 +45,7 @@ const patternReference = route.params.patternReference as string;
 const project = ref<IGetProject | null>(null);
 const isLoading = ref<boolean>(false);
 
-const percentage = computed<number>(() => {
-    if (project.value === null)
-        return 0;
-
-    const complete = project.value.threads.reduce((total, x) => total + x.completedStitches.length, 0);
-    const incomplete = project.value.threads.reduce((total, x) => total + x.stitches.length, 0);
-
-    return complete / (complete + incomplete) * 100;
-});
+const percentageCompleted = currentProject.percentageCompleted;
 
 onMounted(async () => {
     isLoading.value = true;

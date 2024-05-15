@@ -14,13 +14,13 @@
             </div>
             <div></div>
             <div class="flex-auto">
-                {{ thread.completedStitches.length }} <small>/ {{ totalStitches }}</small>
+                {{ completedCount }} <small>/ {{ inCompletedCount + completedCount }}</small>
             </div>
         </div>
         <template #expanded>
             <div class="thread-actions flex gap align-items-center">
                 <div class="flex-auto">
-                    <strong>{{ getPercentage(thread) }}%</strong> Completed
+                    <strong>{{ percentageCompleted.toFixed(1) }}%</strong> Completed
                 </div>
                 <div></div>
                 <div class="flex-auto">
@@ -65,6 +65,7 @@ import { calculateRequiredSkeins } from '@/helper/stitch.helper';
 import { useEvents } from '@/use/events/Events.use';
 import { useModal } from '@wjb/vue/use/modal.use';
 import { useHighlightedThread } from '../use/HighlightedThread.use';
+import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
 
 import type { IThreadDetails } from '@/models/GetProject.model';
 import type { IPattern, IPatternThread } from '@/models/Pattern.model';
@@ -79,6 +80,7 @@ const props = defineProps<{
 const events = useEvents();
 const modal = useModal();
 const highlightedThread = useHighlightedThread();
+const { stitches, backStitches } = useCurrentProject();
 
 const highlightedThreadIndex = highlightedThread.threadIndex;
 const isInitiallyOpen = highlightedThread.threadIndex.value === props.thread.thread.index;
@@ -94,17 +96,32 @@ const shouldHighlightThread = computed<boolean>({
     },
 });
 
-const totalStitches = computed<number>(() => props.thread.stitches.length + props.thread.completedStitches.length);
+const currentStitches = computed(() => stitches.value.filter(x => x.threadIndex === props.thread.thread.index));
+const currentBackStitches = computed(() => backStitches.value.filter(x => x.threadIndex === props.thread.thread.index));
+
+const inCompletedCount = computed(() => {
+    const stitches = currentStitches.value.filter(x => x.stitchedAt === null).length;
+    const backStitches = currentBackStitches.value.filter(x => !x.isCompleted).length;
+
+    return stitches + backStitches;
+});
+
+const completedCount = computed(() => {
+    const stitches = currentStitches.value.filter(x => x.stitchedAt !== null).length;
+    const backStitches = currentBackStitches.value.filter(x => x.isCompleted).length;
+
+    return stitches + backStitches;
+});
+
+const percentageCompleted = computed<number>(() => {
+    return completedCount.value / (inCompletedCount.value + completedCount.value) * 100;
+});
 
 const threadStyle = function (thread: IPatternThread): StyleValue {
     return {
         backgroundColor: thread.colour,
         color: isDark(thread.colour) ? '#fff' : '#000',
     };
-};
-
-const getPercentage = function (thread: IThreadDetails): string {
-    return (thread.completedStitches.length / totalStitches.value * 100).toFixed(1);
 };
 
 const onJumpToStitch = function (): void {
@@ -116,7 +133,7 @@ const onJumpToStitch = function (): void {
 
 const inventoryThread = computed(() => props.inventory?.threads.get(props.thread.thread.index) || null);
 
-const requiredSkeins = computed(() => calculateRequiredSkeins(props.thread.stitches.length, props.pattern.aidaCount));
+const requiredSkeins = computed(() => calculateRequiredSkeins(inCompletedCount.value + completedCount.value, props.pattern.aidaCount));
 
 const requireSkeinsDifference = computed(() => {
     if (inventoryThread.value === null)

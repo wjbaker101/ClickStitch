@@ -1,7 +1,7 @@
 <template>
     <div class="action-bar-component flex gap align-items-center text-centered">
         <div>
-            <div>{{ percentage.toFixed(2) }}%</div>
+            <div>{{ percentageCompleted.toFixed(2) }}%</div>
         </div>
         <div class="centre-container">
             <div class="centre-button flex align-items-center" @click="onShowModal">
@@ -37,13 +37,7 @@ const currentProject = useCurrentProject();
 const modal = useModal();
 
 const hoveredStitch = sharedStitch.hoveredStitch;
-
-const percentage = computed<number>(() => {
-    const complete = props.project.threads.reduce((total, x) => total + x.completedStitches.length, 0);
-    const incomplete = props.project.threads.reduce((total, x) => total + x.stitches.length, 0);
-
-    return complete / (complete + incomplete) * 100;
-});
+const percentageCompleted = currentProject.percentageCompleted;
 
 const thread = computed<IPatternThread | null>(() => {
     if (hoveredStitch.value === null)

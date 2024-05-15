@@ -249,7 +249,7 @@ const handleHoveredStitch = function (): void {
     if (!isMouseOverPattern.value)
         return;
 
-    const stitch = currentProject.stitchPositionLookup.value.get(`${mouseStitchPosition.value.x}:${mouseStitchPosition.value.y}`);
+    const stitch = currentProject.stitchPositionLookup.value.get(mouseStitchPosition.value.x, mouseStitchPosition.value.y);
     if (!stitch) {
         hoveredStitch.value = null;
         return;

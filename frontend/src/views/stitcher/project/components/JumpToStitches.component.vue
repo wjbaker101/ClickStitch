@@ -21,37 +21,39 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 
 import { useEvent, useEvents } from '@/use/events/Events.use';
 
 import type { IStartJumpToStitchesEvent } from '@/use/events/types/EventsMap.type';
 import type { IThreadDetails } from '@/models/GetProject.model';
+import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
 
 const events = useEvents();
+const { stitches } = useCurrentProject();
 
 const isEnabled  = ref<boolean>(false);
 const thread = ref<IThreadDetails | null>(null);
 
-const stitches = computed<Array<[number, number]>>(() => thread.value?.stitches ?? []);
+const currentStitches = computed(() => stitches.value.filter(x => x.threadIndex === thread.value?.thread.index));
 
 const currentIndex = ref<number>(0);
 
 const onNavigate = function (value: number): void {
-    if (stitches.value.length === 0)
+    if (currentStitches.value.length === 0)
         return;
 
     currentIndex.value += value;
 
     if (currentIndex.value < 0)
-        currentIndex.value = stitches.value.length - 1;
+        currentIndex.value = currentStitches.value.length - 1;
 
-    if (currentIndex.value > stitches.value.length - 1)
+    if (currentIndex.value > currentStitches.value.length - 1)
         currentIndex.value = 0;
 
     events.publish('JumpToStitch', {
-        x: stitches.value[currentIndex.value][0],
-        y: stitches.value[currentIndex.value][1],
+        x: currentStitches.value[currentIndex.value].x,
+        y: currentStitches.value[currentIndex.value].y,
     });
 };
 
@@ -61,8 +63,8 @@ const onStart = function (event: IStartJumpToStitchesEvent): void {
     currentIndex.value = 0;
 
     events.publish('JumpToStitch', {
-        x: stitches.value[currentIndex.value][0],
-        y: stitches.value[currentIndex.value][1],
+        x: currentStitches.value[currentIndex.value].x,
+        y: currentStitches.value[currentIndex.value].y,
     });
 };
 
