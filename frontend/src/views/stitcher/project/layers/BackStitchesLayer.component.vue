@@ -23,6 +23,7 @@
             :x1="backStitch.startX * baseStitchSize" :y1="backStitch.startY * baseStitchSize"
             :x2="backStitch.endX * baseStitchSize" :y2="backStitch.endY * baseStitchSize"
             :data-index="index"
+            @mousemove.stop="onMouseMove(backStitch)"
         />
     </svg>
 </template>
@@ -30,7 +31,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
-import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
+import { type IBackStitch, useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
 import { useLayers } from '@/views/stitcher/project/use/Layers.use';
 import { useHammer } from '@/views/stitcher/project/use/Hammer.use';
 import { api } from '@/api/api';
@@ -40,12 +41,22 @@ defineProps<{
     baseStitchSize: number;
 }>();
 
-const { project, backStitches } = useCurrentProject();
+const { project, backStitches, setActiveStitch } = useCurrentProject();
 const layers = useLayers();
 
 const lines = ref<Array<HTMLElement>>([]);
 
 const isVisible = layers.backStitches;
+
+const onMouseMove = function (backStitch: IBackStitch): void {
+    setActiveStitch({
+        x: backStitch.startX,
+        y: backStitch.startY,
+        endX: backStitch.endX,
+        endY: backStitch.endY,
+        threadIndex: backStitch.threadIndex,
+    });
+};
 
 onMounted(() => {
     for (const line of lines.value) {

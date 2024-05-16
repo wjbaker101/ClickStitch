@@ -19,7 +19,6 @@ import { api } from '@/api/api';
 import { useCanvasElement } from '../use/CanvasElement.use';
 import { useCurrentProject } from '../use/CurrentProject.use';
 import { useEvent } from '@/use/events/Events.use';
-import { useSharedStitch } from '../use/SharedStitch';
 import { useStitch } from '../use/Stitch.use';
 import { useInput } from '@/use/input/input.use';
 import { useHighlightedThread } from '../use/HighlightedThread.use';
@@ -32,8 +31,7 @@ const props = defineProps<{
     baseStitchSize: number;
 }>();
 
-const { project, stitches, stitchPositionLookup } = useCurrentProject();
-const sharedStitch = useSharedStitch();
+const { activeStitch, project, stitches, stitchPositionLookup } = useCurrentProject();
 const { baseStitchSize, mouseStitchPosition, stitchSelectStart, stitchSelectEnd } = useStitch();
 const highlightedThread = useHighlightedThread();
 const layers = useLayers();
@@ -42,14 +40,13 @@ const canvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const { graphics } = useCanvasElement(canvas);
 
 const isVisible = layers.stitches;
-const hoveredStitch = sharedStitch.hoveredStitch;
 const highlightedThreadIndex = highlightedThread.threadIndex;
 
 const onPatternDoubleClick = async function () {
-    if (hoveredStitch.value === null)
+    if (activeStitch.value === null)
         return;
 
-    const stitch = hoveredStitch.value;
+    const stitch = stitchPositionLookup.value.get(activeStitch.value.x, activeStitch.value.y) as IStitch;
 
     if (stitch.stitchedAt === null) {
         graphics.value.fillRect(

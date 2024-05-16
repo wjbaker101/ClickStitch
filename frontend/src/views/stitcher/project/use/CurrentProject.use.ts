@@ -1,4 +1,4 @@
-import { computed, ref, type Ref } from 'vue';
+import { computed, readonly, ref, type Ref } from 'vue';
 
 import { type IGetProject } from '@/models/GetProject.model';
 import { type IStitch, type IPatternThread } from '@/models/Pattern.model';
@@ -12,6 +12,8 @@ const stitches = ref<Array<IStitch>>([]);
 const backStitches = ref<Array<IBackStitch>>([]);
 const stitchPositionLookup = ref(new PositionMap<IStitch>());
 const pausePosition = ref<Position | null>(null);
+
+const activeStitch = ref<IActiveStitch | null>(null);
 
 const percentageCompleted = computed<number>(() => {
     const incomplete = stitches.value.filter(x => x.stitchedAt === null).length +
@@ -35,6 +37,8 @@ export const useCurrentProject = function () {
         backStitches,
         stitchPositionLookup,
         pausePosition,
+
+        activeStitch: readonly(activeStitch),
 
         percentageCompleted,
 
@@ -96,10 +100,14 @@ export const useCurrentProject = function () {
             else
                 pausePosition.value = null;
         },
+
+        setActiveStitch(stitch: IActiveStitch | null): void {
+            activeStitch.value = stitch;
+        },
     };
 };
 
-interface IBackStitch {
+export interface IBackStitch {
     readonly threadIndex: number;
     readonly colour: string;
     readonly startX: number;
@@ -107,4 +115,12 @@ interface IBackStitch {
     readonly endX: number;
     readonly endY: number;
     isCompleted: boolean;
+}
+
+export interface IActiveStitch {
+    readonly x: number;
+    readonly y: number;
+    readonly endX?: number;
+    readonly endY?: number;
+    readonly threadIndex: number;
 }

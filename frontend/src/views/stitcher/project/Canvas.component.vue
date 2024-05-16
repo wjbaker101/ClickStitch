@@ -66,7 +66,6 @@
             <div v-if="stitchSelectStart !== null">stitchSelectStart | x {{ stitchSelectStart.x }} y: {{ stitchSelectStart.y }}</div>
             <div v-if="stitchSelectEnd !== null">stitchSelectEnd | x {{ stitchSelectEnd.x }} y: {{ stitchSelectEnd.y }}</div>
             <div>Pinch: {{ pinchStart.toFixed(2) }} / {{ pinchDiff.toFixed(2) }}</div>
-            <div>{{ hoveredStitch }}</div>
         </div> -->
     </div>
 </template>
@@ -89,7 +88,6 @@ import { useLayers } from '@/views/stitcher/project/use/Layers.use';
 import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
 import { useHammer } from '@/views/stitcher/project/use/Hammer.use';
 import { useMouse } from '@/views/stitcher/project/use/Mouse.use';
-import { useSharedStitch } from '@/views/stitcher/project/use/SharedStitch';
 import { useStitch } from '@/views/stitcher/project/use/Stitch.use';
 import { useTransformation } from '@/views/stitcher/project/use/Transformation.use';
 import { useEvents } from '@/use/events/Events.use';
@@ -109,7 +107,6 @@ const component = ref<HTMLDivElement>({} as HTMLDivElement);
 const layers = useLayers();
 const currentProject = useCurrentProject();
 const events = useEvents();
-const sharedStitch = useSharedStitch();
 const highlightedThread = useHighlightedThread();
 const { mousePosition, prevMousePosition, isDragMoving, isDragSelecting, selectStart, selectEnd } = useMouse();
 const { width, height, offset, scale, zoom } = useTransformation();
@@ -122,7 +119,6 @@ const patternCanvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const { graphics } = useCanvasElement(patternCanvas);
 
 const isVisible = layers.stitches;
-const hoveredStitch = sharedStitch.hoveredStitch;
 const highlightedThreadIndex = highlightedThread.threadIndex;
 
 const canvasWidth = computed<number>(() => props.project.project.pattern.width * scaledStitchSize.value);
@@ -169,7 +165,7 @@ onMounted(() => {
     const hammer = useHammer(component);
 
     hammer.on('double-tap', e => {
-        handleHoveredStitch();
+        updateActiveStitch();
 
         if (e.target.classList.contains('back-stitch-line'))
             return;
@@ -245,34 +241,38 @@ const onMouseUp = function (event: MouseEvent): void {
         isDragMoving.value = false;
 };
 
-const handleHoveredStitch = function (): void {
+const updateActiveStitch = function (): void {
     if (!isMouseOverPattern.value)
         return;
 
     const stitch = currentProject.stitchPositionLookup.value.get(mouseStitchPosition.value.x, mouseStitchPosition.value.y);
     if (!stitch) {
-        hoveredStitch.value = null;
+        currentProject.setActiveStitch(null);
         return;
     }
 
     const thread = currentProject.palette.value.get(stitch.threadIndex);
     if (!thread || thread.index === 0) {
-        hoveredStitch.value = null;
+        currentProject.setActiveStitch(null);
         return;
     }
 
-    hoveredStitch.value = stitch;
+    currentProject.setActiveStitch({
+        x: stitch.x,
+        y: stitch.y,
+        threadIndex: stitch.threadIndex,
+    });
 };
 
 const onMouseMove = function (event: MouseEvent): void {
     mousePosition.value = Position.at(event.x, event.y).translate(-(component.value.offsetLeft ?? 0), -(component.value.offsetTop ?? 0));
 
-    handleHoveredStitch();
+    updateActiveStitch();
 };
 
 const onMouseLeave = function (): void {
     isDragMoving.value = false;
-    hoveredStitch.value = null;
+    currentProject.setActiveStitch(null);
 };
 
 const onMouseWheel = function (event: WheelEvent): void {

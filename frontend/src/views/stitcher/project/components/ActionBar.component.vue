@@ -9,9 +9,7 @@
             </div>
         </div>
         <div>
-            <div class="hovered-stitch">
-                <code v-if="hoveredStitch !== null">[{{ hoveredStitch.x }},{{ hoveredStitch.y }}]</code> - <small>{{ thread?.description }}</small>
-            </div>
+            <ActiveStitchComponent />
         </div>
     </div>
 </template>
@@ -20,9 +18,9 @@
 import { computed } from 'vue';
 
 import ProjectThreadsModalComponent from '@/views/stitcher/project/modals/ProjectThreadsModal.component.vue';
+import ActiveStitchComponent from '@/views/stitcher/project/components/ActiveStitch.component.vue';
 
 import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
-import { useSharedStitch } from '@/views/stitcher/project/use/SharedStitch';
 import { useModal } from '@wjb/vue/use/modal.use';
 
 import type { IPatternThread } from '@/models/Pattern.model';
@@ -32,18 +30,17 @@ const props = defineProps<{
     project: IGetProject;
 }>();
 
-const sharedStitch = useSharedStitch();
 const currentProject = useCurrentProject();
 const modal = useModal();
 
-const hoveredStitch = sharedStitch.hoveredStitch;
 const percentageCompleted = currentProject.percentageCompleted;
+const activeStitch = currentProject.activeStitch;
 
 const thread = computed<IPatternThread | null>(() => {
-    if (hoveredStitch.value === null)
+    if (activeStitch.value === null)
         return null;
 
-    return currentProject.palette.value.get(hoveredStitch.value.threadIndex) as IPatternThread;
+    return currentProject.palette.value.get(activeStitch.value.threadIndex) as IPatternThread;
 });
 
 const onShowModal = function (): void {
