@@ -1,4 +1,4 @@
-import { computed, readonly, ref, type Ref } from 'vue';
+import { computed, readonly, ref, type Ref, shallowReadonly } from 'vue';
 
 import { type IGetProject } from '@/models/GetProject.model';
 import { type IStitch, type IPatternThread } from '@/models/Pattern.model';
@@ -32,10 +32,10 @@ export const useCurrentProject = function () {
     return {
         project : project as Ref<IGetProject>,
 
-        palette,
-        stitches,
-        backStitches,
-        stitchPositionLookup,
+        palette: readonly(palette),
+        stitches: shallowReadonly(stitches),
+        backStitches: shallowReadonly(backStitches),
+        stitchPositionLookup: shallowReadonly(stitchPositionLookup),
         pausePosition,
 
         activeStitch: readonly(activeStitch),
