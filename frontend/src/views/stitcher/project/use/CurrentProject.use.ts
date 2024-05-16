@@ -67,7 +67,7 @@ export const useCurrentProject = function () {
 
             stitches.value = inCompletedStitches.concat(completedStitches);
 
-            const inCompletedBackStitches = project.value?.threads.flatMap<IBackStitch>(thread => thread.backStitches.map(x => ({
+            const inCompletedBackStitches = project.value.threads.flatMap<IBackStitch>(thread => thread.backStitches.map(x => ({
                 threadIndex: thread.thread.index,
                 colour: thread.thread.colour,
                 startX: x[0],
@@ -75,7 +75,7 @@ export const useCurrentProject = function () {
                 endX: x[2],
                 endY: x[3],
                 isCompleted: false,
-            })))
+            })));
 
             const completedBackStitches = project.value.threads.flatMap<IBackStitch>(thread => thread.completedBackStitches.map(x => ({
                 threadIndex: thread.thread.index,
