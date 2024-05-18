@@ -24,7 +24,7 @@ const props = defineProps<{
 }>();
 
 const { width, height, offset, scale } = useTransformation();
-const { project } = useCurrentProject();
+const { project, setJumpedBackStitch } = useCurrentProject();
 
 const canvas = ref<HTMLCanvasElement>({} as HTMLCanvasElement);
 const { graphics } = useCanvasElement(canvas);
@@ -32,21 +32,34 @@ const { graphics } = useCanvasElement(canvas);
 const prevJumpedStitch = ref<Position>(Position.ZERO);
 
 const onJumpToStitch = function (event: IJumpToStitchEvent): void {
-    const borderWidth = 6;
     scale.value = 1;
-
     const scaledStitchSize = scale.value * props.baseStitchSize;
+
+    offset.value = Position
+        .at(-event.x * scaledStitchSize, -event.y * scaledStitchSize)
+        .translate(width.value / 2, height.value / 2)
+        .translate(-scaledStitchSize / 2, -scaledStitchSize / 2);
+
+    setJumpedBackStitch(null);
+
+    if (event.type === 'back-stitch') {
+        setJumpedBackStitch({
+            startX: event.x,
+            startY: event.y,
+            endX: event.endX as number,
+            endY: event.endY as number,
+        });
+
+        return;
+    }
+
+    const borderWidth = 6;
 
     graphics.value.clearRect(
         prevJumpedStitch.value.x * props.baseStitchSize - Math.ceil(borderWidth / 2),
         prevJumpedStitch.value.y * props.baseStitchSize - Math.ceil(borderWidth / 2),
         props.baseStitchSize + borderWidth + 1,
         props.baseStitchSize + borderWidth + 1);
-
-    offset.value = Position
-        .at(-event.x * scaledStitchSize, -event.y * scaledStitchSize)
-        .translate(width.value / 2, height.value / 2)
-        .translate(-scaledStitchSize / 2, -scaledStitchSize / 2);
 
     graphics.value.strokeStyle = '#ffb400';
     graphics.value.lineWidth = borderWidth;
@@ -64,6 +77,8 @@ const onEndJumpToStitches = function (): void {
         prevJumpedStitch.value.y * props.baseStitchSize - Math.ceil(borderWidth / 2),
         props.baseStitchSize + borderWidth + 1,
         props.baseStitchSize + borderWidth + 1);
+
+    setJumpedBackStitch(null);
 };
 
 useEvent('JumpToStitch', onJumpToStitch);

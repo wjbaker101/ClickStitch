@@ -17,6 +17,9 @@ export type EventNames = keyof IEventsMap;
 export interface IJumpToStitchEvent {
     readonly x: number;
     readonly y: number;
+    readonly endX?: number;
+    readonly endY?: number;
+    readonly type: 'stitch' | 'back-stitch';
 }
 
 export interface IStartJumpToStitchesEvent {

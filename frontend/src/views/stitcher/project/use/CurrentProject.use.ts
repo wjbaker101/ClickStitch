@@ -14,6 +14,7 @@ const stitchPositionLookup = ref(new PositionMap<IStitch>());
 const pausePosition = ref<Position | null>(null);
 
 const activeStitch = ref<IActiveStitch | null>(null);
+const jumpedBackStitch = ref<IJumpedBackStitch | null>(null);
 
 const percentageCompleted = computed<number>(() => {
     const incomplete = stitches.value.filter(x => x.stitchedAt === null).length +
@@ -39,6 +40,7 @@ export const useCurrentProject = function () {
         pausePosition,
 
         activeStitch: readonly(activeStitch),
+        jumpedBackStitch: readonly(jumpedBackStitch),
 
         percentageCompleted,
 
@@ -104,6 +106,10 @@ export const useCurrentProject = function () {
         setActiveStitch(stitch: IActiveStitch | null): void {
             activeStitch.value = stitch;
         },
+
+        setJumpedBackStitch(backStitch: IJumpedBackStitch | null): void {
+            jumpedBackStitch.value = backStitch;
+        },
     };
 };
 
@@ -123,4 +129,11 @@ export interface IActiveStitch {
     readonly endX?: number;
     readonly endY?: number;
     readonly threadIndex: number;
+}
+
+export interface IJumpedBackStitch {
+    readonly startX: number;
+    readonly startY: number;
+    readonly endX: number;
+    readonly endY: number;
 }

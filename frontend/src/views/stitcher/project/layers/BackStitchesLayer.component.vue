@@ -9,6 +9,17 @@
         :height="project.project.pattern.height * baseStitchSize"
     >
         <line
+            class="jumped-back-stitch"
+            v-if="jumpedBackStitch !== null"
+            :style="{
+                '--back-stitch-width': baseStitchSize / 2,
+            }"
+            :x1="jumpedBackStitch.startX * baseStitchSize"
+            :y1="jumpedBackStitch.startY * baseStitchSize"
+            :x2="jumpedBackStitch.endX * baseStitchSize"
+            :y2="jumpedBackStitch.endY * baseStitchSize"
+        />
+        <line
             ref="lines"
             :style="{
                 '--back-stitch-colour': backStitch.colour,
@@ -41,7 +52,7 @@ defineProps<{
     baseStitchSize: number;
 }>();
 
-const { project, backStitches, setActiveStitch } = useCurrentProject();
+const { project, backStitches, setActiveStitch, jumpedBackStitch } = useCurrentProject();
 const layers = useLayers();
 
 const lines = ref<Array<HTMLElement>>([]);
@@ -105,7 +116,14 @@ onMounted(() => {
     position: relative;
     z-index: 1;
 
+    .jumped-back-stitch {
+        stroke: #ffb400;
+        stroke-width: 39;
+        stroke-linecap: round;
+    }
+
     .back-stitch-line {
+        position: relative;
         stroke: var(--back-stitch-colour);
         stroke-width: var(--back-stitch-width);
         stroke-linecap: round;
@@ -113,6 +131,11 @@ onMounted(() => {
 
         &.is-completed {
             stroke: #0f0;
+        }
+
+        &.is-jumped {
+            z-index: 2;
+            filter: drop-shadow(0 0 3px var(--border-colour)) drop-shadow(0 0 6px #ffb400);
         }
     }
 }

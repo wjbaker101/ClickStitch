@@ -30,12 +30,36 @@ import type { IThreadDetails } from '@/models/GetProject.model';
 import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
 
 const events = useEvents();
-const { stitches } = useCurrentProject();
+const { backStitches, stitches } = useCurrentProject();
 
 const isEnabled  = ref<boolean>(false);
 const thread = ref<IThreadDetails | null>(null);
 
-const currentStitches = computed(() => stitches.value.filter(x => x.threadIndex === thread.value?.thread.index));
+interface IJumpToStitchLocation {
+    readonly x: number;
+    readonly y: number;
+    readonly endX?: number;
+    readonly endY?: number;
+    readonly type: 'stitch' | 'back-stitch';
+}
+
+const currentStitches = computed<Array<IJumpToStitchLocation>>(() => {
+    const threadIndex = thread.value?.thread.index;
+    const _stitches = stitches.value.filter(x => x.threadIndex === threadIndex);
+    const _backStitches = backStitches.value.filter(x => x.threadIndex === threadIndex);
+
+    return _stitches.map<IJumpToStitchLocation>(x => ({
+        x: x.x,
+        y: x.y,
+        type: 'stitch',
+    })).concat(_backStitches.map(x => ({
+        x: x.startX,
+        y: x.startY,
+        endX: x.endX,
+        endY: x.endY,
+        type: 'back-stitch',
+    })));
+});
 
 const currentIndex = ref<number>(0);
 
@@ -54,6 +78,9 @@ const onNavigate = function (value: number): void {
     events.publish('JumpToStitch', {
         x: currentStitches.value[currentIndex.value].x,
         y: currentStitches.value[currentIndex.value].y,
+        endX: currentStitches.value[currentIndex.value].endX,
+        endY: currentStitches.value[currentIndex.value].endY,
+        type: currentStitches.value[currentIndex.value].type,
     });
 };
 
@@ -65,6 +92,9 @@ const onStart = function (event: IStartJumpToStitchesEvent): void {
     events.publish('JumpToStitch', {
         x: currentStitches.value[currentIndex.value].x,
         y: currentStitches.value[currentIndex.value].y,
+        endX: currentStitches.value[currentIndex.value].endX,
+        endY: currentStitches.value[currentIndex.value].endY,
+        type: currentStitches.value[currentIndex.value].type,
     });
 };
 
