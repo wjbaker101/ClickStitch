@@ -48,6 +48,7 @@ const onJumpToStitch = function (event: IJumpToStitchEvent): void {
             startY: event.y,
             endX: event.endX as number,
             endY: event.endY as number,
+            colour: event.colour,
         });
 
         return;

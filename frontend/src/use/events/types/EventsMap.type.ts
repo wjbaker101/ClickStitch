@@ -20,6 +20,7 @@ export interface IJumpToStitchEvent {
     readonly endX?: number;
     readonly endY?: number;
     readonly type: 'stitch' | 'back-stitch';
+    readonly colour: string;
 }
 
 export interface IStartJumpToStitchesEvent {

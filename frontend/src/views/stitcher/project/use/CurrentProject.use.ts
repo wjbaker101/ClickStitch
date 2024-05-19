@@ -136,4 +136,5 @@ export interface IJumpedBackStitch {
     readonly startY: number;
     readonly endX: number;
     readonly endY: number;
+    readonly colour: string;
 }

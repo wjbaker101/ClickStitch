@@ -41,10 +41,16 @@ interface IJumpToStitchLocation {
     readonly endX?: number;
     readonly endY?: number;
     readonly type: 'stitch' | 'back-stitch';
+    readonly colour: string;
 }
 
 const currentStitches = computed<Array<IJumpToStitchLocation>>(() => {
-    const threadIndex = thread.value?.thread.index;
+    if (thread.value === null)
+        return [];
+
+    const _thread = thread.value.thread;
+
+    const threadIndex = _thread.index;
     const _stitches = stitches.value.filter(x => x.threadIndex === threadIndex);
     const _backStitches = backStitches.value.filter(x => x.threadIndex === threadIndex);
 
@@ -52,12 +58,14 @@ const currentStitches = computed<Array<IJumpToStitchLocation>>(() => {
         x: x.x,
         y: x.y,
         type: 'stitch',
+        colour: _thread.colour,
     })).concat(_backStitches.map(x => ({
         x: x.startX,
         y: x.startY,
         endX: x.endX,
         endY: x.endY,
         type: 'back-stitch',
+        colour: _thread.colour,
     })));
 });
 
@@ -81,6 +89,7 @@ const onNavigate = function (value: number): void {
         endX: currentStitches.value[currentIndex.value].endX,
         endY: currentStitches.value[currentIndex.value].endY,
         type: currentStitches.value[currentIndex.value].type,
+        colour: currentStitches.value[currentIndex.value].colour,
     });
 };
 
@@ -95,6 +104,7 @@ const onStart = function (event: IStartJumpToStitchesEvent): void {
         endX: currentStitches.value[currentIndex.value].endX,
         endY: currentStitches.value[currentIndex.value].endY,
         type: currentStitches.value[currentIndex.value].type,
+        colour: currentStitches.value[currentIndex.value].colour,
     });
 };
 
