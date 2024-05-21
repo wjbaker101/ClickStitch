@@ -11,7 +11,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CloudinaryDotNet" Version="1.26.1" />
+		<PackageReference Include="CloudinaryDotNet" Version="1.26.2" />
 		<PackageReference Include="DotNetLibs.Api" Version="231213.2222.0" />
 		<PackageReference Include="DotNetLibs.Core" Version="231213.2222.0" />
 		<PackageReference Include="Inkwell.Client" Version="240403.2255.0" />
