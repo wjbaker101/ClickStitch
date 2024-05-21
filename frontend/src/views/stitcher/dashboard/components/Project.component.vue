@@ -73,7 +73,7 @@ defineProps<{
     }
 
     img {
-        max-width: 100%;
+        max-width: 150px;
         height: auto;
         float: left;
         margin-top: -$offset + -$padding;
