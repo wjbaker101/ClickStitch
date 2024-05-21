@@ -1,6 +1,8 @@
 <template>
     <RouterLink class="project-component" :to="`/projects/${project.pattern.reference}`">
-        <img :src="project.pattern.bannerImageUrl ?? ''" :alt="project.pattern.title">
+        <div class="image-container" :style="{ '--image': `url(${project.pattern.bannerImageUrl}` ?? '' }">
+            <img :src="project.pattern.bannerImageUrl ?? ''" :alt="project.pattern.title">
+        </div>
         <h2>{{ project.pattern.title }}</h2>
         <p class="description">
             {{ project.pattern.width }}&times;{{ project.pattern.height }}
@@ -72,10 +74,12 @@ defineProps<{
         vertical-align: middle;
     }
 
-    img {
-        max-width: 150px;
-        height: auto;
+    .image-container {
+        width: 150px;
+        aspect-ratio: 1;
         float: left;
+        position: relative;
+        line-height: 150px;
         margin-top: -$offset + -$padding;
         margin-left: -$offset;
         margin-right: 1rem;
@@ -83,6 +87,27 @@ defineProps<{
         border-radius: var(--wjb-border-radius);
         background-color: var(--wjb-background-colour);
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
+        overflow: hidden;
+
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: var(--image);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            filter: blur(5px);
+        }
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        position: relative;
+        z-index: 1;
+        vertical-align: middle;
+        background-color: var(--wjb-background-colour);
     }
 
     .description {
