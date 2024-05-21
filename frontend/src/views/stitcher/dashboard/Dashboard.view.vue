@@ -125,8 +125,8 @@ onMounted(async () => {
 
     .projects {
         display: grid;
-        gap: 2rem;
-        grid-template-columns: repeat(auto-fill, minmax(min(450px, 100%), 1fr));
+        gap: 3rem;
+        grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
     }
 
     .floating-action-button {
