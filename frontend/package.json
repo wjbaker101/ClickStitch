@@ -10,7 +10,7 @@
     },
     "dependencies": {
         "@vueuse/core": "^10.9.0",
-        "chart.js": "^4.4.2",
+        "chart.js": "^4.4.3",
         "dayjs": "^1.11.11",
         "hammerjs": "^2.0.8",
         "vue": "^3.4.27",
@@ -19,11 +19,11 @@
     },
     "devDependencies": {
         "@types/hammerjs": "^2.0.45",
-        "@types/node": "^20.12.11",
+        "@types/node": "^20.12.12",
         "@vitejs/plugin-vue": "^5.0.4",
         "@wjb/styling": "^1.0.82",
         "@wjb/vue": "^1.0.92",
-        "sass": "^1.77.1",
+        "sass": "^1.77.2",
         "typescript": "~5.4.5",
         "vite": "^5.2.11",
         "vite-plugin-pwa": "^0.20.0"
