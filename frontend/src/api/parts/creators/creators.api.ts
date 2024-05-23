@@ -11,6 +11,7 @@ import type { ICreateCreatorRequest, ICreateCreatorResponse } from '@/api/parts/
 import type { IUpdateCreatorRequest, IUpdateCreatorResponse } from '@/api/parts/creators/types/UpdateCreator.type';
 import type { IGetSelfCreator } from '@/api/parts/creators/types/GetSelfCreator.type';
 import type { IGetCreatorPatternsResponse } from '@/api/parts/creators/types/GetCreatorPatterns.type';
+import type { IGetCreatorResponse } from '@/api/parts/creators/types/GetCreator.type';
 
 export const creatorsApi = {
 
@@ -20,6 +21,21 @@ export const creatorsApi = {
             body: request,
             auth: {
                 required: true,
+                use: true,
+            },
+        });
+
+        if (response instanceof Error)
+            return response;
+
+        return creatorMapper.map(response.creator);
+    },
+
+    async getByReference(creatorReference: string): Promise<ICreator | Error> {
+        const response = await apiClient.get<IGetCreatorResponse>({
+            url: `/creators/${creatorReference}`,
+            auth: {
+                required: false,
                 use: true,
             },
         });
