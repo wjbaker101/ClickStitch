@@ -36,7 +36,7 @@ import { onMounted, ref } from 'vue';
 
 import UserMessageComponent from '@/components/UserMessageComponent.vue';
 import ZeroStateComponent from '@/components/ZeroStateComponent.vue';
-import PatternComponent from '@/views/stitcher/patterns/components/Pattern.component.vue';
+import PatternComponent from '@/views/stitcher/patterns/components/PatternComponent.vue';
 
 import { api } from '@/api/api';
 

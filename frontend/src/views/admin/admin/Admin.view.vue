@@ -26,7 +26,7 @@
 import { ref } from 'vue';
 
 import PaginatedContentComponent from '@/components/paginated-content/PaginatedContentComponent.vue';
-import UserItemComponent from './components/UserItem.component.vue';
+import UserItemComponent from './components/UserItemComponent.vue';
 
 import { api } from '@/api/api';
 import { paginationMapper } from '@/api/mappers/Pagination.mapper';

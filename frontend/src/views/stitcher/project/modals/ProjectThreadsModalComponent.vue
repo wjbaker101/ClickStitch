@@ -40,7 +40,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
-import ThreadDetailsComponent from '@/views/stitcher/project/components/ThreadDetails.component.vue';
+import ThreadDetailsComponent from '@/views/stitcher/project/components/ThreadDetailsComponent.vue';
 
 import { api } from '@/api/api';
 import { useAuth } from '@/use/auth/Auth.use';

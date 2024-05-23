@@ -19,8 +19,8 @@
 </template>
 
 <script setup lang="ts">
-import CanvasSizeCalculatorComponent from '@/views/stitcher/tools/components/CanvasSizeCalculator.component.vue';
-import RequiredSkeinsCalculatorComponent from '@/views/stitcher/tools/components/RequiredSkeinsCalculator.component.vue';
+import CanvasSizeCalculatorComponent from '@/views/stitcher/tools/components/CanvasSizeCalculatorComponent.vue';
+import RequiredSkeinsCalculatorComponent from '@/views/stitcher/tools/components/RequiredSkeinsCalculatorComponent.vue';
 </script>
 
 <style lang="scss">

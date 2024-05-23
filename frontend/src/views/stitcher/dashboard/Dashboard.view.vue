@@ -58,7 +58,7 @@ import { onMounted, ref } from 'vue';
 
 import UserMessageComponent from '@/components/UserMessageComponent.vue';
 import ZeroStateComponent from '@/components/ZeroStateComponent.vue';
-import ProjectComponent from '@/views/stitcher/dashboard/components/Project.component.vue';
+import ProjectComponent from '@/views/stitcher/dashboard/components/ProjectComponent.vue';
 
 import { api } from '@/api/api';
 

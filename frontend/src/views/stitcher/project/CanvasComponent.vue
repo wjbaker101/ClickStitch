@@ -73,13 +73,13 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 
-import CompletedStitchesLayerComponent from '@/views/stitcher/project/layers/CompletedStitchesLayer.component.vue';
-import HighlightedThreadLayerComponent from '@/views/stitcher/project/layers/HighlightedThreadLayer.component.vue';
-import JumpedStitchLayerComponent from '@/views/stitcher/project/layers/JumpedStitchLayer.component.vue';
-import SelectedStitchesLayerComponent from '@/views/stitcher/project/layers/SelectedStitchesLayer.component.vue';
-import PausePositionLayerComponent from '@/views/stitcher/project/layers/PausePositionLayer.component.vue';
-import BackStitchesLayerComponent from '@/views/stitcher/project/layers/BackStitchesLayer.component.vue';
-import GridLayerComponent from '@/views/stitcher/project/layers/GridLayer.component.vue';
+import CompletedStitchesLayerComponent from '@/views/stitcher/project/layers/CompletedStitchesLayerComponent.vue';
+import HighlightedThreadLayerComponent from '@/views/stitcher/project/layers/HighlightedThreadLayerComponent.vue';
+import JumpedStitchLayerComponent from '@/views/stitcher/project/layers/JumpedStitchLayerComponent.vue';
+import SelectedStitchesLayerComponent from '@/views/stitcher/project/layers/SelectedStitchesLayerComponent.vue';
+import PausePositionLayerComponent from '@/views/stitcher/project/layers/PausePositionLayerComponent.vue';
+import BackStitchesLayerComponent from '@/views/stitcher/project/layers/BackStitchesLayerComponent.vue';
+import GridLayerComponent from '@/views/stitcher/project/layers/GridLayerComponent.vue';
 
 import { api } from '@/api/api';
 import { isDark } from '@/helper/helper';

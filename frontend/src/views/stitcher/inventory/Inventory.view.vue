@@ -52,7 +52,7 @@ import { onMounted, ref } from 'vue';
 import { watchDebounced } from '@vueuse/core';
 
 import LoadingComponent from '@wjb/vue/component/LoadingComponent.vue';
-import ThreadItemComponent from '@/views/stitcher/inventory/components/ThreadItem.component.vue';
+import ThreadItemComponent from '@/views/stitcher/inventory/components/ThreadItemComponent.vue';
 
 import { api } from '@/api/api';
 import { threadMapper } from '@/api/mappers/Thread.mapper';

@@ -31,7 +31,7 @@
 import { useRouter } from 'vue-router';
 
 import PatternImageComponent from '@/components/shared/PatternImageComponent.vue';
-import PatternImagesModal from '@/views/stitcher/patterns/modal/PatternImagesModal.component.vue';
+import PatternImagesModal from '@/views/stitcher/patterns/modal/PatternImagesModalComponent.vue';
 
 import { api } from '@/api/api';
 import { useAuth } from '@/use/auth/Auth.use';

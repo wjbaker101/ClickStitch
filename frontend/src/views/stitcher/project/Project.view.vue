@@ -25,9 +25,9 @@ import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 import UserMessageComponent from '@/components/UserMessageComponent.vue';
-import CanvasComponent from '@/views/stitcher/project/Canvas.component.vue';
-import JumpToStitchesComponent from '@/views/stitcher/project/components/JumpToStitches.component.vue';
-import ActionBarComponent from '@/views/stitcher/project/components/ActionBar.component.vue';
+import CanvasComponent from '@/views/stitcher/project/CanvasComponent.vue';
+import JumpToStitchesComponent from '@/views/stitcher/project/components/JumpToStitchesComponent.vue';
+import ActionBarComponent from '@/views/stitcher/project/components/ActionBarComponent.vue';
 
 import { api } from '@/api/api';
 import { setTitle } from '@/helper/helper';

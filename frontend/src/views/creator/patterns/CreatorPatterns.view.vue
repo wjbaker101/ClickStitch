@@ -34,7 +34,7 @@
 import { ref } from 'vue';
 
 import PaginatedContentComponent from '@/components/paginated-content/PaginatedContentComponent.vue';
-import CreatorPatternComponent from '@/views/creator/patterns/components/CreatorPattern.component.vue';
+import CreatorPatternComponent from '@/views/creator/patterns/components/CreatorPatternComponent.vue';
 
 import { api } from '@/api/api';
 

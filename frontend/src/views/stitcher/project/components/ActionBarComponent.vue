@@ -17,8 +17,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import ProjectThreadsModalComponent from '@/views/stitcher/project/modals/ProjectThreadsModal.component.vue';
-import ActiveStitchComponent from '@/views/stitcher/project/components/ActiveStitch.component.vue';
+import ProjectThreadsModalComponent from '@/views/stitcher/project/modals/ProjectThreadsModalComponent.vue';
+import ActiveStitchComponent from '@/views/stitcher/project/components/ActiveStitchComponent.vue';
 
 import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
 import { useModal } from '@wjb/vue/use/modal.use';

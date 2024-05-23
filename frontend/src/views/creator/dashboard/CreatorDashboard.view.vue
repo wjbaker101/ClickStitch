@@ -21,7 +21,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 
-import EditCreatorComponent from '@/views/creator/dashboard/components/EditCreator.component.vue';
+import EditCreatorComponent from '@/views/creator/dashboard/components/EditCreatorComponent.vue';
 
 import { api } from '@/api/api';
 
