@@ -5,6 +5,7 @@ using ClickStitch.Api.Admin.SearchUsers;
 using ClickStitch.Api.Auth;
 using ClickStitch.Api.Auth.LogIn;
 using ClickStitch.Api.Creators.CreateCreator;
+using ClickStitch.Api.Creators.GetCreator;
 using ClickStitch.Api.Creators.GetCreatorBySelf;
 using ClickStitch.Api.Creators.GetCreatorPatterns;
 using ClickStitch.Api.Creators.UpdateCreator;
@@ -85,6 +86,7 @@ public static class SetupDependencies
         services.AddSingleton<IPasswordService, PasswordService>();
 
         services.AddSingleton<ICreateCreatorService, CreateCreatorService>();
+        services.AddSingleton<IGetCreatorService, GetCreatorService>();
         services.AddSingleton<IGetCreatorBySelfService, GetCreatorBySelfService>();
         services.AddSingleton<IGetCreatorPatternsService, GetCreatorPatternsService>();
         services.AddSingleton<IUpdateCreatorService, UpdateCreatorService>();

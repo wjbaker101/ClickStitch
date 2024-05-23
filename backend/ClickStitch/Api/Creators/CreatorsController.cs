@@ -1,5 +1,6 @@
 ﻿using ClickStitch.Api.Creators.CreateCreator;
 using ClickStitch.Api.Creators.CreateCreator.Types;
+using ClickStitch.Api.Creators.GetCreator;
 using ClickStitch.Api.Creators.GetCreatorBySelf;
 using ClickStitch.Api.Creators.GetCreatorPatterns;
 using ClickStitch.Api.Creators.UpdateCreator;
@@ -15,16 +16,19 @@ namespace ClickStitch.Api.Creators;
 public sealed class CreatorsController : ApiController
 {
     private readonly ICreateCreatorService _createCreatorService;
+    private readonly IGetCreatorService _getCreatorService;
     private readonly IGetCreatorBySelfService _getCreatorBySelfService;
     private readonly IGetCreatorPatternsService _getCreatorPatternsService;
     private readonly IUpdateCreatorService _updateCreatorService;
 
     public CreatorsController(
         ICreateCreatorService createCreatorService,
+        IGetCreatorService getCreatorService,
         IGetCreatorBySelfService getCreatorBySelfService,
         IGetCreatorPatternsService getCreatorPatternsService,
         IUpdateCreatorService updateCreatorService)
     {
+        _getCreatorService = getCreatorService;
         _createCreatorService = createCreatorService;
         _getCreatorBySelfService = getCreatorBySelfService;
         _getCreatorPatternsService = getCreatorPatternsService;
@@ -40,6 +44,16 @@ public sealed class CreatorsController : ApiController
         var requestUser = RequestHelper.GetRequiredUser(Request);
 
         var result = await _createCreatorService.CreateCreator(requestUser, request, cancellationToken);
+
+        return ToApiResponse(result);
+    }
+
+    [HttpGet]
+    [Route("{creatorReference:guid}")]
+    [Authenticate]
+    public async Task<IActionResult> GetCreator([FromRoute] Guid creatorReference, CancellationToken cancellationToken)
+    {
+        var result = await _getCreatorService.GetCreator(creatorReference, cancellationToken);
 
         return ToApiResponse(result);
     }

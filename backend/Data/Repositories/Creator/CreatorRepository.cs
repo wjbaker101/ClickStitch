@@ -5,6 +5,7 @@ namespace Data.Repositories.Creator;
 
 public interface ICreatorRepository : IRepository<CreatorRecord>
 {
+    Task<Result<CreatorRecord>> GetByReference(Guid creatorReference, CancellationToken cancellationToken);
     Task<Result<CreatorRecord>> GetWithUsersByReference(Guid creatorReference, CancellationToken cancellationToken);
     Task<Result<CreatorRecord>> GetByUser(UserRecord user, CancellationToken cancellationToken);
     Task<Result<GetCreatorPatternsDto>> GetCreatorPatterns(Guid creatorReference, GetCreatorPatternsParameters parameters, CancellationToken cancellationToken);
@@ -14,6 +15,23 @@ public sealed class CreatorRepository : Repository<CreatorRecord>, ICreatorRepos
 {
     public CreatorRepository(IDatabase database) : base(database)
     {
+    }
+
+    public async Task<Result<CreatorRecord>> GetByReference(Guid creatorReference, CancellationToken cancellationToken)
+    {
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
+
+        var creator = await session
+            .Query<CreatorRecord>()
+            .SingleOrDefault(x => x.Reference == creatorReference, cancellationToken);
+
+        await transaction.Commit(cancellationToken);
+
+        if (creator == null)
+            return Result<CreatorRecord>.Failure($"Unable to find creator with reference: '{creatorReference}'.");
+
+        return creator;
     }
 
     public async Task<Result<CreatorRecord>> GetWithUsersByReference(Guid creatorReference, CancellationToken cancellationToken)
