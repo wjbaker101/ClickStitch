@@ -70,7 +70,7 @@ import {
 } from 'chart.js'
 import { Bar } from 'vue-chartjs'
 
-import UserMessageComponent from '@/components/UserMessage.component.vue';
+import UserMessageComponent from '@/components/UserMessageComponent.vue';
 
 import { api } from '@/api/api';
 import { formatNumber, setTitle } from '@/helper/helper';

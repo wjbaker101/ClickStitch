@@ -34,8 +34,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
-import UserMessageComponent from '@/components/UserMessage.component.vue';
-import ZeroStateComponent from '@/components/ZeroState.component.vue';
+import UserMessageComponent from '@/components/UserMessageComponent.vue';
+import ZeroStateComponent from '@/components/ZeroStateComponent.vue';
 import PatternComponent from '@/views/stitcher/patterns/components/Pattern.component.vue';
 
 import { api } from '@/api/api';

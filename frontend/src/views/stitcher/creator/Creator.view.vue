@@ -29,7 +29,7 @@
 import { onBeforeMount, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
-import PaginatedContentComponent from '@/components/paginated-content/PaginatedContent.component.vue';
+import PaginatedContentComponent from '@/components/paginated-content/PaginatedContentComponent.vue';
 
 import { api } from '@/api/api';
 

@@ -23,8 +23,8 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
 
-import ContextMenuItemComponent from '@/components/context-menu/ContextMenuItem.component.vue';
-import ContextMenuSeparatorComponent from '@/components/context-menu/ContextMenuSeparator.component.vue';
+import ContextMenuItemComponent from '@/components/context-menu/ContextMenuItemComponent.vue';
+import ContextMenuSeparatorComponent from '@/components/context-menu/ContextMenuSeparatorComponent.vue';
 
 import { useEvent, useEvents } from '@/use/events/Events.use';
 

@@ -2,9 +2,9 @@ import { type Plugin } from 'vue';
 
 import { components as wjbComponents } from '@wjb/vue/setup/components';
 
-import CardComponent from '@/components/Card.component.vue';
-import LinkComponent from '@/components/Link.component.vue';
-import ViewComponent from '@/components/View.component.vue';
+import CardComponent from '@/components/CardComponent.vue';
+import LinkComponent from '@/components/LinkComponent.vue';
+import ViewComponent from '@/components/ViewComponent.vue';
 
 export const components: Plugin = {
 

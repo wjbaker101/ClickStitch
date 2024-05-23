@@ -30,7 +30,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 
-import PatternImageComponent from '@/components/shared/PatternImage.component.vue';
+import PatternImageComponent from '@/components/shared/PatternImageComponent.vue';
 import PatternImagesModal from '@/views/stitcher/patterns/modal/PatternImagesModal.component.vue';
 
 import { api } from '@/api/api';

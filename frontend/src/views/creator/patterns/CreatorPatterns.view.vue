@@ -33,7 +33,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import PaginatedContentComponent from '@/components/paginated-content/PaginatedContent.component.vue';
+import PaginatedContentComponent from '@/components/paginated-content/PaginatedContentComponent.vue';
 import CreatorPatternComponent from '@/views/creator/patterns/components/CreatorPattern.component.vue';
 
 import { api } from '@/api/api';

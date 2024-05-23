@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import ContextMenuComponent from './components/context-menu/ContextMenu.component.vue';
+import ContextMenuComponent from './components/context-menu/ContextMenuComponent.vue';
 </script>
 
 <style lang="scss">

@@ -11,8 +11,8 @@
 </template>
 
 <script setup lang="ts">
-import NavComponent from '@/components/nav/Nav.component.vue';
-import FooterComponent from '@/components/Footer.component.vue';
+import NavComponent from '@/components/nav/NavComponent.vue';
+import FooterComponent from '@/components/FooterComponent.vue';
 
 defineProps<{
     hideNav?: boolean;

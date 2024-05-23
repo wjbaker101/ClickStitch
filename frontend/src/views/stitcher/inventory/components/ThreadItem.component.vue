@@ -18,7 +18,7 @@
 import { ref } from 'vue';
 import { watchDebounced } from '@vueuse/core';
 
-import ListItemComponent from '@/components/ListItem.component.vue';
+import ListItemComponent from '@/components/ListItemComponent.vue';
 
 import { api } from '@/api/api';
 import { isDark } from '@/helper/helper';

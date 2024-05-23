@@ -43,7 +43,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import ContentCardComponent from '@/views/_shared/login/components/ContentCard.component.vue';
-import UserMessageComponent from '@/components/UserMessage.component.vue';
+import UserMessageComponent from '@/components/UserMessageComponent.vue';
 
 import { api } from '@/api/api';
 

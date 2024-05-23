@@ -67,7 +67,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import FileUploadComponent from '@/components/FileUpload.component.vue';
+import FileUploadComponent from '@/components/FileUploadComponent.vue';
 
 import { api } from '@/api/api';
 import { usePopup } from '@wjb/vue/use/popup.use';

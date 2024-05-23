@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import ListItemComponent from '@/components/ListItem.component.vue';
+import ListItemComponent from '@/components/ListItemComponent.vue';
 
 import { api } from '@/api/api';
 

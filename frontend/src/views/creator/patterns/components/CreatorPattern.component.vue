@@ -58,8 +58,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import ListItemComponent from '@/components/ListItem.component.vue';
-import PatternImageComponent from '@/components/shared/PatternImage.component.vue';
+import ListItemComponent from '@/components/ListItemComponent.vue';
+import PatternImageComponent from '@/components/shared/PatternImageComponent.vue';
 
 import { api } from '@/api/api';
 import { usePopup } from '@wjb/vue/use/popup.use';

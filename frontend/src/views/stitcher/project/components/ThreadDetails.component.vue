@@ -58,7 +58,7 @@
 <script setup lang="ts">
 import { computed, type StyleValue } from 'vue';
 
-import ListItemComponent from '@/components/ListItem.component.vue';
+import ListItemComponent from '@/components/ListItemComponent.vue';
 
 import { isDark } from '@/helper/helper';
 import { calculateRequiredSkeins } from '@/helper/stitch.helper';
