@@ -8,7 +8,7 @@ const auth = useAuth();
 export const creatorRoutes: Array<RouteRecordRaw> = [
     {
         path: '',
-        component: () => import('@/views/_shared/login/Login.view.vue'),
+        component: () => import('@/views/_shared/login/LoginView.vue'),
         beforeEnter: (to, from, next) => {
             if (auth.details.value === null) {
                 next('/login');
@@ -20,35 +20,35 @@ export const creatorRoutes: Array<RouteRecordRaw> = [
     },
     {
         path: '/login',
-        component: () => import('@/views/_shared/login/Login.view.vue'),
+        component: () => import('@/views/_shared/login/LoginView.vue'),
         meta: {
             title: 'Login',
         },
     },
     {
         path: '/dashboard',
-        component: () => import('@/views/creator/dashboard/CreatorDashboard.view.vue'),
+        component: () => import('@/views/creator/dashboard/CreatorDashboardView.vue'),
         meta: {
             title: 'Creator Dashboard',
         },
     },
     {
         path: '/patterns',
-        component: () => import('@/views/creator/patterns/CreatorPatterns.view.vue'),
+        component: () => import('@/views/creator/patterns/CreatorPatternsView.vue'),
         meta: {
             title: 'Creator Patterns',
         },
     },
     {
         path: '/patterns/new',
-        component: () => import('@/views/creator/new-pattern/NewPattern.view.vue'),
+        component: () => import('@/views/creator/new-pattern/NewPatternView.vue'),
         meta: {
             title: 'New Pattern',
         },
     },
     {
         path: '/settings',
-        component: () => import('@/views/_shared/settings/Settings.view.vue'),
+        component: () => import('@/views/_shared/settings/SettingsView.vue'),
         beforeEnter: [ requireAuth ],
         meta: {
             title: 'Settings',
@@ -56,14 +56,14 @@ export const creatorRoutes: Array<RouteRecordRaw> = [
     },
     {
         path: '/supported-pattern-formats',
-        component: () => import('@/views/_shared/supported-pattern-formats/SupportedPatternFormats.view.vue'),
+        component: () => import('@/views/_shared/supported-pattern-formats/SupportedPatternFormatsView.vue'),
         meta: {
             title: 'Supported Pattern Formats',
         },
     },
     {
         path: '/:pathMatch(.*)*',
-        component: () => import('@/views/_shared/not-found/NotFound.view.vue'),
+        component: () => import('@/views/_shared/not-found/NotFoundView.vue'),
         meta: {
             title: 'Page Not Found',
         },
