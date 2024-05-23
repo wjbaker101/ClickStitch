@@ -127,6 +127,13 @@ export const stitcherRoutes: Array<RouteRecordRaw> = [
         },
     },
     {
+        path: '/creators/:creatorReference',
+        component: () => import('@/views/stitcher/creator/Creator.view.vue'),
+        meta: {
+            title: 'Creator',
+        },
+    },
+    {
         path: '/:pathMatch(.*)*',
         component: () => import('@/views/_shared/not-found/NotFound.view.vue'),
         meta: {

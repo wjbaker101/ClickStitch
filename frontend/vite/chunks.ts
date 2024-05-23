@@ -27,6 +27,7 @@ export const chunksOptions: { [chunkAlias: string]: string[] } = {
         '@/views/stitcher/tools/Tools.view.vue',
         '@/views/stitcher/project-analytics/ProjectAnalytics.view.vue',
         '@/views/stitcher/inventory/Inventory.view.vue',
+        '@/views/stitcher/creator/Creator.view.vue',
         '@/views/_shared/signup/Signup.view.vue',
         '@/views/_shared/marketing/Marketing.view.vue',
     ],
