@@ -1,5 +1,5 @@
 <template>
-    <CardComponent class="pattern-component text-centered" header hoverable @click="onClick">
+    <CardComponent class="display-pattern-component text-centered" header hoverable @click="onClick">
         <template #header>
             <h3>{{ pattern.title }}</h3>
         </template>
@@ -75,7 +75,7 @@ const onAddProject = async function (pattern: IPattern): Promise<void> {
 <style lang="scss">
 @use '@/style/variables' as *;
 
-.pattern-component {
+.display-pattern-component {
     padding: 1rem;
     cursor: pointer;
 

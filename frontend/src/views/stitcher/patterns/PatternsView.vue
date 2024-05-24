@@ -23,7 +23,7 @@
                 </section>
                 <section>
                     <div class="patterns">
-                        <PatternComponent :key="pattern.reference" v-for="pattern in patterns" :pattern="pattern" />
+                        <DisplayPatternComponent :key="pattern.reference" v-for="pattern in patterns" :pattern="pattern" />
                     </div>
                 </section>
             </template>
@@ -36,7 +36,7 @@ import { onMounted, ref } from 'vue';
 
 import UserMessageComponent from '@/components/UserMessageComponent.vue';
 import ZeroStateComponent from '@/components/ZeroStateComponent.vue';
-import PatternComponent from '@/views/stitcher/patterns/components/PatternComponent.vue';
+import DisplayPatternComponent from '@/components/shared/display-pattern/DisplayPatternComponent.vue';
 
 import { api } from '@/api/api';
 
