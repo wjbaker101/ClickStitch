@@ -17,8 +17,8 @@
                 </LinkComponent>
             </CardComponent>
             <PaginatedContentComponent loadingItemName="pattens" :pageSize="10" :logic="loadPatterns">
-                <div v-for="pattern in patterns">
-                    {{ pattern.title }}
+                <div class="patterns">
+                    <DisplayPatternComponent v-for="pattern in patterns" :pattern="pattern" />
                 </div>
             </PaginatedContentComponent>
         </div>
@@ -30,6 +30,7 @@ import { onBeforeMount, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 import PaginatedContentComponent from '@/components/paginated-content/PaginatedContentComponent.vue';
+import DisplayPatternComponent from '@/components/shared/display-pattern/DisplayPatternComponent.vue';
 
 import { api } from '@/api/api';
 
@@ -77,6 +78,12 @@ onBeforeMount(async () => {
 
     .name {
         vertical-align: middle;
+    }
+
+    .patterns {
+        display: grid;
+        gap: 3rem;
+        grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
     }
 }
 </style>
