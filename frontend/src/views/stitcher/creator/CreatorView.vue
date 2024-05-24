@@ -30,7 +30,7 @@ import { onBeforeMount, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 import PaginatedContentComponent from '@/components/paginated-content/PaginatedContentComponent.vue';
-import DisplayPatternComponent from '@/components/shared/display-pattern/DisplayPatternComponent.vue';
+import DisplayPatternComponent from '@/components/display-pattern/DisplayPatternComponent.vue';
 
 import { api } from '@/api/api';
 

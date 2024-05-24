@@ -58,7 +58,7 @@ import { onMounted, ref } from 'vue';
 
 import UserMessageComponent from '@/components/UserMessageComponent.vue';
 import ZeroStateComponent from '@/components/ZeroStateComponent.vue';
-import DisplayPatternComponent from '@/components/shared/display-pattern/DisplayPatternComponent.vue';
+import DisplayPatternComponent from '@/components/display-pattern/DisplayPatternComponent.vue';
 
 import { api } from '@/api/api';
 
