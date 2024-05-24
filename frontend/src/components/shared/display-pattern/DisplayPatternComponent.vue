@@ -30,19 +30,43 @@
                 </ButtonComponent>
             </RouterLink>
         </div>
+        <div v-else class="actions flex gap">
+            <ButtonComponent title="Add to Your Dashboard" @click="onAddProject(pattern)">
+                <IconComponent icon="plus" gap="right" />
+                <span>Add to Dashboard</span>
+            </ButtonComponent>
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
+
+import { api } from '@/api/api';
 import { formatNumber } from '@/helper/helper';
+import { usePopup } from '@wjb/vue/use/popup.use';
 
 import type { IPattern } from '@/models/Pattern.model';
 import type { IProject } from '@/models/Project.model';
 
-defineProps<{
+const props = defineProps<{
     pattern: IPattern;
     project?: IProject;
 }>();
+
+const popup = usePopup();
+const router = useRouter();
+
+const onAddProject = async function (pattern: IPattern): Promise<void> {
+    await api.projects.add(pattern.reference);
+
+    popup.trigger({
+        message: `${props.pattern.title} has been added to your dashboard!`,
+        style: 'success',
+    });
+
+    await router.push({ path: '/dashboard' });
+};
 </script>
 
 <style lang="scss">
