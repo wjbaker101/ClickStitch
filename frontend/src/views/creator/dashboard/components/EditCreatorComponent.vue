@@ -15,7 +15,6 @@
                     <input type="text" placeholder="https://etsy.com/shop/beautifulpatternsco" v-model="form.storeUrl">
                 </FormInputComponent>
             </FormSectionComponent>
-            <PatternComponent :pattern="fakePattern" />
         </div>
         <FormSectionComponent>
             <ButtonComponent @click="onSubmit">
@@ -33,16 +32,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
-import dayjs from 'dayjs';
+import { onMounted, ref } from 'vue';
 
 import LoadingComponent from '@wjb/vue/component/LoadingComponent.vue';
-import PatternComponent from '@/views/stitcher/patterns/components/PatternComponent.vue';
 
 import { api } from '@/api/api';
 import { usePopup } from '@wjb/vue/use/popup.use';
 
-import { type IPattern } from '@/models/Pattern.model';
 import { type ICreator } from '@/models/Creator.model';
 
 const popup = usePopup();
@@ -56,27 +52,6 @@ const form = ref<IForm>({
     name: '',
     storeUrl: '',
 });
-
-const fakePattern = computed<IPattern>(() => ({
-    title: 'Preview',
-    creator: {
-        name: form.value.name,
-        storeUrl: form.value.storeUrl,
-        reference: '',
-        createdAt: dayjs(),
-    },
-    bannerImageUrl: '',
-    createdAt: dayjs(),
-    externalShopUrl: '',
-    height: 0,
-    price: 0,
-    reference: '',
-    stitchCount: 0,
-    threadCount: 0,
-    thumbnailUrl: '',
-    width: 0,
-    titleSlug: '',
-}));
 
 const creator = ref<ICreator | null>(null);
 const isLoading = ref<boolean>(false);
