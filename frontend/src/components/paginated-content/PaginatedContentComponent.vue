@@ -5,9 +5,9 @@
             {{ failure.message }}
         </div>
         <template v-else-if="logicResult !== null">
-            <PaginationComponent :pagination="logicResult" @update="onUpdate" />
+            <PaginationControlsComponent :pagination="logicResult" @update="onUpdate" />
             <slot></slot>
-            <PaginationComponent :pagination="logicResult" @update="onUpdate" />
+            <PaginationControlsComponent :pagination="logicResult" @update="onUpdate" />
         </template>
     </div>
 </template>
@@ -16,7 +16,7 @@
 import { onMounted, ref } from 'vue';
 
 import LoadingComponent from '@wjb/vue/component/LoadingComponent.vue';
-import PaginationComponent from '@/components/paginated-content/PaginationComponent.vue';
+import PaginationControlsComponent from '@/components/paginated-content/PaginationControlsComponent.vue';
 
 import { type IPagination } from '@/models/Pagination.model';
 import { type IPaginationEvent } from '@/components/paginated-content/PaginationEvent';
