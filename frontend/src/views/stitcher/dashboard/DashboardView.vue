@@ -39,7 +39,7 @@
                 </div>
             </ZeroStateComponent>
             <div v-else class="projects">
-                <ProjectComponent :key="project.pattern.reference" v-for="project in projects" :project="project" />
+                <DisplayPatternComponent :key="project.pattern.reference" v-for="project in projects" :pattern="project.pattern" :project="project" />
             </div>
         </div>
         <div v-if="!isLoading && projects !== null && projects.length > 0" class="floating-action-button">
@@ -58,7 +58,7 @@ import { onMounted, ref } from 'vue';
 
 import UserMessageComponent from '@/components/UserMessageComponent.vue';
 import ZeroStateComponent from '@/components/ZeroStateComponent.vue';
-import ProjectComponent from '@/views/stitcher/dashboard/components/ProjectComponent.vue';
+import DisplayPatternComponent from '@/components/shared/display-pattern/DisplayPatternComponent.vue';
 
 import { api } from '@/api/api';
 
