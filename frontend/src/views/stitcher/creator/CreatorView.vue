@@ -10,6 +10,9 @@
                     <IconComponent icon="user" size="large" gap="right" />
                     <span class="name">{{ creator.name }}</span>
                 </h2>
+                <p>
+                    Creator since: {{ creator.createdAt.format('MMMM YYYY') }}
+                </p>
                 <LinkComponent :href="creator.storeUrl">
                     <ButtonComponent>
                         Visit their Shop!
