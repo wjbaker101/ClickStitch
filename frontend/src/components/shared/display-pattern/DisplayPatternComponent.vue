@@ -10,9 +10,13 @@
                 <br>
                 {{ formatNumber(pattern.stitchCount) }} stitches
                 <br>
-                <span class="created-by">
+                <RouterLink v-if="pattern.creator !== null" class="created-by" :to="`/creators/${pattern.creator.reference}`">
                     <IconComponent icon="user" gap="right" />
                     <span class="created-by-text">{{ pattern.creator?.name ?? 'You' }}</span>
+                </RouterLink>
+                <span v-else class="created-by">
+                    <IconComponent icon="user" gap="right" />
+                    <span class="created-by-text">You</span>
                 </span>
             </div>
         </div>
@@ -135,6 +139,20 @@ $offset: 1rem;
 
     .created-by {
         color: var(--wjb-text-colour);
+    }
+
+    a.created-by {
+        text-decoration: underline;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    span.created-by {
+        .created-by-text {
+            vertical-align: middle;
+        }
     }
 
     button {
