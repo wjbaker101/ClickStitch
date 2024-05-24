@@ -1,7 +1,7 @@
 <template>
-    <ListItemComponent>
+    <ListItemComponent class="creator-pattern-component">
         <div class="flex align-items-center gap">
-            <PatternImageComponent width="150" height="100" class="flex-auto" :image="pattern.bannerImageUrl" />
+            <img class="image" :src="pattern.bannerImageUrl ?? ''">
             <h3>{{ pattern.title }}</h3>
         </div>
         <template #expanded>
@@ -59,7 +59,6 @@
 import { ref } from 'vue';
 
 import ListItemComponent from '@/components/ListItemComponent.vue';
-import PatternImageComponent from '@/components/shared/PatternImageComponent.vue';
 
 import { api } from '@/api/api';
 import { usePopup } from '@wjb/vue/use/popup.use';
@@ -131,4 +130,15 @@ const onDelete = async function () {
 </script>
 
 <style lang="scss">
+.creator-pattern-component {
+
+    .image {
+        max-width: 150px;
+        height: auto;
+        vertical-align: middle;
+        background-color: var(--wjb-background-colour);
+        border-radius: var(--wjb-border-radius);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
+    }
+}
 </style>
