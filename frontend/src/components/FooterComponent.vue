@@ -5,6 +5,7 @@
                 <div class="flex-auto">Links:</div>
                 <div class="flex-auto"><RouterLink class="link-component" to="/dashboard">Dashboard</RouterLink></div>
                 <div class="flex-auto"><RouterLink class="link-component" to="/patterns">Patterns</RouterLink></div>
+                <div class="flex-auto"><RouterLink class="link-component" to="/inventory">Inventory</RouterLink></div>
                 <div class="flex-auto"><RouterLink class="link-component" to="/about">About</RouterLink></div>
                 <div class="flex-auto"><RouterLink class="link-component" to="/settings">Settings</RouterLink></div>
             </div>
