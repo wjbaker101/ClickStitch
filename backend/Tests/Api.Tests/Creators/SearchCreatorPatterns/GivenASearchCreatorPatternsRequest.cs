@@ -1,19 +1,19 @@
-﻿using ClickStitch.Api.Creators.GetCreatorPatterns;
-using ClickStitch.Api.Creators.GetCreatorPatterns.Types;
+﻿using ClickStitch.Api.Creators.SearchCreatorPatterns;
+using ClickStitch.Api.Creators.SearchCreatorPatterns.Types;
 using Data.Records;
 using Data.Repositories.Creator;
 using Data.Types;
 using TestHelpers.Data;
 
-namespace Api.Tests.Creators.GetCreatorPatterns;
+namespace Api.Tests.Creators.SearchCreatorPatterns;
 
 [TestFixture]
 [Parallelizable]
-public sealed class GivenAGetCreatorPatternsRequest
+public sealed class GivenASearchCreatorPatternsRequest
 {
     private readonly Guid _creatorReference = Guid.Parse("0292d848-4d41-4a69-8e48-af5e9f93b48c");
 
-    private Result<GetCreatorPatternsResponse> _result = null!;
+    private Result<SearchCreatorPatternsResponse> _result = null!;
 
     [OneTimeSetUp]
     public async Task Setup()
@@ -131,9 +131,9 @@ public sealed class GivenAGetCreatorPatternsRequest
             }
         };
 
-        var subject = new GetCreatorPatternsService(new CreatorRepository(database));
+        var subject = new SearchCreatorPatternsService(new CreatorRepository(database));
 
-        _result = await subject.GetCreatorPatterns(new TestRequestUser(), _creatorReference, 10, 1, CancellationToken.None);
+        _result = await subject.SearchCreatorPatterns(new TestRequestUser(), _creatorReference, 10, 1, CancellationToken.None);
     }
 
     [Test]

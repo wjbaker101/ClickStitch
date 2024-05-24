@@ -1,20 +1,20 @@
-﻿using ClickStitch.Api.Creators.GetCreatorPatterns;
-using ClickStitch.Api.Creators.GetCreatorPatterns.Types;
+﻿using ClickStitch.Api.Creators.SearchCreatorPatterns;
+using ClickStitch.Api.Creators.SearchCreatorPatterns.Types;
 using Core.Types;
 using DotNetLibs.Core.Types;
 
 namespace Integration.Tests.Fakes;
 
-public sealed class FakeGetCreatorPatternsService : IGetCreatorPatternsService
+public sealed class FakeSearchCreatorPatternsService : ISearchCreatorPatternsService
 {
-    public Task<Result<GetCreatorPatternsResponse>> GetCreatorPatterns(
+    public Task<Result<SearchCreatorPatternsResponse>> SearchCreatorPatterns(
         RequestUser user,
         Guid creatorReference,
         int pageSize,
         int pageNumber,
         CancellationToken cancellationToken)
     {
-        return Task.FromResult<Result<GetCreatorPatternsResponse>>(new GetCreatorPatternsResponse
+        return Task.FromResult<Result<SearchCreatorPatternsResponse>>(new SearchCreatorPatternsResponse
         {
             Patterns = null!,
             Pagination = null!

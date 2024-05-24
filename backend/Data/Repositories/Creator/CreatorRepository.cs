@@ -8,7 +8,7 @@ public interface ICreatorRepository : IRepository<CreatorRecord>
     Task<Result<CreatorRecord>> GetByReference(Guid creatorReference, CancellationToken cancellationToken);
     Task<Result<CreatorRecord>> GetWithUsersByReference(Guid creatorReference, CancellationToken cancellationToken);
     Task<Result<CreatorRecord>> GetByUser(UserRecord user, CancellationToken cancellationToken);
-    Task<Result<GetCreatorPatternsDto>> GetCreatorPatterns(Guid creatorReference, GetCreatorPatternsParameters parameters, CancellationToken cancellationToken);
+    Task<Result<GetCreatorPatternsDto>> SearchCreatorPatterns(Guid creatorReference, GetCreatorPatternsParameters parameters, CancellationToken cancellationToken);
 }
 
 public sealed class CreatorRepository : Repository<CreatorRecord>, ICreatorRepository
@@ -72,7 +72,7 @@ public sealed class CreatorRepository : Repository<CreatorRecord>, ICreatorRepos
         return creator;
     }
 
-    public async Task<Result<GetCreatorPatternsDto>> GetCreatorPatterns(Guid creatorReference, GetCreatorPatternsParameters parameters, CancellationToken cancellationToken)
+    public async Task<Result<GetCreatorPatternsDto>> SearchCreatorPatterns(Guid creatorReference, GetCreatorPatternsParameters parameters, CancellationToken cancellationToken)
     {
         using var session = Database.OpenSession();
         using var transaction = await session.BeginTransaction(cancellationToken);

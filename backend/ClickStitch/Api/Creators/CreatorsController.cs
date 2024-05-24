@@ -2,7 +2,7 @@
 using ClickStitch.Api.Creators.CreateCreator.Types;
 using ClickStitch.Api.Creators.GetCreator;
 using ClickStitch.Api.Creators.GetCreatorBySelf;
-using ClickStitch.Api.Creators.GetCreatorPatterns;
+using ClickStitch.Api.Creators.SearchCreatorPatterns;
 using ClickStitch.Api.Creators.UpdateCreator;
 using ClickStitch.Api.Creators.UpdateCreator.Types;
 using ClickStitch.Middleware.Authentication;
@@ -18,20 +18,20 @@ public sealed class CreatorsController : ApiController
     private readonly ICreateCreatorService _createCreatorService;
     private readonly IGetCreatorService _getCreatorService;
     private readonly IGetCreatorBySelfService _getCreatorBySelfService;
-    private readonly IGetCreatorPatternsService _getCreatorPatternsService;
+    private readonly ISearchCreatorPatternsService _searchCreatorPatternsService;
     private readonly IUpdateCreatorService _updateCreatorService;
 
     public CreatorsController(
         ICreateCreatorService createCreatorService,
         IGetCreatorService getCreatorService,
         IGetCreatorBySelfService getCreatorBySelfService,
-        IGetCreatorPatternsService getCreatorPatternsService,
+        ISearchCreatorPatternsService searchCreatorPatternsService,
         IUpdateCreatorService updateCreatorService)
     {
         _getCreatorService = getCreatorService;
         _createCreatorService = createCreatorService;
         _getCreatorBySelfService = getCreatorBySelfService;
-        _getCreatorPatternsService = getCreatorPatternsService;
+        _searchCreatorPatternsService = searchCreatorPatternsService;
         _updateCreatorService = updateCreatorService;
     }
 
@@ -74,7 +74,7 @@ public sealed class CreatorsController : ApiController
     [HttpGet]
     [Route("{creatorReference:guid}/patterns")]
     [Authenticate]
-    public async Task<IActionResult> GetCreatorPatterns(
+    public async Task<IActionResult> SearchCreatorPatterns(
         [FromRoute] Guid creatorReference,
         [FromQuery(Name = "page_size")] int pageSize,
         [FromQuery(Name = "page_number")] int pageNumber,
@@ -82,7 +82,7 @@ public sealed class CreatorsController : ApiController
     {
         var requestUser = RequestHelper.GetRequiredUser(Request);
 
-        var result = await _getCreatorPatternsService.GetCreatorPatterns(requestUser, creatorReference, pageSize, pageNumber, cancellationToken);
+        var result = await _searchCreatorPatternsService.SearchCreatorPatterns(requestUser, creatorReference, pageSize, pageNumber, cancellationToken);
 
         return ToApiResponse(result);
     }

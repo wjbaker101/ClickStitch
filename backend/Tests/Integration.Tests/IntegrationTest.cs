@@ -5,7 +5,7 @@ using ClickStitch.Api.Admin.SearchUsers;
 using ClickStitch.Api.Auth;
 using ClickStitch.Api.Creators.CreateCreator;
 using ClickStitch.Api.Creators.GetCreatorBySelf;
-using ClickStitch.Api.Creators.GetCreatorPatterns;
+using ClickStitch.Api.Creators.SearchCreatorPatterns;
 using ClickStitch.Api.Creators.UpdateCreator;
 using ClickStitch.Api.Patterns.CreatePattern;
 using ClickStitch.Api.Patterns.DeletePattern;
@@ -121,7 +121,7 @@ public abstract class IntegrationTest
 
                     services.AddSingleton<ICreateCreatorService>(new FakeCreateCreatorService());
                     services.AddSingleton<IGetCreatorBySelfService>(new FakeGetCreatorBySelfService());
-                    services.AddSingleton<IGetCreatorPatternsService>(new FakeGetCreatorPatternsService());
+                    services.AddSingleton<ISearchCreatorPatternsService>(new FakeSearchCreatorPatternsService());
                     services.AddSingleton<IUpdateCreatorService>(new FakeUpdateCreatorService());
                 });
             });
