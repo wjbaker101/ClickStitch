@@ -1,6 +1,6 @@
 <template>
     <div
-        class="card-component"
+        class="card-component tw-shadow-xl tw-rounded-md"
         :class="{
             [`border-${border}`]: true,
             'is-hoverable': hoverable,
@@ -33,8 +33,6 @@ defineProps<{
     border-color: var(--wjb-primary);
     outline: 2px dashed transparent;
     outline-offset: 1px;
-    border-radius: var(--wjb-border-radius);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
 
     &.is-hoverable {
         cursor: pointer;
