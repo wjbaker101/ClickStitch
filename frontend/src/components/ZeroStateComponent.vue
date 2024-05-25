@@ -1,5 +1,5 @@
 <template>
-    <div class="zero-state-component text-centered">
+    <div class="tw-text-center">
         <IconComponent :icon="icon" size="huge" />
         <slot></slot>
     </div>
@@ -14,5 +14,4 @@ defineProps<{
 </script>
 
 <style lang="scss">
-.zero-state-component {}
 </style>

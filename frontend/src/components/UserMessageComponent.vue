@@ -1,11 +1,9 @@
 <template>
-    <div v-if="message" class="user-message-component flex gap align-items-center">
-        <div class="flex-auto">
+    <div v-if="message" class="user-message-component tw-flex tw-gap-4 tw-items-center tw-my-4 tw-p-4 tw-shadow-md tw-rounded-md">
+        <div>
             <IconComponent icon="info" />
         </div>
-        <div>
-            {{ message }}
-        </div>
+        <div>{{ message }}</div>
     </div>
 </template>
 
@@ -39,15 +37,8 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@use '@/style/variables' as *;
-
 .user-message-component {
     max-width: 450px;
-    margin: 1rem 0;
-    padding: 1rem;
     background-color: color-mix(in srgb, var(--wjb-danger) 80%, transparent);
-    border-radius: var(--wjb-border-radius);
-
-    @include shadow-small();
 }
 </style>
