@@ -2,6 +2,10 @@
 @use '@wjb/styling/setup-variables' as *;
 @use '@/style/variables' as *;
 
+//@tailwind base;
+//@tailwind components;
+//@tailwind utilities;
+
 :root {
     @include setup-variables();
 
