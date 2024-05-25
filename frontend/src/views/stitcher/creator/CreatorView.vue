@@ -7,7 +7,7 @@
         <div v-else-if="creator !== null" class="content-width">
             <CardComponent border="top" padded class="flex gap align-items-center">
                 <div>
-                    <h2>
+                    <h2 class="creator-title">
                         <IconComponent icon="user" size="large" gap="right" />
                         <span class="name">{{ creator.name }}</span>
                     </h2>
@@ -94,6 +94,10 @@ onBeforeMount(async () => {
 
     .name {
         vertical-align: middle;
+    }
+
+    .creator-title {
+        margin: 0;
     }
 
     .patterns {
