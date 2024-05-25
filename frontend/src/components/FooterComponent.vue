@@ -35,10 +35,8 @@ const lemmyUrl = 'https://sh.itjust.works/u/ClickStitch?page=1&sort=New&view=Pos
 
 <style lang="scss">
 .footer-component {
-    width: 100%;
     font-size: 0.8rem;
     padding: 0.5rem;
     color: var(--wjb-text-colour);
-    z-index: -1;
 }
 </style>
