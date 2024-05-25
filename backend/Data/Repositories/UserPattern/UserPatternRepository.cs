@@ -7,6 +7,7 @@ public interface IUserPatternRepository : IRepository<UserPatternRecord>
     Task<Result<UserPatternRecord>> GetByReference(Guid projectReference, CancellationToken cancellationToken);
     Task<List<UserPatternRecord>> GetByUserAsync(UserRecord user, CancellationToken cancellationToken);
     Task<Result<UserPatternRecord>> GetByUserAndPatternAsync(UserRecord user, PatternRecord pattern, CancellationToken cancellationToken);
+    Task<List<UserPatternRecord>> GetByUserAndPatternsAsync(UserRecord user, List<PatternRecord> patterns, CancellationToken cancellationToken);
     Task<bool> DoesProjectExistForPatternAsync(PatternRecord pattern, CancellationToken cancellationToken);
 }
 
@@ -73,6 +74,22 @@ public sealed class UserPatternRepository : Repository<UserPatternRecord>, IUser
         await transaction.Commit(cancellationToken);
 
         return userPattern;
+    }
+
+    public async Task<List<UserPatternRecord>> GetByUserAndPatternsAsync(UserRecord user, List<PatternRecord> patterns, CancellationToken cancellationToken)
+    {
+        using var session = Database.OpenSession();
+        using var transaction = await session.BeginTransaction(cancellationToken);
+
+        var userPatterns = await session
+            .Query<UserPatternRecord>()
+            .Fetch(x => x.Pattern)
+            .Where(x => x.User == user && patterns.Contains(x.Pattern))
+            .ToList(cancellationToken);
+
+        await transaction.Commit(cancellationToken);
+
+        return userPatterns;
     }
 
     public async Task<bool> DoesProjectExistForPatternAsync(PatternRecord pattern, CancellationToken cancellationToken)

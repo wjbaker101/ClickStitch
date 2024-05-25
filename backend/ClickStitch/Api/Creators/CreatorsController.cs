@@ -80,7 +80,7 @@ public sealed class CreatorsController : ApiController
         [FromQuery(Name = "page_number")] int pageNumber,
         CancellationToken cancellationToken)
     {
-        var requestUser = RequestHelper.GetRequiredUser(Request);
+        var requestUser = RequestHelper.GetOptionalUser(Request);
 
         var result = await _searchCreatorPatternsService.SearchCreatorPatterns(requestUser, creatorReference, pageSize, pageNumber, cancellationToken);
 
