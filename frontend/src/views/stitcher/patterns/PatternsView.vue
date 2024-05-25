@@ -64,8 +64,6 @@ onMounted(async () => {
 </script>
 
 <style lang="scss">
-@use '@/style/variables' as *;
-
 .patterns-view {
 
     .patterns {
