@@ -53,7 +53,7 @@ const patterns = ref<Array<IPattern>>([]);
 
 const loadPatterns = async function (pageNumber: number, pageSize: number): Promise<IPagination | Error> {
     isPatternsLoading.value = true;
-    const response = await api.creators.getPatterns(creatorReference, pageSize, pageNumber);
+    const response = await api.creators.searchPatterns(creatorReference, pageSize, pageNumber);
     isPatternsLoading.value = false;
 
     if (response instanceof Error)

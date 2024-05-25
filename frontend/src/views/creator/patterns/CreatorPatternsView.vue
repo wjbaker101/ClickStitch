@@ -38,11 +38,11 @@ import CreatorPatternComponent from '@/views/creator/patterns/components/Creator
 
 import { api } from '@/api/api';
 
-import { type IGetCreatorPatterns } from '@/models/GetCreatorPatterns.model';
+import { type ISearchCreatorPatterns } from '@/models/GetCreatorPatterns.model';
 import { type ICreator } from '@/models/Creator.model';
 import { type IPagination } from '@/models/Pagination.model';
 
-const getPatterns = ref<IGetCreatorPatterns | null>(null);
+const getPatterns = ref<ISearchCreatorPatterns | null>(null);
 
 const self = ref<ICreator | null>(null);
 
@@ -58,7 +58,7 @@ const getPatternsLogic = async function (pageNumber: number, pageSize: number): 
     if (self.value == null)
         return new Error('Unable to retrieve creator.');
 
-    const getPatternsResult = await api.creators.getPatterns(self.value.reference, pageSize, pageNumber);
+    const getPatternsResult = await api.creators.searchPatterns(self.value.reference, pageSize, pageNumber);
     if (getPatternsResult instanceof Error)
         return new Error('Unable to retrieve patterns.');
 

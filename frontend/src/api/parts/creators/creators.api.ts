@@ -4,13 +4,13 @@ import { paginationMapper } from '@/api/mappers/Pagination.mapper';
 import { patternMapper } from '@/api/mappers/Pattern.mapper';
 import { creatorMapper } from '@/api/mappers/Creator.mapper';
 
-import type { IGetCreatorPatterns } from '@/models/GetCreatorPatterns.model';
+import type { ISearchCreatorPatterns } from '@/models/GetCreatorPatterns.model';
 import type { ICreator } from '@/models/Creator.model';
 
 import type { ICreateCreatorRequest, ICreateCreatorResponse } from '@/api/parts/creators/types/CreateCreator.type';
 import type { IUpdateCreatorRequest, IUpdateCreatorResponse } from '@/api/parts/creators/types/UpdateCreator.type';
 import type { IGetSelfCreator } from '@/api/parts/creators/types/GetSelfCreator.type';
-import type { IGetCreatorPatternsResponse } from '@/api/parts/creators/types/GetCreatorPatterns.type';
+import type { ISearchCreatorPatternsResponse } from '@/api/parts/creators/types/GetCreatorPatterns.type';
 import type { IGetCreatorResponse } from '@/api/parts/creators/types/GetCreator.type';
 
 export const creatorsApi = {
@@ -80,8 +80,8 @@ export const creatorsApi = {
         return creatorMapper.map(response.creator);
     },
 
-    async getPatterns(creatorReference: string, pageSize: number, pageNumber: number): Promise<IGetCreatorPatterns | Error> {
-        const response = await apiClient.get<IGetCreatorPatternsResponse>({
+    async searchPatterns(creatorReference: string, pageSize: number, pageNumber: number): Promise<ISearchCreatorPatterns | Error> {
+        const response = await apiClient.get<ISearchCreatorPatternsResponse>({
             url: `/creators/${creatorReference}/patterns?page_size=${pageSize}&page_number=${pageNumber}`,
             auth: {
                 required: true,
