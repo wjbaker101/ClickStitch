@@ -94,6 +94,7 @@ export const creatorsApi = {
 
         return {
             patterns: response.patterns.map(patternMapper.map),
+            projectPatternReferencesForUser: response.projectPatternReferencesForUser,
             pagination: paginationMapper.map(response.pagination),
         };
     },
