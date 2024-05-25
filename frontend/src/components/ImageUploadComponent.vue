@@ -1,16 +1,16 @@
 <template>
-    <div class="image-upload-component">
+    <div class="image-upload-component tw-my-4">
         <label>
             <strong>{{ heading ?? 'Upload Image' }}</strong>
             <br>
             <small v-if="subtext">
                 <em>{{ subtext }}</em>
             </small>
-            <input type="file" @change="onChange">
+            <input class="tw-hidden" type="file" @change="onChange">
             <div v-if="image !== null">
-                <img class="image hoverable" :src="image">
+                <img :src="image" class="hoverable tw-w-[250px] tw-max-w-full tw-h-auto tw-max-h-full tw-shadow-md tw-rounded-md tw-text-center tw-cursor-pointer">
             </div>
-            <div v-else class="image-placeholder hoverable text-centered">
+            <div v-else class="image-placeholder hoverable tw-rounded-md tw-text-center tw-p-4 tw-shadow-md tw-cursor-pointer">
                 <p>Click to Upload Image</p>
             </div>
         </label>
@@ -57,29 +57,9 @@ const onChange = function (event: Event): void {
 
 <style lang="scss">
 .image-upload-component {
-    margin: 1rem 0;
-
-    .image-container {
-        margin-top: 1rem;
-    }
-
-    .image {
-        width: 250px;
-        max-width: 100%;
-        height: auto;
-        max-height: 250px;
-    }
-
-    input {
-        display: none;
-    }
 
     .hoverable {
-        border-radius: var(--wjb-border-radius);
-        outline: 2px dashed transparent;
         outline: 2px dashed var(--wjb-tertiary);
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
-        cursor: pointer;
 
         &:hover {
             outline-color: transparent;
@@ -88,7 +68,6 @@ const onChange = function (event: Event): void {
 
     .image-placeholder {
         background-color: var(--wjb-background-colour-light);
-        padding: 1rem;
     }
 }
 </style>
