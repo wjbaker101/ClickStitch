@@ -1,5 +1,5 @@
 <template>
-    <footer class="footer-component">
+    <footer class="footer-component tw-text-xs/loose tw-p-2">
         <section>
             <div class="flex gap-small">
                 <div class="flex-auto">Links:</div>
@@ -35,8 +35,6 @@ const lemmyUrl = 'https://sh.itjust.works/u/ClickStitch?page=1&sort=New&view=Pos
 
 <style lang="scss">
 .footer-component {
-    font-size: 0.8rem;
-    padding: 0.5rem;
     color: var(--wjb-text-colour);
 }
 </style>
