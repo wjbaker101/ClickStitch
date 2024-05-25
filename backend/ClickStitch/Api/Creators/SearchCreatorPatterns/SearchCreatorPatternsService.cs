@@ -47,7 +47,7 @@ public sealed class SearchCreatorPatternsService : ISearchCreatorPatternsService
         return new SearchCreatorPatternsResponse
         {
             Patterns = getPatterns.Patterns.ConvertAll(PatternMapper.Map),
-            ProjectReferences = userPatterns.ConvertAll(x => x.Pattern.Reference),
+            ProjectPatternReferences = userPatterns.ConvertAll(x => x.Pattern.Reference),
             Pagination = PaginationModel.Create(pageNumber, pageSize, getPatterns.TotalCount)
         };
     }
