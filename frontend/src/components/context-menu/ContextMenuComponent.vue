@@ -2,7 +2,7 @@
     <div
         ref="contextMenuElement"
         v-if="schema !== null"
-        class="context-menu-component"
+        class="context-menu-component tw-fixed tw-rounded-md tw-shadow-xl tw-opacity-0 tw-pointer-events-none [&.is-visible]:tw-opacity-100 [&.is-visible]:tw-pointer-events-auto"
         :class="{ 'is-visible': isVisible }"
         :style="{
             '--x': position.x,
@@ -72,21 +72,11 @@ useEvent('CloseContextMenu', () => {
 
 <style lang="scss">
 .context-menu-component {
-    position: fixed;
     top: calc(var(--y) * 1px);
     left: calc(var(--x) * 1px);
-    border-radius: var(--wjb-border-radius);
     border: 1px solid var(--wjb-background-colour-dark);
     background-color: var(--wjb-background-colour);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
-    opacity: 0;
-    pointer-events: none;
     transition: opacity 0.1s;
-
-    &.is-visible {
-        opacity: 1;
-        pointer-events: all;
-    }
 
     .header {
         font-weight: bold;
