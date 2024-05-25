@@ -21,7 +21,7 @@
             </CardComponent>
             <PaginatedContentComponent loadingItemName="pattens" :pageSize="10" :logic="loadPatterns">
                 <div class="patterns">
-                    <DisplayPatternComponent v-for="pattern in patterns" :pattern="pattern" />
+                    <DisplayPatternComponent v-for="pattern in patterns" :pattern="pattern" :userHasPattern="doesUserHavePattern(pattern.reference)" />
                 </div>
             </PaginatedContentComponent>
         </div>
@@ -51,6 +51,8 @@ const isLoading = ref<boolean>(false);
 const isPatternsLoading = ref<boolean>(false);
 const patterns = ref<Array<IPattern>>([]);
 
+const projectPatternReferencesForUser = ref<Array<string>>([]);
+
 const loadPatterns = async function (pageNumber: number, pageSize: number): Promise<IPagination | Error> {
     isPatternsLoading.value = true;
     const response = await api.creators.searchPatterns(creatorReference, pageSize, pageNumber);
@@ -60,8 +62,13 @@ const loadPatterns = async function (pageNumber: number, pageSize: number): Prom
         return response;
 
     patterns.value = response.patterns;
+    projectPatternReferencesForUser.value = response.projectPatternReferencesForUser;
 
     return response.pagination;
+};
+
+const doesUserHavePattern = function (patternReference: string): boolean {
+    return projectPatternReferencesForUser.value.some(x => x === patternReference);
 };
 
 onBeforeMount(async () => {

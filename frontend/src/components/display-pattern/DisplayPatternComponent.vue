@@ -35,10 +35,14 @@
             </RouterLink>
         </div>
         <div v-else class="actions flex gap">
-            <ButtonComponent title="Add to Your Dashboard" @click="onAddProject(pattern)">
+            <ButtonComponent v-if="!userHasPattern" title="Add to Your Dashboard" @click="onAddProject(pattern)">
                 <IconComponent icon="plus" gap="right" />
                 <span>Add to Dashboard</span>
             </ButtonComponent>
+            <div class="added" v-else>
+                <IconComponent icon="tick" gap="right" />
+                <span>In your Dashboard</span>
+            </div>
         </div>
     </div>
 </template>
@@ -56,6 +60,7 @@ import type { IProject } from '@/models/Project.model';
 const props = defineProps<{
     pattern: IPattern;
     project?: IProject;
+    userHasPattern: boolean;
 }>();
 
 const popup = usePopup();
@@ -157,6 +162,13 @@ $offset: 1rem;
 
     button {
         width: 100%;
+    }
+
+    .added {
+        padding: 0.5rem;
+        text-align: center;
+        border: 2px dashed var(--wjb-secondary);
+        border-radius: var(--wjb-border-radius);
     }
 }
 </style>

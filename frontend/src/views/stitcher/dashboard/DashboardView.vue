@@ -39,7 +39,7 @@
                 </div>
             </ZeroStateComponent>
             <div v-else class="projects">
-                <DisplayPatternComponent :key="project.pattern.reference" v-for="project in projects" :pattern="project.pattern" :project="project" />
+                <DisplayPatternComponent :key="project.pattern.reference" v-for="project in projects" :pattern="project.pattern" :project="project" :userHasPattern="false" />
             </div>
         </div>
         <div v-if="!isLoading && projects !== null && projects.length > 0" class="floating-action-button">

@@ -23,7 +23,7 @@
                 </section>
                 <section>
                     <div class="patterns">
-                        <DisplayPatternComponent :key="pattern.reference" v-for="pattern in patterns" :pattern="pattern" />
+                        <DisplayPatternComponent :key="pattern.reference" v-for="pattern in patterns" :pattern="pattern" :userHasPattern="false" />
                     </div>
                 </section>
             </template>
