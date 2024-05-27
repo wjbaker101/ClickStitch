@@ -102,8 +102,6 @@ const onLogin = async function () {
 </script>
 
 <style lang="scss">
-@use '@/style/variables' as *;
-
 .login-view {
 
     .content-width {
@@ -117,7 +115,7 @@ const onLogin = async function () {
         background-color: var(--wjb-light);
         border-radius: 50%;
 
-        @include shadow-small();
+        @apply tw-shadow-md;
 
         img {
             max-width: 100%;

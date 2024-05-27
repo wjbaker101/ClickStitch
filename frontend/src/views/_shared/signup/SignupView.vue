@@ -115,8 +115,6 @@ const onSignup = async function () {
 </script>
 
 <style lang="scss">
-@use '@/style/variables' as *;
-
 .signup-view {
 
     .content-width {
@@ -130,7 +128,7 @@ const onSignup = async function () {
         background-color: var(--wjb-light);
         border-radius: 50%;
 
-        @include shadow-small();
+        @apply tw-shadow-md;
 
         img {
             max-width: 100%;

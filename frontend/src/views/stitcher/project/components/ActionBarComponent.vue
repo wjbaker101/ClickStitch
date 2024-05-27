@@ -55,8 +55,6 @@ const onShowModal = function (): void {
 </script>
 
 <style lang="scss">
-@use '@/style/variables' as *;
-
 .action-bar-component {
     inset: 0;
     top: auto;

@@ -319,8 +319,6 @@ const onOpenContextMenu = function (event: MouseEvent): void {
 </script>
 
 <style lang="scss">
-@use '@/style/variables' as *;
-
 .canvas-component {
     position: absolute;
     inset: 0;

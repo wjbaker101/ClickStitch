@@ -94,8 +94,6 @@
 </script>
 
 <style lang="scss">
-@use '@/style/variables' as *;
-
 .about-view {
 
     img {

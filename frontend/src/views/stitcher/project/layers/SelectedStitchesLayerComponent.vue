@@ -30,8 +30,6 @@ const lengthY = computed<number>(() => props.stitchSelectEnd.y - props.stitchSel
 </script>
 
 <style lang="scss">
-@use '@/style/variables' as *;
-
 .selected-stitches-layer-component {
 
     .selected-stitches {
@@ -52,7 +50,7 @@ const lengthY = computed<number>(() => props.stitchSelectEnd.y - props.stitchSel
         background-color: var(--wjb-background-colour);
         border-radius: 50%;
 
-        @include shadow-medium();
+        @apply tw-shadow-md;
     }
 
     .top-axis {

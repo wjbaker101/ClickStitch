@@ -24,8 +24,6 @@ defineProps<{
 </script>
 
 <style lang="scss">
-@use '@/style/variables' as *;
-
 .card-component {
     background-color: var(--wjb-background-colour);
     border-width: 0;

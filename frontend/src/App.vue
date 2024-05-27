@@ -10,7 +10,6 @@ import ContextMenuComponent from './components/context-menu/ContextMenuComponent
 </script>
 
 <style lang="scss">
-@use '@/style/variables' as *;
 @use '@/style/main' as *;
 
 #app {
@@ -40,7 +39,7 @@ input {
     background-color: var(--wjb-background-colour-light);
     color: var(--wjb-text-colour);
 
-    @include shadow-small();
+    @apply tw-shadow-md;
 
     &[type=text] {
         width: 100%;
@@ -81,7 +80,7 @@ select {
     background-color: var(--wjb-background-colour-light);
     color: var(--wjb-text-colour);
 
-    @include shadow-small();
+    @apply tw-shadow-md;
 
     &:focus {
         outline-color: var(--wjb-primary);
@@ -111,7 +110,7 @@ table {
         text-align: left;
         background-color: var(--wjb-background-colour-dark);
 
-        @include shadow-small();
+        @apply tw-shadow-md;
 
         &:first-child {
             border-bottom-left-radius: var(--wjb-border-radius);
@@ -127,7 +126,7 @@ table {
         padding: 0.25rem 0.5rem;
     }
 
-    @include shadow-small();
+    @apply tw-shadow-md;
 
     &.hoverable {
         tbody {

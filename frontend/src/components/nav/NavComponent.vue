@@ -39,8 +39,6 @@ const links = linkFactory.get(subdomain);
 </script>
 
 <style lang="scss">
-@use '@/style/variables' as *;
-
 .nav-component {
     --inset: 0.5rem;
 
@@ -91,7 +89,7 @@ const links = linkFactory.get(subdomain);
         background-color: var(--wjb-light);
         border-radius: 50%;
 
-        @include shadow-small();
+        @apply tw-shadow-md;
 
         img {
             max-width: 100%;
