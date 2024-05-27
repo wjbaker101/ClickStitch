@@ -27,17 +27,17 @@
             </section>
             <section class="numbered text-centered">
                 <CardComponent border="top" padded>
-                    <CardComponent class="number flex align-items-center"></CardComponent>
+                    <CardComponent class="flex number align-items-center"></CardComponent>
                     <h2>Track Progress</h2>
                     <p><em>Highlight completed stitches</em> and view analytics of your progression.</p>
                 </CardComponent>
                 <CardComponent border="top" padded>
-                    <CardComponent class="number flex align-items-center"></CardComponent>
+                    <CardComponent class="flex number align-items-center"></CardComponent>
                     <h2>Manage Inventory</h2>
                     <p><em>Record your floss</em>, make sure you never run out before starting a new project.</p>
                 </CardComponent>
                 <CardComponent border="top" padded>
-                    <CardComponent class="number flex align-items-center"></CardComponent>
+                    <CardComponent class="flex number align-items-center"></CardComponent>
                     <h2>Multi-Device</h2>
                     <p>Patterns are stored in a secure database, so continue <em>stitching whereever you go</em>.</p>
                 </CardComponent>

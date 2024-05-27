@@ -1,5 +1,5 @@
 <template>
-    <div v-if="message" class="user-message-component flex gap-4 items-center my-4 p-4 shadow-md rounded-md bg-danger/80 text-light">
+    <div v-if="message" class="my-4 flex items-center gap-4 rounded-md p-4 shadow-md user-message-component bg-danger/80 text-light">
         <IconComponent class="flex-auto" icon="info" />
         <div>{{ message }}</div>
     </div>

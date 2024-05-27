@@ -1,7 +1,7 @@
 <template>
-    <footer class="footer-component text-xs/loose p-2">
+    <footer class="p-2 footer-component text-xs/loose">
         <section>
-            <div class="    flex gap-small">
+            <div class="flex gap-small">
                 <div class="flex-auto">Links:</div>
                 <div class="flex-auto"><RouterLink class="link-component" to="/dashboard">Dashboard</RouterLink></div>
                 <div class="flex-auto"><RouterLink class="link-component" to="/patterns">Patterns</RouterLink></div>

@@ -13,7 +13,7 @@
                         <input ref="emailInput" type="text" v-model="email" placeholder="my@email.com" @keyup.enter="nextInput('passwordInput')">
                     </label>
                 </p>
-                <p class="passwords-container flex gap">
+                <p class="flex passwords-container gap">
                     <label>
                         <strong>Password</strong>
                         <br>

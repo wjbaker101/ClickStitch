@@ -1,7 +1,7 @@
 <template>
     <nav class="nav-component">
         <div class="flex gap align-items-center">
-            <div class="logo-container flex-auto">
+            <div class="flex-auto logo-container">
                 <img src="@/assets/logo.png">
             </div>
             <strong class="logo-text">ClickStitch</strong>
@@ -9,12 +9,12 @@
         <div class="custom align-items-center">
             <slot></slot>
         </div>
-        <div class="menu text-right">
+        <div class="text-right menu">
             <ButtonComponent class="mini" @click="onToggleMenu">
                 <IconComponent icon="menu" />
             </ButtonComponent>
         </div>
-        <div class="links flex gap flex-auto" :class="{ 'is-menu-open': isMenuOpen }">
+        <div class="flex flex-auto links gap" :class="{ 'is-menu-open': isMenuOpen }">
             <RouterLink class="flex-auto" v-for="link in links.filter(x => x.isVisible)" :to="link.path">
                 <IconComponent :icon="link.iconName" gap="right" />
                 <span>{{ link.title }}</span>

@@ -1,7 +1,7 @@
 <template>
-    <div class="display-pattern-component grid mt-4 ml-4 rounded-b-md shadow-md">
-        <div class="image-container w-[150px] aspect-square relative -top-4 -left-4 -mb-4 shadow-md overflow-hidden isolate" :style="{ '--image': `url(${pattern.bannerImageUrl}` ?? '' }">
-            <img class="w-full h-auto align-middle" :src="pattern.bannerImageUrl ?? ''" :alt="pattern.title">
+    <div class="mt-4 ml-4 grid rounded-b-md shadow-md display-pattern-component">
+        <div class="relative -top-4 -left-4 isolate -mb-4 aspect-square overflow-hidden shadow-md image-container w-[150px]" :style="{ '--image': `url(${pattern.bannerImageUrl}` ?? '' }">
+            <img class="h-auto w-full align-middle" :src="pattern.bannerImageUrl ?? ''" :alt="pattern.title">
         </div>
         <div class="overflow-hidden">
             <h2 class="my-4">{{ pattern.title }}</h2>
@@ -20,26 +20,26 @@
                 </span>
             </div>
         </div>
-        <div v-if="project" class="grid grid-cols-2 gap-4 px-4 pb-4 col-start-1 col-end-3">
+        <div v-if="project" class="col-start-1 col-end-3 grid grid-cols-2 gap-4 px-4 pb-4">
             <RouterLink :to="`/projects/${pattern.reference}`">
-                <ButtonComponent class="primary w-full">
+                <ButtonComponent class="w-full primary">
                     <IconComponent icon="play" gap="right" />
                     <span>Stitch!</span>
                 </ButtonComponent>
             </RouterLink>
             <RouterLink :to="`/projects/${pattern.reference}/analytics`">
-                <ButtonComponent class="secondary w-full">
+                <ButtonComponent class="w-full secondary">
                     <IconComponent icon="activity" gap="right" />
                     <span>Analytics</span>
                 </ButtonComponent>
             </RouterLink>
         </div>
-        <div v-else class="px-4 pb-4 col-start-1 col-end-3">
+        <div v-else class="col-start-1 col-end-3 px-4 pb-4">
             <ButtonComponent class="full" v-if="!userHasPattern" title="Add to Your Dashboard" @click="onAddProject(pattern)">
                 <IconComponent icon="plus" gap="right" />
                 <span>Add to Dashboard</span>
             </ButtonComponent>
-            <div class="added p-2 text-center rounded-md" v-else>
+            <div class="rounded-md p-2 text-center added" v-else>
                 <IconComponent icon="tick" gap="right" />
                 <span>In your Dashboard</span>
             </div>

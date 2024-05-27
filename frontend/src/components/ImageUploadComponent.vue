@@ -1,5 +1,5 @@
 <template>
-    <div class="image-upload-component my-4">
+    <div class="my-4 image-upload-component">
         <label>
             <strong>{{ heading ?? 'Upload Image' }}</strong>
             <br>
@@ -8,9 +8,9 @@
             </small>
             <input class="hidden" type="file" @change="onChange">
             <div v-if="image !== null">
-                <img :src="image" class="hoverable w-[250px] max-w-full h-auto max-h-full shadow-md rounded-md text-center cursor-pointer">
+                <img :src="image" class="h-auto max-h-full max-w-full cursor-pointer rounded-md text-center shadow-md hoverable w-[250px]">
             </div>
-            <div v-else class="image-placeholder hoverable rounded-md text-center p-4 shadow-md cursor-pointer">
+            <div v-else class="cursor-pointer rounded-md p-4 text-center shadow-md image-placeholder hoverable">
                 <p>Click to Upload Image</p>
             </div>
         </label>
