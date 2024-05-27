@@ -5,7 +5,7 @@
         </div>
         <div>
             <h2 class="tw-my-4">{{ pattern.title }}</h2>
-            <div class="description tw-pb-4 tw-text-gray-500">
+            <div class="tw-pb-4 tw-text-gray-500">
                 {{ pattern.width }}&times;{{ pattern.height }}
                 <br>
                 {{ formatNumber(pattern.stitchCount) }} stitches
@@ -20,7 +20,7 @@
                 </span>
             </div>
         </div>
-        <div v-if="project" class="actions flex gap tw-px-4 tw-pb-4">
+        <div v-if="project" class="tw-grid tw-grid-cols-2 tw-gap-4 tw-px-4 tw-pb-4 tw-col-start-1 tw-col-end-3">
             <RouterLink :to="`/projects/${pattern.reference}`">
                 <ButtonComponent class="primary tw-w-full">
                     <IconComponent icon="play" gap="right" />
@@ -34,7 +34,7 @@
                 </ButtonComponent>
             </RouterLink>
         </div>
-        <div v-else class="actions flex gap tw-px-4 tw-pb-4">
+        <div v-else class="tw-px-4 tw-pb-4 tw-col-start-1 tw-col-end-3">
             <ButtonComponent class="tw-w-full" v-if="!userHasPattern" title="Add to Your Dashboard" @click="onAddProject(pattern)">
                 <IconComponent icon="plus" gap="right" />
                 <span>Add to Dashboard</span>
@@ -105,11 +105,6 @@ const onAddProject = async function (pattern: IPattern): Promise<void> {
 
     img {
         background-color: var(--wjb-background-colour);
-    }
-
-    .actions {
-        grid-column-start: 1;
-        grid-column-end: 3;
     }
 
     .created-by {
