@@ -7,6 +7,10 @@ module.exports = {
     ],
     theme: {
         extend: {},
+        colors: {
+            'danger': 'rgb(var(--danger) / <alpha-value>)',
+            'light': 'rgb(var(--light) / <alpha-value>)',
+        },
     },
     plugins: [],
 };
