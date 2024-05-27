@@ -3,7 +3,7 @@
         <div class="image-container tw-w-[150px] tw-aspect-square tw-relative -tw-top-4 -tw-left-4 -tw-mb-4 tw-shadow-md tw-overflow-hidden tw-isolate" :style="{ '--image': `url(${pattern.bannerImageUrl}` ?? '' }">
             <img class="tw-w-full tw-h-auto tw-align-middle" :src="pattern.bannerImageUrl ?? ''" :alt="pattern.title">
         </div>
-        <div>
+        <div class="tw-overflow-hidden">
             <h2 class="tw-my-4">{{ pattern.title }}</h2>
             <div class="tw-pb-4 tw-text-gray-500">
                 {{ pattern.width }}&times;{{ pattern.height }}
