@@ -115,7 +115,7 @@ const onLogin = async function () {
         background-color: var(--wjb-light);
         border-radius: 50%;
 
-        @apply tw-shadow-md;
+        @apply shadow-md;
 
         img {
             max-width: 100%;

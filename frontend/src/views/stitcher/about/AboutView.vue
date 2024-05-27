@@ -4,7 +4,7 @@
             <strong>About</strong>
         </template>
         <div class="content-width">
-            <section class="collapse flex gap align-items-center">
+            <section class="flex collapsable gap align-items-center">
                 <CardComponent border="top" padded>
                     <h3>What is ClickStitch?</h3>
                     <p>ClickStitch is <em>your</em> companion to track and manage your cross-stitching progress!</p>
@@ -107,7 +107,7 @@
         vertical-align: middle;
     }
 
-    .collapse {
+    .collapsable {
         @media screen and (max-width: 1024px) {
             display: block;
 

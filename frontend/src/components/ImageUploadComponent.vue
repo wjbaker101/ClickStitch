@@ -1,16 +1,16 @@
 <template>
-    <div class="image-upload-component tw-my-4">
+    <div class="image-upload-component my-4">
         <label>
             <strong>{{ heading ?? 'Upload Image' }}</strong>
             <br>
             <small v-if="subtext">
                 <em>{{ subtext }}</em>
             </small>
-            <input class="tw-hidden" type="file" @change="onChange">
+            <input class="hidden" type="file" @change="onChange">
             <div v-if="image !== null">
-                <img :src="image" class="hoverable tw-w-[250px] tw-max-w-full tw-h-auto tw-max-h-full tw-shadow-md tw-rounded-md tw-text-center tw-cursor-pointer">
+                <img :src="image" class="hoverable w-[250px] max-w-full h-auto max-h-full shadow-md rounded-md text-center cursor-pointer">
             </div>
-            <div v-else class="image-placeholder hoverable tw-rounded-md tw-text-center tw-p-4 tw-shadow-md tw-cursor-pointer">
+            <div v-else class="image-placeholder hoverable rounded-md text-center p-4 shadow-md cursor-pointer">
                 <p>Click to Upload Image</p>
             </div>
         </label>

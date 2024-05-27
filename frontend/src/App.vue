@@ -39,7 +39,7 @@ input {
     background-color: var(--wjb-background-colour-light);
     color: var(--wjb-text-colour);
 
-    @apply tw-shadow-md;
+    @apply shadow-md;
 
     &[type=text] {
         width: 100%;
@@ -80,7 +80,7 @@ select {
     background-color: var(--wjb-background-colour-light);
     color: var(--wjb-text-colour);
 
-    @apply tw-shadow-md;
+    @apply shadow-md;
 
     &:focus {
         outline-color: var(--wjb-primary);
@@ -110,7 +110,7 @@ table {
         text-align: left;
         background-color: var(--wjb-background-colour-dark);
 
-        @apply tw-shadow-md;
+        @apply shadow-md;
 
         &:first-child {
             border-bottom-left-radius: var(--wjb-border-radius);
@@ -126,7 +126,7 @@ table {
         padding: 0.25rem 0.5rem;
     }
 
-    @apply tw-shadow-md;
+    @apply shadow-md;
 
     &.hoverable {
         tbody {

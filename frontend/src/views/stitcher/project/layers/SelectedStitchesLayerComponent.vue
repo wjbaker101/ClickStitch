@@ -50,7 +50,7 @@ const lengthY = computed<number>(() => props.stitchSelectEnd.y - props.stitchSel
         background-color: var(--wjb-background-colour);
         border-radius: 50%;
 
-        @apply tw-shadow-md;
+        @apply shadow-md;
     }
 
     .top-axis {

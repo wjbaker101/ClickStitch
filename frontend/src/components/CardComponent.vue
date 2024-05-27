@@ -1,6 +1,6 @@
 <template>
     <div
-        class="card-component tw-shadow-xl tw-rounded-md"
+        class="card-component shadow-xl rounded-md"
         :class="{
             [`border-${border}`]: true,
             'is-hoverable': hoverable,

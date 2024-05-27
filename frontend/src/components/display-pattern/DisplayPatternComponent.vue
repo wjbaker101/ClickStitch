@@ -1,45 +1,45 @@
 <template>
-    <div class="display-pattern-component tw-grid tw-mt-4 tw-ml-4 tw-rounded-b-md tw-shadow-md">
-        <div class="image-container tw-w-[150px] tw-aspect-square tw-relative -tw-top-4 -tw-left-4 -tw-mb-4 tw-shadow-md tw-overflow-hidden tw-isolate" :style="{ '--image': `url(${pattern.bannerImageUrl}` ?? '' }">
-            <img class="tw-w-full tw-h-auto tw-align-middle" :src="pattern.bannerImageUrl ?? ''" :alt="pattern.title">
+    <div class="display-pattern-component grid mt-4 ml-4 rounded-b-md shadow-md">
+        <div class="image-container w-[150px] aspect-square relative -top-4 -left-4 -mb-4 shadow-md overflow-hidden isolate" :style="{ '--image': `url(${pattern.bannerImageUrl}` ?? '' }">
+            <img class="w-full h-auto align-middle" :src="pattern.bannerImageUrl ?? ''" :alt="pattern.title">
         </div>
-        <div class="tw-overflow-hidden">
-            <h2 class="tw-my-4">{{ pattern.title }}</h2>
-            <div class="tw-pb-4 tw-text-gray-500">
+        <div class="overflow-hidden">
+            <h2 class="my-4">{{ pattern.title }}</h2>
+            <div class="pb-4 text-gray-500">
                 {{ pattern.width }}&times;{{ pattern.height }}
                 <br>
                 {{ formatNumber(pattern.stitchCount) }} stitches
                 <br>
                 <RouterLink v-if="pattern.creator !== null" class="created-by" :to="`/creators/${pattern.creator.reference}`">
                     <IconComponent icon="user" gap="right" />
-                    <span class="tw-underline hover:tw-no-underline">{{ pattern.creator?.name ?? 'You' }}</span>
+                    <span class="underline hover:no-underline">{{ pattern.creator?.name ?? 'You' }}</span>
                 </RouterLink>
                 <span v-else class="created-by">
                     <IconComponent icon="user" gap="right" />
-                    <span class="tw-align-middle">You</span>
+                    <span class="align-middle">You</span>
                 </span>
             </div>
         </div>
-        <div v-if="project" class="tw-grid tw-grid-cols-2 tw-gap-4 tw-px-4 tw-pb-4 tw-col-start-1 tw-col-end-3">
+        <div v-if="project" class="grid grid-cols-2 gap-4 px-4 pb-4 col-start-1 col-end-3">
             <RouterLink :to="`/projects/${pattern.reference}`">
-                <ButtonComponent class="primary tw-w-full">
+                <ButtonComponent class="primary w-full">
                     <IconComponent icon="play" gap="right" />
                     <span>Stitch!</span>
                 </ButtonComponent>
             </RouterLink>
             <RouterLink :to="`/projects/${pattern.reference}/analytics`">
-                <ButtonComponent class="secondary tw-w-full">
+                <ButtonComponent class="secondary w-full">
                     <IconComponent icon="activity" gap="right" />
                     <span>Analytics</span>
                 </ButtonComponent>
             </RouterLink>
         </div>
-        <div v-else class="tw-px-4 tw-pb-4 tw-col-start-1 tw-col-end-3">
-            <ButtonComponent class="tw-w-full" v-if="!userHasPattern" title="Add to Your Dashboard" @click="onAddProject(pattern)">
+        <div v-else class="px-4 pb-4 col-start-1 col-end-3">
+            <ButtonComponent class="full" v-if="!userHasPattern" title="Add to Your Dashboard" @click="onAddProject(pattern)">
                 <IconComponent icon="plus" gap="right" />
                 <span>Add to Dashboard</span>
             </ButtonComponent>
-            <div class="added tw-p-2 tw-text-center tw-rounded-md" v-else>
+            <div class="added p-2 text-center rounded-md" v-else>
                 <IconComponent icon="tick" gap="right" />
                 <span>In your Dashboard</span>
             </div>

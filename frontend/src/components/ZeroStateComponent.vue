@@ -1,5 +1,5 @@
 <template>
-    <div class="tw-text-center">
+    <div class="text-center">
         <IconComponent :icon="icon" size="huge" />
         <slot></slot>
     </div>

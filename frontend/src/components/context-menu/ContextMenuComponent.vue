@@ -2,7 +2,7 @@
     <div
         ref="contextMenuElement"
         v-if="schema !== null"
-        class="context-menu-component tw-fixed tw-rounded-md tw-shadow-xl tw-opacity-0 tw-pointer-events-none [&.is-visible]:tw-opacity-100 [&.is-visible]:tw-pointer-events-auto"
+        class="context-menu-component fixed rounded-md shadow-xl opacity-0 pointer-events-none [&.is-visible]:opacity-100 [&.is-visible]:pointer-events-auto"
         :class="{ 'is-visible': isVisible }"
         :style="{
             '--x': position.x,
