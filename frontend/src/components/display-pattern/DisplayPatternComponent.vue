@@ -21,13 +21,13 @@
             </div>
         </div>
         <div v-if="project" class="actions flex gap tw-px-4 tw-pb-4">
-            <RouterLink :to="`/projects/${pattern.reference}`" @click.stop="">
+            <RouterLink :to="`/projects/${pattern.reference}`">
                 <ButtonComponent class="primary tw-w-full">
                     <IconComponent icon="play" gap="right" />
                     <span>Stitch!</span>
                 </ButtonComponent>
             </RouterLink>
-            <RouterLink :to="`/projects/${pattern.reference}/analytics`" @click.stop="">
+            <RouterLink :to="`/projects/${pattern.reference}/analytics`">
                 <ButtonComponent class="secondary tw-w-full">
                     <IconComponent icon="activity" gap="right" />
                     <span>Analytics</span>
