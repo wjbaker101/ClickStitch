@@ -1,45 +1,45 @@
 <template>
-    <div class="display-pattern-component">
-        <div class="image-container" :style="{ '--image': `url(${pattern.bannerImageUrl}` ?? '' }">
-            <img :src="pattern.bannerImageUrl ?? ''" :alt="pattern.title">
+    <div class="display-pattern-component tw-grid tw-mt-4 tw-ml-4 tw-rounded-b-md tw-shadow-md">
+        <div class="image-container tw-w-[150px] tw-aspect-square tw-relative -tw-top-4 -tw-left-4 -tw-mb-4 tw-shadow-md tw-overflow-hidden tw-isolate" :style="{ '--image': `url(${pattern.bannerImageUrl}` ?? '' }">
+            <img class="tw-w-full tw-h-auto tw-align-middle" :src="pattern.bannerImageUrl ?? ''" :alt="pattern.title">
         </div>
         <div>
-            <h2>{{ pattern.title }}</h2>
-            <div class="description">
+            <h2 class="tw-my-4">{{ pattern.title }}</h2>
+            <div class="description tw-pb-4 tw-text-gray-500">
                 {{ pattern.width }}&times;{{ pattern.height }}
                 <br>
                 {{ formatNumber(pattern.stitchCount) }} stitches
                 <br>
                 <RouterLink v-if="pattern.creator !== null" class="created-by" :to="`/creators/${pattern.creator.reference}`">
                     <IconComponent icon="user" gap="right" />
-                    <span class="created-by-text">{{ pattern.creator?.name ?? 'You' }}</span>
+                    <span class="tw-underline hover:tw-no-underline">{{ pattern.creator?.name ?? 'You' }}</span>
                 </RouterLink>
                 <span v-else class="created-by">
                     <IconComponent icon="user" gap="right" />
-                    <span class="created-by-text">You</span>
+                    <span class="tw-align-middle">You</span>
                 </span>
             </div>
         </div>
-        <div v-if="project" class="actions flex gap">
+        <div v-if="project" class="actions flex gap tw-px-4 tw-pb-4">
             <RouterLink :to="`/projects/${pattern.reference}`" @click.stop="">
-                <ButtonComponent class="primary">
+                <ButtonComponent class="primary tw-w-full">
                     <IconComponent icon="play" gap="right" />
                     <span>Stitch!</span>
                 </ButtonComponent>
             </RouterLink>
             <RouterLink :to="`/projects/${pattern.reference}/analytics`" @click.stop="">
-                <ButtonComponent class="secondary">
+                <ButtonComponent class="secondary tw-w-full">
                     <IconComponent icon="activity" gap="right" />
                     <span>Analytics</span>
                 </ButtonComponent>
             </RouterLink>
         </div>
-        <div v-else class="actions flex gap">
-            <ButtonComponent v-if="!userHasPattern" title="Add to Your Dashboard" @click="onAddProject(pattern)">
+        <div v-else class="actions flex gap tw-px-4 tw-pb-4">
+            <ButtonComponent class="tw-w-full" v-if="!userHasPattern" title="Add to Your Dashboard" @click="onAddProject(pattern)">
                 <IconComponent icon="plus" gap="right" />
                 <span>Add to Dashboard</span>
             </ButtonComponent>
-            <div class="added" v-else>
+            <div class="added tw-p-2 tw-text-center tw-rounded-md" v-else>
                 <IconComponent icon="tick" gap="right" />
                 <span>In your Dashboard</span>
             </div>
@@ -79,33 +79,16 @@ const onAddProject = async function (pattern: IPattern): Promise<void> {
 </script>
 
 <style lang="scss">
-$offset: 1rem;
-
 .display-pattern-component {
-    display: grid;
     grid-template-columns: auto 1fr;
     grid-template-rows: 1fr auto;
-    margin-top: $offset;
-    margin-left: $offset;
-    border-bottom-left-radius: var(--wjb-border-radius);
-    border-bottom-right-radius: var(--wjb-border-radius);
     background-color: var(--wjb-background-colour);
     border-top: 2px solid var(--wjb-primary);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
 
     .image-container {
-        width: 150px;
-        aspect-ratio: 1;
-        position: relative;
-        top: -$offset;
-        left: -$offset;
-        margin-bottom: -$offset;
         line-height: 150px;
         border-radius: var(--wjb-border-radius);
         background-color: var(--wjb-background-colour);
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
-        overflow: hidden;
-        isolation: isolate;
 
         &::before {
             content: '';
@@ -120,55 +103,21 @@ $offset: 1rem;
         }
     }
 
-    h2 {
-        margin: 1rem 0;
-    }
-
     img {
-        max-width: 100%;
-        height: auto;
-        vertical-align: middle;
         background-color: var(--wjb-background-colour);
     }
 
     .actions {
-        padding: 0 1rem 1rem 1rem;
         grid-column-start: 1;
         grid-column-end: 3;
-    }
-
-    .description {
-        color: #777;
-        padding-bottom: 1rem;
     }
 
     .created-by {
         color: var(--wjb-text-colour);
     }
 
-    a.created-by {
-        text-decoration: underline;
-
-        &:hover {
-            text-decoration: none;
-        }
-    }
-
-    span.created-by {
-        .created-by-text {
-            vertical-align: middle;
-        }
-    }
-
-    button {
-        width: 100%;
-    }
-
     .added {
-        padding: 0.5rem;
-        text-align: center;
         border: 2px dashed var(--wjb-secondary);
-        border-radius: var(--wjb-border-radius);
     }
 }
 </style>
