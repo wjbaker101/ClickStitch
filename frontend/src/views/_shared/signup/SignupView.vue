@@ -1,23 +1,21 @@
 <template>
     <ViewComponent class="signup-view" hide-nav>
-        <div class="content-width">
+        <div class="mx-auto px-4 max-w-[720px]">
             <small>
                 <RouterLink to="/login"><IconComponent icon="arrow-left" gap="right" />Return to login</RouterLink>
             </small>
             <ContentCardComponent>
                 <h2><IconComponent icon="user" size="large" gap="right" />Sign up</h2>
-                <p>
-                    <label>
-                        <strong>Email</strong>
-                        <br>
-                        <input ref="emailInput" type="text" v-model="email" placeholder="my@email.com" @keyup.enter="nextInput('passwordInput')">
-                    </label>
-                </p>
-                <p class="flex passwords-container gap">
+                <label>
+                    <strong>Email</strong>
+                    <br>
+                    <input ref="emailInput" type="text" v-model="email" placeholder="my@email.com" @keyup.enter="nextInput('passwordInput')" class="w-full">
+                </label>
+                <div class="my-4 grid gap-4 md:grid-cols-2">
                     <label>
                         <strong>Password</strong>
                         <br>
-                        <input ref="passwordInput" type="password" v-model="password" placeholder="Password" @keyup.enter="nextInput('confirmPasswordInput')">
+                        <input ref="passwordInput" type="password" v-model="password" placeholder="Password" @keyup.enter="nextInput('confirmPasswordInput')" class="w-full">
                     </label>
                     <label class="confirm-password">
                         <strong>Confirm Password</strong>
@@ -28,9 +26,10 @@
                             v-model="confirmPassword"
                             placeholder="Confirm Password"
                             @keyup.enter="nextInput('emailInput')"
+                            class="w-full"
                         >
                     </label>
-                </p>
+                </div>
                 <UserMessageComponent ref="userMessageComponent" />
                 <ButtonComponent class="tertiary" @click="onSignup" :loading="isLoading">Sign Up</ButtonComponent>
             </ContentCardComponent>
@@ -115,39 +114,4 @@ const onSignup = async function () {
 </script>
 
 <style lang="scss">
-.signup-view {
-
-    .content-width {
-        max-width: 720px;
-    }
-
-    .logo-container {
-        width: 40px;
-        height: 40px;
-        padding: 0.25rem;
-        background-color: var(--wjb-light);
-        border-radius: 50%;
-
-        @apply shadow-md;
-
-        img {
-            max-width: 100%;
-        }
-    }
-
-    .passwords-container {
-        @media screen and (max-width: 720px) {
-            display: block;
-
-            .confirm-password {
-                display: block;
-                margin-top: 1rem;
-            }
-        }
-    }
-
-    input {
-        width: 100%;
-    }
-}
 </style>
