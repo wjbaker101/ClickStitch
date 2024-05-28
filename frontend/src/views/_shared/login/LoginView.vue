@@ -7,7 +7,7 @@
                     <strong>Email</strong>
                     <input ref="emailInput" type="text" v-model="email" placeholder="Email" @keyup.enter="nextInput('passwordInput')" class="w-full">
                 </label>
-                <label class="block my-4">
+                <label class="my-4 block">
                     <strong>Password</strong>
                     <br>
                     <input ref="passwordInput" type="password" v-model="password" placeholder="Password" @keyup.enter="nextInput('emailInput')" class="w-full">
