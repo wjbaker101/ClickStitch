@@ -27,17 +27,17 @@
             </section>
             <section class="my-24 grid gap-12 text-center number-list md:grid-cols-3">
                 <CardComponent border="top" padded class="relative">
-                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-solid p-4 font-bold number size-16 bg-background text-3xl/none text-secondary border-primary"></div>
+                    <NumberComponent />
                     <h2>Track Progress</h2>
                     <p><em>Highlight completed stitches</em> and view analytics of your progression.</p>
                 </CardComponent>
                 <CardComponent border="top" padded class="relative">
-                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-solid p-4 font-bold number size-16 bg-background text-3xl/none text-secondary border-primary"></div>
+                    <NumberComponent />
                     <h2>Manage Inventory</h2>
                     <p><em>Record your floss</em>, make sure you never run out before starting a new project.</p>
                 </CardComponent>
                 <CardComponent border="top" padded class="relative">
-                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-solid p-4 font-bold number size-16 bg-background text-3xl/none text-secondary border-primary"></div>
+                    <NumberComponent />
                     <h2>Multi-Device</h2>
                     <p>Patterns are stored in a secure database, so continue <em>stitching whereever you go</em>.</p>
                 </CardComponent>
@@ -91,6 +91,7 @@
 </template>
 
 <script setup lang="ts">
+import NumberComponent from '@/views/stitcher/about/components/NumberComponent.vue';
 </script>
 
 <style lang="scss">
