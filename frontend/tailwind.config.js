@@ -3,7 +3,6 @@ module.exports = {
     corePlugins: {
         preflight: false,
     },
-    prefix: '',
     content: [
         './index.html',
         './src/**/*.{vue,ts}',
