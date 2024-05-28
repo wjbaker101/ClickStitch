@@ -31,11 +31,11 @@
                             </FormComponent>
                         </section>
                         <section>
-                            <p v-if="inventoryThreads.length === 0" class="text-centered">
+                            <p v-if="inventoryThreads.length === 0" class="text-center">
                                 Enter a thread code above and select how many you have.
                             </p>
                             <ThreadItemComponent :key="thread.thread.reference" v-for="thread in inventoryThreads" :thread="thread" @update="onThreadUpdate" />
-                            <p v-if="availableThreads.length > 0" class="text-centered">
+                            <p v-if="availableThreads.length > 0" class="text-center">
                                 Looking for something else?
                             </p>
                             <ThreadItemComponent :key="thread.thread.reference" v-for="thread in availableThreads" :thread="thread" @update="onThreadUpdate" />
