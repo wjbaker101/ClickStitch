@@ -105,14 +105,4 @@ onMounted(async () => {
 </script>
 
 <style lang="scss">
-.inventory-view {
-
-    .thread-image {
-        width: 4rem;
-        aspect-ratio: 1;
-        border-radius: 50%;
-        vertical-align: middle;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
-    }
-}
 </style>
