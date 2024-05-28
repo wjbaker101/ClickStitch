@@ -22,7 +22,7 @@
                     </CardComponent>
                 </section>
                 <section>
-                    <div class="patterns">
+                    <div class="grid gap-4 patterns">
                         <DisplayPatternComponent :key="pattern.reference" v-for="pattern in patterns" :pattern="pattern" :userHasPattern="false" />
                     </div>
                 </section>
@@ -67,8 +67,6 @@ onMounted(async () => {
 .patterns-view {
 
     .patterns {
-        display: grid;
-        gap: 1rem;
         grid-template-columns: repeat(auto-fill, minmax(min(370px, 100%), 1fr));
     }
 }
