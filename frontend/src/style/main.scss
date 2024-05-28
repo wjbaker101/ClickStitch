@@ -9,8 +9,13 @@
     @include setup-variables();
 
     --primary: 34 146 127;
+    --secondary: 127 34 146;
+
     --danger: 185 28 28;
-    --light: 241 245 249;
+    --light: 236 236 236;
+    --dark: 34 34 38;
+
+    --background: var(--light);
 
     --wjb-white: #f8f8f8;
     --wjb-black: #141416;
@@ -36,6 +41,8 @@
     --stitched-background-image: url(@/assets/bg-light.png);
 
     @media (prefers-color-scheme: dark) {
+        --background: var(--dark);
+
         --wjb-background-colour: var(--wjb-dark);
         --wjb-background-colour-dark: color-mix(in srgb, var(--wjb-background-colour) 80%, #000);
 

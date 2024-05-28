@@ -4,7 +4,7 @@
             <strong>About</strong>
         </template>
         <div class="content-width">
-            <section class="flex collapsable gap align-items-center">
+            <section class="grid items-center gap-4 md:grid-cols-[1fr_2fr]">
                 <CardComponent border="top" padded>
                     <h3>What is ClickStitch?</h3>
                     <p>ClickStitch is <em>your</em> companion to track and manage your cross-stitching progress!</p>
@@ -15,29 +15,29 @@
                         <li>Mark stitches as complete</li>
                         <li>Check your analytics!</li>
                     </ol>
-                    <div class="text-centered">
+                    <div class="text-center">
                         <RouterLink to="/dashboard">
                             <ButtonComponent>Start Stitching!</ButtonComponent>
                         </RouterLink>
                     </div>
                 </CardComponent>
-                <div class="flex-2">
-                    <img src="@/assets/clickstitch-on-devices.png">
+                <div class="text-center">
+                    <img src="@/assets/clickstitch-on-devices.png" class="h-auto max-w-full">
                 </div>
             </section>
-            <section class="numbered text-centered">
-                <CardComponent border="top" padded>
-                    <CardComponent class="flex number align-items-center"></CardComponent>
+            <section class="my-24 grid gap-12 text-center number-list md:grid-cols-3">
+                <CardComponent border="top" padded class="relative">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-solid p-4 font-bold number size-16 bg-background text-3xl/none text-secondary border-primary"></div>
                     <h2>Track Progress</h2>
                     <p><em>Highlight completed stitches</em> and view analytics of your progression.</p>
                 </CardComponent>
-                <CardComponent border="top" padded>
-                    <CardComponent class="flex number align-items-center"></CardComponent>
+                <CardComponent border="top" padded class="relative">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-solid p-4 font-bold number size-16 bg-background text-3xl/none text-secondary border-primary"></div>
                     <h2>Manage Inventory</h2>
                     <p><em>Record your floss</em>, make sure you never run out before starting a new project.</p>
                 </CardComponent>
-                <CardComponent border="top" padded>
-                    <CardComponent class="flex number align-items-center"></CardComponent>
+                <CardComponent border="top" padded class="relative">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-solid p-4 font-bold number size-16 bg-background text-3xl/none text-secondary border-primary"></div>
                     <h2>Multi-Device</h2>
                     <p>Patterns are stored in a secure database, so continue <em>stitching whereever you go</em>.</p>
                 </CardComponent>
@@ -79,7 +79,7 @@
                     </em>
                     <p>Any bugs or suggestions, please feel free to contact me! Links can be found in the footer ⭣.</p>
                     <p>Thanks for your time, happy stitching! ❤️</p>
-                    <div class="text-centered">
+                    <div class="text-center">
                         <RouterLink to="/dashboard">
                             <ButtonComponent>Start Stitching!</ButtonComponent>
                         </RouterLink>
@@ -96,55 +96,11 @@
 <style lang="scss">
 .about-view {
 
-    img {
-        max-width: 100%;
-        height: auto;
-    }
-
-    .video {
-        max-width: 100%;
-        border-radius: var(--wjb-border-radius);
-        vertical-align: middle;
-    }
-
-    .collapsable {
-        @media screen and (max-width: 1024px) {
-            display: block;
-
-            & > :first-child {
-                margin-bottom: 1rem;
-            }
-        }
-    }
-
-    .numbered {
-        margin: 6rem 0;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        justify-items: stretch;
-        gap: 3rem;
+    .number-list {
         counter-reset: index;
-
-        & > * {
-            position: relative;
-        }
     }
 
     .number {
-        width: 4rem;
-        position: absolute;
-        padding: 1rem;
-        top: 0;
-        left: 50%;
-        translate: -50% -50%;
-        aspect-ratio: 1;
-        border-radius: 50%;
-        justify-content: center;
-        font-weight: bold;
-        font-size: 2rem;
-        color: var(--wjb-secondary);
-        border: 2px solid var(--wjb-primary);
-
         &::before {
             counter-increment: index;
             content: counter(index);
