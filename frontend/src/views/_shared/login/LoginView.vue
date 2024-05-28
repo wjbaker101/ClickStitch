@@ -1,22 +1,17 @@
 <template>
     <ViewComponent class="login-view" hide-nav>
-        <div class="content-width">
+        <div class="mx-auto py-4 max-w-[720px]">
             <ContentCardComponent>
                 <h2><IconComponent icon="user" size="large" gap="right" />Log In</h2>
-                <p>
-                    <label>
-                        <strong>Email</strong>
-                        <br>
-                        <input ref="emailInput" type="text" v-model="email" placeholder="Email" @keyup.enter="nextInput('passwordInput')">
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <strong>Password</strong>
-                        <br>
-                        <input ref="passwordInput" type="password" v-model="password" placeholder="Password" @keyup.enter="nextInput('emailInput')">
-                    </label>
-                </p>
+                <label>
+                    <strong>Email</strong>
+                    <input ref="emailInput" type="text" v-model="email" placeholder="Email" @keyup.enter="nextInput('passwordInput')" class="w-full">
+                </label>
+                <label class="block my-4">
+                    <strong>Password</strong>
+                    <br>
+                    <input ref="passwordInput" type="password" v-model="password" placeholder="Password" @keyup.enter="nextInput('emailInput')" class="w-full">
+                </label>
                 <UserMessageComponent ref="userMessageComponent" />
                 <ButtonComponent class="tertiary" @click="onLogin" :loading="isLoading">Log In</ButtonComponent>
                 <p>
@@ -102,28 +97,4 @@ const onLogin = async function () {
 </script>
 
 <style lang="scss">
-.login-view {
-
-    .content-width {
-        max-width: 720px;
-    }
-
-    .logo-container {
-        width: 40px;
-        height: 40px;
-        padding: 0.25rem;
-        background-color: var(--wjb-light);
-        border-radius: 50%;
-
-        @apply shadow-md;
-
-        img {
-            max-width: 100%;
-        }
-    }
-
-    input {
-        width: 100%;
-    }
-}
 </style>
