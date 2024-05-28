@@ -92,11 +92,4 @@ onMounted(async () => {
 </script>
 
 <style lang="scss">
-.settings-view {
-
-    .creator-name {
-        width: 350px;
-        max-width: 100%;
-    }
-}
 </style>
