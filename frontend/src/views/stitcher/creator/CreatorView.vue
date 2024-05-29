@@ -25,7 +25,7 @@
                 </div>
             </CardComponent>
             <PaginatedContentComponent loadingItemName="pattens" :pageSize="10" :logic="loadPatterns">
-                <div class="patterns">
+                <div class="grid gap-12 grid-cols-for-patterns">
                     <DisplayPatternComponent v-for="pattern in patterns" :pattern="pattern" :userHasPattern="doesUserHavePattern(pattern.reference)" />
                 </div>
             </PaginatedContentComponent>
@@ -98,12 +98,6 @@ onBeforeMount(async () => {
 
     .creator-title {
         margin: 0;
-    }
-
-    .patterns {
-        display: grid;
-        gap: 3rem;
-        grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
     }
 
     .total-count {

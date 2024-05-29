@@ -20,6 +20,10 @@ module.exports = {
 
                 'background': 'rgb(var(--background) / <alpha-value>)',
             },
+
+            gridTemplateColumns: {
+                'for-patterns': 'repeat(auto-fill, minmax(min(350px, 100%), 1fr))',
+            },
         },
     },
     plugins: [],

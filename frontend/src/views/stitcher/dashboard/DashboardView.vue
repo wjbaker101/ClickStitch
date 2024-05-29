@@ -13,7 +13,7 @@
                 <h2>No projects yet!</h2>
                 <div class="new-project-options">
                     <CardComponent padded border="top">
-                        <CardComponent class="number flex align-items-center"></CardComponent>
+                        <CardComponent class="flex number align-items-center"></CardComponent>
                         <div class="flex-auto">
                             <p>Upload your first pattern now!</p>
                             <RouterLink to="/patterns/new">
@@ -25,7 +25,7 @@
                         </div>
                     </CardComponent>
                     <CardComponent padded border="top">
-                        <CardComponent class="number flex align-items-center"></CardComponent>
+                        <CardComponent class="flex number align-items-center"></CardComponent>
                         <div class="flex-auto">
                             <p>Looking for inspiration?</p>
                             <RouterLink to="/patterns">
@@ -38,7 +38,7 @@
                     </CardComponent>
                 </div>
             </ZeroStateComponent>
-            <div v-else class="projects">
+            <div v-else class="grid gap-12 grid-cols-for-patterns">
                 <DisplayPatternComponent :key="project.pattern.reference" v-for="project in projects" :pattern="project.pattern" :project="project" :userHasPattern="false" />
             </div>
         </div>
@@ -121,12 +121,6 @@ onMounted(async () => {
             counter-increment: index;
             content: counter(index);
         }
-    }
-
-    .projects {
-        display: grid;
-        gap: 3rem;
-        grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
     }
 
     .floating-action-button {
