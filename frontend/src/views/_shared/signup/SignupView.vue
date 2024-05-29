@@ -31,7 +31,7 @@
                     </label>
                 </div>
                 <UserMessageComponent ref="userMessageComponent" />
-                <ButtonComponent class="tertiary" @click="onSignup" :loading="isLoading">Sign Up</ButtonComponent>
+                <BtnComponent @click="onSignup" :loading="isLoading" type="secondary">Sign Up</BtnComponent>
             </ContentCardComponent>
         </div>
     </ViewComponent>
@@ -41,6 +41,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+import BtnComponent from '@/components/BtnComponent.vue';
 import ContentCardComponent from '@/views/_shared/login/components/ContentCardComponent.vue';
 import UserMessageComponent from '@/components/UserMessageComponent.vue';
 
