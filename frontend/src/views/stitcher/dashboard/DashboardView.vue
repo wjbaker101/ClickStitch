@@ -82,20 +82,4 @@ onMounted(async () => {
 </script>
 
 <style lang="scss">
-.dashboard-view {
-
-    .new-project-options {
-        max-width: 720px;
-        margin: 4rem auto 0 auto;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        justify-items: stretch;
-        gap: 3rem;
-        counter-reset: index;
-
-        & > * {
-            position: relative;
-        }
-    }
-}
 </style>
