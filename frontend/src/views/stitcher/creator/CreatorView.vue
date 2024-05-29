@@ -5,23 +5,22 @@
         </template>
         <LoadingComponent v-if="isLoading" itemName="creator" />
         <div v-else-if="creator !== null" class="content-width">
-            <CardComponent border="top" padded class="flex gap align-items-center">
+            <CardComponent border="top" padded class="grid grid-flow-col place-content-between items-center gap-4">
                 <div>
-                    <h2 class="creator-title">
+                    <h2 class="m-0">
                         <IconComponent icon="user" size="large" gap="right" />
-                        <span class="name">{{ creator.name }}</span>
+                        <span class="align-middle">{{ creator.name }}</span>
                     </h2>
-                    <p>
-                        Creator since: {{ creator.createdAt.format('MMMM YYYY') }}
-                    </p>
+                    <p>Creator since: {{ creator.createdAt.format('MMMM YYYY') }}</p>
                     <LinkComponent :href="creator.storeUrl">
                         <ButtonComponent>
                             Visit their Shop!
                         </ButtonComponent>
                     </LinkComponent>
                 </div>
-                <div class="flex-auto">
-                    <div class="total-count">{{ totalPatternCount }}</div> patterns
+                <div>
+                    <div class="mr-1 inline-block rounded-full p-2 text-center shadow-md size-10 bg-secondary text-light">{{ totalPatternCount }}</div>
+                    patterns
                 </div>
             </CardComponent>
             <PaginatedContentComponent loadingItemName="pattens" :pageSize="10" :logic="loadPatterns">
@@ -90,27 +89,4 @@ onBeforeMount(async () => {
 </script>
 
 <style lang="scss">
-.creator-view {
-
-    .name {
-        vertical-align: middle;
-    }
-
-    .creator-title {
-        margin: 0;
-    }
-
-    .total-count {
-        width: 2.5rem;
-        aspect-ratio: 1;
-        display: inline-block;
-        padding: 0.5rem;
-        margin-right: 0.25rem;
-        background-color: var(--wjb-secondary);
-        border-radius: 50%;
-        color: var(--wjb-light);
-        text-align: center;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
-    }
-}
 </style>
