@@ -13,9 +13,14 @@
                     <input ref="passwordInput" type="password" v-model="password" placeholder="Password" @keyup.enter="nextInput('emailInput')" class="w-full">
                 </label>
                 <UserMessageComponent ref="userMessageComponent" />
-                <ButtonComponent class="tertiary" @click="onLogin" :loading="isLoading">Log In</ButtonComponent>
+                <BtnComponent @click="onLogin" :loading="isLoading" type="secondary">
+                    Log In
+                </BtnComponent>
                 <p>
-                    Don't have an account? <RouterLink to="/signup"><ButtonComponent class="mini">Sign Up</ButtonComponent></RouterLink>
+                    Don't have an account?
+                    <RouterLink to="/signup">
+                        <BtnComponent>Sign Up</BtnComponent>
+                    </RouterLink>
                 </p>
             </ContentCardComponent>
         </div>
@@ -26,6 +31,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+import BtnComponent from '@/components/BtnComponent.vue';
 import ContentCardComponent from '@/views/_shared/login/components/ContentCardComponent.vue';
 import UserMessageComponent from '@/components/UserMessageComponent.vue';
 
