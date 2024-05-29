@@ -25,23 +25,20 @@
                     <img src="@/assets/clickstitch-on-devices.png" class="h-auto max-w-full">
                 </div>
             </section>
-            <section class="my-24 grid gap-12 text-center number-list md:grid-cols-3">
-                <CardComponent border="top" padded class="relative">
-                    <NumberComponent />
+            <NumberedSectionComponent class="my-24 text-center">
+                <NumberedCardComponent>
                     <h2>Track Progress</h2>
                     <p><em>Highlight completed stitches</em> and view analytics of your progression.</p>
-                </CardComponent>
-                <CardComponent border="top" padded class="relative">
-                    <NumberComponent />
+                </NumberedCardComponent>
+                <NumberedCardComponent>
                     <h2>Manage Inventory</h2>
                     <p><em>Record your floss</em>, make sure you never run out before starting a new project.</p>
-                </CardComponent>
-                <CardComponent border="top" padded class="relative">
-                    <NumberComponent />
+                </NumberedCardComponent>
+                <NumberedCardComponent>
                     <h2>Multi-Device</h2>
                     <p>Patterns are stored in a secure database, so continue <em>stitching whereever you go</em>.</p>
-                </CardComponent>
-            </section>
+                </NumberedCardComponent>
+            </NumberedSectionComponent>
             <section class="flex gap">
                 <CardComponent border="top" padded>
                     <h3>How do I track progress?</h3>
@@ -91,21 +88,9 @@
 </template>
 
 <script setup lang="ts">
-import NumberComponent from '@/views/stitcher/about/components/NumberComponent.vue';
+import NumberedSectionComponent from '@/components/numbered-card/NumberedSectionComponent.vue';
+import NumberedCardComponent from '@/components/numbered-card/NumberedCardComponent.vue';
 </script>
 
 <style lang="scss">
-.about-view {
-
-    .number-list {
-        counter-reset: index;
-    }
-
-    .number {
-        &::before {
-            counter-increment: index;
-            content: counter(index);
-        }
-    }
-}
 </style>
