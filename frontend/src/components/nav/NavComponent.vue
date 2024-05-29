@@ -10,9 +10,9 @@
             <slot></slot>
         </div>
         <div class="text-right menu">
-            <ButtonComponent class="mini" @click="onToggleMenu">
+            <BtnComponent class="-m-2" @click="onToggleMenu">
                 <IconComponent icon="menu" />
-            </ButtonComponent>
+            </BtnComponent>
         </div>
         <div class="flex flex-auto links gap" :class="{ 'is-menu-open': isMenuOpen }">
             <RouterLink class="flex-auto" v-for="link in links.filter(x => x.isVisible)" :to="link.path">
@@ -25,6 +25,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+
+import BtnComponent from '@/components/BtnComponent.vue';
 
 import { linkFactory } from './link-factory';
 import { subdomain } from '@/setup/router/router-helper';
