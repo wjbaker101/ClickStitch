@@ -22,16 +22,16 @@
         </div>
         <div v-if="project" class="col-start-1 col-end-3 grid grid-cols-2 gap-4 px-4 pb-4">
             <RouterLink :to="`/projects/${pattern.reference}`">
-                <ButtonComponent class="w-full primary">
+                <BtnComponent class="w-full primary">
                     <IconComponent icon="play" gap="right" />
-                    <span>Stitch!</span>
-                </ButtonComponent>
+                    <span class="align-middle">Stitch!</span>
+                </BtnComponent>
             </RouterLink>
             <RouterLink :to="`/projects/${pattern.reference}/analytics`">
-                <ButtonComponent class="w-full secondary">
+                <BtnComponent class="w-full" type="secondary">
                     <IconComponent icon="activity" gap="right" />
-                    <span>Analytics</span>
-                </ButtonComponent>
+                    <span class="align-middle">Analytics</span>
+                </BtnComponent>
             </RouterLink>
         </div>
         <div v-else class="col-start-1 col-end-3 px-4 pb-4 text-center">

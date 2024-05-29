@@ -13,9 +13,9 @@
                     </h2>
                     <p>Creator since: {{ creator.createdAt.format('MMMM YYYY') }}</p>
                     <LinkComponent :href="creator.storeUrl">
-                        <ButtonComponent>
+                        <BtnComponent>
                             Visit their Shop!
-                        </ButtonComponent>
+                        </BtnComponent>
                     </LinkComponent>
                 </div>
                 <div>
@@ -36,6 +36,7 @@
 import { onBeforeMount, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
+import BtnComponent from '@/components/BtnComponent.vue';
 import PaginatedContentComponent from '@/components/paginated-content/PaginatedContentComponent.vue';
 import DisplayPatternComponent from '@/components/display-pattern/DisplayPatternComponent.vue';
 
