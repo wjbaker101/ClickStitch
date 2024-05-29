@@ -35,10 +35,10 @@
             </RouterLink>
         </div>
         <div v-else class="col-start-1 col-end-3 px-4 pb-4 text-center">
-            <ButtonComponent class="full" v-if="!userHasPattern" title="Add to Your Dashboard" @click="onAddProject(pattern)">
+            <BtnComponent class="full" v-if="!userHasPattern" title="Add to Your Dashboard" @click="onAddProject(pattern)">
                 <IconComponent icon="plus" gap="right" />
                 <span>Add to Dashboard</span>
-            </ButtonComponent>
+            </BtnComponent>
             <div class="rounded-md p-2 added" v-else>
                 <IconComponent icon="tick" gap="right" />
                 <span>In your Dashboard</span>
@@ -49,6 +49,8 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
+
+import BtnComponent from '@/components/BtnComponent.vue';
 
 import { api } from '@/api/api';
 import { formatNumber } from '@/helper/helper';

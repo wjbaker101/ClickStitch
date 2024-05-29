@@ -9,10 +9,15 @@
     @include setup-variables();
 
     --primary: 34 146 127;
+    --primary-dark: 22 115 99;
+
     --secondary: 127 34 146;
+    --secondary-dark: 94 22 108;
 
     --danger: 185 28 28;
+
     --light: 236 236 236;
+
     --dark: 34 34 38;
 
     --background: var(--light);
