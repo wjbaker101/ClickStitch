@@ -1,9 +1,9 @@
 <template>
     <h2>Required Skeins Calculator</h2>
-    <div class="required-skeins-calculator-component flex align-items-center gap">
+    <div class="grid items-center gap-4 sm:grid-cols-[1fr_auto_1fr]">
         <FormComponent>
             <FormSectionComponent>
-                <FormInputComponent label="Number of Sitches">
+                <FormInputComponent label="Number of Stitches">
                     <input type="number" min="1" max="300" v-model="numberOfStitches">
                 </FormInputComponent>
                 <FormInputComponent label="Aida Count">
@@ -14,13 +14,13 @@
                 </FormInputComponent>
             </FormSectionComponent>
         </FormComponent>
-        <div class="flex-auto text-centered">
-            <IconComponent class="arrow-right" icon="arrow-right" />
-            <IconComponent class="arrow-down" icon="arrow-down" />
+        <div class="text-center">
+            <IconComponent class="hidden sm:block" icon="arrow-right" />
+            <IconComponent class="sm:hidden" icon="arrow-down" />
         </div>
-        <div class="text-centered">
+        <div class="text-center">
             <IconComponent icon="skein" size="large" />
-            <span class="skeins-count">{{ skeins }} skein(s)</span>
+            <span class="pl-4">{{ skeins }} skein(s)</span>
         </div>
     </div>
 </template>
@@ -42,26 +42,4 @@ const skeins = computed<number>(() => {
 </script>
 
 <style lang="scss">
-.required-skeins-calculator-component {
-
-    .arrow-down {
-        display: none;
-    }
-
-    .skeins-count {
-        padding-left: 1rem;
-    }
-
-    @media screen and (max-width: 600px) {
-        display: block;
-
-        .arrow-down {
-            display: unset;
-        }
-
-        .arrow-right {
-            display: none;
-        }
-    }
-}
 </style>
