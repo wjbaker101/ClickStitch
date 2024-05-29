@@ -42,9 +42,9 @@
                 <DisplayPatternComponent :key="project.pattern.reference" v-for="project in projects" :pattern="project.pattern" :project="project" :userHasPattern="false" />
             </div>
         </div>
-        <div v-if="!isLoading && projects !== null && projects.length > 0" class="floating-action-button">
+        <div v-if="!isLoading && projects !== null && projects.length > 0" class="fixed right-1/2 bottom-4 translate-x-1/2 md:right-4 md:translate-x-0">
             <RouterLink to="/patterns/new">
-                <ButtonComponent>
+                <ButtonComponent class="!rounded-full">
                     <IconComponent icon="plus" gap="right" />
                     <span>New Pattern</span>
                 </ButtonComponent>
@@ -120,21 +120,6 @@ onMounted(async () => {
         &::before {
             counter-increment: index;
             content: counter(index);
-        }
-    }
-
-    .floating-action-button {
-        position: fixed;
-        bottom: 1rem;
-        right: 1rem;
-
-        button {
-            border-radius: 9999px;
-        }
-
-        @media screen and (max-width: 600px) {
-            right: 50%;
-            translate: 50% 0;
         }
     }
 }
