@@ -10,33 +10,27 @@
                 <LoadingComponent itemName="projects" />
             </div>
             <ZeroStateComponent v-else-if="projects?.length === 0" icon="info">
-                <h2>No projects yet!</h2>
-                <div class="new-project-options">
-                    <CardComponent padded border="top">
-                        <CardComponent class="flex number align-items-center"></CardComponent>
-                        <div class="flex-auto">
-                            <p>Upload your first pattern now!</p>
-                            <RouterLink to="/patterns/new">
-                                <ButtonComponent>
-                                    <IconComponent icon="plus" gap="right" />
-                                    <span>New Pattern</span>
-                                </ButtonComponent>
-                            </RouterLink>
-                        </div>
-                    </CardComponent>
-                    <CardComponent padded border="top">
-                        <CardComponent class="flex number align-items-center"></CardComponent>
-                        <div class="flex-auto">
-                            <p>Looking for inspiration?</p>
-                            <RouterLink to="/patterns">
-                                <ButtonComponent>
-                                    <IconComponent icon="download" gap="right" />
-                                    View Creator Patterns
-                                </ButtonComponent>
-                            </RouterLink>
-                        </div>
-                    </CardComponent>
-                </div>
+                <h2 class="pb-8">No projects yet!</h2>
+                <NumberedSectionComponent class="max-w-3xl">
+                    <NumberedCardComponent>
+                        <p>Upload your first pattern now!</p>
+                        <RouterLink to="/patterns/new">
+                            <ButtonComponent>
+                                <IconComponent icon="plus" gap="right" />
+                                <span>New Pattern</span>
+                            </ButtonComponent>
+                        </RouterLink>
+                    </NumberedCardComponent>
+                    <NumberedCardComponent>
+                        <p>Looking for inspiration?</p>
+                        <RouterLink to="/patterns">
+                            <ButtonComponent>
+                                <IconComponent icon="download" gap="right" />
+                                View Creator Patterns
+                            </ButtonComponent>
+                        </RouterLink>
+                    </NumberedCardComponent>
+                </NumberedSectionComponent>
             </ZeroStateComponent>
             <div v-else class="grid gap-12 grid-cols-for-patterns">
                 <DisplayPatternComponent :key="project.pattern.reference" v-for="project in projects" :pattern="project.pattern" :project="project" :userHasPattern="false" />
@@ -59,6 +53,8 @@ import { onMounted, ref } from 'vue';
 import UserMessageComponent from '@/components/UserMessageComponent.vue';
 import ZeroStateComponent from '@/components/ZeroStateComponent.vue';
 import DisplayPatternComponent from '@/components/display-pattern/DisplayPatternComponent.vue';
+import NumberedSectionComponent from '@/components/numbered-card/NumberedSectionComponent.vue';
+import NumberedCardComponent from '@/components/numbered-card/NumberedCardComponent.vue';
 
 import { api } from '@/api/api';
 
@@ -99,27 +95,6 @@ onMounted(async () => {
 
         & > * {
             position: relative;
-        }
-    }
-
-    .number {
-        width: 4rem;
-        position: absolute;
-        padding: 1rem;
-        top: 0;
-        left: 50%;
-        translate: -50% -50%;
-        aspect-ratio: 1;
-        border-radius: 50%;
-        justify-content: center;
-        font-weight: bold;
-        font-size: 2rem;
-        color: var(--wjb-secondary);
-        border: 2px solid var(--wjb-primary);
-
-        &::before {
-            counter-increment: index;
-            content: counter(index);
         }
     }
 }
