@@ -15,15 +15,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-
 import ProjectThreadsModalComponent from '@/views/stitcher/project/modals/ProjectThreadsModalComponent.vue';
 import ActiveStitchComponent from '@/views/stitcher/project/components/ActiveStitchComponent.vue';
 
 import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
 import { useModal } from '@wjb/vue/use/modal.use';
 
-import type { IPatternThread } from '@/models/Pattern.model';
 import type { IGetProject } from '@/models/GetProject.model';
 
 const props = defineProps<{
@@ -34,14 +31,6 @@ const currentProject = useCurrentProject();
 const modal = useModal();
 
 const percentageCompleted = currentProject.percentageCompleted;
-const activeStitch = currentProject.activeStitch;
-
-const thread = computed<IPatternThread | null>(() => {
-    if (activeStitch.value === null)
-        return null;
-
-    return currentProject.palette.value.get(activeStitch.value.threadIndex) as IPatternThread;
-});
 
 const onShowModal = function (): void {
     modal.show({
