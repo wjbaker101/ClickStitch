@@ -15,19 +15,19 @@
                     <NumberedCardComponent>
                         <p>Upload your first pattern now!</p>
                         <RouterLink to="/patterns/new">
-                            <ButtonComponent>
-                                <IconComponent icon="plus" gap="right" />
-                                <span>New Pattern</span>
-                            </ButtonComponent>
+                            <BtnComponent>
+                                <IconComponent icon="plus" gap="right" class="align-middle" />
+                                <span class="align-middle">New Pattern</span>
+                            </BtnComponent>
                         </RouterLink>
                     </NumberedCardComponent>
                     <NumberedCardComponent>
                         <p>Looking for inspiration?</p>
                         <RouterLink to="/patterns">
-                            <ButtonComponent>
+                            <BtnComponent>
                                 <IconComponent icon="download" gap="right" />
                                 View Creator Patterns
-                            </ButtonComponent>
+                            </BtnComponent>
                         </RouterLink>
                     </NumberedCardComponent>
                 </NumberedSectionComponent>
@@ -38,10 +38,10 @@
         </div>
         <div v-if="!isLoading && projects !== null && projects.length > 0" class="fixed right-1/2 bottom-4 translate-x-1/2 md:right-4 md:translate-x-0">
             <RouterLink to="/patterns/new">
-                <ButtonComponent class="!rounded-full">
+                <BtnComponent class="!rounded-full shadow-xl">
                     <IconComponent icon="plus" gap="right" />
-                    <span>New Pattern</span>
-                </ButtonComponent>
+                    <span class="align-middle">New Pattern</span>
+                </BtnComponent>
             </RouterLink>
         </div>
     </ViewComponent>
@@ -50,6 +50,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
+import BtnComponent from '@/components/BtnComponent.vue';
 import UserMessageComponent from '@/components/UserMessageComponent.vue';
 import ZeroStateComponent from '@/components/ZeroStateComponent.vue';
 import DisplayPatternComponent from '@/components/display-pattern/DisplayPatternComponent.vue';
