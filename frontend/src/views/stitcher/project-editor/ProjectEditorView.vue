@@ -28,7 +28,7 @@
                         <FormSectionComponent>
                             <BtnComponent @click="onUpdate" :loading="isUpdating">
                                 <IconComponent icon="tick" gap="right" />
-                                <span>Update</span>
+                                <span class="align-middle">Update</span>
                             </BtnComponent>
                         </FormSectionComponent>
                     </FormComponent>
