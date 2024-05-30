@@ -1,10 +1,10 @@
 <template>
-    <div class="action-bar-component flex gap align-items-center text-centered">
+    <div class="absolute inset-0 top-auto flex items-center gap-4 p-1 text-center backdrop-blur-sm action-bar-component text-light [text-shadow:1px_1px_rgba(0,0,0,.6)] shadow-lg border-[1px] border-solid border-primary-dark rounded-t-md">
         <div>
             <div>{{ percentageCompleted.toFixed(2) }}%</div>
         </div>
         <div class="centre-container">
-            <div class="centre-button flex align-items-center" @click="onShowModal">
+            <div class="flex items-center centre-button" @click="onShowModal">
                 <IconComponent icon="info" />
             </div>
         </div>
@@ -43,23 +43,11 @@ const onShowModal = function (): void {
 
 <style lang="scss">
 .action-bar-component {
-    inset: 0;
-    top: auto;
-    position: absolute;
-    padding: 0.25rem;
-    background-color: var(--wjb-primary);
     background: linear-gradient(
         -5deg,
         color-mix(in srgb, var(--wjb-primary-dark) 90%, transparent),
         color-mix(in srgb, var(--wjb-primary) 90%, transparent),
     );
-    backdrop-filter: blur(2px);
-    color: var(--wjb-light);
-    text-shadow: 1px 1px rgba(0, 0, 0, 0.6);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 12px 24px -12px rgba(0, 0, 0, 0.5);
-    border: 1px solid var(--wjb-primary-dark);
-    border-top-right-radius: var(--wjb-border-radius);
-    border-top-left-radius: var(--wjb-border-radius);
     z-index: 1;
 
     @media screen and (max-width: 720px) {
