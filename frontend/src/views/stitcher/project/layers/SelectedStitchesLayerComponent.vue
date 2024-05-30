@@ -1,15 +1,15 @@
 <template>
     <div class="layer selected-stitches-layer-component">
         <div
-            class="selected-stitches"
+            class="absolute origin-top-left rounded-md shadow-md selected-stitches bg-[rgba(33,33,200,.2)]"
             :style="{
                 'width': `${stitchSize * lengthX}px`,
                 'height': `${stitchSize * lengthY}px`,
                 'transform': `translate(${stitchSelectStart.x * stitchSize}px, ${stitchSelectStart.y * stitchSize}px)`,
             }"
         >
-            <div class="top-axis">{{ lengthX }}</div>
-            <div class="left-axis">{{ lengthY }}</div>
+            <div class="absolute -top-10 left-1/2 grid -translate-x-1/2 place-content-center rounded-full text-center shadow-md size-8 bg-background">{{ lengthX }}</div>
+            <div class="absolute top-1/2 -left-10 grid -translate-y-1/2 place-content-center rounded-full text-center shadow-md size-8 bg-background">{{ lengthY }}</div>
         </div>
     </div>
 </template>
@@ -33,38 +33,7 @@ const lengthY = computed<number>(() => props.stitchSelectEnd.y - props.stitchSel
 .selected-stitches-layer-component {
 
     .selected-stitches {
-        position: absolute;
-        transform-origin: top left;
-        border-radius: 0.2rem;
-        box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.5), 1px 2px 10px rgba(0, 0, 0, 0.2);
-        background-color: rgba(33, 33, 200, 0.2);
         transition: transform 0.1s;
-    }
-
-    .top-axis,
-    .left-axis {
-        width: 2rem;
-        aspect-ratio: 1;
-        line-height: 2rem;
-        text-align: center;
-        background-color: var(--wjb-background-colour);
-        border-radius: 50%;
-
-        @apply shadow-md;
-    }
-
-    .top-axis {
-        position: absolute;
-        top: -2.5rem;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .left-axis {
-        position: absolute;
-        left: -2.5rem;
-        top: 50%;
-        transform: translateY(-50%);
     }
 }
 </style>
