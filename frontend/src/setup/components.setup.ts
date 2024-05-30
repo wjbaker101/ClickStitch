@@ -1,6 +1,5 @@
 import { type Plugin } from 'vue';
 
-import ButtonComponent from '@wjb/vue/component/ButtonComponent.vue';
 import DeleteButtonComponent from '@wjb/vue/component/DeleteButtonComponent.vue';
 import IconComponent from '@wjb/vue/component/IconComponent.vue';
 import LoadingComponent from '@wjb/vue/component/LoadingComponent.vue';
@@ -17,7 +16,6 @@ import ViewComponent from '@/components/ViewComponent.vue';
 export const components: Plugin = {
 
     install(app) {
-        app.component('ButtonComponent', ButtonComponent);
         app.component('DeleteButtonComponent', DeleteButtonComponent);
         app.component('IconComponent', IconComponent);
         app.component('LoadingComponent', LoadingComponent);
