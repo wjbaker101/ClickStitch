@@ -31,7 +31,9 @@
                     </label>
                 </div>
                 <UserMessageComponent ref="userMessageComponent" />
-                <BtnComponent @click="onSignup" :loading="isLoading" type="secondary">Sign Up</BtnComponent>
+                <BtnComponent @click="onSignup" :loading="isLoading" type="secondary">
+                    <span class="align-middle">Sign Up</span>
+                </BtnComponent>
             </ContentCardComponent>
         </div>
     </ViewComponent>
