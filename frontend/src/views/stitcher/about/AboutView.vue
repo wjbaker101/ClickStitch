@@ -17,7 +17,7 @@
                     </ol>
                     <div class="text-center">
                         <RouterLink to="/dashboard">
-                            <ButtonComponent>Start Stitching!</ButtonComponent>
+                            <BtnComponent>Start Stitching!</BtnComponent>
                         </RouterLink>
                     </div>
                 </CardComponent>
@@ -78,7 +78,7 @@
                     <p>Thanks for your time, happy stitching! ❤️</p>
                     <div class="text-center">
                         <RouterLink to="/dashboard">
-                            <ButtonComponent>Start Stitching!</ButtonComponent>
+                            <BtnComponent>Start Stitching!</BtnComponent>
                         </RouterLink>
                     </div>
                 </CardComponent>
@@ -88,6 +88,7 @@
 </template>
 
 <script setup lang="ts">
+import BtnComponent from '@/components/BtnComponent.vue';
 import NumberedSectionComponent from '@/components/numbered-card/NumberedSectionComponent.vue';
 import NumberedCardComponent from '@/components/numbered-card/NumberedCardComponent.vue';
 </script>
