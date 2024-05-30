@@ -14,7 +14,7 @@
                         <p><strong>Last logged in:</strong> {{ self.user.lastLoginAt }} ({{ self.user.lastLoginAt?.fromNow() }})</p>
                     </template>
                     <p class="text-centered">
-                        <ButtonComponent @click="onLogOut">Log Out</ButtonComponent>
+                        <BtnComponent @click="onLogOut">Log Out</BtnComponent>
                     </p>
                 </CardComponent>
             </section>
@@ -24,10 +24,10 @@
                     <p>You'll have the ability to edit your creator details and patterns here.</p>
                     <p>
                         <a :href="urlToSubdomain('creator')">
-                            <ButtonComponent>
+                            <BtnComponent>
                                 <IconComponent icon="external-link" gap="right" />
                                 <span>Go to Creator Dashboard</span>
-                            </ButtonComponent>
+                            </BtnComponent>
                         </a>
                     </p>
                 </CardComponent>
@@ -36,10 +36,10 @@
                     <p>You'll have the ability to view and edit users on the platform.</p>
                     <p>
                         <a :href="urlToSubdomain('admin')">
-                            <ButtonComponent>
+                            <BtnComponent>
                                 <IconComponent icon="external-link" gap="right" />
                                 <span>Go to Admin Dashboard</span>
-                            </ButtonComponent>
+                            </BtnComponent>
                         </a>
                     </p>
                 </CardComponent>
@@ -50,6 +50,8 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
+
+import BtnComponent from '@/components/BtnComponent.vue';
 
 import { useAuth } from '@/use/auth/Auth.use';
 import { api } from '@/api/api';
