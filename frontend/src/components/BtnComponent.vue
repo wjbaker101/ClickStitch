@@ -29,7 +29,7 @@
 
 <script setup lang="ts">
 interface IProps {
-    type: 'primary' | 'secondary';
+    type: 'primary' | 'secondary' | 'custom';
     loading?: boolean;
 }
 

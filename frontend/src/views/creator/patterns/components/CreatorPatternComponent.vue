@@ -37,7 +37,7 @@
                     <p>If any user has already added your pattern to their dashboard this action will NOT delete the pattern, but will instead hide it from new users.</p>
                     <p>If this pattern has not been added by any users yet, this action will permanently delete the pattern.</p>
                     <p>
-                        <DeleteButtonComponent @delete="onDelete" />
+                        <DeleteBtnComponent @delete="onDelete" />
                     </p>
                     <CardComponent v-if="deletionMessage" class="flex gap align-items-center" padded border="left">
                         <div class="flex-auto">
@@ -59,6 +59,7 @@
 import { ref } from 'vue';
 
 import BtnComponent from '@/components/BtnComponent.vue';
+import DeleteBtnComponent from '@/components/DeleteBtnComponent.vue';
 import ListItemComponent from '@/components/ListItemComponent.vue';
 
 import { api } from '@/api/api';
