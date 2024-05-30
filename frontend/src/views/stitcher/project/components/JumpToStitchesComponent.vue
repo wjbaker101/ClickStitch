@@ -7,15 +7,15 @@
             </div>
         </div>
         <div class="flex gap align-items-center">
-            <ButtonComponent class="secondary flex-auto" @click="onNavigate(-1)">
+            <BtnComponent class="flex-auto" @click="onNavigate(-1)" type="secondary">
                 <IconComponent icon="arrow-left" />
-            </ButtonComponent>
+            </BtnComponent>
             <div>
                 {{ thread?.thread.name }} (#{{ currentIndex + 1 }})
             </div>
-            <ButtonComponent class="secondary flex-auto" @click="onNavigate(1)">
+            <BtnComponent class="flex-auto" @click="onNavigate(1)" type="secondary">
                 <IconComponent icon="arrow-right" />
-            </ButtonComponent>
+            </BtnComponent>
         </div>
     </div>
 </template>
@@ -23,11 +23,13 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
+import BtnComponent from '@/components/BtnComponent.vue';
+
 import { useEvent, useEvents } from '@/use/events/Events.use';
+import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
 
 import type { IStartJumpToStitchesEvent } from '@/use/events/types/EventsMap.type';
 import type { IThreadDetails } from '@/models/GetProject.model';
-import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
 
 const events = useEvents();
 const { backStitches, stitches } = useCurrentProject();

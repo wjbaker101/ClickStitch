@@ -26,10 +26,10 @@
                             </FormInputComponent>
                         </FormSectionComponent>
                         <FormSectionComponent>
-                            <ButtonComponent @click="onUpdate" :loading="isUpdating">
+                            <BtnComponent @click="onUpdate" :loading="isUpdating">
                                 <IconComponent icon="tick" gap="right" />
                                 <span>Update</span>
-                            </ButtonComponent>
+                            </BtnComponent>
                         </FormSectionComponent>
                     </FormComponent>
                 </CardComponent>
@@ -41,6 +41,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
+
+import BtnComponent from '@/components/BtnComponent.vue';
 
 import { api } from '@/api/api';
 

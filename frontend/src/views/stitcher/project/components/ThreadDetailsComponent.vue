@@ -25,10 +25,10 @@
                 <div></div>
                 <div class="flex-auto">
                     <section>
-                        <ButtonComponent class="mini" title="Jump to Stitches" @click="onJumpToStitch">
+                        <BtnComponent title="Jump to Stitches" @click="onJumpToStitch">
                             <IconComponent icon="compass" gap="right" />
-                            <span>Jump to Stitches</span>
-                        </ButtonComponent>
+                            <span class="align-middle">Jump to Stitches</span>
+                        </BtnComponent>
                     </section>
                     <section>
                         <input type="checkbox" v-model="shouldHighlightThread">
@@ -58,6 +58,7 @@
 <script setup lang="ts">
 import { computed, type StyleValue } from 'vue';
 
+import BtnComponent from '@/components/BtnComponent.vue';
 import ListItemComponent from '@/components/ListItemComponent.vue';
 
 import { isDark } from '@/helper/helper';

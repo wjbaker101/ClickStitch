@@ -17,16 +17,16 @@
             </FormSectionComponent>
         </div>
         <FormSectionComponent>
-            <ButtonComponent @click="onSubmit">
+            <BtnComponent @click="onSubmit">
                 <template v-if="creator === null">
                     <IconComponent icon="plus" gap="right" />
-                    <span>Create</span>
+                    <span class="align-middle">Create</span>
                 </template>
                 <template v-else>
                     <IconComponent icon="tick" gap="right" />
-                    <span>Update</span>
+                    <span class="align-middle">Update</span>
                 </template>
-            </ButtonComponent>
+            </BtnComponent>
         </FormSectionComponent>
     </FormComponent>
 </template>
@@ -34,6 +34,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
+import BtnComponent from '@/components/BtnComponent.vue';
 import LoadingComponent from '@wjb/vue/component/LoadingComponent.vue';
 
 import { api } from '@/api/api';

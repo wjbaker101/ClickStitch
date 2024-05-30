@@ -4,16 +4,16 @@
             <h2>Actions:</h2>
             <div class="flex gap-small">
                 <div class="flex-auto">
-                    <ButtonComponent @click="onGoToPausePosition">
+                    <BtnComponent @click="onGoToPausePosition">
                         <IconComponent icon="compass" gap="right" />
-                        <span>Go to Pause Position</span>
-                    </ButtonComponent>
+                        <span class="align-middle">Go to Pause Position</span>
+                    </BtnComponent>
                 </div>
                 <RouterLink v-if="project.project.pattern.user.reference === authDetails?.reference" class="flex-auto" :to="`/projects/${project.project.pattern.reference}/edit`" @click="onEditDetails">
-                    <ButtonComponent>
+                    <BtnComponent>
                         <IconComponent icon="pencil" gap="right" />
-                        <span>Edit Details</span>
-                    </ButtonComponent>
+                        <span class="align-middle">Edit Details</span>
+                    </BtnComponent>
                 </RouterLink>
             </div>
             <h2>Layers:</h2>
@@ -40,6 +40,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
+import BtnComponent from '@/components/BtnComponent.vue';
 import ThreadDetailsComponent from '@/views/stitcher/project/components/ThreadDetailsComponent.vue';
 
 import { api } from '@/api/api';

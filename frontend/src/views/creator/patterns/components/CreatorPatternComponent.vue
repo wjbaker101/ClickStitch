@@ -27,10 +27,10 @@
                     </FormInputComponent>
                 </FormSectionComponent>
                 <FormSectionComponent>
-                    <ButtonComponent @click="onUpdate" :loading="isLoading">
+                    <BtnComponent @click="onUpdate" :loading="isLoading">
                         <IconComponent icon="tick" gap="right" />
                         <span>Update</span>
-                    </ButtonComponent>
+                    </BtnComponent>
                 </FormSectionComponent>
                 <FormSectionComponent>
                     <h3>Delete Pattern</h3>
@@ -58,6 +58,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
+import BtnComponent from '@/components/BtnComponent.vue';
 import ListItemComponent from '@/components/ListItemComponent.vue';
 
 import { api } from '@/api/api';

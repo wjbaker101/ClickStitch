@@ -54,10 +54,10 @@
                             <p>
                                 <em>This may take a while, in some cases up to a few minutes.</em>
                             </p>
-                            <ButtonComponent @click="onCreate" :loading="isCreationLoading">
+                            <BtnComponent @click="onCreate" :loading="isCreationLoading">
                                 <IconComponent icon="plus" gap="right" />
-                                <span>Create</span>
-                            </ButtonComponent>
+                                <span class="align-middle">Create</span>
+                            </BtnComponent>
                         </FormSectionComponent>
                     </FormComponent>
                 </CardComponent>
@@ -70,6 +70,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+import BtnComponent from '@/components/BtnComponent.vue';
 import FileUploadComponent from '@/components/FileUploadComponent.vue';
 import ImageUploadComponent, { type IOnImageUploadChoose } from '@/components/ImageUploadComponent.vue';
 

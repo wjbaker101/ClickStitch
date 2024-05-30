@@ -10,10 +10,10 @@
                         <h2>Your Patterns</h2>
                         <p>Manage your patterns here.</p>
                         <RouterLink to="/patterns/new">
-                            <ButtonComponent>
+                            <BtnComponent>
                                 <IconComponent icon="plus" gap="right" />
-                                <span>New Pattern</span>
-                            </ButtonComponent>
+                                <span class="align-middle">New Pattern</span>
+                            </BtnComponent>
                         </RouterLink>
                     </div>
                     <div class="flex-auto">
@@ -33,6 +33,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
+import BtnComponent from '@/components/BtnComponent.vue';
 import PaginatedContentComponent from '@/components/paginated-content/PaginatedContentComponent.vue';
 import CreatorPatternComponent from '@/views/creator/patterns/components/CreatorPatternComponent.vue';
 

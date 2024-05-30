@@ -21,10 +21,10 @@
                         <p><strong>Total Stitches: </strong> {{ formatNumber(analytics.totalStitches) }}</p>
                         <p>
                             <RouterLink :to="`/projects/${patternReference}`" @click.native="closeModal">
-                                <ButtonComponent>
+                                <BtnComponent>
                                     <IconComponent icon="external-link" gap="right" />
-                                    <span>Continue Stitching!</span>
-                                </ButtonComponent>
+                                    <span class="align-middle">Continue Stitching!</span>
+                                </BtnComponent>
                             </RouterLink>
                         </p>
                     </CardComponent>
@@ -77,6 +77,7 @@ import { formatNumber, setTitle } from '@/helper/helper';
 import { useModal } from '@wjb/vue/use/modal.use';
 
 import { type IGetAnalytics } from '@/models/GetAnalytics.model';
+import BtnComponent from '@/components/BtnComponent.vue';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
