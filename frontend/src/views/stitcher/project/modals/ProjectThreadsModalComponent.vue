@@ -1,5 +1,5 @@
 <template>
-    <div class="project-threads-modal-component flex flex-vertical gap">
+    <div class="project-threads-modal-component flex flex-col gap-4 h-full">
         <div>
             <h2>Actions:</h2>
             <div class="flex gap-small">
@@ -91,7 +91,6 @@ onMounted(async () => {
 
 <style lang="scss">
 .project-threads-modal-component {
-    height: 100%;
 
     .list-item-component {
         padding: 0;
