@@ -27,10 +27,8 @@ const props = defineProps<{
     project: IGetProject;
 }>();
 
-const currentProject = useCurrentProject();
+const { percentageCompleted } = useCurrentProject();
 const modal = useModal();
-
-const percentageCompleted = currentProject.percentageCompleted;
 
 const onShowModal = function (): void {
     modal.show({
