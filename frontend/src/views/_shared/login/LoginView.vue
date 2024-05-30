@@ -14,7 +14,7 @@
                 </label>
                 <UserMessageComponent ref="userMessageComponent" />
                 <BtnComponent @click="onLogin" :loading="isLoading" type="secondary">
-                    Log In
+                    <span class="align-middle">Log In</span>
                 </BtnComponent>
                 <p>
                     Don't have an account?
