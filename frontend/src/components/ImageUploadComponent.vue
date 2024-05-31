@@ -10,7 +10,7 @@
             <div v-if="image !== null">
                 <img :src="image" class="h-auto max-h-full max-w-full cursor-pointer rounded-md text-center shadow-md hoverable w-[250px]">
             </div>
-            <div v-else class="cursor-pointer rounded-md p-4 text-center shadow-md image-placeholder hoverable">
+            <div v-else class="cursor-pointer rounded-md p-4 text-center shadow-md outline-dashed outline-2 hoverable bg-background-light outline-secondary hover:outline-transparent">
                 <p>Click to Upload Image</p>
             </div>
         </label>
@@ -56,18 +56,4 @@ const onChange = function (event: Event): void {
 </script>
 
 <style lang="scss">
-.image-upload-component {
-
-    .hoverable {
-        outline: 2px dashed var(--wjb-tertiary);
-
-        &:hover {
-            outline-color: transparent;
-        }
-    }
-
-    .image-placeholder {
-        background-color: var(--wjb-background-colour-light);
-    }
-}
 </style>
