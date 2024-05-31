@@ -22,6 +22,7 @@ module.exports = {
                 'dark': 'rgb(var(--dark) / <alpha-value>)',
 
                 'background': 'rgb(var(--background) / <alpha-value>)',
+                'background-light': 'rgb(var(--background-light) / <alpha-value>)',
             },
 
             gridTemplateColumns: {
