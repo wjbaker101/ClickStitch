@@ -1,5 +1,5 @@
 <template>
-    <a class="link-component" :href="href" target="_blank">
+    <a class="decoration-0 text-primary-dark shadow-[0_1px_0] shadow-primary-dark hover:shadow-transparent" :href="href" target="_blank">
         <IconComponent v-if="external" icon="external-link" gap="right" />
         <slot></slot>
     </a>
