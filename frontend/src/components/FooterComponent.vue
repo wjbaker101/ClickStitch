@@ -1,20 +1,17 @@
 <template>
-    <footer class="p-2 footer-component text-xs/loose">
+    <footer class="p-2 text-xs/loose">
         <section>
-            <div class="flex gap-small">
-                <div class="flex-auto">Links:</div>
-                <div class="flex-auto"><RouterLink class="link-component" to="/dashboard">Dashboard</RouterLink></div>
-                <div class="flex-auto"><RouterLink class="link-component" to="/patterns">Patterns</RouterLink></div>
-                <div class="flex-auto"><RouterLink class="link-component" to="/inventory">Inventory</RouterLink></div>
-                <div class="flex-auto"><RouterLink class="link-component" to="/about">About</RouterLink></div>
-                <div class="flex-auto"><RouterLink class="link-component" to="/settings">Settings</RouterLink></div>
-            </div>
-            <div class="flex gap-small">
-                <div class="flex-auto">Follow on:</div>
-                <div class="flex-auto"><LinkComponent :href="lemmyUrl" external>Lemmy</LinkComponent></div>
-                <div class="flex-auto"><LinkComponent :href="instagramUrl" external>Instagram</LinkComponent></div>
-                <div class="flex-auto"><LinkComponent :href="twitterUrl" external>Twitter</LinkComponent></div>
-            </div>
+            <div class="inline-block">Links:</div>
+            <div class="ml-2 inline-block"><RouterLink class="link-component" to="/dashboard">Dashboard</RouterLink></div>
+            <div class="ml-2 inline-block"><RouterLink class="link-component" to="/patterns">Patterns</RouterLink></div>
+            <div class="ml-2 inline-block"><RouterLink class="link-component" to="/inventory">Inventory</RouterLink></div>
+            <div class="ml-2 inline-block"><RouterLink class="link-component" to="/about">About</RouterLink></div>
+            <div class="ml-2 inline-block"><RouterLink class="link-component" to="/settings">Settings</RouterLink></div>
+            <br>
+            <div class="inline-block">Follow on:</div>
+            <div class="ml-2 inline-block"><LinkComponent :href="lemmyUrl" external>Lemmy</LinkComponent></div>
+            <div class="ml-2 inline-block"><LinkComponent :href="instagramUrl" external>Instagram</LinkComponent></div>
+            <div class="ml-2 inline-block"><LinkComponent :href="twitterUrl" external>Twitter</LinkComponent></div>
         </section>
         <section>
             Copyright &copy; ClickStitch 2023 &ndash; {{ new Date().getFullYear() }},
@@ -34,7 +31,4 @@ const lemmyUrl = 'https://sh.itjust.works/u/ClickStitch?page=1&sort=New&view=Pos
 </script>
 
 <style lang="scss">
-.footer-component {
-    color: var(--wjb-text-colour);
-}
 </style>
