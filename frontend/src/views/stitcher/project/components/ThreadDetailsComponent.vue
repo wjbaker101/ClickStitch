@@ -31,8 +31,7 @@
                         </BtnComponent>
                     </section>
                     <section>
-                        <input type="checkbox" v-model="shouldHighlightThread">
-                        <span>Highlight</span>
+                        <CheckBoxComponent label="Highlight" v-model="shouldHighlightThread" />
                     </section>
                 </div>
             </div>
@@ -59,6 +58,7 @@
 import { computed, type StyleValue } from 'vue';
 
 import BtnComponent from '@/components/BtnComponent.vue';
+import CheckBoxComponent from '@/components/input/CheckBoxComponent.vue';
 import ListItemComponent from '@/components/ListItemComponent.vue';
 
 import { isDark } from '@/helper/helper';

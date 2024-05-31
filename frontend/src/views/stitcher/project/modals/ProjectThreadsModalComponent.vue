@@ -18,15 +18,9 @@
             </div>
             <h2>Layers:</h2>
             <div>
-                <label>
-                    <input type="checkbox" v-model="isStitchesVisible"> Stitches
-                </label>
-                <label>
-                    <input type="checkbox" v-model="isBackStitchesVisible"> Back Stitches
-                </label>
-                <label>
-                    <input type="checkbox" v-model="isGridVisible"> Grid
-                </label>
+                <CheckBoxComponent label="Stitches" v-model="isStitchesVisible" />
+                <CheckBoxComponent label="Back Stitches" v-model="isBackStitchesVisible" />
+                <CheckBoxComponent label="Grid" v-model="isGridVisible" />
             </div>
             <h2>Threads:</h2>
             <div>
@@ -41,6 +35,7 @@
 import { onMounted, ref } from 'vue';
 
 import BtnComponent from '@/components/BtnComponent.vue';
+import CheckBoxComponent from '@/components/input/CheckBoxComponent.vue';
 import ThreadDetailsComponent from '@/views/stitcher/project/components/ThreadDetailsComponent.vue';
 
 import { api } from '@/api/api';

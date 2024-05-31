@@ -24,7 +24,7 @@
             <section>
                 <h3>Permissions:</h3>
                 <div v-for="permission in displayPermissions">
-                    <input type="checkbox" v-model="permission.isEnabled" @change="onPermissionChange(permission, $event)"> {{ permission.name }}
+                    <CheckBoxComponent :label="permission.name" v-model="permission.isEnabled" @change="onPermissionChange(permission, $event)" />
                 </div>
             </section>
         </template>
@@ -32,14 +32,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { ref } from 'vue';
 
+import CheckBoxComponent from '@/components/input/CheckBoxComponent.vue';
 import ListItemComponent from '@/components/ListItemComponent.vue';
 
 import { api } from '@/api/api';
 
 import { type IUserDetails } from '@/models/GetUsers.model';
-import { type IPermission, type PermissionType } from '@/models/Permission.model';
+import { type IPermission } from '@/models/Permission.model';
 import { permissionMapper } from '@/api/mappers/Permission.mapper';
 
 const props = defineProps<{
@@ -47,23 +48,14 @@ const props = defineProps<{
     permissions: Array<IPermission>;
 }>();
 
-interface IDisplayPermission {
-    readonly name: string;
-    readonly type: PermissionType;
-    isEnabled: boolean;
-}
-
-const displayPermissions = computed<Array<IDisplayPermission>>(() => props.permissions.map(x => ({
+const displayPermissions = ref(props.permissions.map(x => ({
     name: x.name,
     type: x.type,
     isEnabled: props.userDetails.permissions.find(y => y.type === x.type) !== undefined,
 })));
 
-const onPermissionChange = async function (permission: IPermission, event: Event): Promise<void> {
-    const element = event.target as HTMLInputElement;
-    const isEnabled = element.checked;
-
-    if (isEnabled) {
+const onPermissionChange = async function (permission: IPermission, event: { isChecked: boolean }): Promise<void> {
+    if (event.isChecked) {
         await api.admin.assignPermissionToUser(props.userDetails.user.reference, {
             permissionType: permissionMapper.mapTypeToApi(permission.type),
         });

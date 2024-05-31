@@ -45,23 +45,6 @@ input {
         width: 100%;
     }
 
-    &[type=checkbox] {
-        width: 1.5rem;
-        aspect-ratio: 1;
-        vertical-align: middle;
-        accent-color: var(--wjb-primary);
-        outline-offset: 0;
-        box-shadow: none;
-
-        &:focus {
-            outline: 2px dashed var(--wjb-primary);
-        }
-
-        & + label {
-            vertical-align: middle;
-        }
-    }
-
     &:focus {
         outline-color: var(--wjb-primary);
     }
