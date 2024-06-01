@@ -16,20 +16,9 @@ export default defineConfig({
     resolve: {
         alias: [
             {
-                find: /^~(.*)$/,
-                replacement: '$1',
-            },
-            {
                 find: '@',
                 replacement: path.resolve(__dirname, 'src'),
             }
-        ],
-    },
-
-    optimizeDeps: {
-        exclude: [
-            '@wjb/vue/use/modal.use',
-            '@wjb/vue/use/popup.use',
         ],
     },
 
