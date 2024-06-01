@@ -2,7 +2,7 @@
     <div
         ref="contextMenuElement"
         v-if="schema !== null"
-        class="pointer-events-none fixed rounded-md opacity-0 shadow-xl context-menu-component [&.is-visible]:pointer-events-auto [&.is-visible]:opacity-100"
+        class="pointer-events-none fixed rounded-md opacity-0 shadow-xl context-menu-component top-[calc(var(--y)*1px)] left-[calc(var(--x)*1px)] bg-background [&.is-visible]:pointer-events-auto [&.is-visible]:opacity-100"
         :class="{ 'is-visible': isVisible }"
         :style="{
             '--x': position.x,
@@ -10,7 +10,7 @@
         }"
         @contextmenu="onOpenContextMenu"
     >
-        <div class="header">
+        <div class="rounded-t-md border-0 border-solid px-2 py-1 font-bold border-b-[1px] border-primary">
             {{ schema.header }}
         </div>
         <template v-for="item in schema.items">
@@ -72,18 +72,6 @@ useEvent('CloseContextMenu', () => {
 
 <style lang="scss">
 .context-menu-component {
-    top: calc(var(--y) * 1px);
-    left: calc(var(--x) * 1px);
-    border: 1px solid var(--wjb-background-colour-dark);
-    background-color: var(--wjb-background-colour);
     transition: opacity 0.1s;
-
-    .header {
-        font-weight: bold;
-        padding: 0.25rem 0.5rem;
-        border-bottom: 1px solid var(--wjb-primary);
-        border-top-left-radius: var(--wjb-border-radius);
-        border-top-right-radius: var(--wjb-border-radius);
-    }
 }
 </style>
