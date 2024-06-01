@@ -19,12 +19,6 @@ body {
     color: var(--wjb-text-colour);
 }
 
-.textured-background {
-    background-color: var(--wjb-background-colour);
-    background-attachment: fixed;
-    background-image: var(--stitched-background-image);
-}
-
 input {
     border: 0;
     padding: 0.5rem 1rem;
