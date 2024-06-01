@@ -1,6 +1,6 @@
 <template>
     <ListItemComponent
-        class="user-item-component"
+        class="border-l-2 border-solid border-transparent"
         :class="{
             'is-creator': userDetails.permissions.find(x => x.type === 'Creator') !== undefined,
             'is-admin': userDetails.permissions.find(x => x.type === 'Admin') !== undefined,
@@ -66,16 +66,15 @@ const onPermissionChange = async function (permission: IPermission, event: { isC
 };
 </script>
 
-<style lang="scss">
-.user-item-component {
-    border-left: 3px solid transparent;
+<style lang="scss" scoped>
+* {
 
     &.is-creator {
-        border-left: 3px solid #2c3;
+        border-left-color: #2c3;
     }
 
     &.is-admin {
-        border-left: 3px solid #22c;
+        border-left-color: #22c;
     }
 }
 </style>
