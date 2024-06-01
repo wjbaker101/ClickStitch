@@ -1,12 +1,12 @@
 <template>
-    <div class="pagination-component flex align-items-center gap">
-        <div class="backwards text-centered" @click="onIncrement(-1)">
+    <div class="my-4 flex items-center gap-4 overflow-hidden rounded-md shadow-md bg-background">
+        <div @click="onIncrement(-1)" class="cursor-pointer p-4 text-center hover:bg-background-dark">
             <IconComponent icon="arrow-left" />
         </div>
-        <div class="flex-2 text-centered">
+        <div class="basis-1/4 p-4 text-center">
             {{ pagination.pageNumber }} <small>/ {{ pagination.pageCount }}</small>
         </div>
-        <div class="forwards text-centered" @click="onIncrement(1)">
+        <div @click="onIncrement(1)" class="cursor-pointer p-4 text-center hover:bg-background-dark">
             <IconComponent icon="arrow-right" />
         </div>
     </div>
@@ -38,24 +38,4 @@ const onIncrement = function (increment: number): void {
 </script>
 
 <style lang="scss">
-.pagination-component {
-    margin: 1rem 0;
-    background-color: var(--wjb-background-colour);
-    border-radius: var(--wjb-border-radius);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
-    overflow: hidden;
-
-    & > * {
-        padding: 1rem;
-    }
-}
-
-.backwards,
-.forwards {
-    cursor: pointer;
-
-    &:hover {
-        background-color: var(--wjb-background-colour-dark);
-    }
-}
 </style>

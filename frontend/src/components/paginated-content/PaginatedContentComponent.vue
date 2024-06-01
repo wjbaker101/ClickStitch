@@ -1,5 +1,5 @@
 <template>
-    <div class="paginated-content-component">
+    <div class="py-4">
         <LoadingComponent v-if="isLoading" :itemName="loadingItemName" />
         <div v-else-if="failure !== null">
             {{ failure.message }}
@@ -59,7 +59,4 @@ const onUpdate = async function (event: IPaginationEvent): Promise<void> {
 </script>
 
 <style lang="scss">
-.paginated-content-component {
-    margin: 1rem 0;
-}
 </style>
