@@ -71,7 +71,7 @@ import BtnComponent from '@/components/BtnComponent.vue';
 import FileUploadComponent from '@/components/FileUploadComponent.vue';
 
 import { api } from '@/api/api';
-import { usePopup } from '@wjb/vue/use/popup.use';
+import { usePopup } from '@/components/popup/Popup.use';
 
 const router = useRouter();
 const popup = usePopup();
@@ -107,24 +107,15 @@ const onPatternChoose = function (file: File): void {
 
 const onCreate = async function (): Promise<void> {
     if (title.value.length < 3) {
-        popup.trigger({
-            message: 'Please enter a valid title.',
-            style: 'error',
-        });
+        popup.error('Please enter a valid title.');
         return;
     }
     if (aidaCount.value === null) {
-        popup.trigger({
-            message: 'Please enter a valid aida count.',
-            style: 'error',
-        });
+        popup.error('Please enter a valid aida count.');
         return;
     }
     if (patternData.value === null) {
-        popup.trigger({
-            message: 'Please upload a valid pattern schematic.',
-            style: 'error',
-        });
+        popup.error('Please upload a valid pattern schematic.');
         return;
     }
 
@@ -139,10 +130,7 @@ const onCreate = async function (): Promise<void> {
 
     isCreationLoading.value = false;
 
-    popup.trigger({
-        message: `Pattern '${title.value}' has been created!`,
-        style: 'success',
-    });
+    popup.success(`Pattern '${title.value}' has been created!`);
 
     router.push({ path: '/dashboard', });
 };

@@ -7,6 +7,7 @@
 
 <script setup lang="ts">
 import ContextMenuComponent from './components/context-menu/ContextMenuComponent.vue';
+import PopupComponent from '@/components/popup/PopupComponent.vue';
 </script>
 
 <style lang="scss">

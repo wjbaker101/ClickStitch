@@ -36,7 +36,7 @@ import BtnComponent from '@/components/BtnComponent.vue';
 import LoadingComponent from '@wjb/vue/component/LoadingComponent.vue';
 
 import { api } from '@/api/api';
-import { usePopup } from '@wjb/vue/use/popup.use';
+import { usePopup } from '@/components/popup/Popup.use';
 
 import { type ICreator } from '@/models/Creator.model';
 
@@ -88,10 +88,7 @@ const onSubmit = async function (): Promise<void> {
 
         setCreator(creatorResult);
 
-        popup.trigger({
-            message: 'Creator has been created!',
-            style: 'success',
-        });
+        popup.success('Creator has been created!');
     }
     else {
         await api.creators.updateCreator(creator.value.reference, {
@@ -99,10 +96,7 @@ const onSubmit = async function (): Promise<void> {
             storeUrl: form.value.storeUrl,
         });
 
-        popup.trigger({
-            message: 'Creator has been updated!',
-            style: 'success',
-        });
+        popup.success('Creator has been updated!');
     }
 };
 </script>

@@ -63,7 +63,7 @@ import DeleteBtnComponent from '@/components/DeleteBtnComponent.vue';
 import ListItemComponent from '@/components/ListItemComponent.vue';
 
 import { api } from '@/api/api';
-import { usePopup } from '@wjb/vue/use/popup.use';
+import { usePopup } from '@/components/popup/Popup.use';
 
 import { type IPattern } from '@/models/Pattern.model';
 
@@ -100,10 +100,7 @@ const onUpdate = async function (): Promise<void> {
     isLoading.value = false;
 
     if (result instanceof Error) {
-        popup.trigger({
-            message: result.message,
-            style: 'error',
-        });
+        popup.error(result.message);
         return;
     }
 
@@ -111,10 +108,7 @@ const onUpdate = async function (): Promise<void> {
     props.pattern.externalShopUrl = result.externalShopUrl;
     props.pattern.aidaCount = result.aidaCount;
 
-    popup.trigger({
-        message: 'Pattern updated!',
-        style: 'success',
-    });
+    popup.success('Pattern updated!');
 };
 
 const onDelete = async function () {
@@ -124,10 +118,7 @@ const onDelete = async function () {
 
     deletionMessage.value = result.message;
 
-    popup.trigger({
-        message: `${props.pattern.title} has been deleted.`,
-        style: 'success',
-    });
+    popup.success(`${props.pattern.title} has been deleted.`);
 };
 </script>
 

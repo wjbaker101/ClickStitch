@@ -54,7 +54,7 @@ import BtnComponent from '@/components/BtnComponent.vue';
 
 import { api } from '@/api/api';
 import { formatNumber } from '@/helper/helper';
-import { usePopup } from '@wjb/vue/use/popup.use';
+import { usePopup } from '@/components/popup/Popup.use';
 
 import type { IPattern } from '@/models/Pattern.model';
 import type { IProject } from '@/models/Project.model';
@@ -71,10 +71,7 @@ const router = useRouter();
 const onAddProject = async function (pattern: IPattern): Promise<void> {
     await api.projects.add(pattern.reference);
 
-    popup.trigger({
-        message: `${props.pattern.title} has been added to your dashboard!`,
-        style: 'success',
-    });
+    popup.success(`${props.pattern.title} has been added to your dashboard!`);
 
     await router.push({ path: '/dashboard' });
 };
