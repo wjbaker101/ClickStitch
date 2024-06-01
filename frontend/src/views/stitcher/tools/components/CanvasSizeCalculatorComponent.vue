@@ -34,7 +34,7 @@
             <div class="text-centered">Make sure to add a few cm/inches as padding</div>
         </FormComponent>
         <div class="m-auto flex place-content-center preview-container h-[200px] sm:col-start-1 sm:col-end-4 md:col-start-4 md:col-end-4">
-            <div class="m-auto flex flex-auto items-center rounded-md border-2 border-solid text-center preview border-secondary" :style="style">
+            <div class="m-auto flex flex-auto items-center rounded-md border-2 border-solid text-center bg-texture border-secondary" :style="style">
                 <small>Preview</small>
             </div>
         </div>
@@ -72,10 +72,4 @@ const style = computed<Record<string, string>>(() => {
 </script>
 
 <style lang="scss">
-.canvas-size-calculator-component {
-    .preview {
-        background-color: var(--wjb-background-colour-light);
-        background-image: var(--stitched-background-image);
-    }
-}
 </style>
