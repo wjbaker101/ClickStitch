@@ -41,7 +41,7 @@ import ThreadDetailsComponent from '@/views/stitcher/project/components/ThreadDe
 import { api } from '@/api/api';
 import { useAuth } from '@/use/auth/Auth.use';
 import { useEvents } from '@/use/events/Events.use';
-import { useModal } from '@wjb/vue/use/modal.use';
+import { useModal } from '@/components/modals/Modal.use';
 import { useLayers } from '@/views/stitcher/project/use/Layers.use';
 
 import type { IGetProject } from '@/models/GetProject.model';

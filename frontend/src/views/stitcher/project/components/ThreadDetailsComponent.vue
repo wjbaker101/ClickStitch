@@ -64,7 +64,7 @@ import ListItemComponent from '@/components/ListItemComponent.vue';
 import { isDark } from '@/helper/helper';
 import { calculateRequiredSkeins } from '@/helper/stitch.helper';
 import { useEvents } from '@/use/events/Events.use';
-import { useModal } from '@wjb/vue/use/modal.use';
+import { useModal } from '@/components/modals/Modal.use';
 import { useHighlightedThread } from '../use/HighlightedThread.use';
 import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
 

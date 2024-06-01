@@ -29,6 +29,10 @@ module.exports = {
             gridTemplateColumns: {
                 'for-patterns': 'repeat(auto-fill, minmax(min(350px, 100%), 1fr))',
             },
+
+            backgroundImage: {
+                'texture': 'var(--stitched-background-image)',
+            },
         },
     },
     plugins: [],

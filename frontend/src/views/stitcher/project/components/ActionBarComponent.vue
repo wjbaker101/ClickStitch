@@ -19,7 +19,7 @@ import ProjectThreadsModalComponent from '@/views/stitcher/project/modals/Projec
 import ActiveStitchComponent from '@/views/stitcher/project/components/ActiveStitchComponent.vue';
 
 import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
-import { useModal } from '@wjb/vue/use/modal.use';
+import { useModal } from '@/components/modals/Modal.use';
 
 import type { IGetProject } from '@/models/GetProject.model';
 
@@ -36,7 +36,6 @@ const onShowModal = function (): void {
         componentProps: {
             project: props.project,
         },
-        style: 'side-right',
     });
 };
 </script>
