@@ -30,6 +30,7 @@
     --background: var(--light);
     --background-dark: var(--light-dark);
     --background-light: var(--light-light);
+    --background-texture: url(@/assets/bg-light.png);
 
     --wjb-white: #f8f8f8;
     --wjb-black: #141416;
@@ -50,19 +51,16 @@
 
     --footer-height: 162px;
 
-    --stitched-background-image: url(@/assets/bg-light.png);
-
     @media (prefers-color-scheme: dark) {
         --background: var(--dark);
         --background-dark: var(--dark-dark);
         --background-light: var(--dark-light);
+        --background-texture: url(@/assets/bg-dark.png);
 
         --wjb-background-colour: var(--wjb-dark);
         --wjb-background-colour-dark: color-mix(in srgb, var(--wjb-background-colour) 80%, #000);
 
         --wjb-text-colour: var(--wjb-light);
         --wjb-text-colour-opposite: var(--wjb-dark);
-
-        --stitched-background-image: url(@/assets/bg-dark.png);
     }
 }

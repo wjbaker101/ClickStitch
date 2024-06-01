@@ -31,7 +31,7 @@ module.exports = {
             },
 
             backgroundImage: {
-                'texture': 'var(--stitched-background-image)',
+                'texture': 'var(--background-texture)',
             },
         },
     },
