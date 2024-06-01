@@ -13,10 +13,6 @@ import PopupComponent from '@/components/popup/PopupComponent.vue';
 <style lang="scss">
 @use '@/style/main' as *;
 
-#app {
-    height: 100%;
-}
-
 body {
     font-family: 'Mulish', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--wjb-text-colour);
