@@ -56,14 +56,4 @@ const loadUsers = async function (pageNumber: number, pageSize: number): Promise
 </script>
 
 <style lang="scss">
-.admin-view {
-
-    .user-item {
-        border-left: 3px solid transparent;
-
-        &.is-admin {
-            border-left: 3px solid #22c;
-        }
-    }
-}
 </style>
