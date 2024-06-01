@@ -4,18 +4,16 @@
     <div v-if="isLoading">
         <LoadingComponent itemName="creator" />
     </div>
-    <FormComponent v-else class="edit-creator-component">
-        <div class="flex gap-small">
-            <FormSectionComponent class="flex-2">
-                <h3>{{ creator === null ? 'Setup your Creator Details' : 'Edit Creator Details' }}</h3>
-                <FormInputComponent label="Name">
-                    <input class="creator-name" type="text" placeholder="Beautiful Patterns Co." v-model="form.name">
-                </FormInputComponent>
-                <FormInputComponent label="Store Url">
-                    <input type="text" placeholder="https://etsy.com/shop/beautifulpatternsco" v-model="form.storeUrl">
-                </FormInputComponent>
-            </FormSectionComponent>
-        </div>
+    <FormComponent v-else>
+        <FormSectionComponent>
+            <h3>{{ creator === null ? 'Setup your Creator Details' : 'Edit Creator Details' }}</h3>
+            <FormInputComponent label="Name">
+                <input class="max-w-full w-[350px]" type="text" placeholder="Beautiful Patterns Co." v-model="form.name">
+            </FormInputComponent>
+            <FormInputComponent label="Store Url">
+                <input type="text" placeholder="https://etsy.com/shop/beautiful-patterns-co" v-model="form.storeUrl">
+            </FormInputComponent>
+        </FormSectionComponent>
         <FormSectionComponent>
             <BtnComponent @click="onSubmit">
                 <template v-if="creator === null">
@@ -110,11 +108,4 @@ const onSubmit = async function (): Promise<void> {
 </script>
 
 <style lang="scss">
-.edit-creator-component {
-
-    .creator-name {
-        width: 350px;
-        max-width: 100%;
-    }
-}
 </style>
