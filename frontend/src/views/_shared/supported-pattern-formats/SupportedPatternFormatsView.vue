@@ -20,7 +20,7 @@
                         <li><code>.oxs</code> (Same as MacStitch / WinStitch)</li>
                     </ul>
                     <p>Example method of exporting via the dashboard:</p>
-                    <img class="example-image" src="@/assets/supported-pattern-formats/flosscross.png">
+                    <img class="rounded-md shadow-md" src="@/assets/supported-pattern-formats/flosscross.png">
                 </CardComponent>
             </section>
             <section>
@@ -30,7 +30,7 @@
                         <li><code>.oxs</code></li>
                     </ul>
                     <p>Example method of exporting in WinStitch:</p>
-                    <img class="example-image" src="@/assets/supported-pattern-formats/winstitch.png">
+                    <img class="rounded-md shadow-md" src="@/assets/supported-pattern-formats/winstitch.png">
                 </CardComponent>
             </section>
         </div>
@@ -41,11 +41,4 @@
 </script>
 
 <style lang="scss">
-.supported-pattern-formats-view {
-
-    .example-image {
-        border-radius: var(--wjb-border-radius);
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
-    }
-}
 </style>
