@@ -2,7 +2,7 @@
     <div
         ref="contextMenuElement"
         v-if="schema !== null"
-        class="pointer-events-none fixed rounded-md opacity-0 shadow-xl context-menu-component top-[calc(var(--y)*1px)] left-[calc(var(--x)*1px)] bg-background [&.is-visible]:pointer-events-auto [&.is-visible]:opacity-100"
+        class="pointer-events-none fixed rounded-md opacity-0 shadow-xl context-menu-component top-[calc(var(--y)*1px)] left-[calc(var(--x)*1px)] bg-background overflow-hidden [&.is-visible]:pointer-events-auto [&.is-visible]:opacity-100"
         :class="{ 'is-visible': isVisible }"
         :style="{
             '--x': position.x,

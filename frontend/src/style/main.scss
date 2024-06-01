@@ -17,12 +17,15 @@
     --danger: 185 28 28;
 
     --light: 236 236 236;
+    --light-dark: 210 210 220;
     --light-light: 250 250 250;
 
     --dark: 34 34 38;
+    --dark-dark: 24 24 28;
     --dark-light: 54 54 58;
 
     --background: var(--light);
+    --background-dark: var(--light-dark);
     --background-light: var(--light-light);
 
     --wjb-white: #f8f8f8;
@@ -50,6 +53,7 @@
 
     @media (prefers-color-scheme: dark) {
         --background: var(--dark);
+        --background-dark: var(--dark-dark);
         --background-light: var(--dark-light);
 
         --wjb-background-colour: var(--wjb-dark);

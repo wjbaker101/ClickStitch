@@ -1,5 +1,5 @@
 <template>
-    <div class="context-menu-item-component" @click.self="onClick">
+    <div @click.self="onClick" class="relative cursor-pointer select-none p-2 context-menu-item-component min-w-[120px] hover:bg-background-dark">
         {{ item.text }}
     </div>
 </template>
@@ -22,15 +22,4 @@ const onClick = function (): void {
 </script>
 
 <style lang="scss">
-.context-menu-item-component {
-    position: relative;
-    min-width: 120px;
-    padding: 0.5rem;
-    cursor: pointer;
-    user-select: none;
-
-    &:hover {
-        background-color: var(--wjb-background-colour-dark);
-    }
-}
 </style>
