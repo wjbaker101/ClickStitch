@@ -1,22 +1,22 @@
 <template>
     <div
-        class="list-item-component"
+        class="rounded-md p-4 list-item-component bg-background-light"
         :class="{
             'is-expanded': isExpanded,
             'is-hoverable': hover,
         }"
     >
-        <div class="flex gap align-items-center">
+        <div class="flex items-center gap-4">
             <div>
                 <slot></slot>
             </div>
-            <div v-if="slots.expanded" class="expander flex-auto" @click="onToggleOpen">
+            <div v-if="slots.expanded" class="flex-auto cursor-pointer select-none" @click="onToggleOpen">
                 <IconComponent icon="arrow-triangle-down" gap="right" />
-                <span>More</span>
+                <span class="align-middle">More</span>
             </div>
         </div>
         <div class="more-content" v-if="slots.expanded">
-            <div>
+            <div class="overflow-hidden">
                 <slot name="expanded"></slot>
             </div>
         </div>
@@ -42,9 +42,6 @@ const onToggleOpen = function (): void {
 
 <style lang="scss">
 .list-item-component {
-    padding: 1rem;
-    background-color: var(--wjb-background-colour-light);
-    border-radius: var(--wjb-border-radius);
 
     & + .list-item-component {
         margin-top: 0.5rem;
@@ -52,15 +49,6 @@ const onToggleOpen = function (): void {
 
     &.is-hoverable:hover {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 4px 12px -6px rgba(0, 0, 0, 0.2);
-    }
-
-    .expander {
-        user-select: none;
-        cursor: pointer;
-
-        span {
-            vertical-align: middle;
-        }
     }
 
     &.is-expanded {
@@ -74,10 +62,6 @@ const onToggleOpen = function (): void {
         display: grid;
         grid-template-rows: 0fr;
         margin-top: 0rem;
-
-        & > div {
-            overflow: hidden;
-        }
 
         section {
             margin-left: 0.5rem;
