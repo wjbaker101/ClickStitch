@@ -20,7 +20,7 @@
                         <p><strong>Added At: </strong> {{ analytics.purchasedAt }}</p>
                         <p><strong>Total Stitches: </strong> {{ formatNumber(analytics.totalStitches) }}</p>
                         <p>
-                            <RouterLink :to="`/projects/${patternReference}`" @click.native="closeModal">
+                            <RouterLink :to="`/projects/${patternReference}`">
                                 <BtnComponent>
                                     <IconComponent icon="external-link" gap="right" />
                                     <span class="align-middle">Continue Stitching!</span>
@@ -74,7 +74,6 @@ import UserMessageComponent from '@/components/UserMessageComponent.vue';
 
 import { api } from '@/api/api';
 import { formatNumber, setTitle } from '@/helper/helper';
-import { useModal } from '@wjb/vue/use/modal.use';
 
 import { type IGetAnalytics } from '@/models/GetAnalytics.model';
 import BtnComponent from '@/components/BtnComponent.vue';
@@ -82,7 +81,6 @@ import BtnComponent from '@/components/BtnComponent.vue';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const route = useRoute();
-const modal = useModal();
 
 const userMessageComponent = ref<InstanceType<typeof UserMessageComponent>>({} as InstanceType<typeof UserMessageComponent>);
 
@@ -92,20 +90,6 @@ const analytics = ref<IGetAnalytics | null>(null);
 const isLoading = ref<boolean>(false);
 
 const completedPercentage = computed<number>(() => (analytics.value?.completedStitches ?? 1) / (analytics.value?.totalStitches ?? 1) * 100);
-
-const closeModal = function (): void {
-    modal.hide();
-};
-
-const plByMonth = [
-  { name: 'Jan', pl: 1000, avg: 500, inc: 300 },
-  { name: 'Feb', pl: 2000, avg: 900, inc: 400 },
-  { name: 'Apr', pl: 400, avg: 400, inc: 500 },
-  { name: 'Mar', pl: 3100, avg: 1300, inc: 700 },
-  { name: 'May', pl: 200, avg: 100, inc: 200 },
-  { name: 'Jun', pl: 600, avg: 400, inc: 300 },
-  { name: 'Jul', pl: 500, avg: 90, inc: 100 }
-]
 
 onMounted(async () => {
     isLoading.value = true;
