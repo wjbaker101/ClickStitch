@@ -6,7 +6,7 @@
             </div>
             <strong class="hidden md:block">ClickStitch</strong>
         </div>
-        <div class="custom align-items-center">
+        <div class="text-center">
             <slot></slot>
         </div>
         <div class="md:hidden">
@@ -83,13 +83,6 @@ const links = linkFactory.get(subdomain);
 
     .links {
         justify-content: right;
-    }
-
-    .custom {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        line-height: 1.2em;
     }
 
     @media screen and (max-width: 720px) {

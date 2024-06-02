@@ -1,13 +1,13 @@
 <template>
     <ViewComponent class="pattern-view" hideFooter>
         <template #nav>
-            <strong>{{ project?.project.pattern.title ?? '-' }}</strong>
-            <sub class="percentage-completed">({{ percentageCompleted.toFixed(2) }}%)</sub>
+            <strong class="align-middle">{{ project?.project.pattern.title ?? '-' }}</strong>
+            <sub class="align-middle percentage-completed">({{ percentageCompleted.toFixed(2) }}%)</sub>
         </template>
         <div class="loading-container" v-if="isLoading">
             <LoadingComponent itemName="pattern" />
         </div>
-        <div v-else-if="project === null" class="loading-container flex-auto">
+        <div v-else-if="project === null" class="flex-auto loading-container">
             <UserMessageComponent ref="userMessageComponent" />
         </div>
         <template v-else>
