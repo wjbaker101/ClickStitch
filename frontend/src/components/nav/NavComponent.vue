@@ -1,10 +1,10 @@
 <template>
     <nav class="nav-component">
-        <div class="flex gap align-items-center">
-            <div class="flex-auto logo-container">
+        <div class="flex items-center gap-2">
+            <div class="-my-4 inline-grid flex-auto place-content-center rounded-full shadow-md bg-background-light size-10">
                 <img src="@/assets/logo.png">
             </div>
-            <strong class="logo-text">ClickStitch</strong>
+            <strong class="">ClickStitch</strong>
         </div>
         <div class="custom align-items-center">
             <slot></slot>
@@ -78,23 +78,6 @@ const links = linkFactory.get(subdomain);
 
         span {
             vertical-align: middle;
-        }
-    }
-
-    .logo-container {
-        --width: 2.5rem;
-
-        width: var(--width);
-        aspect-ratio: 1;
-        margin: -1rem -0.5rem -1rem 0;
-        padding: 0.25rem;
-        background-color: var(--wjb-light);
-        border-radius: 50%;
-
-        @apply shadow-md;
-
-        img {
-            max-width: 100%;
         }
     }
 
