@@ -59,29 +59,5 @@ const onShowModal = function (): void {
             display: none;
         }
     }
-
-    .action-button {
-        display: inline-block;
-        padding: 0.25rem 0.5rem;
-        border-radius: var(--wjb-border-radius);
-        cursor: pointer;
-        user-select: none;
-
-        span {
-            vertical-align: middle;
-        }
-
-        & + .action-button {
-            margin-left: 0.5rem;
-        }
-
-        &:hover {
-            background-color: var(--wjb-tertiary);
-        }
-
-        &:active {
-            background-color: var(--wjb-tertiary-dark);
-        }
-    }
 }
 </style>
