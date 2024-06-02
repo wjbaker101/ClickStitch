@@ -19,7 +19,7 @@
             </div>
         </div>
         <div>
-            <ActiveStitchComponent />
+            <ActiveStitchComponent class="hidden md:block" />
         </div>
     </div>
 </template>
@@ -51,13 +51,4 @@ const onShowModal = function (): void {
 </script>
 
 <style lang="scss">
-.action-bar-component {
-
-    @media screen and (max-width: 720px) {
-        .hovered-stitch,
-        .main-items {
-            display: none;
-        }
-    }
-}
 </style>
