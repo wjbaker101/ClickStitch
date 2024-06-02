@@ -58,7 +58,7 @@
 import { computed, type StyleValue } from 'vue';
 
 import BtnComponent from '@/components/BtnComponent.vue';
-import CheckBoxComponent from '@/components/input/CheckBoxComponent.vue';
+import CheckBoxComponent from '@/components/inputs/CheckBoxComponent.vue';
 import ListItemComponent from '@/components/ListItemComponent.vue';
 
 import { isDark } from '@/helper/helper';

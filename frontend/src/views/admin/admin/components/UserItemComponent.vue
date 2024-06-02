@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import CheckBoxComponent from '@/components/input/CheckBoxComponent.vue';
+import CheckBoxComponent from '@/components/inputs/CheckBoxComponent.vue';
 import ListItemComponent from '@/components/ListItemComponent.vue';
 
 import { api } from '@/api/api';

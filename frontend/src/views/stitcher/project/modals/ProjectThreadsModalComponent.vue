@@ -35,7 +35,7 @@
 import { onMounted, ref } from 'vue';
 
 import BtnComponent from '@/components/BtnComponent.vue';
-import CheckBoxComponent from '@/components/input/CheckBoxComponent.vue';
+import CheckBoxComponent from '@/components/inputs/CheckBoxComponent.vue';
 import ThreadDetailsComponent from '@/views/stitcher/project/components/ThreadDetailsComponent.vue';
 
 import { api } from '@/api/api';
