@@ -19,10 +19,7 @@
                                 <InputComponent type="text" placeholder="My Amazing Pattern" v-model="title" />
                             </FormInputComponent>
                             <FormInputComponent label="Aida Count">
-                                <select v-model="aidaCount">
-                                    <option :value="null" disabled>Select option...</option>
-                                    <option v-for="count in 35" :value="count + 5">{{ count + 5 }}</option>
-                                </select>
+                                <AidaSelectionComponent v-model="aidaCount" />
                             </FormInputComponent>
                         </FormSectionComponent>
                         <FormSectionComponent>
@@ -45,6 +42,7 @@ import { useRoute } from 'vue-router';
 import BtnComponent from '@/components/BtnComponent.vue';
 import InputComponent from '@/components/inputs/InputComponent.vue';
 import LoadingComponent from '@/components/loading/LoadingComponent.vue';
+import AidaSelectionComponent from '@/components/aida-selection/AidaSelectionComponent.vue';
 
 import { api } from '@/api/api';
 

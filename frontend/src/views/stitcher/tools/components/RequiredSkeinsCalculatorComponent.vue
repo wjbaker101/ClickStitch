@@ -7,10 +7,7 @@
                     <InputComponent type="number" min="1" max="300" v-model="numberOfStitches" />
                 </FormInputComponent>
                 <FormInputComponent label="Aida Count">
-                    <select v-model="aidaCount">
-                        <option :value="null" disabled>Select option...</option>
-                        <option v-for="count in 35" :value="count + 5">{{ count + 5 }}</option>
-                    </select>
+                    <AidaSelectionComponent v-model="aidaCount" />
                 </FormInputComponent>
             </FormSectionComponent>
         </FormComponent>
@@ -29,6 +26,7 @@
 import { computed, ref } from 'vue';
 
 import InputComponent from '@/components/inputs/InputComponent.vue';
+import AidaSelectionComponent from '@/components/aida-selection/AidaSelectionComponent.vue';
 
 import { calculateRequiredSkeins } from '@/helper/stitch.helper';
 

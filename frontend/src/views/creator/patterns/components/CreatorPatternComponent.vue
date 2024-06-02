@@ -20,10 +20,7 @@
                         <InputComponent type="text" placeholder="https://etsy.com/shop/beautifulpatternsco/amazing_pattern" v-model="form.externalShopUrl" />
                     </FormInputComponent>
                     <FormInputComponent label="Aida Count">
-                        <select v-model="form.aidaCount">
-                            <option :value="null" disabled>Select option...</option>
-                            <option v-for="count in 35" :value="count + 5">{{ count + 5 }}</option>
-                        </select>
+                        <AidaSelectionComponent v-model="form.aidaCount" />
                     </FormInputComponent>
                 </FormSectionComponent>
                 <FormSectionComponent>
@@ -62,6 +59,7 @@ import BtnComponent from '@/components/BtnComponent.vue';
 import InputComponent from '@/components/inputs/InputComponent.vue';
 import DeleteBtnComponent from '@/components/DeleteBtnComponent.vue';
 import ListItemComponent from '@/components/ListItemComponent.vue';
+import AidaSelectionComponent from '@/components/aida-selection/AidaSelectionComponent.vue';
 
 import { api } from '@/api/api';
 import { usePopup } from '@/components/popup/Popup.use';
