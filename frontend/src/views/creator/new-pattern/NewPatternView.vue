@@ -15,12 +15,12 @@
                         <FormSectionComponent>
                             <h3>Pattern Details</h3>
                             <FormInputComponent label="Title">
-                                <input type="text" placeholder="My Amazing Pattern" v-model="title">
+                                <InputComponent type="text" placeholder="My Amazing Pattern" v-model="title" />
                             </FormInputComponent>
                             <ImageUploadComponent heading="Banner Image/ Thumbnail" subtext="Recommended size: 1500x1000px" @choose="onBannerImageChoose" />
                             <FormInputComponent label="Shop Url">
                                 <small><em>A link to the pattern where stitchers can buy it</em></small>
-                                <input type="text" placeholder="https://etsy.com/shop/beautifulpatternsco/amazing_pattern" v-model="externalShopUrl">
+                                <InputComponent type="text" placeholder="https://etsy.com/shop/beautifulpatternsco/amazing_pattern" v-model="externalShopUrl" />
                             </FormInputComponent>
                             <div class="flex gap">
                                 <FileUploadComponent class="flex-2" heading="Pattern Schematic" @choose="onPatternChoose">
@@ -71,6 +71,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import BtnComponent from '@/components/BtnComponent.vue';
+import InputComponent from '@/components/inputs/InputComponent.vue';
 import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 import FileUploadComponent from '@/components/FileUploadComponent.vue';
 import ImageUploadComponent, { type IOnImageUploadChoose } from '@/components/ImageUploadComponent.vue';

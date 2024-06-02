@@ -4,13 +4,13 @@
         <FormComponent>
             <FormSectionComponent>
                 <FormInputComponent label="Width (Stitches)">
-                    <input type="number" min="1" max="300" v-model="width">
+                    <InputComponent type="number" min="1" max="300" v-model="width" />
                 </FormInputComponent>
                 <FormInputComponent label="Height (Stitches)">
-                    <input type="number" min="1" max="300" v-model="height">
+                    <InputComponent type="number" min="1" max="300" v-model="height" />
                 </FormInputComponent>
                 <FormInputComponent label="Aida Stitch Count">
-                    <input type="number" v-model="stitchCount">
+                    <InputComponent type="number" v-model="stitchCount" />
                 </FormInputComponent>
             </FormSectionComponent>
         </FormComponent>
@@ -43,6 +43,8 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+
+import InputComponent from '@/components/inputs/InputComponent.vue';
 
 const cmToInch = 2.54;
 const previewSize = 200;

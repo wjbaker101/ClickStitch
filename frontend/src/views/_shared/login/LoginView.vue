@@ -5,12 +5,12 @@
                 <h2><IconComponent icon="user" size="large" gap="right" />Log In</h2>
                 <label>
                     <strong>Email</strong>
-                    <input ref="emailInput" type="text" v-model="email" placeholder="Email" @keyup.enter="nextInput('passwordInput')" class="w-full">
+                    <InputComponent ref="emailInput" type="text" v-model="email" placeholder="Email" @keyup.enter="nextInput('passwordInput')" class="w-full" />
                 </label>
                 <label class="my-4 block">
                     <strong>Password</strong>
                     <br>
-                    <input ref="passwordInput" type="password" v-model="password" placeholder="Password" @keyup.enter="nextInput('emailInput')" class="w-full">
+                    <InputComponent ref="passwordInput" type="password" v-model="password" placeholder="Password" @keyup.enter="nextInput('emailInput')" class="w-full" />
                 </label>
                 <UserMessageComponent ref="userMessageComponent" />
                 <BtnComponent @click="onLogin" :loading="isLoading" type="secondary">
@@ -32,6 +32,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import BtnComponent from '@/components/BtnComponent.vue';
+import InputComponent from '@/components/inputs/InputComponent.vue';
 import ContentCardComponent from '@/views/_shared/login/components/ContentCardComponent.vue';
 import UserMessageComponent from '@/components/UserMessageComponent.vue';
 

@@ -9,13 +9,13 @@
                 <label>
                     <strong>Email</strong>
                     <br>
-                    <input ref="emailInput" type="text" v-model="email" placeholder="my@email.com" @keyup.enter="nextInput('passwordInput')" class="w-full">
+                    <InputComponent ref="emailInput" type="text" v-model="email" placeholder="my@email.com" @keyup.enter="nextInput('passwordInput')" class="w-full" />
                 </label>
                 <div class="my-4 grid gap-4 md:grid-cols-2">
                     <label>
                         <strong>Password</strong>
                         <br>
-                        <input ref="passwordInput" type="password" v-model="password" placeholder="Password" @keyup.enter="nextInput('confirmPasswordInput')" class="w-full">
+                        <InputComponent ref="passwordInput" type="password" v-model="password" placeholder="Password" @keyup.enter="nextInput('confirmPasswordInput')" class="w-full" />
                     </label>
                     <label class="confirm-password">
                         <strong>Confirm Password</strong>
@@ -44,6 +44,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import BtnComponent from '@/components/BtnComponent.vue';
+import InputComponent from '@/components/inputs/InputComponent.vue';
 import ContentCardComponent from '@/views/_shared/login/components/ContentCardComponent.vue';
 import UserMessageComponent from '@/components/UserMessageComponent.vue';
 

@@ -8,10 +8,10 @@
         <FormSectionComponent>
             <h3>{{ creator === null ? 'Setup your Creator Details' : 'Edit Creator Details' }}</h3>
             <FormInputComponent label="Name">
-                <input class="max-w-full w-[350px]" type="text" placeholder="Beautiful Patterns Co." v-model="form.name">
+                <InputComponent class="max-w-full w-[350px]" type="text" placeholder="Beautiful Patterns Co." v-model="form.name" />
             </FormInputComponent>
             <FormInputComponent label="Store Url">
-                <input type="text" placeholder="https://etsy.com/shop/beautiful-patterns-co" v-model="form.storeUrl">
+                <InputComponent type="text" placeholder="https://etsy.com/shop/beautiful-patterns-co" v-model="form.storeUrl" />
             </FormInputComponent>
         </FormSectionComponent>
         <FormSectionComponent>
@@ -33,6 +33,7 @@
 import { onMounted, ref } from 'vue';
 
 import BtnComponent from '@/components/BtnComponent.vue';
+import InputComponent from '@/components/inputs/InputComponent.vue';
 import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 
 import { api } from '@/api/api';

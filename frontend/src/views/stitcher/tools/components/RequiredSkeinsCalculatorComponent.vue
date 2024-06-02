@@ -4,7 +4,7 @@
         <FormComponent>
             <FormSectionComponent>
                 <FormInputComponent label="Number of Stitches">
-                    <input type="number" min="1" max="300" v-model="numberOfStitches">
+                    <InputComponent type="number" min="1" max="300" v-model="numberOfStitches" />
                 </FormInputComponent>
                 <FormInputComponent label="Aida Count">
                     <select v-model="aidaCount">
@@ -27,6 +27,8 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+
+import InputComponent from '@/components/inputs/InputComponent.vue';
 
 import { calculateRequiredSkeins } from '@/helper/stitch.helper';
 

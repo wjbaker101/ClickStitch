@@ -19,28 +19,28 @@ body {
     color: var(--wjb-text-colour);
 }
 
-input {
-    border: 0;
-    padding: 0.5rem 1rem;
-    line-height: 1em;
-    font: inherit;
-    letter-spacing: inherit;
-    border-radius: var(--wjb-border-radius);
-    outline-offset: -2px;
-    outline: 2px dashed transparent;
-    background-color: var(--wjb-background-colour-light);
-    color: var(--wjb-text-colour);
-
-    @apply shadow-md;
-
-    &[type=text] {
-        width: 100%;
-    }
-
-    &:focus {
-        outline-color: var(--wjb-primary);
-    }
-}
+//input {
+//    border: 0;
+//    padding: 0.5rem 1rem;
+//    line-height: 1em;
+//    font: inherit;
+//    letter-spacing: inherit;
+//    border-radius: var(--wjb-border-radius);
+//    outline-offset: -2px;
+//    outline: 2px dashed transparent;
+//    background-color: var(--wjb-background-colour-light);
+//    color: var(--wjb-text-colour);
+//
+//    @apply shadow-md;
+//
+//    &[type=text] {
+//        width: 100%;
+//    }
+//
+//    &:focus {
+//        outline-color: var(--wjb-primary);
+//    }
+//}
 
 select {
     width: 150px;

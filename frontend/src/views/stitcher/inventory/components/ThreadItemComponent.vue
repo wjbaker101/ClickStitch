@@ -8,7 +8,7 @@
                 <strong>{{ thread.thread.brand }} {{ thread.thread.code }}</strong>
             </div>
             <div class="flex-auto">
-                <input type="number" min="0" max="9999" step="1" v-model="count" class="w-28">
+                <TextboxComponent type="number" min="0" max="9999" step="1" v-model="count" class="w-28" />
             </div>
         </div>
     </ListItemComponent>
@@ -19,6 +19,7 @@ import { ref } from 'vue';
 import { watchDebounced } from '@vueuse/core';
 
 import ListItemComponent from '@/components/ListItemComponent.vue';
+import TextboxComponent from '@/components/inputs/InputComponent.vue';
 
 import { api } from '@/api/api';
 import { isDark } from '@/helper/helper';

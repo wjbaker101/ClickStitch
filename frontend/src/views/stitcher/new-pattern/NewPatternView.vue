@@ -15,7 +15,7 @@
                         <FormSectionComponent>
                             <h3>Pattern Details</h3>
                             <FormInputComponent label="Title">
-                                <input type="text" placeholder="My Amazing Pattern" v-model="title">
+                                <InputComponent type="text" placeholder="My Amazing Pattern" v-model="title" />
                             </FormInputComponent>
                             <FormInputComponent label="Aida Count">
                                 <select v-model="aidaCount">
@@ -68,6 +68,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import BtnComponent from '@/components/BtnComponent.vue';
+import InputComponent from '@/components/inputs/InputComponent.vue';
 import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 import FileUploadComponent from '@/components/FileUploadComponent.vue';
 

@@ -14,7 +14,7 @@
                                 <FormSectionComponent class="flex items-center place-content-between">
                                     <div class="flex-auto">
                                         <FormInputComponent label="Search">
-                                            <input type="search" placeholder="DMC 814" v-model="searchTerm">
+                                            <TextboxComponent type="search" placeholder="DMC 814" v-model="searchTerm" />
                                         </FormInputComponent>
                                     </div>
                                     <div class="flex-auto">
@@ -51,6 +51,7 @@ import { onMounted, ref } from 'vue';
 import { watchDebounced } from '@vueuse/core';
 
 import LoadingComponent from '@/components/loading/LoadingComponent.vue';
+import TextboxComponent from '@/components/inputs/InputComponent.vue';
 import ThreadItemComponent from '@/views/stitcher/inventory/components/ThreadItemComponent.vue';
 
 import { api } from '@/api/api';

@@ -14,10 +14,10 @@
                         </div>
                     </div>
                     <FormInputComponent label="Title">
-                        <input type="text" placeholder="Amazing Pattern" v-model="form.title">
+                        <InputComponent type="text" placeholder="Amazing Pattern" v-model="form.title" />
                     </FormInputComponent>
                     <FormInputComponent label="Shop URL">
-                        <input type="text" placeholder="https://etsy.com/shop/beautifulpatternsco/amazing_pattern" v-model="form.externalShopUrl">
+                        <InputComponent type="text" placeholder="https://etsy.com/shop/beautifulpatternsco/amazing_pattern" v-model="form.externalShopUrl" />
                     </FormInputComponent>
                     <FormInputComponent label="Aida Count">
                         <select v-model="form.aidaCount">
@@ -59,6 +59,7 @@
 import { ref } from 'vue';
 
 import BtnComponent from '@/components/BtnComponent.vue';
+import InputComponent from '@/components/inputs/InputComponent.vue';
 import DeleteBtnComponent from '@/components/DeleteBtnComponent.vue';
 import ListItemComponent from '@/components/ListItemComponent.vue';
 
