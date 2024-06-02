@@ -43,6 +43,7 @@ import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 import BtnComponent from '@/components/BtnComponent.vue';
+import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 
 import { api } from '@/api/api';
 

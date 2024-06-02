@@ -68,6 +68,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import BtnComponent from '@/components/BtnComponent.vue';
+import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 import FileUploadComponent from '@/components/FileUploadComponent.vue';
 
 import { api } from '@/api/api';

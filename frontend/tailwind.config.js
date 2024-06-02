@@ -33,6 +33,18 @@ module.exports = {
             backgroundImage: {
                 'texture': 'var(--background-texture)',
             },
+
+            keyframes: {
+                loading: {
+                    '0%': { color: 'rgb(var(--primary))' },
+                    '50%': { color: 'rgb(var(--secondary))' },
+                    '100%': { color: 'rgb(var(--primary))' },
+                },
+            },
+
+            animation: {
+                loading: 'loading 3s ease-in-out infinite',
+            },
         },
     },
     plugins: [],

@@ -70,6 +70,7 @@ import {
 } from 'chart.js'
 import { Bar } from 'vue-chartjs'
 
+import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 import UserMessageComponent from '@/components/UserMessageComponent.vue';
 
 import { api } from '@/api/api';

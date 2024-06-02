@@ -51,6 +51,7 @@
 import { onMounted, ref } from 'vue';
 
 import BtnComponent from '@/components/BtnComponent.vue';
+import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 import UserMessageComponent from '@/components/UserMessageComponent.vue';
 import ZeroStateComponent from '@/components/ZeroStateComponent.vue';
 import DisplayPatternComponent from '@/components/display-pattern/DisplayPatternComponent.vue';

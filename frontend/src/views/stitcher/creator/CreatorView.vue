@@ -37,6 +37,7 @@ import { onBeforeMount, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 import BtnComponent from '@/components/BtnComponent.vue';
+import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 import PaginatedContentComponent from '@/components/paginated-content/PaginatedContentComponent.vue';
 import DisplayPatternComponent from '@/components/display-pattern/DisplayPatternComponent.vue';
 

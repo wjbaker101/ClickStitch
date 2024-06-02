@@ -50,7 +50,7 @@
 import { onMounted, ref } from 'vue';
 import { watchDebounced } from '@vueuse/core';
 
-import LoadingComponent from '@wjb/vue/component/LoadingComponent.vue';
+import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 import ThreadItemComponent from '@/views/stitcher/inventory/components/ThreadItemComponent.vue';
 
 import { api } from '@/api/api';

@@ -33,7 +33,7 @@
 import { onMounted, ref } from 'vue';
 
 import BtnComponent from '@/components/BtnComponent.vue';
-import LoadingComponent from '@wjb/vue/component/LoadingComponent.vue';
+import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 
 import { api } from '@/api/api';
 import { usePopup } from '@/components/popup/Popup.use';

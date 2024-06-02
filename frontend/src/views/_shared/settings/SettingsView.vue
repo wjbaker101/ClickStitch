@@ -52,6 +52,7 @@
 import { computed, onMounted, ref } from 'vue';
 
 import BtnComponent from '@/components/BtnComponent.vue';
+import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 
 import { useAuth } from '@/use/auth/Auth.use';
 import { api } from '@/api/api';

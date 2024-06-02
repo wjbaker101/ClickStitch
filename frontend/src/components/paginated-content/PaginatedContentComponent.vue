@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
-import LoadingComponent from '@wjb/vue/component/LoadingComponent.vue';
+import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 import PaginationControlsComponent from '@/components/paginated-content/PaginationControlsComponent.vue';
 
 import { type IPagination } from '@/models/Pagination.model';
