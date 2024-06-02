@@ -29,6 +29,9 @@ module.exports = {
             gridTemplateColumns: {
                 'for-patterns': 'repeat(auto-fill, minmax(min(350px, 100%), 1fr))',
             },
+            borderWidth: {
+                '1': '1px',
+            },
 
             backgroundImage: {
                 'texture': 'var(--background-texture)',

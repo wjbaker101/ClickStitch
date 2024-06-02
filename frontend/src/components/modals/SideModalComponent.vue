@@ -2,7 +2,7 @@
     <Transition>
         <div v-if="options" @click.self="onClose" class="fixed inset-0 z-10 bg-black/40 backdrop-blur-sm grid grid-cols-[1fr_minmax(30%,450px)] py-2 pl-2">
             <div class="relative col-start-2 rounded-l-md p-4 shadow-xl bg-texture">
-                <div @click="onClose" class="absolute top-2 right-2 grid cursor-pointer place-content-center rounded-full border-solid text-center shadow-md border-[1px] border-primary size-8 bg-background hover:bg-background-dark">
+                <div @click="onClose" class="absolute top-2 right-2 grid cursor-pointer place-content-center rounded-full border-solid text-center shadow-md border-1 border-primary size-8 bg-background hover:bg-background-dark">
                     <IconComponent icon="cross" />
                 </div>
                 <component :is="options.component" v-bind="options.componentProps" />
