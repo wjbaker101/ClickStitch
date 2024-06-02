@@ -46,25 +46,25 @@
 
                     <h4>📱 On Phones/Tablets:</h4>
                     <ul>
-                        <li><kbd>Drag</kbd> to move around the pattern</li>
-                        <li><kbd>Pinch</kbd> to zoom in or out</li>
-                        <li><kbd>Double tap</kbd> to toggle (complete or uncomplete) an individual stitch</li>
-                        <li><kbd>Long press</kbd> on a stitch to show additional actions</li>
+                        <li><KeyBinding>Drag</KeyBinding> to move around the pattern</li>
+                        <li><KeyBinding>Pinch</KeyBinding> to zoom in or out</li>
+                        <li><KeyBinding>Double tap</KeyBinding> to toggle (complete or uncomplete) an individual stitch</li>
+                        <li><KeyBinding>Long press</KeyBinding> on a stitch to show additional actions</li>
                     </ul>
 
                     <h4>💻 On Laptops/PCs:</h4>
                     <ul>
-                        <li>Hold <kbd>left mouse button</kbd> and drag to move around the pattern</li>
-                        <li><kbd>Scroll-wheel</kbd> to zoom in or out</li>
+                        <li>Hold <KeyBinding>left mouse button</KeyBinding> and drag to move around the pattern</li>
+                        <li><KeyBinding>Scroll-wheel</KeyBinding> to zoom in or out</li>
                         <li>Double click to toggle (complete or uncomplete) an individual stitch</li>
                         <li>
                             Hold middle-click and drag to select multiple stitches...
                             <ul>
-                                <li>Press <kbd>space</kbd> to <strong>complete</strong> all selected stitches</li>
-                                <li>Hold <kbd>shift</kbd> and press <kbd>space</kbd> to <strong>uncomplete</strong> all selected stitches</li>
+                                <li>Press <KeyBinding>space</KeyBinding> to <strong>complete</strong> all selected stitches</li>
+                                <li>Hold <KeyBinding>shift</KeyBinding> and press <KeyBinding>space</KeyBinding> to <strong>uncomplete</strong> all selected stitches</li>
                             </ul>
                         </li>
-                        <li><kbd>Right-click</kbd> on a stitch to show additional actions</li>
+                        <li><KeyBinding>Right-click</KeyBinding> on a stitch to show additional actions</li>
                     </ul>
                 </CardComponent>
             </section>
@@ -91,6 +91,7 @@
 import BtnComponent from '@/components/BtnComponent.vue';
 import NumberedSectionComponent from '@/components/numbered-card/NumberedSectionComponent.vue';
 import NumberedCardComponent from '@/components/numbered-card/NumberedCardComponent.vue';
+import KeyBinding from '@/components/KeyBindingComponent.vue';
 </script>
 
 <style lang="scss">
