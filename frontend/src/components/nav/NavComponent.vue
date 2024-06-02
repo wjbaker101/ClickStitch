@@ -2,7 +2,7 @@
     <nav
         class="fixed top-1 right-1 left-1 grid items-center gap-4 rounded-md border-solid px-4 py-2 shadow-lg
             backdrop-blur nav-component grid-cols-[1fr_auto_1fr] text-light z-[1] text-shadow border-1
-            border-primary-dark bg-gradient-to-tl from-primary-dark to-primary
+            border-primary-dark bg-gradient-to-tl from-primary-dark/90 to-primary/90
             md:top-2 md:right-2 md:left-2 md:py-4"
     >
         <div class="flex items-center gap-2 justify-self-start">
