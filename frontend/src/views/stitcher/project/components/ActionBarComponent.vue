@@ -1,10 +1,20 @@
 <template>
-    <div class="absolute inset-0 top-auto flex items-center gap-4 rounded-t-md border-solid p-1 text-center shadow-lg backdrop-blur-sm action-bar-component text-light text-shadow border-1 border-primary-dark">
+    <div
+        class="absolute inset-0 top-auto flex items-center gap-4 rounded-t-md border-solid bg-gradient-to-tl p-1
+        text-center shadow-lg backdrop-blur-sm z-[1] action-bar-component text-light text-shadow border-1
+        border-primary-dark from-primary-dark/90 to-primary/90"
+    >
         <div>
             <div>{{ percentageCompleted.toFixed(2) }}%</div>
         </div>
-        <div class="centre-container">
-            <div class="flex items-center centre-button" @click="onShowModal">
+        <div class="w-16 flex-auto">
+            <div
+                @click="onShowModal"
+                class="absolute -top-1 left-1/2 m-auto flex -translate-x-1/2 -translate-y-1/2 items-center rounded-full
+                    border-solid bg-gradient-to-tl backdrop-blur-sm size-16 from-primary-dark/90 to-primary/90 border-1
+                    border-primary-dark text-light text-shadow shadow-md cursor-pointer outline-2 outline-dashed
+                    outline-transparent hover:outline-secondary"
+            >
                 <IconComponent icon="info" class="drop-shadow-icon" />
             </div>
         </div>
@@ -42,44 +52,12 @@ const onShowModal = function (): void {
 
 <style lang="scss">
 .action-bar-component {
-    background: linear-gradient(
-        -5deg,
-        color-mix(in srgb, var(--wjb-primary-dark) 90%, transparent),
-        color-mix(in srgb, var(--wjb-primary) 90%, transparent),
-    );
-    z-index: 1;
 
     @media screen and (max-width: 720px) {
         .hovered-stitch,
         .main-items {
             display: none;
         }
-    }
-
-    .centre-container {
-        flex: 0 0 4rem;
-    }
-
-    .centre-button {
-        width: 4rem;
-        position: absolute;
-        top: 0;
-        left: 50%;
-        translate: -50% -50%;
-        aspect-ratio: 1;
-        border-radius: 50%;
-        margin: auto;
-        background: linear-gradient(
-            -5deg,
-            color-mix(in srgb, var(--wjb-primary-dark) 90%, transparent),
-            color-mix(in srgb, var(--wjb-primary) 90%, transparent),
-        );
-        border: 1px solid var(--wjb-primary-dark);
-        backdrop-filter: blur(2px);
-        color: var(--wjb-light);
-        text-shadow: 1px 1px rgba(0, 0, 0, 0.6);
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 12px 24px -12px rgba(0, 0, 0, 0.5);
-        cursor: pointer;
     }
 
     .action-button {
