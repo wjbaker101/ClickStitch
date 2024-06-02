@@ -1,11 +1,11 @@
 <template>
-    <div class="absolute inset-0 top-auto flex items-center gap-4 p-1 text-center backdrop-blur-sm action-bar-component text-light [text-shadow:1px_1px_rgba(0,0,0,.6)] shadow-lg border-1 border-solid border-primary-dark rounded-t-md">
+    <div class="absolute inset-0 top-auto flex items-center gap-4 rounded-t-md border-solid p-1 text-center shadow-lg backdrop-blur-sm action-bar-component text-light text-shadow border-1 border-primary-dark">
         <div>
             <div>{{ percentageCompleted.toFixed(2) }}%</div>
         </div>
         <div class="centre-container">
             <div class="flex items-center centre-button" @click="onShowModal">
-                <IconComponent icon="info" />
+                <IconComponent icon="info" class="drop-shadow-icon" />
             </div>
         </div>
         <div>
