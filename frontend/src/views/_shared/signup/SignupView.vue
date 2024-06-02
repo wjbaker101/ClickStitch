@@ -20,14 +20,14 @@
                     <label class="confirm-password">
                         <strong>Confirm Password</strong>
                         <br>
-                        <input
+                        <InputComponent
                             ref="confirmPasswordInput"
                             type="password"
                             v-model="confirmPassword"
                             placeholder="Confirm Password"
                             @keyup.enter="nextInput('emailInput')"
                             class="w-full"
-                        >
+                        />
                     </label>
                 </div>
                 <UserMessageComponent ref="userMessageComponent" />
