@@ -35,10 +35,11 @@ module.exports = {
 
             backgroundImage: {
                 'texture': 'var(--background-texture)',
+                'image-inherit': 'inherit',
             },
 
             keyframes: {
-                loading: {
+                'loading': {
                     '0%': { color: 'rgb(var(--primary))' },
                     '50%': { color: 'rgb(var(--secondary))' },
                     '100%': { color: 'rgb(var(--primary))' },
@@ -46,7 +47,11 @@ module.exports = {
             },
 
             animation: {
-                loading: 'loading 3s ease-in-out infinite',
+                'loading': 'loading 3s ease-in-out infinite',
+            },
+
+            dropShadow: {
+                'icon': '1px 1px rgba(0, 0, 0, 0.6)',
             },
         },
     },

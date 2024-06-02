@@ -1,23 +1,42 @@
 <template>
-    <nav class="nav-component">
-        <div class="flex items-center gap-2">
-            <div class="-my-4 inline-grid flex-auto place-content-center rounded-full shadow-md bg-background-light size-10">
+    <nav
+        class="fixed top-1 right-1 left-1 grid items-center gap-4 rounded-md border-solid px-4 py-2 shadow-lg
+            backdrop-blur nav-component grid-cols-[1fr_auto_1fr] text-light z-[1] text-shadow border-1
+            border-primary-dark bg-gradient-to-tl from-primary-dark to-primary
+            md:top-2 md:right-2 md:left-2 md:py-4"
+    >
+        <div class="flex items-center gap-2 justify-self-start">
+            <div class="inline-grid flex-auto place-content-center rounded-full shadow-md bg-background-light size-10">
                 <img src="@/assets/logo.png">
             </div>
             <strong class="hidden md:block">ClickStitch</strong>
         </div>
-        <div class="text-center">
+        <div class="justify-self-center text-center">
             <slot></slot>
         </div>
-        <div class="md:hidden">
+        <div class="justify-self-end md:hidden">
             <BtnComponent class="-m-2" @click="onToggleMenu">
                 <IconComponent icon="menu" />
             </BtnComponent>
         </div>
-        <div class="flex flex-auto links gap" :class="{ 'is-menu-open': isMenuOpen }">
-            <RouterLink class="flex-auto" v-for="link in links.filter(x => x.isVisible)" :to="link.path">
-                <IconComponent :icon="link.iconName" gap="right" />
-                <span>{{ link.title }}</span>
+        <div
+            :class="{
+                'is-menu-open': isMenuOpen,
+            }"
+            class="absolute -bottom-1 flex flex-auto translate-y-full border-1 border-solid border-primary-dark flex-col
+                justify-self-end rounded-md p-2 shadow-lg backdrop-blur z-[1] links opacity-0 pointer-events-none
+                bg-image-inherit
+                md:static md:translate-y-0 md:flex-row md:gap-4 md:p-0 md:shadow-none md:bg-none md:border-transparent md:pointer-events-auto md:opacity-100
+                [&.is-menu-open]:opacity-100 [&.is-menu-open]:pointer-events-auto"
+        >
+            <RouterLink
+                v-for="link in links.filter(x => x.isVisible)"
+                :to="link.path"
+                class="flex-auto rounded-md px-6 py-3 font-bold text-inherit decoration-0 outline-dashed outline-2
+                    outline-transparent hover:bg-primary-dark focus:outline-secondary md:p-0"
+            >
+                <IconComponent :icon="link.iconName" gap="right" class="drop-shadow-icon" />
+                <span class="align-middle">{{ link.title }}</span>
             </RouterLink>
         </div>
     </nav>
@@ -41,99 +60,4 @@ const links = linkFactory.get(subdomain);
 </script>
 
 <style lang="scss">
-.nav-component {
-    --inset: 0.5rem;
-
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: center;
-    gap: 1rem;
-    position: fixed;
-    justify-content: center;
-    inset: var(--inset) var(--inset) auto var(--inset);
-    padding: 2rem 1rem;
-    line-height: 1em;
-    background-color: var(--wjb-primary);
-    background: linear-gradient(
-        -5deg,
-        color-mix(in srgb, var(--wjb-primary-dark) 90%, transparent),
-        color-mix(in srgb, var(--wjb-primary) 90%, transparent),
-    );
-    backdrop-filter: blur(2px);
-    color: var(--wjb-light);
-    text-shadow: 1px 1px rgba(0, 0, 0, 0.6);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 12px 24px -12px rgba(0, 0, 0, 0.5);
-    border: 1px solid var(--wjb-primary-dark);
-    border-radius: var(--wjb-border-radius);
-    z-index: 1;
-
-    svg {
-        filter: drop-shadow(1px 1px rgba(0, 0, 0, 0.6));
-    }
-
-    a {
-        color: inherit;
-        text-decoration: none;
-        font-weight: bold;
-
-        span {
-            vertical-align: middle;
-        }
-    }
-
-    .links {
-        justify-content: right;
-    }
-
-    @media screen and (max-width: 720px) {
-        --inset: 0.25rem;
-
-        padding: 1rem;
-        grid-template-columns: auto 1fr auto;
-
-        .logo-container {
-            --width: 2rem;
-        }
-
-        .logo-text {
-            display: none;
-        }
-
-        .links {
-            display: block;
-            position: fixed;
-            padding: 1rem;
-            inset: 3.75rem 0 auto 0;
-            background-color: var(--wjb-primary);
-            background: linear-gradient(
-                -5deg,
-                color-mix(in srgb, var(--wjb-primary-dark) 90%, transparent),
-                color-mix(in srgb, var(--wjb-primary) 90%, transparent),
-            );
-            backdrop-filter: blur(2px);
-            text-shadow: 1px 1px rgba(0, 0, 0, 0.6);
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 12px 24px -12px rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--wjb-primary-dark);
-            border-radius: var(--wjb-border-radius);
-            z-index: 1;
-            opacity: 0;
-            pointer-events: none;
-
-            &.is-menu-open {
-                opacity: 1;
-                pointer-events: all;
-            }
-
-            & > * {
-                display: block;
-                padding: 1rem;
-                border-radius: var(--wjb-border-radius);
-
-                &:hover {
-                    background-color: var(--wjb-primary-dark);
-                }
-            }
-        }
-    }
-}
 </style>
