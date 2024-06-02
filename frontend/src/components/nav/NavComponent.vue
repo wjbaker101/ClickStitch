@@ -4,7 +4,7 @@
             <div class="-my-4 inline-grid flex-auto place-content-center rounded-full shadow-md bg-background-light size-10">
                 <img src="@/assets/logo.png">
             </div>
-            <strong class="">ClickStitch</strong>
+            <strong class="hidden md:block">ClickStitch</strong>
         </div>
         <div class="custom align-items-center">
             <slot></slot>
