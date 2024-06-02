@@ -1,5 +1,5 @@
 <template>
-    <select v-model="value">
+    <select v-model="value" class="rounded-md border-0 px-4 py-2 shadow-md outline-dashed outline-2 outline-transparent bg-background-light font-[inherit] w-[150px] focus:outline-primary focus:shadow-lg">
         <option :value="null" disabled>Select option...</option>
         <option v-for="option in options" :value="option.value">{{ option.description }}</option>
     </select>
