@@ -9,7 +9,7 @@
         <div class="custom align-items-center">
             <slot></slot>
         </div>
-        <div class="text-right menu">
+        <div class="md:hidden">
             <BtnComponent class="-m-2" @click="onToggleMenu">
                 <IconComponent icon="menu" />
             </BtnComponent>
@@ -81,10 +81,6 @@ const links = linkFactory.get(subdomain);
         }
     }
 
-    .menu {
-        display: none;
-    }
-
     .links {
         justify-content: right;
     }
@@ -108,10 +104,6 @@ const links = linkFactory.get(subdomain);
 
         .logo-text {
             display: none;
-        }
-
-        .menu {
-            display: unset;
         }
 
         .links {
