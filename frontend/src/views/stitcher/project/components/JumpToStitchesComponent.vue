@@ -1,12 +1,20 @@
 <template>
-    <div class="jump-to-stitches-component" :class="{ 'is-enabled': isEnabled }">
-        <div class="header flex gap align-items-center">
+    <div
+        :class="{
+            'is-enabled': isEnabled,
+        }"
+        class="absolute bottom-16 left-1/2 -translate-x-1/2 -translate-y-4 rounded-md border-solid bg-gradient-to-tl
+            p-2 shadow-lg backdrop-blur-sm jump-to-stitches-component text-light text-shadow z-[1] border-primary-dark
+            from-primary-dark/90 to-primary/90 border-1 opacity-0 pointer-events-none
+            [&.is-enabled]:opacity-100 [&.is-enabled]:pointer-events-auto"
+    >
+        <div class="mb-4 flex items-center gap-4">
             <div>Jump to Stitch</div>
-            <div class="close flex-auto" @click="onClose">
+            <div class="-m-2 flex-auto cursor-pointer rounded-full p-4 leading-none close hover:bg-primary-dark" @click="onClose">
                 <IconComponent icon="cross" />
             </div>
         </div>
-        <div class="flex gap align-items-center">
+        <div class="flex items-center gap-4">
             <BtnComponent class="flex-auto" @click="onNavigate(-1)" type="secondary">
                 <IconComponent icon="arrow-left" />
             </BtnComponent>
@@ -119,42 +127,4 @@ useEvent('StartJumpToStitches', onStart);
 </script>
 
 <style lang="scss">
-.jump-to-stitches-component {
-    position: absolute;
-    left: 50%;
-    bottom: 4.5rem;
-    translate: -50% 0;
-    padding: 0.5rem;
-    line-height: 1em;
-    background-color: var(--wjb-primary);
-    background: linear-gradient(-5deg, rgba(24, 105, 92, 0.9), rgba(34, 146, 127, 0.9));
-    backdrop-filter: blur(2px);
-    color: var(--wjb-light);
-    text-shadow: 1px 1px rgba(0, 0, 0, 0.6);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 12px 24px -12px rgba(0, 0, 0, 0.5);
-    border: 1px solid var(--wjb-primary-dark);
-    border-radius: var(--wjb-border-radius);
-    opacity: 0;
-    pointer-events: none;
-    z-index: 1;
-
-    &.is-enabled {
-        opacity: 1;
-        pointer-events: all;
-    }
-
-    .header {
-        margin-bottom: 0.5rem;
-    }
-
-    .close {
-        padding: 0.5rem;
-        border-radius: var(--wjb-border-radius);
-        cursor: pointer;
-
-        &:hover {
-            background-color: var(--wjb-primary-dark);
-        }
-    }
-}
 </style>
