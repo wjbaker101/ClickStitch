@@ -16,7 +16,6 @@ import SideModalComponent from '@/components/modals/SideModalComponent.vue';
 
 body {
     font-family: 'Mulish', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--wjb-text-colour);
 }
 
 section {
