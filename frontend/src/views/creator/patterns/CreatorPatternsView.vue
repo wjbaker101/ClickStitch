@@ -69,21 +69,3 @@ const getPatternsLogic = async function (pageNumber: number, pageSize: number): 
     return getPatterns.value.pagination;
 };
 </script>
-
-<style lang="scss">
-.creator-patterns-view {
-
-    .total-count {
-        $size: 2rem;
-
-        width: $size;
-        line-height: $size;
-        display: inline-block;
-        aspect-ratio: 1;
-        border-radius: 50%;
-        background-color: var(--wjb-secondary);
-        color: var(--wjb-light);
-        text-align: center;
-    }
-}
-</style>
