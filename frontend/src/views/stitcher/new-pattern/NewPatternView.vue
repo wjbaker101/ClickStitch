@@ -11,48 +11,46 @@
                         <IconComponent class="flex-auto" icon="arrow-left" gap="right" />
                         <small class="align-middle">Back to Dashboard</small>
                     </LinkComponent>
+                    <FormComponent class="mb-4">
+                        <h3 class="m-0 mb-4">Pattern Details</h3>
+                        <label class="mb-4 block">
+                            <strong class="block">Title</strong>
+                            <InputComponent type="text" placeholder="My Amazing Pattern" v-model="title" />
+                        </label>
+                        <label>
+                            <strong class="block">Aida Count</strong>
+                            <AidaSelectionComponent v-model="aidaCount" />
+                        </label>
+                        <FileUploadComponent class="flex-2" heading="Pattern Schematic" @choose="onPatternChoose">
+                            <template #subtext>
+                                <LinkComponent href="/supported-pattern-formats">
+                                    <small>View supported formats here</small>
+                                </LinkComponent>
+                            </template>
+                        </FileUploadComponent>
+                        <div v-if="isValid !== null || isLoading" class="mt-4 flex items-center text-center">
+                            <template v-if="isLoading">
+                                <LoadingComponent itemName="asd" />
+                            </template>
+                            <template v-else-if="isValid === true">
+                                <IconComponent class="flex-auto" icon="tick-circle" size="large" gap="right" />
+                                <span class="text-left">Pattern is Valid!</span>
+                            </template>
+                            <template v-else-if="isValid === false">
+                                <IconComponent class="flex-auto" icon="cross-circle" size="large" gap="right" />
+                                <span class="text-left">Pattern is invalid, please check it is a supported format and try again.</span>
+                            </template>
+                        </div>
+                    </FormComponent>
                     <FormComponent>
-                        <FormSectionComponent>
-                            <h3>Pattern Details</h3>
-                            <FormInputComponent label="Title">
-                                <InputComponent type="text" placeholder="My Amazing Pattern" v-model="title" />
-                            </FormInputComponent>
-                            <FormInputComponent label="Aida Count">
-                                <AidaSelectionComponent v-model="aidaCount" />
-                            </FormInputComponent>
-                            <div class="flex gap-4">
-                                <FileUploadComponent class="flex-2" heading="Pattern Schematic" @choose="onPatternChoose">
-                                    <template #subtext>
-                                        <LinkComponent href="/supported-pattern-formats">
-                                            <small>View supported formats here</small>
-                                        </LinkComponent>
-                                    </template>
-                                </FileUploadComponent>
-                                <div v-if="isValid !== null || isLoading" class="mt-4 flex items-center text-center">
-                                    <template v-if="isLoading">
-                                        <LoadingComponent itemName="asd" />
-                                    </template>
-                                    <template v-else-if="isValid === true">
-                                        <IconComponent class="flex-auto" icon="tick-circle" size="large" gap="right" />
-                                        <span class="text-left">Pattern is Valid!</span>
-                                    </template>
-                                    <template v-else-if="isValid === false">
-                                        <IconComponent class="flex-auto" icon="cross-circle" size="large" gap="right" />
-                                        <span class="text-left">Pattern is invalid, please check it is a supported format and try again.</span>
-                                    </template>
-                                </div>
-                            </div>
-                        </FormSectionComponent>
-                        <FormSectionComponent>
-                            <p>Once you're happy with the details, click the button below.</p>
-                            <p>
-                                <em>(This may take a while, in some cases up to a few minutes).</em>
-                            </p>
-                            <BtnComponent @click="onCreate" :loading="isCreationLoading">
-                                <IconComponent icon="plus" gap="right" />
-                                <span class="align-middle">Create</span>
-                            </BtnComponent>
-                        </FormSectionComponent>
+                        <p>Once you're happy with the details, click the button below.</p>
+                        <p>
+                            <em>(This may take a while, in some cases up to a few minutes).</em>
+                        </p>
+                        <BtnComponent @click="onCreate" :loading="isCreationLoading">
+                            <IconComponent icon="plus" gap="right" />
+                            <span class="align-middle">Create</span>
+                        </BtnComponent>
                     </FormComponent>
                 </CardComponent>
             </section>
@@ -65,6 +63,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import BtnComponent from '@/components/BtnComponent.vue';
+import FormComponent from '@/components/form/FormComponent.vue';
 import InputComponent from '@/components/inputs/InputComponent.vue';
 import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 import FileUploadComponent from '@/components/FileUploadComponent.vue';

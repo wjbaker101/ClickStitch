@@ -5,48 +5,47 @@
             <h3>{{ pattern.title }}</h3>
         </div>
         <template #expanded>
-            <FormComponent>
-                <FormSectionComponent>
-                    <div class="flex gap-4">
-                        <h3>Edit Pattern Details</h3>
-                        <div class="flex-auto">
-                            <small>{{ pattern.reference }}</small>
-                        </div>
+            <FormComponent class="mb-4">
+                <div class="flex gap-4">
+                    <h3 class="m-0 mb-4">Edit Pattern Details</h3>
+                    <div class="flex-auto">
+                        <small>{{ pattern.reference }}</small>
                     </div>
-                    <FormInputComponent label="Title">
-                        <InputComponent type="text" placeholder="Amazing Pattern" v-model="form.title" />
-                    </FormInputComponent>
-                    <FormInputComponent label="Shop URL">
-                        <InputComponent type="text" placeholder="https://etsy.com/shop/beautifulpatternsco/amazing_pattern" v-model="form.externalShopUrl" />
-                    </FormInputComponent>
-                    <FormInputComponent label="Aida Count">
-                        <AidaSelectionComponent v-model="form.aidaCount" />
-                    </FormInputComponent>
-                </FormSectionComponent>
-                <FormSectionComponent>
-                    <BtnComponent @click="onUpdate" :loading="isLoading">
-                        <IconComponent icon="tick" gap="right" />
-                        <span>Update</span>
-                    </BtnComponent>
-                </FormSectionComponent>
-                <FormSectionComponent>
-                    <h3>Delete Pattern</h3>
-                    <p>If any user has already added your pattern to their dashboard this action will NOT delete the pattern, but will instead hide it from new users.</p>
-                    <p>If this pattern has not been added by any users yet, this action will permanently delete the pattern.</p>
-                    <p>
-                        <DeleteBtnComponent @delete="onDelete" />
-                    </p>
-                    <CardComponent v-if="deletionMessage" class="flex items-center gap-4" padded border="left">
-                        <div class="flex-auto">
-                            <IconComponent icon="info" gap="right" />
-                        </div>
-                        <div>
-                            {{ deletionMessage }}
-                            <br>
-                            Refresh the page to update the list patterns.
-                        </div>
-                    </CardComponent>
-                </FormSectionComponent>
+                </div>
+                <label class="mb-4 block">
+                    <strong class="block">Title</strong>
+                    <InputComponent type="text" placeholder="Amazing Pattern" v-model="form.title" />
+                </label>
+                <label class="mb-4 block">
+                    <strong class="block">Shop URL</strong>
+                    <InputComponent type="text" placeholder="https://etsy.com/shop/beautifulpatternsco/amazing_pattern" v-model="form.externalShopUrl" />
+                </label>
+                <label class="mb-4 block">
+                    <strong class="block">Aida Count</strong>
+                    <AidaSelectionComponent v-model="form.aidaCount" />
+                </label>
+                <BtnComponent @click="onUpdate" :loading="isLoading">
+                    <IconComponent icon="tick" gap="right" />
+                    <span>Update</span>
+                </BtnComponent>
+            </FormComponent>
+            <FormComponent>
+                <h3>Delete Pattern</h3>
+                <p>If any user has already added your pattern to their dashboard this action will NOT delete the pattern, but will instead hide it from new users.</p>
+                <p>If this pattern has not been added by any users yet, this action will permanently delete the pattern.</p>
+                <p>
+                    <DeleteBtnComponent @delete="onDelete" />
+                </p>
+                <CardComponent v-if="deletionMessage" class="flex items-center gap-4" padded border="left">
+                    <div class="flex-auto">
+                        <IconComponent icon="info" gap="right" />
+                    </div>
+                    <div>
+                        {{ deletionMessage }}
+                        <br>
+                        Refresh the page to update the list patterns.
+                    </div>
+                </CardComponent>
             </FormComponent>
         </template>
     </ListItemComponent>
@@ -56,6 +55,7 @@
 import { ref } from 'vue';
 
 import BtnComponent from '@/components/BtnComponent.vue';
+import FormComponent from '@/components/form/FormComponent.vue';
 import InputComponent from '@/components/inputs/InputComponent.vue';
 import DeleteBtnComponent from '@/components/DeleteBtnComponent.vue';
 import ListItemComponent from '@/components/ListItemComponent.vue';

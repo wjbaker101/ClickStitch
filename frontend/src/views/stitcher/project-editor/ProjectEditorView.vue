@@ -13,21 +13,18 @@
                         <small>Back to Project</small>
                     </LinkComponent>
                     <FormComponent>
-                        <FormSectionComponent>
-                            <h3>Pattern Details</h3>
-                            <FormInputComponent label="Title">
-                                <InputComponent type="text" placeholder="My Amazing Pattern" v-model="title" />
-                            </FormInputComponent>
-                            <FormInputComponent label="Aida Count">
-                                <AidaSelectionComponent v-model="aidaCount" />
-                            </FormInputComponent>
-                        </FormSectionComponent>
-                        <FormSectionComponent>
-                            <BtnComponent @click="onUpdate" :loading="isUpdating">
-                                <IconComponent icon="tick" gap="right" />
-                                <span class="align-middle">Update</span>
-                            </BtnComponent>
-                        </FormSectionComponent>
+                        <label class="mb-4 block">
+                            <strong class="block">Title</strong>
+                            <InputComponent type="text" placeholder="My Amazing Pattern" v-model="title" />
+                        </label>
+                        <label class="mb-4 block">
+                            <strong class="block">Aida Count</strong>
+                            <AidaSelectionComponent v-model="aidaCount" />
+                        </label>
+                        <BtnComponent @click="onUpdate" :loading="isUpdating">
+                            <IconComponent icon="tick" gap="right" />
+                            <span class="align-middle">Update</span>
+                        </BtnComponent>
                     </FormComponent>
                 </CardComponent>
             </section>
@@ -40,6 +37,7 @@ import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 import BtnComponent from '@/components/BtnComponent.vue';
+import FormComponent from '@/components/form/FormComponent.vue';
 import InputComponent from '@/components/inputs/InputComponent.vue';
 import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 import AidaSelectionComponent from '@/components/aida-selection/AidaSelectionComponent.vue';

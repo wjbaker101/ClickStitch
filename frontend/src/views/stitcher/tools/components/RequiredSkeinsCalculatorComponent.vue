@@ -2,14 +2,14 @@
     <h2>Required Skeins Calculator</h2>
     <div class="grid items-center gap-4 sm:grid-cols-[1fr_auto_1fr]">
         <FormComponent>
-            <FormSectionComponent>
-                <FormInputComponent label="Number of Stitches">
-                    <InputComponent type="number" min="1" max="300" v-model="numberOfStitches" />
-                </FormInputComponent>
-                <FormInputComponent label="Aida Count">
-                    <AidaSelectionComponent v-model="aidaCount" />
-                </FormInputComponent>
-            </FormSectionComponent>
+            <label class="mb-4 block">
+                <strong class="block">Number of Stitches</strong>
+                <InputComponent type="number" min="1" max="300" v-model="numberOfStitches" />
+            </label>
+            <label>
+                <strong class="block">Aida Count</strong>
+                <AidaSelectionComponent v-model="aidaCount" />
+            </label>
         </FormComponent>
         <div class="text-center">
             <IconComponent class="hidden sm:block" icon="arrow-right" />
@@ -25,6 +25,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
+import FormComponent from '@/components/form/FormComponent.vue';
 import InputComponent from '@/components/inputs/InputComponent.vue';
 import AidaSelectionComponent from '@/components/aida-selection/AidaSelectionComponent.vue';
 

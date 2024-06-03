@@ -10,23 +10,23 @@
                     <LoadingComponent v-if="isLoading" itemName="threads" />
                     <template v-else>
                         <section>
-                            <FormComponent>
-                                <FormSectionComponent class="flex items-center place-content-between">
-                                    <div class="flex-auto">
-                                        <FormInputComponent label="Search">
-                                            <TextboxComponent type="search" placeholder="DMC 814" v-model="searchTerm" />
-                                        </FormInputComponent>
-                                    </div>
-                                    <div class="flex-auto">
-                                        <FormInputComponent label="Brand">
-                                            <select v-model="searchBrand">
-                                                <option :value="null">All</option>
-                                                <option value="Anchor">Anchor</option>
-                                                <option value="DMC">DMC</option>
-                                            </select>
-                                        </FormInputComponent>
-                                    </div>
-                                </FormSectionComponent>
+                            <FormComponent class="flex items-center place-content-between">
+                                <div class="flex-auto">
+                                    <label>
+                                        <strong class="block">Search</strong>
+                                        <TextboxComponent type="search" placeholder="DMC 814" v-model="searchTerm" />
+                                    </label>
+                                </div>
+                                <div class="flex-auto">
+                                    <label>
+                                        <strong class="block">Brand</strong>
+                                        <select v-model="searchBrand">
+                                            <option :value="null">All</option>
+                                            <option value="Anchor">Anchor</option>
+                                            <option value="DMC">DMC</option>
+                                        </select>
+                                    </label>
+                                </div>
                             </FormComponent>
                         </section>
                         <section>
@@ -51,6 +51,7 @@ import { onMounted, ref } from 'vue';
 import { watchDebounced } from '@vueuse/core';
 
 import LoadingComponent from '@/components/loading/LoadingComponent.vue';
+import FormComponent from '@/components/form/FormComponent.vue';
 import TextboxComponent from '@/components/inputs/InputComponent.vue';
 import ThreadItemComponent from '@/views/stitcher/inventory/components/ThreadItemComponent.vue';
 

@@ -5,27 +5,25 @@
         <LoadingComponent itemName="creator" />
     </div>
     <FormComponent v-else>
-        <FormSectionComponent>
-            <h3>{{ creator === null ? 'Setup your Creator Details' : 'Edit Creator Details' }}</h3>
-            <FormInputComponent label="Name">
-                <InputComponent class="max-w-full w-[350px]" type="text" placeholder="Beautiful Patterns Co." v-model="form.name" />
-            </FormInputComponent>
-            <FormInputComponent label="Store Url">
-                <InputComponent type="text" placeholder="https://etsy.com/shop/beautiful-patterns-co" v-model="form.storeUrl" />
-            </FormInputComponent>
-        </FormSectionComponent>
-        <FormSectionComponent>
-            <BtnComponent @click="onSubmit">
-                <template v-if="creator === null">
-                    <IconComponent icon="plus" gap="right" />
-                    <span class="align-middle">Create</span>
-                </template>
-                <template v-else>
-                    <IconComponent icon="tick" gap="right" />
-                    <span class="align-middle">Update</span>
-                </template>
-            </BtnComponent>
-        </FormSectionComponent>
+        <h3 class="m-0 mb-4">{{ creator === null ? 'Setup your Creator Details' : 'Edit Creator Details' }}</h3>
+        <label class="mb-4 block">
+            <strong class="block">Name</strong>
+            <InputComponent class="max-w-full w-[350px]" type="text" placeholder="Beautiful Patterns Co." v-model="form.name" />
+        </label>
+        <label class="mb-4 block">
+            <strong class="block">Store URL</strong>
+            <InputComponent type="text" placeholder="https://etsy.com/shop/beautiful-patterns-co" v-model="form.storeUrl" />
+        </label>
+        <BtnComponent @click="onSubmit">
+            <template v-if="creator === null">
+                <IconComponent icon="plus" gap="right" />
+                <span class="align-middle">Create</span>
+            </template>
+            <template v-else>
+                <IconComponent icon="tick" gap="right" />
+                <span class="align-middle">Update</span>
+            </template>
+        </BtnComponent>
     </FormComponent>
 </template>
 
@@ -33,6 +31,7 @@
 import { onMounted, ref } from 'vue';
 
 import BtnComponent from '@/components/BtnComponent.vue';
+import FormComponent from '@/components/form/FormComponent.vue';
 import InputComponent from '@/components/inputs/InputComponent.vue';
 import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 
