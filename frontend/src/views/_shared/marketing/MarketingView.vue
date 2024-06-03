@@ -20,7 +20,7 @@
             <img width="50" height="50" class="logo" src="@/assets/logo-large.png">
             <div class="any-width">
                 <img width="500" height="500" class="full-image" src="@/assets/clickstitch-phone-layered.png" style="opacity: 0.3; position: absolute; top: 50%; left: 50%; translate: -50% -50%;">
-                <p class="background text-light" style="margin: 0 -5rem;">ClickStitch is <em>your</em> companion to track and manage your cross-stitching progress! Whether you're a beginner or an advanced stitcher, ClickStitch makes life easier.</p>
+                <p class="background text-light rounded-md" style="margin: 0 -5rem;">ClickStitch is <em>your</em> companion to track and manage your cross-stitching progress! Whether you're a beginner or an advanced stitcher, ClickStitch makes life easier.</p>
             </div>
         </div>
         <div class="container flex align-items-center">
@@ -140,7 +140,6 @@
             background-color: color-mix(in srgb, var(--wjb-primary) 60%, transparent);
             border: 1px solid var(--wjb-primary-dark);
             font-weight: bold;
-            border-radius: var(--wjb-border-radius);
             box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), 0 6px 16px -12px rgba(0, 0, 0, 1);
             backdrop-filter: blur(5px);
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);

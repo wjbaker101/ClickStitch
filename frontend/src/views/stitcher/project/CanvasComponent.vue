@@ -14,7 +14,7 @@
         @wheel="onMouseWheel"
         @contextmenu="onOpenContextMenu"
     >
-        <div class="canvas-wrapper"
+        <div class="canvas-wrapper *:rounded-md"
             :style="{
                 'transform': `translate(${offset.x}px, ${offset.y}px) scale(${scale})`,
             }"
@@ -53,7 +53,7 @@
                 :stitchSize="baseStitchSize"
             />
         </div>
-        <!-- <div class="debug">
+        <!-- <div class="rounded-md debug">
             <div>w: {{ width.toFixed(0) }} h: {{ height.toFixed(0) }}</div>
             <div>mouse | x: {{ mousePosition.x }} y: {{ mousePosition.y }}</div>
             <div>scale {{ scale.toFixed(1) }}</div>
@@ -358,7 +358,6 @@ const onOpenContextMenu = function (event: MouseEvent): void {
 
     canvas {
         pointer-events: none;
-        border-radius: var(--wjb-border-radius);
         image-rendering: crisp-edges;
         image-rendering: -moz-crisp-edges;
         image-rendering: -webkit-optimize-contrast;
@@ -370,7 +369,6 @@ const onOpenContextMenu = function (event: MouseEvent): void {
         position: fixed;
         inset: 50% 0.25rem auto auto;
         padding: 0.3rem;
-        border-radius: var(--wjb-border-radius);
         text-align: right;
         font-size: 0.7rem;
         line-height: 1.3em;
