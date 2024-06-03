@@ -7,10 +7,10 @@
             <section>
                 <CardComponent border="top" padded>
                     <h2>Create a New Pattern</h2>
-                    <RouterLink class="link-component" to="/patterns">
+                    <LinkComponent href="/patterns">
                         <IconComponent class="flex-auto" icon="arrow-left" gap="right" />
-                        <small>Back to Patterns</small>
-                    </RouterLink>
+                        <small class="align-middle">Back to Patterns</small>
+                    </LinkComponent>
                     <FormComponent>
                         <FormSectionComponent>
                             <h3>Pattern Details</h3>
@@ -25,9 +25,9 @@
                             <div class="flex gap">
                                 <FileUploadComponent class="flex-2" heading="Pattern Schematic" @choose="onPatternChoose">
                                     <template #subtext>
-                                        <RouterLink class="link-component" to="/supported-pattern-formats">
+                                        <LinkComponent href="/supported-pattern-formats">
                                             <small>View supported formats here</small>
-                                        </RouterLink>
+                                        </LinkComponent>
                                     </template>
                                 </FileUploadComponent>
                                 <div v-if="isValid !== null || isLoading" class="pattern-upload-details flex align-items-center text-centered">

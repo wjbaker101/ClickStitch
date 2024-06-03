@@ -8,10 +8,10 @@
             <section v-else>
                 <CardComponent border="top" padded>
                     <h2>Edit Project</h2>
-                    <RouterLink class="link-component" :to="`/projects/${patternReference}`">
+                    <LinkComponent :href="`/projects/${patternReference}`">
                         <IconComponent class="flex-auto" icon="arrow-left" gap="right" />
                         <small>Back to Project</small>
-                    </RouterLink>
+                    </LinkComponent>
                     <FormComponent>
                         <FormSectionComponent>
                             <h3>Pattern Details</h3>

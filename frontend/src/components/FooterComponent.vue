@@ -2,11 +2,11 @@
     <footer class="p-2 text-xs/loose">
         <section>
             <div class="inline-block">Links:</div>
-            <div class="ml-2 inline-block"><RouterLink class="link-component" to="/dashboard">Dashboard</RouterLink></div>
-            <div class="ml-2 inline-block"><RouterLink class="link-component" to="/patterns">Patterns</RouterLink></div>
-            <div class="ml-2 inline-block"><RouterLink class="link-component" to="/inventory">Inventory</RouterLink></div>
-            <div class="ml-2 inline-block"><RouterLink class="link-component" to="/about">About</RouterLink></div>
-            <div class="ml-2 inline-block"><RouterLink class="link-component" to="/settings">Settings</RouterLink></div>
+            <div class="ml-2 inline-block"><LinkComponent href="/dashboard">Dashboard</LinkComponent></div>
+            <div class="ml-2 inline-block"><LinkComponent href="/patterns">Patterns</LinkComponent></div>
+            <div class="ml-2 inline-block"><LinkComponent href="/inventory">Inventory</LinkComponent></div>
+            <div class="ml-2 inline-block"><LinkComponent href="/about">About</LinkComponent></div>
+            <div class="ml-2 inline-block"><LinkComponent href="/settings">Settings</LinkComponent></div>
             <br>
             <div class="inline-block">Follow on:</div>
             <div class="ml-2 inline-block"><LinkComponent :href="lemmyUrl" external>Lemmy</LinkComponent></div>

@@ -12,11 +12,12 @@
                         <span class="align-middle">{{ creator.name }}</span>
                     </h2>
                     <p>Creator since: {{ creator.createdAt.format('MMMM YYYY') }}</p>
-                    <LinkComponent :href="creator.storeUrl">
+                    <a :href="creator.storeUrl" target="_blank">
                         <BtnComponent>
-                            Visit their Shop!
+                            <IconComponent icon="external-link" gap="right" />
+                            <span class="align-middle text-light">Visit their Shop!</span>
                         </BtnComponent>
-                    </LinkComponent>
+                    </a>
                 </div>
                 <div>
                     <div class="mr-1 inline-block rounded-full p-2 text-center shadow-md size-10 bg-secondary text-light">{{ totalPatternCount }}</div>
