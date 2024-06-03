@@ -5,7 +5,7 @@
             <br>
             <slot name="subtext"></slot>
             <input type="file" @change="onChange" class="hidden">
-            <div class="cursor-pointer rounded-md p-4 shadow-md outline-dashed outline-2 file-placeholder text-centered bg-background-light outline-secondary hover:outline-transparent">
+            <div class="cursor-pointer rounded-md p-4 text-center shadow-md outline-dashed outline-2 bg-background-light outline-secondary hover:outline-transparent">
                 <template v-if="fileName !== null">
                     <p>
                         <strong>Click to Change File</strong>

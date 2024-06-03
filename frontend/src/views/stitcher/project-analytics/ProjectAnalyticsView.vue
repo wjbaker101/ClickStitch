@@ -12,7 +12,7 @@
             </div>
             <div v-else-if="analytics !== null">
                 <section class="grid gap-4 top-grid grid-cols-[1fr_2fr]">
-                    <CardComponent class="flex align-items-center text-centered">
+                    <CardComponent class="flex items-center text-center">
                         <img width="250" height="166" :src="analytics.bannerImageUrl" class="h-auto w-full rounded-md align-middle image">
                     </CardComponent>
                     <CardComponent border="top" padded>

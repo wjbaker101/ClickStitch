@@ -31,9 +31,9 @@
                     {{ (resultHeight * cmToInch).toFixed(1) }}cm / {{ resultHeight.toFixed(1) }}in
                 </p>
             </FormSectionComponent>
-            <div class="text-centered">Make sure to add a few cm/inches as padding</div>
+            <div class="text-center">Make sure to add a few cm/inches as padding</div>
         </FormComponent>
-        <div class="m-auto flex place-content-center preview-container h-[200px] sm:col-start-1 sm:col-end-4 md:col-start-4 md:col-end-4">
+        <div class="m-auto flex place-content-center h-[200px] sm:col-start-1 sm:col-end-4 md:col-start-4 md:col-end-4">
             <div class="m-auto flex flex-auto items-center rounded-md border-2 border-solid text-center bg-texture border-secondary" :style="style">
                 <small>Preview</small>
             </div>

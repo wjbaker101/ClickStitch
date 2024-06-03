@@ -13,7 +13,7 @@
                         <p><strong>Created at:</strong> {{ self.user.createdAt }} ({{ self.user.createdAt.fromNow() }})</p>
                         <p><strong>Last logged in:</strong> {{ self.user.lastLoginAt }} ({{ self.user.lastLoginAt?.fromNow() }})</p>
                     </template>
-                    <p class="text-centered">
+                    <p class="text-center">
                         <BtnComponent @click="onLogOut">Log Out</BtnComponent>
                     </p>
                 </CardComponent>
