@@ -14,10 +14,6 @@ import SideModalComponent from '@/components/modals/SideModalComponent.vue';
 <style lang="scss">
 @use '@/style/main' as *;
 
-body {
-    font-family: 'Mulish', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
 section {
     & + section {
         margin-top: 1rem;

@@ -59,6 +59,10 @@ module.exports = {
             textColor: {
                 'colour': 'var(--text-colour)',
             },
+
+            fontFamily: {
+                'mulish': ['Mulish', 'ui-sans-serif', 'system-ui', 'sans-serif', '"Apple Color Emoji"', '"Segoe UI Emoji"', '"Segoe UI Symbol"', '"Noto Color Emoji"'],
+            },
         },
     },
     plugins: [],
