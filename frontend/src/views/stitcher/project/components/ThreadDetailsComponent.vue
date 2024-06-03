@@ -1,6 +1,6 @@
 <template>
     <ListItemComponent class="thread-details-component" :isInitiallyOpen="isInitiallyOpen">
-        <div class="flex align-items-center">
+        <div class="flex items-center">
             <div class="flex-auto">
                 <div class="mr-2 inline-grid place-items-center rounded-md text-center align-middle shadow-md size-8" :style="threadStyle(thread.thread)">
                     {{ thread.thread.index }}

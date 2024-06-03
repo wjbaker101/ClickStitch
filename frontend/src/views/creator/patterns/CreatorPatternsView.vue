@@ -5,7 +5,7 @@
         </template>
         <div class="content-width">
             <section>
-                <CardComponent border="top" padded class="flex align-items-center gap">
+                <CardComponent border="top" padded class="flex items-center gap-4">
                     <div>
                         <h2>Your Patterns</h2>
                         <p>Manage your patterns here.</p>

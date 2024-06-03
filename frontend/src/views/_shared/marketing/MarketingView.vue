@@ -1,9 +1,9 @@
 <template>
     <div class="test-view">
-        <div class="container flex border-solid align-items-center border-1 border-primary">
+        <div class="container flex items-center border-solid border-1 border-primary">
             <div class="any-width">
                 <img width="400" height="400" class="full-image" src="@/assets/clickstitch-phone-layered.png">
-                <div style="padding: 2rem 6rem 0 6rem;" class="flex text-left gap align-items-center">
+                <div style="padding: 2rem 6rem 0 6rem;" class="flex items-center gap-4 text-left">
                     <div class="flex-auto">
                         <img width="100" height="100" src="@/assets/logo-large.png">
                     </div>
@@ -16,38 +16,38 @@
                 </div>
             </div>
         </div>
-        <div class="container flex border-solid align-items-center border-1 border-primary">
+        <div class="container flex items-center border-solid border-1 border-primary">
             <img width="50" height="50" class="logo" src="@/assets/logo-large.png">
             <div class="any-width">
                 <img width="500" height="500" class="full-image" src="@/assets/clickstitch-phone-layered.png" style="opacity: 0.3; position: absolute; top: 50%; left: 50%; translate: -50% -50%;">
                 <p class="rounded-md border-solid background text-light border-1 border-primary-dark bg-primary/60" style="margin: 0 -5rem;">ClickStitch is <em>your</em> companion to track and manage your cross-stitching progress! Whether you're a beginner or an advanced stitcher, ClickStitch makes life easier.</p>
             </div>
         </div>
-        <div class="container flex border-solid align-items-center border-1 border-primary">
+        <div class="container flex items-center border-solid border-1 border-primary">
             <img width="50" height="50" class="logo" src="@/assets/logo-large.png">
             <CardComponent class="flex-auto" border="top" padded>
-                <CardComponent class="flex border-2 border-solid number align-items-center border-primary"></CardComponent>
+                <CardComponent class="flex items-center border-2 border-solid number border-primary"></CardComponent>
                 <h2>Track Progress</h2>
                 <p><em>Highlight completed stitches</em> and view analytics of your progression!</p>
             </CardComponent>
         </div>
-        <div class="container flex border-solid align-items-center border-1 border-primary">
+        <div class="container flex items-center border-solid border-1 border-primary">
             <img width="50" height="50" class="logo" src="@/assets/logo-large.png">
             <CardComponent class="flex-auto" border="top" padded>
-                <CardComponent class="flex border-2 border-solid number align-items-center border-primary"></CardComponent>
+                <CardComponent class="flex items-center border-2 border-solid number border-primary"></CardComponent>
                 <h2>Manage Inventory</h2>
                 <p><em>Record your floss</em>, make sure you never run out before starting a new project!</p>
             </CardComponent>
         </div>
-        <div class="container flex border-solid align-items-center border-1 border-primary">
+        <div class="container flex items-center border-solid border-1 border-primary">
             <img width="50" height="50" class="logo" src="@/assets/logo-large.png">
             <CardComponent class="flex-auto" border="top" padded>
-                <CardComponent class="flex border-2 border-solid number align-items-center border-primary"></CardComponent>
+                <CardComponent class="flex items-center border-2 border-solid number border-primary"></CardComponent>
                 <h2>Multi-Device</h2>
                 <p>Patterns are securely stored online, so continue <em>stitching everywhere you go!</em></p>
             </CardComponent>
         </div>
-        <div class="container flex border-solid align-items-center border-1 border-primary">
+        <div class="container flex items-center border-solid border-1 border-primary">
             <div class="any-width">
                 <img width="250" height="250" src="@/assets/logo-large.png">
                 <div>

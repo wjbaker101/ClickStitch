@@ -1,6 +1,6 @@
 <template>
     <ListItemComponent class="creator-pattern-component">
-        <div class="flex align-items-center gap">
+        <div class="flex items-center gap-4">
             <img :src="pattern.bannerImageUrl ?? ''" class="h-auto rounded-md align-middle shadow-md max-w-[150px] bg-background">
             <h3>{{ pattern.title }}</h3>
         </div>
@@ -36,7 +36,7 @@
                     <p>
                         <DeleteBtnComponent @delete="onDelete" />
                     </p>
-                    <CardComponent v-if="deletionMessage" class="flex gap align-items-center" padded border="left">
+                    <CardComponent v-if="deletionMessage" class="flex items-center gap-4" padded border="left">
                         <div class="flex-auto">
                             <IconComponent icon="info" gap="right" />
                         </div>
