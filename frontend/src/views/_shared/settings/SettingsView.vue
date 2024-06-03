@@ -26,7 +26,7 @@
                         <a :href="urlToSubdomain('creator')">
                             <BtnComponent>
                                 <IconComponent icon="external-link" gap="right" />
-                                <span>Go to Creator Dashboard</span>
+                                <span class="align-middle">Go to Creator Dashboard</span>
                             </BtnComponent>
                         </a>
                     </p>
@@ -38,7 +38,7 @@
                         <a :href="urlToSubdomain('admin')">
                             <BtnComponent>
                                 <IconComponent icon="external-link" gap="right" />
-                                <span>Go to Admin Dashboard</span>
+                                <span class="align-middle">Go to Admin Dashboard</span>
                             </BtnComponent>
                         </a>
                     </p>
