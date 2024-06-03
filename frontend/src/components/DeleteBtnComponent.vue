@@ -34,6 +34,3 @@ const onBlur = function (): void {
     isConfirming.value = false;
 };
 </script>
-
-<style lang="scss">
-</style>

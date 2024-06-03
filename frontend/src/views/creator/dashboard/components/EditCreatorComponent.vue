@@ -101,6 +101,3 @@ const onSubmit = async function (): Promise<void> {
     }
 };
 </script>
-
-<style lang="scss">
-</style>

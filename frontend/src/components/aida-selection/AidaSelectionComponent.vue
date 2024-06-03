@@ -12,6 +12,3 @@ const aidaCounts = Array.from(Array(35).keys())
         description: String(x),
     }));
 </script>
-
-<style lang="scss">
-</style>

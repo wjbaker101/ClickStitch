@@ -51,6 +51,3 @@ const onHighlightThread = function (event: IHighlightThreadEvent): void {
 
 useEvent('HighlightThread', onHighlightThread);
 </script>
-
-<style lang="scss">
-</style>

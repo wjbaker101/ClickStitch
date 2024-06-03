@@ -37,6 +37,3 @@ withDefaults(defineProps<IProps>(), {
     type: 'primary',
 });
 </script>
-
-<style lang="scss">
-</style>

@@ -22,7 +22,3 @@
 import CanvasSizeCalculatorComponent from '@/views/stitcher/tools/components/CanvasSizeCalculatorComponent.vue';
 import RequiredSkeinsCalculatorComponent from '@/views/stitcher/tools/components/RequiredSkeinsCalculatorComponent.vue';
 </script>
-
-<style lang="scss">
-.tools-view {}
-</style>

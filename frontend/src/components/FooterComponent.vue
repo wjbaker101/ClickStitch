@@ -29,6 +29,3 @@ const instagramUrl = 'https://www.instagram.com/ClickStitchStudio/';
 const twitterUrl = 'https://twitter.com/ClickStitchApp';
 const lemmyUrl = 'https://sh.itjust.works/u/ClickStitch?page=1&sort=New&view=Posts';
 </script>
-
-<style lang="scss">
-</style>

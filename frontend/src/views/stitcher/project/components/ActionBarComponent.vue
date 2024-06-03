@@ -49,6 +49,3 @@ const onShowModal = function (): void {
     });
 };
 </script>
-
-<style lang="scss">
-</style>

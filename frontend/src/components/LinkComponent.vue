@@ -14,6 +14,3 @@ defineProps<{
     external?: boolean;
 }>();
 </script>
-
-<style lang="scss">
-</style>

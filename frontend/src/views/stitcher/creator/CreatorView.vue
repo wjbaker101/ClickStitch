@@ -90,6 +90,3 @@ onBeforeMount(async () => {
     creator.value = response;
 });
 </script>
-
-<style lang="scss">
-</style>

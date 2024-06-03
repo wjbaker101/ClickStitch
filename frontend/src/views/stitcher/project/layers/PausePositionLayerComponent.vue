@@ -35,6 +35,3 @@ useEvent('GoToPausePosition', () => {
     offset.value = Position.at(width.value / 2 - pausePosition.value.x * scaledStitchSize.value, height.value / 2 - pausePosition.value.y * scaledStitchSize.value);
 });
 </script>
-
-<style lang="scss">
-</style>

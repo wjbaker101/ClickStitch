@@ -125,6 +125,3 @@ const onClose = function (): void {
 
 useEvent('StartJumpToStitches', onStart);
 </script>
-
-<style lang="scss">
-</style>

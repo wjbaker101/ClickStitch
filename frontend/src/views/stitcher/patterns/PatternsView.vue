@@ -63,6 +63,3 @@ onMounted(async () => {
     patterns.value = result;
 });
 </script>
-
-<style lang="scss">
-</style>

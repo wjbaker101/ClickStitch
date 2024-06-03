@@ -54,6 +54,3 @@ const onChange = function (event: Event): void {
     reader.readAsDataURL(element.files[0]);
 };
 </script>
-
-<style lang="scss">
-</style>

@@ -116,6 +116,3 @@ const onSignup = async function () {
     await router.push({ path: '/login' });
 };
 </script>
-
-<style lang="scss">
-</style>

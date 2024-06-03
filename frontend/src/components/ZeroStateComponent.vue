@@ -12,6 +12,3 @@ defineProps<{
     icon: IconName;
 }>();
 </script>
-
-<style lang="scss">
-</style>

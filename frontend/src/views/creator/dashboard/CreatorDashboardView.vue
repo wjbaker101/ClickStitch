@@ -40,6 +40,3 @@ onMounted(async () => {
     self.value = selfResult;
 });
 </script>
-
-<style lang="scss">
-</style>

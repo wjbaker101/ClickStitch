@@ -19,6 +19,3 @@ export interface ISelectOption<TValue> {
     readonly description: string;
 }
 </script>
-
-<style lang="scss">
-</style>

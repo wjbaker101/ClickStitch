@@ -85,6 +85,3 @@ const onEndJumpToStitches = function (): void {
 useEvent('JumpToStitch', onJumpToStitch);
 useEvent('EndJumpToStitches', onEndJumpToStitches);
 </script>
-
-<style lang="scss">
-</style>

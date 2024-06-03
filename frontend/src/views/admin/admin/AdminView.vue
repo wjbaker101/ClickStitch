@@ -54,6 +54,3 @@ const loadUsers = async function (pageNumber: number, pageSize: number): Promise
     return paginationMapper.map(getUsers.value.pagination);
 };
 </script>
-
-<style lang="scss">
-</style>

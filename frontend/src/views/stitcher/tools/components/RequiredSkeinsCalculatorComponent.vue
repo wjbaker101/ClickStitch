@@ -40,6 +40,3 @@ const skeins = computed<number>(() => {
     return calculateRequiredSkeins(numberOfStitches.value, aidaCount.value);
 });
 </script>
-
-<style lang="scss">
-</style>

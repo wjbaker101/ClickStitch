@@ -72,6 +72,3 @@ const style = computed<Record<string, string>>(() => {
     };
 });
 </script>
-
-<style lang="scss">
-</style>

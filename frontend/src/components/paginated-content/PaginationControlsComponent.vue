@@ -36,6 +36,3 @@ const onIncrement = function (increment: number): void {
     emit('update', event);
 };
 </script>
-
-<style lang="scss">
-</style>

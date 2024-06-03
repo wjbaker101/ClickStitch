@@ -41,6 +41,3 @@ const onChange = function (event: Event): void {
     emit('choose', file);
 };
 </script>
-
-<style lang="scss">
-</style>

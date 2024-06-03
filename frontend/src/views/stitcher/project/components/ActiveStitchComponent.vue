@@ -22,8 +22,3 @@ const thread = computed<IPatternThread | null>(() => {
     return palette.value.get(activeStitch.value.threadIndex) as IPatternThread;
 });
 </script>
-
-<style lang="scss">
-.action-stitch-component {
-}
-</style>

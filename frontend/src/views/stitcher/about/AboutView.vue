@@ -93,6 +93,3 @@ import NumberedSectionComponent from '@/components/numbered-card/NumberedSection
 import NumberedCardComponent from '@/components/numbered-card/NumberedCardComponent.vue';
 import KeyBinding from '@/components/KeyBindingComponent.vue';
 </script>
-
-<style lang="scss">
-</style>

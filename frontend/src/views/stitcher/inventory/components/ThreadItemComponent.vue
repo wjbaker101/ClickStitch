@@ -52,6 +52,3 @@ watchDebounced(count, async () => {
     debounce: 500,
 });
 </script>
-
-<style lang="scss">
-</style>

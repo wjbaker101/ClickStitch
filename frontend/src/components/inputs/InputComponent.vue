@@ -5,6 +5,3 @@
 <script setup lang="ts">
 const value = defineModel();
 </script>
-
-<style lang="scss">
-</style>

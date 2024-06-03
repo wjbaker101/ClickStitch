@@ -143,6 +143,3 @@ const requireSkeinsDifference = computed(() => {
     return requiredSkeins.value - inventoryThread.value.count;
 });
 </script>
-
-<style lang="scss">
-</style>

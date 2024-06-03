@@ -80,6 +80,3 @@ const onAddProject = async function (pattern: IPattern): Promise<void> {
     await router.push({ path: '/dashboard' });
 };
 </script>
-
-<style lang="scss">
-</style>

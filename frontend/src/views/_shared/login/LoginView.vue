@@ -102,6 +102,3 @@ const onLogin = async function () {
     await router.push({ path: '/dashboard' });
 };
 </script>
-
-<style lang="scss">
-</style>

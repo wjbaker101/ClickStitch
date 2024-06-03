@@ -68,6 +68,3 @@ onMounted(() => {
     render();
 });
 </script>
-
-<style lang="scss">
-</style>

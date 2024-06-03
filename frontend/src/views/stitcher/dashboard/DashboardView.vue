@@ -82,6 +82,3 @@ onMounted(async () => {
     projects.value = result;
 });
 </script>
-
-<style lang="scss">
-</style>

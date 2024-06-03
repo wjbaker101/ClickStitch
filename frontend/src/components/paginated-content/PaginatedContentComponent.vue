@@ -57,6 +57,3 @@ const onUpdate = async function (event: IPaginationEvent): Promise<void> {
     await executeLogic();
 };
 </script>
-
-<style lang="scss">
-</style>

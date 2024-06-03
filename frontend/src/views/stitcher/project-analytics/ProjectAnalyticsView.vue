@@ -109,6 +109,3 @@ onMounted(async () => {
     setTitle(`Analytics - ${analytics.value.title}`);
 });
 </script>
-
-<style lang="scss">
-</style>

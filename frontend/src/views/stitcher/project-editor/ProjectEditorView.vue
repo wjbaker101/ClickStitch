@@ -88,8 +88,3 @@ onMounted(async () => {
     aidaCount.value = result.aidaCount;
 });
 </script>
-
-<style lang="scss">
-.project-editor-view {
-}
-</style>

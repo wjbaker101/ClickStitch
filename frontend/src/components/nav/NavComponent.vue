@@ -58,6 +58,3 @@ const onToggleMenu = function (): void {
 
 const links = linkFactory.get(subdomain);
 </script>
-
-<style lang="scss">
-</style>

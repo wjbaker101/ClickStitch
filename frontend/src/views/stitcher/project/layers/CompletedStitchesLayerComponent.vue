@@ -200,6 +200,3 @@ useInput('keypress', async (event) => {
 useEvent('PatternDoubleClick', onPatternDoubleClick);
 useEvent('HighlightThread', () => render());
 </script>
-
-<style lang="scss">
-</style>

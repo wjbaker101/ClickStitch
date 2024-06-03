@@ -120,6 +120,3 @@ const onDelete = async function () {
     popup.success(`${props.pattern.title} has been deleted.`);
 };
 </script>
-
-<style lang="scss">
-</style>

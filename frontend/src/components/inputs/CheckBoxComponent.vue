@@ -17,6 +17,3 @@ const isChecked = defineModel<boolean>();
 
 const emit = defineEmits(['change']);
 </script>
-
-<style lang="scss">
-</style>

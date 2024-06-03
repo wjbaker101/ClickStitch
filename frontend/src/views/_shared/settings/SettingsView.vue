@@ -93,6 +93,3 @@ onMounted(async () => {
     self.value = result;
 });
 </script>
-
-<style lang="scss">
-</style>

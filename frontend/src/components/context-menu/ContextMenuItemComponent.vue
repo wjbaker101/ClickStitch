@@ -20,6 +20,3 @@ const onClick = function (): void {
     events.publish('CloseContextMenu', {});
 };
 </script>
-
-<style lang="scss">
-</style>

@@ -33,6 +33,3 @@ defineExpose({
 
 });
 </script>
-
-<style lang="scss">
-</style>

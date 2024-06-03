@@ -21,6 +21,3 @@ defineProps<{
     itemName?: string;
 }>();
 </script>
-
-<style lang="scss">
-</style>
