@@ -18,6 +18,8 @@ module.exports = {
 
                 'danger': 'rgb(var(--danger) / <alpha-value>)',
 
+                'warning': 'rgb(var(--warning) / <alpha-value>)',
+
                 'light': 'rgb(var(--light) / <alpha-value>)',
                 'dark': 'rgb(var(--dark) / <alpha-value>)',
 

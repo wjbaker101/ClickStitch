@@ -2,14 +2,14 @@
     <ListItemComponent class="thread-details-component" :isInitiallyOpen="isInitiallyOpen">
         <div class="flex align-items-center">
             <div class="flex-auto">
-                <div class="thread-colour text-centered" :style="threadStyle(thread.thread)">
+                <div class="mr-2 inline-grid place-items-center rounded-md text-center align-middle shadow-md size-8" :style="threadStyle(thread.thread)">
                     {{ thread.thread.index }}
                 </div>
-                <span class="thread-text">
+                <span class="align-middle">
                     <strong>{{ thread.thread.name }}</strong> - <small>{{ thread.thread.description }}</small>
                 </span>
             </div>
-            <div class="warning-text flex-auto" v-if="inventoryThread !== null && requireSkeinsDifference > 0" title="Not found in inventory">
+            <div class="flex-auto text-warning" v-if="inventoryThread !== null && requireSkeinsDifference > 0" title="Not found in inventory">
                 <IconComponent icon="warning" gap="left" />
             </div>
             <div></div>
@@ -18,7 +18,7 @@
             </div>
         </div>
         <template #expanded>
-            <div class="thread-actions flex gap align-items-center">
+            <div class="m-4 flex items-center gap">
                 <div class="flex-auto">
                     <strong>{{ percentageCompleted.toFixed(1) }}%</strong> Completed
                 </div>
@@ -35,7 +35,7 @@
                     </section>
                 </div>
             </div>
-            <div class="compare-inventory-container">
+            <div class="m-4">
                 <template v-if="inventoryThread === null"></template>
                 <template v-else-if="inventoryThread.count === 0">
                     <IconComponent icon="tick-circle" gap="right" />
@@ -145,30 +145,4 @@ const requireSkeinsDifference = computed(() => {
 </script>
 
 <style lang="scss">
-.thread-details-component {
-
-    .thread-colour {
-        width: 2rem;
-        line-height: 2rem;
-        margin-right: 0.5rem;
-        display: inline-block;
-        aspect-ratio: 1;
-        vertical-align: middle;
-        border-radius: var(--wjb-border-radius);
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1), 0 3px 8px -6px rgba(0, 0, 0, 0.1);
-    }
-
-    .warning-text {
-        color: var(--wjb-warning);
-    }
-
-    .thread-text {
-        vertical-align: middle;
-    }
-
-    .thread-actions,
-    .compare-inventory-container {
-        margin: 1rem;
-    }
-}
 </style>
