@@ -24,7 +24,7 @@ defineProps<{
 .view-component {
     .page-content {
         padding-top: calc(1.5rem + 82px);
-        min-height: calc(100vh - var(--footer-height));
+        min-height: calc(100vh - 162px);
 
         @media screen and (max-width: 720px) {
             padding-top: calc(1.5rem + 59px);
