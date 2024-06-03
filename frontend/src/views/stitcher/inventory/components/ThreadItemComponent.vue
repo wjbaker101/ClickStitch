@@ -1,5 +1,13 @@
 <template>
-    <ListItemComponent :style="{ '--colour': thread.thread.colour }" :class="{ 'is-dark': isDark(thread.thread.colour) }" class="shadow-md thread-item-component text-dark [&.is-dark]:text-light">
+    <ListItemComponent
+        :style="{
+            '--colour': thread.thread.colour,
+        }"
+        :class="{
+            'is-dark': isDark(thread.thread.colour),
+        }"
+        class="shadow-md thread-item-component text-dark bg-gradient-to-r from-[var(--colour)] to-background-light [&.is-dark]:text-light"
+    >
         <div class="flex items-center gap-4">
             <div class="flex-auto p-2 rounded-full bg-[var(--colour)] text-inherit shadow-md">
                 <IconComponent icon="skein" size="large" class="size-8" />
@@ -46,7 +54,4 @@ watchDebounced(count, async () => {
 </script>
 
 <style lang="scss">
-.thread-item-component {
-    background: linear-gradient(to right, var(--colour), var(--wjb-background-colour-light));
-}
 </style>
