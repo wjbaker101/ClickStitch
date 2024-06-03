@@ -22,7 +22,7 @@
                                 <small><em>A link to the pattern where stitchers can buy it</em></small>
                                 <InputComponent type="text" placeholder="https://etsy.com/shop/beautifulpatternsco/amazing_pattern" v-model="externalShopUrl" />
                             </FormInputComponent>
-                            <div class="flex gap">
+                            <div class="flex gap-4">
                                 <FileUploadComponent class="flex-2" heading="Pattern Schematic" @choose="onPatternChoose">
                                     <template #subtext>
                                         <LinkComponent href="/supported-pattern-formats">

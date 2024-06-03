@@ -20,7 +20,7 @@
                             <FormInputComponent label="Aida Count">
                                 <AidaSelectionComponent v-model="aidaCount" />
                             </FormInputComponent>
-                            <div class="flex gap">
+                            <div class="flex gap-4">
                                 <FileUploadComponent class="flex-2" heading="Pattern Schematic" @choose="onPatternChoose">
                                     <template #subtext>
                                         <LinkComponent href="/supported-pattern-formats">

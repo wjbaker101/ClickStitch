@@ -39,7 +39,7 @@
                     <p>Patterns are stored in a secure database, so continue <em>stitching whereever you go</em>.</p>
                 </NumberedCardComponent>
             </NumberedSectionComponent>
-            <section class="flex gap">
+            <section class="flex gap-4">
                 <CardComponent border="top" padded>
                     <h3>How do I track progress?</h3>
                     <p>Upload the pattern via your <RouterLink to="/dashboard">Dashboard</RouterLink>.</p>

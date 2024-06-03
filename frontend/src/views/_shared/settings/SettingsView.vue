@@ -18,7 +18,7 @@
                     </p>
                 </CardComponent>
             </section>
-            <section v-if="isCreator || isAdmin" class="flex gap">
+            <section v-if="isCreator || isAdmin" class="flex gap-4">
                 <CardComponent border="top" padded v-if="authDetails !== null">
                     <h2>You Are a Creator!</h2>
                     <p>You'll have the ability to edit your creator details and patterns here.</p>

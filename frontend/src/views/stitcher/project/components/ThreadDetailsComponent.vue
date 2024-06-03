@@ -18,7 +18,7 @@
             </div>
         </div>
         <template #expanded>
-            <div class="m-4 flex items-center gap">
+            <div class="m-4 flex items-center gap-4">
                 <div class="flex-auto">
                     <strong>{{ percentageCompleted.toFixed(1) }}%</strong> Completed
                 </div>
