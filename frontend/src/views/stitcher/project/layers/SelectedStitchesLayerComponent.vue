@@ -28,12 +28,3 @@ const props = defineProps<{
 const lengthX = computed<number>(() => props.stitchSelectEnd.x - props.stitchSelectStart.x + 1);
 const lengthY = computed<number>(() => props.stitchSelectEnd.y - props.stitchSelectStart.y + 1);
 </script>
-
-<style lang="scss">
-.selected-stitches-layer-component {
-
-    .selected-stitches {
-        transition: transform 0.1s;
-    }
-}
-</style>
