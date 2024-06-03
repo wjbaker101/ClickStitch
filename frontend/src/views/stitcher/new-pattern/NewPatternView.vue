@@ -28,7 +28,7 @@
                                         </LinkComponent>
                                     </template>
                                 </FileUploadComponent>
-                                <div v-if="isValid !== null || isLoading" class="pattern-upload-details flex align-items-center text-centered">
+                                <div v-if="isValid !== null || isLoading" class="mt-4 flex items-center text-center">
                                     <template v-if="isLoading">
                                         <LoadingComponent itemName="asd" />
                                     </template>
@@ -135,12 +135,3 @@ const onCreate = async function (): Promise<void> {
     router.push({ path: '/dashboard', });
 };
 </script>
-
-<style lang="scss">
-.new-pattern-view {
-
-    .pattern-upload-details {
-        margin-top: 1rem;
-    }
-}
-</style>
