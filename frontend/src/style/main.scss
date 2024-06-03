@@ -61,7 +61,7 @@
         --background-light: var(--dark-light);
         --background-texture: url(@/assets/bg-dark.png);
 
-        --text-colour: var(--light);
+        --text-colour: rgb(var(--light));
 
         --wjb-background-colour: var(--wjb-dark);
 
