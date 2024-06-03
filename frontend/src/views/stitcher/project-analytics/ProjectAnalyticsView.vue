@@ -4,16 +4,16 @@
             <strong>Analytics</strong>
         </template>
         <div class="content-width">
-            <div class="loading-container flex-auto">
+            <div class="flex-auto loading-container">
                 <UserMessageComponent ref="userMessageComponent" />
             </div>
             <div class="loading-container" v-if="isLoading">
                 <LoadingComponent itemName="pattern" />
             </div>
             <div v-else-if="analytics !== null">
-                <section class="top-grid">
+                <section class="grid gap-4 top-grid grid-cols-[1fr_2fr]">
                     <CardComponent class="flex align-items-center text-centered">
-                        <img class="image" width="250" height="166" :src="analytics.bannerImageUrl">
+                        <img width="250" height="166" :src="analytics.bannerImageUrl" class="h-auto w-full rounded-md align-middle image">
                     </CardComponent>
                     <CardComponent border="top" padded>
                         <h2>{{ analytics.title }}</h2>
@@ -111,18 +111,4 @@ onMounted(async () => {
 </script>
 
 <style lang="scss">
-.project-analytics-view {
-    .top-grid {
-        display: grid;
-        gap: 1rem;
-        grid-template-columns: 1fr 2fr;
-    }
-
-    .image {
-        width: 100%;
-        height: auto;
-        vertical-align: middle;
-        border-radius: var(--wjb-border-radius);
-    }
-}
 </style>
