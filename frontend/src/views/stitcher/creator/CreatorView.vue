@@ -20,8 +20,7 @@
                     </a>
                 </div>
                 <div>
-                    <div class="mr-1 inline-block rounded-full p-2 text-center shadow-md size-10 bg-secondary text-light">{{ totalPatternCount }}</div>
-                    patterns
+                    <CountDisplayComponent :count="totalPatternCount" description="patterns" />
                 </div>
             </CardComponent>
             <PaginatedContentComponent loadingItemName="pattens" :pageSize="10" :logic="loadPatterns">
@@ -47,6 +46,7 @@ import { api } from '@/api/api';
 import type { ICreator } from '@/models/Creator.model';
 import type { IPattern } from '@/models/Pattern.model';
 import type { IPagination } from '@/models/Pagination.model';
+import CountDisplayComponent from '@/components/count-display/CountDisplayComponent.vue';
 
 const route = useRoute();
 
