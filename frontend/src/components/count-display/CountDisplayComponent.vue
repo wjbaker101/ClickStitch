@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 defineProps<{
-    count: number | null;
+    count: number | null | undefined;
     description: string;
 }>();
 </script>

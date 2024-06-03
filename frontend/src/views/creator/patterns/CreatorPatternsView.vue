@@ -17,7 +17,7 @@
                         </RouterLink>
                     </div>
                     <div class="flex-auto">
-                        Total: <strong class="total-count">{{ getPatterns?.pagination.totalCount ?? '-' }}</strong>
+                        <CountDisplayComponent :count="getPatterns?.pagination.totalCount" description="patterns" />
                     </div>
                 </CardComponent>
             </section>
@@ -42,6 +42,7 @@ import { api } from '@/api/api';
 import { type ISearchCreatorPatterns } from '@/models/GetCreatorPatterns.model';
 import { type ICreator } from '@/models/Creator.model';
 import { type IPagination } from '@/models/Pagination.model';
+import CountDisplayComponent from '@/components/count-display/CountDisplayComponent.vue';
 
 const getPatterns = ref<ISearchCreatorPatterns | null>(null);
 
