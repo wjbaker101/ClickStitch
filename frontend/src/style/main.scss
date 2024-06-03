@@ -40,6 +40,8 @@
     --background-light: var(--light-light);
     --background-texture: url(@/assets/bg-light.png);
 
+    --text-colour: rgb(var(--dark));
+
     --wjb-white: #f8f8f8;
     --wjb-black: #141416;
 
@@ -64,6 +66,8 @@
         --background-dark: var(--dark-dark);
         --background-light: var(--dark-light);
         --background-texture: url(@/assets/bg-dark.png);
+
+        --text-colour: var(--light);
 
         --wjb-background-colour: var(--wjb-dark);
         --wjb-background-colour-dark: color-mix(in srgb, var(--wjb-background-colour) 80%, #000);

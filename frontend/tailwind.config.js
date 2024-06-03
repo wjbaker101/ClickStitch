@@ -53,6 +53,10 @@ module.exports = {
             dropShadow: {
                 'icon': '1px 1px rgba(0, 0, 0, 0.6)',
             },
+
+            textColor: {
+                'colour': 'var(--text-colour)',
+            },
         },
     },
     plugins: [],

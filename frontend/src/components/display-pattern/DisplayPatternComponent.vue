@@ -1,7 +1,11 @@
 <template>
-    <div class="mt-4 ml-4 grid rounded-b-md shadow-md display-pattern-component">
-        <div class="relative -top-4 -left-4 isolate -mb-4 aspect-square overflow-hidden shadow-md image-container w-[150px]" :style="{ '--image': `url(${pattern.bannerImageUrl}` ?? '' }">
-            <img class="h-auto w-full align-middle" :src="pattern.bannerImageUrl ?? ''" :alt="pattern.title">
+    <div class="mt-4 ml-4 grid rounded-b-md border-0 border-t-2 border-solid shadow-md display-pattern-component bg-background border-primary grid-cols-[auto_1fr] grid-rows-[1fr_auto]">
+        <div
+            :style="{ '--image': `url(${pattern.bannerImageUrl})` ?? '' }"
+            class="relative -top-4 -left-4 isolate -mb-4 aspect-square overflow-hidden rounded-md shadow-md image-container w-[150px] bg-background leading-[150px]
+                before:absolute before:content-[''] before:inset-0 before:blur-sm before:bg-[url(),var(--image)] before:bg-cover before:-z-[1] before:bg-center before:bg-no-repeat"
+        >
+            <img class="h-auto w-full align-middle bg-background" :src="pattern.bannerImageUrl ?? ''" :alt="pattern.title">
         </div>
         <div class="overflow-hidden">
             <h2 class="my-4">{{ pattern.title }}</h2>
@@ -10,9 +14,9 @@
                 <br>
                 {{ formatNumber(pattern.stitchCount) }} stitches
                 <br>
-                <RouterLink v-if="pattern.creator !== null" class="created-by" :to="`/creators/${pattern.creator.reference}`">
+                <RouterLink v-if="pattern.creator !== null" class="text-colour" :to="`/creators/${pattern.creator.reference}`">
                     <IconComponent icon="user" gap="right" />
-                    <span class="underline hover:no-underline">{{ pattern.creator?.name ?? 'You' }}</span>
+                    <span class="align-middle underline hover:no-underline">{{ pattern.creator?.name ?? 'You' }}</span>
                 </RouterLink>
                 <span v-else class="created-by">
                     <IconComponent icon="user" gap="right" />
@@ -39,7 +43,7 @@
                 <IconComponent icon="plus" gap="right" />
                 <span>Add to Dashboard</span>
             </BtnComponent>
-            <div class="rounded-md p-2 added" v-else>
+            <div class="rounded-md border-2 border-dashed p-2 border-secondary" v-else>
                 <IconComponent icon="tick" gap="right" />
                 <span>In your Dashboard</span>
             </div>
@@ -78,40 +82,4 @@ const onAddProject = async function (pattern: IPattern): Promise<void> {
 </script>
 
 <style lang="scss">
-.display-pattern-component {
-    grid-template-columns: auto 1fr;
-    grid-template-rows: 1fr auto;
-    background-color: var(--wjb-background-colour);
-    border-top: 2px solid var(--wjb-primary);
-
-    .image-container {
-        line-height: 150px;
-        border-radius: var(--wjb-border-radius);
-        background-color: var(--wjb-background-colour);
-
-        &::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image: var(--image);
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            filter: blur(5px);
-            z-index: -1;
-        }
-    }
-
-    img {
-        background-color: var(--wjb-background-colour);
-    }
-
-    .created-by {
-        color: var(--wjb-text-colour);
-    }
-
-    .added {
-        border: 2px dashed var(--wjb-secondary);
-    }
-}
 </style>
