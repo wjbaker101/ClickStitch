@@ -4,28 +4,24 @@
             <strong>Creator Patterns</strong>
         </template>
         <div class="content-width">
-            <section>
-                <CardComponent border="top" padded class="flex items-center gap-4">
-                    <div>
-                        <h2>Your Patterns</h2>
-                        <p>Manage your patterns here.</p>
-                        <RouterLink to="/patterns/new">
-                            <BtnComponent>
-                                <IconComponent icon="plus" gap="right" />
-                                <span class="align-middle">New Pattern</span>
-                            </BtnComponent>
-                        </RouterLink>
-                    </div>
-                    <div class="flex-auto">
-                        <CountDisplayComponent :count="getPatterns?.pagination.totalCount" description="patterns" />
-                    </div>
-                </CardComponent>
-            </section>
-            <section>
-                <PaginatedContentComponent loadingItemName="patterns" :logic="getPatternsLogic">
-                    <CreatorPatternComponent :key="pattern.reference" v-for="pattern in getPatterns?.patterns" :pattern="pattern" />
-                </PaginatedContentComponent>
-            </section>
+            <CardComponent border="top" padded class="flex items-center gap-4">
+                <div>
+                    <h2>Your Patterns</h2>
+                    <p>Manage your patterns here.</p>
+                    <RouterLink to="/patterns/new">
+                        <BtnComponent>
+                            <IconComponent icon="plus" gap="right" />
+                            <span class="align-middle">New Pattern</span>
+                        </BtnComponent>
+                    </RouterLink>
+                </div>
+                <div class="flex-auto">
+                    <CountDisplayComponent :count="getPatterns?.pagination.totalCount" description="patterns" />
+                </div>
+            </CardComponent>
+            <PaginatedContentComponent loadingItemName="patterns" :logic="getPatternsLogic">
+                <CreatorPatternComponent :key="pattern.reference" v-for="pattern in getPatterns?.patterns" :pattern="pattern" />
+            </PaginatedContentComponent>
         </div>
     </ViewComponent>
 </template>

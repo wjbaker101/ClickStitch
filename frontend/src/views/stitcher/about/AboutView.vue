@@ -4,7 +4,7 @@
             <strong>About</strong>
         </template>
         <div class="content-width">
-            <section class="grid items-center gap-4 md:grid-cols-[1fr_2fr]">
+            <div class="grid items-center gap-4 md:grid-cols-[1fr_2fr]">
                 <CardComponent border="top" padded>
                     <h3>What is ClickStitch?</h3>
                     <p>ClickStitch is <em>your</em> companion to track and manage your cross-stitching progress!</p>
@@ -24,7 +24,7 @@
                 <div class="text-center">
                     <img src="@/assets/clickstitch-on-devices.png" class="h-auto max-w-full">
                 </div>
-            </section>
+            </div>
             <NumberedSectionComponent class="my-24 text-center">
                 <NumberedCardComponent>
                     <h2>Track Progress</h2>
@@ -39,7 +39,7 @@
                     <p>Patterns are stored in a secure database, so continue <em>stitching whereever you go</em>.</p>
                 </NumberedCardComponent>
             </NumberedSectionComponent>
-            <section class="flex gap-4">
+            <div class="mb-4 flex gap-4">
                 <CardComponent border="top" padded>
                     <h3>How do I track progress?</h3>
                     <p>Upload the pattern via your <RouterLink to="/dashboard">Dashboard</RouterLink>.</p>
@@ -67,8 +67,8 @@
                         <li><KeyBinding>Right-click</KeyBinding> on a stitch to show additional actions</li>
                     </ul>
                 </CardComponent>
-            </section>
-            <section>
+            </div>
+            <div>
                 <CardComponent border="top" padded>
                     <h3>Lastly...</h3>
                     <em>
@@ -82,7 +82,7 @@
                         </RouterLink>
                     </div>
                 </CardComponent>
-            </section>
+            </div>
         </div>
     </ViewComponent>
 </template>

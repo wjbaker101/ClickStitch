@@ -11,7 +11,7 @@
                 <LoadingComponent itemName="pattern" />
             </div>
             <div v-else-if="analytics !== null">
-                <section class="grid gap-4 top-grid grid-cols-[1fr_2fr]">
+                <div class="mb-4 grid gap-4 top-grid grid-cols-[1fr_2fr]">
                     <CardComponent class="flex items-center text-center">
                         <img width="250" height="166" :src="analytics.bannerImageUrl" class="h-auto w-full rounded-md align-middle image">
                     </CardComponent>
@@ -28,29 +28,25 @@
                             </RouterLink>
                         </p>
                     </CardComponent>
-                </section>
-                <section>
-                    <CardComponent border="top" padded>
-                        <h3>At a Glance:</h3>
-                        <p><strong>Remaining Stitches: </strong> {{ formatNumber(analytics.remainingStitches) }}</p>
-                        <p><strong>Completed Stitches: </strong> {{ formatNumber(analytics.completedStitches) }} ({{ completedPercentage.toFixed(2) }}%)</p>
-                    </CardComponent>
-                </section>
-                <section>
-                    <CardComponent border="top" padded>
-                        <Bar
-                            :data="{
-                                labels: analytics.data.headings,
-                                datasets: [{
-                                    data: analytics.data.values,
-                                    label: 'Stitches per Day',
-                                    backgroundColor: '#30a390',
-                                }],
-                            }"
-                            :options="{}"
-                        />
-                    </CardComponent>
-                </section>
+                </div>
+                <CardComponent border="top" padded class="mb-4">
+                    <h3>At a Glance:</h3>
+                    <p><strong>Remaining Stitches: </strong> {{ formatNumber(analytics.remainingStitches) }}</p>
+                    <p><strong>Completed Stitches: </strong> {{ formatNumber(analytics.completedStitches) }} ({{ completedPercentage.toFixed(2) }}%)</p>
+                </CardComponent>
+                <CardComponent border="top" padded>
+                    <Bar
+                        :data="{
+                            labels: analytics.data.headings,
+                            datasets: [{
+                                data: analytics.data.values,
+                                label: 'Stitches per Day',
+                                backgroundColor: '#30a390',
+                            }],
+                        }"
+                        :options="{}"
+                    />
+                </CardComponent>
             </div>
         </div>
     </ViewComponent>

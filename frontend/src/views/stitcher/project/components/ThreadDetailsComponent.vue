@@ -24,15 +24,13 @@
                 </div>
                 <div></div>
                 <div class="flex-auto">
-                    <section>
+                    <div class="mb-2">
                         <BtnComponent title="Jump to Stitches" @click="onJumpToStitch">
                             <IconComponent icon="compass" gap="right" />
                             <span class="align-middle">Jump to Stitches</span>
                         </BtnComponent>
-                    </section>
-                    <section>
-                        <CheckBoxComponent label="Highlight" v-model="shouldHighlightThread" />
-                    </section>
+                    </div>
+                    <CheckBoxComponent label="Highlight" v-model="shouldHighlightThread" />
                 </div>
             </div>
             <div class="m-4">

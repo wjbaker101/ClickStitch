@@ -4,16 +4,12 @@
             <strong>Tools</strong>
         </template>
         <div class="content-width">
-            <section>
-                <CardComponent border="top" padded>
-                    <CanvasSizeCalculatorComponent />
-                </CardComponent>
-            </section>
-            <section>
-                <CardComponent border="top" padded>
-                    <RequiredSkeinsCalculatorComponent />
-                </CardComponent>
-            </section>
+            <CardComponent border="top" padded class="mb-4">
+                <CanvasSizeCalculatorComponent />
+            </CardComponent>
+            <CardComponent border="top" padded>
+                <RequiredSkeinsCalculatorComponent />
+            </CardComponent>
         </div>
     </ViewComponent>
 </template>

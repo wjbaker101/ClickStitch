@@ -13,19 +13,15 @@
                 <p>Check back later for more!</p>
             </ZeroStateComponent>
             <template v-else>
-                <section>
-                    <CardComponent border="top" padded>
-                        <h2>What are Creator Patterns?</h2>
-                        <p>All patterns here have been made by Creators! You are free to add them to your dashboard where you'll be able to track your progress like normal.</p>
-                        <p>A link to their product page will also be available, where you'll be able to purchase the necessary resources for the pattern.</p>
-                        <p>These are great for when you are just looking for a new project to start!</p>
-                    </CardComponent>
-                </section>
-                <section>
-                    <div class="grid gap-12 grid-cols-for-patterns">
-                        <DisplayPatternComponent :key="pattern.reference" v-for="pattern in patterns" :pattern="pattern" :userHasPattern="false" />
-                    </div>
-                </section>
+                <CardComponent border="top" padded class="mb-4">
+                    <h2>What are Creator Patterns?</h2>
+                    <p>All patterns here have been made by Creators! You are free to add them to your dashboard where you'll be able to track your progress like normal.</p>
+                    <p>A link to their product page will also be available, where you'll be able to purchase the necessary resources for the pattern.</p>
+                    <p>These are great for when you are just looking for a new project to start!</p>
+                </CardComponent>
+                <div class="grid gap-12 grid-cols-for-patterns">
+                    <DisplayPatternComponent :key="pattern.reference" v-for="pattern in patterns" :pattern="pattern" :userHasPattern="false" />
+                </div>
             </template>
         </div>
     </ViewComponent>
