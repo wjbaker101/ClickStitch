@@ -1,5 +1,4 @@
 @use '@wjb/styling/main' as *;
-@use '@wjb/styling/setup-variables' as *;
 
 @tailwind base;
 @tailwind components;
@@ -14,8 +13,6 @@
 }
 
 :root {
-    @include setup-variables();
-
     --primary: 34 146 127;
     --primary-dark: 22 115 99;
     --primary-light: 25 143 124;
