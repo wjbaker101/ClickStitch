@@ -8,7 +8,8 @@
         <div v-if="isLoading">
             <LoadingComponent itemName="projects" />
         </div>
-        <ZeroStateComponent v-else-if="projects?.length === 0" icon="info">
+        <div v-else-if="projects?.length === 0" class="text-center">
+            <IconComponent icon="info" size="huge" />
             <h2 class="pb-8">No projects yet!</h2>
             <NumberedSectionComponent class="max-w-3xl">
                 <NumberedCardComponent>
@@ -30,7 +31,7 @@
                     </RouterLink>
                 </NumberedCardComponent>
             </NumberedSectionComponent>
-        </ZeroStateComponent>
+        </div>
         <div v-else class="grid gap-12 grid-cols-for-patterns">
             <DisplayPatternComponent :key="project.pattern.reference" v-for="project in projects" :pattern="project.pattern" :project="project" :userHasPattern="false" />
         </div>
@@ -51,7 +52,6 @@ import { onMounted, ref } from 'vue';
 import BtnComponent from '@/components/BtnComponent.vue';
 import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 import UserMessageComponent from '@/components/UserMessageComponent.vue';
-import ZeroStateComponent from '@/components/ZeroStateComponent.vue';
 import DisplayPatternComponent from '@/components/display-pattern/DisplayPatternComponent.vue';
 import NumberedSectionComponent from '@/components/numbered-card/NumberedSectionComponent.vue';
 import NumberedCardComponent from '@/components/numbered-card/NumberedCardComponent.vue';
@@ -77,6 +77,6 @@ onMounted(async () => {
         return;
     }
 
-    projects.value = result;
+    projects.value = [];
 });
 </script>

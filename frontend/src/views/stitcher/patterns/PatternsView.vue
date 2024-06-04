@@ -7,10 +7,11 @@
         <div v-if="isLoading">
             <LoadingComponent itemName="patterns" />
         </div>
-        <ZeroStateComponent v-else-if="patterns?.length === 0" icon="info">
+        <div v-else-if="patterns?.length === 0" class="text-center">
+            <IconComponent icon="info" size="huge" />
             <p>Could not find any patterns, you must own them all!</p>
             <p>Check back later for more!</p>
-        </ZeroStateComponent>
+        </div>
         <template v-else>
             <CardComponent border="top" padded class="mb-4">
                 <h2>What are Creator Patterns?</h2>
@@ -30,7 +31,6 @@ import { onMounted, ref } from 'vue';
 
 import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 import UserMessageComponent from '@/components/UserMessageComponent.vue';
-import ZeroStateComponent from '@/components/ZeroStateComponent.vue';
 import DisplayPatternComponent from '@/components/display-pattern/DisplayPatternComponent.vue';
 
 import { api } from '@/api/api';
