@@ -9,13 +9,13 @@
         class="shadow-md thread-item-component text-dark bg-gradient-to-r from-[var(--colour)] to-background-light [&.is-dark]:text-light"
     >
         <div class="flex items-center gap-4">
-            <div class="flex-auto p-2 rounded-full bg-[var(--colour)] text-inherit shadow-md">
+            <div class="p-2 rounded-full bg-[var(--colour)] text-inherit shadow-md">
                 <IconComponent icon="skein" size="large" class="size-8" />
             </div>
-            <div>
+            <div class="grow">
                 <strong>{{ thread.thread.brand }} {{ thread.thread.code }}</strong>
             </div>
-            <div class="flex-auto">
+            <div>
                 <TextboxComponent type="number" min="0" max="9999" step="1" v-model="count" class="w-28" />
             </div>
         </div>

@@ -1,7 +1,7 @@
 <template>
     <ListItemComponent class="thread-details-component" :isInitiallyOpen="isInitiallyOpen">
-        <div class="flex items-center">
-            <div class="flex-auto">
+        <div class="flex items-center gap-1">
+            <div>
                 <div class="mr-2 inline-grid place-items-center rounded-md text-center align-middle shadow-md size-8" :style="threadStyle(thread.thread)">
                     {{ thread.thread.index }}
                 </div>
@@ -9,21 +9,19 @@
                     <strong>{{ thread.thread.name }}</strong> - <small>{{ thread.thread.description }}</small>
                 </span>
             </div>
-            <div class="flex-auto text-warning" v-if="inventoryThread !== null && requireSkeinsDifference > 0" title="Not found in inventory">
+            <div class="grow text-warning" v-if="inventoryThread !== null && requireSkeinsDifference > 0" title="Not found in inventory">
                 <IconComponent icon="warning" gap="left" />
             </div>
-            <div></div>
-            <div class="flex-auto">
+            <div class="justify-self-end">
                 {{ completedCount }} <small>/ {{ inCompletedCount + completedCount }}</small>
             </div>
         </div>
         <template #expanded>
-            <div class="m-4 flex items-center gap-4">
-                <div class="flex-auto">
+            <div class="m-4 grid grid-flow-col items-center gap-4">
+                <div>
                     <strong>{{ percentageCompleted.toFixed(1) }}%</strong> Completed
                 </div>
-                <div></div>
-                <div class="flex-auto">
+                <div class="justify-self-end">
                     <div class="mb-2">
                         <BtnComponent title="Jump to Stitches" @click="onJumpToStitch">
                             <IconComponent icon="compass" gap="right" />

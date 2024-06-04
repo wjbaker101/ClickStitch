@@ -7,7 +7,7 @@
         <CardComponent v-else border="top" padded>
             <h2>Edit Project</h2>
             <LinkComponent :href="`/projects/${patternReference}`">
-                <IconComponent class="flex-auto" icon="arrow-left" gap="right" />
+                <IconComponent icon="arrow-left" gap="right" />
                 <small>Back to Project</small>
             </LinkComponent>
             <FormComponent>

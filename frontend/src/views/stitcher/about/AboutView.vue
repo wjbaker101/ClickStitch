@@ -38,35 +38,33 @@
                 <p>Patterns are stored in a secure database, so continue <em>stitching whereever you go</em>.</p>
             </NumberedCardComponent>
         </NumberedSectionComponent>
-        <div class="mb-4 flex gap-4">
-            <CardComponent border="top" padded>
-                <h3>How do I track progress?</h3>
-                <p>Upload the pattern via your <RouterLink to="/dashboard">Dashboard</RouterLink>.</p>
+        <CardComponent border="top" padded class="mb-4">
+            <h3>How do I track progress?</h3>
+            <p>Upload the pattern via your <RouterLink to="/dashboard">Dashboard</RouterLink>.</p>
 
-                <h4>📱 On Phones/Tablets:</h4>
-                <ul>
-                    <li><KeyBinding>Drag</KeyBinding> to move around the pattern</li>
-                    <li><KeyBinding>Pinch</KeyBinding> to zoom in or out</li>
-                    <li><KeyBinding>Double tap</KeyBinding> to toggle (complete or uncomplete) an individual stitch</li>
-                    <li><KeyBinding>Long press</KeyBinding> on a stitch to show additional actions</li>
-                </ul>
+            <h4>📱 On Phones/Tablets:</h4>
+            <ul>
+                <li><KeyBinding>Drag</KeyBinding> to move around the pattern</li>
+                <li><KeyBinding>Pinch</KeyBinding> to zoom in or out</li>
+                <li><KeyBinding>Double tap</KeyBinding> to toggle (complete or uncomplete) an individual stitch</li>
+                <li><KeyBinding>Long press</KeyBinding> on a stitch to show additional actions</li>
+            </ul>
 
-                <h4>💻 On Laptops/PCs:</h4>
-                <ul>
-                    <li>Hold <KeyBinding>left mouse button</KeyBinding> and drag to move around the pattern</li>
-                    <li><KeyBinding>Scroll-wheel</KeyBinding> to zoom in or out</li>
-                    <li>Double click to toggle (complete or uncomplete) an individual stitch</li>
-                    <li>
-                        Hold middle-click and drag to select multiple stitches...
-                        <ul>
-                            <li>Press <KeyBinding>space</KeyBinding> to <strong>complete</strong> all selected stitches</li>
-                            <li>Hold <KeyBinding>shift</KeyBinding> and press <KeyBinding>space</KeyBinding> to <strong>uncomplete</strong> all selected stitches</li>
-                        </ul>
-                    </li>
-                    <li><KeyBinding>Right-click</KeyBinding> on a stitch to show additional actions</li>
-                </ul>
-            </CardComponent>
-        </div>
+            <h4>💻 On Laptops/PCs:</h4>
+            <ul>
+                <li>Hold <KeyBinding>left mouse button</KeyBinding> and drag to move around the pattern</li>
+                <li><KeyBinding>Scroll-wheel</KeyBinding> to zoom in or out</li>
+                <li>Double click to toggle (complete or uncomplete) an individual stitch</li>
+                <li>
+                    Hold middle-click and drag to select multiple stitches...
+                    <ul>
+                        <li>Press <KeyBinding>space</KeyBinding> to <strong>complete</strong> all selected stitches</li>
+                        <li>Hold <KeyBinding>shift</KeyBinding> and press <KeyBinding>space</KeyBinding> to <strong>uncomplete</strong> all selected stitches</li>
+                    </ul>
+                </li>
+                <li><KeyBinding>Right-click</KeyBinding> on a stitch to show additional actions</li>
+            </ul>
+        </CardComponent>
         <div>
             <CardComponent border="top" padded>
                 <h3>Lastly...</h3>

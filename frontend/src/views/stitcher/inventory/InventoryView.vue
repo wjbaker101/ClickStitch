@@ -7,14 +7,14 @@
             <h2>Manage your Skeins</h2>
             <LoadingComponent v-if="isLoading" itemName="threads" />
             <template v-else>
-                <FormComponent class="mb-4 flex place-content-between items-center">
-                    <div class="flex-auto">
+                <FormComponent class="mb-4 flex items-center">
+                    <div class="grow">
                         <label>
                             <strong class="block">Search</strong>
                             <TextboxComponent type="search" placeholder="DMC 814" v-model="searchTerm" />
                         </label>
                     </div>
-                    <div class="flex-auto">
+                    <div>
                         <label>
                             <strong class="block">Brand</strong>
                             <select v-model="searchBrand">

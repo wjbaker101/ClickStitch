@@ -7,15 +7,15 @@
         }"
     >
         <div class="flex items-center gap-4">
-            <div>
+            <div class="grow">
                 <slot></slot>
             </div>
-            <div v-if="slots.expanded" class="flex-auto cursor-pointer select-none" @click="onToggleOpen">
+            <div v-if="slots.expanded" @click="onToggleOpen" class="cursor-pointer select-none">
                 <IconComponent icon="arrow-triangle-down" gap="right" />
                 <span class="align-middle">More</span>
             </div>
         </div>
-        <div class="more-content grid grid-rows-[0fr] mt-0" v-if="slots.expanded">
+        <div class="mt-0 grid more-content grid-rows-[0fr]" v-if="slots.expanded">
             <div class="overflow-hidden">
                 <slot name="expanded"></slot>
             </div>

@@ -11,8 +11,8 @@
         </div>
         <div v-else-if="analytics !== null">
             <div class="mb-4 grid gap-4 top-grid grid-cols-[1fr_2fr]">
-                <CardComponent class="flex items-center text-center">
-                    <img width="250" height="166" :src="analytics.bannerImageUrl" class="h-auto w-full rounded-md align-middle image">
+                <CardComponent class="text-center">
+                    <img width="250" height="166" :src="analytics.bannerImageUrl" class="h-auto w-full rounded-md align-middle">
                 </CardComponent>
                 <CardComponent border="top" padded>
                     <h2>{{ analytics.title }}</h2>

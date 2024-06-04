@@ -1,6 +1,6 @@
 <template>
     <div v-if="message" class="my-4 flex items-center gap-4 rounded-md p-4 shadow-md user-message-component bg-danger/80 text-light">
-        <IconComponent class="flex-auto" icon="info" />
+        <IconComponent icon="info" />
         <div>{{ message }}</div>
     </div>
 </template>

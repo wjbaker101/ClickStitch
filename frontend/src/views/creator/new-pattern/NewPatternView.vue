@@ -23,24 +23,26 @@
                     </small>
                     <InputComponent type="text" placeholder="https://etsy.com/shop/beautifulpatternsco/amazing_pattern" v-model="externalShopUrl" />
                 </label>
-                <div class="flex gap-4">
-                    <FileUploadComponent class="flex-2" heading="Pattern Schematic" @choose="onPatternChoose">
+                <div class="flex flex-row items-center gap-4">
+                    <FileUploadComponent heading="Pattern Schematic" @choose="onPatternChoose" class="grow">
                         <template #subtext>
                             <LinkComponent href="/supported-pattern-formats">
                                 <small>View supported formats here</small>
                             </LinkComponent>
                         </template>
                     </FileUploadComponent>
-                    <div v-if="isValid !== null || isLoading" class="mt-4 flex items-center text-center">
+                    <div v-if="isValid !== null || isLoading" class="mt-4 max-w-sm text-center">
                         <template v-if="isLoading">
-                            <LoadingComponent />
+                            <LoadingComponent itemName="schema" />
                         </template>
                         <template v-else-if="isValid === true">
-                            <IconComponent class="flex-auto" icon="tick-circle" size="large" gap="right" />
+                            <IconComponent class="flex-auto" icon="tick-circle" size="large" />
+                            <br>
                             <span class="text-left">Pattern is Valid!</span>
                         </template>
                         <template v-else-if="isValid === false">
-                            <IconComponent class="flex-auto" icon="cross-circle" size="large" gap="right" />
+                            <IconComponent class="flex-auto" icon="cross-circle" size="large" />
+                            <br>
                             <span class="text-left">Pattern is invalid, please check it is a supported format and try again.</span>
                         </template>
                     </div>

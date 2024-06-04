@@ -9,8 +9,8 @@
             [&.is-enabled]:opacity-100 [&.is-enabled]:pointer-events-auto"
     >
         <div class="mb-4 flex items-center gap-4">
-            <div>Jump to Stitch</div>
-            <div class="-m-2 flex-auto cursor-pointer rounded-full p-4 leading-none close hover:bg-primary-dark" @click="onClose">
+            <div class="grow">Jump to Stitch</div>
+            <div class="-m-2 cursor-pointer rounded-full p-4 leading-none close hover:bg-primary-dark" @click="onClose">
                 <IconComponent icon="cross" />
             </div>
         </div>

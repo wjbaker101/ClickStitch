@@ -1,6 +1,6 @@
 <template>
     <CardComponent padded border="top" class="relative">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-solid p-4 text-center font-bold size-16 bg-background text-3xl/none text-secondary border-primary"></div>
+        <div class="absolute top-0 left-1/2 grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-2 border-solid p-4 font-bold size-16 bg-background text-3xl/none text-secondary border-primary"></div>
         <slot></slot>
     </CardComponent>
 </template>

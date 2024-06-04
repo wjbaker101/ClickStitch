@@ -4,7 +4,7 @@
             <strong>Creator Patterns</strong>
         </template>
         <CardComponent border="top" padded class="flex items-center gap-4">
-            <div>
+            <div class="grow">
                 <h2>Your Patterns</h2>
                 <p>Manage your patterns here.</p>
                 <RouterLink to="/patterns/new">
@@ -14,7 +14,7 @@
                     </BtnComponent>
                 </RouterLink>
             </div>
-            <div class="flex-auto">
+            <div>
                 <CountDisplayComponent :count="getPatterns?.pagination.totalCount" description="patterns" />
             </div>
         </CardComponent>

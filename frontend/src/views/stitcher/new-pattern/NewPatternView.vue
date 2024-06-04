@@ -6,7 +6,7 @@
         <CardComponent border="top" padded>
             <h2>Create a New Pattern</h2>
             <LinkComponent href="/dashboard">
-                <IconComponent class="flex-auto" icon="arrow-left" gap="right" />
+                <IconComponent icon="arrow-left" gap="right" />
                 <small class="align-middle">Back to Dashboard</small>
             </LinkComponent>
             <FormComponent class="mb-4">
@@ -19,25 +19,29 @@
                     <strong class="block">Aida Count</strong>
                     <AidaSelectionComponent v-model="aidaCount" />
                 </label>
-                <FileUploadComponent class="flex-2" heading="Pattern Schematic" @choose="onPatternChoose">
-                    <template #subtext>
-                        <LinkComponent href="/supported-pattern-formats">
-                            <small>View supported formats here</small>
-                        </LinkComponent>
-                    </template>
-                </FileUploadComponent>
-                <div v-if="isValid !== null || isLoading" class="mt-4 flex items-center text-center">
-                    <template v-if="isLoading">
-                        <LoadingComponent itemName="asd" />
-                    </template>
-                    <template v-else-if="isValid === true">
-                        <IconComponent class="flex-auto" icon="tick-circle" size="large" gap="right" />
-                        <span class="text-left">Pattern is Valid!</span>
-                    </template>
-                    <template v-else-if="isValid === false">
-                        <IconComponent class="flex-auto" icon="cross-circle" size="large" gap="right" />
-                        <span class="text-left">Pattern is invalid, please check it is a supported format and try again.</span>
-                    </template>
+                <div class="flex flex-row items-center gap-4">
+                    <FileUploadComponent heading="Pattern Schematic" @choose="onPatternChoose" class="grow">
+                        <template #subtext>
+                            <LinkComponent href="/supported-pattern-formats">
+                                <small>View supported formats here</small>
+                            </LinkComponent>
+                        </template>
+                    </FileUploadComponent>
+                    <div v-if="isValid !== null || isLoading" class="mt-4 max-w-sm text-center">
+                        <template v-if="isLoading">
+                            <LoadingComponent itemName="schema" />
+                        </template>
+                        <template v-else-if="isValid === true">
+                            <IconComponent class="flex-auto" icon="tick-circle" size="large" />
+                            <br>
+                            <span class="text-left">Pattern is Valid!</span>
+                        </template>
+                        <template v-else-if="isValid === false">
+                            <IconComponent class="flex-auto" icon="cross-circle" size="large" />
+                            <br>
+                            <span class="text-left">Pattern is invalid, please check it is a supported format and try again.</span>
+                        </template>
+                    </div>
                 </div>
             </FormComponent>
             <FormComponent>

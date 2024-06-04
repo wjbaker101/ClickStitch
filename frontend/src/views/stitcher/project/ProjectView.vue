@@ -2,16 +2,16 @@
     <ViewComponent hideFooter>
         <template #nav>
             <strong class="align-middle">{{ project?.project.pattern.title ?? '-' }}</strong>
-            <sub class="align-middle percentage-completed">({{ percentageCompleted.toFixed(2) }}%)</sub>
+            <sub class="ml-2 align-middle percentage-completed">({{ percentageCompleted.toFixed(2) }}%)</sub>
         </template>
-        <div class="loading-container" v-if="isLoading">
+        <div v-if="isLoading">
             <LoadingComponent itemName="pattern" />
         </div>
-        <div v-else-if="project === null" class="flex-auto loading-container">
+        <div v-else-if="project === null">
             <UserMessageComponent ref="userMessageComponent" />
         </div>
         <template v-else>
-            <div class="canvas-wrapper">
+            <div>
                 <CanvasComponent :project="project" />
             </div>
             <JumpToStitchesComponent />

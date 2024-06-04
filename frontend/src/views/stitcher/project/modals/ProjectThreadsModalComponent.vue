@@ -1,21 +1,17 @@
 <template>
-    <div class="flex h-full flex-col gap-4 project-threads-modal-component">
+    <div class="grid h-full gap-4 project-threads-modal-component">
         <div>
             <h2>Actions:</h2>
-            <div class="flex gap-2">
-                <div class="flex-auto">
-                    <BtnComponent @click="onGoToPausePosition">
-                        <IconComponent icon="compass" gap="right" />
-                        <span class="align-middle">Go to Pause Position</span>
-                    </BtnComponent>
-                </div>
-                <RouterLink v-if="project.project.pattern.user.reference === authDetails?.reference" class="flex-auto" :to="`/projects/${project.project.pattern.reference}/edit`" @click="onEditDetails">
-                    <BtnComponent>
-                        <IconComponent icon="pencil" gap="right" />
-                        <span class="align-middle">Edit Details</span>
-                    </BtnComponent>
-                </RouterLink>
-            </div>
+            <BtnComponent @click="onGoToPausePosition" class="mr-2">
+                <IconComponent icon="compass" gap="right" />
+                <span class="align-middle">Go to Pause Position</span>
+            </BtnComponent>
+            <RouterLink v-if="project.project.pattern.user.reference === authDetails?.reference" :to="`/projects/${project.project.pattern.reference}/edit`" @click="onEditDetails">
+                <BtnComponent>
+                    <IconComponent icon="pencil" gap="right" />
+                    <span class="align-middle">Edit Details</span>
+                </BtnComponent>
+            </RouterLink>
             <h2>Layers:</h2>
             <div>
                 <CheckBoxComponent label="Stitches" v-model="isStitchesVisible" />
@@ -27,7 +23,7 @@
                 <ThreadDetailsComponent v-for="thread in threads" :thread="thread" :inventory="inventory" :pattern="project.project.pattern" />
             </div>
         </div>
-        <div class="flex-auto"><em>* Recommendations based on the pattern's aida count of {{ project.project.pattern.aidaCount }}</em></div>
+        <div class="self-end"><em>* Recommendations based on the pattern's aida count of {{ project.project.pattern.aidaCount }}</em></div>
     </div>
 </template>
 

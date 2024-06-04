@@ -7,8 +7,8 @@
         <template #expanded>
             <FormComponent class="mb-4">
                 <div class="flex gap-4">
-                    <h3 class="m-0 mb-4">Edit Pattern Details</h3>
-                    <div class="flex-auto">
+                    <h3 class="m-0 mb-4 grow">Edit Pattern Details</h3>
+                    <div>
                         <small>{{ pattern.reference }}</small>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                     <DeleteBtnComponent @delete="onDelete" />
                 </p>
                 <CardComponent v-if="deletionMessage" class="flex items-center gap-4" padded border="left">
-                    <div class="flex-auto">
+                    <div>
                         <IconComponent icon="info" gap="right" />
                     </div>
                     <div>

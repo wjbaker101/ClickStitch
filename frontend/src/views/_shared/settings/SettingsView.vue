@@ -16,7 +16,7 @@
             </p>
         </CardComponent>
         <div v-if="isCreator || isAdmin" class="flex gap-4">
-            <CardComponent border="top" padded v-if="authDetails !== null">
+            <CardComponent border="top" padded v-if="authDetails !== null" class="grow basis-1">
                 <h2>You Are a Creator!</h2>
                 <p>You'll have the ability to edit your creator details and patterns here.</p>
                 <p>
@@ -28,7 +28,7 @@
                     </a>
                 </p>
             </CardComponent>
-            <CardComponent border="top" padded v-if="authDetails !== null">
+            <CardComponent border="top" padded v-if="authDetails !== null" class="grow basis-1">
                 <h2>You Are an Admin!</h2>
                 <p>You'll have the ability to view and edit users on the platform.</p>
                 <p>
