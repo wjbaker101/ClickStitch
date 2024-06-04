@@ -15,7 +15,7 @@
                 <span class="align-middle">More</span>
             </div>
         </div>
-        <div class="more-content" v-if="slots.expanded">
+        <div class="more-content grid grid-rows-[0fr] mt-0" v-if="slots.expanded">
             <div class="overflow-hidden">
                 <slot name="expanded"></slot>
             </div>
@@ -59,9 +59,6 @@ const onToggleOpen = function (): void {
     }
 
     .more-content {
-        display: grid;
-        grid-template-rows: 0fr;
-        margin-top: 0rem;
 
         section {
             margin-left: 0.5rem;
