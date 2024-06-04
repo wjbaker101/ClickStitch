@@ -77,6 +77,6 @@ onMounted(async () => {
         return;
     }
 
-    projects.value = [];
+    projects.value = result;
 });
 </script>
