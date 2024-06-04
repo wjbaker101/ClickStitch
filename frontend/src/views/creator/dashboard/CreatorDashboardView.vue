@@ -3,16 +3,14 @@
         <template #nav>
             <strong>Creator Dashboard</strong>
         </template>
-        <div class="content-width">
-            <div v-if="self === null">
-                <LoadingComponent itemName="user details" />
-            </div>
-            <template v-else-if="isCreator">
-                <CardComponent border="top" padded>
-                    <EditCreatorComponent />
-                </CardComponent>
-            </template>
+        <div v-if="self === null">
+            <LoadingComponent itemName="user details" />
         </div>
+        <template v-else-if="isCreator">
+            <CardComponent border="top" padded>
+                <EditCreatorComponent />
+            </CardComponent>
+        </template>
     </ViewComponent>
 </template>
 

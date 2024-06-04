@@ -4,31 +4,29 @@
             <strong>Creator</strong>
         </template>
         <LoadingComponent v-if="isLoading" itemName="creator" />
-        <div v-else-if="creator !== null" class="content-width">
-            <CardComponent border="top" padded class="grid grid-flow-col place-content-between items-center gap-4">
-                <div>
-                    <h2 class="m-0">
-                        <IconComponent icon="user" size="large" gap="right" />
-                        <span class="align-middle">{{ creator.name }}</span>
-                    </h2>
-                    <p>Creator since: {{ creator.createdAt.format('MMMM YYYY') }}</p>
-                    <a :href="creator.storeUrl" target="_blank">
-                        <BtnComponent>
-                            <IconComponent icon="external-link" gap="right" />
-                            <span class="align-middle text-light">Visit their Shop!</span>
-                        </BtnComponent>
-                    </a>
-                </div>
-                <div>
-                    <CountDisplayComponent :count="totalPatternCount" description="patterns" />
-                </div>
-            </CardComponent>
-            <PaginatedContentComponent loadingItemName="pattens" :pageSize="10" :logic="loadPatterns">
-                <div class="grid gap-12 grid-cols-for-patterns">
-                    <DisplayPatternComponent v-for="pattern in patterns" :pattern="pattern" :userHasPattern="doesUserHavePattern(pattern.reference)" />
-                </div>
-            </PaginatedContentComponent>
-        </div>
+        <CardComponent v-else-if="creator !== null" border="top" padded class="grid grid-flow-col place-content-between items-center gap-4">
+            <div>
+                <h2 class="m-0">
+                    <IconComponent icon="user" size="large" gap="right" />
+                    <span class="align-middle">{{ creator.name }}</span>
+                </h2>
+                <p>Creator since: {{ creator.createdAt.format('MMMM YYYY') }}</p>
+                <a :href="creator.storeUrl" target="_blank">
+                    <BtnComponent>
+                        <IconComponent icon="external-link" gap="right" />
+                        <span class="align-middle text-light">Visit their Shop!</span>
+                    </BtnComponent>
+                </a>
+            </div>
+            <div>
+                <CountDisplayComponent :count="totalPatternCount" description="patterns" />
+            </div>
+        </CardComponent>
+        <PaginatedContentComponent loadingItemName="pattens" :pageSize="10" :logic="loadPatterns">
+            <div class="grid gap-12 grid-cols-for-patterns">
+                <DisplayPatternComponent v-for="pattern in patterns" :pattern="pattern" :userHasPattern="doesUserHavePattern(pattern.reference)" />
+            </div>
+        </PaginatedContentComponent>
     </ViewComponent>
 </template>
 

@@ -3,30 +3,28 @@
         <template #nav>
             <strong>Edit Project</strong>
         </template>
-        <div class="content-width">
-            <LoadingComponent v-if="isLoading" itemName="project" />
-            <CardComponent v-else border="top" padded>
-                <h2>Edit Project</h2>
-                <LinkComponent :href="`/projects/${patternReference}`">
-                    <IconComponent class="flex-auto" icon="arrow-left" gap="right" />
-                    <small>Back to Project</small>
-                </LinkComponent>
-                <FormComponent>
-                    <label class="mb-4 block">
-                        <strong class="block">Title</strong>
-                        <InputComponent type="text" placeholder="My Amazing Pattern" v-model="title" />
-                    </label>
-                    <label class="mb-4 block">
-                        <strong class="block">Aida Count</strong>
-                        <AidaSelectionComponent v-model="aidaCount" />
-                    </label>
-                    <BtnComponent @click="onUpdate" :loading="isUpdating">
-                        <IconComponent icon="tick" gap="right" />
-                        <span class="align-middle">Update</span>
-                    </BtnComponent>
-                </FormComponent>
-            </CardComponent>
-        </div>
+        <LoadingComponent v-if="isLoading" itemName="project" />
+        <CardComponent v-else border="top" padded>
+            <h2>Edit Project</h2>
+            <LinkComponent :href="`/projects/${patternReference}`">
+                <IconComponent class="flex-auto" icon="arrow-left" gap="right" />
+                <small>Back to Project</small>
+            </LinkComponent>
+            <FormComponent>
+                <label class="mb-4 block">
+                    <strong class="block">Title</strong>
+                    <InputComponent type="text" placeholder="My Amazing Pattern" v-model="title" />
+                </label>
+                <label class="mb-4 block">
+                    <strong class="block">Aida Count</strong>
+                    <AidaSelectionComponent v-model="aidaCount" />
+                </label>
+                <BtnComponent @click="onUpdate" :loading="isUpdating">
+                    <IconComponent icon="tick" gap="right" />
+                    <span class="align-middle">Update</span>
+                </BtnComponent>
+            </FormComponent>
+        </CardComponent>
     </ViewComponent>
 </template>
 

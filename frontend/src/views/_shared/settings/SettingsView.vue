@@ -3,45 +3,43 @@
         <template #nav>
             <strong>Settings</strong>
         </template>
-        <div class="content-width">
-            <CardComponent border="top" padded v-if="authDetails !== null" class="mb-4">
-                <h2>User Details</h2>
-                <p><strong>Currently logged in as: </strong>{{ authDetails.email }}</p>
-                <LoadingComponent v-if="isLoading" itemName="user details" />
-                <template v-else-if="self !== null">
-                    <p><strong>Created at:</strong> {{ self.user.createdAt }} ({{ self.user.createdAt.fromNow() }})</p>
-                    <p><strong>Last logged in:</strong> {{ self.user.lastLoginAt }} ({{ self.user.lastLoginAt?.fromNow() }})</p>
-                </template>
-                <p class="text-center">
-                    <BtnComponent @click="onLogOut">Log Out</BtnComponent>
+        <CardComponent border="top" padded v-if="authDetails !== null" class="mb-4">
+            <h2>User Details</h2>
+            <p><strong>Currently logged in as: </strong>{{ authDetails.email }}</p>
+            <LoadingComponent v-if="isLoading" itemName="user details" />
+            <template v-else-if="self !== null">
+                <p><strong>Created at:</strong> {{ self.user.createdAt }} ({{ self.user.createdAt.fromNow() }})</p>
+                <p><strong>Last logged in:</strong> {{ self.user.lastLoginAt }} ({{ self.user.lastLoginAt?.fromNow() }})</p>
+            </template>
+            <p class="text-center">
+                <BtnComponent @click="onLogOut">Log Out</BtnComponent>
+            </p>
+        </CardComponent>
+        <div v-if="isCreator || isAdmin" class="flex gap-4">
+            <CardComponent border="top" padded v-if="authDetails !== null">
+                <h2>You Are a Creator!</h2>
+                <p>You'll have the ability to edit your creator details and patterns here.</p>
+                <p>
+                    <a :href="urlToSubdomain('creator')">
+                        <BtnComponent>
+                            <IconComponent icon="external-link" gap="right" />
+                            <span class="align-middle">Go to Creator Dashboard</span>
+                        </BtnComponent>
+                    </a>
                 </p>
             </CardComponent>
-            <div v-if="isCreator || isAdmin" class="flex gap-4">
-                <CardComponent border="top" padded v-if="authDetails !== null">
-                    <h2>You Are a Creator!</h2>
-                    <p>You'll have the ability to edit your creator details and patterns here.</p>
-                    <p>
-                        <a :href="urlToSubdomain('creator')">
-                            <BtnComponent>
-                                <IconComponent icon="external-link" gap="right" />
-                                <span class="align-middle">Go to Creator Dashboard</span>
-                            </BtnComponent>
-                        </a>
-                    </p>
-                </CardComponent>
-                <CardComponent border="top" padded v-if="authDetails !== null">
-                    <h2>You Are an Admin!</h2>
-                    <p>You'll have the ability to view and edit users on the platform.</p>
-                    <p>
-                        <a :href="urlToSubdomain('admin')">
-                            <BtnComponent>
-                                <IconComponent icon="external-link" gap="right" />
-                                <span class="align-middle">Go to Admin Dashboard</span>
-                            </BtnComponent>
-                        </a>
-                    </p>
-                </CardComponent>
-            </div>
+            <CardComponent border="top" padded v-if="authDetails !== null">
+                <h2>You Are an Admin!</h2>
+                <p>You'll have the ability to view and edit users on the platform.</p>
+                <p>
+                    <a :href="urlToSubdomain('admin')">
+                        <BtnComponent>
+                            <IconComponent icon="external-link" gap="right" />
+                            <span class="align-middle">Go to Admin Dashboard</span>
+                        </BtnComponent>
+                    </a>
+                </p>
+            </CardComponent>
         </div>
     </ViewComponent>
 </template>

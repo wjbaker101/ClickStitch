@@ -1,12 +1,12 @@
 <template>
-    <div class="view-component">
-        <NavComponent v-if="!hideNav">
-            <slot name="nav"></slot>
-        </NavComponent>
-        <div class="page-content">
+    <NavComponent v-if="!hideNav">
+        <slot name="nav"></slot>
+    </NavComponent>
+    <div class="h-full grid grid-cols-[1fr_min(1200px,calc(100%-2rem))_1fr] grid-rows-[1fr_auto]">
+        <div class="col-start-2 pt-[calc(1.25rem+58px)] md:pt-[calc(1.5rem+74px)]">
             <slot></slot>
         </div>
-        <FooterComponent v-if="!hideFooter" />
+        <FooterComponent v-if="!hideFooter" class="col-span-3 row-start-2" />
     </div>
 </template>
 
@@ -19,16 +19,3 @@ defineProps<{
     hideFooter?: boolean;
 }>();
 </script>
-
-<style lang="scss">
-.view-component {
-    .page-content {
-        padding-top: calc(1.5rem + 82px);
-        min-height: calc(100vh - 162px);
-
-        @media screen and (max-width: 720px) {
-            padding-top: calc(1.5rem + 59px);
-        }
-    }
-}
-</style>

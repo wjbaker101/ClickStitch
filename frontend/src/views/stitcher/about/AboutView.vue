@@ -3,86 +3,84 @@
         <template #nav>
             <strong>About</strong>
         </template>
-        <div class="content-width">
-            <div class="grid items-center gap-4 md:grid-cols-[1fr_2fr]">
-                <CardComponent border="top" padded>
-                    <h3>What is ClickStitch?</h3>
-                    <p>ClickStitch is <em>your</em> companion to track and manage your cross-stitching progress!</p>
-                    <p>Whether you're a beginner or an advanced stitcher, ClickStitch makes life easier.</p>
-                    <p>Start tracking your progress in 3 simple steps:</p>
-                    <ol>
-                        <li>Upload your pattern</li>
-                        <li>Mark stitches as complete</li>
-                        <li>Check your analytics!</li>
-                    </ol>
-                    <div class="text-center">
-                        <RouterLink to="/dashboard">
-                            <BtnComponent>Start Stitching!</BtnComponent>
-                        </RouterLink>
-                    </div>
-                </CardComponent>
+        <div class="grid items-center gap-4 md:grid-cols-[1fr_2fr]">
+            <CardComponent border="top" padded>
+                <h3>What is ClickStitch?</h3>
+                <p>ClickStitch is <em>your</em> companion to track and manage your cross-stitching progress!</p>
+                <p>Whether you're a beginner or an advanced stitcher, ClickStitch makes life easier.</p>
+                <p>Start tracking your progress in 3 simple steps:</p>
+                <ol>
+                    <li>Upload your pattern</li>
+                    <li>Mark stitches as complete</li>
+                    <li>Check your analytics!</li>
+                </ol>
                 <div class="text-center">
-                    <img src="@/assets/clickstitch-on-devices.png" class="h-auto max-w-full">
+                    <RouterLink to="/dashboard">
+                        <BtnComponent>Start Stitching!</BtnComponent>
+                    </RouterLink>
                 </div>
+            </CardComponent>
+            <div class="text-center">
+                <img src="@/assets/clickstitch-on-devices.png" class="h-auto max-w-full">
             </div>
-            <NumberedSectionComponent class="my-24 text-center">
-                <NumberedCardComponent>
-                    <h2>Track Progress</h2>
-                    <p><em>Highlight completed stitches</em> and view analytics of your progression.</p>
-                </NumberedCardComponent>
-                <NumberedCardComponent>
-                    <h2>Manage Inventory</h2>
-                    <p><em>Record your floss</em>, make sure you never run out before starting a new project.</p>
-                </NumberedCardComponent>
-                <NumberedCardComponent>
-                    <h2>Multi-Device</h2>
-                    <p>Patterns are stored in a secure database, so continue <em>stitching whereever you go</em>.</p>
-                </NumberedCardComponent>
-            </NumberedSectionComponent>
-            <div class="mb-4 flex gap-4">
-                <CardComponent border="top" padded>
-                    <h3>How do I track progress?</h3>
-                    <p>Upload the pattern via your <RouterLink to="/dashboard">Dashboard</RouterLink>.</p>
+        </div>
+        <NumberedSectionComponent class="my-24 text-center">
+            <NumberedCardComponent>
+                <h2>Track Progress</h2>
+                <p><em>Highlight completed stitches</em> and view analytics of your progression.</p>
+            </NumberedCardComponent>
+            <NumberedCardComponent>
+                <h2>Manage Inventory</h2>
+                <p><em>Record your floss</em>, make sure you never run out before starting a new project.</p>
+            </NumberedCardComponent>
+            <NumberedCardComponent>
+                <h2>Multi-Device</h2>
+                <p>Patterns are stored in a secure database, so continue <em>stitching whereever you go</em>.</p>
+            </NumberedCardComponent>
+        </NumberedSectionComponent>
+        <div class="mb-4 flex gap-4">
+            <CardComponent border="top" padded>
+                <h3>How do I track progress?</h3>
+                <p>Upload the pattern via your <RouterLink to="/dashboard">Dashboard</RouterLink>.</p>
 
-                    <h4>📱 On Phones/Tablets:</h4>
-                    <ul>
-                        <li><KeyBinding>Drag</KeyBinding> to move around the pattern</li>
-                        <li><KeyBinding>Pinch</KeyBinding> to zoom in or out</li>
-                        <li><KeyBinding>Double tap</KeyBinding> to toggle (complete or uncomplete) an individual stitch</li>
-                        <li><KeyBinding>Long press</KeyBinding> on a stitch to show additional actions</li>
-                    </ul>
+                <h4>📱 On Phones/Tablets:</h4>
+                <ul>
+                    <li><KeyBinding>Drag</KeyBinding> to move around the pattern</li>
+                    <li><KeyBinding>Pinch</KeyBinding> to zoom in or out</li>
+                    <li><KeyBinding>Double tap</KeyBinding> to toggle (complete or uncomplete) an individual stitch</li>
+                    <li><KeyBinding>Long press</KeyBinding> on a stitch to show additional actions</li>
+                </ul>
 
-                    <h4>💻 On Laptops/PCs:</h4>
-                    <ul>
-                        <li>Hold <KeyBinding>left mouse button</KeyBinding> and drag to move around the pattern</li>
-                        <li><KeyBinding>Scroll-wheel</KeyBinding> to zoom in or out</li>
-                        <li>Double click to toggle (complete or uncomplete) an individual stitch</li>
-                        <li>
-                            Hold middle-click and drag to select multiple stitches...
-                            <ul>
-                                <li>Press <KeyBinding>space</KeyBinding> to <strong>complete</strong> all selected stitches</li>
-                                <li>Hold <KeyBinding>shift</KeyBinding> and press <KeyBinding>space</KeyBinding> to <strong>uncomplete</strong> all selected stitches</li>
-                            </ul>
-                        </li>
-                        <li><KeyBinding>Right-click</KeyBinding> on a stitch to show additional actions</li>
-                    </ul>
-                </CardComponent>
-            </div>
-            <div>
-                <CardComponent border="top" padded>
-                    <h3>Lastly...</h3>
-                    <em>
-                        <p>Images and renders of patterns may not 100% depict colours of threads used.</p>
-                    </em>
-                    <p>Any bugs or suggestions, please feel free to contact me! Links can be found in the footer ⭣.</p>
-                    <p>Thanks for your time, happy stitching! ❤️</p>
-                    <div class="text-center">
-                        <RouterLink to="/dashboard">
-                            <BtnComponent>Start Stitching!</BtnComponent>
-                        </RouterLink>
-                    </div>
-                </CardComponent>
-            </div>
+                <h4>💻 On Laptops/PCs:</h4>
+                <ul>
+                    <li>Hold <KeyBinding>left mouse button</KeyBinding> and drag to move around the pattern</li>
+                    <li><KeyBinding>Scroll-wheel</KeyBinding> to zoom in or out</li>
+                    <li>Double click to toggle (complete or uncomplete) an individual stitch</li>
+                    <li>
+                        Hold middle-click and drag to select multiple stitches...
+                        <ul>
+                            <li>Press <KeyBinding>space</KeyBinding> to <strong>complete</strong> all selected stitches</li>
+                            <li>Hold <KeyBinding>shift</KeyBinding> and press <KeyBinding>space</KeyBinding> to <strong>uncomplete</strong> all selected stitches</li>
+                        </ul>
+                    </li>
+                    <li><KeyBinding>Right-click</KeyBinding> on a stitch to show additional actions</li>
+                </ul>
+            </CardComponent>
+        </div>
+        <div>
+            <CardComponent border="top" padded>
+                <h3>Lastly...</h3>
+                <em>
+                    <p>Images and renders of patterns may not 100% depict colours of threads used.</p>
+                </em>
+                <p>Any bugs or suggestions, please feel free to contact me! Links can be found in the footer ⭣.</p>
+                <p>Thanks for your time, happy stitching! ❤️</p>
+                <div class="text-center">
+                    <RouterLink to="/dashboard">
+                        <BtnComponent>Start Stitching!</BtnComponent>
+                    </RouterLink>
+                </div>
+            </CardComponent>
         </div>
     </ViewComponent>
 </template>

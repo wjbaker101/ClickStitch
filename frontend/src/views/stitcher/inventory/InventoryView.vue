@@ -3,40 +3,38 @@
         <template #nav>
             <strong>Inventory</strong>
         </template>
-        <div class="content-width">
-            <CardComponent border="top" padded>
-                <h2>Manage your Skeins</h2>
-                <LoadingComponent v-if="isLoading" itemName="threads" />
-                <template v-else>
-                    <FormComponent class="mb-4 flex place-content-between items-center">
-                        <div class="flex-auto">
-                            <label>
-                                <strong class="block">Search</strong>
-                                <TextboxComponent type="search" placeholder="DMC 814" v-model="searchTerm" />
-                            </label>
-                        </div>
-                        <div class="flex-auto">
-                            <label>
-                                <strong class="block">Brand</strong>
-                                <select v-model="searchBrand">
-                                    <option :value="null">All</option>
-                                    <option value="Anchor">Anchor</option>
-                                    <option value="DMC">DMC</option>
-                                </select>
-                            </label>
-                        </div>
-                    </FormComponent>
-                    <p v-if="inventoryThreads.length === 0" class="text-center">
-                        Enter a thread code above and select how many you have.
-                    </p>
-                    <ThreadItemComponent :key="thread.thread.reference" v-for="thread in inventoryThreads" :thread="thread" @update="onThreadUpdate" />
-                    <p v-if="availableThreads.length > 0" class="text-center">
-                        Looking for something else?
-                    </p>
-                    <ThreadItemComponent :key="thread.thread.reference" v-for="thread in availableThreads" :thread="thread" @update="onThreadUpdate" />
-                </template>
-            </CardComponent>
-        </div>
+        <CardComponent border="top" padded>
+            <h2>Manage your Skeins</h2>
+            <LoadingComponent v-if="isLoading" itemName="threads" />
+            <template v-else>
+                <FormComponent class="mb-4 flex place-content-between items-center">
+                    <div class="flex-auto">
+                        <label>
+                            <strong class="block">Search</strong>
+                            <TextboxComponent type="search" placeholder="DMC 814" v-model="searchTerm" />
+                        </label>
+                    </div>
+                    <div class="flex-auto">
+                        <label>
+                            <strong class="block">Brand</strong>
+                            <select v-model="searchBrand">
+                                <option :value="null">All</option>
+                                <option value="Anchor">Anchor</option>
+                                <option value="DMC">DMC</option>
+                            </select>
+                        </label>
+                    </div>
+                </FormComponent>
+                <p v-if="inventoryThreads.length === 0" class="text-center">
+                    Enter a thread code above and select how many you have.
+                </p>
+                <ThreadItemComponent :key="thread.thread.reference" v-for="thread in inventoryThreads" :thread="thread" @update="onThreadUpdate" />
+                <p v-if="availableThreads.length > 0" class="text-center">
+                    Looking for something else?
+                </p>
+                <ThreadItemComponent :key="thread.thread.reference" v-for="thread in availableThreads" :thread="thread" @update="onThreadUpdate" />
+            </template>
+        </CardComponent>
     </ViewComponent>
 </template>
 

@@ -3,14 +3,12 @@
         <template #nav>
             <strong>Tools</strong>
         </template>
-        <div class="content-width">
-            <CardComponent border="top" padded class="mb-4">
-                <CanvasSizeCalculatorComponent />
-            </CardComponent>
-            <CardComponent border="top" padded>
-                <RequiredSkeinsCalculatorComponent />
-            </CardComponent>
-        </div>
+        <CardComponent border="top" padded class="mb-4">
+            <CanvasSizeCalculatorComponent />
+        </CardComponent>
+        <CardComponent border="top" padded>
+            <RequiredSkeinsCalculatorComponent />
+        </CardComponent>
     </ViewComponent>
 </template>
 

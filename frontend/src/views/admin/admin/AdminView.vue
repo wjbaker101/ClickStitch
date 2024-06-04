@@ -3,20 +3,18 @@
         <template #nav>
             <strong>Admin</strong>
         </template>
-        <div class="content-width">
-            <CardComponent border="top" padded>
-                <h2>Users</h2>
-                <PaginatedContentComponent loadingItemName="users" :logic="loadUsers" :pageSize="10">
-                    <UserItemComponent
-                        v-if="getUsers !== null && permissions !== null"
-                        :key="userDetails.user.reference"
-                        v-for="userDetails in getUsers.users"
-                        :userDetails="userDetails"
-                        :permissions="permissions"
-                    />
-                </PaginatedContentComponent>
-            </CardComponent>
-        </div>
+        <CardComponent border="top" padded>
+            <h2>Users</h2>
+            <PaginatedContentComponent loadingItemName="users" :logic="loadUsers" :pageSize="10">
+                <UserItemComponent
+                    v-if="getUsers !== null && permissions !== null"
+                    :key="userDetails.user.reference"
+                    v-for="userDetails in getUsers.users"
+                    :userDetails="userDetails"
+                    :permissions="permissions"
+                />
+            </PaginatedContentComponent>
+        </CardComponent>
     </ViewComponent>
 </template>
 

@@ -3,38 +3,36 @@
         <template #nav>
             <strong>Dashboard</strong>
         </template>
-        <div class="content-width">
-            <h2>Your Projects:</h2>
-            <UserMessageComponent ref="userMessageComponent" />
-            <div v-if="isLoading">
-                <LoadingComponent itemName="projects" />
-            </div>
-            <ZeroStateComponent v-else-if="projects?.length === 0" icon="info">
-                <h2 class="pb-8">No projects yet!</h2>
-                <NumberedSectionComponent class="max-w-3xl">
-                    <NumberedCardComponent>
-                        <p>Upload your first pattern now!</p>
-                        <RouterLink to="/patterns/new">
-                            <BtnComponent>
-                                <IconComponent icon="plus" gap="right" class="align-middle" />
-                                <span class="align-middle">New Pattern</span>
-                            </BtnComponent>
-                        </RouterLink>
-                    </NumberedCardComponent>
-                    <NumberedCardComponent>
-                        <p>Looking for inspiration?</p>
-                        <RouterLink to="/patterns">
-                            <BtnComponent>
-                                <IconComponent icon="download" gap="right" />
-                                View Creator Patterns
-                            </BtnComponent>
-                        </RouterLink>
-                    </NumberedCardComponent>
-                </NumberedSectionComponent>
-            </ZeroStateComponent>
-            <div v-else class="grid gap-12 grid-cols-for-patterns">
-                <DisplayPatternComponent :key="project.pattern.reference" v-for="project in projects" :pattern="project.pattern" :project="project" :userHasPattern="false" />
-            </div>
+        <h2>Your Projects:</h2>
+        <UserMessageComponent ref="userMessageComponent" />
+        <div v-if="isLoading">
+            <LoadingComponent itemName="projects" />
+        </div>
+        <ZeroStateComponent v-else-if="projects?.length === 0" icon="info">
+            <h2 class="pb-8">No projects yet!</h2>
+            <NumberedSectionComponent class="max-w-3xl">
+                <NumberedCardComponent>
+                    <p>Upload your first pattern now!</p>
+                    <RouterLink to="/patterns/new">
+                        <BtnComponent>
+                            <IconComponent icon="plus" gap="right" class="align-middle" />
+                            <span class="align-middle">New Pattern</span>
+                        </BtnComponent>
+                    </RouterLink>
+                </NumberedCardComponent>
+                <NumberedCardComponent>
+                    <p>Looking for inspiration?</p>
+                    <RouterLink to="/patterns">
+                        <BtnComponent>
+                            <IconComponent icon="download" gap="right" />
+                            View Creator Patterns
+                        </BtnComponent>
+                    </RouterLink>
+                </NumberedCardComponent>
+            </NumberedSectionComponent>
+        </ZeroStateComponent>
+        <div v-else class="grid gap-12 grid-cols-for-patterns">
+            <DisplayPatternComponent :key="project.pattern.reference" v-for="project in projects" :pattern="project.pattern" :project="project" :userHasPattern="false" />
         </div>
         <div v-if="!isLoading && projects !== null && projects.length > 0" class="fixed right-1/2 bottom-4 translate-x-1/2 md:right-4 md:translate-x-0">
             <RouterLink to="/patterns/new">
