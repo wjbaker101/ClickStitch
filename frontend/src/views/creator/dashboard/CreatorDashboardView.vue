@@ -1,5 +1,5 @@
 <template>
-    <ViewComponent class="creator-dashboard-view">
+    <ViewComponent>
         <template #nav>
             <strong>Creator Dashboard</strong>
         </template>

@@ -1,5 +1,5 @@
 <template>
-    <ViewComponent class="login-view" hide-nav>
+    <ViewComponent hide-nav>
         <div class="mx-auto px-4 max-w-[720px]">
             <ContentCardComponent>
                 <h2><IconComponent icon="user" size="large" gap="right" />Log In</h2>

@@ -1,5 +1,5 @@
 <template>
-    <ViewComponent class="admin-view">
+    <ViewComponent>
         <template #nav>
             <strong>Admin</strong>
         </template>

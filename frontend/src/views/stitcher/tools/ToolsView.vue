@@ -1,5 +1,5 @@
 <template>
-    <ViewComponent class="tools-view">
+    <ViewComponent>
         <template #nav>
             <strong>Tools</strong>
         </template>

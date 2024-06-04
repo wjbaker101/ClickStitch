@@ -1,5 +1,5 @@
 <template>
-    <ViewComponent class="signup-view" hide-nav>
+    <ViewComponent hide-nav>
         <div class="mx-auto px-4 max-w-[720px]">
             <small>
                 <RouterLink to="/login"><IconComponent icon="arrow-left" gap="right" />Return to login</RouterLink>

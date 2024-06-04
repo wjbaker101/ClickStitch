@@ -1,5 +1,5 @@
 <template>
-    <ViewComponent class="pattern-view" hideFooter>
+    <ViewComponent hideFooter>
         <template #nav>
             <strong class="align-middle">{{ project?.project.pattern.title ?? '-' }}</strong>
             <sub class="align-middle percentage-completed">({{ percentageCompleted.toFixed(2) }}%)</sub>
@@ -66,33 +66,3 @@ onMounted(async () => {
     setTitle(`${project.value.project.pattern.title}`);
 });
 </script>
-
-<style lang="scss">
-.pattern-view {
-    height: 100%;
-
-    .page-content {
-        padding-top: 0 !important;
-        min-height: calc(100vh) !important;
-        display: flex;
-    }
-
-    .loading-container {
-        margin: auto;
-    }
-
-    .percentage-completed {
-        padding-left: 0.25rem;
-        color: #ddd;
-
-        @media screen and (max-width: 720px) {
-            display: none;
-        }
-    }
-
-    .canvas-wrapper {
-        position: relative;
-        flex: 1;
-    }
-}
-</style>

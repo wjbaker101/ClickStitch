@@ -1,5 +1,5 @@
 <template>
-    <ViewComponent class="about-view">
+    <ViewComponent>
         <template #nav>
             <strong>About</strong>
         </template>

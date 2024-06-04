@@ -1,5 +1,5 @@
 <template>
-    <ViewComponent class="project-analytics-view">
+    <ViewComponent>
         <template #nav>
             <strong>Analytics</strong>
         </template>

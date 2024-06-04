@@ -1,5 +1,5 @@
 <template>
-    <ViewComponent class="inventory-view">
+    <ViewComponent>
         <template #nav>
             <strong>Inventory</strong>
         </template>

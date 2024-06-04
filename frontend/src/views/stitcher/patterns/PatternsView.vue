@@ -1,5 +1,5 @@
 <template>
-    <ViewComponent class="patterns-view">
+    <ViewComponent>
         <template #nav>
             <strong>Creator Patterns</strong>
         </template>

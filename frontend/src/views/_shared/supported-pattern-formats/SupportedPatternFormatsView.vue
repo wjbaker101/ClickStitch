@@ -1,5 +1,5 @@
 <template>
-    <ViewComponent class="supported-pattern-formats-view">
+    <ViewComponent>
         <template #nav>
             <strong>Supported Pattern Formats</strong>
         </template>

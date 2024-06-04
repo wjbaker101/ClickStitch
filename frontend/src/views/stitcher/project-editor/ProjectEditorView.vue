@@ -1,5 +1,5 @@
 <template>
-    <ViewComponent class="project-editor-view">
+    <ViewComponent>
         <template #nav>
             <strong>Edit Project</strong>
         </template>
