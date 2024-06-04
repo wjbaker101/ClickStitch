@@ -4,20 +4,18 @@
             <strong>Admin</strong>
         </template>
         <div class="content-width">
-            <section>
-                <CardComponent border="top" padded>
-                    <h2>Users</h2>
-                    <PaginatedContentComponent loadingItemName="users" :logic="loadUsers" :pageSize="10">
-                        <UserItemComponent
-                            v-if="getUsers !== null && permissions !== null"
-                            :key="userDetails.user.reference"
-                            v-for="userDetails in getUsers.users"
-                            :userDetails="userDetails"
-                            :permissions="permissions"
-                        />
-                    </PaginatedContentComponent>
-                </CardComponent>
-            </section>
+            <CardComponent border="top" padded>
+                <h2>Users</h2>
+                <PaginatedContentComponent loadingItemName="users" :logic="loadUsers" :pageSize="10">
+                    <UserItemComponent
+                        v-if="getUsers !== null && permissions !== null"
+                        :key="userDetails.user.reference"
+                        v-for="userDetails in getUsers.users"
+                        :userDetails="userDetails"
+                        :permissions="permissions"
+                    />
+                </PaginatedContentComponent>
+            </CardComponent>
         </div>
     </ViewComponent>
 </template>

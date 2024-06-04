@@ -7,12 +7,10 @@
             <div v-if="self === null">
                 <LoadingComponent itemName="user details" />
             </div>
-            <template v-else>
-                <section v-if="isCreator">
-                    <CardComponent border="top" padded>
-                        <EditCreatorComponent />
-                    </CardComponent>
-                </section>
+            <template v-else-if="isCreator">
+                <CardComponent border="top" padded>
+                    <EditCreatorComponent />
+                </CardComponent>
             </template>
         </div>
     </ViewComponent>
