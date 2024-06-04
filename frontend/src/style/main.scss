@@ -44,16 +44,6 @@
 
     --text-colour: rgb(var(--dark));
 
-    --wjb-light: #ececec;
-    --wjb-dark: #222226;
-
-    --wjb-background-colour: var(--wjb-light);
-
-    --wjb-primary: #22927f;
-    --wjb-secondary: #7f2292;
-
-    --wjb-border-radius: 0.3rem;
-
     @media (prefers-color-scheme: dark) {
         --background: var(--dark);
         --background-dark: var(--dark-dark);
@@ -61,7 +51,5 @@
         --background-texture: url(@/assets/bg-dark.png);
 
         --text-colour: rgb(var(--light));
-
-        --wjb-background-colour: var(--wjb-dark);
     }
 }
