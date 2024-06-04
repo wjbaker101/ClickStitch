@@ -1,4 +1,3 @@
-import type { IconName } from '@wjb/vue/component/IconComponent.vue';
 import type { IContextMenuItem, IContextMenuSeparator } from './types/ContextMenuSchema.type';
 
 export const factory = {
@@ -7,10 +6,9 @@ export const factory = {
         type: 'separator',
     }),
 
-    item: (text: string, action: () => void, icon?: IconName): IContextMenuItem => ({
+    item: (text: string, action: () => void): IContextMenuItem => ({
         type: 'item',
         text,
-        icon,
         action,
     }),
 
