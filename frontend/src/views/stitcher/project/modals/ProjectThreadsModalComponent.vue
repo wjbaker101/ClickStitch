@@ -1,8 +1,8 @@
 <template>
-    <div class="project-threads-modal-component flex flex-col gap-4 h-full">
+    <div class="flex h-full flex-col gap-4 project-threads-modal-component">
         <div>
             <h2>Actions:</h2>
-            <div class="flex gap-small">
+            <div class="flex gap-2">
                 <div class="flex-auto">
                     <BtnComponent @click="onGoToPausePosition">
                         <IconComponent icon="compass" gap="right" />
