@@ -14,12 +14,6 @@ import SideModalComponent from '@/components/modals/SideModalComponent.vue';
 <style lang="scss">
 @use '@/style/main' as *;
 
-section {
-    & + section {
-        margin-top: 1rem;
-    }
-}
-
 .content-width {
     position: relative;
     max-width: 1200px;
