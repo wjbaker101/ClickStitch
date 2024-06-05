@@ -11,14 +11,14 @@
                 <p><strong>Created at:</strong> {{ self.user.createdAt }} ({{ self.user.createdAt.fromNow() }})</p>
                 <p><strong>Last logged in:</strong> {{ self.user.lastLoginAt }} ({{ self.user.lastLoginAt?.fromNow() }})</p>
             </template>
-            <p class="text-center">
+            <p class="mt-4 text-center">
                 <BtnComponent @click="onLogOut">Log Out</BtnComponent>
             </p>
         </CardComponent>
         <div v-if="isCreator || isAdmin" class="flex gap-4">
             <CardComponent border="top" padded v-if="authDetails !== null" class="grow basis-1">
                 <h2 class="mb-4 text-2xl font-bold">You Are a Creator!</h2>
-                <p>You'll have the ability to edit your creator details and patterns here.</p>
+                <p class="mb-4">You'll have the ability to edit your creator details and patterns here.</p>
                 <p>
                     <a :href="urlToSubdomain('creator')">
                         <BtnComponent>
@@ -30,7 +30,7 @@
             </CardComponent>
             <CardComponent border="top" padded v-if="authDetails !== null" class="grow basis-1">
                 <h2 class="mb-4 text-2xl font-bold">You Are an Admin!</h2>
-                <p>You'll have the ability to view and edit users on the platform.</p>
+                <p class="mb-4">You'll have the ability to view and edit users on the platform.</p>
                 <p>
                     <a :href="urlToSubdomain('admin')">
                         <BtnComponent>
