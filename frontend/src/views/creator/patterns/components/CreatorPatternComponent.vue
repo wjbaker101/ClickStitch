@@ -2,12 +2,12 @@
     <ListItemComponent class="creator-pattern-component">
         <div class="flex items-center gap-4">
             <img :src="pattern.bannerImageUrl ?? ''" class="h-auto rounded-md align-middle shadow-md max-w-[150px] bg-background">
-            <h3>{{ pattern.title }}</h3>
+            <h3 class="text-lg font-bold">{{ pattern.title }}</h3>
         </div>
         <template #expanded>
             <FormComponent class="mb-4">
                 <div class="flex gap-4">
-                    <h3 class="m-0 mb-4 grow">Edit Pattern Details</h3>
+                    <h3 class="m-0 mb-4 grow text-lg font-bold">Edit Pattern Details</h3>
                     <div>
                         <small>{{ pattern.reference }}</small>
                     </div>
@@ -30,7 +30,7 @@
                 </BtnComponent>
             </FormComponent>
             <FormComponent>
-                <h3>Delete Pattern</h3>
+                <h3 class="mb-2 text-lg font-bold">Delete Pattern</h3>
                 <p>If any user has already added your pattern to their dashboard this action will NOT delete the pattern, but will instead hide it from new users.</p>
                 <p>If this pattern has not been added by any users yet, this action will permanently delete the pattern.</p>
                 <p>

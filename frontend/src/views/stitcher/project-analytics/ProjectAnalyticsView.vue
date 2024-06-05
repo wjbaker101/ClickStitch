@@ -29,7 +29,7 @@
                 </CardComponent>
             </div>
             <CardComponent border="top" padded class="mb-4">
-                <h3>At a Glance:</h3>
+                <h3 class="mb-4 text-lg font-bold">At a Glance:</h3>
                 <p><strong>Remaining Stitches: </strong> {{ formatNumber(analytics.remainingStitches) }}</p>
                 <p><strong>Completed Stitches: </strong> {{ formatNumber(analytics.completedStitches) }} ({{ completedPercentage.toFixed(2) }}%)</p>
             </CardComponent>

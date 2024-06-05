@@ -5,7 +5,7 @@
         <LoadingComponent itemName="creator" />
     </div>
     <FormComponent v-else>
-        <h3 class="m-0 mb-4">{{ creator === null ? 'Setup your Creator Details' : 'Edit Creator Details' }}</h3>
+        <h3 class="m-0 mb-4 text-lg font-bold">{{ creator === null ? 'Setup your Creator Details' : 'Edit Creator Details' }}</h3>
         <label class="mb-4 block">
             <strong class="block">Name</strong>
             <InputComponent class="max-w-full w-[350px]" type="text" placeholder="Beautiful Patterns Co." v-model="form.name" />

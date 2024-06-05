@@ -10,7 +10,7 @@
                 <small class="align-middle">Back to Dashboard</small>
             </LinkComponent>
             <FormComponent class="mb-4">
-                <h3 class="m-0 mb-4">Pattern Details</h3>
+                <h3 class="m-0 mb-4 text-lg font-bold">Pattern Details</h3>
                 <label class="mb-4 block">
                     <strong class="block">Title</strong>
                     <InputComponent type="text" placeholder="My Amazing Pattern" v-model="title" />

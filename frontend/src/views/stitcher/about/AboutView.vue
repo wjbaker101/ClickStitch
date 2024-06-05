@@ -39,10 +39,10 @@
             </NumberedCardComponent>
         </NumberedSectionComponent>
         <CardComponent border="top" padded class="mb-4">
-            <h3>How do I track progress?</h3>
+            <h3 class="mb-4 text-lg font-bold">How do I track progress?</h3>
             <p>Upload the pattern via your <RouterLink to="/dashboard">Dashboard</RouterLink>.</p>
 
-            <h4>📱 On Phones/Tablets:</h4>
+            <h4 class="my-4 font-bold text-md">📱 On Phones/Tablets:</h4>
             <ul>
                 <li><KeyBinding>Drag</KeyBinding> to move around the pattern</li>
                 <li><KeyBinding>Pinch</KeyBinding> to zoom in or out</li>
@@ -50,7 +50,7 @@
                 <li><KeyBinding>Long press</KeyBinding> on a stitch to show additional actions</li>
             </ul>
 
-            <h4>💻 On Laptops/PCs:</h4>
+            <h4 class="my-4 font-bold text-md">💻 On Laptops/PCs:</h4>
             <ul>
                 <li>Hold <KeyBinding>left mouse button</KeyBinding> and drag to move around the pattern</li>
                 <li><KeyBinding>Scroll-wheel</KeyBinding> to zoom in or out</li>
@@ -67,7 +67,7 @@
         </CardComponent>
         <div>
             <CardComponent border="top" padded>
-                <h3>Lastly...</h3>
+                <h3 class="mb-4 text-lg font-bold">Lastly...</h3>
                 <em>
                     <p>Images and renders of patterns may not 100% depict colours of threads used.</p>
                 </em>
