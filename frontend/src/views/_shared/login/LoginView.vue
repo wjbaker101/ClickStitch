@@ -64,10 +64,10 @@ const password = ref<string>('');
 const isLoading = ref<boolean>(false);
 
 const nextInput = async function (next: 'emailInput' | 'passwordInput'): Promise<void> {
-    const input = inputs[next].value;
+    const input = inputs[next].value.$el;
 
-    if (input.$el.value.length === 0) {
-        input.$el.focus();
+    if (input.value.length === 0) {
+        input.focus();
         return;
     }
 
