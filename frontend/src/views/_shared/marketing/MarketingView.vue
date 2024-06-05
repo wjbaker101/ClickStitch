@@ -8,7 +8,7 @@
                         <img width="100" height="100" src="@/assets/logo-large.png">
                     </div>
                     <div>
-                        <h1 style="margin: 0; margin-bottom: 1rem;"><code>v1.0 Launch</code></h1>
+                        <h1 style="margin: 0; margin-bottom: 1rem;" class="text-4xl font-bold"><code>v1.0 Launch</code></h1>
                         <p style="margin: 0;">
                             <a href="#" class="text-primary">https://clickstitch.app</a>
                         </p>
@@ -51,7 +51,7 @@
             <div class="any-width">
                 <img width="250" height="250" src="@/assets/logo-large.png">
                 <div>
-                    <h1>Start your Journey:</h1>
+                    <h1 class="text-4xl font-bold mb-4">Start your Journey:</h1>
                     <p>
                         <a href="#" class="text-primary">https://clickstitch.app</a>
                     </p>
