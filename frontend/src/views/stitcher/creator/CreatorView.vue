@@ -10,7 +10,7 @@
                     <UserIcon class="!size-12 mr-2" />
                     <span class="align-middle">{{ creator.name }}</span>
                 </h2>
-                <p>Creator since: {{ creator.createdAt.format('MMMM YYYY') }}</p>
+                <p class="mb-4">Creator since: {{ creator.createdAt.format('MMMM YYYY') }}</p>
                 <a :href="creator.storeUrl" target="_blank">
                     <BtnComponent>
                         <ExternalLinkIcon class="mr-2" />
