@@ -18,7 +18,7 @@
                     <h2 class="mb-4 text-2xl font-bold">{{ analytics.title }}</h2>
                     <p><strong>Added At: </strong> {{ analytics.purchasedAt }}</p>
                     <p><strong>Total Stitches: </strong> {{ formatNumber(analytics.totalStitches) }}</p>
-                    <p>
+                    <p class="mt-4">
                         <RouterLink :to="`/projects/${patternReference}`">
                             <BtnComponent>
                                 <ExternalLinkIcon class="mr-2" />
