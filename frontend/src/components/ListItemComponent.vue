@@ -12,7 +12,7 @@
             </div>
             <div v-if="slots.expanded" @click="onToggleOpen" class="cursor-pointer select-none">
                 <span class="align-middle">More</span>
-                <SquareChevronDownIcon class="ml-2" />
+                <SquareChevronDownIcon class="ml-1" />
             </div>
         </div>
         <div class="mt-0 grid more-content grid-rows-[0fr]" v-if="slots.expanded">
