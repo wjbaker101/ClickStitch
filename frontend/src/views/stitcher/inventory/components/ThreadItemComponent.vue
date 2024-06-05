@@ -10,7 +10,7 @@
     >
         <div class="flex items-center gap-4">
             <div class="p-2 rounded-full bg-[var(--colour)] text-inherit shadow-md">
-                <IconComponent icon="skein" size="large" class="size-8" />
+                <SkeinIcon class="size-8" />
             </div>
             <div class="grow">
                 <strong>{{ thread.thread.brand }} {{ thread.thread.code }}</strong>
@@ -26,6 +26,7 @@
 import { ref } from 'vue';
 import { watchDebounced } from '@vueuse/core';
 
+import SkeinIcon from '@/components/icons/SkeinIcon.vue';
 import ListItemComponent from '@/components/ListItemComponent.vue';
 import TextboxComponent from '@/components/inputs/InputComponent.vue';
 

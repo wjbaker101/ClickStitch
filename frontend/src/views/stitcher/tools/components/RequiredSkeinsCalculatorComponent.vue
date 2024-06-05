@@ -16,7 +16,7 @@
             <ArrowDownIcon class="sm:hidden" />
         </div>
         <div class="text-center">
-            <IconComponent icon="skein" size="large" />
+            <SkeinIcon class="size-12" />
             <span class="pl-4">{{ skeins }} skein(s)</span>
         </div>
     </div>
@@ -26,6 +26,7 @@
 import { computed, ref } from 'vue';
 
 import { ArrowDownIcon, ArrowRightIcon } from 'lucide-vue-next';
+import SkeinIcon from '@/components/icons/SkeinIcon.vue';
 import FormComponent from '@/components/form/FormComponent.vue';
 import InputComponent from '@/components/inputs/InputComponent.vue';
 import AidaSelectionComponent from '@/components/aida-selection/AidaSelectionComponent.vue';
