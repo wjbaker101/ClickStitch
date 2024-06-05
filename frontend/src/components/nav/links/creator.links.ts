@@ -1,23 +1,24 @@
 import { computed } from 'vue';
+import { HomeIcon, PencilIcon, SettingsIcon } from 'lucide-vue-next';
 
 import { type ILink } from '@/components/nav/types/Link.type';
 
 export const creatorLinks = computed<Array<ILink>>(() => [
     {
         path: '/dashboard',
-        iconName: 'home',
+        iconComponent: HomeIcon,
         title: 'Dashboard',
         isVisible: true,
     },
     {
         path: '/patterns',
-        iconName: 'pencil',
+        iconComponent: PencilIcon,
         title: 'Patterns',
         isVisible: true,
     },
     {
         path: '/settings',
-        iconName: 'settings',
+        iconComponent: SettingsIcon,
         title: 'Settings',
         isVisible: true,
     },

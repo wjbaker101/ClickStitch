@@ -1,6 +1,6 @@
 export interface ILink {
     path: string;
-    iconName: string;
+    iconComponent: InstanceType<any>;
     title: string;
     isVisible: boolean;
 }

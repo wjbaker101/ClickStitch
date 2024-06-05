@@ -1,4 +1,6 @@
 import { computed } from 'vue';
+import { HomeIcon, DownloadIcon, InfoIcon, SettingsIcon, UserIcon } from 'lucide-vue-next';
+import SkeinIcon from '@/components/icons/SkeinIcon.vue';
 
 import { useAuth } from '@/use/auth/Auth.use';
 
@@ -11,37 +13,37 @@ const authDetails = auth.details;
 export const stitcherLinks = computed<Array<ILink>>(() => [
     {
         path: '/dashboard',
-        iconName: 'home',
+        iconComponent: HomeIcon,
         title: 'Dashboard',
         isVisible: authDetails.value !== null,
     },
     {
         path: '/patterns',
-        iconName: 'download',
+        iconComponent: DownloadIcon,
         title: 'Patterns',
         isVisible: true,
     },
     {
         path: '/inventory',
-        iconName: 'skein',
+        iconComponent: SkeinIcon,
         title: 'Inventory',
         isVisible: authDetails.value !== null,
     },
     {
         path: '/about',
-        iconName: 'info',
+        iconComponent: InfoIcon,
         title: 'About',
         isVisible: true,
     },
     {
         path: '/settings',
-        iconName: 'settings',
+        iconComponent: SettingsIcon,
         title: 'Settings',
         isVisible: authDetails.value !== null,
     },
     {
         path: '/login',
-        iconName: 'user',
+        iconComponent: UserIcon,
         title: 'Login/Signup',
         isVisible: authDetails.value === null,
     },

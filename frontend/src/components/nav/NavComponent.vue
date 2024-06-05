@@ -35,7 +35,7 @@
                 class="flex-auto rounded-md px-6 py-3 font-bold text-inherit decoration-0 outline-dashed outline-2
                     outline-transparent hover:bg-primary-dark focus:outline-secondary md:p-0"
             >
-                <IconComponent :icon="link.iconName" gap="right" class="drop-shadow-icon" />
+                <Component :is="link.iconComponent" class="mr-1 drop-shadow-icon" />
                 <span class="align-middle">{{ link.title }}</span>
             </RouterLink>
         </div>
