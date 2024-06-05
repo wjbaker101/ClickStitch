@@ -48,6 +48,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { templateRef } from '@vueuse/core';
 
 import { UserIcon, ArrowLeftIcon } from 'lucide-vue-next';
 import BtnComponent from '@/components/BtnComponent.vue';
@@ -59,11 +60,11 @@ import { api } from '@/api/api';
 
 const router = useRouter();
 
-const userMessageComponent = ref<InstanceType<typeof UserMessageComponent>>({} as InstanceType<typeof UserMessageComponent>);
+const userMessageComponent = templateRef<typeof UserMessageComponent>('userMessageComponent');
 
-const emailInput = ref<HTMLInputElement>({} as HTMLInputElement);
-const passwordInput = ref<HTMLInputElement>({} as HTMLInputElement);
-const confirmPasswordInput = ref<HTMLInputElement>({} as HTMLInputElement);
+const emailInput = templateRef<typeof InputComponent>('emailInput');
+const passwordInput = templateRef<typeof InputComponent>('passwordInput');
+const confirmPasswordInput = templateRef<typeof InputComponent>('confirmPasswordInput');
 
 const inputs = {
     emailInput,
@@ -78,7 +79,8 @@ const confirmPassword = ref<string>('');
 const isLoading = ref<boolean>(false);
 
 const nextInput = async function (next: 'emailInput' | 'passwordInput' | 'confirmPasswordInput'): Promise<void> {
-    const input = inputs[next].value;
+    const input = inputs[next].value.$el;
+
     if (input.value.length === 0) {
         input.focus();
         return;
