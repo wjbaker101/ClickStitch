@@ -72,7 +72,7 @@
                     <p>Images and renders of patterns may not 100% depict colours of threads used.</p>
                 </em>
                 <p>Any bugs or suggestions, please feel free to contact me! Links can be found in the footer ⭣.</p>
-                <p>Thanks for your time, happy stitching! ❤️</p>
+                <p class="my-4">Thanks for your time, happy stitching! ❤️</p>
                 <div class="text-center">
                     <RouterLink to="/dashboard">
                         <BtnComponent>Start Stitching!</BtnComponent>
