@@ -11,8 +11,8 @@
                 <slot></slot>
             </div>
             <div v-if="slots.expanded" @click="onToggleOpen" class="cursor-pointer select-none">
-                <IconComponent icon="arrow-triangle-down" gap="right" />
                 <span class="align-middle">More</span>
+                <SquareChevronDownIcon class="ml-2" />
             </div>
         </div>
         <div class="mt-0 grid more-content grid-rows-[0fr]" v-if="slots.expanded">
@@ -25,6 +25,8 @@
 
 <script setup lang="ts">
 import { ref, useSlots } from 'vue';
+
+import { SquareChevronDownIcon } from 'lucide-vue-next';
 
 const props = defineProps<{
     hover?: boolean;

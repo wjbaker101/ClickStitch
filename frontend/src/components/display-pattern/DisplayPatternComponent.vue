@@ -15,11 +15,11 @@
                 {{ formatNumber(pattern.stitchCount) }} stitches
                 <br>
                 <RouterLink v-if="pattern.creator !== null" class="text-colour" :to="`/creators/${pattern.creator.reference}`">
-                    <IconComponent icon="user" gap="right" />
+                    <UserIcon class="mr-1" />
                     <span class="align-middle underline hover:no-underline">{{ pattern.creator?.name ?? 'You' }}</span>
                 </RouterLink>
                 <span v-else class="created-by">
-                    <IconComponent icon="user" gap="right" />
+                    <UserIcon class="mr-1" />
                     <span class="align-middle">You</span>
                 </span>
             </div>
@@ -27,24 +27,24 @@
         <div v-if="project" class="col-start-1 col-end-3 grid grid-cols-2 gap-4 px-4 pb-4">
             <RouterLink :to="`/projects/${pattern.reference}`">
                 <BtnComponent class="w-full primary">
-                    <IconComponent icon="play" gap="right" />
+                    <CirclePlayIcon class="mr-2" />
                     <span class="align-middle">Stitch!</span>
                 </BtnComponent>
             </RouterLink>
             <RouterLink :to="`/projects/${pattern.reference}/analytics`">
                 <BtnComponent class="w-full" type="secondary">
-                    <IconComponent icon="activity" gap="right" />
+                    <LineChartIcon class="mr-2" />
                     <span class="align-middle">Analytics</span>
                 </BtnComponent>
             </RouterLink>
         </div>
         <div v-else class="col-start-1 col-end-3 px-4 pb-4 text-center">
             <BtnComponent class="full" v-if="!userHasPattern" title="Add to Your Dashboard" @click="onAddProject(pattern)">
-                <IconComponent icon="plus" gap="right" />
-                <span>Add to Dashboard</span>
+                <PlusIcon class="mr-2" />
+                <span class="align-middle">Add to Dashboard</span>
             </BtnComponent>
             <div class="rounded-md border-2 border-dashed p-2 border-secondary" v-else>
-                <IconComponent icon="tick" gap="right" />
+                <CheckIcon class="mr-2" />
                 <span>In your Dashboard</span>
             </div>
         </div>
@@ -54,6 +54,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 
+import { UserIcon, CirclePlayIcon, LineChartIcon, PlusIcon, CheckIcon } from 'lucide-vue-next';
 import BtnComponent from '@/components/BtnComponent.vue';
 
 import { api } from '@/api/api';

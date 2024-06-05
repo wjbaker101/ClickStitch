@@ -1,12 +1,14 @@
 <template>
     <div v-if="message" class="my-4 flex items-center gap-4 rounded-md p-4 shadow-md user-message-component bg-danger/80 text-light">
-        <IconComponent icon="info" />
+        <InfoIcon />
         <div>{{ message }}</div>
     </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
+
+import { InfoIcon } from 'lucide-vue-next';
 
 const message = ref<string | null>(null);
 const timeout = ref<NodeJS.Timeout | null>(null);

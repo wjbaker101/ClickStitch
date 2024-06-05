@@ -17,4 +17,10 @@ import SideModalComponent from '@/components/modals/SideModalComponent.vue';
 a {
     text-decoration: none;
 }
+
+.lucide {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+}
 </style>
