@@ -6,10 +6,10 @@
         <div class="grid items-center gap-4 md:grid-cols-[1fr_2fr]">
             <CardComponent border="top" padded>
                 <h3 class="mb-4 text-lg font-bold">What is ClickStitch?</h3>
-                <p>ClickStitch is <em>your</em> companion to track and manage your cross-stitching progress!</p>
-                <p>Whether you're a beginner or an advanced stitcher, ClickStitch makes life easier.</p>
-                <p>Start tracking your progress in 3 simple steps:</p>
-                <ol>
+                <p class="mb-2">ClickStitch is <em>your</em> companion to track and manage your cross-stitching progress!</p>
+                <p class="mb-2">Whether you're a beginner or an advanced stitcher, ClickStitch makes life easier.</p>
+                <p class="mb-2">Start tracking your progress in 3 simple steps:</p>
+                <ol class="mb-4 list-inside list-decimal pl-4">
                     <li>Upload your pattern</li>
                     <li>Mark stitches as complete</li>
                     <li>Check your analytics!</li>
@@ -43,7 +43,7 @@
             <p>Upload the pattern via your <RouterLink to="/dashboard">Dashboard</RouterLink>.</p>
 
             <h4 class="my-4 font-bold text-md">📱 On Phones/Tablets:</h4>
-            <ul>
+            <ul class="list-inside list-disc pl-4">
                 <li><KeyBinding>Drag</KeyBinding> to move around the pattern</li>
                 <li><KeyBinding>Pinch</KeyBinding> to zoom in or out</li>
                 <li><KeyBinding>Double tap</KeyBinding> to toggle (complete or uncomplete) an individual stitch</li>
@@ -51,13 +51,13 @@
             </ul>
 
             <h4 class="my-4 font-bold text-md">💻 On Laptops/PCs:</h4>
-            <ul>
+            <ul class="list-inside list-disc pl-4">
                 <li>Hold <KeyBinding>left mouse button</KeyBinding> and drag to move around the pattern</li>
                 <li><KeyBinding>Scroll-wheel</KeyBinding> to zoom in or out</li>
                 <li>Double click to toggle (complete or uncomplete) an individual stitch</li>
                 <li>
                     Hold middle-click and drag to select multiple stitches...
-                    <ul>
+                    <ul class="list-inside list-disc pl-4">
                         <li>Press <KeyBinding>space</KeyBinding> to <strong>complete</strong> all selected stitches</li>
                         <li>Hold <KeyBinding>shift</KeyBinding> and press <KeyBinding>space</KeyBinding> to <strong>uncomplete</strong> all selected stitches</li>
                     </ul>
