@@ -2,10 +2,10 @@
     <ViewComponent hide-nav>
         <div class="mx-auto px-4 max-w-[720px]">
             <small>
-                <RouterLink to="/login">
+                <LinkComponent href="/login">
                     <ArrowLeftIcon class="mr-1" />
                     <span class="align-middle">Return to login</span>
-                </RouterLink>
+                </LinkComponent>
             </small>
             <ContentCardComponent>
                 <h2>
