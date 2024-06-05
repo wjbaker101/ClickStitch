@@ -8,7 +8,9 @@
                 '--colour': colour,
             }"
         >
-            <IconComponent :icon="icon" class="mr-4 text-[rgb(var(--colour))] size-6 drop-shadow-sm" />
+            <InfoIcon v-if="options.type === 'message'" class="mr-4 text-[rgb(var(--colour))] !size-6 drop-shadow-sm" />
+            <CheckIcon v-else-if="options.type === 'success'" class="mr-4 text-[rgb(var(--colour))] !size-6 drop-shadow-sm" />
+            <TriangleAlertIcon v-else-if="options.type === 'error'" class="mr-4 text-[rgb(var(--colour))] !size-6 drop-shadow-sm" />
             <span class="align-middle">{{ options.message }}</span>
         </div>
     </Transition>
@@ -16,6 +18,8 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
+
+import { InfoIcon, CheckIcon, TriangleAlertIcon } from 'lucide-vue-next';
 
 import { type IPopupEvent, usePopup } from '@/components/popup/Popup.use';
 
@@ -34,19 +38,6 @@ const colour = computed<string>(() => {
             return 'var(--danger)';
         default:
             return 'var(--secondary)';
-    }
-});
-
-const icon = computed(() => {
-    switch (options.value?.type) {
-        case 'message':
-            return 'info';
-        case 'success':
-            return 'tick';
-        case 'error':
-            return 'warning';
-        default:
-            return '';
     }
 });
 
