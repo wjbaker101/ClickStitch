@@ -1455,18 +1455,6 @@
   dependencies:
     vue-demi ">=0.14.7"
 
-"@wjb/styling@^1.0.75", "@wjb/styling@^1.0.82":
-  version "1.0.82"
-  resolved "https://wjb-144953083930.d.codeartifact.eu-west-2.amazonaws.com/npm/npm-libs/@wjb/styling/-/styling-1.0.82.tgz#6326de4798253cb9e2e7a28ea9a5f52fe620e156"
-  integrity sha512-qcwAgbweGYiZOwlcz9LwTXXpLoCxPHkOyM7SUgM/JYLKu61v0Jqe3k+ia7RgjzfKxRSrSqm8t+owJGPKUyD8tA==
-
-"@wjb/vue@^1.0.92":
-  version "1.0.92"
-  resolved "https://wjb-144953083930.d.codeartifact.eu-west-2.amazonaws.com/npm/npm-libs/@wjb/vue/-/vue-1.0.92.tgz#457b46360d5b059d4ad629408b1833a6d2c5457e"
-  integrity sha512-EuQp6h2RcYUslG5LNPpvZKTK8V9EEACSJJAMVNVjQI2vCRWrV0xOsT2VXLm5l5Ts4BoeYJ2TMhyhdyErvZIpBw==
-  dependencies:
-    "@wjb/styling" "^1.0.75"
-
 acorn@^8.8.2:
   version "8.11.3"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.11.3.tgz#71e0b14e13a4ec160724b38fb7b0f233b1b81d7a"

@@ -3,7 +3,6 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "co:login": "aws codeartifact login --tool npm --repository npm-libs --domain wjb --domain-owner 144953083930 --region eu-west-2 --namespace @wjb",
         "dev": "vite",
         "build": "vite build",
         "serve": "vite preview"
@@ -22,8 +21,6 @@
         "@types/hammerjs": "^2.0.45",
         "@types/node": "^20.12.13",
         "@vitejs/plugin-vue": "^5.0.5",
-        "@wjb/styling": "^1.0.82",
-        "@wjb/vue": "^1.0.92",
         "postcss": "^8.4.38",
         "sass": "^1.77.4",
         "tailwindcss": "^3.4.3",
