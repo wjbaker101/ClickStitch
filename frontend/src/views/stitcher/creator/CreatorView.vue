@@ -6,7 +6,7 @@
         <LoadingComponent v-if="isLoading" itemName="creator" />
         <CardComponent v-else-if="creator !== null" border="top" padded class="grid grid-flow-col place-content-between items-center gap-4">
             <div>
-                <h2 class="m-0">
+                <h2 class="mb-4 text-2xl font-bold">
                     <UserIcon class="!size-12 mr-2" />
                     <span class="align-middle">{{ creator.name }}</span>
                 </h2>

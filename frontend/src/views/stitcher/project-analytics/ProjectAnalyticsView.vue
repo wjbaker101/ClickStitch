@@ -15,7 +15,7 @@
                     <img width="250" height="166" :src="analytics.bannerImageUrl" class="h-auto w-full rounded-md align-middle">
                 </CardComponent>
                 <CardComponent border="top" padded>
-                    <h2>{{ analytics.title }}</h2>
+                    <h2 class="mb-4 text-2xl font-bold">{{ analytics.title }}</h2>
                     <p><strong>Added At: </strong> {{ analytics.purchasedAt }}</p>
                     <p><strong>Total Stitches: </strong> {{ formatNumber(analytics.totalStitches) }}</p>
                     <p>

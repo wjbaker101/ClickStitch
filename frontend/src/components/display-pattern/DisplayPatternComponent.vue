@@ -8,7 +8,7 @@
             <img class="h-auto w-full align-middle bg-background" :src="pattern.bannerImageUrl ?? ''" :alt="pattern.title">
         </div>
         <div class="overflow-hidden">
-            <h2 class="my-4">{{ pattern.title }}</h2>
+            <h3 class="my-4 text-lg font-bold">{{ pattern.title }}</h3>
             <div class="pb-4 text-gray-500">
                 {{ pattern.width }}&times;{{ pattern.height }}
                 <br>

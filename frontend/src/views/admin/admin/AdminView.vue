@@ -4,7 +4,7 @@
             <strong>Admin</strong>
         </template>
         <CardComponent border="top" padded>
-            <h2>Users</h2>
+            <h2 class="mb-4 text-2xl font-bold">Users</h2>
             <PaginatedContentComponent loadingItemName="users" :logic="loadUsers" :pageSize="10">
                 <UserItemComponent
                     v-if="getUsers !== null && permissions !== null"

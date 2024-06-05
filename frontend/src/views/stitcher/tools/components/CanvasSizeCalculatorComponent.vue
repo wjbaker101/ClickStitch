@@ -1,5 +1,5 @@
 <template>
-    <h2>Canvas Size Calculator</h2>
+    <h2 class="mb-4 text-2xl font-bold">Canvas Size Calculator</h2>
     <div class="grid items-center gap-4 canvas-size-calculator-component sm:grid-cols-[1fr_auto_1fr] md:grid-cols-[1fr_auto_1fr_1fr]">
         <FormComponent>
             <label class="mb-4 block">

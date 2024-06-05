@@ -1,7 +1,7 @@
 <template>
     <div class="grid h-full gap-4 project-threads-modal-component">
         <div>
-            <h2>Actions:</h2>
+            <h2 class="mb-4 text-2xl font-bold">Actions:</h2>
             <BtnComponent @click="onGoToPausePosition" class="mr-2">
                 <CompassIcon class="mr-2" />
                 <span class="align-middle">Go to Pause Position</span>
@@ -12,13 +12,13 @@
                     <span class="align-middle">Edit Details</span>
                 </BtnComponent>
             </RouterLink>
-            <h2>Layers:</h2>
+            <h2 class="my-4 text-2xl font-bold">Layers:</h2>
             <div>
                 <CheckBoxComponent label="Stitches" v-model="isStitchesVisible" />
                 <CheckBoxComponent label="Back Stitches" v-model="isBackStitchesVisible" />
                 <CheckBoxComponent label="Grid" v-model="isGridVisible" />
             </div>
-            <h2>Threads:</h2>
+            <h2 class="my-4 text-2xl font-bold">Threads:</h2>
             <div>
                 <ThreadDetailsComponent v-for="thread in threads" :thread="thread" :inventory="inventory" :pattern="project.project.pattern" />
             </div>

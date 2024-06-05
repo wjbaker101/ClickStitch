@@ -3,14 +3,14 @@
         <template #nav>
             <strong>Dashboard</strong>
         </template>
-        <h2>Your Projects:</h2>
+        <h2 class="mb-4 text-2xl font-bold">Your Projects:</h2>
         <UserMessageComponent ref="userMessageComponent" />
         <div v-if="isLoading">
             <LoadingComponent itemName="projects" />
         </div>
         <div v-else-if="projects?.length === 0" class="text-center">
             <InfoIcon class="!size-24 mr-2" />
-            <h2 class="pb-8">No projects yet!</h2>
+            <h2 class="mb-8 mt-2 text-2xl font-bold">No projects yet!</h2>
             <NumberedSectionComponent class="max-w-3xl">
                 <NumberedCardComponent>
                     <p>Upload your first pattern now!</p>

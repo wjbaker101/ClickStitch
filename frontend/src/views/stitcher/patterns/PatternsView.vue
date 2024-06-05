@@ -14,7 +14,7 @@
         </div>
         <template v-else>
             <CardComponent border="top" padded class="mb-4">
-                <h2>What are Creator Patterns?</h2>
+                <h2 class="mb-4 text-2xl font-bold">What are Creator Patterns?</h2>
                 <p>All patterns here have been made by Creators! You are free to add them to your dashboard where you'll be able to track your progress like normal.</p>
                 <p>A link to their product page will also be available, where you'll be able to purchase the necessary resources for the pattern.</p>
                 <p>These are great for when you are just looking for a new project to start!</p>

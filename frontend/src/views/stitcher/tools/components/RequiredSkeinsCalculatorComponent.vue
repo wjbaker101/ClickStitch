@@ -1,5 +1,5 @@
 <template>
-    <h2>Required Skeins Calculator</h2>
+    <h2 class="mb-4 text-2xl font-bold">Required Skeins Calculator</h2>
     <div class="grid items-center gap-4 sm:grid-cols-[1fr_auto_1fr]">
         <FormComponent>
             <label class="mb-4 block">

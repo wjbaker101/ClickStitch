@@ -4,7 +4,7 @@
             <strong>Settings</strong>
         </template>
         <CardComponent border="top" padded v-if="authDetails !== null" class="mb-4">
-            <h2>User Details</h2>
+            <h2 class="mb-4 text-2xl font-bold">User Details</h2>
             <p><strong>Currently logged in as: </strong>{{ authDetails.email }}</p>
             <LoadingComponent v-if="isLoading" itemName="user details" />
             <template v-else-if="self !== null">
@@ -17,7 +17,7 @@
         </CardComponent>
         <div v-if="isCreator || isAdmin" class="flex gap-4">
             <CardComponent border="top" padded v-if="authDetails !== null" class="grow basis-1">
-                <h2>You Are a Creator!</h2>
+                <h2 class="mb-4 text-2xl font-bold">You Are a Creator!</h2>
                 <p>You'll have the ability to edit your creator details and patterns here.</p>
                 <p>
                     <a :href="urlToSubdomain('creator')">
@@ -29,7 +29,7 @@
                 </p>
             </CardComponent>
             <CardComponent border="top" padded v-if="authDetails !== null" class="grow basis-1">
-                <h2>You Are an Admin!</h2>
+                <h2 class="mb-4 text-2xl font-bold">You Are an Admin!</h2>
                 <p>You'll have the ability to view and edit users on the platform.</p>
                 <p>
                     <a :href="urlToSubdomain('admin')">

@@ -5,7 +5,7 @@
         </template>
         <CardComponent border="top" padded class="flex items-center gap-4">
             <div class="grow">
-                <h2>Your Patterns</h2>
+                <h2 class="mb-4 text-2xl font-bold">Your Patterns</h2>
                 <p>Manage your patterns here.</p>
                 <RouterLink to="/patterns/new">
                     <BtnComponent>

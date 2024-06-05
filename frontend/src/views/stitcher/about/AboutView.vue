@@ -5,7 +5,7 @@
         </template>
         <div class="grid items-center gap-4 md:grid-cols-[1fr_2fr]">
             <CardComponent border="top" padded>
-                <h3>What is ClickStitch?</h3>
+                <h3 class="mb-4 text-lg font-bold">What is ClickStitch?</h3>
                 <p>ClickStitch is <em>your</em> companion to track and manage your cross-stitching progress!</p>
                 <p>Whether you're a beginner or an advanced stitcher, ClickStitch makes life easier.</p>
                 <p>Start tracking your progress in 3 simple steps:</p>
@@ -26,15 +26,15 @@
         </div>
         <NumberedSectionComponent class="my-24 text-center">
             <NumberedCardComponent>
-                <h2>Track Progress</h2>
+                <h2 class="mt-2 mb-4 text-2xl font-bold">Track Progress</h2>
                 <p><em>Highlight completed stitches</em> and view analytics of your progression.</p>
             </NumberedCardComponent>
             <NumberedCardComponent>
-                <h2>Manage Inventory</h2>
+                <h2 class="mt-2 mb-4 text-2xl font-bold">Manage Inventory</h2>
                 <p><em>Record your floss</em>, make sure you never run out before starting a new project.</p>
             </NumberedCardComponent>
             <NumberedCardComponent>
-                <h2>Multi-Device</h2>
+                <h2 class="mt-2 mb-4 text-2xl font-bold">Multi-Device</h2>
                 <p>Patterns are stored in a secure database, so continue <em>stitching whereever you go</em>.</p>
             </NumberedCardComponent>
         </NumberedSectionComponent>

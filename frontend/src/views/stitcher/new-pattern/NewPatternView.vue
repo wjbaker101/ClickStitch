@@ -4,7 +4,7 @@
             <strong>New Pattern</strong>
         </template>
         <CardComponent border="top" padded>
-            <h2>Create a New Pattern</h2>
+            <h2 class="mb-4 text-2xl font-bold">Create a New Pattern</h2>
             <LinkComponent href="/dashboard">
                 <ArrowLeftIcon class="mr-1" />
                 <small class="align-middle">Back to Dashboard</small>

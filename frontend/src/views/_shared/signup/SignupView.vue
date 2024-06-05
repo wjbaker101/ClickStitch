@@ -8,10 +8,10 @@
                 </LinkComponent>
             </small>
             <ContentCardComponent>
-                <h2>
+                <h1 class="mb-4 text-4xl font-bold">
                     <UserIcon class="mr-2 !size-12" />
                     <span class="align-middle">Sign up</span>
-                </h2>
+                </h1>
                 <label>
                     <strong>Email</strong>
                     <br>

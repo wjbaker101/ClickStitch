@@ -4,7 +4,7 @@
             <strong>Inventory</strong>
         </template>
         <CardComponent border="top" padded>
-            <h2>Manage your Skeins</h2>
+            <h2 class="mb-4 text-2xl font-bold">Manage your Skeins</h2>
             <LoadingComponent v-if="isLoading" itemName="threads" />
             <template v-else>
                 <FormComponent class="mb-4 flex items-center">

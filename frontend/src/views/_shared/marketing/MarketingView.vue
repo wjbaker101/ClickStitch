@@ -27,7 +27,7 @@
             <img width="50" height="50" class="logo" src="@/assets/logo-large.png">
             <CardComponent class="flex-auto" border="top" padded>
                 <CardComponent class="flex items-center border-2 border-solid number border-primary text-secondary"></CardComponent>
-                <h2>Track Progress</h2>
+                <h2 class="mb-4 text-lg font-bold">Track Progress</h2>
                 <p><em>Highlight completed stitches</em> and view analytics of your progression!</p>
             </CardComponent>
         </div>
@@ -35,7 +35,7 @@
             <img width="50" height="50" class="logo" src="@/assets/logo-large.png">
             <CardComponent class="flex-auto" border="top" padded>
                 <CardComponent class="flex items-center border-2 border-solid number border-primary text-secondary"></CardComponent>
-                <h2>Manage Inventory</h2>
+                <h2 class="mb-4 text-lg font-bold">Manage Inventory</h2>
                 <p><em>Record your floss</em>, make sure you never run out before starting a new project!</p>
             </CardComponent>
         </div>
@@ -43,7 +43,7 @@
             <img width="50" height="50" class="logo" src="@/assets/logo-large.png">
             <CardComponent class="flex-auto" border="top" padded>
                 <CardComponent class="flex items-center border-2 border-solid number border-primary text-secondary"></CardComponent>
-                <h2>Multi-Device</h2>
+                <h2 class="mb-4 text-lg font-bold">Multi-Device</h2>
                 <p>Patterns are securely stored online, so continue <em>stitching everywhere you go!</em></p>
             </CardComponent>
         </div>
@@ -51,7 +51,7 @@
             <div class="any-width">
                 <img width="250" height="250" src="@/assets/logo-large.png">
                 <div>
-                    <h1 class="text-4xl font-bold mb-4">Start your Journey:</h1>
+                    <h1 class="mb-4 text-4xl font-bold">Start your Journey:</h1>
                     <p>
                         <a href="#" class="text-primary">https://clickstitch.app</a>
                     </p>

@@ -2,10 +2,10 @@
     <ViewComponent hide-nav>
         <div class="mx-auto px-4 max-w-[720px]">
             <ContentCardComponent>
-                <h2>
+                <h1 class="mb-4 text-4xl font-bold">
                     <UserIcon class="!size-12 mr-2" />
                     <span class="align-middle">Log In</span>
-                </h2>
+                </h1>
                 <label>
                     <strong>Email</strong>
                     <InputComponent ref="emailInput" type="text" v-model="email" placeholder="Email" @keyup.enter="nextInput('passwordInput')" class="w-full" />

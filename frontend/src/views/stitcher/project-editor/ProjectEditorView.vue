@@ -5,7 +5,7 @@
         </template>
         <LoadingComponent v-if="isLoading" itemName="project" />
         <CardComponent v-else border="top" padded>
-            <h2>Edit Project</h2>
+            <h2 class="mb-4 text-2xl font-bold">Edit Project</h2>
             <LinkComponent :href="`/projects/${patternReference}`">
                 <ArrowLeftIcon class="mr-1" />
                 <small>Back to Project</small>

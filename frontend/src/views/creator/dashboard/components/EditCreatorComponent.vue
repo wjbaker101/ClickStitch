@@ -1,5 +1,5 @@
 <template>
-    <h2>Creator</h2>
+    <h2 class="mb-4 text-2xl font-bold">Creator</h2>
     <p>You are a creator, which means stitchers can track their progress for your patterns!</p>
     <div v-if="isLoading">
         <LoadingComponent itemName="creator" />
