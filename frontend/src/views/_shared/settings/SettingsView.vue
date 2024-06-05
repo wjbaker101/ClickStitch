@@ -22,7 +22,7 @@
                 <p>
                     <a :href="urlToSubdomain('creator')">
                         <BtnComponent>
-                            <IconComponent icon="external-link" gap="right" />
+                            <ExternalLinkIcon class="mr-2" />
                             <span class="align-middle">Go to Creator Dashboard</span>
                         </BtnComponent>
                     </a>
@@ -34,7 +34,7 @@
                 <p>
                     <a :href="urlToSubdomain('admin')">
                         <BtnComponent>
-                            <IconComponent icon="external-link" gap="right" />
+                            <ExternalLinkIcon class="mr-2" />
                             <span class="align-middle">Go to Admin Dashboard</span>
                         </BtnComponent>
                     </a>
@@ -47,6 +47,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 
+import { ExternalLinkIcon } from 'lucide-vue-next';
 import BtnComponent from '@/components/BtnComponent.vue';
 import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 

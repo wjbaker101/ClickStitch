@@ -7,13 +7,13 @@
         <CardComponent v-else-if="creator !== null" border="top" padded class="grid grid-flow-col place-content-between items-center gap-4">
             <div>
                 <h2 class="m-0">
-                    <IconComponent icon="user" size="large" gap="right" />
+                    <UserIcon class="!size-12 mr-2" />
                     <span class="align-middle">{{ creator.name }}</span>
                 </h2>
                 <p>Creator since: {{ creator.createdAt.format('MMMM YYYY') }}</p>
                 <a :href="creator.storeUrl" target="_blank">
                     <BtnComponent>
-                        <IconComponent icon="external-link" gap="right" />
+                        <ExternalLinkIcon class="mr-2" />
                         <span class="align-middle text-light">Visit their Shop!</span>
                     </BtnComponent>
                 </a>
@@ -34,6 +34,7 @@
 import { onBeforeMount, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
+import { UserIcon, ExternalLinkIcon } from 'lucide-vue-next';
 import BtnComponent from '@/components/BtnComponent.vue';
 import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 import PaginatedContentComponent from '@/components/paginated-content/PaginatedContentComponent.vue';

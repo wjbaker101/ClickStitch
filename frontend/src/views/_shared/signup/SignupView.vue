@@ -2,10 +2,16 @@
     <ViewComponent hide-nav>
         <div class="mx-auto px-4 max-w-[720px]">
             <small>
-                <RouterLink to="/login"><IconComponent icon="arrow-left" gap="right" />Return to login</RouterLink>
+                <RouterLink to="/login">
+                    <ArrowLeftIcon class="mr-1" />
+                    <span class="align-middle">Return to login</span>
+                </RouterLink>
             </small>
             <ContentCardComponent>
-                <h2><IconComponent icon="user" size="large" gap="right" />Sign up</h2>
+                <h2>
+                    <UserIcon class="mr-2 !size-12" />
+                    <span class="align-middle">Sign up</span>
+                </h2>
                 <label>
                     <strong>Email</strong>
                     <br>
@@ -43,6 +49,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+import { UserIcon, ArrowLeftIcon } from 'lucide-vue-next';
 import BtnComponent from '@/components/BtnComponent.vue';
 import InputComponent from '@/components/inputs/InputComponent.vue';
 import ContentCardComponent from '@/views/_shared/login/components/ContentCardComponent.vue';

@@ -2,7 +2,10 @@
     <ViewComponent hide-nav>
         <div class="mx-auto px-4 max-w-[720px]">
             <ContentCardComponent>
-                <h2><IconComponent icon="user" size="large" gap="right" />Log In</h2>
+                <h2>
+                    <UserIcon class="!size-12 mr-2" />
+                    <span class="align-middle">Log In</span>
+                </h2>
                 <label>
                     <strong>Email</strong>
                     <InputComponent ref="emailInput" type="text" v-model="email" placeholder="Email" @keyup.enter="nextInput('passwordInput')" class="w-full" />
@@ -30,6 +33,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { UserIcon } from 'lucide-vue-next';
 
 import BtnComponent from '@/components/BtnComponent.vue';
 import InputComponent from '@/components/inputs/InputComponent.vue';

@@ -21,7 +21,7 @@
                     <p>
                         <RouterLink :to="`/projects/${patternReference}`">
                             <BtnComponent>
-                                <IconComponent icon="external-link" gap="right" />
+                                <ExternalLinkIcon class="mr-2" />
                                 <span class="align-middle">Continue Stitching!</span>
                             </BtnComponent>
                         </RouterLink>
@@ -64,6 +64,7 @@ import {
 } from 'chart.js'
 import { Bar } from 'vue-chartjs'
 
+import { ExternalLinkIcon } from 'lucide-vue-next';
 import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 import UserMessageComponent from '@/components/UserMessageComponent.vue';
 

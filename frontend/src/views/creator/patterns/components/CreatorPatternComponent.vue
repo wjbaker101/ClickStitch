@@ -25,7 +25,7 @@
                     <AidaSelectionComponent v-model="form.aidaCount" />
                 </label>
                 <BtnComponent @click="onUpdate" :loading="isLoading">
-                    <IconComponent icon="tick" gap="right" />
+                    <CheckIcon class="mr-2" />
                     <span>Update</span>
                 </BtnComponent>
             </FormComponent>
@@ -38,7 +38,7 @@
                 </p>
                 <CardComponent v-if="deletionMessage" class="flex items-center gap-4" padded border="left">
                     <div>
-                        <IconComponent icon="info" gap="right" />
+                        <InfoIcon class="mr-2" />
                     </div>
                     <div>
                         {{ deletionMessage }}
@@ -54,6 +54,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
+import { CheckIcon, InfoIcon } from 'lucide-vue-next';
 import BtnComponent from '@/components/BtnComponent.vue';
 import FormComponent from '@/components/form/FormComponent.vue';
 import InputComponent from '@/components/inputs/InputComponent.vue';

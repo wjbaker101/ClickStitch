@@ -9,14 +9,14 @@
             <LoadingComponent itemName="projects" />
         </div>
         <div v-else-if="projects?.length === 0" class="text-center">
-            <IconComponent icon="info" size="huge" />
+            <InfoIcon class="!size-24 mr-2" />
             <h2 class="pb-8">No projects yet!</h2>
             <NumberedSectionComponent class="max-w-3xl">
                 <NumberedCardComponent>
                     <p>Upload your first pattern now!</p>
                     <RouterLink to="/patterns/new">
                         <BtnComponent>
-                            <IconComponent icon="plus" gap="right" class="align-middle" />
+                            <PlusIcon class="mr-2" />
                             <span class="align-middle">New Pattern</span>
                         </BtnComponent>
                     </RouterLink>
@@ -25,8 +25,8 @@
                     <p>Looking for inspiration?</p>
                     <RouterLink to="/patterns">
                         <BtnComponent>
-                            <IconComponent icon="download" gap="right" />
-                            View Creator Patterns
+                            <DownloadIcon class="mr-2" />
+                            <span class="align-middle">View Creator Patterns</span>
                         </BtnComponent>
                     </RouterLink>
                 </NumberedCardComponent>
@@ -38,7 +38,7 @@
         <div v-if="!isLoading && projects !== null && projects.length > 0" class="fixed right-1/2 bottom-4 translate-x-1/2 md:right-4 md:translate-x-0">
             <RouterLink to="/patterns/new">
                 <BtnComponent class="!rounded-full shadow-xl">
-                    <IconComponent icon="plus" gap="right" />
+                    <PlusIcon class="mr-2" />
                     <span class="align-middle">New Pattern</span>
                 </BtnComponent>
             </RouterLink>
@@ -49,6 +49,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
+import { InfoIcon, PlusIcon, DownloadIcon } from 'lucide-vue-next';
 import BtnComponent from '@/components/BtnComponent.vue';
 import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 import UserMessageComponent from '@/components/UserMessageComponent.vue';

@@ -16,11 +16,11 @@
         </label>
         <BtnComponent @click="onSubmit">
             <template v-if="creator === null">
-                <IconComponent icon="plus" gap="right" />
+                <PlusIcon class="mr-2" />
                 <span class="align-middle">Create</span>
             </template>
             <template v-else>
-                <IconComponent icon="tick" gap="right" />
+                <CheckIcon class="mr-2" />
                 <span class="align-middle">Update</span>
             </template>
         </BtnComponent>
@@ -30,6 +30,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
+import { PlusIcon, CheckIcon } from 'lucide-vue-next';
 import BtnComponent from '@/components/BtnComponent.vue';
 import FormComponent from '@/components/form/FormComponent.vue';
 import InputComponent from '@/components/inputs/InputComponent.vue';

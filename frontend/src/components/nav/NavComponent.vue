@@ -16,7 +16,7 @@
         </div>
         <div class="justify-self-end md:hidden">
             <BtnComponent class="-m-2" @click="onToggleMenu">
-                <IconComponent icon="menu" />
+                <MenuIcon />
             </BtnComponent>
         </div>
         <div
@@ -45,6 +45,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
+import { MenuIcon } from 'lucide-vue-next';
 import BtnComponent from '@/components/BtnComponent.vue';
 
 import { linkFactory } from './link-factory';

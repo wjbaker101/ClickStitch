@@ -7,7 +7,7 @@
         <CardComponent v-else border="top" padded>
             <h2>Edit Project</h2>
             <LinkComponent :href="`/projects/${patternReference}`">
-                <IconComponent icon="arrow-left" gap="right" />
+                <ArrowLeftIcon class="mr-1" />
                 <small>Back to Project</small>
             </LinkComponent>
             <FormComponent>
@@ -20,7 +20,7 @@
                     <AidaSelectionComponent v-model="aidaCount" />
                 </label>
                 <BtnComponent @click="onUpdate" :loading="isUpdating">
-                    <IconComponent icon="tick" gap="right" />
+                    <CheckIcon class="mr-2" />
                     <span class="align-middle">Update</span>
                 </BtnComponent>
             </FormComponent>
@@ -32,6 +32,7 @@
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
+import { ArrowLeftIcon, CheckIcon } from 'lucide-vue-next';
 import BtnComponent from '@/components/BtnComponent.vue';
 import FormComponent from '@/components/form/FormComponent.vue';
 import InputComponent from '@/components/inputs/InputComponent.vue';

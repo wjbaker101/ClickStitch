@@ -11,18 +11,18 @@
         <div class="mb-4 flex items-center gap-4">
             <div class="grow">Jump to Stitch</div>
             <div class="-m-2 cursor-pointer rounded-full p-4 leading-none close hover:bg-primary-dark" @click="onClose">
-                <IconComponent icon="cross" />
+                <XIcon class="drop-shadow-icon" />
             </div>
         </div>
         <div class="flex items-center gap-4">
             <BtnComponent class="flex-auto" @click="onNavigate(-1)" type="secondary">
-                <IconComponent icon="arrow-left" />
+                <ArrowLeftIcon />
             </BtnComponent>
             <div>
                 {{ thread?.thread.name }} (#{{ currentIndex + 1 }})
             </div>
             <BtnComponent class="flex-auto" @click="onNavigate(1)" type="secondary">
-                <IconComponent icon="arrow-right" />
+                <ArrowRightIcon />
             </BtnComponent>
         </div>
     </div>
@@ -31,6 +31,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
+import { ArrowLeftIcon, ArrowRightIcon, XIcon } from 'lucide-vue-next';
 import BtnComponent from '@/components/BtnComponent.vue';
 
 import { useEvent, useEvents } from '@/use/events/Events.use';

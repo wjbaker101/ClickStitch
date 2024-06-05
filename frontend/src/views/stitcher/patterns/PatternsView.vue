@@ -8,7 +8,7 @@
             <LoadingComponent itemName="patterns" />
         </div>
         <div v-else-if="patterns?.length === 0" class="text-center">
-            <IconComponent icon="info" size="huge" />
+            <InfoIcon class="!size-24" />
             <p>Could not find any patterns, you must own them all!</p>
             <p>Check back later for more!</p>
         </div>
@@ -29,6 +29,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
+import { InfoIcon } from 'lucide-vue-next';
 import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 import UserMessageComponent from '@/components/UserMessageComponent.vue';
 import DisplayPatternComponent from '@/components/display-pattern/DisplayPatternComponent.vue';

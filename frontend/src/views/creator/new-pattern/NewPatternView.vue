@@ -6,7 +6,7 @@
         <CardComponent border="top" padded>
             <h2>Create a New Pattern</h2>
             <LinkComponent href="/patterns">
-                <IconComponent class="flex-auto" icon="arrow-left" gap="right" />
+                <ArrowLeftIcon class="mr-1" />
                 <small class="align-middle">Back to Patterns</small>
             </LinkComponent>
             <FormComponent class="mb-4">
@@ -36,12 +36,12 @@
                             <LoadingComponent itemName="schema" />
                         </template>
                         <template v-else-if="isValid === true">
-                            <IconComponent class="flex-auto" icon="tick-circle" size="large" />
+                            <CircleCheckBig class="!size-12" />
                             <br>
                             <span class="text-left">Pattern is Valid!</span>
                         </template>
                         <template v-else-if="isValid === false">
-                            <IconComponent class="flex-auto" icon="cross-circle" size="large" />
+                            <CircleXIcon class="!size-12" />
                             <br>
                             <span class="text-left">Pattern is invalid, please check it is a supported format and try again.</span>
                         </template>
@@ -58,7 +58,7 @@
                     <em>This may take a while, in some cases up to a few minutes.</em>
                 </p>
                 <BtnComponent @click="onCreate" :loading="isCreationLoading">
-                    <IconComponent icon="plus" gap="right" />
+                    <PlusIcon class="mr-2" />
                     <span class="align-middle">Create</span>
                 </BtnComponent>
             </FormComponent>
@@ -70,6 +70,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+import { ArrowLeftIcon, CircleCheckBig, CircleXIcon, PlusIcon } from 'lucide-vue-next';
 import BtnComponent from '@/components/BtnComponent.vue';
 import FormComponent from '@/components/form/FormComponent.vue';
 import InputComponent from '@/components/inputs/InputComponent.vue';

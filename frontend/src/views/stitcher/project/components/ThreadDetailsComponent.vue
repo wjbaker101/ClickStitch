@@ -10,7 +10,7 @@
                 </span>
             </div>
             <div class="grow text-warning" v-if="inventoryThread !== null && requireSkeinsDifference > 0" title="Not found in inventory">
-                <IconComponent icon="warning" gap="left" />
+                <TriangleAlertIcon />
             </div>
             <div class="justify-self-end">
                 {{ completedCount }} <small>/ {{ inCompletedCount + completedCount }}</small>
@@ -24,7 +24,7 @@
                 <div class="justify-self-end">
                     <div class="mb-2">
                         <BtnComponent title="Jump to Stitches" @click="onJumpToStitch">
-                            <IconComponent icon="compass" gap="right" />
+                            <CompassIcon class="mr-2" />
                             <span class="align-middle">Jump to Stitches</span>
                         </BtnComponent>
                     </div>
@@ -34,15 +34,15 @@
             <div class="m-4">
                 <template v-if="inventoryThread === null"></template>
                 <template v-else-if="inventoryThread.count === 0">
-                    <IconComponent icon="tick-circle" gap="right" />
-                    <span>Not found in inventory (<strong>{{ requiredSkeins }}</strong> skein{{ requiredSkeins > 1 ? 's' : '' }} recommended*)</span>
+                    <TriangleAlertIcon class="mr-2" />
+                    <span class="align-middle">Not found in inventory (<strong>{{ requiredSkeins }}</strong> skein{{ requiredSkeins > 1 ? 's' : '' }} recommended*)</span>
                 </template>
                 <template v-else-if="requireSkeinsDifference > 0">
-                    <IconComponent icon="warning" gap="right" />
+                    <TriangleAlertIcon class="mr-2" />
                     <span>Not enough in inventory (<strong>{{ requiredSkeins }}</strong> skein{{ requiredSkeins > 1 ? 's' : '' }} recommended*, found {{ inventoryThread.count }})</span>
                 </template>
                 <template v-else>
-                    <IconComponent icon="tick-circle" gap="right" />
+                    <CircleCheckIcon class="mr-2" />
                     <span>Found in inventory</span>
                 </template>
             </div>
@@ -53,6 +53,7 @@
 <script setup lang="ts">
 import { computed, type StyleValue } from 'vue';
 
+import { CompassIcon, TriangleAlertIcon, CircleCheckIcon } from 'lucide-vue-next';
 import BtnComponent from '@/components/BtnComponent.vue';
 import CheckBoxComponent from '@/components/inputs/CheckBoxComponent.vue';
 import ListItemComponent from '@/components/ListItemComponent.vue';

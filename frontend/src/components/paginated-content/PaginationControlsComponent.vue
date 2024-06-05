@@ -1,18 +1,20 @@
 <template>
     <div class="my-4 flex items-center gap-4 overflow-hidden rounded-md shadow-md bg-background">
         <div @click="onIncrement(-1)" class="grow cursor-pointer p-4 text-center hover:bg-background-dark">
-            <IconComponent icon="arrow-left" />
+            <ArrowLeftIcon />
         </div>
         <div class="basis-1/2 p-4 text-center">
             {{ pagination.pageNumber }} <small>/ {{ pagination.pageCount }}</small>
         </div>
         <div @click="onIncrement(1)" class="grow cursor-pointer p-4 text-center hover:bg-background-dark">
-            <IconComponent icon="arrow-right" />
+            <ArrowRightIcon />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-vue-next';
+
 import { type IPagination } from '@/models/Pagination.model';
 import { type IPaginationEvent } from '@/components/paginated-content/PaginationEvent';
 

@@ -12,8 +12,8 @@
             </label>
         </FormComponent>
         <div class="text-center">
-            <IconComponent class="hidden sm:block" icon="arrow-right" />
-            <IconComponent class="sm:hidden" icon="arrow-down" />
+            <ArrowRightIcon class="hidden sm:block" />
+            <ArrowDownIcon class="sm:hidden" />
         </div>
         <div class="text-center">
             <IconComponent icon="skein" size="large" />
@@ -25,6 +25,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
+import { ArrowDownIcon, ArrowRightIcon } from 'lucide-vue-next';
 import FormComponent from '@/components/form/FormComponent.vue';
 import InputComponent from '@/components/inputs/InputComponent.vue';
 import AidaSelectionComponent from '@/components/aida-selection/AidaSelectionComponent.vue';

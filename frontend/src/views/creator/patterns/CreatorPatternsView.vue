@@ -9,7 +9,7 @@
                 <p>Manage your patterns here.</p>
                 <RouterLink to="/patterns/new">
                     <BtnComponent>
-                        <IconComponent icon="plus" gap="right" />
+                        <PlusIcon class="mr-2" />
                         <span class="align-middle">New Pattern</span>
                     </BtnComponent>
                 </RouterLink>
@@ -27,6 +27,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
+import { PlusIcon } from 'lucide-vue-next';
 import BtnComponent from '@/components/BtnComponent.vue';
 import PaginatedContentComponent from '@/components/paginated-content/PaginatedContentComponent.vue';
 import CreatorPatternComponent from '@/views/creator/patterns/components/CreatorPatternComponent.vue';

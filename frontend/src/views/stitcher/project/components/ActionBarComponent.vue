@@ -15,7 +15,7 @@
                     border-primary-dark text-light text-shadow shadow-md cursor-pointer outline-2 outline-dashed
                     outline-transparent hover:outline-secondary"
             >
-                <IconComponent icon="info" class="drop-shadow-icon" />
+                <InfoIcon class="drop-shadow-icon" />
             </div>
         </div>
         <div class="grow basis-1">
@@ -25,6 +25,7 @@
 </template>
 
 <script setup lang="ts">
+import { InfoIcon } from 'lucide-vue-next';
 import ProjectThreadsModalComponent from '@/views/stitcher/project/modals/ProjectThreadsModalComponent.vue';
 import ActiveStitchComponent from '@/views/stitcher/project/components/ActiveStitchComponent.vue';
 

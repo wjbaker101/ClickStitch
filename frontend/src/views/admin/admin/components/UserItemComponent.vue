@@ -8,7 +8,7 @@
         hover
     >
         <p>
-            <IconComponent icon="user" gap="right" />
+            <UserIcon class="mr-2" />
             <strong>{{ userDetails.user.email }}</strong>
         </p>
         <p>
@@ -32,6 +32,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
+import { UserIcon } from 'lucide-vue-next';
 import CheckBoxComponent from '@/components/inputs/CheckBoxComponent.vue';
 import ListItemComponent from '@/components/ListItemComponent.vue';
 

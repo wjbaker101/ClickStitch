@@ -3,12 +3,12 @@
         <div>
             <h2>Actions:</h2>
             <BtnComponent @click="onGoToPausePosition" class="mr-2">
-                <IconComponent icon="compass" gap="right" />
+                <CompassIcon class="mr-2" />
                 <span class="align-middle">Go to Pause Position</span>
             </BtnComponent>
             <RouterLink v-if="project.project.pattern.user.reference === authDetails?.reference" :to="`/projects/${project.project.pattern.reference}/edit`" @click="onEditDetails">
                 <BtnComponent>
-                    <IconComponent icon="pencil" gap="right" />
+                    <PencilIcon class="mr-2" />
                     <span class="align-middle">Edit Details</span>
                 </BtnComponent>
             </RouterLink>
@@ -30,6 +30,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
+import { CompassIcon, PencilIcon } from 'lucide-vue-next';
 import BtnComponent from '@/components/BtnComponent.vue';
 import CheckBoxComponent from '@/components/inputs/CheckBoxComponent.vue';
 import ThreadDetailsComponent from '@/views/stitcher/project/components/ThreadDetailsComponent.vue';
