@@ -32,6 +32,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { templateRef } from '@vueuse/core';
 import { useRouter } from 'vue-router';
 import { UserIcon } from 'lucide-vue-next';
 
@@ -49,8 +50,8 @@ const router = useRouter();
 
 const userMessageComponent = ref<InstanceType<typeof UserMessageComponent>>({} as InstanceType<typeof UserMessageComponent>);
 
-const emailInput = ref<HTMLInputElement>({} as HTMLInputElement);
-const passwordInput = ref<HTMLInputElement>({} as HTMLInputElement);
+const emailInput = templateRef<typeof InputComponent>('emailInput');
+const passwordInput = templateRef<typeof InputComponent>('passwordInput');
 
 const inputs = {
     emailInput,
@@ -64,8 +65,9 @@ const isLoading = ref<boolean>(false);
 
 const nextInput = async function (next: 'emailInput' | 'passwordInput'): Promise<void> {
     const input = inputs[next].value;
-    if (input.value.length === 0) {
-        input.focus();
+
+    if (input.$el.value.length === 0) {
+        input.$el.focus();
         return;
     }
 
