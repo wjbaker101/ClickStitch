@@ -21,7 +21,7 @@
             <span v-else>Never :(</span>
         </p>
         <template #expanded>
-            <h3 class="m-0 mb-4 text-lg font-bold">Permissions:</h3>
+            <h3 class="mb-4 text-lg font-bold">Permissions:</h3>
             <div v-for="permission in displayPermissions">
                 <CheckBoxComponent :label="permission.name" v-model="permission.isEnabled" @change="onPermissionChange(permission, $event)" />
             </div>

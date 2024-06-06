@@ -12,7 +12,7 @@
                 <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" values="0 50 50;360 50 50" keyTimes="0;1" />
             </circle>
         </svg>
-        <p v-if="itemName" class="m-0 mt-4">Loading {{ itemName }}...</p>
+        <p v-if="itemName" class="mt-4">Loading {{ itemName }}...</p>
     </div>
 </template>
 

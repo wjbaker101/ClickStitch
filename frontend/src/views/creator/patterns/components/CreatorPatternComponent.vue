@@ -7,7 +7,7 @@
         <template #expanded>
             <FormComponent class="mb-4">
                 <div class="flex gap-4">
-                    <h3 class="m-0 mb-4 grow text-lg font-bold">Edit Pattern Details</h3>
+                    <h3 class="mb-4 grow text-lg font-bold">Edit Pattern Details</h3>
                     <div>
                         <small>{{ pattern.reference }}</small>
                     </div>

@@ -14,10 +14,6 @@ import SideModalComponent from '@/components/modals/SideModalComponent.vue';
 <style lang="scss">
 @use '@/style/main' as *;
 
-a {
-    text-decoration: none;
-}
-
 .lucide {
     width: 16px;
     height: 16px;
