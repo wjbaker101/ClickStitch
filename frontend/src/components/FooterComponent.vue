@@ -1,5 +1,5 @@
 <template>
-    <footer class="p-2 text-xs/loose">
+    <footer class="p-2 pt-4 text-xs/loose">
         <div class="mb-4">
             <div class="inline-block">Links:</div>
             <LinkComponent href="/dashboard" class="ml-2">Dashboard</LinkComponent>
