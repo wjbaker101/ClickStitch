@@ -5,7 +5,7 @@
             class="relative -top-4 -left-4 isolate -mb-4 aspect-square overflow-hidden rounded-md shadow-md image-container w-[150px] bg-background leading-[150px]
                 before:absolute before:content-[''] before:inset-0 before:blur-sm before:bg-[url(),var(--image)] before:bg-cover before:-z-[1] before:bg-center before:bg-no-repeat"
         >
-            <img class="h-auto w-full align-middle bg-background" :src="pattern.bannerImageUrl ?? ''" :alt="pattern.title">
+            <img class="inline-block h-auto w-full align-middle bg-background" :src="pattern.bannerImageUrl ?? ''" :alt="pattern.title">
         </div>
         <div class="overflow-hidden">
             <h3 class="my-4 text-lg font-bold">{{ pattern.title }}</h3>
