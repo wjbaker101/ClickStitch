@@ -3,41 +3,40 @@
         <template #nav>
             <strong>Inventory</strong>
         </template>
-        <CardComponent border="top" padded>
+        <CardComponent border="top" padded class="mb-4">
             <h2 class="mb-4 text-2xl font-bold">Manage your Skeins</h2>
-            <LoadingComponent v-if="isLoading" itemName="threads" />
-            <template v-else>
-                <FormComponent class="mb-4 flex items-center">
-                    <div class="grow">
-                        <label>
-                            <strong class="block">Search</strong>
-                            <TextboxComponent type="search" placeholder="DMC 814" v-model="searchTerm" />
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <strong class="block">Brand</strong>
-                            <SelectComponent
-                                v-model="searchBrand"
-                                :options="[
-                                    { value: null, description: 'All' },
-                                    { value: 'Anchor', description: 'Anchor' },
-                                    { value: 'DMC', description: 'DMC' },
-                                ]"
-                            />
-                        </label>
-                    </div>
-                </FormComponent>
-                <p v-if="inventoryThreads.length === 0" class="text-center">
-                    Enter a thread code above and select how many you have.
-                </p>
-                <ThreadItemComponent :key="thread.thread.reference" v-for="thread in inventoryThreads" :thread="thread" @update="onThreadUpdate" />
-                <p v-if="availableThreads.length > 0" class="text-center">
-                    Looking for something else?
-                </p>
-                <ThreadItemComponent :key="thread.thread.reference" v-for="thread in availableThreads" :thread="thread" @update="onThreadUpdate" />
-            </template>
+            <FormComponent class="mb-4 flex items-center">
+                <div class="grow">
+                    <label>
+                        <strong class="block">Search</strong>
+                        <TextboxComponent type="search" placeholder="DMC 814" v-model="searchTerm" />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <strong class="block">Brand</strong>
+                        <SelectComponent
+                            v-model="searchBrand"
+                            :options="[
+                                { value: null, description: 'All' },
+                                { value: 'Anchor', description: 'Anchor' },
+                                { value: 'DMC', description: 'DMC' },
+                            ]"
+                        />
+                    </label>
+                </div>
+            </FormComponent>
         </CardComponent>
+        <LoadingComponent v-if="isLoading" itemName="threads" />
+        <template v-else>
+            <p v-if="inventoryThreads.length === 0 && availableThreads.length === 0" class="text-center">
+                Enter a thread code above and select how many you have.
+            </p>
+            <div class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4">
+                <InventoryThreadComponent :key="thread.thread.reference" v-for="thread in inventoryThreads" :thread="thread" @update="onThreadUpdate" />
+                <InventoryThreadComponent :key="thread.thread.reference" v-for="thread in availableThreads" :thread="thread" @update="onThreadUpdate" />
+            </div>
+        </template>
     </ViewComponent>
 </template>
 
@@ -49,7 +48,7 @@ import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 import FormComponent from '@/components/form/FormComponent.vue';
 import TextboxComponent from '@/components/inputs/InputComponent.vue';
 import SelectComponent from '@/components/inputs/SelectComponent.vue';
-import ThreadItemComponent from '@/views/stitcher/inventory/components/ThreadItemComponent.vue';
+import InventoryThreadComponent from '@/views/stitcher/inventory/components/InventoryThreadComponent.vue';
 
 import { api } from '@/api/api';
 import { threadMapper } from '@/api/mappers/Thread.mapper';
@@ -64,7 +63,9 @@ const inventoryThreads = ref<Array<IInventoryThread>>([]);
 const availableThreads = ref<Array<IInventoryThread>>([]);
 
 const loadThreads = async function () {
+    isLoading.value = true;
     const result = await api.inventory.searchThreads(searchTerm.value, searchBrand.value);
+    isLoading.value = false;
 
     if (result instanceof Error)
         return;
@@ -95,8 +96,6 @@ watchDebounced(searchBrand, async () => {
 { debounce: 300 });
 
 onMounted(async () => {
-    isLoading.value = true;
     await loadThreads();
-    isLoading.value = false;
 });
 </script>
