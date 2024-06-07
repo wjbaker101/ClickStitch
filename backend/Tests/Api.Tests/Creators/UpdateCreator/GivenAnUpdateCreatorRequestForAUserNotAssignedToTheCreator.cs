@@ -44,6 +44,7 @@ public sealed class GivenAnUpdateCreatorRequestForAUserNotAssignedToTheCreator
                     CreatedAt = default,
                     Name = "TestName",
                     StoreUrl = "TestStoreUrl",
+                    Description = "TestDescription",
                     Users = new List<UserRecord>
                     {
                         new()

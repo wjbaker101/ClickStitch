@@ -44,6 +44,7 @@ public sealed class GivenAnUpdateCreatorRequest
                     CreatedAt = default,
                     Name = "TestName",
                     StoreUrl = "TestStoreUrl",
+                    Description = "TestDescription",
                     Users = new List<UserRecord>
                     {
                         user

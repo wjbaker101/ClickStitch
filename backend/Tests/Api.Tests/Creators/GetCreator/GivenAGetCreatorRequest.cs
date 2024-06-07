@@ -26,6 +26,7 @@ public sealed class GivenAGetCreatorRequest
                     CreatedAt = new DateTime(2021, 06, 13, 13, 59, 33),
                     Name = "TestName",
                     StoreUrl = "TestStoreUrl",
+                    Description = "TestDescription",
                     Users = [],
                     Patterns = []
                 }

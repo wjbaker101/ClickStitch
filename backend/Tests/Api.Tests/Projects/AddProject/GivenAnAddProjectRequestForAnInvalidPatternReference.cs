@@ -59,6 +59,7 @@ public sealed class GivenAnAddProjectRequestForAnInvalidPatternReference
                 CreatedAt = default,
                 Name = null!,
                 StoreUrl = null!,
+                Description = null!,
                 Users = null!,
                 Patterns = null!
             },

@@ -61,6 +61,7 @@ public sealed class GivenAGetProjectsRequest
                             CreatedAt = default,
                             Name = null!,
                             StoreUrl = null!,
+                            Description = null!,
                             Users = null!,
                             Patterns = null!
                         },

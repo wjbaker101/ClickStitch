@@ -9,6 +9,7 @@ public class CreatorRecord : IDatabaseRecord
     public virtual required DateTime CreatedAt { get; init; }
     public virtual required string Name { get; set; }
     public virtual required string StoreUrl { get; set; }
+    public virtual required string? Description { get; set; }
     public virtual required IList<UserRecord> Users { get; init; }
     public virtual required IList<PatternRecord> Patterns { get; init; }
 }
@@ -24,6 +25,7 @@ public sealed class CreatorRecordMap : ClassMap<CreatorRecord>
         Map(x => x.CreatedAt, "created_at");
         Map(x => x.Name, "name");
         Map(x => x.StoreUrl, "store_url");
+        Map(x => x.Description, "description");
         HasManyToMany(x => x.Users)
             .Table("user_creator")
             .Schema("clickstitch")

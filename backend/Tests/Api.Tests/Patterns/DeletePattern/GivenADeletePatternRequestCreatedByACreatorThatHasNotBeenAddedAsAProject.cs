@@ -83,6 +83,7 @@ public sealed class GivenADeletePatternRequestCreatedByACreatorThatHasNotBeenAdd
                 CreatedAt = default,
                 Name = null,
                 StoreUrl = null,
+                Description = null!,
                 Users = null,
                 Patterns = null
             },
