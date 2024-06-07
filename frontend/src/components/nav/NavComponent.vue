@@ -6,7 +6,7 @@
             md:top-2 md:right-2 md:left-2 md:py-4"
     >
         <div class="flex items-center gap-2 justify-self-start">
-            <div class="inline-grid flex-auto place-content-center rounded-full shadow-md bg-background-light size-10">
+            <div class="inline-grid flex-auto place-content-center rounded-full shadow-md bg-light size-10">
                 <img src="@/assets/logo.png">
             </div>
             <strong class="hidden md:block">ClickStitch</strong>
