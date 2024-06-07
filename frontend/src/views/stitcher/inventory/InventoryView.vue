@@ -17,11 +17,14 @@
                     <div>
                         <label>
                             <strong class="block">Brand</strong>
-                            <select v-model="searchBrand">
-                                <option :value="null">All</option>
-                                <option value="Anchor">Anchor</option>
-                                <option value="DMC">DMC</option>
-                            </select>
+                            <SelectComponent
+                                v-model="searchBrand"
+                                :options="[
+                                    { value: null, description: 'All' },
+                                    { value: 'Anchor', description: 'Anchor' },
+                                    { value: 'DMC', description: 'DMC' },
+                                ]"
+                            />
                         </label>
                     </div>
                 </FormComponent>
@@ -45,6 +48,7 @@ import { watchDebounced } from '@vueuse/core';
 import LoadingComponent from '@/components/loading/LoadingComponent.vue';
 import FormComponent from '@/components/form/FormComponent.vue';
 import TextboxComponent from '@/components/inputs/InputComponent.vue';
+import SelectComponent from '@/components/inputs/SelectComponent.vue';
 import ThreadItemComponent from '@/views/stitcher/inventory/components/ThreadItemComponent.vue';
 
 import { api } from '@/api/api';
