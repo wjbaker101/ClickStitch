@@ -23,7 +23,8 @@
         <template #expanded>
             <h3 class="mb-4 text-lg font-bold">Permissions:</h3>
             <div v-for="permission in displayPermissions">
-                <CheckBoxComponent :label="permission.name" v-model="permission.isEnabled" @change="onPermissionChange(permission, $event)" />
+                <CheckBoxComponent v-model="permission.isEnabled" @change="onPermissionChange(permission, $event)" />
+                <span class="pl-1 align-middle">{{ permission.name }}</span>
             </div>
         </template>
     </ListItemComponent>

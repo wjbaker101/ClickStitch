@@ -26,7 +26,8 @@
                             <span class="align-middle">Jump to Stitches</span>
                         </BtnComponent>
                     </div>
-                    <CheckBoxComponent label="Highlight" v-model="shouldHighlightThread" />
+                    <CheckBoxComponent v-model="shouldHighlightThread" />
+                    <span class="pl-1 align-middle">Highlight</span>
                 </div>
             </div>
             <div class="m-4">

@@ -14,9 +14,12 @@
             </RouterLink>
             <h2 class="my-4 text-2xl font-bold">Layers:</h2>
             <div>
-                <CheckBoxComponent label="Stitches" v-model="isStitchesVisible" />
-                <CheckBoxComponent label="Back Stitches" v-model="isBackStitchesVisible" />
-                <CheckBoxComponent label="Grid" v-model="isGridVisible" />
+                <CheckBoxComponent v-model="isStitchesVisible" />
+                <span class="pl-1 align-middle">Stitches</span>
+                <CheckBoxComponent v-model="isBackStitchesVisible" />
+                <span class="pl-1 align-middle">Back Stitches</span>
+                <CheckBoxComponent v-model="isGridVisible" />
+                <span class="pl-1 align-middle">Grid</span>
             </div>
             <h2 class="my-4 text-2xl font-bold">Threads:</h2>
             <div>
