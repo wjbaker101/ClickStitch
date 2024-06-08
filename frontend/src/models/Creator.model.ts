@@ -5,4 +5,5 @@ export interface ICreator {
     readonly createdAt: Dayjs;
     readonly name: string;
     readonly storeUrl: string;
+    readonly description: string;
 }

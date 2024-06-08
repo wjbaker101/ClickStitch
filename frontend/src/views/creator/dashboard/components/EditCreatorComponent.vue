@@ -12,7 +12,11 @@
         </label>
         <label class="mb-4 block">
             <strong class="block">Store URL</strong>
-            <InputComponent type="text" placeholder="https://etsy.com/shop/beautiful-patterns-co" v-model="form.storeUrl" />
+            <InputComponent type="text" placeholder="https://etsy.com/shop/beautiful-patterns-co" v-model="form.storeUrl" class="w-full" />
+        </label>
+        <label class="mb-4 block">
+            <strong class="block">Description</strong>
+            <TextboxComponent placeholder="Give stitchers an opportunity to get to know you and the vibe of your creations!" v-model="form.description" class="block" />
         </label>
         <BtnComponent @click="onSubmit">
             <template v-if="creator === null">
@@ -40,17 +44,20 @@ import { api } from '@/api/api';
 import { usePopup } from '@/components/popup/Popup.use';
 
 import { type ICreator } from '@/models/Creator.model';
+import TextboxComponent from '@/components/inputs/TextboxComponent.vue';
 
 const popup = usePopup();
 
 interface IForm {
     name: string;
     storeUrl: string;
+    description: string;
 }
 
 const form = ref<IForm>({
     name: '',
     storeUrl: '',
+    description: '',
 });
 
 const creator = ref<ICreator | null>(null);
@@ -63,6 +70,7 @@ const setCreator = function (newCreator: ICreator | null): void {
         form.value = {
             name: newCreator.name,
             storeUrl: newCreator.storeUrl,
+            description: newCreator.description,
         };
     }
 };
@@ -83,6 +91,7 @@ const onSubmit = async function (): Promise<void> {
         const creatorResult = await api.creators.createCreator({
             name: form.value.name,
             storeUrl: form.value.storeUrl,
+            description: form.value.description,
         });
         if (creatorResult instanceof Error)
             return;
@@ -95,6 +104,7 @@ const onSubmit = async function (): Promise<void> {
         await api.creators.updateCreator(creator.value.reference, {
             name: form.value.name,
             storeUrl: form.value.storeUrl,
+            description: form.value.description,
         });
 
         popup.success('Creator has been updated!');

@@ -11,6 +11,7 @@ export const creatorMapper = {
             createdAt: dayjs(creator.createdAt),
             name: creator.name,
             storeUrl: creator.storeUrl,
+            description: creator.description,
         };
     },
 

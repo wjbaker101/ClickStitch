@@ -3,4 +3,5 @@ export interface IApiCreator {
     readonly createdAt: string;
     readonly name: string;
     readonly storeUrl: string;
+    readonly description: string;
 }
