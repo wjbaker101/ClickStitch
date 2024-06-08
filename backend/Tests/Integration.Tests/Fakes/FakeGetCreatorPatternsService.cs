@@ -17,6 +17,7 @@ public sealed class FakeSearchCreatorPatternsService : ISearchCreatorPatternsSer
         return Task.FromResult<Result<SearchCreatorPatternsResponse>>(new SearchCreatorPatternsResponse
         {
             Patterns = null!,
+            ProjectPatternReferencesForUser = [],
             Pagination = null!
         });
     }

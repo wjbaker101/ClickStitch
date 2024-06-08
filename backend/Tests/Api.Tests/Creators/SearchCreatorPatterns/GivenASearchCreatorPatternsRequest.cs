@@ -2,6 +2,8 @@
 using ClickStitch.Api.Creators.SearchCreatorPatterns.Types;
 using Data.Records;
 using Data.Repositories.Creator;
+using Data.Repositories.User;
+using Data.Repositories.UserPattern;
 using Data.Types;
 using TestHelpers.Data;
 
@@ -33,6 +35,17 @@ public sealed class GivenASearchCreatorPatternsRequest
         {
             Records = new List<IDatabaseRecord>
             {
+                new UserRecord
+                {
+                    Id = TestRequestUser.USER_ID,
+                    Reference = default,
+                    CreatedAt = default,
+                    Email = null,
+                    Password = null,
+                    PasswordSalt = null,
+                    LastLoginAt = null,
+                    Permissions = null
+                },
                 creator,
                 new PatternRecord
                 {
@@ -133,7 +146,7 @@ public sealed class GivenASearchCreatorPatternsRequest
             }
         };
 
-        var subject = new SearchCreatorPatternsService(new CreatorRepository(database));
+        var subject = new SearchCreatorPatternsService(new CreatorRepository(database), new UserRepository(database), new UserPatternRepository(database));
 
         _result = await subject.SearchCreatorPatterns(new TestRequestUser(), _creatorReference, 10, 1, CancellationToken.None);
     }
