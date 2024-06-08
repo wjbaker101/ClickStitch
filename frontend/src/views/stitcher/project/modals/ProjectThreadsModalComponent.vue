@@ -2,7 +2,12 @@
     <div class="grid h-full gap-4 project-threads-modal-component">
         <div>
             <h2 class="mb-4 text-2xl font-bold">Actions:</h2>
-            <BtnComponent @click="onGoToPausePosition" class="mr-2">
+            <BtnComponent
+                @click="onGoToPausePosition"
+                class="mr-2"
+                :disabled="pausePosition === null"
+                :title="pausePosition !== null ? '' : `You'll need pause on a stitch before being able to use this button`"
+            >
                 <CompassIcon class="mr-2" />
                 <span class="align-middle">Go to Pause Position</span>
             </BtnComponent>
@@ -40,6 +45,7 @@ import ThreadDetailsComponent from '@/views/stitcher/project/components/ThreadDe
 
 import { api } from '@/api/api';
 import { useAuth } from '@/use/auth/Auth.use';
+import { useCurrentProject } from '@/views/stitcher/project/use/CurrentProject.use';
 import { useEvents } from '@/use/events/Events.use';
 import { useModal } from '@/components/modals/Modal.use';
 import { useLayers } from '@/views/stitcher/project/use/Layers.use';
@@ -52,6 +58,7 @@ const props = defineProps<{
 }>();
 
 const auth = useAuth();
+const { pausePosition } = useCurrentProject();
 const events = useEvents();
 const modal = useModal();
 const layers = useLayers();
