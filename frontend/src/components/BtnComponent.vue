@@ -5,6 +5,7 @@
         hover:before:shadow-xl
         [&.primary]:hover:bg-primary-dark [&.primary]:bg-primary [&.primary]:active:outline-primary [&.primary]:focus:outline-primary
         [&.secondary]:bg-secondary [&.secondary]:hover:bg-secondary-dark [&.secondary]:active:outline-secondary [&.secondary]:focus:outline-secondary
+        disabled:opacity-50 disabled:cursor-not-allowed
 "
         :class="{
             [type]: true,
