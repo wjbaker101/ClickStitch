@@ -33,7 +33,8 @@ public static class PatternMapper
             Reference = creator.Reference,
             CreatedAt = creator.CreatedAt,
             Name = creator.Name,
-            StoreUrl = creator.StoreUrl
+            StoreUrl = creator.StoreUrl,
+            Description = creator.Description ?? ""
         };
     }
 
