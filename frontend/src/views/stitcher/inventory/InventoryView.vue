@@ -33,8 +33,8 @@
                 Enter a thread code above and select how many you have.
             </p>
             <div class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4">
-                <InventoryThreadComponent :key="thread.thread.reference" v-for="thread in inventoryThreads" :thread="thread" @update="onThreadUpdate" />
-                <InventoryThreadComponent :key="thread.thread.reference" v-for="thread in availableThreads" :thread="thread" @update="onThreadUpdate" />
+                <InventoryThreadComponent :key="thread.thread.reference" v-for="thread in inventoryThreads" :thread="thread" />
+                <InventoryThreadComponent :key="thread.thread.reference" v-for="thread in availableThreads" :thread="thread"/>
             </div>
         </template>
     </ViewComponent>
@@ -79,10 +79,6 @@ const loadThreads = async function () {
         thread: threadMapper.map(x),
         count: 0,
     }));
-};
-
-const onThreadUpdate = async function () {
-    await loadThreads();
 };
 
 watchDebounced(searchTerm, async () => {
