@@ -1,6 +1,6 @@
 <template>
     <ListItemComponent class="thread-details-component" :isInitiallyOpen="isInitiallyOpen">
-        <div class="flex items-center gap-1">
+        <div class="flex items-center justify-between gap-1">
             <div>
                 <div class="mr-2 inline-grid place-items-center rounded-md text-center align-middle shadow-md size-8" :style="threadStyle(thread.thread)">
                     {{ thread.thread.index }}
@@ -8,9 +8,7 @@
                 <span class="align-middle">
                     <strong>{{ thread.thread.name }}</strong> - <small>{{ thread.thread.description }}</small>
                 </span>
-            </div>
-            <div class="grow text-warning" v-if="inventoryThread !== null && requireSkeinsDifference > 0" title="Not found in inventory">
-                <TriangleAlertIcon />
+                <TriangleAlertIcon v-if="inventoryThread !== null && requireSkeinsDifference > 0" title="Not found in inventory" class="ml-2 text-warning" />
             </div>
             <div class="justify-self-end">
                 {{ completedCount }} <small>/ {{ inCompletedCount + completedCount }}</small>
