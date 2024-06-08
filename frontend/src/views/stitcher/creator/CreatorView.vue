@@ -11,6 +11,7 @@
                     <span class="align-middle">{{ creator.name }}</span>
                 </h2>
                 <p class="mb-4">Creator since: {{ creator.createdAt.format('MMMM YYYY') }}</p>
+                <p class="mb-4 max-w-lg">{{ creator.description }}</p>
                 <a :href="creator.storeUrl" target="_blank">
                     <BtnComponent>
                         <ExternalLinkIcon class="mr-2" />
