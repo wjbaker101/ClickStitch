@@ -66,7 +66,8 @@ public sealed class GivenAnUpdateCreatorRequestForAUserNotAssignedToTheCreator
         var request = new UpdateCreatorRequest
         {
             Name = "NewTestName",
-            StoreUrl = "NewTestStoreUrl"
+            StoreUrl = "NewTestStoreUrl",
+            Description = "NewTestDescription"
         };
 
         var subject = new UpdateCreatorService(new CreatorRepository(_database), new UserRepository(_database));

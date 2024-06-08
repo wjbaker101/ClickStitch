@@ -4,6 +4,7 @@ public sealed class UpdateCreatorRequest
 {
     public required string Name { get; init; }
     public required string StoreUrl { get; init; }
+    public required string Description { get; init; }
 }
 
 public sealed class UpdateCreatorResponse

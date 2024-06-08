@@ -37,7 +37,7 @@ public sealed class CreateCreatorService : ICreateCreatorService
             CreatedAt = DateTime.UtcNow,
             Name = request.Name,
             StoreUrl = request.StoreUrl,
-            Description = null,
+            Description = request.Description,
             Users = new List<UserRecord>(),
             Patterns = new List<PatternRecord>()
         }, cancellationToken);

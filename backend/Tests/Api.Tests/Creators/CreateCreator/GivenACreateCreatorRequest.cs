@@ -43,7 +43,8 @@ public sealed class GivenACreateCreatorRequest
         var request = new CreateCreatorRequest
         {
             Name = "TestName",
-            StoreUrl = "TestStoreUrl"
+            StoreUrl = "TestStoreUrl",
+            Description = "TestDescription"
         };
 
         var subject = new CreateCreatorService(new CreatorRepository(_database), new UserRepository(_database), new UserCreatorRepository(_database));
@@ -64,6 +65,7 @@ public sealed class GivenACreateCreatorRequest
 
         Assert.That(creator.Name, Is.EqualTo("TestName"));
         Assert.That(creator.StoreUrl, Is.EqualTo("TestStoreUrl"));
+        Assert.That(creator.Description, Is.EqualTo("TestDescription"));
     }
 
     [Test]

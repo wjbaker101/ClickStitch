@@ -57,7 +57,8 @@ public sealed class GivenAnUpdateCreatorRequest
         var request = new UpdateCreatorRequest
         {
             Name = "NewTestName",
-            StoreUrl = "NewTestStoreUrl"
+            StoreUrl = "NewTestStoreUrl",
+            Description = "NewTestDescription"
         };
 
         var subject = new UpdateCreatorService(new CreatorRepository(_database), new UserRepository(_database));
@@ -78,5 +79,6 @@ public sealed class GivenAnUpdateCreatorRequest
 
         Assert.That(creator.Name, Is.EqualTo("NewTestName"));
         Assert.That(creator.StoreUrl, Is.EqualTo("NewTestStoreUrl"));
+        Assert.That(creator.Description, Is.EqualTo("NewTestDescription"));
     }
 }

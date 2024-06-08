@@ -33,6 +33,7 @@ public sealed class UpdateCreatorService : IUpdateCreatorService
 
         creator.Name = request.Name;
         creator.StoreUrl = request.StoreUrl;
+        creator.Description = request.Description;
 
         await _creatorRepository.UpdateAsync(creator, cancellationToken);
 
