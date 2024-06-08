@@ -59,6 +59,7 @@ import BtnComponent from '@/components/BtnComponent.vue';
 
 import { api } from '@/api/api';
 import { formatNumber } from '@/helper/helper';
+import { useAuth } from '@/use/auth/Auth.use';
 import { usePopup } from '@/components/popup/Popup.use';
 
 import type { IPattern } from '@/models/Pattern.model';
@@ -70,14 +71,25 @@ const props = defineProps<{
     userHasPattern: boolean;
 }>();
 
+const auth = useAuth();
 const popup = usePopup();
 const router = useRouter();
 
 const onAddProject = async function (pattern: IPattern): Promise<void> {
-    await api.projects.add(pattern.reference);
+    if (auth.details.value === null) {
+        popup.message('To add this pattern, please sign up!');
+        await router.push({ path: '/signup' });
+        return;
+    }
+
+    const result = await api.projects.add(pattern.reference);
+
+    if (result instanceof Error) {
+        popup.error(result.message);
+        return;
+    }
 
     popup.success(`${props.pattern.title} has been added to your dashboard!`);
-
     await router.push({ path: '/dashboard' });
 };
 </script>
