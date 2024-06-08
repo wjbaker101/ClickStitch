@@ -2,7 +2,7 @@
     <ViewComponent hideFooter>
         <template #nav>
             <strong class="align-middle">{{ project?.project.pattern.title ?? '-' }}</strong>
-            <sub class="ml-2 align-middle percentage-completed">({{ percentageCompleted.toFixed(2) }}%)</sub>
+            <small class="ml-2 align-middle">({{ percentageCompleted.toFixed(2) }}%)</small>
         </template>
         <div v-if="isLoading">
             <LoadingComponent itemName="pattern" />
